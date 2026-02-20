@@ -1,0 +1,84 @@
+{
+  "categories": [
+    {
+      "name": "stadium_arena",
+      "enabled": true,
+      "sunbiz_keywords": ["stadium", "arena", "concessions", "venue management", "event concessions"],
+      "min_locations": 10,
+      "decision_maker_titles": ["VP Operations", "Director of Concessions", "COO", "General Manager"],
+      "priority": 1
+    },
+    {
+      "name": "casino",
+      "enabled": true,
+      "sunbiz_keywords": ["casino", "gaming", "resort"],
+      "min_locations": 1,
+      "decision_maker_titles": ["VP F&B", "Director of Food", "COO", "Operations Director"],
+      "priority": 2
+    },
+    {
+      "name": "theme_park",
+      "enabled": true,
+      "sunbiz_keywords": ["theme park", "attraction", "entertainment park", "resort"],
+      "min_locations": 1,
+      "decision_maker_titles": ["VP F&B", "Director Operations", "COO", "Regional Manager"],
+      "priority": 3
+    },
+    {
+      "name": "university_dining",
+      "enabled": true,
+      "sunbiz_keywords": ["university", "college", "campus dining", "student dining", "auxiliary services"],
+      "min_locations": 5,
+      "decision_maker_titles": ["Director of Dining", "VP Auxiliary", "COO", "Food Service Director"],
+      "priority": 4
+    },
+    {
+      "name": "airport_concessions",
+      "enabled": true,
+      "sunbiz_keywords": ["airport", "aviation", "concessions", "terminal"],
+      "min_locations": 1,
+      "decision_maker_titles": ["VP Concessions", "Director F&B", "COO", "Operations Manager"],
+      "priority": 5
+    },
+    {
+      "name": "restaurant_chain",
+      "enabled": true,
+      "sunbiz_keywords": ["restaurant", "grill", "eatery", "concepts", "group", "holdings"],
+      "min_locations": 10,
+      "decision_maker_titles": ["VP Operations", "Director F&B", "COO", "Regional Manager", "GM"],
+      "priority": 6
+    },
+    {
+      "name": "golf_management",
+      "enabled": true,
+      "sunbiz_keywords": ["golf", "country club", "club management", "golf course"],
+      "min_locations": 10,
+      "decision_maker_titles": ["VP Operations", "Director of F&B", "COO", "Club Manager"],
+      "priority": 7
+    },
+    {
+      "name": "marina_group",
+      "enabled": true,
+      "sunbiz_keywords": ["marina", "marinas", "yacht club", "waterfront"],
+      "min_locations": 5,
+      "decision_maker_titles": ["VP Operations", "Director", "COO", "General Manager"],
+      "priority": 8
+    },
+    {
+      "name": "hotel_fb",
+      "enabled": true,
+      "sunbiz_keywords": ["hotel", "resort", "hospitality", "lodging", "inn"],
+      "min_locations": 10,
+      "decision_maker_titles": ["VP F&B", "Director of Food", "COO", "Regional Director"],
+      "priority": 9
+    },
+    {
+      "name": "entertainment_venue",
+      "enabled": true,
+      "sunbiz_keywords": ["entertainment", "venue", "theater", "amphitheater", "live"],
+      "min_locations": 5,
+      "decision_maker_titles": ["VP Operations", "Director F&B", "COO", "General Manager"],
+      "priority": 10
+    }
+  ]
+}

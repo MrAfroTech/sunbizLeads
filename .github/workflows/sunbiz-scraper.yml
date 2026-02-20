@@ -1,0 +1,28 @@
+name: Florida Sunbiz Scraper
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Create credentials from secret
+        env:
+          GOOGLE_JSON: ${{ secrets.GOOGLE_SHEETS_SERVICE_ACCOUNT_JSON }}
+        run: |
+          mkdir -p credentials
+          printf '%s\n' "$GOOGLE_JSON" > credentials/google-sheets-service-account.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Florida Sunbiz scraper
+        run: node scripts/sunbiz-scraper.js
+        env:
+          SUNBIZ_SPREADSHEET_ID: ${{ secrets.SUNBIZ_SPREADSHEET_ID }}
+      - name: Cleanup credentials
+        if: always()
+        run: rm -f credentials/google-sheets-service-account.json
