@@ -23,6 +23,7 @@ jobs:
         run: node scripts/sunbiz-scraper.cjs
         env:
           SUNBIZ_SPREADSHEET_ID: ${{ secrets.SUNBIZ_SPREADSHEET_ID }}
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
       - name: Cleanup credentials
         if: always()
         run: rm -f credentials/google-sheets-service-account.json
