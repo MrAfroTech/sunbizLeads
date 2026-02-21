@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Florida Sunbiz scraper
-        run: node scripts/sunbiz-scraper.js
+        run: node scripts/sunbiz-scraper.cjs
         env:
           SUNBIZ_SPREADSHEET_ID: ${{ secrets.SUNBIZ_SPREADSHEET_ID }}
       - name: Cleanup credentials

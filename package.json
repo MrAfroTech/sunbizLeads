@@ -9,7 +9,7 @@
     "start": "node dist/index.js",
     "run": "ts-node src/index.ts",
     "pipeline": "ts-node src/pipeline.ts",
-    "sunbiz": "node scripts/sunbiz-scraper.js",
+    "sunbiz": "node scripts/sunbiz-scraper.cjs",
     "test": "jest",
     "dev": "vite",
     "client": "vite",
