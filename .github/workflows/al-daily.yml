@@ -1,0 +1,24 @@
+name: AL SoS Scrape — Wednesdays
+
+on:
+  schedule:
+    - cron: '0 15 * * 3'    # 10 AM EST Wednesdays
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: node scripts/runEstablished.js --state AL
+        env:
+          SUNBIZ_SPREADSHEET_ID:  ${{ secrets.SUNBIZ_SPREADSHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+      - run: node scripts/runNewBiz.js --state AL
+        env:
+          SUNBIZ_SPREADSHEET_ID:  ${{ secrets.SUNBIZ_SPREADSHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
