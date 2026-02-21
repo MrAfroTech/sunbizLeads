@@ -13,8 +13,11 @@ const sourceLabel = STATE === 'FL' ? 'FL-Sunbiz' : STATE === 'GA' ? 'GA-SoS' : '
 
 console.log(`[Layer2] New biz scrape — ${STATE}`);
 const existingNames = await getExistingNames('New-Live');
+console.log(`[Layer2] getExistingNames(New-Live) → ${existingNames.size} names`);
 const raw = await scrapeNewBiz(STATE, KEYWORDS, CUTOFF);
+console.log(`[Layer2] scrapeNewBiz(${STATE}, keywords, cutoff) → raw=${raw.length}`);
 const deduped = dedup(raw, existingNames);
+console.log(`[Layer2] after dedup → ${deduped.length}`);
 const scored = deduped.map((e) => ({
   ...e,
   name: e.entityName || e.name,
@@ -29,8 +32,8 @@ const scored = deduped.map((e) => ({
   status: e.status || '',
   contact: e.contact || '',
 }));
-const qualified = scored.filter((e) => e.score >= 52);
+const qualified = scored.filter((e) => e.score >= 50);
 
-console.log(`[Layer2] ${qualified.length} qualified → New-Live`);
+console.log(`[Layer2] existingNames=${existingNames.size} raw=${raw.length} deduped=${deduped.length} scored=${scored.length} qualified=${qualified.length} (threshold 50)`);
 await appendToSheet('New-Live', qualified);
 console.log(`[Layer2] ✓ Done`);
