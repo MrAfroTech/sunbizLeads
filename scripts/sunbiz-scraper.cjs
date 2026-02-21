@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-require('./lib/load-env');
-const { getSunbizSheet } = require('./lib/sheet-client');
+require('./lib/load-env.cjs');
+const { getSunbizSheet } = require('./lib/sheet-client.cjs');
 
 async function main() {
   console.log('Florida Sunbiz Scraper - Division of Corporations');
