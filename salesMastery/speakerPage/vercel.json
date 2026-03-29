@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/speaker", "destination": "/speaker/", "permanent": true }
+  ]
+}
