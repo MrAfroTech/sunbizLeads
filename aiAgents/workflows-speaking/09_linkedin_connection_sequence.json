@@ -1,0 +1,277 @@
+{
+  "name": "09 - LinkedIn Connection Sequence",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 10 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Contacts",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:J",
+          "useFirstRowAsHeaders": true,
+          "returnAll": false,
+          "limit": 15
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "linkedin",
+              "condition": "notEqual",
+              "value": ""
+            },
+            {
+              "fieldName": "relationship_stage",
+              "condition": "equal",
+              "value": "New Lead"
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "get-prospects",
+      "name": "Get LinkedIn Prospects",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// This is a simplified example. Real implementation would check:\n// - If already connected\n// - Recent activity/posts\n// - Mutual connections\n// - Profile completeness\n\nconst contacts = $input.all();\n\nconst today = new Date().toISOString().split('T')[0];\nconst maxDaily = 15;\n\n// Filter contacts not yet approached on LinkedIn\nconst viable = contacts.filter(item => {\n  const lastContact = item.json.last_contact || '';\n  return !lastContact.startsWith(today);\n});\n\nreturn viable.slice(0, maxDaily);"
+      },
+      "id": "analyze-profiles",
+      "name": "Analyze Profile Engagement",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write LinkedIn connection request notes (300 character limit).\n\nRULES:\n- Personal, not salesy\n- Reference their role/event\n- Show genuine interest\n- No hard pitch\n- Keep under 280 characters\n\nExamples:\n- \"Hi [Name], saw you're organizing [Event]. I'm in the hospitality tech space and would love to connect—always learning from event organizers.\"\n- \"Hi [Name], love what you're doing with [Association]. I speak on hospitality tech and guest experience—would enjoy connecting.\""
+            },
+            {
+              "role": "user",
+              "content": "=Write a LinkedIn connection request for:\n\nName: {{ $json.contact_name }}\nTitle: {{ $json.title }}\nOrganization: {{ $json.organization }}\nEvent: {{ $json.event_related }}\n\nMy angle: I'm a speaker on hospitality tech (Seamlessly founder)\n\nReturn ONLY the message text (280 chars max). No JSON."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.8
+        }
+      },
+      "id": "write-note",
+      "name": "Write Personalized Note",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const contactData = $node[\"Get LinkedIn Prospects\"].json;\nconst connectionNote = $json.message.content.trim();\n\nreturn {\n  ...contactData,\n  linkedin_note: connectionNote.substring(0, 280),\n  linkedin_action: 'send_connection_request',\n  relationship_stage: 'LinkedIn - Connection Sent',\n  last_contact: new Date().toISOString(),\n  notes: (contactData.notes || '') + ' | LinkedIn connection request queued'\n};"
+      },
+      "id": "format-action",
+      "name": "Prepare Connection Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Contacts",
+          "mode": "name"
+        },
+        "columnToMatchOn": "contact_name",
+        "valueToMatchOn": "={{ $json.contact_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "relationship_stage": "={{ $json.relationship_stage }}",
+            "last_contact": "={{ $json.last_contact }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "update-status",
+      "name": "Mark LinkedIn Action Taken",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=LinkedIn Connections Ready ({{ $input.all().length }} contacts)",
+        "emailType": "text",
+        "message": "=LinkedIn connection requests prepared for:\n\n{{ $input.all().map(item => `- ${item.json.contact_name} (${item.json.title})\\n  Event: ${item.json.event_related}\\n  LinkedIn: ${item.json.linkedin}\\n  Note: ${item.json.linkedin_note}`).join('\\n\\n') }}\n\nIMPORTANT: LinkedIn automation is restricted.\nPlease send these connection requests manually by:\n1. Opening Google Sheet \"Contacts\"\n2. Filter: relationship_stage = 'LinkedIn - Connection Sent'\n3. Visit each LinkedIn URL\n4. Send connection with provided note\n\nThis protects your account from restrictions.",
+        "options": {}
+      },
+      "id": "send-summary",
+      "name": "LinkedIn Action Summary",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1450, 300],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// If connection accepted (check manually), schedule Day 2 message\n// If no response after 7 days, send email pitch instead\n\nconst followUpDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000);\n\nreturn {\n  ...$input.first().json,\n  linkedin_follow_up_due: followUpDate.toISOString(),\n  next_action: 'Check if connection accepted → Send value message'\n};"
+      },
+      "id": "schedule-followup",
+      "name": "Set Follow-Up Timing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 300]
+    }
+  ],
+  "connections": {
+    "Daily at 10 AM": {
+      "main": [
+        [
+          {
+            "node": "Get LinkedIn Prospects",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get LinkedIn Prospects": {
+      "main": [
+        [
+          {
+            "node": "Analyze Profile Engagement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Profile Engagement": {
+      "main": [
+        [
+          {
+            "node": "Write Personalized Note",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Personalized Note": {
+      "main": [
+        [
+          {
+            "node": "Prepare Connection Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Connection Data": {
+      "main": [
+        [
+          {
+            "node": "Mark LinkedIn Action Taken",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark LinkedIn Action Taken": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn Action Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn Action Summary": {
+      "main": [
+        [
+          {
+            "node": "Set Follow-Up Timing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

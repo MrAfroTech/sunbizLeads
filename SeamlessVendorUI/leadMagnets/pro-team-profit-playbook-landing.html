@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pro Team Profit Playbook | Seamlessly</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: transparent;
+      min-height: 100vh;
+      color: #1a1410;
+      line-height: 1.6;
+    }
+    .app-content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+    }
+    .page-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(212, 175, 55, 0.6);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .background-slider {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .background-slider__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1500ms ease-in-out;
+    }
+    .background-slider__slide--active {
+      opacity: 1;
+      z-index: 1;
+    }
+    
+    /* Top nav bar - matches main site */
+    .navbar {
+      height: 80px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      padding: 0 5%;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(26, 20, 16, 0.85);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-container {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+    }
+    .navbar-logo .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .navbar-logo .gradient-text {
+      background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .navbar-logo .accent-text {
+      color: #ffffff;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 0;
+      height: 100%;
+    }
+    .nav-item {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .nav-link {
+      color: #ffffff;
+      padding: 0 20px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .nav-link:hover {
+      color: #e0b841;
+    }
+    .nav-button {
+      margin-left: 20px;
+      font-size: 14px;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      font-family: inherit;
+    }
+    .nav-button.primary-button {
+      background: linear-gradient(135deg, #d4af37, #b8860b);
+      color: #000;
+      border: none;
+    }
+    .nav-button.primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    }
+    .nav-button.login-button {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid #d4af37;
+    }
+    .nav-button.login-button:hover {
+      background: #d4af37;
+      color: #000;
+    }
+    .nav-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: #fff;
+    }
+    .hamburger-line { display: block; width: 24px; height: 2px; background: currentColor; margin: 5px 0; border-radius: 2px; }
+    @media (max-width: 960px) {
+      .nav-menu-toggle { display: block !important; }
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(26, 20, 16, 0.98);
+        padding: 20px;
+        gap: 10px;
+        z-index: 999;
+      }
+      .nav-menu.mobile-visible { display: flex; }
+      .nav-menu .nav-item { height: auto; }
+      .nav-menu .nav-link,
+      .nav-menu .nav-button { margin-left: 0; padding: 12px; }
+    }
+    
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 160px 24px 60px; /* nav bar (~60px) + partner banner (~50px) = ~120px */
+      background: rgba(255, 255, 255, 0.6);
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    
+    h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 700;
+      color: #1a1410;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    
+    .subheadline {
+      font-size: 18px;
+      color: #1a1410;
+      margin-bottom: 32px;
+    }
+    
+    .whats-inside {
+      background: rgba(245, 240, 230, 0.6);
+      border-left: 4px solid #e0b841;
+      padding: 24px 24px 24px 28px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 32px;
+    }
+    
+    .whats-inside h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1a1410;
+    }
+    
+    .whats-inside ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .whats-inside li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: #1a1410;
+    }
+    
+    .whats-inside li:before {
+      content: '\2713';
+      position: absolute;
+      left: 0;
+      color: #e0b841;
+      font-weight: 700;
+    }
+    
+    .social-proof {
+      text-align: center;
+      padding: 16px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1410;
+    }
+    
+    .social-proof span {
+      color: #e0b841;
+    }
+    
+    .cta-button {
+      width: 100%;
+      padding: 18px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1410;
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(224, 184, 65, 0.3);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    
+    .cta-button:hover {
+      background: linear-gradient(135deg, #e5c860, #e0b841);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(224, 184, 65, 0.4);
+    }
+    
+    .cta-button:disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      transform: none;
+      filter: grayscale(0.4);
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 140px 16px 40px;
+      }
+      
+      .card {
+        padding: 32px 24px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .subheadline {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" role="navigation">
+    <div class="navbar-container">
+      <a href="/" class="navbar-logo">
+        <span class="logo-text">
+          <span class="gradient-text">Seam</span><span class="accent-text">lessly</span>
+        </span>
+      </a>
+      <button type="button" class="nav-menu-toggle" id="navMenuToggle" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item"><a href="/increase-revenue" class="nav-link">Solutions</a></li>
+        <li class="nav-item"><a href="/reduce-expenses" class="nav-link">Operations</a></li>
+        <li class="nav-item"><a href="/investors" class="nav-link">Investors</a></li>
+        <li class="nav-item"><a href="/case-studies" class="nav-link">Case Studies</a></li>
+        <li class="nav-item"><a href="/" class="nav-button login-button">Login</a></li>
+        <li class="nav-item"><a href="/calendar-box" class="nav-button primary-button">Schedule a Chat</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="background-slider" id="bgSlider" aria-hidden="true">
+    <div class="background-slider__slide background-slider__slide--active" style="background-image: url('/pexels-pixabay-262047.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-bluerhinomedia-2788792.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-brett-sayles-2339712.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-wb2008-2290070.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935100.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-pixabay-260922.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935077.jpg')"></div>
+  </div>
+  <div class="page-overlay" aria-hidden="true"></div>
+  <div class="app-content">
+  <div class="container">
+    <div class="card">
+      <h1 style="text-align: center;">Pro Team Profit Playbook: 7 Metrics-Driven Strategies to 3X Revenue & Fill Seats</h1>
+      <p class="subheadline" style="text-align: center;">Pro sports teams at entry levels face shrinking budgets and empty seats that crush growth, but proven playbooks can deliver 2-3x revenue surges through targeted fixes. Metrics reveal deep pain alongside huge upside from smart shifts in focus.</p>
+      
+      <div class="whats-inside">
+        <h2>Key Pain Metrics</h2>
+        <ul>
+          <li>Budget Bleeds: Operating costs drain 20-50% more than revenue, forcing owner subsidies to stay afloat.</li>
+          <li>Empty Venues: Stadiums sit 60-80% empty on game days, slashing ticket income (40-60% of total revenue).</li>
+          <li>Revenue Trap: 70%+ of teams fail to diversify beyond game-day cash, leading to collapse in 3-5 years.</li>
+        </ul>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>Game-Changing Growth Metrics</h2>
+        <ul>
+          <li>Attendance Surge: Filling seats isn't just ticket revenue — it's the trigger for rapid sponsorship growth.</li>
+          <li>Profit Leaps: Top teams hit 25-35% margins by scaling through events and affiliates.</li>
+          <li>Rapid Gains: Better fan engagement doubles ticket/merch sales for 30-50% revenue spikes in one season; streaming adds 15-25% growth.</li>
+          <li>Total Flip: Systems turn breakeven ops into profitable models with 2-3x overall revenue in 18-24 months.</li>
+        </ul>
+      </div>
+      
+      <p class="social-proof">Official Partner of <span>the Orlando Pirates (Kia Center)</span></p>
+      
+      <button type="button" class="cta-button" id="downloadPdfBtn">DOWNLOAD FREE PLAYBOOK</button>
+    </div>
+  </div>
+  </div>
+  <script>
+    (function() {
+      var slides = document.querySelectorAll('#bgSlider .background-slider__slide');
+      if (slides.length <= 1) return;
+      var i = 0;
+      setInterval(function() {
+        slides[i].classList.remove('background-slider__slide--active');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('background-slider__slide--active');
+      }, 5000);
+    })();
+    (function() {
+      var toggle = document.getElementById('navMenuToggle');
+      var menu = document.getElementById('navMenu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', function() {
+          menu.classList.toggle('mobile-visible');
+        });
+      }
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    (function() {
+      var btn = document.getElementById('downloadPdfBtn');
+      var card = document.querySelector('.card');
+      var defaultText = 'DOWNLOAD FREE PLAYBOOK';
+
+      btn.addEventListener('click', function() {
+        btn.disabled = true;
+        btn.textContent = 'Generating PDF...';
+
+        var btnOriginalDisplay = btn.style.display;
+        btn.style.display = 'none';
+
+        html2canvas(card, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff'
+        }).then(function(canvas) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultText;
+
+          var imgData = canvas.toDataURL('image/png');
+          var imgW = canvas.width;
+          var imgH = canvas.height;
+
+          var jsPDF = window.jspdf.jsPDF;
+          var pdf = new jsPDF({
+            orientation: imgH > imgW ? 'portrait' : 'landscape',
+            unit: 'px',
+            format: [imgW, imgH]
+          });
+          pdf.addImage(imgData, 'PNG', 0, 0, imgW, imgH);
+          pdf.save('pro-team-profit-playbook.pdf');
+        }).catch(function(err) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultText;
+          console.error('PDF generation failed:', err);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

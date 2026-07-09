@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What We've Learned — Seamlessly</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #000;
+    --gold: #D4AF37;
+    --gold2: #e8c84a;
+    --gold-dim: rgba(212,175,55,0.55);
+    --gold-border: rgba(212,175,55,0.3);
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; font-family: 'DM Sans', sans-serif; color: var(--white); padding: 0; margin: 0; }
+
+  .card-wrap { width: 100%; margin: 0; }
+
+  .card {
+    background: #000;
+    border: none;
+    border-bottom: none;
+  }
+
+  .card-inner { padding: 48px 56px 56px; }
+
+  /* eyebrow */
+  .eyebrow-row { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .eyebrow-pill {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: #000;
+    background: var(--gold); padding: 5px 14px; border-radius: 2px; white-space: nowrap;
+  }
+  .eyebrow-line { flex: 1; height: 1px; background: var(--gold-border); }
+  .eyebrow-tag { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+  /* headline */
+  .card-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 68px; line-height: 1; letter-spacing: 2px;
+    color: var(--gold); margin-bottom: 36px;
+  }
+  .card-headline span { color: var(--white); }
+
+  /* lesson list */
+  .lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .lesson-item {
+    display: flex; align-items: flex-start;
+    border-top: 1px solid rgba(212,175,55,0.2);
+    padding: 22px 0;
+    gap: 28px;
+  }
+
+  .lesson-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px; line-height: 1;
+    color: rgba(212,175,55,0.25);
+    width: 48px; flex-shrink: 0;
+  }
+
+  .lesson-body { flex: 1; display: flex; align-items: baseline; gap: 20px; }
+
+  .lesson-title {
+    font-size: 24px; font-weight: 700;
+    color: var(--gold); line-height: 1.2;
+    flex-shrink: 0;
+    width: 280px;
+  }
+
+  .lesson-desc {
+    font-size: 24px; font-weight: 600;
+    color: var(--white); line-height: 1.6;
+    flex: 1;
+  }
+
+  /* footer */
+  .card-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 56px;
+    background: #000;
+    border-top: 1px solid rgba(212,175,55,0.15);
+  }
+  .card-foot-brand { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--gold-dim); }
+  .card-foot-url { font-size: 11px; color: rgba(212,175,55,0.35); letter-spacing: 0.5px; }
+
+  /* download */
+  .card-dl {
+    display: block; width: 100%; padding: 12px 20px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px;
+    color: #000; background: linear-gradient(135deg, #D4AF37, #e8c84a);
+    border: none; border-radius: 0 0 4px 4px; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(212,175,55,0.28); transition: box-shadow 0.2s;
+  }
+  .card-dl:hover { box-shadow: 0 6px 22px rgba(212,175,55,0.5); }
+  .card-dl:disabled { opacity: 0.55; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function dlCard(id, filename, btn) {
+    btn.disabled = true;
+    btn.textContent = 'Generating PNG…';
+    html2canvas(document.getElementById(id), {
+      scale: 2, useCORS: true, allowTaint: true,
+      backgroundColor: '#000000', logging: false
+    }).then(function(canvas) {
+      var a = document.createElement('a');
+      a.download = filename;
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+      btn.disabled = false;
+      btn.textContent = '↓  Download as PNG';
+    });
+  }
+</script>
+
+<div class="card-wrap">
+  <div id="card1">
+    <div class="card">
+      <div class="card-inner">
+
+        <div class="eyebrow-row">
+          <div class="eyebrow-pill">Seamlessly</div>
+                 
+        </div>
+
+        <div class="card-headline">What We've <span>Learned</span> / What We're <span>Doing</span></div>
+
+        <div class="lesson-list">
+
+          <div class="lesson-item">
+            <div class="lesson-num">01</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Partnerships Over Competition</div>
+              <div class="lesson-desc">Feedback from the market and from presentations drove a pivot toward growth through collaboration — not head-to-head competition.</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">02</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Not Every Partnership Is the Right One</div>
+              <div class="lesson-desc">Partnership is like dating — just because something looks good doesn't mean it's good for the business. Alignment matters more than interest.</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">03</div>
+            <div class="lesson-body">
+              <div class="lesson-title">We're In The Big Leagues</div>
+              <div class="lesson-desc">After negotiations stalledwith a potential hire, the focus shifted — and led to bringing on a VP of Operational Excellence</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">04</div>
+            <div class="lesson-body">
+              <div class="lesson-title">1 Priority: Lead Generation</div>
+              <div class="lesson-desc">One goal - fill the pipeline from every channel (LinkedIn Outreach * Cold emails * Cold calls * Speaking engagements * Canvassing)</div>            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">05</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Prospecting Beyond Sales</div>
+              <div class="lesson-desc">Actively pursuing grant and award opportunities — from pitch competitions to industry funding — as a parallel path to capital and visibility.</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">06</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Digital Marketing</div>
+              <div class="lesson-desc">Activating email marketing, social media engagement, and newsletters. Which educate the market, build trust, and position the company as a thought leader.</div>            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-foot">
+      <div class="card-foot-brand">Seamlessly</div>
+      <div class="card-foot-url">seamlessly.us</div>
+    </div>
+  </div>
+  <button class="card-dl" onclick="dlCard('card1','seamlessly-what-we-learned.png',this)">↓ &nbsp; Download as PNG</button>
+</div>
+
+</body>
+</html>

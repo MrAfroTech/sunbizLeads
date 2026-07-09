@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaos Mastery — Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0d1b2a;
+      --navy: #1A2A44;
+      --gold: #D4AF37;
+      --gold-light: #e8c84a;
+      --text-body: rgba(255, 255, 255, 0.72);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 0 0 120vh;
+      background: var(--navy-deep);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .cmp-toolbar {
+      padding: 16px 20px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px 20px;
+    }
+    .cmp-open-pdf {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25);
+    }
+    .cmp-open-pdf:hover {
+      opacity: 0.95;
+    }
+    .cmp-frame-wrap {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+    .cmp-frame {
+      width: 100%;
+      min-height: 85vh;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: #0a121c;
+    }
+    .cmp-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(5, 10, 18, 0.72);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .cmp-backdrop.is-open {
+      display: flex;
+    }
+    .cmp-modal {
+      width: 100%;
+      max-width: 440px;
+      background: var(--navy);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      border-radius: 16px;
+      padding: 32px 28px 28px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }
+    .cmp-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .cmp-modal-close:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .cmp-modal h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      line-height: 1.2;
+      margin: 0 0 12px;
+      color: #fff;
+    }
+    .cmp-modal .sub {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.55;
+      margin: 0 0 16px;
+    }
+    .cmp-modal .body {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.65;
+      margin: 0 0 20px;
+    }
+    .cmp-modal .body em {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .cmp-price {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--text-body);
+    }
+    .cmp-price del {
+      opacity: 0.55;
+      margin-right: 8px;
+    }
+    .cmp-price strong {
+      color: var(--gold);
+      font-size: 22px;
+    }
+    .cmp-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+    }
+    .cmp-cta:hover {
+      opacity: 0.95;
+    }
+    .cmp-foot {
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.38);
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="sr-only">Chaos Mastery book preview</h1>
+  <div class="cmp-toolbar">
+    <a class="cmp-open-pdf" href="/chaos_mastery_intro_ch1_combined.pdf" target="_blank" rel="noopener">Open PDF in new tab</a>
+  </div>
+  <div class="cmp-frame-wrap">
+    <iframe
+      class="cmp-frame"
+      title="Chaos Mastery preview PDF"
+      src="/chaos_mastery_intro_ch1_combined.pdf"
+    ></iframe>
+  </div>
+
+  <div id="cmpBackdrop" class="cmp-backdrop" role="dialog" aria-modal="true" aria-labelledby="cmpHeadline">
+    <div class="cmp-modal">
+      <button type="button" class="cmp-modal-close" id="cmpDismiss" aria-label="Dismiss">&times;</button>
+      <h2 id="cmpHeadline">You're Reading the Future of Hospitality</h2>
+      <p class="sub">Most operators will finish this book and go back to doing the same thing. You don't have to.</p>
+      <p class="body">Preorder the hardcover edition of <em>Chaos Mastery</em> today and lock in 23% off the $29.99 retail price. This offer disappears when we go live.</p>
+      <div class="cmp-price"><del>$29.99</del> <strong>$22.99</strong></div>
+      <a class="cmp-cta" id="cmpCta" href="/chaos-mastery-checkout/">Preorder My Copy — $22.99</a>
+      <p class="cmp-foot">One-time payment. No subscription. Ships when the book drops.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = 'chaos_mastery_preorder_popup_shown';
+      var THRESHOLD = 0.45;
+      var backdrop = document.getElementById('cmpBackdrop');
+      var dismissBtn = document.getElementById('cmpDismiss');
+
+      function scrollRatio() {
+        var el = document.documentElement;
+        var scrollable = el.scrollHeight - window.innerHeight;
+        if (scrollable <= 0) return 1;
+        return window.scrollY / scrollable;
+      }
+
+      function openModal() {
+        if (sessionStorage.getItem(STORAGE_KEY) === '1') return;
+        sessionStorage.setItem(STORAGE_KEY, '1');
+        backdrop.classList.add('is-open');
+      }
+
+      function closeModal() {
+        backdrop.classList.remove('is-open');
+      }
+
+      var ticking = false;
+      function onScrollOrLoad() {
+        if (sessionStorage.getItem(STORAGE_KEY) === '1') return;
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          if (scrollRatio() >= THRESHOLD) openModal();
+        });
+      }
+
+      window.addEventListener('scroll', onScrollOrLoad, { passive: true });
+      window.addEventListener('load', onScrollOrLoad);
+
+      dismissBtn.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', function (e) {
+        if (e.target === backdrop) closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>

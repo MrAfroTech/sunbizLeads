@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — AND THE CROWD GOES WILD</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; min-width:860px; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; flex-shrink:0; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:28px 64px 16px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:32px 64px 24px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:6px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#1A2A44; line-height:1; margin-bottom:10px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:16px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:20px; color:#1A2A44; letter-spacing:1px; margin-bottom:6px; margin-top:14px; }
+.body     { font-size:13.5px; color:#1A1A1A; line-height:1.68; }
+.body p   { margin-bottom:10px; }
+.body strong { color:#1A2A44; font-weight:700; }
+.cite     { font-size:10px; color:#999; font-style:italic; vertical-align:super; }
+.src-note { font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px; margin-top:6px; }
+
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.sidebar    { display:flex; flex-direction:column; gap:12px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:12px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.4; }
+.stat-sub { font-size:10.5px; color:#666; margin-top:4px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:11px 13px; font-size:13px; color:#1A2A44; line-height:1.58; }
+.callout strong { color:#D4AF37; }
+
+.q-card { padding:16px 18px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.teal { background:#00D4AA; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:36px; line-height:1; opacity:.3; margin-bottom:3px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; line-height:1.62; margin-bottom:7px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-src  { font-size:10px; font-style:italic; opacity:.65; margin-top:3px; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; } .q-card.navy .q-src { color:rgba(255,255,255,0.55); }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src { color:#1A2A44; }
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text { color:#1A2A44; } .q-card.light .q-attr { color:#666; }
+
+/* ── WORKBOOK SHARED ── */
+.fill-line      { border-bottom:1px solid #CCCCCC; height:22px; margin-bottom:4px; }
+.fill-line-dark { border-bottom:1px solid rgba(255,255,255,0.2); height:22px; margin-bottom:4px; }
+.fill-label     { font-size:10.5px; color:#1A2A44; font-weight:700; margin-bottom:4px; letter-spacing:.4px; line-height:1.3; text-transform:uppercase; }
+.fill-label-dark{ font-size:10.5px; color:#D4AF37; font-weight:700; margin-bottom:4px; letter-spacing:.4px; line-height:1.3; text-transform:uppercase; }
+.hint           { font-size:10px; color:#888; font-style:italic; margin-bottom:7px; line-height:1.35; }
+.hint-dark      { font-size:10px; color:rgba(255,255,255,0.45); font-style:italic; margin-bottom:7px; line-height:1.35; }
+
+.exercise-box    { border:2px solid #1A2A44; border-radius:4px; overflow:hidden; margin-bottom:12px; }
+.exercise-header { background:#1A2A44; padding:10px 16px; display:flex; align-items:center; gap:12px; }
+.exercise-num    { width:32px; height:32px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.exercise-body   { padding:14px 16px; }
+.grid-2          { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+.grid-2:last-child { margin-bottom:0; }
+.fill-card       { background:#F4F6F9; padding:10px 12px; border-radius:4px; border:1px solid #ddd; }
+.fill-card-dark  { background:#1A2A44; padding:10px 12px; border-radius:4px; }
+
+.reflection-card { background:#F4F6F9; padding:14px 16px; border-radius:4px; margin-bottom:11px; }
+.reflection-tag  { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#1A2A44; margin-bottom:6px; }
+.reflection-q    { font-size:12.5px; color:#1A1A1A; line-height:1.5; margin-bottom:10px; }
+.cont-label      { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#999; margin-bottom:14px; }
+.page-intro      { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:#1A2A44; margin-bottom:14px; line-height:1.58; max-width:640px; }
+
+/* workbook page overrides — tighter than main chapter pages */
+.wb-pc { flex:1; padding:18px 28px 12px 28px; display:flex; flex-direction:column; overflow:hidden; }
+.wb-ph { width:100%; height:40px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 28px; border-bottom:3px solid #D4AF37; flex-shrink:0; }
+.wb-ph .ph-brand { font-size:14px; }
+.wb-ph .ph-title { font-size:13px; }
+.wb-pf { width:100%; height:24px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 28px; flex-shrink:0; }
+.wb-ch-title { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#1A2A44; letter-spacing:1.5px; margin-bottom:4px; line-height:1; }
+
+@media print {
+  @page { size: letter; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  .dl-bar { display: none; }
+  .page { margin: 0; page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — And The Crowd Goes Wild</div>
+    <div class="dl-bar-sub" id="dlPageCount">Print-ready · 816 × 1056px per page</div>
+  </div>
+  <button onclick="downloadAllPagesZip()" style="background:#D4AF37;border:none;color:#1A2A44;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;padding:8px 20px;border-radius:3px;cursor:pointer;">Download ZIP</button>
+</div>
+
+
+<!-- PAGE 1 — CHAPTER OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:48px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part II</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 4</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;line-height:.92;margin-bottom:2px;">AND THE CROWD</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#D4AF37;line-height:.92;margin-bottom:32px;">GOES WILD</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">"A great venue does not start at the gate. It starts the moment someone decides to go."</div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+          <div><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#00D4AA;line-height:1;">Ancient Rome</div><div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">The Colosseum seats 50,000 — Romans understood that a spectacle binds a civilization together</div></div>
+          <div><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#D4AF37;line-height:1;">20th Century</div><div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Mass media, rail lines, and highways turn stadiums and concert halls into destinations at national scale</div></div>
+          <div><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;">VIP Era</div><div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Premium suites, tiered ticketing, and hospitality zones become the primary revenue growth lever for venues</div></div>
+          <div><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#D4AF37;line-height:1;">Today</div><div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Mobile-first, frictionless, and personalized — guests expect every touchpoint to be seamless</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 1</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 2 — THE CORE IDEA -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:24px;">
+      <div>
+        <div class="label">More Than a Place—It's an Experience</div>
+        <div class="ch-title" style="font-size:30px;">Arenas Create Moments at Scale</div>
+        <div class="ch-intro">Nobody attends a stadium event for the seat. They go for the roar of a crowd at peak volume, for the feeling of 40,000 strangers becoming one for three hours, for the story they'll still be telling twenty years from now.</div>
+        <div class="body">
+          <p>Major venues and live events are not simply places where things happen. They are <strong>grandious systems built around crowds, emotion, and shared moments.</strong> Every element — the parking lot, the gate, the concession stand, the scoreboard, the exit — is part of a single continuous experience that either delivers on the promise of the ticket or quietly destroys it.</p>
+          <p>The stadium, the arena, the festival grounds, the amphitheater — these spaces evolved because human beings have always craved collective experiences that feel bigger than ordinary life. Ancient Rome built the Colosseum not because it needed a venue, but because it understood that <strong>shared spectacle is one of the most powerful tools for binding people together.</strong> That instinct has not changed. The infrastructure around it has.</p>
+          <div class="sec-head">The Invisible Product</div>
+          <p>Every ticket buyer is purchasing two things: the event itself, and AND THE CROWD attending it. How long the line is. Whether the app works. Whether the food arrives before halftime or the intermission. Whether the exit feels like a relief or an afterthought. That second purchase is where operators win or lose loyalty permanently.</p>
+          <div class="callout"><strong>The operator's mandate:</strong> Crowds do not just gather — they arrive, move, wait, celebrate, and leave as one unit. The operator's job is to make every one of those stages feel effortless. When any stage fails, it water downs the memory of the whole night.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;"><div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Two Tickets, One Purchase</div><div style="font-size:12px;color:#fff;line-height:1.55;">Fans don't just buy the event—they buy the crowd. The schedule sets one. The operator sets the other—and that's what brings them back.</div></div>
+        <div class="stat-box gold" style="padding:12px 14px;"><div class="stat-num" style="font-size:38px;">40,000</div><div class="stat-lbl">Individual guest journeys happening simultaneously at a major stadium event — 40,000 opportunities to win or lose loyalty</div><div class="stat-sub">Venue operations industry benchmark</div></div>
+        <div class="q-card light"><div class="q-mark">❝</div><div class="q-text">Events create life long memories</div><div class="q-attr">Seamlessly — Chaos Mastery</div></div>
+        <div class="stat-box teal" style="padding:12px 14px;"><div class="stat-num" style="font-size:38px;">72%</div><div class="stat-lbl">Of fans cite the overall experience — not the event outcome — as their primary reason for returning to a venue</div><div class="stat-sub">Sports Business Journal fan experience research</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 2</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 3 — HISTORICAL TIMELINE -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The History Of Venues</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">From the Colosseum to the Smart Arena</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;letter-spacing:1.5px;text-transform:uppercase;">Every era expanded what a venue could be — thus raising the bar</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+      <div style="display:flex;flex-direction:column;gap:0;flex:1;">
+        <div style="display:grid;grid-template-columns:160px 2px 1fr;gap:0;">
+          <div style="text-align:right;padding-right:18px;padding-top:4px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;line-height:1;">Ancient Rome</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">OOHS AND AHHS</div></div>
+          <div style="background:linear-gradient(180deg,#D4AF37 0%,rgba(212,175,55,0.15) 100%);position:relative;"><div style="position:absolute;top:6px;left:-6px;width:12px;height:12px;background:#D4AF37;border-radius:50%;"></div></div>
+          <div style="padding:4px 0 16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;margin-bottom:3px;">Shared Spectacle as Social Infrastructure</div><div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.58;">Greek theaters, Roman amphitheaters, and traveling fairgrounds understood something modern operators still reach for: <strong style="color:#D4AF37;">shared experience creates shared identity.</strong> The Colosseum wasn't just entertainment — it was crowd management, political theater, and a community ritual for 50,000-people. The physical design — sightlines, entry tunnels, tiered seating — was engineered to make the crowd feel like one. That architecture still governs every arena built today.</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 2px 1fr;gap:0;">
+          <div style="text-align:right;padding-right:18px;padding-top:4px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00D4AA;line-height:1;">1900s–1960s</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">Mass media + mass transit</div></div>
+          <div style="background:linear-gradient(180deg,rgba(212,175,55,0.15) 0%,rgba(0,212,170,0.3) 100%);position:relative;"><div style="position:absolute;top:6px;left:-6px;width:12px;height:12px;background:#00D4AA;border-radius:50%;"></div></div>
+          <div style="padding:4px 0 16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;margin-bottom:3px;">Stadiums Scale With Society</div><div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.58;">Radio, then television, turned local sports teams into national brands and live attendance into a premium product. Rail networks and then highways made the stadium a destination rather than a neighborhood fixture. Professional sports leagues, touring concert acts, and world's fairs turned the 20th century into the golden era of large scale events. <strong style="color:#00D4AA;">The bigger the broadcast footprint, the more valuable the in-person experience became</strong> — a dynamic that holds today with streaming.</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 2px 1fr;gap:0;">
+          <div style="text-align:right;padding-right:18px;padding-top:4px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;line-height:1;">1970s–2000s</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">Tiering and premiumization</div></div>
+          <div style="background:linear-gradient(180deg,rgba(0,212,170,0.3) 0%,rgba(212,175,55,0.3) 100%);position:relative;"><div style="position:absolute;top:6px;left:-6px;width:12px;height:12px;background:#D4AF37;border-radius:50%;"></div></div>
+          <div style="padding:4px 0 16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;margin-bottom:3px;">The Suite, the VIP Zone, and the Sponsorship Era</div><div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.58;">The modern venue business model was invented when owners realized that selling more general admission tickets was less profitable than selling fewer premium experiences at dramatically higher margins. Corporate suites, club-level seating, backstage passes, and festival VIP packages created a layered revenue model where <strong style="color:#D4AF37;">the guest's willingness to pay premium prices for the quality of their experience</strong> — and the operator's role shifted to managing tiered access; while maintaining the quality and experience of all areas.</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 2px 1fr;gap:0;">
+          <div style="text-align:right;padding-right:18px;padding-top:4px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00D4AA;line-height:1;">Today</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">The connected guest</div></div>
+          <div style="background:linear-gradient(180deg,rgba(212,175,55,0.3) 0%,transparent 100%);position:relative;"><div style="position:absolute;top:6px;left:-6px;width:12px;height:12px;background:#00D4AA;border-radius:50%;"></div></div>
+          <div style="padding:4px 0 10px 20px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;margin-bottom:3px;">Mobile-First, Friction-Last</div><div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.58;">Digital ticketing, mobile ordering, cashless payments, app-based wayfinding, and real-time wait time data have moved the venue experience into a guest's pocket before they ever reach the parking lot. <strong style="color:#00D4AA;">Fans now arrive with expectations shaped by smart logistics</strong> — they expect the same speed and personalization from a stadium concession stand that they get from Amazon. The venues closing this gap are growing. Venues that don't are failing to secure repeat engagement.</div></div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:10px 0;"></div>
+      <div style="text-align:center;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);">The venue format changes with every era. The guest's need to feel part of something larger never does.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 3</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 4 — DATA -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Why Frictionless Operations Matter</div>
+    <div class="ch-title" style="margin-bottom:8px;">What the Data Is Actually Telling You</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13.5px;color:#1A2A44;line-height:1.55;margin-bottom:14px;max-width:620px;">The modern venue's revenue ceiling is not set by ticket prices or attendance capacity. It's set by how seamless the operator makes every guest touchpoint coincide with every purchase they WANT to make.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div class="stat-box gold" style="padding:12px 14px;"><div class="stat-num" style="font-size:34px;">Convenience</div><div class="stat-lbl">The #1 factor fans cite for choosing to attend in person over watching from home</div><div class="stat-sub">Deloitte Sports Fan Insights, 2023</div></div>
+      <div class="stat-box teal" style="padding:12px 14px;"><div class="stat-num" style="font-size:34px;">Premium</div><div class="stat-lbl">VIP packages, suites, and club-level seating now account for a disproportionate share of total venue revenue</div><div class="stat-sub">PwC Sports Industry Outlook, 2022</div></div>
+      <div class="stat-box" style="padding:12px 14px;"><div class="stat-num" style="font-size:34px;">Mobile</div><div class="stat-lbl">Fans expect mobile ticketing, ordering, and guest flow — venues without it are already behind</div><div class="stat-sub">Eventbrite State of Live Events, 2023</div></div>
+    </div>
+    <div class="two-col" style="gap:20px;">
+      <div class="body">
+        <div class="sec-head" style="margin-top:0;margin-bottom:6px;">The Real Cost of Friction</div>
+        <p style="margin-bottom:8px;">Event attendance decisions are made and unmade by friction. When the parking process is a nightmare, the ticket scanning queue doesn't move, or the concession line eats a full quarter of the game — guests don't just complain. Negative experience drives a switch to the couch on future visits. <strong>Every operational failure has a compounding loyalty cost that never appears on a single-night P&L.</strong></p>
+        <p style="margin-bottom:8px;">The venues growing fastest right now share one characteristic: they have mapped every stage of the guest journey and attacked friction at each one. Not just the obvious friction — the 20-minute beer line — but the invisible friction: the app that requires three taps to order, the parking instructions buried in an email, the exit that turns a great night into a 45-minute crawl. <strong>Invisible friction is the most dangerous kind because it doesn't generate complaints — it silently drives disengagement right out of your arena.</strong></p>
+        <div class="callout" style="font-size:12.5px;"><strong>The premium paradox:</strong> The guest who paid the most for their seat has the highest expectations and the lowest tolerance for friction. A VIP experience that fails at the food service level doesn't just cost the F&B sale — it destroys the entire premium positioning. And premium people tell all their premium friends.</div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;"><div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">The Personalization Gap</div><div style="font-size:12px;color:#fff;line-height:1.5;margin-bottom:8px;">Fans now arrive with expectations shaped by streaming platforms and e-commerce. They want their preferences remembered, their orders fast, and their experience to feel tailored — not generic. The gap between that expectation and most venues' current reality is the single biggest opportunity in live events today.</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:8px 12px;border-radius:3px;border-left:3px solid #D4AF37;"><div style="font-size:12px;color:#1A2A44;font-weight:600;">Ticketing friction</div><div style="font-size:11px;color:#D4AF37;font-weight:700;">Top dropout point</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:8px 12px;border-radius:3px;border-left:3px solid #00D4AA;"><div style="font-size:12px;color:#1A2A44;font-weight:600;">Parking &amp; entry</div><div style="font-size:11px;color:#00D4AA;font-weight:700;">#1 complaint</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:8px 12px;border-radius:3px;border-left:3px solid #1A2A44;"><div style="font-size:12px;color:#1A2A44;font-weight:600;">F&amp;B wait time</div><div style="font-size:11px;color:#1A2A44;font-weight:700;">Revenue killer</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;background:#F4F6F9;padding:8px 12px;border-radius:3px;border-left:3px solid #D4AF37;"><div style="font-size:12px;color:#1A2A44;font-weight:600;">Exit experience</div><div style="font-size:11px;color:#D4AF37;font-weight:700;">Last impression</div></div>
+        </div>
+        <div class="q-card light"><div class="q-mark">❝</div><div class="q-text" style="font-size:12.5px;">The fan doesn't separate "the event" from "the experience." To them, it's one thing. Every friction point is part of the game.</div><div class="q-attr">Seamlessly — Chaos Mastery</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 4</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 5 — EIGHT STAGES JOURNEY MAP -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Guest Journey</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;line-height:1;margin-bottom:2px;">Eight Stages. One Experience. Zero Tolerance for Failure.</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:8px;letter-spacing:1.5px;text-transform:uppercase;">The guest doesn't see stages — they see one unbroken experience. Every gap shows.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:9px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;flex:1;">
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;flex-shrink:0;width:28px;">1</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:2px;">DISCOVERY</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">The guest's experience begins the moment they consider attending — before a ticket is purchased. Social media, word of mouth, and digital ads shape the expectation. A confusing or uninspiring discovery experience kills intent before the journey starts. <strong style="color:#D4AF37;">The impression at this stage sets the standard for everything that follows.</strong></div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;flex-shrink:0;width:28px;">2</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:2px;">TICKET PURCHASE</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">Checkout friction is the single largest driver of abandoned ticket purchases. A slow platform, unclear seating map, or unexpected fee at the final screen loses the sale entirely — and often the guest. <strong style="color:#00D4AA;">The purchase experience is the first operational test of what the venue promises to deliver.</strong></div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;flex-shrink:0;width:28px;">3</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:2px;">PARKING &amp; TRANSIT</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">Guests arrive at the high of anticipation. A chaotic parking experience is the fastest way to replace that feeling with frustration before they've set foot inside. Clear pre-event communication, digital parking passes, and real-time traffic guidance are now baseline expectations — not differentiators.</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;flex-shrink:0;width:28px;">4</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:2px;">ENTRY</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">Gate entry is the first physical promise the venue makes. A 15-minute scan queue at capacity is not a minor inconvenience — it is a systemic failure broadcast to every person in line simultaneously. Mobile ticketing, express lanes, and staff-to-guest ratios at peak entry are the controllable variables that separate good entry from damaging ones.</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;flex-shrink:0;width:28px;">5</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:2px;">FOOD &amp; BEVERAGE</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">F&B is the largest controllable revenue category inside any live event. It is also the most friction-prone. A guest who misses part of the action waiting in line doesn't just lose the purchase window — they lose the moment. Mobile ordering, in-seat delivery, and self-checkout stations directly convert wait-time frustration into captured revenue.</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;flex-shrink:0;width:28px;">6</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:2px;">SEAT / STANDING AREA</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">This is the product the guest paid for. Sightlines, comfort, proximity, and the energy of the crowd around them are the peak of the experience arc. Everything the operator does before and after this moment reflects in the bottom line and guest sentiment of the experience.</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;flex-shrink:0;width:28px;">7</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:2px;">EXIT</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">The exit is the last thing the guest experiences — and therefore the last thing they remember. A 45-minute parking lot crawl after a great game doesn't just create a frustrating ending. It becomes the dominant memory. Staggered release strategies, post-event parking communication, and transit partnerships exist for this reason.</div></div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:4px;padding:9px 11px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;flex-shrink:0;width:28px;">8</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:2px;">POST-EVENT FOLLOW-UP</div><div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">The experience doesn't end at the parking lot. A timely post-event email, a personalized offer for the next game, or a push notification with a highlight recap can convert a satisfied attendee into a season ticket holder. <strong style="color:#00D4AA;">The guest's emotional window stays open for 24–48 hours after a great event. What happens in that window is revenue the venue either captures or leaves on the table.</strong></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 5</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 6 — THEN & NOW -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Then &amp; Now</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;">THE 20TH-CENTURY STADIUM VS. THE CONNECTED ARENA</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;letter-spacing:1.5px;text-transform:uppercase;">The scale is the same. The guest's expectations have become fundamentally different.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:14px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:0;flex:1;">
+        <div style="background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.2);border-radius:4px 0 0 4px;padding:16px 18px;display:flex;flex-direction:column;gap:9px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;letter-spacing:2px;margin-bottom:3px;">THE CLASSIC STADIUM — 20TH CENTURY</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Built for Capacity, Not Experience</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#D4AF37;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Paper tickets and box offices:</strong> purchase friction was assumed — long lines were part of the ritual</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#D4AF37;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Cash-only concessions:</strong> limited menu, fixed stands, peak-hour gridlock was universal and accepted</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#D4AF37;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">One-tier seating:</strong> general admission or assigned — premium was a velvet rope, not an experience layer</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#D4AF37;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">No post-event relationship:</strong> the night ended at the parking lot — there was no follow-up, no capture, no loop</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#D4AF37;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Friction as tradition:</strong> "that's just how it goes" was the acceptable standard — alternatives didn't exist</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#D4AF37;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Revenue ceiling:</strong> gate revenue + F&B + merchandise — limited by physical throughput and no personalization</div></div>
+          <div style="margin-top:auto;font-size:10px;color:rgba(255,255,255,0.3);font-style:italic;">AND THE CROWD was the event. Everything else was infrastructure.</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.03);"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:rgba(212,175,55,0.4);text-align:center;margin:0 20px;">↔</div></div>
+        <div style="background:rgba(0,212,170,0.07);border:1px solid rgba(0,212,170,0.25);border-radius:0 4px 4px 0;padding:16px 18px;display:flex;flex-direction:column;gap:9px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00D4AA;letter-spacing:2px;margin-bottom:3px;">THE CONNECTED ARENA — TODAY</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Built for the Guest Journey End-to-End</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#00D4AA;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Mobile-first ticketing:</strong> purchase to entry in one tap — the expectation is zero friction from screen to gate</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#00D4AA;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Mobile ordering + in-seat delivery:</strong> F&B captured during the action, not sacrificed for it — wait time converted to revenue</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#00D4AA;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Tiered experience layers:</strong> general, club, suite, VIP — each tier priced and delivered as a distinct, complete experience</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#00D4AA;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Post-event capture:</strong> push notifications, highlight recaps, renewal offers — the relationship continues after the final buzzer</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#00D4AA;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Friction as competitive liability:</strong> guests now have alternatives — the couch, streaming, or the other venue across town</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:7px;height:7px;background:#00D4AA;border-radius:50%;margin-top:4px;flex-shrink:0;"></div><div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Revenue beyond the gate:</strong> data, personalization, and pre/post-event commerce multiply the value of each attendance</div></div>
+          <div style="margin-top:auto;font-size:10px;color:rgba(255,255,255,0.3);font-style:italic;">AND THE CROWD IS the product. The event is the occasion.</div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:12px 0;"></div>
+      <div style="text-align:center;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.65);">The gap between these two columns is where the modern venue operator either wins the next decade or loses it.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 6</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 7 — FOUR VOICES -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Four Lenses on the Guest Experience</div>
+    <div class="ch-title" style="margin-bottom:8px;">What Operators, Fans, and the Data All Agree On</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13.5px;color:#1A2A44;line-height:1.55;margin-bottom:16px;max-width:620px;">Different venues, different scales, different verticals — but the same fundamental truth keeps re-surfacing from every direction.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div class="q-card navy" style="padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:#D4AF37;letter-spacing:3px;margin-bottom:8px;">ON THE JOURNEY</div><div class="q-text" style="font-size:13.5px;color:#fff;">The gate is not the beginning of the guest experience. The parking lot is not the end of it. Every operator who has mapped the full journey end-to-end has found revenue they didn't know they were leaving behind.</div><div style="border-top:1px solid rgba(212,175,55,0.3);padding-top:8px;margin-top:8px;"><div style="font-size:11px;font-weight:700;color:#D4AF37;">Seamlessly</div><div style="font-size:10px;color:rgba(255,255,255,0.55);">Chaos Mastery — Venues &amp; Events</div></div></div>
+      <div class="q-card gold" style="padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:#1A2A44;letter-spacing:3px;margin-bottom:8px;">ON FRICTION</div><div class="q-text" style="font-size:13.5px;color:#1A2A44;">A 20-minute concession line doesn't just cost you the sale. It costs you the moment. And in live events, the moment is everything. Guests often pay $7 per minute when they're in your building. Once it's gone, no amount of post-event apology brings it back.</div><div style="border-top:1px solid rgba(26,42,68,0.2);padding-top:8px;margin-top:8px;"><div style="font-size:11px;font-weight:700;color:#1A2A44;">Seamlessly</div><div style="font-size:10px;color:rgba(26,42,68,0.7);">Chaos Mastery — Venues &amp; Events</div></div></div>
+      <div class="q-card light" style="padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:#D4AF37;letter-spacing:3px;margin-bottom:8px;">ON PREMIUM</div><div class="q-text" style="font-size:13.5px;">The guest in the suite paid a premium for a reason. That reason was not the seat. It was the expectation that every single thing around that seat — the food, the service, the view, the exit — would be as elevated as the price. One failure breaks the entire argument for the upgrade.</div><div style="border-top:1px solid #eee;padding-top:8px;margin-top:8px;"><div style="font-size:11px;font-weight:700;color:#1A2A44;">Seamlessly</div><div style="font-size:10px;color:#666;">Chaos Mastery — Venues &amp; Events</div></div></div>
+      <div class="q-card teal" style="padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:10px;color:#1A2A44;letter-spacing:3px;margin-bottom:8px;">ON POST-EVENT</div><div class="q-text" style="font-size:13.5px;color:#1A2A44;">The 24 hours after a great event are the highest-value marketing window a venue has. The guest is emotionally primed, socially connected, and already thinking about next time. Most venues waste this window completely. The ones that don't are turning single-game buyers into multi-year customers.</div><div style="border-top:1px solid rgba(26,42,68,0.2);padding-top:8px;margin-top:8px;"><div style="font-size:11px;font-weight:700;color:#1A2A44;">Seamlessly</div><div style="font-size:10px;color:rgba(26,42,68,0.7);">Chaos Mastery — Venues &amp; Events</div></div></div>
+    </div>
+    <div style="background:#1A2A44;padding:14px 18px;border-radius:4px;display:flex;gap:16px;align-items:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;flex-shrink:0;line-height:1.1;">The<br>Pattern</div>
+      <div style="font-size:13px;color:#fff;line-height:1.6;">Across every type of live event — whether a 200-seat club or a 70,000-seat stadium — the same pattern holds: <strong style="color:#00D4AA;">the guests who become loyalists are the ones whose experience felt effortless from discovery to departure.</strong> Friction at any stage breaks that arc. Removing it compounds it.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 7</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+<!-- PAGE 8 — CHAPTER SUMMARY -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary</div>
+    <div class="ch-title">What Every Venue Needs to Get Right</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13.5px;color:#1A2A44;line-height:1.55;margin-bottom:18px;max-width:620px;">Whether you run a 300-seat club or a 60,000-seat stadium, the same principles govern how guests decide to come back. These are the five that matter most.</div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:18px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">1</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">THE GUEST EXPERIENCE BEGINS BEFORE THE GATE AND ENDS AFTER THE PARKING LOT</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.52;">Discovery, purchase, arrival, entry, F&B, the event, exit, and post-event follow-up are not separate departments. They are one seamless guest experience. A failure at any stage contaminates the memory as a whole.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">2</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">FRICTION IS A REVENUE PROBLEM, NOT JUST AN EXPERIENCE PROBLEM</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.52;">Every guest who abandons a concession line is a lost sale. Every guest whose first-time experience feels chaotic is lost revenue. Friction has a dollar value — and it compounds across every event, every season, every year the problem goes unfixed.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">3</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">PREMIUM EXPERIENCES MUST DELIVER END-TO-END — NOT JUST AT THE SEAT</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.52;">A guest in a VIP suite paid for a complete experience, not a better view. One failure — slow service, a broken app, a chaotic exit — destroys the premium argument entirely and ends the conversation before it starts.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">4</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">THE POST-EVENT WINDOW IS UNTAPPED REVENUE FOR MOST VENUES</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.52;">The 24–48 hours after a great event are the highest-value marketing window a venue has. Most waste it with silence or generic messaging. A personalized, timely follow-up in that window converts single-event buyers into multi-year loyalists at a fraction of acquiring a new customer.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">5</div><div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">THE COMPETITION IS NO LONGER THE VENUE ACROSS TOWN — IT'S THE COUCH</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.52;">Fans have a high-quality, frictionless alternative to attending in person. Every operational failure is an argument for staying home next time. Making the live experience worth the effort — every time — is the whole competitive strategy.</div></div></div>
+    </div>
+    <div style="background:#1A2A44;padding:13px 18px;border-radius:4px;display:flex;align-items:center;gap:16px;">
+      <div style="flex:1;"><div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Chapter 5</div><div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;margin-bottom:3px;">THE RESTAURANT AND BAR VERTICAL</div><div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">How America's most competitive hospitality vertical rewards operators who master AND THE CROWD gap — and what the highest-volume restaurants do differently at every table turn.</div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">4 · 8</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<!-- PAGE 9 — WORKBOOK EXERCISE -->
+<div class="page" id="p9">
+  <!-- header 40px -->
+  <div style="width:100%;height:40px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:3px solid #D4AF37;flex-shrink:0;">
+    <span style="font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:14px;letter-spacing:3px;">SEAMLESSLY</span>
+    <span style="font-family:'Bebas Neue',sans-serif;color:#fff;font-size:13px;letter-spacing:2px;">CHAOS MASTERY</span>
+  </div>
+
+  <!-- content: 1056 - 40 (header) - 24 (footer) = 992px available -->
+  <div style="flex:1;padding:14px 28px 10px 28px;display:flex;flex-direction:column;overflow:hidden;">
+
+    <!-- eyebrow + title: ~46px -->
+    <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:4px;">Apply It Now</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;letter-spacing:1.5px;line-height:1;margin-bottom:6px;">Chapter 4 Workbook Exercise</div>
+
+    <!-- intro: ~52px -->
+    <p style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;margin-bottom:10px;line-height:1.5;">Before you can fix the guest experience, you have to see it the way your guest does — as one continuous journey, not a series of operational departments. Map it honestly before you turn the page.</p>
+
+    <!-- exercise box -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;flex:1;display:flex;flex-direction:column;">
+
+      <!-- exercise header: 44px -->
+      <div style="background:#1A2A44;padding:8px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;">
+        <div style="width:28px;height:28px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-family:'Bebas Neue',sans-serif;color:#1A2A44;font-size:15px;line-height:1;">1</span>
+        </div>
+        <div>
+          <div style="font-size:9px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:2px;margin-bottom:1px;">The Core Exercise</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;letter-spacing:1px;line-height:1;">Map the Full Event Journey</div>
+        </div>
+      </div>
+
+      <!-- exercise body -->
+      <div style="padding:8px 14px;flex:1;display:flex;flex-direction:column;">
+        <p style="font-size:11px;color:#1A1A1A;margin-bottom:8px;line-height:1.5;">Walk every stage of your guest's journey and score the current friction level. Be honest — not aspirational. Rate each stage 1 (severe friction) to 5 (seamless). Then identify the single highest-impact fix for the two lowest-scoring stages.</p>
+
+        <!-- Stage rows: using flex column of pairs for tighter control -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;">
+          <div style="background:#F4F6F9;padding:7px 10px;border-radius:4px;border:1px solid #ddd;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Stage 1 — Discovery: How does a first-time guest find out about your events? Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">Where does the awareness path break down? What's missing?</div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;"></div>
+          </div>
+          <div style="background:#F4F6F9;padding:7px 10px;border-radius:4px;border:1px solid #ddd;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Stage 2 — Ticket Purchase: What does the checkout experience feel like? Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">How many taps, clicks, or steps to confirm a ticket?</div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;"></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;">
+          <div style="background:#F4F6F9;padding:7px 10px;border-radius:4px;border:1px solid #ddd;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Stage 3 — Parking &amp; Transit: What does arrival look like at capacity? Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">When's the last time you actually drove in during peak arrival?</div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;"></div>
+          </div>
+          <div style="background:#F4F6F9;padding:7px 10px;border-radius:4px;border:1px solid #ddd;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Stage 4 — Entry: What is the average gate wait at 80%+ capacity? Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">What does the scan queue look like 20 minutes before start?</div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;"></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+          <div style="background:#F4F6F9;padding:7px 10px;border-radius:4px;border:1px solid #ddd;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Stage 5 — Food &amp; Beverage: What % of guests miss action to order? Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">Peak wait time at your busiest stand during a sellout event?</div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ccc;height:18px;"></div>
+          </div>
+          <div style="background:#1A2A44;padding:7px 10px;border-radius:4px;">
+            <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Your 2 lowest-scoring stages — and the single highest-impact fix for each:</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.45);font-style:italic;margin-bottom:4px;line-height:1.3;">These are your two biggest friction leaks. Name them, then name the fix.</div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:18px;"></div>
+          </div>
+        </div>
+
+        <div style="text-align:right;font-size:9.5px;color:#999;font-style:italic;margin-top:auto;padding-top:5px;">Continued on next page →</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- footer 24px -->
+  <div style="width:100%;height:24px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 28px;flex-shrink:0;">
+    <span style="font-size:11px;color:#1A2A44;font-weight:700;">4 · 9</span>
+    <span style="font-size:11px;color:#999;margin-left:auto;font-style:italic;">Chaos Mastery — And The Crowd Goes Wild</span>
+  </div>
+</div>
+
+
+<!-- PAGE 10 — REFLECTIONS 1–3 -->
+<div class="page" id="p10">
+  <div class="wb-ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="wb-pc">
+    <div class="cont-label">Chapter 4 Workbook Exercise — Continued</div>
+
+    <div class="reflection-card" style="border-top:3px solid #D4AF37;">
+      <div class="reflection-tag">Reflection 1 — The Exit Test</div>
+      <p class="reflection-q">Describe the last 20 minutes of your guest's experience in detail — from the final buzzer or last song to when they leave the parking lot. What emotion does a typical guest carry out? What creates it?</p>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div class="reflection-card" style="border-top:3px solid #00D4AA;">
+      <div class="reflection-tag">Reflection 2 — The Post-Event Window</div>
+      <p class="reflection-q">What does your venue do in the 24 hours after an event to extend the guest's emotional high? If the answer is "nothing" or "a generic email blast" — what would a personalized, timely follow-up look like instead?</p>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div class="reflection-card" style="border-top:3px solid #1A2A44;">
+      <div class="reflection-tag">Reflection 3 — The Revenue You're Not Capturing</div>
+      <p class="reflection-q">If every guest who abandoned a concession line had ordered instead, what would the revenue impact be per event? Estimate it honestly. Then ask: what services do I need to eliminate that wait?</p>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div style="text-align:right;font-size:10px;color:#999;font-style:italic;margin-top:auto;padding-top:6px;">Continued on next page →</div>
+  </div>
+  <div class="wb-pf"><span class="pf-num">4 · 10</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+<!-- PAGE 11 — FRICTION PRIORITY + REFLECTION 4 -->
+<div class="page" id="p11">
+  <div class="wb-ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="wb-pc">
+    <div class="cont-label">Chapter 4 Workbook Exercise — Continued</div>
+
+    <div style="background:#F4F6F9;border-left:4px solid #00D4AA;padding:14px 16px;border-radius:0 4px 4px 0;margin-bottom:14px;">
+      <div style="font-size:10px;color:#1A2A44;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Your Friction Priority List — In Order</div>
+      <div style="font-size:12px;color:#444;line-height:1.55;margin-bottom:10px;">Rank the eight journey stages from your exercise on page 4·9 — highest friction to lowest. This is your operational roadmap. The sequence in which you eliminate friction will have a direct, measurable impact on per-event revenue and year-over-year renewal rates.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><div class="fill-label">#1 Highest friction stage:</div><div class="fill-line"></div><div class="fill-line"></div></div>
+        <div><div class="fill-label">#2:</div><div class="fill-line"></div><div class="fill-line"></div></div>
+        <div><div class="fill-label">#3:</div><div class="fill-line"></div><div class="fill-line"></div></div>
+        <div><div class="fill-label">#4:</div><div class="fill-line"></div><div class="fill-line"></div></div>
+        <div><div class="fill-label">#5:</div><div class="fill-line"></div><div class="fill-line"></div></div>
+        <div><div class="fill-label">#6 through #8 (lower priority — address after top 5):</div><div class="fill-line"></div><div class="fill-line"></div></div>
+      </div>
+    </div>
+
+    <div class="reflection-card" style="border-top:3px solid #D4AF37;margin-bottom:14px;">
+      <div class="reflection-tag">Reflection 4 — The Honest One</div>
+      <p class="reflection-q">If a first-time guest attended your largest event next weekend, with no prior knowledge of your venue — what would make them feel that attending in person was genuinely worth it over watching from home? Be specific.</p>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div style="background:#F4F6F9;border-left:4px solid #D4AF37;padding:12px 14px;border-radius:0 4px 4px 0;">
+      <div style="font-size:10px;color:#1A2A44;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Your 90-Day Seamless Commitment</div>
+      <div style="font-size:12px;color:#444;line-height:1.55;margin-bottom:8px;">Name the single highest-impact friction point you are committing to fix in the next 90 days — and the measurable outcome you expect when it's resolved.</div>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div style="text-align:right;font-size:10px;color:#999;font-style:italic;margin-top:auto;padding-top:6px;">Continued on next page →</div>
+  </div>
+  <div class="wb-pf"><span class="pf-num">4 · 11</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+<!-- PAGE 12 — KEY INSIGHT -->
+<div class="page" id="p12">
+  <div class="wb-ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="wb-pc">
+    <div class="cont-label">Chapter 4 Workbook Exercise — Continued</div>
+
+    <div class="reflection-card" style="border-top:3px solid #D4AF37;margin-bottom:14px;">
+      <div class="reflection-tag">Reflection 5 — Scale It Down to One Night</div>
+      <p class="reflection-q">If a first-time guest attended your largest event next weekend, with no prior knowledge of your venue — what would make them feel that attending in person was worth it over watching from home? Be specific.</p>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div style="background:#F4F6F9;border-left:4px solid #D4AF37;padding:14px 16px;border-radius:0 4px 4px 0;margin-bottom:14px;">
+      <div style="font-size:10px;color:#1A2A44;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Your Venue's Seamless Commitment</div>
+      <div style="font-size:12px;color:#444;line-height:1.55;margin-bottom:10px;">In one sentence, state the single most impactful friction point you are committing to eliminate in the next 90 days — and the measurable outcome you expect from removing it.</div>
+      <div class="fill-line"></div><div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <div style="background:#1A2A44;padding:14px 18px;border-radius:4px;display:flex;align-items:center;gap:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;flex-shrink:0;line-height:1.1;">Key<br>Insight</div>
+      <div style="font-size:13px;color:#fff;line-height:1.58;">The venue operators who win the next decade will not be the ones with the best teams or the biggest stages. They will be the ones who make <strong style="color:#00D4AA;">attending the event feel as effortless as watching from home</strong> — and more worth it. That gap is an operational problem. It has an operational solution.</div>
+    </div>
+  </div>
+  <div class="wb-pf"><span class="pf-num">4 · 12</span><span class="pf-title">Chaos Mastery — And The Crowd Goes Wild</span></div>
+</div>
+
+
+<script>
+(function(){
+  var countEl=document.getElementById('dlPageCount');
+  var n=document.querySelectorAll('.page').length;
+  if(countEl) countEl.textContent=n+' pages · Print-ready · 816 × 1056px per page · One ZIP with every page';
+})();
+
+function canvasToBlob(canvas){
+  return new Promise(function(resolve,reject){
+    canvas.toBlob(function(blob){ if(blob) resolve(blob); else reject(new Error('Could not create image blob')); },'image/png');
+  });
+}
+
+async function capturePageElement(el){
+  el.scrollIntoView({block:'center',inline:'nearest'});
+  await document.fonts.ready;
+  await new Promise(function(r){setTimeout(r,120);});
+  return html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY,logging:false});
+}
+
+async function downloadAllPagesZip(){
+  var pages=Array.prototype.slice.call(document.querySelectorAll('.page'));
+  if(!pages.length||typeof JSZip==='undefined'){alert('Download could not start. Please refresh and try again.');return;}
+  var zip=new JSZip();
+  var folder=zip.folder('chaos-mastery-venues-events');
+  try{
+    for(var i=0;i<pages.length;i++){
+      var canvas=await capturePageElement(pages[i]);
+      var blob=await canvasToBlob(canvas);
+      var id=pages[i].id||('page-'+(i+1));
+      folder.file('chaos-mastery-venues-'+id+'.png',blob);
+    }
+    var zipBlob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    var a=document.createElement('a');
+    var url=URL.createObjectURL(zipBlob);
+    a.href=url;
+    a.download='chaos-mastery-venues-events-all-pages.zip';
+    a.click();
+    URL.revokeObjectURL(url);
+  }catch(e){
+    console.error(e);
+    alert('Something went wrong while building the download. Try again, or use a desktop browser.');
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+/* InvestorScheduling Component Styles */
+
+/* Hide Calendly header and footer */
+header, footer { 
+    display: none !important; 
+}
+
+.investor-scheduling-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a0f0a 0%, #2c1810 50%, #1a0f0a 100%);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.investor-scheduling-content {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+}
+
+.investor-scheduling-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #d4af37;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.investor-scheduling-content > p {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #f4d03f;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 1.1rem !important;
+    color: #cccccc !important;
+    margin-bottom: 2rem !important;
+    font-weight: 400 !important;
+    line-height: 1.6;
+}
+
+.investment-focus-areas {
+    margin: 2rem 0;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.investment-focus-areas p {
+    font-size: 1rem;
+    color: #d4af37;
+    margin: 0.5rem 0;
+    font-weight: 600;
+    background: rgba(212, 175, 55, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+}
+
+.investment-focus-areas p:hover {
+    background: rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.meeting-types {
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.meeting-types h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.meeting-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.meeting-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.meeting-option:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+    transform: translateY(-2px);
+}
+
+.meeting-option strong {
+    color: #f4d03f;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.meeting-option p {
+    color: #cccccc;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.calendly-widget-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    margin: 2rem 0;
+}
+
+.confirmation-messaging {
+    margin: 2rem 0;
+    text-align: left;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.confirmation-messaging h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.confirmation-messaging ul {
+    list-style: none;
+    padding: 0;
+}
+
+.confirmation-messaging li {
+    color: #e8e8e8;
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+}
+
+.confirmation-messaging li:before {
+    content: "✓";
+    color: #d4af37;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.primary-button, .secondary-button, .tertiary-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 200px;
+}
+
+.primary-button {
+    background: linear-gradient(135deg, #d4af37, #f4d03f);
+    color: #1a0f0a;
+}
+
+.primary-button:hover {
+    background: linear-gradient(135deg, #f4d03f, #d4af37);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+}
+
+.secondary-button {
+    background: transparent;
+    color: #d4af37;
+    border: 2px solid #d4af37;
+}
+
+.secondary-button:hover {
+    background: #d4af37;
+    color: #1a0f0a;
+    transform: translateY(-2px);
+}
+
+.tertiary-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f4d03f;
+    border: 1px solid #f4d03f;
+}
+
+.tertiary-button:hover {
+    background: rgba(244, 208, 63, 0.1);
+    transform: translateY(-2px);
+}
+
+.trust-signals {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.guarantee {
+    color: #cccccc;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.security-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.security-badge {
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .investor-scheduling-container {
+        padding: 1rem;
+    }
+    
+    .investor-scheduling-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .investor-scheduling-content > p {
+        font-size: 1.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .investment-focus-areas {
+        grid-template-columns: 1fr;
+    }
+    
+    .meeting-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .primary-button, .secondary-button, .tertiary-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .security-badges {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .calendly-widget-container {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .investor-scheduling-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .calendly-widget-container {
+        padding: 0.5rem;
+    }
+    
+    .confirmation-messaging {
+        padding: 1rem;
+    }
+    
+    .meeting-option {
+        padding: 1rem;
+    }
+}
+

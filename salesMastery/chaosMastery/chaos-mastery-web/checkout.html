@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Free Preview — Chaos Mastery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=DM+Sans:ital,wght@0,400;0,600;1,400&family=DM+Serif+Display:ital@1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0d1b2a;
+      --navy: #1A2A44;
+      --gold: #D4AF37;
+      --gold-light: #e8c84a;
+      --gold-border: rgba(212,175,55,0.28);
+      --teal: #00D4AA;
+      --text-body: rgba(255,255,255,0.72);
+      --text-dim: rgba(255,255,255,0.40);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--navy-deep);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      padding: 0 0 80px;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--navy);
+      border-bottom: 1px solid var(--gold-border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--gold);
+    }
+    .topbar-step {
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+    .topbar-step span {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap {
+      background: rgba(255,255,255,0.06);
+      height: 3px;
+    }
+    .progress-bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      width: 66%;
+      transition: width 0.5s ease;
+    }
+
+    /* ── SHELL ── */
+    .shell {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 52px 0 40px;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse at center, rgba(212,175,55,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    .hero-h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--text-body);
+      line-height: 1.65;
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+
+    /* ── PREVIEW CARD ── */
+    .preview-card {
+      background: var(--navy);
+      border: 1px solid var(--gold-border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    .preview-card-header {
+      background: linear-gradient(135deg, #0d1b2a 0%, #1A2A44 100%);
+      border-bottom: 3px solid var(--gold);
+      padding: 28px 36px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-card-header::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+    }
+    .preview-ch-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .preview-ch-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+    .preview-ch-title span { color: var(--gold); }
+    .preview-ch-sub {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .preview-card-body {
+      padding: 28px 36px 32px;
+    }
+
+    /* chapter stats row */
+    .ch-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .ch-stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .ch-stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 26px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .ch-stat-num.teal { color: var(--teal); }
+    .ch-stat-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* what's inside list */
+    .inside-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .inside-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .inside-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+    .inside-list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .inside-list li strong { color: #fff; font-weight: 600; }
+
+    /* callout bar */
+    .callout-bar {
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.25);
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .callout-bar-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .callout-bar p {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+    .callout-bar strong { color: var(--teal); }
+
+    /* CTA — free download */
+    .cta-free {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 16px 28px;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      letter-spacing: 1px;
+      color: var(--navy);
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.30);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .cta-free:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(212,175,55,0.42);
+    }
+    .cta-free-sub {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 10px;
+    }
+
+    /* CTA — view HTML preview in browser */
+    .cta-preview {
+      background: transparent;
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 28px;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+    .cta-preview:hover {
+      background: rgba(212, 175, 55, 0.12);
+      transform: translateY(-1px);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0 32px;
+    }
+    .section-divider::before, .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold-border);
+    }
+    .section-divider-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    /* ── PITCH SECTION ── */
+    .pitch-eyebrow {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .pitch-h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.15;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .pitch-h2 em { font-style: normal; color: var(--gold); }
+    .pitch-sub {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--text-body);
+      line-height: 1.65;
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+
+    /* book card */
+    .book-card {
+      background: var(--navy);
+      border: 1px solid var(--gold-border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      margin-bottom: 32px;
+    }
+    .book-card-top {
+      padding: 32px 36px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .book-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+    .book-card-subtitle {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 18px;
+    }
+    .book-card-body {
+      font-size: 14.5px;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* chapters grid */
+    .chapters-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .ch-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .ch-item-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 20px;
+    }
+    .ch-item-num.teal { color: var(--teal); }
+    .ch-item-text {
+      font-size: 12px;
+      color: var(--text-body);
+      line-height: 1.45;
+    }
+    .ch-item-text strong { color: #fff; display: block; font-size: 12.5px; margin-bottom: 1px; }
+
+    /* pricing */
+    .book-card-pricing {
+      padding: 24px 36px 28px;
+      background: linear-gradient(180deg, rgba(13,27,42,0.6) 0%, rgba(13,27,42,0.95) 100%);
+    }
+    .pricing-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .price-main {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 42px;
+      color: #fff;
+      line-height: 1;
+    }
+    .price-was {
+      font-size: 16px;
+      color: var(--text-dim);
+      text-decoration: line-through;
+    }
+    .price-badge {
+      background: rgba(0,212,170,0.15);
+      border: 1px solid rgba(0,212,170,0.4);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .pricing-includes {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .pricing-includes li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-body);
+      list-style: none;
+    }
+    .pricing-includes li::before {
+      content: '✓';
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .cta-buy {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 17px 28px;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: var(--navy);
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.30);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .cta-buy:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(212,175,55,0.42);
+    }
+    .cta-guarantee {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ── SOCIAL PROOF ── */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .proof-card {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .proof-quote {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .proof-attr {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+    .proof-role {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    /* ── DEMO BLOCK ── */
+    .demo-block {
+      background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(26,42,68,0.6) 100%);
+      border: 1px solid rgba(0,212,170,0.25);
+      border-radius: 16px;
+      padding: 32px 36px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .demo-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .demo-h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .demo-p {
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.65;
+      max-width: 460px;
+      margin: 0 auto 22px;
+    }
+    .cta-demo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,212,170,0.5);
+      background: transparent;
+      color: var(--teal);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .cta-demo:hover {
+      background: rgba(0,212,170,0.1);
+      border-color: var(--teal);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      line-height: 1.8;
+    }
+    .page-footer a { color: var(--gold); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .preview-card  { animation: fadeUp 0.5s ease both; }
+    .book-card     { animation: fadeUp 0.5s ease 0.15s both; }
+    .demo-block    { animation: fadeUp 0.5s ease 0.25s both; }
+
+    /* ── COUNTDOWN ── */
+    .countdown-wrap {
+      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(13,27,42,0.8) 100%);
+      border: 1px solid rgba(212,175,55,0.45);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .countdown-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .countdown-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .countdown-expires {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .countdown-units {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .cd-unit {
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: 6px;
+      padding: 8px 12px;
+      min-width: 56px;
+    }
+    .cd-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 26px;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .cd-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-top: 3px;
+    }
+    .cd-sep {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .countdown-sub {
+      font-size: 12px;
+      color: var(--text-body);
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .countdown-sub strong { color: var(--gold); }
+
+    /* expired state */
+    .countdown-expired {
+      display: none;
+      font-size: 13px;
+      color: var(--text-body);
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    @media (max-width: 560px) {
+      .ch-stats       { grid-template-columns: 1fr 1fr; }
+      .ch-stats .ch-stat:last-child { grid-column: 1 / -1; }
+      .chapters-grid  { grid-template-columns: 1fr; }
+      .proof-grid     { grid-template-columns: 1fr; }
+      .preview-card-header,
+      .preview-card-body,
+      .book-card-top,
+      .book-card-pricing,
+      .demo-block     { padding-left: 20px; padding-right: 20px; }
+      .pricing-row    { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .countdown-units { gap: 6px; }
+      .cd-unit { min-width: 46px; padding: 6px 8px; }
+      .cd-num  { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-brand">SEAMLESSLY</div>
+    <div class="topbar-step">Step <span>2 of 3</span> — Your Preview</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="shell">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">You're on the list — here's what's next</div>
+      <h1 class="hero-h1">Your free chapter is <em>ready.</em><br>And there's more where that came from.</h1>
+      <p class="hero-sub">Chapter 4 goes deep on arenas, stadiums, and live events — where a single friction point can cost you thousands per night. Read it free, then decide if the full book belongs in your operation.</p>
+    </div>
+
+    <!-- FREE PREVIEW CARD -->
+    <div class="preview-card">
+      <div class="preview-card-header">
+        <div class="preview-ch-label">Free Preview · Chapter 4</div>
+        <div class="preview-ch-title">And the Crowd<br><span>Goes Wild</span></div>
+        <p class="preview-ch-sub">"A great venue does not start at the gate. It starts the moment someone decides to go."</p>
+      </div>
+
+      <div class="preview-card-body">
+
+        <div class="ch-stats">
+          <div class="ch-stat">
+            <div class="ch-stat-num">12</div>
+            <div class="ch-stat-label">Print-ready pages included</div>
+          </div>
+          <div class="ch-stat">
+            <div class="ch-stat-num teal">8</div>
+            <div class="ch-stat-label">Guest journey stages mapped</div>
+          </div>
+          <div class="ch-stat">
+            <div class="ch-stat-num">4</div>
+            <div class="ch-stat-label">Workbook exercises inside</div>
+          </div>
+        </div>
+
+        <div class="inside-label">What you'll read in this chapter</div>
+        <ul class="inside-list">
+          <li><strong>From the Colosseum to the smart arena</strong> — how 2,000 years of venue design built the expectations your guests walk in with today</li>
+          <li><strong>The 8-stage guest journey map</strong> — Discovery → Ticket Purchase → Parking → Entry → F&B → Seat → Exit → Post-event. Where the money leaks and why</li>
+          <li><strong>The 70–90% problem</strong> — why what feels like 10% of operations is actually 90% of the guest's memory — and how that shapes loyalty</li>
+          <li><strong>Then vs. Now</strong> — a side-by-side of the 20th-century stadium and the connected arena, and the gap every operator needs to close</li>
+          <li><strong>The workbook</strong> — score your venue's friction at every stage and walk out with a 90-day priority list</li>
+        </ul>
+
+        <div class="callout-bar">
+          <div class="callout-bar-icon">⚡</div>
+          <p>This is the chapter that makes operators uncomfortable — in the best way. <strong>You'll finish it with a number</strong>: the revenue you're leaving on the table per event, per season, per year. That number changes how you make decisions.</p>
+        </div>
+
+        <a href="chapter-4.html" class="cta-preview" target="_blank" rel="noopener noreferrer">
+          View Chapter 4 preview in your browser →
+        </a>
+        <a href="chapterFour/chaos_mastery_ch4.pdf" class="cta-free" download="chaos_mastery_ch4.pdf">
+          ↓ &nbsp; Download Chapter 4 — Free
+        </a>
+        <p class="cta-free-sub">PDF · 12 pages · No credit card · No catch</p>
+
+      </div>
+    </div><!-- /preview-card -->
+
+    <!-- DIVIDER -->
+    <div class="section-divider">
+      <div class="section-divider-label">Want the full playbook?</div>
+    </div>
+
+    <!-- PITCH SECTION -->
+    <div class="pitch-eyebrow">Chaos Mastery — Full Book</div>
+    <h2 class="pitch-h2">4,000 years of hospitality.<br><em>18 chapters.</em> One operating system.</h2>
+    <p class="pitch-sub">Chapter 4 is one piece. The full book is the complete framework — from ancient taverns to today's mobile-first venues — built to run inside your operation starting this week.</p>
+
+    <div class="book-card">
+      <div class="book-card-top">
+        <div class="book-card-title">Chaos Mastery: Seamless Hospitality for the 21st Century</div>
+        <div class="book-card-subtitle">By Maurice Sanders · Founder, Seamlessly, Inc.</div>
+        <p class="book-card-body">Most operators are optimizing the wrong things. They chase efficiency and lose the guest. They add technology and add friction. They hit revenue plateaus they can't explain — because the problem isn't the menu, the staff, or the software. It's the experience architecture underneath all of it. This book fixes that.</p>
+
+        <div class="chapters-label">What you're actually getting</div>
+
+        <!-- Value stack -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+
+          <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);border-radius:10px;padding:16px 18px;">
+            <div style="flex-shrink:0;text-align:center;min-width:68px;">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Value</div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:19px;color:var(--gold);line-height:1;">$30,000+</div>
+            </div>
+            <div style="width:1px;background:rgba(212,175,55,0.2);align-self:stretch;flex-shrink:0;"></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;">The Full Book — 18 Chapters, 200+ Pages</div>
+              <div style="font-size:12.5px;color:var(--text-body);line-height:1.6;">A hospitality consultant charging $5,000/day to audit your operation and build a guest experience framework would need six days to cover what's in this book. Every framework, every decision model, every friction audit — delivered in a format you can open on the way to your next event and act on before it starts.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px 18px;">
+            <div style="flex-shrink:0;text-align:center;min-width:68px;">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Value</div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:19px;color:var(--teal);line-height:1;">$50,000+</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch;flex-shrink:0;"></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;">The Operator Workbook — Every Exercise, Print-Ready</div>
+              <div style="font-size:12.5px;color:var(--text-body);line-height:1.6;">The workbook is where the money is. Operators who complete the friction audit exercises typically identify 3–5 revenue leaks they didn't know existed. Fix one F&B friction point across 500 guests, 40 events, and a $14 average order lift — that's over $280,000 in recovered annual revenue. The workbook shows you exactly where to look.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px 18px;">
+            <div style="flex-shrink:0;text-align:center;min-width:68px;">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Value</div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:19px;color:var(--gold);line-height:1;">$75,000+</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch;flex-shrink:0;"></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;">The 90-Day Friction Elimination Roadmap</div>
+              <div style="font-size:12.5px;color:var(--text-body);line-height:1.6;">Repeat guest rate is the most undervalued metric in hospitality. A guest who returns just one additional time per season — across 2,000 regulars — is tens of thousands in revenue you didn't have to market for. This roadmap shows you which friction points drive churn, in what order to eliminate them, and what a 5% improvement in repeat attendance is worth to your bottom line.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px 18px;">
+            <div style="flex-shrink:0;text-align:center;min-width:68px;">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Value</div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:19px;color:var(--teal);line-height:1;">Ongoing</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch;flex-shrink:0;"></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;">Lifetime Updates — As the Industry Moves, So Does the Book</div>
+              <div style="font-size:12.5px;color:var(--text-body);line-height:1.6;">Mobile ordering, AI-assisted staffing, dynamic pricing, post-event monetization — the tools change every year. The frameworks don't. Every update, every new chapter, every new vertical playbook ships to you automatically. You pay once. The value compounds for as long as you're running a venue.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- The math -->
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:10px;padding:18px 20px;margin-bottom:0;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">The only math that matters</div>
+          <div style="font-size:14px;color:var(--text-body);line-height:1.8;">1,000 guests per event. One friction fix — shorter F&B lines, mobile ordering, or a smoother entry — drives one additional $14 order per 8 guests. That's <strong style="color:#fff;">$1,750 per event.</strong> At 40 events a year, that's <strong style="color:#fff;">$70,000 in revenue recovered from a single fix.</strong> Now multiply that across 3–5 friction points this book helps you identify.<br><br>The book is $47. It will be the highest-ROI purchase decision you make this year.</div>
+        </div>
+
+      </div>
+
+      <div class="book-card-pricing">
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-wrap">
+          <div class="countdown-top">
+            <div class="countdown-label">⚡ Pre-Launch Price Expires</div>
+            <div class="countdown-expires">Offer ends April 14, 2026 · Book launches May 15, 2026</div>
+          </div>
+          <div class="countdown-units">
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-days">14</div>
+              <div class="cd-lbl">Days</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-hours">00</div>
+              <div class="cd-lbl">Hours</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-mins">00</div>
+              <div class="cd-lbl">Mins</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+              <div class="cd-num" id="cd-secs">00</div>
+              <div class="cd-lbl">Secs</div>
+            </div>
+          </div>
+          <div class="countdown-sub">After April 14th, the price goes to <strong>$47</strong> — and stays there through the May 15th launch. This is the lowest it will ever be.</div>
+          <div class="countdown-expired" id="cd-expired">The pre-launch window has closed. The book is available at the standard price.</div>
+        </div>
+
+        <div class="pricing-row">
+          <div class="price-main">$27</div>
+          <div class="price-was">$47</div>
+          <div class="price-badge">Pre-Launch Only</div>
+        </div>
+
+        <ul class="pricing-includes">
+          <li>Full digital book — 18 chapters, 200+ pages</li>
+          <li>Complete Operator Workbook (print-ready PDF)</li>
+          <li>90-Day Friction Elimination Framework</li>
+          <li>Lifetime updates as the book expands</li>
+        </ul>
+
+        <button type="button" class="cta-buy" id="stripeCheckoutBtn">
+          Lock In $27 Before It's Gone →
+        </button>
+        <div class="cta-guarantee">
+          30-day money-back guarantee &nbsp;·&nbsp; Instant digital delivery &nbsp;·&nbsp; No subscription
+        </div>
+      </div>
+    </div><!-- /book-card -->
+
+    <!-- DEMO BLOCK -->
+    <div class="demo-block">
+      <div class="demo-eyebrow">For venue operators &amp; teams</div>
+      <h3 class="demo-h3">Want to see how Seamlessly<br>closes your friction gaps in real-time?</h3>
+      <p class="demo-p">The book gives you the framework. The platform runs it. Mobile ordering, ticketing integration, guest journey analytics, and POS consolidation — built for venues like yours.</p>
+      <a href="mailto:maurice.sanders@seamlessly.us?subject=Demo Request — Chaos Mastery" class="cta-demo">
+        Book a 20-Minute Demo →
+      </a>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="page-footer">
+      <div>&copy; 2025 Seamlessly, Inc. &nbsp;&middot;&nbsp; <a href="/">Back to homepage</a> &nbsp;&middot;&nbsp; <a href="mailto:maurice.sanders@seamlessly.us">Contact</a></div>
+      <div style="margin-top:6px;">305-434-0738 &nbsp;&middot;&nbsp; maurice.sanders@seamlessly.us &nbsp;&middot;&nbsp; seamlessly.us</div>
+    </div>
+
+  </div><!-- /shell -->
+
+  <script>
+    // Progress bar
+    window.addEventListener('load', function () {
+      document.getElementById('progressBar').style.width = '66%';
+    });
+
+    // Countdown to April 14, 2026 midnight ET
+    (function () {
+      // Expires end of day April 14 2026 Eastern (UTC-4 during EDT)
+      var expiry = new Date('2026-04-15T04:00:00Z').getTime();
+
+      function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+      function tick() {
+        var now = Date.now();
+        var diff = expiry - now;
+
+        if (diff <= 0) {
+          // Expired — hide countdown units, show expired message, update CTA
+          document.getElementById('cd-expired').style.display = 'block';
+          ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.closest('.cd-unit').style.display = 'none';
+          });
+          document.querySelectorAll('.cd-sep').forEach(function(el) { el.style.display = 'none'; });
+          // Update price to $47
+          var priceEl = document.querySelector('.price-main');
+          if (priceEl) priceEl.textContent = '$47';
+          var wasEl = document.querySelector('.price-was');
+          if (wasEl) wasEl.textContent = '';
+          var badgeEl = document.querySelector('.price-badge');
+          if (badgeEl) badgeEl.textContent = 'Standard Price';
+          var ctaEl = document.getElementById('stripeCheckoutBtn') || document.querySelector('.cta-buy');
+          if (ctaEl) ctaEl.textContent = 'Get the Full Book — $47 →';
+          clearInterval(timer);
+          return;
+        }
+
+        var days  = Math.floor(diff / 86400000);
+        var hours = Math.floor((diff % 86400000) / 3600000);
+        var mins  = Math.floor((diff % 3600000)  / 60000);
+        var secs  = Math.floor((diff % 60000)    / 1000);
+
+        document.getElementById('cd-days').textContent  = pad(days);
+        document.getElementById('cd-hours').textContent = pad(hours);
+        document.getElementById('cd-mins').textContent  = pad(mins);
+        document.getElementById('cd-secs').textContent  = pad(secs);
+      }
+
+      tick();
+      var timer = setInterval(tick, 1000);
+    })();
+
+    (function () {
+      var API_BASE_URL = '/api';
+      var PENDING_CHECKOUT_KEY = 'cmc_pending_checkout';
+      var btn = document.getElementById('stripeCheckoutBtn');
+      if (!btn) return;
+      btn.addEventListener('click', async function () {
+        btn.disabled = true;
+        try {
+          var paymentResponse = await fetch(API_BASE_URL + '/chaos-mastery-stripe-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({}),
+          });
+          var paymentContentType = paymentResponse.headers.get('content-type') || '';
+          if (!paymentContentType.includes('application/json')) {
+            var rawText = await paymentResponse.text();
+            throw new Error(
+              'Payment service returned a non-JSON response (status ' + paymentResponse.status + '). ' +
+              rawText.slice(0, 140)
+            );
+          }
+          var paymentData = await paymentResponse.json();
+          if (!paymentData.success) {
+            throw new Error(paymentData.message || 'Payment initialization failed');
+          }
+          if (paymentData.sessionUrl) {
+            sessionStorage.setItem(PENDING_CHECKOUT_KEY, '1');
+            window.location.href = paymentData.sessionUrl;
+          } else {
+            throw new Error('No checkout session URL received');
+          }
+        } catch (err) {
+          console.error('Payment error:', err);
+          alert(err.message || 'An error occurred. Please try again.');
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams(window.location.search);
+        var raw = q.get('contact');
+        if (!raw) return;
+        var contact = decodeURIComponent(String(raw).replace(/\+/g, ' ')).trim();
+        if (!contact) return;
+        var campaign = (q.get('campaign') || '').trim();
+        var path = (window.location.pathname + (window.location.search || '')).slice(0, 2000);
+        fetch('/api/log-email-click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contact: contact, campaign: campaign, path: path }),
+          keepalive: true,
+        }).catch(function () {});
+      } catch (e) {}
+    })();
+  </script>
+
+</body>
+</html>

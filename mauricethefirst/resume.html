@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maurice Sanders — Resume</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      line-height: 1.5;
+      padding: 24px;
+    }
+
+    .resume-capture {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 24mm;
+      background: #ffffff;
+      color: #1a1a1a;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .resume-capture h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 8px;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .resume-capture .tagline {
+      font-size: 13px;
+      color: #374151;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .resume-capture h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2563eb;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .resume-capture p, .resume-capture li {
+      font-size: 12px;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .resume-capture ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .resume-capture ul li {
+      padding-left: 1em;
+      text-indent: -1em;
+      position: relative;
+    }
+
+    .resume-capture ul li::before {
+      content: "• ";
+      color: #2563eb;
+      font-weight: 700;
+    }
+
+    .resume-capture ul li strong {
+      color: #2563eb;
+    }
+
+    .resume-capture .job-title {
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .resume-capture .job-meta {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .resume-capture .skill-line {
+      font-size: 11px;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .resume-capture .skill-line strong {
+      color: #2563eb;
+    }
+
+    .download-btn {
+      display: inline-block;
+      width: auto;
+      min-width: 160px;
+      max-width: 100%;
+      margin: 24px 8px 32px 0;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      background: #2563eb;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s ease;
+    }
+
+    .download-btn.secondary {
+      background: #374151;
+    }
+
+    .download-btn.secondary:hover {
+      background: #4b5563;
+    }
+
+    .download-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .download-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <button type="button" class="download-btn" id="downloadBtn">Download PNG</button>
+  <button type="button" class="download-btn secondary" id="downloadPdfBtn">Download PDF</button>
+
+  <div class="resume-capture" id="resumeCapture">
+    <h1>Maurice Sanders</h1>
+    <p class="tagline">maurice@mauricethefirst.com • 305-434-0738 • GitHub: https://github.com/MrAfroTech</p>
+
+    <h2>Professional Summary</h2>
+    <p>Founder, Software Engineer, and Product Architect with end-to-end experience designing and shipping multi-product SaaS for hospitality and events. Combines hands-on technical leadership with product management, client liaison, and stakeholder communication: from roadmap and requirements through architecture, delivery, and partnership development. Secured enterprise-level engagements (e.g. Kia Center / Orlando Magic) and delivers across live events, festivals, stadiums, and restaurants. Strong focus on prompt engineering and AI-augmented workflows to accelerate development and operations. Pursuing M.S. in AI/ML at Georgia Tech; CompTIA A+ certified and advancing security credentials (Network+, Security+, CySA+) with a commitment to secure, production-grade software delivery.</p>
+
+    <h2>Technical Skills</h2>
+    <ul>
+      <li><strong>Languages:</strong> Python, JavaScript, TypeScript, Java</li>
+      <li><strong>Frontend:</strong> React 18, React Native/Expo, Next.js, Vite, Tailwind, shadcn/ui, Framer Motion</li>
+      <li><strong>Backend:</strong> Node.js, Express, Supabase, PostgreSQL, Prisma, AWS Lambda, Vercel Serverless</li>
+      <li><strong>POS &amp; Payments:</strong> Stripe, Square, Clover, Shopify (live); Toast, Lightspeed, TouchBistro, NCR Aloha, Oracle Micros, PayPal, Apple/Google Pay, Crypto</li>
+      <li><strong>AI/ML:</strong> OpenAI, Claude, Gemini, Hugging Face, LLaMA 2, FLUX, DALL-E, Cursor, Copilot</li>
+      <li><strong>Email &amp; CRM:</strong> Klaviyo, Brevo</li>
+      <li><strong>Test:</strong> Playwright, Selenium, Cucumber, TestNG, JUnit</li>
+      <li><strong>DevOps &amp; Cloud:</strong> AWS (SAM, Step Functions, IAM, Lambda), GitHub Actions, Docker</li>
+      <li><strong>Cybersecurity:</strong> Secure APIs, DevSecOps, IAM, RBAC, system hardening. CompTIA A+ (2025); in progress: Network+, Security+, CySA+</li>
+    </ul>
+
+    <h2>Education</h2>
+    <ul>
+      <li><strong>Georgia Institute of Technology</strong> — M.S., Artificial Intelligence/Machine Learning (Expected May 2028)</li>
+      <li><strong>Northern Illinois University</strong> — B.S., Computer Science</li>
+    </ul>
+
+    <h2>Professional Experience</h2>
+    <p class="job-title">Founder &amp; Chief Technology Officer — Seamlessly — Remote</p>
+    <p class="job-meta">Jan 2025 – Present</p>
+    <ul>
+      <li>Own end-to-end architecture and delivery of multi-product hospitality SaaS: monorepo (npm workspaces), multiple surfaces (web, mobile, serverless), and deployment pipelines.</li>
+      <li>Drive product roadmap, sprint planning, and releases across customer ordering, ticketing, payments, inventory, and vendor onboarding.</li>
+      <li>Manage cross-functional team (developers, content); Agile workflows, Jira automation, retrospectives.</li>
+      <li>Integrate and maintain live POS/payment providers (Square, Clover, Shopify, Stripe); own health checks, rollback, and menu sync services.</li>
+      <li>Secure and grow enterprise partnerships (e.g. Kia Center); deliver for live events, festivals, stadiums, restaurants.</li>
+      <li>Deliver stakeholder and investor presentations; use AI tooling (Cursor, Copilot) to accelerate feature delivery.</li>
+    </ul>
+    <br>
+    <br>
+    <p class="job-title">Quality Assurance Engineer — Bellomy — Remote</p>
+    <p class="job-meta">Feb 2023 – Jan 2025</p>
+    <ul>
+      <li>Designed and maintained 100+ automated test scripts using Selenium, Java, and Playwright, increasing test coverage by 35%.</li>
+      <li>Leveraged AI prompting tools (OpenAI, Claude) to enhance test automation and reduce manual debugging by 40%.</li>
+      <li>Collaborated with development, support, and product teams, improving issue resolution time by 20%.</li>
+      <li>Identified and reported critical software bugs, preventing production-level security and functionality issues.</li>
+      <li>Applied comprehensive systems knowledge from hardware to software layers to effectively diagnose root causes of complex issues.</li>
+    </ul>
+
+    <p class="job-title">DevOps Engineer — Comcast — Remote</p>
+    <p class="job-meta">Aug 2022 – Nov 2022</p>
+    <ul>
+      <li>Designed secure and scalable AWS Step Functions workflows for serverless applications using the AWS SAM framework.</li>
+      <li>Integrated IAM roles and DevSecOps practices to ensure secure cloud deployment pipelines.</li>
+      <li>Automated front-end validation using Playwright, reducing manual test efforts by 40%.</li>
+    </ul>
+
+    <h2>Projects in GitHub</h2>
+    <ul>
+      <li>Guest-first mobile ordering marketplace: QR ordering, multi-vendor checkout, real-time vendor UI (WebSockets), Stripe gift card flows.</li>
+      <li>White-label event ticketing: Stripe Checkout, Supabase ticket DB, webhooks, QR validation, check-in reporting.</li>
+      <li>Multi-POS payment orchestration: Lambda processors, health checks, rollback; live Square, Clover, Shopify, Stripe; stubs for Toast, Lightspeed, TouchBistro, NCR Aloha, Oracle Micros, PayPal, Apple/Google Pay, crypto.</li>
+      <li>Vendor marketing and onboarding site: lead capture, OAuth, revenue/expense calculators, tiered landing pages.</li>
+      <li>Inventory management: vendor/product tracking, COGS and profit analytics, stock-change models (Supabase).</li>
+      <li>Digital wallet passes: Apple Wallet and Google Wallet; authorize, capture, load, balance, refund.</li>
+      <li>AI agents and automation: scrapers, contact automation, prospecting workflows; Jira sprint and social task automation.</li>
+      <li>Cold-call analytics tracker (Vite + Supabase, CSV export); investor/capital dinner React app.</li>
+      <li>Full-stack AI chat application: secure auth, LLM integration, testing across staging and production.</li>
+      <li>Visual regression testing: Playwright + Pixelmatch for pixel-level UI accuracy and change detection.</li>
+      <li>Quantitative research pipelines: Python, yfinance, Hugging Face Transformers, TA-Lib; secure data and API handling.</li>
+    </ul>
+
+    <h2>Additional Strengths</h2>
+    <ul>
+      <li>Builds automation and test frameworks from scratch</li>
+      <li>Strong focus on secure software delivery and DevSecOps</li>
+      <li>Architect, build, and ship multi-product SaaS end-to-end</li>
+      <li>Strong stakeholder communication and presentation skills</li>
+      <li>AI-enhanced development and problem-solving</li>
+      <li>Systems understanding from hardware to advanced software</li>
+    </ul>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    (function() {
+      var captureEl = document.getElementById('resumeCapture');
+      var defaultPngText = 'Download PNG';
+      var defaultPdfText = 'Download PDF';
+
+      function getPdfFilename() {
+        return 'Maurice-Sanders-Resume.pdf';
+      }
+
+      document.getElementById('downloadBtn').addEventListener('click', function() {
+        var btn = this;
+        btn.disabled = true;
+        btn.textContent = 'Generating PNG...';
+        var btnOriginalDisplay = btn.style.display;
+        btn.style.display = 'none';
+
+        html2canvas(captureEl, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          onclone: function(clonedDoc, clonedNode) {
+            var style = clonedNode.style;
+            if (style) {
+              style.background = '#ffffff';
+              style.backgroundColor = '#ffffff';
+            }
+          }
+        }).then(function(canvas) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultPngText;
+          var imgData = canvas.toDataURL('image/png');
+          var link = document.createElement('a');
+          link.download = 'Maurice-Sanders-Resume.png';
+          link.href = imgData;
+          link.click();
+        }).catch(function(err) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultPngText;
+          console.error('PNG generation failed:', err);
+        });
+      });
+
+      document.getElementById('downloadPdfBtn').addEventListener('click', function() {
+        var btn = this;
+        btn.disabled = true;
+        btn.textContent = 'Generating PDF...';
+        var btnOriginalDisplay = btn.style.display;
+        btn.style.display = 'none';
+
+        html2canvas(captureEl, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          onclone: function(clonedDoc, clonedNode) {
+            var style = clonedNode.style;
+            if (style) {
+              style.background = '#ffffff';
+              style.backgroundColor = '#ffffff';
+            }
+          }
+        }).then(function(canvas) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultPdfText;
+
+          var cw = canvas.width;
+          var ch = canvas.height;
+          var imgData = canvas.toDataURL('image/png');
+          var pdf = new window.jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+          var pageW = 210;
+          var pageH = 297;
+          var imgW = pageW;
+          var imgH = pageW * (ch / cw);
+          if (imgH <= pageH) {
+            pdf.addImage(imgData, 'PNG', 0, 0, imgW, imgH);
+          } else {
+            var totalPages = Math.ceil(imgH / pageH);
+            for (var p = 0; p < totalPages; p++) {
+              if (p > 0) pdf.addPage();
+              pdf.addImage(imgData, 'PNG', 0, -p * pageH, imgW, imgH);
+            }
+          }
+          pdf.save(getPdfFilename());
+        }).catch(function(err) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultPdfText;
+          console.error('PDF generation failed:', err);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

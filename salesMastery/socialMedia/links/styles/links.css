@@ -1,0 +1,203 @@
+.links-page {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.links-brand {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.links-brand .brand {
+  font-size: 18px;
+  text-decoration: none;
+  color: var(--gold);
+}
+
+.links-profile {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 22px 20px;
+  border-radius: 24px;
+  background: rgba(26, 42, 68, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.links-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gold);
+  margin: 0 auto 16px;
+  display: block;
+  background: var(--navy);
+}
+
+.links-profile-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.links-profile-handle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal);
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.links-profile-bio {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.55;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.links-profile-sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+  max-width: 340px;
+  margin: 10px auto 0;
+}
+
+.links-profile .accent-bar {
+  margin: 20px auto 0;
+}
+
+.links-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.links-nav .link {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 20px 22px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+}
+
+.links-nav .link-label {
+  display: block;
+  line-height: 1.25;
+}
+
+.links-nav .link-desc {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: none;
+}
+
+.links-nav .link:hover {
+  text-decoration: none;
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+.links-nav .link:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+/* Hero CTA — prominent rounded-square card (reference-style) */
+.links-nav .link-hero {
+  background: var(--gold);
+  color: var(--navy);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 1.5px;
+  padding: 24px 22px;
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(212, 175, 55, 0.35);
+}
+
+.links-nav .link-hero:hover {
+  background: #e0c04a;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(224, 192, 74, 0.45);
+}
+
+.links-nav .link-hero .link-hint {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: rgba(26, 42, 68, 0.7);
+}
+
+.links-nav .link-hero .link-desc {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(26, 42, 68, 0.82);
+}
+
+.links-nav .link-secondary .link-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: var(--gold);
+}
+
+.links-nav .link-secondary {
+  background: rgba(26, 42, 68, 0.58);
+  color: var(--gold);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.links-nav .link-secondary:hover {
+  background: rgba(26, 42, 68, 0.72);
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.links-footer {
+  margin-top: auto;
+  padding-top: 32px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.5px;
+}
+
+.links-footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.links-footer a:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}

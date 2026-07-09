@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeyYou Powered by Seamlessly — Carousel Week</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --gold:          #C9A84C;
+      --gold-light:    #E2C97E;
+      --gold-dark:     #9A7828;
+      --silver-light:  #E8E8E8;
+      --silver-mid:    #A8A9AD;
+      --silver-dark:   #6E6E6E;
+      --white-base:    #F8F6F2;
+      --charcoal:      #1C1C1E;
+      --charcoal-soft: #2E2E30;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #111112;
+      padding: 40px 32px 80px;
+      color: var(--white-base);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+
+    .page-header {
+      width: 1080px;
+      margin: 0 auto 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+    }
+    .page-header-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: 0.04em;
+      color: var(--white-base);
+      line-height: 1;
+    }
+    .page-header h1 span { color: var(--gold); }
+    .page-header-sub { font-size: 13px; color: rgba(248,246,242,0.45); margin-top: 8px; }
+
+    .day-label {
+      width: 1080px;
+      margin: 48px auto 12px;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: rgba(201,168,76,0.55);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .day-label::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.15); }
+
+    .carousel { width: 1080px; margin: 0 auto 8px; }
+    .carousel-window { width: 1080px; overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+
+    /* ── SLIDE ── */
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      flex-shrink: 0;
+      position: relative;
+      padding: 80px 108px 108px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* WHITE */
+    .white-slide { background: var(--white-base); color: var(--charcoal); }
+    .white-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(168,169,173,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .white-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(105deg, transparent 0px, transparent 2px, rgba(201,168,76,0.012) 2px, rgba(201,168,76,0.012) 3px);
+      pointer-events: none;
+    }
+
+    /* SILVER */
+    .silver-slide {
+      background: linear-gradient(135deg, #CECECE 0%, #B8B8B8 30%, #D4D4D4 55%, #ADADAD 80%, #C8C8C8 100%);
+      color: var(--charcoal);
+    }
+    .silver-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.35) 0%, transparent 45%),
+        radial-gradient(ellipse at 30% 80%, rgba(100,100,100,0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, rgba(201,168,76,0.08) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .silver-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(115deg, transparent 0px, transparent 4px, rgba(255,255,255,0.06) 4px, rgba(255,255,255,0.06) 5px);
+      pointer-events: none;
+    }
+
+    /* GOLD */
+    .gold-slide {
+      background: linear-gradient(135deg, #C9A84C 0%, #B8962A 30%, #D4B655 55%, #9A7828 80%, #C9A84C 100%);
+      color: var(--charcoal);
+    }
+    .gold-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 20%, rgba(255,255,255,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 20% 75%, rgba(100,70,0,0.18) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .gold-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(120deg, transparent 0px, transparent 3px, rgba(255,255,255,0.045) 3px, rgba(255,255,255,0.045) 4px);
+      pointer-events: none;
+    }
+
+    /* ── PROFILE ── */
+    .profile { display: flex; align-items: center; gap: 18px; margin-bottom: 80px; position: relative; z-index: 2; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .white-slide .avatar  { background: rgba(201,168,76,0.12); border: 2px solid rgba(201,168,76,0.45); }
+    .silver-slide .avatar { background: rgba(255,255,255,0.3);  border: 2px solid rgba(255,255,255,0.6); }
+    .gold-slide .avatar   { background: rgba(28,28,30,0.12);    border: 2px solid rgba(28,28,30,0.3); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .white-slide  .avatar-placeholder svg { stroke: rgba(201,168,76,0.5); }
+    .silver-slide .avatar-placeholder svg { stroke: rgba(28,28,30,0.35); }
+    .gold-slide   .avatar-placeholder svg { stroke: rgba(28,28,30,0.4); }
+    .avatar-placeholder svg { width: 28px; height: 28px; stroke-width: 1.5; fill: none; }
+
+    .profile-name   { font-family: 'DM Sans', sans-serif; font-size: 21px; font-weight: 700; line-height: 1.2; color: var(--charcoal); }
+    .profile-handle { font-size: 17px; font-weight: 300; margin-top: 2px; }
+    .white-slide  .profile-handle { color: rgba(201,168,76,0.75); }
+    .silver-slide .profile-handle { color: rgba(28,28,30,0.5); }
+    .gold-slide   .profile-handle { color: rgba(28,28,30,0.5); }
+
+    /* ── CONTENT ── */
+    .content { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+
+    .slide-rule { width: 56px; height: 3px; margin-bottom: 32px; flex-shrink: 0; }
+    .white-slide  .slide-rule { background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+    .silver-slide .slide-rule { background: linear-gradient(90deg, var(--charcoal), var(--silver-dark)); }
+    .gold-slide   .slide-rule { background: linear-gradient(90deg, rgba(28,28,30,0.7), rgba(28,28,30,0.3)); }
+
+    /* Title — Bebas Neue, all-caps by nature */
+    .slide-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 78px;
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      max-width: 840px;
+      color: var(--charcoal);
+    }
+    .white-slide  .slide-title .accent { color: var(--gold-dark); }
+    .silver-slide .slide-title .accent { color: rgba(28,28,30,0.55); }
+    .gold-slide   .slide-title .accent { color: rgba(248,246,242,0.85); }
+
+    /*
+      HeyYou brand name — must render with mixed case.
+      Bebas Neue is all-caps so we override to DM Sans Bold
+      and match the visual weight of the surrounding Bebas headline.
+    */
+    .heyyou-brand {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.88em;        /* slightly smaller to optically match Bebas cap height */
+      letter-spacing: 0.04em;
+      display: inline;
+    }
+    /* Keep accent color rules working inside .heyyou-brand too */
+    .white-slide  .slide-title .heyyou-brand { color: var(--charcoal); }
+    .silver-slide .slide-title .heyyou-brand { color: var(--charcoal); }
+    .gold-slide   .slide-title .heyyou-brand { color: var(--charcoal); }
+    /* accent inside heyyou-brand (if ever needed) */
+    .white-slide  .slide-title .heyyou-brand.accent { color: var(--gold-dark); }
+    .silver-slide .slide-title .heyyou-brand.accent { color: rgba(28,28,30,0.55); }
+    .gold-slide   .slide-title .heyyou-brand.accent { color: rgba(248,246,242,0.85); }
+
+    /* Body — DM Serif italic */
+    .slide-body {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 38px;
+      line-height: 1.45;
+      max-width: 800px;
+      color: rgba(28,28,30,0.82);
+    }
+
+    /* Sub */
+    .slide-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 26px;
+      font-weight: 300;
+      line-height: 1.55;
+      max-width: 780px;
+      margin-top: 28px;
+    }
+    .white-slide  .slide-sub { color: rgba(28,28,30,0.55); }
+    .silver-slide .slide-sub { color: rgba(28,28,30,0.55); }
+    .gold-slide   .slide-sub { color: rgba(28,28,30,0.60); }
+
+    /* Ghost number */
+    .ghost {
+      position: absolute; bottom: 16px; right: 56px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 300px; line-height: 1; letter-spacing: -12px;
+      user-select: none; pointer-events: none; z-index: 1;
+    }
+    .white-slide  .ghost { color: rgba(201,168,76,0.07); }
+    .silver-slide .ghost { color: rgba(28,28,30,0.06); }
+    .gold-slide   .ghost { color: rgba(28,28,30,0.08); }
+
+    /* Accent bar */
+    .slide-accent-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
+    .white-slide  .slide-accent-bar { background: linear-gradient(180deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--silver-mid) 100%); }
+    .silver-slide .slide-accent-bar { background: linear-gradient(180deg, var(--gold) 0%, var(--silver-dark) 100%); }
+    .gold-slide   .slide-accent-bar { background: linear-gradient(180deg, var(--charcoal) 0%, var(--charcoal-soft) 100%); }
+
+    /* Watermark */
+    .watermark {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.18em; white-space: nowrap; z-index: 10;
+    }
+    /* "HeyYou" in watermark — mixed case, letter-spacing stripped */
+    .wm-brand { font-weight: 700; letter-spacing: 0.06em; }
+
+    .white-slide  .watermark { color: rgba(28,28,30,0.28); }
+    .white-slide  .watermark .wm-brand { color: var(--gold-dark); opacity: 0.75; }
+    .silver-slide .watermark { color: rgba(28,28,30,0.32); }
+    .silver-slide .watermark .wm-brand { color: var(--gold-dark); opacity: 0.85; }
+    .gold-slide   .watermark { color: rgba(28,28,30,0.28); }
+    .gold-slide   .watermark .wm-brand { color: rgba(28,28,30,0.55); }
+
+    /* ── NAV ── */
+    .nav { width: 1080px; margin: 12px auto 0; display: flex; justify-content: space-between; align-items: center; }
+    .nav-btn {
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; border: 1px solid rgba(201,168,76,0.4);
+      background: transparent; color: var(--gold); border-radius: 3px; transition: all 0.2s;
+    }
+    .nav-btn:hover:not(:disabled) { background: var(--gold); color: #1C1C1E; }
+    .nav-btn:disabled { opacity: 0.2; cursor: default; }
+    .dots { display: flex; gap: 8px; align-items: center; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(201,168,76,0.2); transition: all 0.3s; }
+    .dot.active { background: var(--gold); width: 20px; border-radius: 4px; }
+
+    .download-btn {
+      display: block; width: 1080px; margin: 10px auto 0;
+      padding: 14px 24px; font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: opacity 0.2s;
+    }
+    .download-btn:disabled { opacity: 0.4; cursor: default; }
+    .download-current { background: linear-gradient(135deg, var(--gold-dark), var(--gold-light)); color: #1C1C1E; border: none; }
+    .download-current:hover:not(:disabled) { opacity: 0.85; }
+    .download-all { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); margin-top: 6px; }
+    .download-all:hover:not(:disabled) { background: rgba(201,168,76,0.08); }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-label">HeyYou Powered by Seamlessly · Guest Intelligence Series</div>
+  <h1>THE <span>HeyYou</span> CAROUSEL SYSTEM</h1>
+  <div class="page-header-sub">14 carousels · Guest POV · Staff POV · The Math · Metallic Color System</div>
+</div>
+
+<div id="root"></div>
+
+<script>
+(function () {
+
+  const PHOTO_SRC = encodeURI('personalBrandPhotos/profilePic.png');
+
+  // HeyYou brand HTML — DM Sans Bold so mixed case actually renders
+  // Used wherever the brand name appears in a Bebas Neue slide-title
+  const HY = '<span class="heyyou-brand">HeyYou</span>';
+
+  // Theme sets per carousel:
+  // "wsg" = white / silver / gold mix (5-slide pattern)
+  // "sg"  = silver / gold only (5-slide pattern, no white)
+  const THEME_SETS = {
+    wsg: ['white-slide',  'silver-slide', 'gold-slide',   'silver-slide', 'white-slide'],
+    sg:  ['silver-slide', 'gold-slide',   'silver-slide', 'gold-slide',   'silver-slide']
+  };
+
+  // 14 carousels — alternating set type for variety
+  // wsg, sg, wsg, sg … with a few intentional runs
+  const CAROUSEL_SETS = [
+    'wsg', // 0  Monday Hook
+    'wsg', // 1  Tue Guest POV
+    'sg',  // 2  Wed Guest POV
+    'wsg', // 3  Thu Guest POV
+    'sg',  // 4  Fri Guest POV
+    'wsg', // 5  Sat Guest POV (The Math)
+    'sg',  // 6  Tue Staff POV
+    'wsg', // 7  Wed Staff POV
+    'sg',  // 8  Thu Staff POV
+    'wsg', // 9  Fri Staff POV
+    'sg',  // 10 Sat Staff POV (The Math)
+    'wsg', // 11 Mon Wk2 System Hook
+    'sg',  // 12 Evergreen Before/After
+    'wsg', // 13 Evergreen Cost of Nothing
+    'sg',  // 14 Top 5 Reasons Guests Become Regulars
+  ];
+
+  const DATA = [
+    {
+      day: 'Monday — The Hook',
+      slides: [
+        { title: '9 minutes cost that venue 50% of my tab.' },
+        { body: 'Nobody was rude. Nobody made a mistake.' },
+        { body: 'There was just a window where nobody made me feel worth staying for.' },
+        { body: 'That window exists in your venue every single night.' },
+        { title: 'That 9 minute window has a <span class="accent">dollar amount.</span>', sub: 'Most operators never calculate it.' }
+      ]
+    },
+    {
+      day: 'Tuesday — Before They Walk In (Guest POV)',
+      slides: [
+        { title: 'Your best customer is 2 minutes away.<br><span class="accent">Does your staff know?</span>' },
+        { body: "They've been here four times. They always order the same thing. They tip well. They bring people." },
+        { body: "Right now they're walking in cold. Same as a stranger." },
+        { body: 'HeyYou sends your staff a notification before they reach the door. Name. Last order. Preference.' },
+        { title: 'The greeting changes.<br>The experience changes.<br><span class="accent">The tab changes.</span>' }
+      ]
+    },
+    {
+      day: 'Wednesday — The Greeting (Guest POV)',
+      slides: [
+        { title: 'They walked in.<br>Your staff already knew their name<br><span class="accent">and their last order.</span>' },
+        { body: "Not because your staff has a great memory. Because your system does." },
+        { body: "That guest felt seen before they sat down." },
+        { body: "Feeling seen is the difference between a one-time visitor and a regular." },
+        { title: 'Turns that moment from<br><span class="accent">luck</span> into a system.' }
+      ]
+    },
+    {
+      day: 'Thursday — The Round (Guest POV)',
+      slides: [
+        { title: 'Time for another round.<br>One tap.<br><span class="accent">No awkward looks. No wait.</span>' },
+        { body: "The average guest abandons a reorder after 4 minutes of being ignored." },
+        { body: "They don't complain. They just stop ordering. And they don't come back." },
+        { body: 'HeyYou puts a reorder button in their hand the moment their glass gets low.' },
+        { title: 'One extra round per table.<br>Every night.<br><span class="accent">Do that math.</span>' }
+      ]
+    },
+    {
+      day: 'Friday — The Exit (Guest POV)',
+      slides: [
+        { title: 'They paid. Tipped. Left happy.<br><span class="accent">Nobody chased them down for a check.</span>' },
+        { body: "The check moment is where hospitality either ends well or falls apart." },
+        { body: "Waiting for a check after a great meal is the last impression your venue leaves." },
+        { body: 'HeyYou closes the tab from their phone. No wait. No awkward wave. No ruined exit.' },
+        { title: 'The last 60 seconds determine whether<br><span class="accent">they come back.</span><br>Make them count.' }
+      ]
+    },
+    {
+      day: 'Saturday — The Math (Guest POV)',
+      slides: [
+        { title: 'One visit.<br>Zero friction.<br><span class="accent">Every moment accounted for.</span>' },
+        { body: "Before they arrived — staff was ready. The greeting landed. They felt known." },
+        { body: "During the visit — reorders happened without a wait. Revenue didn't walk out the door." },
+        { body: "At checkout — clean exit. Good tip. Great last impression." },
+        { title: 'The guest intelligence layer that turns<br><span class="accent">first-time visitors</span><br>into regulars.' }
+      ]
+    },
+    {
+      day: 'Tuesday — Before They Walk In (Staff POV)',
+      slides: [
+        { title: 'You knew they were coming<br><span class="accent">before they walked in the door.</span>' },
+        { body: "Name on your screen. Last order. How they like it. Who they usually bring." },
+        { body: "You're not guessing. You're not scrambling. You're ready." },
+        { body: "That's not luck. That's HeyYou." },
+        { title: 'Your staff stops <span class="accent">reacting</span><br>and starts <span class="accent">anticipating.</span>' }
+      ]
+    },
+    {
+      day: 'Wednesday — The Greeting (Staff POV)',
+      slides: [
+        { title: 'You called them by name<br><span class="accent">before they sat down.</span>' },
+        { body: "Not because you remembered. Because your system did." },
+        { body: "That guest's face changed. They felt it." },
+        { body: "That moment took 3 seconds. It will keep them coming back for years." },
+        { title: 'Gives your staff the memory of a veteran<br><span class="accent">on day one.</span>' }
+      ]
+    },
+    {
+      day: 'Thursday — The Round (Staff POV)',
+      slides: [
+        { title: "You didn't have to watch every table<br><span class='accent'>waiting for a signal.</span>" },
+        { body: "HeyYou told you table 7 was ready before they had to ask." },
+        { body: "You arrived with the round. They hadn't even finished asking." },
+        { body: "That's not attentive service. That's an intelligent system making you look like the best in the room." },
+        { title: "Your staff stops <span class='accent'>chasing</span> tables<br>and starts <span class='accent'>owning</span> them." }
+      ]
+    },
+    {
+      day: 'Friday — The Exit (Staff POV)',
+      slides: [
+        { title: "You didn't have to do<br><span class='accent'>the awkward check dance.</span>" },
+        { body: "No hovering. No interrupting a conversation. No missed signal." },
+        { body: "They paid from their phone. Left a great tip. Said goodbye on their way out." },
+        { body: "Your last interaction was a warm send-off. Not a transaction." },
+        { title: HY + " makes sure the exit<br>is <span class='accent'>the right one.</span>" }
+      ]
+    },
+    {
+      day: 'Saturday — The Math (Staff POV)',
+      slides: [
+        { title: "You had your best shift<br>in months.<br><span class='accent'>Everything was perfect.</span>" },
+        { body: "You weren't reacting all night. You were always one step ahead." },
+        { body: "Tables turned faster. Tips were higher. Guests left happy." },
+        { body: "Your staff didn't work harder. They worked smarter." },
+        { title: "Built for the guest.<br><span class='accent'>Designed for the staff.</span>" }
+      ]
+    },
+    {
+      day: 'Monday (Week 2) — The System Hook',
+      slides: [
+        { title: "Your staff isn't rude.<br>Your system is.<br><span class='accent'>And it's costing you.</span>" },
+        { body: "The wait isn't a staffing problem. It never was." },
+        { body: "You hired more people. The complaints didn't stop." },
+        { body: "Because the problem isn't the people. It's the moments nobody is managing." },
+        { title: HY + " manages the moments<br><span class='accent'>your staff can't see.</span>" }
+      ]
+    },
+    {
+      day: 'Evergreen — The Before / After',
+      slides: [
+        { title: "Two identical venues.<br><span class='accent'>Two completely different nights.</span>" },
+        { body: "Before: Guest walks in. Staff scrambles. No context. Cold greeting. They feel like a stranger." },
+        { body: "After: Guest walks in. Staff is ready. Name. Order. Preference. They feel like a regular." },
+        { body: "Before: Guest wants another round. Waits 4 minutes. Gives up. Tab closes early." },
+        { title: "After: Guest taps once.<br>Round arrives.<br><span class='accent'>Tab stays open.</span>" }
+      ]
+    },
+    {
+      day: 'Evergreen — The Cost of Doing Nothing',
+      slides: [
+        { title: "The guests who left quietly<br>last night —<br><span class='accent'>you don't know their names.</span>" },
+        { body: "The guest who waited too long and didn't reorder — gone." },
+        { body: "The regular who felt like a stranger — gone." },
+        { body: "The table that left before dessert, because the check took too long — gone." },
+        { title: "You didn't lose them to a competitor.<br>You lost them to<br><span class='accent'>a moment nobody managed.</span>" },
+        { title: "What's the moment at your venue<br>that loses guests before<br><span class='accent'>you even realize they're gone?</span>", sub: 'Name it ↓' }
+      ]
+    },
+    {
+      day: 'Top 5 — Reasons Guests Become Regulars',
+      slides: [
+        { title: 'If Guests Aren\'t Coming Back. <span class="accent"> One of These 5 Things Is Missing</span>', theme: 'silver-slide' },
+        { title: 'They feel genuinely welcomed.', sub: 'The first impression feels warm, human, and intentional.', theme: 'gold-slide' },
+        { title: 'The service is attentive<br>without being intrusive.', sub: 'Guests feel looked after, not interrupted.', theme: 'silver-slide' },
+        { title: 'Everything feels seamless.', sub: 'From greeting to goodbye, the visit flows smoothly and effortlessly.', theme: 'gold-slide' },
+        { title: 'Small details stand out.', sub: 'Timing, tone, presentation, and little thoughtful touches make the visit memorable.', theme: 'silver-slide' },
+        { title: 'The atmosphere makes them<br>want to stay longer.', sub: 'The energy, vibe, and hospitality make the space feel comfortable and inviting.', theme: 'gold-slide' },
+        { title: 'Which one does your venue<br>do best —<br><span class="accent">and which one needs work?</span>', sub: '↓', theme: 'silver-slide' }
+      ]
+    }
+  ];
+
+  const root = document.getElementById('root');
+
+  DATA.forEach(function (item, di) {
+
+    const setKey = CAROUSEL_SETS[di] || 'wsg';
+    const THEMES = THEME_SETS[setKey];
+
+    const dayLabel = document.createElement('div');
+    dayLabel.className = 'day-label';
+    dayLabel.textContent = item.day;
+    root.appendChild(dayLabel);
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+    const win = document.createElement('div');
+    win.className = 'carousel-window';
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+
+    const slides = [];
+
+    item.slides.forEach(function (sd, si) {
+      const theme = sd.theme || THEMES[si % THEMES.length];
+      const slide = document.createElement('div');
+      slide.className = 'slide ' + theme;
+
+      // accent bar
+      const bar = document.createElement('div');
+      bar.className = 'slide-accent-bar';
+      slide.appendChild(bar);
+
+      // profile
+      const profile = document.createElement('div');
+      profile.className = 'profile';
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      const img = document.createElement('img');
+      img.src = PHOTO_SRC;
+      img.alt = 'Maurice Sanders';
+      const ph = document.createElement('div');
+      ph.className = 'avatar-placeholder';
+      ph.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+      ph.style.display = 'none';
+      img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+      avatar.appendChild(img); avatar.appendChild(ph);
+      const info = document.createElement('div');
+      const nameEl = document.createElement('div');
+      nameEl.className = 'profile-name';
+      nameEl.textContent = 'Maurice Sanders';
+      const handleEl = document.createElement('div');
+      handleEl.className = 'profile-handle';
+      handleEl.textContent = '@maurice.seamlessly';
+      info.appendChild(nameEl); info.appendChild(handleEl);
+      profile.appendChild(avatar); profile.appendChild(info);
+      slide.appendChild(profile);
+
+      // content
+      const content = document.createElement('div');
+      content.className = 'content';
+
+      if (sd.title) {
+        const rule = document.createElement('div');
+        rule.className = 'slide-rule';
+        content.appendChild(rule);
+        const title = document.createElement('div');
+        title.className = 'slide-title';
+        title.innerHTML = sd.title;
+        content.appendChild(title);
+        if (sd.sub) {
+          const sub = document.createElement('div');
+          sub.className = 'slide-sub';
+          sub.textContent = sd.sub;
+          content.appendChild(sub);
+        }
+      } else if (sd.body) {
+        const body = document.createElement('div');
+        body.className = 'slide-body';
+        body.textContent = sd.body;
+        content.appendChild(body);
+      }
+
+      slide.appendChild(content);
+
+      // ghost number
+      const ghost = document.createElement('div');
+      ghost.className = 'ghost';
+      ghost.textContent = si + 1;
+      slide.appendChild(ghost);
+
+      // watermark — "HeyYou Powered by Seamlessly" with brand casing
+      const wm = document.createElement('div');
+      wm.className = 'watermark';
+      wm.innerHTML = '<span class="wm-brand">HeyYou</span> Powered by Seamlessly';
+      slide.appendChild(wm);
+
+      track.appendChild(slide);
+      slides.push(slide);
+    });
+
+    win.appendChild(track);
+    carousel.appendChild(win);
+
+    let current = 0;
+
+    const nav = document.createElement('div');
+    nav.className = 'nav';
+    const prev = document.createElement('button');
+    prev.className = 'nav-btn'; prev.textContent = '← Back';
+    const next = document.createElement('button');
+    next.className = 'nav-btn'; next.textContent = 'Next →';
+    const dots = document.createElement('div');
+    dots.className = 'dots';
+    const dotEls = slides.map(function (_, i) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      dots.appendChild(d); return d;
+    });
+
+    function slideBg(s) {
+      if (s.classList.contains('silver-slide')) return '#C8C8C8';
+      if (s.classList.contains('gold-slide'))   return '#C9A84C';
+      return '#F8F6F2';
+    }
+    function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+    function capture(s, n) {
+      return html2canvas(s, { scale: 1, useCORS: true, allowTaint: true, logging: false, backgroundColor: slideBg(s) }).then(function (c) {
+        const a = document.createElement('a');
+        a.download = 'heyyou-' + slug(item.day) + '-slide-' + n + '.png';
+        a.href = c.toDataURL('image/png');
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      });
+    }
+
+    const dlBtn = document.createElement('button');
+    dlBtn.type = 'button'; dlBtn.className = 'download-btn download-current';
+    const dlAllBtn = document.createElement('button');
+    dlAllBtn.type = 'button'; dlAllBtn.className = 'download-btn download-all';
+    dlAllBtn.textContent = 'Download All Slides';
+
+    function updateLabel() { dlBtn.textContent = 'Download PNG — Slide ' + (current + 1) + ' of ' + slides.length; }
+    function update() {
+      track.style.transform = 'translateX(-' + (current * 1080) + 'px)';
+      dotEls.forEach(function (d, i) { d.className = 'dot' + (i === current ? ' active' : ''); });
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      updateLabel();
+    }
+
+    dlBtn.addEventListener('click', function () {
+      dlBtn.disabled = true; dlBtn.textContent = 'Generating…';
+      const orig = dlBtn.style.display; dlBtn.style.display = 'none';
+      capture(slides[current], current + 1).then(function () {
+        dlBtn.style.display = orig; dlBtn.disabled = false; updateLabel();
+      }).catch(function (e) { dlBtn.style.display = orig; dlBtn.disabled = false; updateLabel(); console.error(e); });
+    });
+
+    dlAllBtn.addEventListener('click', function () {
+      const saved = current;
+      dlAllBtn.disabled = true; dlBtn.disabled = true;
+      let chain = Promise.resolve();
+      slides.forEach(function (s, i) {
+        chain = chain.then(function () {
+          current = i; update();
+          dlAllBtn.textContent = 'Generating ' + (i + 1) + ' / ' + slides.length + '…';
+          return capture(s, i + 1);
+        });
+      });
+      chain.then(function () {
+        current = saved; update(); dlAllBtn.disabled = false; dlBtn.disabled = false; dlAllBtn.textContent = 'Download All Slides';
+      }).catch(function (e) {
+        current = saved; update(); dlAllBtn.disabled = false; dlBtn.disabled = false; dlAllBtn.textContent = 'Download All Slides'; console.error(e);
+      });
+    });
+
+    prev.onclick = function () { if (current > 0) { current--; update(); } };
+    next.onclick = function () { if (current < slides.length - 1) { current++; update(); } };
+
+    nav.appendChild(prev); nav.appendChild(dots); nav.appendChild(next);
+    carousel.appendChild(nav);
+    update();
+
+    root.appendChild(carousel);
+    root.appendChild(dlBtn);
+    root.appendChild(dlAllBtn);
+  });
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+tier,league,team_name,website
+UFL,United Football League,Arlington Renegades,https://www.ufl.com/teams/arlington-renegades
+UFL,United Football League,Birmingham Stallions,https://www.ufl.com/teams/birmingham-stallions
+UFL,United Football League,DC Defenders,https://www.ufl.com/teams/dc-defenders
+UFL,United Football League,Houston Roughnecks,https://www.ufl.com/teams/houston-roughnecks
+UFL,United Football League,Memphis Showboats,https://www.ufl.com/teams/memphis-showboats
+UFL,United Football League,Michigan Panthers,https://www.ufl.com/teams/michigan-panthers
+UFL,United Football League,San Antonio Brahmas,https://www.ufl.com/teams/san-antonio-brahmas
+UFL,United Football League,St. Louis Battlehawks,https://www.ufl.com/teams/st-louis-battlehawks
+IFL,Indoor Football League,Billings Outlaws,https://www.ifl.football
+IFL,Indoor Football League,Cedar Rapids River Kings,https://www.ifl.football
+IFL,Indoor Football League,Green Bay Blizzard,https://www.greenbayfootball.com
+IFL,Indoor Football League,Iowa Barnstormers,https://www.iowabarnstormers.com
+IFL,Indoor Football League,Jalisco Charros,https://www.ifl.football
+IFL,Indoor Football League,Mesquite Outlaws,https://www.ifl.football
+IFL,Indoor Football League,Northern Arizona Wranglers,https://www.ifl.football
+IFL,Indoor Football League,Quad City Steamwheelers,https://www.steamwheelers.com
+IFL,Indoor Football League,Salt Lake Screaming Eagles,https://www.ifl.football
+IFL,Indoor Football League,Sioux Falls Storm,https://www.sfstorm.com
+IFL,Indoor Football League,Tucson Sugar Skulls,https://www.sugarskullsfootball.com
+IFL,Indoor Football League,Wichita Force,https://www.ifl.football
+NAL,National Arena League,Albany Empire,https://www.albanyfootball.com
+NAL,National Arena League,Atlantic City Beachcombers,https://www.nationalarenaleague.com
+NAL,National Arena League,Carolina Cobras,https://www.carolinacobras.net
+NAL,National Arena League,Columbus Fire,https://www.nationalarenaleague.com
+NAL,National Arena League,Jacksonville Sharks,https://www.jaxsharks.com
+NAL,National Arena League,Massachusetts Pirates,https://www.massfootball.com
+NAL,National Arena League,Orlando Predators,https://www.orlandopredators.com
+NAL,National Arena League,Tampa Bay Storm,https://www.tbstorm.com
+AF1,American Football League 1,Bay Area Panthers,https://www.af1football.com
+AF1,American Football League 1,High Desert Thunder,https://www.af1football.com
+AF1,American Football League 1,Las Vegas Enforcers,https://www.af1football.com
+AF1,American Football League 1,Los Angeles Cobras,https://www.af1football.com
+AF1,American Football League 1,Mexicali Cachanillas,https://www.af1football.com
+AF1,American Football League 1,Monterrey Fundidores,https://www.af1football.com
+AF1,American Football League 1,Reno Rampage,https://www.af1football.com
+AF1,American Football League 1,Tucson Roadrunners,https://www.af1football.com
+AAL,All American League,Austin Sound,https://www.aalfootball.com
+AAL,All American League,Birmingham Americans,https://www.aalfootball.com
+AAL,All American League,Carolina Express,https://www.aalfootball.com
+AAL,All American League,Central Valley Coyotes,https://www.aalfootball.com
+AAL,All American League,Memphis Blue,https://www.aalfootball.com
+AAL,All American League,New Mexico Warriors,https://www.aalfootball.com
+AAL,All American League,Salt Lake Stallions,https://www.aalfootball.com
+AAL,All American League,San Diego Commanders,https://www.aalfootball.com
+FCF,Fan Controlled Football,Beasts,https://www.fcf.io
+FCF,Fan Controlled Football,Glacier Boyz,https://www.fcf.io
+FCF,Fan Controlled Football,Kingpins,https://www.fcf.io
+FCF,Fan Controlled Football,Rampage,https://www.fcf.io
+FCF,Fan Controlled Football,Zappers,https://www.fcf.io
+TAL,True Alternate League,Austin Armadillos,https://www.talfootball.com
+TAL,True Alternate League,Memphis Mavericks,https://www.talfootball.com
+TAL,True Alternate League,Nashville Ninjas,https://www.talfootball.com
+TAL,True Alternate League,Oklahoma Outlaws,https://www.talfootball.com
+UIFA,United Indoor Football Association,Chicago Eagles,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Cleveland Gladiators,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Columbus Warriors,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Detroit Danger,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Indianapolis Intensity,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Louisville Fire,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Pittsburgh Force,https://www.uifafootball.com
+UIFA,United Indoor Football Association,Toledo Nightmares,https://www.uifafootball.com
+CIF,Champions Indoor Football,Amarillo Venom,https://www.cifootball.com
+CIF,Champions Indoor Football,Colorado Crush,https://www.cifootball.com
+CIF,Champions Indoor Football,Kansas City Command,https://www.cifootball.com
+CIF,Champions Indoor Football,Lethbridge Bulls,https://www.cifootball.com
+CIF,Champions Indoor Football,Nebraska Danger,https://www.cifootball.com
+CIF,Champions Indoor Football,Salina Liberty,https://www.cifootball.com
+CIF,Champions Indoor Football,Sioux City Bandits,https://www.cifootball.com
+CIF,Champions Indoor Football,Topeka Tropics,https://www.cifootball.com
+AIF,American Indoor Football,Alabama Enforcers,https://www.aiffootball.com
+AIF,American Indoor Football,Columbus Destroyers,https://www.aiffootball.com
+AIF,American Indoor Football,Georgia Force,https://www.aiffootball.com
+AIF,American Indoor Football,Gulf Coast Buccaneers,https://www.aiffootball.com
+AIF,American Indoor Football,Mississippi Fire,https://www.aiffootball.com
+AIF,American Indoor Football,Montgomery Outlaws,https://www.aiffootball.com
+X League,X League (Japan),Blue Sharks,https://www.xleague.jp
+X League,X League (Japan),Elecom Kobe Finies,https://www.xleague.jp
+X League,X League (Japan),Fujitsu Frontiers,https://www.xleague.jp
+X League,X League (Japan),IBM Big Blue,https://www.xleague.jp
+X League,X League (Japan),Lixil Deers,https://www.xleague.jp
+X League,X League (Japan),Nojima Sagamihara Rise,https://www.xleague.jp
+X League,X League (Japan),Panasonic Impulse,https://www.xleague.jp
+X League,X League (Japan),Obic Seagulls,https://www.xleague.jp
+X League,X League (Japan),Recruit Seagulls,https://www.xleague.jp
+X League,X League (Japan),Shimizu S-Pulse Phoenix,https://www.xleague.jp
+X League,X League (Japan),Softbank Hawks,https://www.xleague.jp
+X League,X League (Japan),Toyota Valkyrja,https://www.xleague.jp
+WFA,Women's Football Alliance,Arizona Desert Hawks,https://www.wfafootball.org
+WFA,Women's Football Alliance,Atlanta Phoenix,https://www.wfafootball.org
+WFA,Women's Football Alliance,Austin Outlaws,https://www.wfafootball.org
+WFA,Women's Football Alliance,Baltimore Nighthawks,https://www.wfafootball.org
+WFA,Women's Football Alliance,Boston Militia,https://www.wfafootball.org
+WFA,Women's Football Alliance,Chicago Force,https://www.wfafootball.org
+WFA,Women's Football Alliance,Cleveland Fusion,https://www.wfafootball.org
+WFA,Women's Football Alliance,Dallas Elite,https://www.wfafootball.org
+WFA,Women's Football Alliance,DC Divas,https://www.dcdivas.com
+WFA,Women's Football Alliance,Denver Dream,https://www.wfafootball.org
+WFA,Women's Football Alliance,Detroit Dark Angels,https://www.wfafootball.org
+WFA,Women's Football Alliance,Houston Energy,https://www.houstonenergy.org
+WFA,Women's Football Alliance,Indiana Crash,https://www.wfafootball.org
+WFA,Women's Football Alliance,Jacksonville Dixie Blues,https://www.wfafootball.org
+WFA,Women's Football Alliance,Kansas City Titans,https://www.wfafootball.org
+WFA,Women's Football Alliance,LA Warriors,https://www.wfafootball.org
+WFA,Women's Football Alliance,Las Vegas Showgirlz,https://www.wfafootball.org
+WFA,Women's Football Alliance,Minnesota Vixen,https://www.wfafootball.org
+WFA,Women's Football Alliance,Nashville Queens,https://www.wfafootball.org
+WFA,Women's Football Alliance,New England's Iron Women,https://www.wfafootball.org
+WFA,Women's Football Alliance,New York Sharks,https://www.newyorksharks.com
+WFA,Women's Football Alliance,North Carolina Tarheels,https://www.wfafootball.org
+WFA,Women's Football Alliance,Oklahoma City Lightning,https://www.wfafootball.org
+WFA,Women's Football Alliance,Orange County Ladycats,https://www.wfafootball.org
+WFA,Women's Football Alliance,Oregon Ravens,https://www.wfafootball.org
+WFA,Women's Football Alliance,Pacific Warriors,https://www.wfafootball.org
+WFA,Women's Football Alliance,Pittsburgh Passion,https://www.pittsburghpassion.com
+WFA,Women's Football Alliance,Portland Fighting Shockwave,https://www.wfafootball.org
+WFA,Women's Football Alliance,San Diego Surge,https://www.wfafootball.org
+WFA,Women's Football Alliance,Seattle Majestics,https://www.wfafootball.org
+WFA,Women's Football Alliance,Tampa Bay Inferno,https://www.wfafootball.org
+WFA,Women's Football Alliance,Utah Falconz,https://www.wfafootball.org
+FBS,NCAA Division I FBS - ACC,Boston College Eagles,https://www.bceagles.com
+FBS,NCAA Division I FBS - ACC,California Golden Bears,https://www.calbears.com
+FBS,NCAA Division I FBS - ACC,Clemson Tigers,https://www.clemsontigers.com
+FBS,NCAA Division I FBS - ACC,Duke Blue Devils,https://www.goduke.com
+FBS,NCAA Division I FBS - ACC,Florida State Seminoles,https://www.seminoles.com
+FBS,NCAA Division I FBS - ACC,Georgia Tech Yellow Jackets,https://www.ramblinwreck.com
+FBS,NCAA Division I FBS - ACC,Louisville Cardinals,https://www.gocards.com
+FBS,NCAA Division I FBS - ACC,Miami Hurricanes,https://www.hurricanesports.com
+FBS,NCAA Division I FBS - ACC,NC State Wolfpack,https://www.gopack.com
+FBS,NCAA Division I FBS - ACC,North Carolina Tar Heels,https://www.goheels.com
+FBS,NCAA Division I FBS - ACC,Pittsburgh Panthers,https://www.pittsburghpanthers.com
+FBS,NCAA Division I FBS - ACC,SMU Mustangs,https://www.smumustangs.com
+FBS,NCAA Division I FBS - ACC,Stanford Cardinal,https://www.gostanford.com
+FBS,NCAA Division I FBS - ACC,Syracuse Orange,https://www.cuse.com
+FBS,NCAA Division I FBS - ACC,Virginia Cavaliers,https://www.virginiasports.com
+FBS,NCAA Division I FBS - ACC,Virginia Tech Hokies,https://www.hokiesports.com
+FBS,NCAA Division I FBS - ACC,Wake Forest Demon Deacons,https://www.godeacs.com
+FBS,NCAA Division I FBS - Big 12,Arizona State Sun Devils,https://www.thesundevils.com
+FBS,NCAA Division I FBS - Big 12,Arizona Wildcats,https://www.arizonawildcats.com
+FBS,NCAA Division I FBS - Big 12,Baylor Bears,https://www.baylorbears.com
+FBS,NCAA Division I FBS - Big 12,BYU Cougars,https://www.byucougars.com
+FBS,NCAA Division I FBS - Big 12,Cincinnati Bearcats,https://www.gobearcats.com
+FBS,NCAA Division I FBS - Big 12,Colorado Buffaloes,https://www.cubuffs.com
+FBS,NCAA Division I FBS - Big 12,Houston Cougars,https://www.uhcougars.com
+FBS,NCAA Division I FBS - Big 12,Iowa State Cyclones,https://www.cyclones.com
+FBS,NCAA Division I FBS - Big 12,Kansas Jayhawks,https://www.kuathletics.com
+FBS,NCAA Division I FBS - Big 12,Kansas State Wildcats,https://www.kstatesports.com
+FBS,NCAA Division I FBS - Big 12,Oklahoma State Cowboys,https://www.okstate.com
+FBS,NCAA Division I FBS - Big 12,TCU Horned Frogs,https://www.gofrogs.com
+FBS,NCAA Division I FBS - Big 12,Texas Tech Red Raiders,https://www.texastech.com
+FBS,NCAA Division I FBS - Big 12,UCF Knights,https://www.ucfknights.com
+FBS,NCAA Division I FBS - Big 12,Utah Utes,https://www.utahutes.com
+FBS,NCAA Division I FBS - Big 12,West Virginia Mountaineers,https://www.wvusports.com
+FBS,NCAA Division I FBS - Big Ten,Illinois Fighting Illini,https://www.fightingillini.com
+FBS,NCAA Division I FBS - Big Ten,Indiana Hoosiers,https://www.iuhoosiers.com
+FBS,NCAA Division I FBS - Big Ten,Iowa Hawkeyes,https://www.hawkeyesports.com
+FBS,NCAA Division I FBS - Big Ten,Maryland Terrapins,https://www.umterps.com
+FBS,NCAA Division I FBS - Big Ten,Michigan Wolverines,https://www.mgoblue.com
+FBS,NCAA Division I FBS - Big Ten,Michigan State Spartans,https://www.msuspartans.com
+FBS,NCAA Division I FBS - Big Ten,Minnesota Golden Gophers,https://www.gophersports.com
+FBS,NCAA Division I FBS - Big Ten,Nebraska Cornhuskers,https://www.huskers.com
+FBS,NCAA Division I FBS - Big Ten,Northwestern Wildcats,https://www.nusports.com
+FBS,NCAA Division I FBS - Big Ten,Ohio State Buckeyes,https://www.ohiostatebuckeyes.com
+FBS,NCAA Division I FBS - Big Ten,Oregon Ducks,https://www.goducks.com
+FBS,NCAA Division I FBS - Big Ten,Penn State Nittany Lions,https://www.gopsusports.com
+FBS,NCAA Division I FBS - Big Ten,Purdue Boilermakers,https://www.purduesports.com
+FBS,NCAA Division I FBS - Big Ten,Rutgers Scarlet Knights,https://www.scarletknights.com
+FBS,NCAA Division I FBS - Big Ten,UCLA Bruins,https://www.uclabruins.com
+FBS,NCAA Division I FBS - Big Ten,USC Trojans,https://www.usctrojans.com
+FBS,NCAA Division I FBS - Big Ten,Washington Huskies,https://www.gohuskies.com
+FBS,NCAA Division I FBS - Big Ten,Wisconsin Badgers,https://www.uwbadgers.com
+FBS,NCAA Division I FBS - SEC,Alabama Crimson Tide,https://www.rolltide.com
+FBS,NCAA Division I FBS - SEC,Arkansas Razorbacks,https://www.hogwired.com
+FBS,NCAA Division I FBS - SEC,Auburn Tigers,https://www.auburntigers.com
+FBS,NCAA Division I FBS - SEC,Florida Gators,https://www.gatorzone.com
+FBS,NCAA Division I FBS - SEC,Georgia Bulldogs,https://www.georgiadogs.com
+FBS,NCAA Division I FBS - SEC,Kentucky Wildcats,https://www.ukathletics.com
+FBS,NCAA Division I FBS - SEC,LSU Tigers,https://www.lsusports.net
+FBS,NCAA Division I FBS - SEC,Mississippi State Bulldogs,https://www.hailstate.com
+FBS,NCAA Division I FBS - SEC,Missouri Tigers,https://www.mutigers.com
+FBS,NCAA Division I FBS - SEC,Oklahoma Sooners,https://www.soonersports.com
+FBS,NCAA Division I FBS - SEC,Ole Miss Rebels,https://www.olemisssports.com
+FBS,NCAA Division I FBS - SEC,South Carolina Gamecocks,https://www.gamecocksonline.com
+FBS,NCAA Division I FBS - SEC,Tennessee Volunteers,https://www.utsports.com
+FBS,NCAA Division I FBS - SEC,Texas Longhorns,https://www.texassports.com
+FBS,NCAA Division I FBS - SEC,Texas A&M Aggies,https://www.12thman.com
+FBS,NCAA Division I FBS - SEC,Vanderbilt Commodores,https://www.vucommodores.com
+FBS,NCAA Division I FBS - Pac-12,Oregon State Beavers,https://www.osubeavers.com
+FBS,NCAA Division I FBS - Pac-12,Washington State Cougars,https://www.wsucougars.com
+FBS,NCAA Division I FBS - Mountain West,Air Force Falcons,https://www.goairforcefalcons.com
+FBS,NCAA Division I FBS - Mountain West,Boise State Broncos,https://www.broncosports.com
+FBS,NCAA Division I FBS - Mountain West,Colorado State Rams,https://www.csurams.com
+FBS,NCAA Division I FBS - Mountain West,Fresno State Bulldogs,https://www.gobulldogs.com
+FBS,NCAA Division I FBS - Mountain West,Hawaii Rainbow Warriors,https://www.hawaiiathletics.com
+FBS,NCAA Division I FBS - Mountain West,Nevada Wolf Pack,https://www.nevadawolfpack.com
+FBS,NCAA Division I FBS - Mountain West,New Mexico Lobos,https://www.golobos.com
+FBS,NCAA Division I FBS - Mountain West,San Diego State Aztecs,https://www.goaztecs.com
+FBS,NCAA Division I FBS - Mountain West,San Jose State Spartans,https://www.sjsuspartans.com
+FBS,NCAA Division I FBS - Mountain West,UNLV Rebels,https://www.unlvrebels.com
+FBS,NCAA Division I FBS - Mountain West,Utah State Aggies,https://www.utahstateaggies.com
+FBS,NCAA Division I FBS - Mountain West,Wyoming Cowboys,https://www.wyomingathletics.com
+FBS,NCAA Division I FBS - American Athletic,Army Black Knights,https://www.goarmywestpoint.com
+FBS,NCAA Division I FBS - American Athletic,Charlotte 49ers,https://www.charlotte49ers.com
+FBS,NCAA Division I FBS - American Athletic,East Carolina Pirates,https://www.ecupirates.com
+FBS,NCAA Division I FBS - American Athletic,Florida Atlantic Owls,https://www.fausports.com
+FBS,NCAA Division I FBS - American Athletic,Memphis Tigers,https://www.gotigersgo.com
+FBS,NCAA Division I FBS - American Athletic,Navy Midshipmen,https://www.navysports.com
+FBS,NCAA Division I FBS - American Athletic,North Texas Mean Green,https://www.meangreensports.com
+FBS,NCAA Division I FBS - American Athletic,Rice Owls,https://www.riceowls.com
+FBS,NCAA Division I FBS - American Athletic,South Florida Bulls,https://www.sfbulls.com
+FBS,NCAA Division I FBS - American Athletic,Temple Owls,https://www.owlsports.com
+FBS,NCAA Division I FBS - American Athletic,Tulane Green Wave,https://www.tulanegreenwave.com
+FBS,NCAA Division I FBS - American Athletic,Tulsa Golden Hurricane,https://www.tulsahurricane.com
+FBS,NCAA Division I FBS - American Athletic,UAB Blazers,https://www.uabsports.com
+FBS,NCAA Division I FBS - American Athletic,UTSA Roadrunners,https://www.utsaroadrunners.com
+FBS,NCAA Division I FBS - Sun Belt,Appalachian State Mountaineers,https://www.appstatesports.com
+FBS,NCAA Division I FBS - Sun Belt,Arkansas State Red Wolves,https://www.astateredwolves.com
+FBS,NCAA Division I FBS - Sun Belt,Coastal Carolina Chanticleers,https://www.goccusports.com
+FBS,NCAA Division I FBS - Sun Belt,Georgia Southern Eagles,https://www.gseagles.com
+FBS,NCAA Division I FBS - Sun Belt,Georgia State Panthers,https://www.georgiastatesports.com
+FBS,NCAA Division I FBS - Sun Belt,James Madison Dukes,https://www.jmusports.com
+FBS,NCAA Division I FBS - Sun Belt,Louisiana Ragin' Cajuns,https://www.ragincajuns.com
+FBS,NCAA Division I FBS - Sun Belt,Louisiana Monroe Warhawks,https://www.ulm.edu/athletics
+FBS,NCAA Division I FBS - Sun Belt,Marshall Thundering Herd,https://www.herdzone.com
+FBS,NCAA Division I FBS - Sun Belt,Old Dominion Monarchs,https://www.odusports.com
+FBS,NCAA Division I FBS - Sun Belt,South Alabama Jaguars,https://www.southalabama.edu/athletics
+FBS,NCAA Division I FBS - Sun Belt,Southern Miss Golden Eagles,https://www.southernmiss.com
+FBS,NCAA Division I FBS - Sun Belt,Texas State Bobcats,https://www.txstatebobcats.com
+FBS,NCAA Division I FBS - Sun Belt,Troy Trojans,https://www.troytrojans.com
+FBS,NCAA Division I FBS - C-USA,FIU Panthers,https://www.fiusports.com
+FBS,NCAA Division I FBS - C-USA,Jacksonville State Gamecocks,https://www.jsugamecocksports.com
+FBS,NCAA Division I FBS - C-USA,Liberty Flames,https://www.libertyflames.com
+FBS,NCAA Division I FBS - C-USA,Middle Tennessee Blue Raiders,https://www.goblueraiders.com
+FBS,NCAA Division I FBS - C-USA,New Mexico State Aggies,https://www.nmstatesports.com
+FBS,NCAA Division I FBS - C-USA,Sam Houston Bearkats,https://www.gobearkats.com
+FBS,NCAA Division I FBS - C-USA,UTEP Miners,https://www.utepathletics.com
+FBS,NCAA Division I FBS - C-USA,Western Kentucky Hilltoppers,https://www.wkusports.com
+FBS,NCAA Division I FBS - C-USA,Western Michigan Broncos,https://www.wmubroncos.com
+FBS,NCAA Division I FBS - MAC,Akron Zips,https://www.gozips.com
+FBS,NCAA Division I FBS - MAC,Ball State Cardinals,https://www.ballstatesports.com
+FBS,NCAA Division I FBS - MAC,Bowling Green Falcons,https://www.bgsufalcons.com
+FBS,NCAA Division I FBS - MAC,Buffalo Bulls,https://www.buffalobulls.com
+FBS,NCAA Division I FBS - MAC,Central Michigan Chippewas,https://www.cmuchippewas.com
+FBS,NCAA Division I FBS - MAC,Eastern Michigan Eagles,https://www.emueagles.com
+FBS,NCAA Division I FBS - MAC,Kent State Golden Flashes,https://www.kentstatesports.com
+FBS,NCAA Division I FBS - MAC,Miami (OH) RedHawks,https://www.miamiredhawks.com
+FBS,NCAA Division I FBS - MAC,Northern Illinois Huskies,https://www.niuhuskies.com
+FBS,NCAA Division I FBS - MAC,Ohio Bobcats,https://www.ohiobobcats.com
+FBS,NCAA Division I FBS - MAC,Toledo Rockets,https://www.utrockets.com
+FBS,NCAA Division I FBS - MAC,Massachusetts Minutemen,https://www.umassfine.com
+FBS,NCAA Division I FBS - Independents,Connecticut Huskies,https://www.uconnhuskies.com
+FBS,NCAA Division I FBS - Independents,Notre Dame Fighting Irish,https://www.und.com
+FBS,NCAA Division I FBS - Independents,UMass Minutemen,https://www.umassfine.com
+FCS,NCAA Division I FCS - Big South-OVC,Austin Peay Governors,https://www.letsgopeay.com
+FCS,NCAA Division I FCS - Big South-OVC,Bethune-Cookman Wildcats,https://www.bcuathletics.com
+FCS,NCAA Division I FCS - Big South-OVC,Campbell Fighting Camels,https://www.gocamels.com
+FCS,NCAA Division I FCS - Big South-OVC,Charleston Southern Buccaneers,https://www.csusports.com
+FCS,NCAA Division I FCS - Big South-OVC,Eastern Illinois Panthers,https://www.eiupanthers.com
+FCS,NCAA Division I FCS - Big South-OVC,Eastern Kentucky Colonels,https://www.ekusports.com
+FCS,NCAA Division I FCS - Big South-OVC,Gardner-Webb Runnin' Bulldogs,https://www.gwusports.com
+FCS,NCAA Division I FCS - Big South-OVC,Jacksonville Dolphins,https://www.judolphins.com
+FCS,NCAA Division I FCS - Big South-OVC,Lindenwood Lions,https://www.lindenwoodlions.com
+FCS,NCAA Division I FCS - Big South-OVC,Robert Robert Morris Colonials,https://www.rmucolonials.com
+FCS,NCAA Division I FCS - Big South-OVC,SE Missouri State Redhawks,https://www.gosoutheast.com
+FCS,NCAA Division I FCS - Big South-OVC,Tennessee State Tigers,https://www.tsutigers.com
+FCS,NCAA Division I FCS - Big South-OVC,Tennessee Tech Golden Eagles,https://www.ttusports.com
+FCS,NCAA Division I FCS - Big South-OVC,UT Martin Skyhawks,https://www.utmskyhawks.com
+FCS,NCAA Division I FCS - CAA,Albany Great Danes,https://www.albanyathletics.com
+FCS,NCAA Division I FCS - CAA,Delaware Fightin Blue Hens,https://www.bluehens.com
+FCS,NCAA Division I FCS - CAA,Elon Phoenix,https://www.elonphoenix.com
+FCS,NCAA Division I FCS - CAA,Hampton Pirates,https://www.hamptonpirates.com
+FCS,NCAA Division I FCS - CAA,Maine Black Bears,https://www.umaineblackbears.com
+FCS,NCAA Division I FCS - CAA,Monmouth Hawks,https://www.monmouthhawks.com
+FCS,NCAA Division I FCS - CAA,New Hampshire Wildcats,https://www.unhwildcats.com
+FCS,NCAA Division I FCS - CAA,North Carolina A&T Aggies,https://www.ncataggies.com
+FCS,NCAA Division I FCS - CAA,Rhode Island Rams,https://www.gorhody.com
+FCS,NCAA Division I FCS - CAA,Richmond Spiders,https://www.richmondspiders.com
+FCS,NCAA Division I FCS - CAA,Stony Brook Seawolves,https://www.stonybrookathletics.com
+FCS,NCAA Division I FCS - CAA,Towson Tigers,https://www.towsontigers.com
+FCS,NCAA Division I FCS - CAA,Villanova Wildcats,https://www.villanovawildcats.com
+FCS,NCAA Division I FCS - CAA,William & Mary Tribe,https://www.tribeathletics.com
+FCS,NCAA Division I FCS - Missouri Valley,Illinois State Redbirds,https://www.goredbirds.com
+FCS,NCAA Division I FCS - Missouri Valley,Indiana State Sycamores,https://www.indstatefightin.com
+FCS,NCAA Division I FCS - Missouri Valley,Missouri State Bears,https://www.missouristatebears.com
+FCS,NCAA Division I FCS - Missouri Valley,Murray State Racers,https://www.goracers.com
+FCS,NCAA Division I FCS - Missouri Valley,North Dakota Fighting Hawks,https://www.undsports.com
+FCS,NCAA Division I FCS - Missouri Valley,North Dakota State Bison,https://www.gobison.com
+FCS,NCAA Division I FCS - Missouri Valley,Northern Iowa Panthers,https://www.unipanthers.com
+FCS,NCAA Division I FCS - Missouri Valley,South Dakota Coyotes,https://www.goyotes.com
+FCS,NCAA Division I FCS - Missouri Valley,South Dakota State Jackrabbits,https://www.gojacks.com
+FCS,NCAA Division I FCS - Missouri Valley,Southern Illinois Salukis,https://www.siusalukis.com
+FCS,NCAA Division I FCS - Missouri Valley,Western Illinois Leathernecks,https://www.wiumastodons.com
+FCS,NCAA Division I FCS - Missouri Valley,Youngstown State Penguins,https://www.ysusports.com
+FCS,NCAA Division I FCS - Pioneer,Butler Bulldogs,https://www.butlersports.com
+FCS,NCAA Division I FCS - Pioneer,Davidson Wildcats,https://www.davidsonwildcats.com
+FCS,NCAA Division I FCS - Pioneer,Dayton Flyers,https://www.daytonflyers.com
+FCS,NCAA Division I FCS - Pioneer,Drake Bulldogs,https://www.godrakebulldogs.com
+FCS,NCAA Division I FCS - Pioneer,Marist Red Foxes,https://www.goredfoxes.com
+FCS,NCAA Division I FCS - Pioneer,Morehead State Eagles,https://www.msueagles.com
+FCS,NCAA Division I FCS - Pioneer,Presbyterian Blue Hose,https://www.gopcathletics.com
+FCS,NCAA Division I FCS - Pioneer,San Diego Toreros,https://www.usdtoreros.com
+FCS,NCAA Division I FCS - Pioneer,Stetson Hatters,https://www.stetsonathletics.com
+FCS,NCAA Division I FCS - Pioneer,Valparaiso Beacons,https://www.valpoathletics.com
+FCS,NCAA Division I FCS - Southern,The Citadel Bulldogs,https://www.citadelsports.com
+FCS,NCAA Division I FCS - Southern,East Tennessee State Buccaneers,https://www.etsubucs.com
+FCS,NCAA Division I FCS - Southern,Furman Paladins,https://www.furmanpaladins.com
+FCS,NCAA Division I FCS - Southern,Mercer Bears,https://www.mercerbears.com
+FCS,NCAA Division I FCS - Southern,Samford Bulldogs,https://www.samfordsports.com
+FCS,NCAA Division I FCS - Southern,VMI Keydets,https://www.vmikeydets.com
+FCS,NCAA Division I FCS - Southern,Western Carolina Catamounts,https://www.catamountsports.com
+FCS,NCAA Division I FCS - Southern,Wofford Terriers,https://www.woffordterriers.com
+FCS,NCAA Division I FCS - Southland,Houston Christian Huskies,https://www.hcuathletics.com
+FCS,NCAA Division I FCS - Southland,Incarnate Word Cardinals,https://www.uiwathletics.com
+FCS,NCAA Division I FCS - Southland,McNeese Cowboys,https://www.mcneesesports.com
+FCS,NCAA Division I FCS - Southland,Nicholls Colonels,https://www.nicholls.edu/athletics
+FCS,NCAA Division I FCS - Southland,Northwestern State Demons,https://www.nsudemons.com
+FCS,NCAA Division I FCS - Southland,SE Louisiana Lions,https://www.lionsports.net
+FCS,NCAA Division I FCS - Southland,Texas A&M-Commerce Lions,https://www.tamucathletics.com
+FCS,NCAA Division I FCS - SWAC,Alcorn State Braves,https://www.alcornsports.com
+FCS,NCAA Division I FCS - SWAC,Alabama A&M Bulldogs,https://www.aamu.edu/athletics
+FCS,NCAA Division I FCS - SWAC,Alabama State Hornets,https://www.alabamastateuniversity.com/athletics
+FCS,NCAA Division I FCS - SWAC,Arkansas-Pine Bluff Golden Lions,https://www.uapblionsroar.com
+FCS,NCAA Division I FCS - SWAC,Grambling State Tigers,https://www.grambling.edu/athletics
+FCS,NCAA Division I FCS - SWAC,Jackson State Tigers,https://www.jsusports.com
+FCS,NCAA Division I FCS - SWAC,Mississippi Valley State Delta Devils,https://www.mvsusports.com
+FCS,NCAA Division I FCS - SWAC,Prairie View A&M Panthers,https://www.pvpanthers.com
+FCS,NCAA Division I FCS - SWAC,Southern University Jaguars,https://www.suathletics.com
+FCS,NCAA Division I FCS - SWAC,Texas Southern Tigers,https://www.tsusports.com
+FCS,NCAA Division I FCS - Big Sky,Cal Poly Mustangs,https://www.gopoly.com
+FCS,NCAA Division I FCS - Big Sky,Eastern Washington Eagles,https://www.ewueagles.com
+FCS,NCAA Division I FCS - Big Sky,Idaho Vandals,https://www.govandals.com
+FCS,NCAA Division I FCS - Big Sky,Idaho State Bengals,https://www.isubengals.com
+FCS,NCAA Division I FCS - Big Sky,Montana Grizzlies,https://www.montanagrizzlies.com
+FCS,NCAA Division I FCS - Big Sky,Montana State Bobcats,https://www.msubobcats.com
+FCS,NCAA Division I FCS - Big Sky,Northern Arizona Lumberjacks,https://www.nauathletics.com
+FCS,NCAA Division I FCS - Big Sky,Northern Colorado Bears,https://www.uncbears.com
+FCS,NCAA Division I FCS - Big Sky,Portland State Vikings,https://www.goviks.com
+FCS,NCAA Division I FCS - Big Sky,Sacramento State Hornets,https://www.hornetsports.com
+FCS,NCAA Division I FCS - Big Sky,UC Davis Aggies,https://www.ucdavisaggies.com
+FCS,NCAA Division I FCS - Big Sky,Weber State Wildcats,https://www.weberstatewildcats.com
+FCS,NCAA Division I FCS - Independents,Abilene Christian Wildcats,https://www.acuwildcats.com
+FCS,NCAA Division I FCS - Independents,Central Connecticut Blue Devils,https://www.ccsubluedevils.com
+FCS,NCAA Division I FCS - Independents,Kennesaw State Owls,https://www.ksusports.com
+FCS,NCAA Division I FCS - Independents,Lamar Cardinals,https://www.lamarcardinals.com
+FCS,NCAA Division I FCS - Independents,St. Francis Red Flash,https://www.sfuredflash.com
+FCS,NCAA Division I FCS - Independents,Stephen F. Austin Lumberjacks,https://www.sfajacks.com
+FCS,NCAA Division I FCS - Independents,Tarleton State Texans,https://www.tarletonsports.com
+D2,NCAA Division II - CIAA,Bowie State Bulldogs,https://www.bowiestateathletics.com
+D2,NCAA Division II - CIAA,Elizabeth City State Vikings,https://www.ecsuathletics.com
+D2,NCAA Division II - CIAA,Fayetteville State Broncos,https://www.fsugameday.com
+D2,NCAA Division II - CIAA,Johnson C. Smith Golden Bulls,https://www.jcsuathletics.com
+D2,NCAA Division II - CIAA,Livingstone Blue Bears,https://www.livingstone.edu/athletics
+D2,NCAA Division II - CIAA,Shaw Bears,https://www.shawbears.com
+D2,NCAA Division II - CIAA,St. Augustine's Falcons,https://www.saualcadets.com
+D2,NCAA Division II - CIAA,Virginia State Trojans,https://www.vsuathletics.com
+D2,NCAA Division II - CIAA,Virginia Union Panthers,https://www.vuu.edu/athletics
+D2,NCAA Division II - CIAA,Winston-Salem State Rams,https://www.wssurams.com
+D2,NCAA Division II - GLIAC,Davenport Panthers,https://www.gopanthers.com
+D2,NCAA Division II - GLIAC,Ferris State Bulldogs,https://www.ferrisstatebulldogs.com
+D2,NCAA Division II - GLIAC,Grand Valley State Lakers,https://www.gvsulakers.com
+D2,NCAA Division II - GLIAC,Indianapolis Greyhounds,https://www.uindy.edu/athletics
+D2,NCAA Division II - GLIAC,Michigan Tech Huskies,https://www.mtuathletics.com
+D2,NCAA Division II - GLIAC,Northern Michigan Wildcats,https://www.nmuathletics.com
+D2,NCAA Division II - GLIAC,Saginaw Valley State Cardinals,https://www.svsucardinals.com
+D2,NCAA Division II - GLIAC,Wayne State Warriors,https://www.wsuwarriors.com
+D2,NCAA Division II - GSFC,Delta State Statesmen,https://www.deltastateathletics.com
+D2,NCAA Division II - GSFC,Miles Golden Bears,https://www.milesathletics.com
+D2,NCAA Division II - GSFC,Mississippi College Choctaws,https://www.mcchoctaws.com
+D2,NCAA Division II - GSFC,Shorter Hawks,https://www.goshorterhawks.com
+D2,NCAA Division II - GSFC,West Alabama Tigers,https://www.uwaathletics.com
+D2,NCAA Division II - Lone Star,Abilene Christian Wildcats,https://www.acuwildcats.com
+D2,NCAA Division II - Lone Star,Angelo State Rams,https://www.angelosports.com
+D2,NCAA Division II - Lone Star,Eastern New Mexico Greyhounds,https://www.enmudogs.com
+D2,NCAA Division II - Lone Star,Midwestern State Mustangs,https://www.mwsu.edu/athletics
+D2,NCAA Division II - Lone Star,Sul Ross State Lobos,https://www.sulross.edu/athletics
+D2,NCAA Division II - Lone Star,Tarleton State Texans,https://www.tarletonsports.com
+D2,NCAA Division II - Lone Star,Texas A&M-Kingsville Javelinas,https://www.tamuk.edu/athletics
+D2,NCAA Division II - Lone Star,West Texas A&M Buffs,https://www.wtamusports.com
+D2,NCAA Division II - Mid-America IAA,Central Methodist Eagles,https://www.cmu.edu/athletics
+D2,NCAA Division II - Mid-America IAA,Evangel Crusaders,https://www.evangelathletics.com
+D2,NCAA Division II - Mid-America IAA,Missouri Baptists Spartans,https://www.mbuspartans.com
+D2,NCAA Division II - Mid-America IAA,Missouri S&T Miners,https://www.minerathletics.com
+D2,NCAA Division II - Mid-America IAA,Missouri Western Griffons,https://www.mwsuathletics.com
+D2,NCAA Division II - Mid-America IAA,Pittsburg State Gorillas,https://www.pittstate.edu/athletics
+D2,NCAA Division II - Mid-America IAA,Southwest Baptist Bearcats,https://www.sbubears.com
+D2,NCAA Division II - Mid-America IAA,Washburn Ichabods,https://www.washburnathletics.com
+D2,NCAA Division II - Mountain East,Charleston Golden Eagles,https://www.ucathletics.com
+D2,NCAA Division II - Mountain East,Concord Mountain Lions,https://www.concordathletics.com
+D2,NCAA Division II - Mountain East,Davis & Elkins Senators,https://www.deathletics.com
+D2,NCAA Division II - Mountain East,Fairmont State Falcons,https://www.fairmontstateathletics.com
+D2,NCAA Division II - Mountain East,Glenville State Pioneers,https://www.glenvillestateathletics.com
+D2,NCAA Division II - Mountain East,Notre Dame (OH) Falcons,https://www.ndcathletics.com
+D2,NCAA Division II - Mountain East,Shepherd Rams,https://www.shepherd.edu/athletics
+D2,NCAA Division II - Mountain East,West Liberty Hilltoppers,https://www.westlibertyathletics.com
+D2,NCAA Division II - Mountain East,West Virginia State Yellow Jackets,https://www.wvsuathletics.com
+D2,NCAA Division II - Mountain East,West Virginia Wesleyan Bobcats,https://www.wvwcathletics.com
+D2,NCAA Division II - Northeast-10,Assumption Greyhounds,https://www.assumptiongreyhounds.com
+D2,NCAA Division II - Northeast-10,Bentley Falcons,https://www.bentleyfalcons.com
+D2,NCAA Division II - Northeast-10,American International Yellow Jackets,https://www.aicyellowjackets.com
+D2,NCAA Division II - Northeast-10,Merrimack Warriors,https://www.merrimackathletics.com
+D2,NCAA Division II - Northeast-10,Southern Connecticut State Owls,https://www.scsuowls.com
+D2,NCAA Division II - Northeast-10,Stonehill Skyhawks,https://www.stonehillathletics.com
+D2,NCAA Division II - NSIC,Augustana Vikings,https://www.augie.edu/athletics
+D2,NCAA Division II - NSIC,Bemidji State Beavers,https://www.bsubeavers.com
+D2,NCAA Division II - NSIC,Concordia-St. Paul Golden Bears,https://www.gocspgoldenbears.com
+D2,NCAA Division II - NSIC,Mankato Mavericks,https://www.msumavericks.com
+D2,NCAA Division II - NSIC,Mary Marauders,https://www.umaryathletics.com
+D2,NCAA Division II - NSIC,Minnesota Crookston Eagles,https://www.umcathletics.com
+D2,NCAA Division II - NSIC,Minnesota Duluth Bulldogs,https://www.umdbulldogs.com
+D2,NCAA Division II - NSIC,Minnesota State-Moorhead Dragons,https://www.msumdragons.com
+D2,NCAA Division II - NSIC,Northern State Wolves,https://www.nsubwolves.com
+D2,NCAA Division II - NSIC,Sioux Falls Cougars,https://www.usfsports.com
+D2,NCAA Division II - NSIC,Southwest Minnesota State Mustangs,https://www.smsumustangs.com
+D2,NCAA Division II - NSIC,St. Cloud State Huskies,https://www.scshuskies.com
+D2,NCAA Division II - NSIC,Wayne State Wildcats,https://www.wscwildcats.com
+D2,NCAA Division II - NSIC,Winona State Warriors,https://www.winonastateathletics.com
+D2,NCAA Division II - RMAC,Adams State Grizzlies,https://www.adamsstategrizz.com
+D2,NCAA Division II - RMAC,Black Hills State Yellow Jackets,https://www.bhsuyellowjackets.com
+D2,NCAA Division II - RMAC,Chadron State Eagles,https://www.cscathletics.com
+D2,NCAA Division II - RMAC,Colorado Mesa Mavericks,https://www.cmusports.com
+D2,NCAA Division II - RMAC,Colorado School of Mines Orediggers,https://www.minesathletics.com
+D2,NCAA Division II - RMAC,Fort Lewis Skyhawks,https://www.fortlewisskyhawks.com
+D2,NCAA Division II - RMAC,New Mexico Highlands Cowboys,https://www.nhmhcowboys.com
+D2,NCAA Division II - RMAC,Nebraska-Kearney Lopers,https://www.unklopers.com
+D2,NCAA Division II - RMAC,South Dakota Mines Hardrockers,https://www.hardrockerathletics.com
+D2,NCAA Division II - RMAC,Western Colorado Mountaineers,https://www.westerncoloradoathletics.com
+D2,NCAA Division II - SIAC,Albany State Golden Rams,https://www.asugoldenrams.com
+D2,NCAA Division II - SIAC,Benedict Tigers,https://www.benedict.edu/athletics
+D2,NCAA Division II - SIAC,Clark Atlanta Panthers,https://www.caupanthers.com
+D2,NCAA Division II - SIAC,Fort Valley State Wildcats,https://www.fvsu.edu/athletics
+D2,NCAA Division II - SIAC,Kentucky State Thorobreds,https://www.ksuathletics.com
+D2,NCAA Division II - SIAC,Lane Dragons,https://www.laneathletics.com
+D2,NCAA Division II - SIAC,Morehouse Maroon Tigers,https://www.morehouse.edu/athletics
+D2,NCAA Division II - SIAC,Tuskegee Golden Tigers,https://www.tuskegee.edu/athletics
+D2,NCAA Division II - South Atlantic,Carson-Newman Eagles,https://www.cn-eagles.com
+D2,NCAA Division II - South Atlantic,Catawba Indians,https://www.catawbaindians.com
+D2,NCAA Division II - South Atlantic,Chowan Hawks,https://www.chowanhawks.com
+D2,NCAA Division II - South Atlantic,Emory & Henry Wasps,https://www.ehcathletics.com
+D2,NCAA Division II - South Atlantic,Lenoir-Rhyne Bears,https://www.lrbears.com
+D2,NCAA Division II - South Atlantic,Limestone Saints,https://www.limestonesaints.com
+D2,NCAA Division II - South Atlantic,Mars Hill Lions,https://www.marshilllions.com
+D2,NCAA Division II - South Atlantic,Newberry Wolves,https://www.newberrywolves.com
+D2,NCAA Division II - South Atlantic,Tusculum Pioneers,https://www.tusculumsports.com
+D2,NCAA Division II - South Atlantic,Wingate Bulldogs,https://www.wingatedogs.com
+D3,NCAA Division III - NESCAC,Amherst Mammoths,https://www.amherstathletics.com
+D3,NCAA Division III - NESCAC,Bates Bobcats,https://www.gobates.com
+D3,NCAA Division III - NESCAC,Bowdoin Polar Bears,https://www.bowdoinsports.com
+D3,NCAA Division III - NESCAC,Colby White Mules,https://www.colbymules.com
+D3,NCAA Division III - NESCAC,Hamilton Continentals,https://www.hamiltonathletics.com
+D3,NCAA Division III - NESCAC,Middlebury Panthers,https://www.middleburyathletics.com
+D3,NCAA Division III - NESCAC,Trinity Bantams,https://www.trincoll.edu/athletics
+D3,NCAA Division III - NESCAC,Tufts Jumbos,https://www.tuftsjumbos.com
+D3,NCAA Division III - NESCAC,Wesleyan Cardinals,https://www.wesleyanathletics.com
+D3,NCAA Division III - NESCAC,Williams Ephs,https://www.williams.edu/athletics
+D3,NCAA Division III - UAA,Brandeis Judges,https://www.brandeisathletics.com
+D3,NCAA Division III - UAA,Carnegie Mellon Tartans,https://www.cmutartans.com
+D3,NCAA Division III - UAA,Case Western Reserve Spartans,https://www.gocwruspartans.com
+D3,NCAA Division III - UAA,Emory Eagles,https://www.emoryathletics.com
+D3,NCAA Division III - UAA,Rochester Yellowjackets,https://www.urathletics.com
+D3,NCAA Division III - UAA,Washington University Bears,https://www.washu.edu/athletics
+D3,NCAA Division III - Centennial,Dickinson Red Devils,https://www.dickinsonsports.com
+D3,NCAA Division III - Centennial,Franklin & Marshall Diplomats,https://www.fandmathletics.com
+D3,NCAA Division III - Centennial,Gettysburg Bullets,https://www.gettysburgsports.com
+D3,NCAA Division III - Centennial,Haverford Fords,https://www.haverfordsports.com
+D3,NCAA Division III - Centennial,Johns Hopkins Blue Jays,https://www.hopkinsathletics.com
+D3,NCAA Division III - Centennial,McDaniel Green Terror,https://www.mcdanielathletics.com
+D3,NCAA Division III - Centennial,Muhlenberg Mules,https://www.muhlenbergsports.com
+D3,NCAA Division III - Centennial,Ursinus Bears,https://www.ursinus.edu/athletics
+D3,NCAA Division III - ODAC,Bridgewater Eagles,https://www.bridgewaterathletics.com
+D3,NCAA Division III - ODAC,Eastern Mennonite Royals,https://www.emuroyals.com
+D3,NCAA Division III - ODAC,Ferrum Panthers,https://www.ferrumcollegeathletics.com
+D3,NCAA Division III - ODAC,Guilford Quakers,https://www.guilfordquakers.com
+D3,NCAA Division III - ODAC,Hampden-Sydney Tigers,https://www.hscathletics.com
+D3,NCAA Division III - ODAC,Randolph-Macon Yellow Jackets,https://www.rmcathletics.com
+D3,NCAA Division III - ODAC,Shenandoah Hornets,https://www.shuathletics.com
+D3,NCAA Division III - ODAC,Washington & Lee Generals,https://www.wluathletics.com
+D3,NCAA Division III - Midwest,Augustana Vikings,https://www.augustanaviking.com
+D3,NCAA Division III - Midwest,Bethel Royals,https://www.bethelsports.com
+D3,NCAA Division III - Midwest,Carthage Red Firemen,https://www.carthage.edu/athletics
+D3,NCAA Division III - Midwest,Concordia Wisconsin Falcons,https://www.cuw.edu/athletics
+D3,NCAA Division III - Midwest,Illinois Wesleyan Titans,https://www.iwusports.com
+D3,NCAA Division III - Midwest,Millikin Big Blue,https://www.millikin.edu/athletics
+D3,NCAA Division III - Midwest,North Central Cardinals,https://www.northcentralcollege.edu/athletics
+D3,NCAA Division III - Midwest,North Park Vikings,https://www.northparkathletics.com
+D3,NCAA Division III - Midwest,Wheaton Thunder,https://www.wheaton.edu/athletics
+NAIA,NAIA - Mid-States Football Association,Alderson Broaddus Battlers,https://www.abbattlers.com
+NAIA,NAIA - Mid-States Football Association,Bethel Wildcats,https://www.bethel.edu/athletics
+NAIA,NAIA - Mid-States Football Association,Concordia Michigan Cardinals,https://www.cuancardinals.com
+NAIA,NAIA - Mid-States Football Association,Cumberlands Patriots,https://www.ucumberlands.edu/athletics
+NAIA,NAIA - Mid-States Football Association,Georgetown Tigers,https://www.georgetownathletics.com
+NAIA,NAIA - Mid-States Football Association,Grace Lancers,https://www.graceathletics.com
+NAIA,NAIA - Mid-States Football Association,Indiana Wesleyan Wildcats,https://www.iwuwildcats.com
+NAIA,NAIA - Mid-States Football Association,Marian Knights,https://www.marianathletics.com
+NAIA,NAIA - Mid-States Football Association,Saint Francis Cougars,https://www.sfcougars.com
+NAIA,NAIA - Mid-States Football Association,Saint Xavier Cougars,https://www.sxucougars.com
+NAIA,NAIA - Mid-States Football Association,Spring Arbor Cougars,https://www.sauathletics.com
+NAIA,NAIA - Mid-States Football Association,Taylor Trojans,https://www.taylortrojans.com
+NAIA,NAIA - Mid-States Football Association,Trine Thunder,https://www.trineathletics.com
+NAIA,NAIA - Mid-States Football Association,Walsh Cavaliers,https://www.walshcavaliers.com
+NAIA,NAIA - Heart of America,Baker Wildcats,https://www.bakerwildcats.com
+NAIA,NAIA - Heart of America,Central Methodist Eagles,https://www.cmu.edu/athletics
+NAIA,NAIA - Heart of America,Culver-Stockton Wildcats,https://www.csathletics.com
+NAIA,NAIA - Heart of America,Evangel Crusaders,https://www.evangelathletics.com
+NAIA,NAIA - Heart of America,Graceland Yellowjackets,https://www.gracelandathletics.com
+NAIA,NAIA - Heart of America,Hannibal-LaGrange Trojans,https://www.hlgathletics.com
+NAIA,NAIA - Heart of America,Kansas Wesleyan Coyotes,https://www.kansaswesleyanathletics.com
+NAIA,NAIA - Heart of America,Missouri Valley Vikings,https://www.mvvikings.com
+NAIA,NAIA - Heart of America,MidAmerica Nazarene Pioneers,https://www.manpioneerssports.com
+NAIA,NAIA - Heart of America,Ottawa Braves,https://www.ottawabraves.com
+NAIA,NAIA - Heart of America,Peru State Bobcats,https://www.perustatebobcats.com
+NAIA,NAIA - Heart of America,William Penn Statesmen,https://www.wpuniversitystatesmen.com
+NAIA,NAIA - Frontier,Carroll Saints,https://www.carrollathletics.com
+NAIA,NAIA - Frontier,College of Idaho Yotes,https://www.yoteathletics.com
+NAIA,NAIA - Frontier,Eastern Oregon Mountaineers,https://www.eoumountaineers.com
+NAIA,NAIA - Frontier,Montana Western Bulldogs,https://www.umwbulldogs.com
+NAIA,NAIA - Frontier,Montana Tech Orediggers,https://www.montanatechorediggers.com
+NAIA,NAIA - Frontier,Rocky Mountain Bears,https://www.rocky.edu/athletics
+NAIA,NAIA - Frontier,Southern Oregon Raiders,https://www.souraiders.com
+NAIA,NAIA - Frontier,Westminster (UT) Griffins,https://www.westminstercollege.edu/athletics
+JUCO,NJCAA - Football,Blinn Buccaneers,https://www.blinn.edu/athletics
+JUCO,NJCAA - Football,Butler Community College Grizzlies,https://www.butlercc.edu/athletics
+JUCO,NJCAA - Football,Coffeyville Raiders,https://www.coffeyville.edu/athletics
+JUCO,NJCAA - Football,Dodge City Conquistadors,https://www.dc3.edu/athletics
+JUCO,NJCAA - Football,East Mississippi Community College Lions,https://www.eastms.edu/athletics
+JUCO,NJCAA - Football,Garden City Broncbusters,https://www.gcccks.edu/athletics
+JUCO,NJCAA - Football,Hutchinson Blue Dragons,https://www.hutchinson.edu/athletics
+JUCO,NJCAA - Football,Iowa Western Reivers,https://www.iowawestern.edu/athletics
+JUCO,NJCAA - Football,Independence Pirates,https://www.indycc.edu/athletics
+JUCO,NJCAA - Football,Jones College Bobcats,https://www.jcjets.com
+JUCO,NJCAA - Football,Kilgore College Rangers,https://www.kilgore.edu/athletics
+JUCO,NJCAA - Football,Lackawanna Falcons,https://www.lackawanna.edu/athletics
+JUCO,NJCAA - Football,Nassau Community College Lions,https://www.ncc.edu/athletics
+JUCO,NJCAA - Football,Northwest Mississippi Community College Rangers,https://www.northwestms.edu/athletics
+JUCO,NJCAA - Football,Pearl River Wildcats,https://www.prcc.edu/athletics
+JUCO,NJCAA - Football,Snow College Badgers,https://www.snow.edu/athletics
+JUCO,NJCAA - Football,Tyler Junior College Apaches,https://www.tjc.edu/athletics
+JUCO,NJCAA - Football,Western Texas College Westerners,https://www.wtc.edu/athletics
+NFL,National Football League,Arizona Cardinals,https://www.azcardinals.com
+NFL,National Football League,Atlanta Falcons,https://www.atlantafalcons.com
+NFL,National Football League,Baltimore Ravens,https://www.baltimoreravens.com
+NFL,National Football League,Buffalo Bills,https://www.buffalobills.com
+NFL,National Football League,Carolina Panthers,https://www.panthers.com
+NFL,National Football League,Chicago Bears,https://www.chicagobears.com
+NFL,National Football League,Cincinnati Bengals,https://www.bengals.com
+NFL,National Football League,Cleveland Browns,https://www.clevelandbrowns.com
+NFL,National Football League,Dallas Cowboys,https://www.dallascowboys.com
+NFL,National Football League,Denver Broncos,https://www.denverbroncos.com
+NFL,National Football League,Detroit Lions,https://www.detroitlions.com
+NFL,National Football League,Green Bay Packers,https://www.packers.com
+NFL,National Football League,Houston Texans,https://www.houstontexans.com
+NFL,National Football League,Indianapolis Colts,https://www.colts.com
+NFL,National Football League,Jacksonville Jaguars,https://www.jaguars.com
+NFL,National Football League,Kansas City Chiefs,https://www.chiefs.com
+NFL,National Football League,Las Vegas Raiders,https://www.raiders.com
+NFL,National Football League,Los Angeles Chargers,https://www.chargers.com
+NFL,National Football League,Los Angeles Rams,https://www.therams.com
+NFL,National Football League,Miami Dolphins,https://www.miamidolphins.com
+NFL,National Football League,Minnesota Vikings,https://www.vikings.com
+NFL,National Football League,New England Patriots,https://www.patriots.com
+NFL,National Football League,New Orleans Saints,https://www.neworleanssaints.com
+NFL,National Football League,New York Giants,https://www.giants.com
+NFL,National Football League,New York Jets,https://www.newyorkjets.com
+NFL,National Football League,Philadelphia Eagles,https://www.philadelphiaeagles.com
+NFL,National Football League,Pittsburgh Steelers,https://www.steelers.com
+NFL,National Football League,San Francisco 49ers,https://www.49ers.com
+NFL,National Football League,Seattle Seahawks,https://www.seahawks.com
+NFL,National Football League,Tampa Bay Buccaneers,https://www.buccaneers.com
+NFL,National Football League,Tennessee Titans,https://www.tennesseetitans.com
+NFL,National Football League,Washington Commanders,https://www.commanders.com

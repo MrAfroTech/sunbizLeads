@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank you — Scan &amp; Scale</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css" />
+  <link rel="stylesheet" href="/styles/home.css" />
+</head>
+<body class="has-carousel-layout">
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="brand" data-sns-track="nav_brand">
+        SCAN &amp; SCALE
+        <span class="brand-sub">Seamlessly System Storefront</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/" data-sns-track="nav_home">Home</a>
+        <a href="/products" data-sns-track="nav_products">Products</a>
+        <a href="/#get-started" data-sns-track="nav_get_started">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="success-panel shell">
+      <h1>THANK YOU</h1>
+      <p>
+        Your Stripe Checkout session completed. You will receive a receipt from
+        Stripe if an email was collected at checkout.
+      </p>
+      <p class="mono" id="session-line" style="margin-bottom: 24px"></p>
+      <div class="hero-actions" style="justify-content: center">
+        <a class="btn btn-primary" href="/products" data-sns-track="success_back_products">Back to products</a>
+        <a class="btn btn-outline" href="/" data-sns-track="success_home">Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © <span id="footer-year"></span> Seamlessly · scan-and-scale.seamlessly.us
+  </footer>
+
+  <script src="/js/site-analytics.js" defer></script>
+  <script src="/js/home.js" defer></script>
+  <script>
+    document.getElementById('footer-year').textContent =
+      new Date().getFullYear();
+    var params = new URLSearchParams(location.search);
+    var sid = params.get('session_id');
+    var line = document.getElementById('session-line');
+    if (sid) line.textContent = 'Session: ' + sid;
+    else line.style.display = 'none';
+  </script>
+</body>
+</html>

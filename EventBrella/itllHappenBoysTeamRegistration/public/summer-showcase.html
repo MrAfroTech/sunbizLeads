@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Showcase - It'll Happen Boyz Summer Showcase | TBA</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        .hero-section {
+            grid-template-columns: 1fr;
+            min-height: 240px;
+            background-color: #000000;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .hero-section .hero-info { position: relative; z-index: 2; text-align: center; padding: 40px 20px; }
+        .events-container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        .events-header { text-align: center; margin-bottom: 40px; }
+        .events-header h1 { color: #E63946; font-size: 2.5rem; margin-bottom: 10px; }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 24px; }
+        .event-card { background: #fff; border: 2px solid #e0e0e0; border-radius: 12px; padding: 24px; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .event-card:hover { transform: translateY(-4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); border-color: #E63946; }
+        .event-name { font-size: 1.3rem; font-weight: bold; color: #000000; margin-bottom: 8px; }
+        .event-time, .event-venue { color: #666; font-size: 0.9rem; margin-bottom: 8px; }
+        .event-price { font-size: 1.1rem; font-weight: bold; color: #E63946; margin-top: 12px; }
+        .select-event-btn { display: inline-block; padding: 12px 24px; background: #E63946; color: #FFFFFF; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 8px; text-decoration: none; }
+        .select-event-btn:hover { background: #C5192D; color: #FFFFFF; }
+        .event-tooltip { font-size: 0.9rem; color: #666; margin-bottom: 12px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="hero-section">
+            <div class="hero-info">
+                <h1>It'll Happen Boyz Summer Showcase</h1>
+                <div class="hero-meta">Summer Showcase 2026 • Central Florida</div>
+            </div>
+        </div>
+
+        <div class="events-container">
+            <div class="events-header">
+                <h1>Summer Showcase</h1>
+                <p>Choose your pass and get tickets.</p>
+            </div>
+            <div id="eventsGrid" class="events-grid"></div>
+        </div>
+
+        <div class="event-details">Venue & Contact</div>
+        <div class="details-content">
+            <p class="details-text">Location To Be Announced, Central Florida, FL TBD.</p>
+            <p class="details-text"><strong>Contact:</strong> info@itllhappenboyz.com | 321-477-9140</p>
+            <p class="details-text"><strong>Coach Kei</strong> (Head Coach) | info@itllhappenboyz.com | 321-477-9140</p>
+            <p class="details-text"><strong>Coach Lee</strong> (Assistant Coach) | info@itllhappenboyz.com | 407-760-7136</p>
+        </div>
+
+        <div class="venue-section">
+            <h2 class="section-title">Venue Information</h2>
+            <div class="venue-info">
+                <div class="venue-name">TBA</div>
+                <div class="venue-address">Location To Be Announced<br>Central Florida, FL TBD<br>321-477-9140</div>
+            </div>
+            <div class="map-buttons">
+                <button class="map-btn map-btn-scroll" type="button">View Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Location+To+Be+Announced,+Central+Florida,+FL+TBD" target="_blank" class="map-btn">Get Directions</a>
+            </div>
+            <div class="map-container" id="map-frame">
+                <iframe src="https://www.google.com/maps?q=Location%20To%20Be%20Announced%2C%20Central%20Florida%2C%20FL%20TBD&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-contact">It'll Happen Boyz Summer Showcase — info@itllhappenboyz.com | 321-477-9140</p>
+            <p class="footer-terms"><a href="#terms">Terms and Conditions</a></p>
+        </div>
+    </footer>
+
+    <script src="/js/summer-showcase.js"></script>
+</body>
+</html>

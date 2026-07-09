@@ -1,0 +1,163 @@
+{
+  "name": "11 - Follow-Up Sequence Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {"interval": [{"field": "cronExpression", "expression": "0 9 * * *"}]}
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 9 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Opportunities", "mode": "name"},
+        "options": {"range": "A:AA", "useFirstRowAsHeaders": true, "returnAll": true},
+        "filters": {"conditions": [{"fieldName": "status", "condition": "equal", "value": "Contacted"}], "combinator": "and"}
+      },
+      "id": "get-contacted",
+      "name": "Get Contacted Opportunities",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const followUpDelayDays = 7;\nconst maxFollowUps = 3;\nconst maxDaily = 10;\nconst today = new Date().toISOString().split('T')[0];\n\nconst eligible = $input.all().filter(item => {\n  const d = item.json;\n  const contactedDate = d.contacted_date || '';\n  const followUpCount = parseInt(d.follow_up_count || 0);\n  const lastFollowUp = d.last_follow_up_date || '';\n  \n  if (followUpCount >= maxFollowUps) return false;\n  \n  const daysSinceContact = contactedDate ? Math.floor((new Date() - new Date(contactedDate)) / (1000 * 60 * 60 * 24)) : 0;\n  const daysSinceLastFollowUp = lastFollowUp ? Math.floor((new Date() - new Date(lastFollowUp)) / (1000 * 60 * 60 * 24)) : 999;\n  \n  if (followUpCount === 0) {\n    return daysSinceContact >= followUpDelayDays;\n  }\n  return daysSinceLastFollowUp >= followUpDelayDays;\n});\n\nreturn eligible.slice(0, maxDaily);"
+      },
+      "id": "filter-eligible",
+      "name": "Filter Eligible for Follow-Up",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {"role": "system", "content": "Write a 3-sentence follow-up email for a speaking opportunity pitch. Add new value - mention a recent trend or case study relevant to their audience. Keep it humble and brief. No hard sell."},
+            {"role": "user", "content": "=Event: {{ $json.event_name }}\nOriginal pitch topic: {{ $json.recommended_topic }}\nOrganizer: {{ $json.organizer_name }}\nAudience: {{ $json.audience_type }}\nFollow-up number: {{ (parseInt($json.follow_up_count) || 0) + 1 }}\n\nWrite brief follow-up. Subject line format: Re: [original subject]. Body: 3 sentences max."}
+          ]
+        },
+        "options": {"temperature": 0.7, "responseFormat": "json_object"}
+      },
+      "id": "write-followup",
+      "name": "Generate Follow-Up Email",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {"openAiApi": {"id": "openai-cred", "name": "OpenAI account"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const opp = $('Filter Eligible for Follow-Up').item.json;\nlet content;\ntry {\n  content = $json.message?.content || $json.content || '{}';\n  if (typeof content === 'string') content = JSON.parse(content);\n} catch (e) {\n  content = { subject: `Re: Speaking Opportunity - ${opp.event_name}`, body: `Hi ${opp.organizer_name}, I wanted to follow up on my speaking pitch for ${opp.event_name}. I recently published a case study on hospitality tech that might interest your audience. Would love to connect.` };\n}\nconst subject = content.subject || `Re: Speaking Opportunity - ${opp.event_name}`;\nconst body = content.body || content.message || content;\nconst followUpCount = (parseInt(opp.follow_up_count) || 0) + 1;\nconst maxFollowUps = 3;\nconst newStatus = followUpCount >= maxFollowUps ? 'No Response' : 'Contacted';\nreturn [{ json: { ...opp, followup_subject: subject, followup_body: body, new_follow_up_count: followUpCount, new_last_follow_up_date: new Date().toISOString(), new_status: newStatus } }];"
+      },
+      "id": "format-followup",
+      "name": "Format Follow-Up",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.organizer_email }}",
+        "subject": "={{ $json.followup_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.followup_body }}",
+        "options": {"replyTo": "your-email@domain.com", "bcc": "your-email@domain.com"}
+      },
+      "id": "send-followup",
+      "name": "Send Follow-Up Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1250, 300],
+      "credentials": {"gmailOAuth2Api": {"id": "gmail-cred", "name": "Gmail account"}}
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Opportunities", "mode": "name"},
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $('Format Follow-Up').item.json.event_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "follow_up_count": "={{ $('Format Follow-Up').item.json.new_follow_up_count }}",
+            "last_follow_up_date": "={{ $('Format Follow-Up').item.json.new_last_follow_up_date }}",
+            "status": "={{ $('Format Follow-Up').item.json.new_status }}",
+            "last_activity": "={{ $now }}"
+          }
+        }
+      },
+      "id": "update-sheet",
+      "name": "Update Opportunity",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 300],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Follow-Up Log", "mode": "name"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "opportunity_id": "={{ $('Format Follow-Up').item.json.event_name }}",
+            "follow_up_number": "={{ $('Format Follow-Up').item.json.new_follow_up_count }}",
+            "sent_date": "={{ $now }}",
+            "email_subject": "={{ $('Format Follow-Up').item.json.followup_subject }}",
+            "email_body": "={{ $('Format Follow-Up').item.json.followup_body }}"
+          }
+        }
+      },
+      "id": "log-followup",
+      "name": "Log to Follow-Up Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1650, 300],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Error Log", "mode": "name"},
+        "columns": {"mappingMode": "defineBelow", "value": {"workflow": "11 - Follow-Up", "error": "={{ $json.error }}", "timestamp": "={{ $now }}"}}
+      },
+      "id": "log-error",
+      "name": "Log Error",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 450],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    }
+  ],
+  "connections": {
+    "Daily at 9 AM": {"main": [[{"node": "Get Contacted Opportunities", "type": "main", "index": 0}]]},
+    "Get Contacted Opportunities": {"main": [[{"node": "Filter Eligible for Follow-Up", "type": "main", "index": 0}]]},
+    "Filter Eligible for Follow-Up": {"main": [[{"node": "Generate Follow-Up Email", "type": "main", "index": 0}]]},
+    "Generate Follow-Up Email": {"main": [[{"node": "Format Follow-Up", "type": "main", "index": 0}]]},
+    "Format Follow-Up": {"main": [[{"node": "Send Follow-Up Email", "type": "main", "index": 0}]]},
+    "Send Follow-Up Email": {"main": [[{"node": "Update Opportunity", "type": "main", "index": 0}]], "error": [[{"node": "Log Error", "type": "main", "index": 0}]]},
+    "Update Opportunity": {"main": [[{"node": "Log to Follow-Up Log", "type": "main", "index": 0}]]}
+  },
+  "pinData": {},
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-15T00:00:00.000Z",
+  "versionId": "1"
+}

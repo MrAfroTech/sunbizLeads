@@ -1,0 +1,41 @@
+{
+  "name": "orlandopirates",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "vercel-build": "npx expo export --platform web --output-dir dist"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^15.0.3",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-navigation/bottom-tabs": "^7.8.11",
+    "@react-navigation/native": "^7.1.24",
+    "@react-navigation/stack": "^7.6.11",
+    "@supabase/supabase-js": "^2.78.0",
+    "expo": "~54.0.27",
+    "expo-haptics": "~14.0.0",
+    "expo-linear-gradient": "~14.0.1",
+    "expo-location": "~18.0.4",
+    "expo-secure-store": "~14.0.0",
+    "expo-status-bar": "~3.0.9",
+    "jsonwebtoken": "^9.0.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-qrcode-svg": "^6.3.21",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-native-svg": "^15.8.0",
+    "react-native-web": "^0.21.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20.19.4",
+    "npm": ">=10.0.0"
+  }
+}

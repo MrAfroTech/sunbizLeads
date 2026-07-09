@@ -1,0 +1,335 @@
+{
+  "name": "01B - Lead Discovery: Bars & Restaurants",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start-trigger",
+      "name": "Start Discovery",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "city",
+              "value": "Orlando"
+            }
+          ],
+          "number": [
+            {
+              "name": "min_reviews",
+              "value": 200
+            },
+            {
+              "name": "min_rating",
+              "value": 3.5
+            },
+            {
+              "name": "max_results_per_type",
+              "value": 20
+            }
+          ],
+          "array": {
+            "values": [
+              {
+                "name": "venue_types",
+                "value": ["sports bar", "nightclub", "busy restaurant", "popular bar", "high volume restaurant"]
+              }
+            ]
+          }
+        }
+      },
+      "id": "set-params",
+      "name": "Set Search Parameters",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Type",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://maps.googleapis.com/maps/api/place/textsearch/json?query={{ $json.venue_types }}+in+{{ $node[\"Set Search Parameters\"].json.city }}&key={{ $credentials.googleMapsApi.apiKey }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "search-maps",
+      "name": "Search Google Maps",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://maps.googleapis.com/maps/api/place/details/json?place_id={{ $json.results[0].place_id }}&fields=reviews&key={{ $credentials.googleMapsApi.apiKey }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "get-details",
+      "name": "Get Place Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const placeData = $input.first().json;\nconst reviews = placeData.result?.reviews || [];\n\nconst painKeywords = [\n  'long wait', 'long line', 'slow service', 'wait time',\n  'crowded', 'busy', 'waited forever', 'line out the door'\n];\n\nlet painSignals = [];\nlet painScore = 0;\n\nreviews.forEach(review => {\n  const text = review.text.toLowerCase();\n  painKeywords.forEach(keyword => {\n    if (text.includes(keyword)) {\n      painSignals.push(keyword);\n      painScore += 1;\n    }\n  });\n});\n\n// Deduplicate pain signals\npainSignals = [...new Set(painSignals)];\n\n// Get original place data from earlier node\nconst originalData = $node[\"Search Google Maps\"].json.results[0];\n\nreturn {\n  business_name: originalData.name,\n  category: originalData.types?.[0] || 'unknown',\n  city: $node[\"Set Search Parameters\"].json.city,\n  address: originalData.formatted_address || '',\n  website: originalData.website || '',\n  rating: originalData.rating || 0,\n  review_count: originalData.user_ratings_total || 0,\n  phone: originalData.formatted_phone_number || '',\n  place_id: originalData.place_id,\n  pain_signals: painSignals.join(', '),\n  pos_system: '',\n  location_count: 1,\n  score: painScore,\n  status: painScore >= 3 ? 'New - High Pain' : 'New',\n  email: '',\n  contacted_date: '',\n  last_activity: new Date().toISOString(),\n  engagement_level: '',\n  decision_maker_role: '',\n  estimated_monthly_loss: 0\n};"
+      },
+      "id": "analyze-pain",
+      "name": "Analyze Reviews for Pain",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "pain-check",
+              "leftValue": "={{ $json.pain_signals }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-pain",
+      "name": "Check Pain Threshold",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "business_name": "={{ $json.business_name }}",
+            "category": "={{ $json.category }}",
+            "city": "={{ $json.city }}",
+            "address": "={{ $json.address }}",
+            "website": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "rating": "={{ $json.rating }}",
+            "review_count": "={{ $json.review_count }}",
+            "pain_signals": "={{ $json.pain_signals }}",
+            "pos_system": "={{ $json.pos_system }}",
+            "location_count": "={{ $json.location_count }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "place_id": "={{ $json.place_id }}",
+            "engagement_level": "={{ $json.engagement_level }}",
+            "decision_maker_role": "={{ $json.decision_maker_role }}",
+            "estimated_monthly_loss": "={{ $json.estimated_monthly_loss }}"
+          }
+        }
+      },
+      "id": "write-pipeline",
+      "name": "Write to Pipeline",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1650, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "business_name": "={{ $json.business_name }}",
+            "category": "={{ $json.category }}",
+            "city": "={{ $json.city }}",
+            "address": "={{ $json.address }}",
+            "website": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "rating": "={{ $json.rating }}",
+            "review_count": "={{ $json.review_count }}",
+            "pain_signals": "={{ $json.pain_signals }}",
+            "pos_system": "={{ $json.pos_system }}",
+            "location_count": "={{ $json.location_count }}",
+            "score": "={{ $json.score }}",
+            "status": "New - Low Pain Signals",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "place_id": "={{ $json.place_id }}",
+            "engagement_level": "={{ $json.engagement_level }}",
+            "decision_maker_role": "={{ $json.decision_maker_role }}",
+            "estimated_monthly_loss": "={{ $json.estimated_monthly_loss }}"
+          }
+        }
+      },
+      "id": "write-low-priority",
+      "name": "Write as Low Priority",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1650, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start Discovery": {
+      "main": [
+        [
+          {
+            "node": "Set Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Process Each Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Type": {
+      "main": [
+        [
+          {
+            "node": "Search Google Maps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Google Maps": {
+      "main": [
+        [
+          {
+            "node": "Get Place Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Place Details": {
+      "main": [
+        [
+          {
+            "node": "Analyze Reviews for Pain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Reviews for Pain": {
+      "main": [
+        [
+          {
+            "node": "Check Pain Threshold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Pain Threshold": {
+      "main": [
+        [
+          {
+            "node": "Write to Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write as Low Priority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

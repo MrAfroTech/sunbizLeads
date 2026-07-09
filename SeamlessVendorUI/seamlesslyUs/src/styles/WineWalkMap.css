@@ -1,0 +1,304 @@
+/* Wine Walk Map Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wine-walk-container {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    min-height: 100vh;
+    color: #ffffff;
+    background: linear-gradient(rgba(18, 18, 18, 0.95), rgba(18, 18, 18, 0.95)), 
+                radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.08), transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(184, 134, 11, 0.05), transparent 50%);
+}
+
+.wine-walk-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.wine-walk-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.wine-walk-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+}
+
+.wine-walk-header p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+}
+
+.wine-walk-controls {
+    background-color: #0a0a0a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(224, 184, 65, 0.1);
+    margin-bottom: 20px;
+}
+
+.wine-walk-button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.wine-walk-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.wine-walk-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.wine-walk-btn-primary {
+    background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+    color: #0a0a0a;
+    border: none;
+}
+
+.wine-walk-btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.wine-walk-btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(224, 184, 65, 0.3);
+}
+
+.wine-walk-btn-secondary:hover:not(:disabled) {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+}
+
+.wine-walk-status {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: none;
+}
+
+.wine-walk-status.visible {
+    display: block;
+}
+
+.wine-walk-status.success {
+    background: rgba(212, 175, 55, 0.1);
+    color: #e0b841;
+    border: 1px solid rgba(224, 184, 65, 0.2);
+}
+
+.wine-walk-status.error {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.wine-walk-map-container {
+    background: #0a0a0a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(224, 184, 65, 0.1);
+    height: 600px;
+    position: relative;
+}
+
+.wine-walk-map {
+    width: 100%;
+    height: 100%;
+}
+
+.wine-walk-location-form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.wine-walk-form-group {
+    margin-bottom: 15px;
+}
+
+.wine-walk-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.wine-walk-form-group input,
+.wine-walk-form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.wine-walk-form-group input:focus,
+.wine-walk-form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.wine-walk-location-list {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.wine-walk-location-list h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.wine-walk-location-item {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.wine-walk-location-item:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.wine-walk-location-info {
+    flex: 1;
+}
+
+.wine-walk-location-name {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.wine-walk-location-address {
+    color: #666;
+    font-size: 14px;
+}
+
+.wine-walk-location-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.wine-walk-btn-small {
+    padding: 8px 15px;
+    font-size: 12px;
+    border-radius: 20px;
+}
+
+.wine-walk-distance-info {
+    background: #e3f2fd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #1976d2;
+    display: none;
+}
+
+.wine-walk-distance-info.visible {
+    display: block;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wine-walk-inner {
+        padding: 15px;
+    }
+    
+    .wine-walk-header h1 {
+        font-size: 2em;
+    }
+    
+    .wine-walk-button-group {
+        flex-direction: column;
+    }
+    
+    .wine-walk-btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .wine-walk-location-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .wine-walk-location-actions {
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .wine-walk-map-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wine-walk-inner {
+        padding: 10px;
+    }
+    
+    .wine-walk-header h1 {
+        font-size: 1.8em;
+    }
+    
+    .wine-walk-controls {
+        padding: 15px;
+    }
+    
+    .wine-walk-location-list {
+        padding: 15px;
+    }
+    
+    .wine-walk-map-container {
+        height: 350px;
+    }
+}

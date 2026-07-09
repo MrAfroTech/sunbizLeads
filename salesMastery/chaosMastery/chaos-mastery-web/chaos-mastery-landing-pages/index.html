@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Book Bonus Landing Pages</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #1a1a1a;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  gap: 48px;
+}
+
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+
+.nl-header {
+  background: #1A2A44;
+  padding: 0;
+  border-bottom: 4px solid #D4AF37;
+  position: relative;
+  overflow: hidden;
+}
+.nl-header-inner {
+  padding: 32px 40px 24px;
+  position: relative;
+  z-index: 2;
+}
+.nl-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 79px,
+    rgba(212,175,55,0.04) 79px,
+    rgba(212,175,55,0.04) 80px
+  ),
+  repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 39px,
+    rgba(212,175,55,0.03) 39px,
+    rgba(212,175,55,0.03) 40px
+  );
+  z-index: 1;
+}
+
+.nl-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #00D4AA;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.nl-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.hero-band {
+  background: #D4AF37;
+  padding: 20px 40px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.hero-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: #1A2A44;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.2;
+}
+.hero-text {}
+.hero-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(26,42,68,0.65);
+  margin-bottom: 4px;
+}
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: #1A2A44;
+  letter-spacing: 1px;
+  line-height: 1.05;
+}
+
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #D4AF37;
+  margin-bottom: 8px;
+}
+.section-head {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: #1A2A44;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.75; }
+.body-text p { margin-bottom: 14px; }
+.body-text p:last-child { margin-bottom: 0; }
+
+.landing-toc {
+  list-style: none;
+  border: 1px solid #E8ECF0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.landing-toc li {
+  border-bottom: 1px solid #E8ECF0;
+}
+.landing-toc li:last-child { border-bottom: none; }
+.landing-toc a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: #1A2A44;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.35;
+  transition: background 0.15s, color 0.15s;
+}
+.landing-toc a:hover {
+  background: #F4F6F9;
+  color: #00D4AA;
+}
+.landing-toc .toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #D4AF37;
+  width: 40px;
+  flex-shrink: 0;
+  line-height: 1;
+  opacity: 0.9;
+}
+.landing-toc a:hover .toc-num {
+  color: #1A2A44;
+}
+.landing-toc .toc-title {
+  font-weight: 600;
+}
+
+.nl-footer {
+  background: #1A2A44;
+  padding: 28px 40px;
+  border-top: 4px solid #D4AF37;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.social-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 8px 14px;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+  text-align: center;
+  min-width: 0;
+}
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+
+.social-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(212,175,55,0.2);
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: #D4AF37;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+}
+.footer-source {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.35);
+  font-style: italic;
+  text-align: right;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Chaos Mastery Newsletter · Book Bonus</div>
+      <div class="nl-wordmark">Chaos <span>Mastery</span></div>
+      <div class="nl-subtitle">Seamless Hospitality for the 21st Century</div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">21</div>
+    <div class="hero-text">
+      <div class="hero-kicker">Master index</div>
+      <div class="hero-headline">Book Bonus<br>Landing Pages</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="body-text">
+      <p>Jump to any chapter companion page below. Each link opens the standalone bonus page for that chapter.</p>
+    </div>
+
+    <div>
+      <div class="section-label">Chaos Mastery</div>
+      <div class="section-head">All Chapter Pages</div>
+      <ul class="landing-toc">
+        <li><a href="landing-hospitality-was-always-human.html"><span class="toc-num">01</span><span class="toc-title">Hospitality Was Always Human</span></a></li>
+        <li><a href="landing-the-guest-who-changed-everything.html"><span class="toc-num">02</span><span class="toc-title">The Guest Who Changed Everything</span></a></li>
+        <li><a href="landing-the-urban-venue-era.html"><span class="toc-num">03</span><span class="toc-title">The Urban Venue Era</span></a></li>
+        <li><a href="landing-the-stadium-opportunity.html"><span class="toc-num">04</span><span class="toc-title">The Stadium Opportunity</span></a></li>
+        <li><a href="landing-when-hospitality-was-at-its-best.html"><span class="toc-num">05</span><span class="toc-title">When Hospitality Was at Its Best</span></a></li>
+        <li><a href="landing-the-tools-made-it-worse.html"><span class="toc-num">06</span><span class="toc-title">The Tools Made It Worse</span></a></li>
+        <li><a href="landing-the-hidden-cost-of-a-bad-stack.html"><span class="toc-num">07</span><span class="toc-title">The Hidden Cost of a Bad Stack</span></a></li>
+        <li><a href="landing-why-your-best-people-keep-leaving.html"><span class="toc-num">08</span><span class="toc-title">Why Your Best People Keep Leaving</span></a></li>
+        <li><a href="landing-youre-paying-for-the-problem.html"><span class="toc-num">09</span><span class="toc-title">You're Paying for the Problem</span></a></li>
+        <li><a href="landing-you-dont-know-your-guests.html"><span class="toc-num">10</span><span class="toc-title">You Don't Actually Know Your Guests</span></a></li>
+        <li><a href="landing-the-only-thing-guests-remember.html"><span class="toc-num">11</span><span class="toc-title">The Only Thing Guests Remember</span></a></li>
+        <li><a href="landing-the-wait-is-killing-your-revenue.html"><span class="toc-num">12</span><span class="toc-title">The Wait Is Killing Your Revenue</span></a></li>
+        <li><a href="landing-build-it-so-they-stay.html"><span class="toc-num">13</span><span class="toc-title">Build It So They Stay</span></a></li>
+        <li><a href="landing-events-are-operations-not-magic.html"><span class="toc-num">14</span><span class="toc-title">Events Are Operations, Not Magic</span></a></li>
+        <li><a href="landing-keep-the-people-who-know-what-theyre-doing.html"><span class="toc-num">15</span><span class="toc-title">Keep the People Who Know What They're Doing</span></a></li>
+        <li><a href="landing-what-happens-when-it-all-works-together.html"><span class="toc-num">16</span><span class="toc-title">What Happens When It All Works Together</span></a></li>
+        <li><a href="landing-one-system-fewer-problems.html"><span class="toc-num">17</span><span class="toc-title">One System. Fewer Problems.</span></a></li>
+        <li><a href="landing-the-venue-that-runs-itself.html"><span class="toc-num">18</span><span class="toc-title">The Venue That Runs Itself</span></a></li>
+        <li><a href="landing-from-arrival-to-last-call.html"><span class="toc-num">19</span><span class="toc-title">From Arrival to Last Call</span></a></li>
+        <li><a href="landing-what-the-best-operators-do-differently.html"><span class="toc-num">20</span><span class="toc-title">What the Best Operators Do Differently</span></a></li>
+        <li><a href="landing-what-killed-the-greats.html"><span class="toc-num">21</span><span class="toc-title">What Killed the Greats</span></a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank" aria-label="Instagram">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank" aria-label="LinkedIn">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="social-btn web" href="https://seamlessly.us" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        seamlessly.us
+      </a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Book Me To Speak
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">Chaos Mastery</div>
+        <div class="footer-copy">A newsletter by Maurice Sanders · Seamlessly, Inc.<br>© 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-source">
+        Source: AAA Gas Prices Report, April 2026<br>
+        gasprices.aaa.com
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

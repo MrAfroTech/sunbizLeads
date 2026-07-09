@@ -1,0 +1,198 @@
+{
+  "name": "03 - Lead Scoring",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 11 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 11 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Email Found"
+            }
+          ]
+        }
+      },
+      "id": "get-leads",
+      "name": "Get Leads to Score",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a lead qualification expert. Score venues from 1-5 for photo booth rental outreach. Scoring criteria: 5 = High-volume venue (500+ reviews, 4.0+ rating, premium category like event venue/upscale restaurant), 3 = Mid-tier venue (100-500 reviews, 3.5+ rating), 1 = Low-priority (few reviews, low rating, or poor category fit). Return ONLY a single digit 1-5, nothing else."
+            },
+            {
+              "role": "user",
+              "content": "=Score this venue:\n\nName: {{ $json.business_name }}\nCategory: {{ $json.category }}\nReviews: {{ $json.review_count }}\nRating: {{ $json.rating }}\nCity: {{ $json.city }}"
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0
+        }
+      },
+      "id": "score-lead",
+      "name": "AI Lead Scoring",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.message.content.trim();\nconst score = parseInt(response.match(/[1-5]/)?.[0] || '2');\n\nreturn {\n  ...($node[\"Get Leads to Score\"].json),\n  score: score,\n  status: score >= 3 ? 'Qualified' : 'Low Priority',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "parse-score",
+      "name": "Extract Score Number",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "update-score",
+      "name": "Write Score to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 11 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Leads to Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Leads to Score": {
+      "main": [
+        [
+          {
+            "node": "AI Lead Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Lead Scoring": {
+      "main": [
+        [
+          {
+            "node": "Extract Score Number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Score Number": {
+      "main": [
+        [
+          {
+            "node": "Write Score to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
+
+

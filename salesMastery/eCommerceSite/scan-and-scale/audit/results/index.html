@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Audit Results — QR Revenue Audit</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css" />
+  <link rel="stylesheet" href="/audit/styles/audit.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="brand">
+        SCAN &amp; SCALE
+        <span class="brand-sub">Seamlessly System Storefront</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/audit">QR Audit</a>
+        <a href="/products">Products</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell" style="padding-top: 40px;">
+    <div id="audit-results-gate" class="audit-gate" hidden>
+      <p>Purchase the QR Revenue Audit and complete the assessment to view your results.</p>
+      <a href="/audit" class="btn btn-primary">Go to Audit — $17</a>
+    </div>
+
+    <div id="audit-results" hidden>
+      <p class="label">Your QR Revenue Audit</p>
+      <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 6vw, 52px); letter-spacing: 1px; margin-bottom: 8px;">Audit Results</h1>
+      <p id="result-venue-summary" style="color: rgba(255,255,255,0.7); margin-bottom: 28px;"></p>
+
+      <div class="audit-results-grid">
+        <section class="audit-result-card">
+          <h2>Revenue Leak Estimate</h2>
+          <p class="audit-leak-value" id="result-leak">—</p>
+          <p id="result-daily-leak" style="font-size:1rem; color:#D4AF37; font-weight:600; margin-top:6px;"></p>
+          <p style="font-size: 14px; color: rgba(255,255,255,0.65);">
+            Estimated annual missed revenue based on a 20% uplift from QR ordering deployment.
+          </p>
+        </section>
+
+        <section class="audit-result-card">
+          <h2>Deployment Priority Checklist</h2>
+          <ol class="audit-checklist" id="result-checklist"></ol>
+        </section>
+
+        <section class="audit-result-card">
+          <h2>Missed Opportunity Breakdown</h2>
+          <div class="audit-zone-bars" id="result-zones"></div>
+        </section>
+
+        <section class="audit-result-card">
+          <h2>Data &amp; Loyalty Gap Score</h2>
+          <div class="audit-score">
+            <span class="audit-score-value" id="result-loyalty-score">—</span>
+            <span class="audit-score-scale">out of 10<br />revenue at risk from data gaps</span>
+          </div>
+          <p id="result-loyalty-explain" style="font-size: 15px; color: rgba(255,255,255,0.8);"></p>
+        </section>
+
+        <div id="audit-implementation-bridge" style="background:#0f1e35; border-top:1.5px solid #00D4AA; border-radius:10px; padding:24px 20px; margin:32px 0 20px;">
+          <p style="color:#00D4AA; font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 8px;">Next step after the playbook</p>
+          <p style="color:#ffffff; font-size:1.15rem; font-weight:700; margin:0 0 10px;">Want us to deploy this for your venue — done for you?</p>
+          <p style="color:#b4bcc8; font-size:0.95rem; margin:0 0 20px; line-height:1.6;">Most operators get the playbook, start strong, and stall at deployment. A 45-minute implementation call with our team removes that bottleneck — we map your exact zones, configure your system, and hand you a go-live plan.</p>
+          <a
+            href="https://calendly.com/seamlessly"
+            style="display:inline-block; background:#00D4AA; color:#0f1e35; font-weight:700; font-size:1rem; padding:12px 28px; border-radius:6px; text-decoration:none;"
+          >
+            Book My Implementation Call →
+          </a>
+        </div>
+
+        <div id="audit-offer-block" style="background:#1a2a44; border:1.5px solid #D4AF37; border-radius:10px; padding:24px 20px; margin:28px 0 20px;">
+          <p style="font-size:0.8rem; color:#00D4AA; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 8px;">From the author of Chaos Mastery</p>
+          <h3 style="font-size:1.4rem; color:#ffffff; font-weight:700; margin:0 0 12px; line-height:1.3;">The QR Revenue Deployment Playbook</h3>
+          <ul style="color:#b4bcc8; font-size:0.95rem; padding-left:1.2rem; margin:0 0 16px; line-height:1.8;">
+            <li>Your exact zone-by-zone QR placement sequence</li>
+            <li>The idle-time capture framework (staff scripts included)</li>
+            <li>Guest data capture setup from day one</li>
+            <li>30-day rollout checklist — venue-type specific</li>
+          </ul>
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <a
+              href="https://scan-and-scale.seamlessly.us/products"
+              style="display:inline-block; background:#D4AF37; color:#1a2a44; font-weight:700; font-size:1rem; padding:12px 28px; border-radius:6px; text-decoration:none;"
+            >
+              Get the Playbook — $17 →
+            </a>
+            <span style="color:#b4bcc8; font-size:0.85rem;">Instant download. No fluff. Venue-operator specific.</span>
+          </div>
+        </div>
+
+        <section class="audit-result-card" style="text-align: center;">
+          <button type="button" class="btn btn-primary" id="audit-pdf-btn">Download My Audit Report</button>
+        </section>
+      </div>
+
+      <div class="audit-ctas">
+        <a class="btn btn-primary" href="https://scan-and-scale.seamlessly.us/products">Ready to Deploy? Browse Your Kit</a>
+        <a class="btn btn-outline" href="https://calendly.com/seamlessly" target="_blank" rel="noopener noreferrer">Book a Complimentary Revenue Recovery Review</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © <span id="footer-year"></span> Seamlessly · scan-and-scale.seamlessly.us
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="/audit/js/audit-logic.js"></script>
+  <script src="/audit/js/audit-pdf.js"></script>
+  <script src="/audit/js/audit-results.js"></script>
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

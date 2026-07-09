@@ -1,0 +1,16 @@
+{
+  "name": "customer-bridge-lambda",
+  "version": "1.0.0",
+  "description": "Customer Bridge Lambda for vendor updates",
+  "main": "customer-bridge-lambda.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

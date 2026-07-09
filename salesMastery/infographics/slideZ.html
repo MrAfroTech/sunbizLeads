@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seamlessly Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; margin: 0; padding: 0; }
+
+  #card {
+    background: #000;
+    width: 100%;
+    padding: 56px 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-bottom: 2px solid rgba(212,175,55,0.3);
+  }
+
+  .brand {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 100px;
+    letter-spacing: 4px;
+    color: #D4AF37;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .contact {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .qr {
+    width: 180px;
+    height: 180px;
+    border: 2px dashed rgba(212,175,55,0.4);
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #000;
+    background: #D4AF37;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="card">
+  <div class="brand">Seamlessly</div>
+  <div class="qr"></div>
+  <div class="contact">maurice.sanders&#64;seamlessly.us</div>
+  <div class="contact">305-434-0738</div>
+</div>
+
+<button id="dlBtn">&#8595; Download as PNG</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  document.getElementById('dlBtn').addEventListener('click', function() {
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Generating...';
+    document.fonts.ready.then(function() {
+      setTimeout(function() {
+        html2canvas(document.getElementById('card'), {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#000000',
+          logging: false
+        }).then(function(canvas) {
+          var a = document.createElement('a');
+          a.download = 'seamlessly-contact.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+          btn.disabled = false;
+          btn.textContent = 'Download as PNG';
+        });
+      }, 500);
+    });
+  });
+</script>
+
+</body>
+</html>

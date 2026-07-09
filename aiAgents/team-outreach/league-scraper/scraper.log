@@ -1,0 +1,150 @@
+2026-03-04 15:14:53,908 [INFO] League Team Scraper starting
+2026-03-04 15:52:40,666 [INFO] League Team Scraper starting
+2026-03-04 16:09:47,559 [INFO] League Team Scraper starting
+2026-03-04 16:18:00,812 [INFO] League Team Scraper starting
+2026-03-04 16:35:00,666 [INFO] League Team Scraper starting
+2026-03-04 16:35:00,715 [INFO] TEAMS_SHEET_ID not set; creating new 'League Teams' spreadsheet.
+2026-03-04 17:04:52,433 [INFO] League Team Scraper starting
+2026-03-04 17:04:52,503 [INFO] TEAMS_SHEET_ID not set; creating new 'League Teams' spreadsheet.
+2026-03-04 17:08:01,255 [INFO] League Team Scraper starting
+2026-03-04 17:08:01,328 [INFO] TEAMS_SHEET_ID not set; creating new 'League Teams' spreadsheet.
+2026-03-04 17:18:22,301 [INFO] League Team Scraper starting
+2026-03-04 17:18:22,371 [INFO] TEAMS_SHEET_ID not set; creating new 'League Teams' spreadsheet.
+2026-03-04 17:18:49,933 [INFO] League Team Scraper starting
+2026-03-04 17:18:49,991 [INFO] TEAMS_SHEET_ID not set; creating new 'League Teams' spreadsheet.
+2026-03-04 17:24:48,329 [INFO] League Team Scraper starting
+2026-03-04 17:25:07,127 [INFO] Scraping league: Atlantic League
+2026-03-04 17:25:09,852 [INFO] Atlantic League teams page: https://atlanticleague.com/clubs/
+2026-03-04 17:25:12,336 [INFO] Found 32 potential team entries for Atlantic League
+2026-03-04 17:25:12,337 [INFO] Team: Scoreboard | League: Atlantic League | URL: https://baseball.pointstreak.com/scoreboard.html?leagueid=174&seasonid=34102
+2026-03-04 17:25:15,472 [INFO] Team: STATISTICS | League: Atlantic League | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102
+2026-03-04 17:25:18,874 [INFO] Team: Leaders | League: Atlantic League | URL: https://baseball.pointstreak.com/leaders.html?leagueid=174&seasonid=34102
+2026-03-04 17:25:21,981 [INFO] Team: All Players | League: Atlantic League | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102
+2026-03-04 17:25:24,907 [INFO] Team: Attendance | League: Atlantic League | URL: https://baseball.pointstreak.com/attendance.html?leagueid=174&seasonid=34102
+2026-03-04 17:25:28,017 [INFO] Team: STREAM FLO Baseball | League: Atlantic League | URL: https://flosports.link/3G4yKOp
+2026-03-04 17:25:30,887 [INFO] Visiting team page for About Us (Atlantic League) in 2.3s
+2026-03-04 17:25:37,692 [INFO] Team: About Us | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:25:40,699 [INFO] Visiting team page for History (Atlantic League) in 2.5s
+2026-03-04 17:25:46,568 [INFO] Team: History | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:25:49,792 [INFO] Visiting team page for League Office (Atlantic League) in 2.4s
+2026-03-04 17:25:55,076 [INFO] Team: League Office | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:25:58,375 [INFO] Visiting team page for Contact Us (Atlantic League) in 2.0s
+2026-03-04 17:26:03,119 [INFO] Team: Contact Us | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:26:06,653 [INFO] Visiting team page for ALPB Official Baseball Sponsorship (Atlantic League) in 2.5s
+2026-03-04 17:26:12,500 [INFO] Team: ALPB Official Baseball Sponsorship | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:26:15,522 [INFO] Visiting team page for ALPB Rules (Atlantic League) in 2.0s
+2026-03-04 17:26:18,718 [INFO] Team: ALPB Rules | League: Atlantic League | URL: https://atlanticleague.com/content/uploads/2025/04/ALPB-Rules-Regulations-25-Umpire-Edition-033025.pdf
+2026-03-04 17:26:21,497 [INFO] Visiting team page for Player Contracts Purchased (Atlantic League) in 2.3s
+2026-03-04 17:26:26,880 [INFO] Team: Player Contracts Purchased | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:26:29,962 [INFO] Visiting team page for Players In The Majors (Atlantic League) in 2.7s
+2026-03-04 17:26:35,870 [INFO] Team: Players In The Majors | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:26:38,638 [INFO] Visiting team page for Atlantic League Awards (Atlantic League) in 2.7s
+2026-03-04 17:26:44,955 [INFO] Team: Atlantic League Awards | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:26:47,921 [INFO] Visiting team page for Notable Alumni (Atlantic League) in 2.2s
+2026-03-04 17:26:52,848 [INFO] Team: Notable Alumni | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:26:55,685 [INFO] Visiting team page for Careers (Atlantic League) in 2.7s
+2026-03-04 17:27:01,237 [INFO] Team: Careers | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:27:04,081 [INFO] Visiting team page for Record Book (Atlantic League) in 2.6s
+2026-03-04 17:27:08,336 [INFO] Team: Record Book | League: Atlantic League | URL: https://atlanticleague.com/content/uploads/2025/04/ALPB-Record-Book-4.25.25.pdf
+2026-03-04 17:27:11,460 [INFO] Team: Charleston Dirty Birds | League: Atlantic League | URL: https://dirtybirdsbaseball.com/pages/schedule
+2026-03-04 17:27:14,419 [INFO] Team: Gastonia Ghost Peppers | League: Atlantic League | URL: https://www.ghostpeppersbaseball.com
+2026-03-04 17:27:18,047 [INFO] Team: High Point Rockers | League: Atlantic League | URL: https://highpointrockers.com/tickets-schedule/schedule/
+2026-03-04 17:27:20,991 [INFO] Team: Hagerstown Flying Boxcars | League: Atlantic League | URL: https://flyingboxcars.com/
+2026-03-04 17:27:24,076 [INFO] Team: Lancaster Stormers | League: Atlantic League | URL: https://www.lancasterstormers.com
+2026-03-04 17:27:27,433 [INFO] Team: Lexington Legends | League: Atlantic League | URL: https://www.lexingtonlegends.com
+2026-03-04 17:27:30,926 [INFO] Team: Long Island Ducks | League: Atlantic League | URL: https://liducks.com/schedule/
+2026-03-04 17:27:34,312 [INFO] Team: Southern Maryland Blue Crabs | League: Atlantic League | URL: https://somdbluecrabs.com.
+2026-03-04 17:27:38,118 [INFO] Team: Staten Island Ferry Hawks | League: Atlantic League | URL: https://ferryhawks.com/documents/2025/9/25/26Schedule-Printable.pdf
+2026-03-04 17:27:40,969 [INFO] Team: York Revolution | League: Atlantic League | URL: https://yorkrevolution.com/
+2026-03-04 17:27:43,887 [INFO] Team: Transactions | League: Atlantic League | URL: https://baseball.pointstreak.com/transactions.html?leagueid=174&seasonid=34102
+2026-03-04 17:27:46,757 [INFO] Visiting team page for Links (Atlantic League) in 2.7s
+2026-03-04 17:27:53,077 [INFO] Team: Links | League: Atlantic League | URL: https://share.flosports.tv/SHap
+2026-03-04 17:27:56,394 [INFO] Team: STREAM FLO BASEBALL | League: Atlantic League | URL: https://flosports.link/3G4yKOp
+2026-03-04 17:28:00,031 [INFO] Team: Click here | League: Atlantic League | URL: https://ferryhawks.com/
+2026-03-04 17:28:03,076 [INFO] Scraping league: Frontier League
+2026-03-04 17:28:04,811 [INFO] Frontier League teams page: https://www.frontierleague.com/teams
+2026-03-04 17:28:07,294 [INFO] Found 44 potential team entries for Frontier League
+2026-03-04 17:28:07,295 [INFO] Team: English | League: Frontier League | URL: https://www.frontierleague.com/teams
+2026-03-04 17:28:10,506 [INFO] Team: Français 
+ fr | League: Frontier League | URL: https://www.frontierleague.com/fr/teams
+2026-03-04 17:28:13,820 [INFO] Team: Español 
+ es | League: Frontier League | URL: https://www.frontierleague.com/es/teams
+2026-03-04 17:28:16,966 [INFO] Team: Button | League: Frontier League | URL: https://www.evansvilleotters.com/
+2026-03-04 17:28:19,905 [INFO] Team: ALUMNI | League: Frontier League | URL: https://www.frontierleague.com/empty-paged5a38774
+2026-03-04 17:28:23,284 [INFO] Team: Evansville Otters | League: Frontier League | URL: https://www.frontierleague.com/team-profile-evansville-otters
+2026-03-04 17:28:26,600 [INFO] Team: Florence Y'alls | League: Frontier League | URL: https://www.frontierleague.com/florence-y-alls
+2026-03-04 17:28:29,587 [INFO] Team: Gateway Grizzlies | League: Frontier League | URL: https://www.frontierleague.com/gateway-grizzlies
+2026-03-04 17:28:33,030 [INFO] Team: Joliet Slammers | League: Frontier League | URL: https://www.frontierleague.com/joliet-slammers
+2026-03-04 17:28:35,954 [INFO] Team: Lake Erie Crushers | League: Frontier League | URL: https://www.frontierleague.com/lake-erie-crushers
+2026-03-04 17:28:39,376 [INFO] Team: Mississippi Mud Monsters | League: Frontier League | URL: https://www.frontierleague.com/mississippi-mud-monsters
+2026-03-04 17:28:42,545 [INFO] Team: Schaumburg Boomers | League: Frontier League | URL: https://www.frontierleague.com/schaumburg-boomers
+2026-03-04 17:28:45,507 [INFO] Team: Washington Wild Things | League: Frontier League | URL: https://www.frontierleague.com/washington-wild-things
+2026-03-04 17:28:49,151 [INFO] Team: Windy City ThunderBolts | League: Frontier League | URL: https://www.frontierleague.com/windy-city-thunderbolts
+2026-03-04 17:28:52,811 [INFO] Team: Brockton Rox | League: Frontier League | URL: https://www.frontierleague.com/brockton-rox
+2026-03-04 17:28:56,160 [INFO] Team: Down East Bird Dawgs | League: Frontier League | URL: https://www.frontierleague.com/down-east-bird-dawgs
+2026-03-04 17:28:59,668 [INFO] Team: New Jersey Jackals | League: Frontier League | URL: https://www.frontierleague.com/new-jersey-jackals
+2026-03-04 17:29:02,532 [INFO] Team: New York Boulders | League: Frontier League | URL: https://www.frontierleague.com/new-york-boulders
+2026-03-04 17:29:06,041 [INFO] Team: Ottawa Titans | League: Frontier League | URL: https://www.frontierleague.com/ottawa-titans
+2026-03-04 17:29:09,244 [INFO] Team: Québec Capitales | League: Frontier League | URL: https://www.frontierleague.com/québec-capitales
+2026-03-04 17:29:12,512 [INFO] Team: Sussex County Miners | League: Frontier League | URL: https://www.frontierleague.com/sussex-county-miners
+2026-03-04 17:29:15,924 [INFO] Team: Tri-City ValleyCats | League: Frontier League | URL: https://www.frontierleague.com/tri-city-valleycats
+2026-03-04 17:29:18,826 [INFO] Team: Trois-Rivières Aigles | League: Frontier League | URL: https://www.frontierleague.com/trois-rivières-aigles
+2026-03-04 17:29:22,111 [INFO] Team: SCORES | League: Frontier League | URL: https://www.frontierleague.com/scoresf721db49
+2026-03-04 17:29:25,283 [INFO] Team: Team Leaders | League: Frontier League | URL: https://www.frontierleague.com/ps-team-leaders
+2026-03-04 17:29:28,927 [INFO] Team: Playoff Format | League: Frontier League | URL: https://www.frontierleague.com/playoff-format
+2026-03-04 17:29:31,799 [INFO] Team: League Attendance | League: Frontier League | URL: https://www.frontierleague.com/league-attendance
+2026-03-04 17:29:34,863 [INFO] Team: Transactions | League: Frontier League | URL: https://www.frontierleague.com/2026-transactions
+2026-03-04 17:29:38,157 [INFO] Team: Players Of The Week | League: Frontier League | URL: https://www.frontierleague.com/players-of-the-week
+2026-03-04 17:29:41,386 [INFO] Team: Preferred Partners Program | League: Frontier League | URL: https://www.frontierleague.com/league
+2026-03-04 17:40:15,839 [INFO] League Team Scraper starting
+2026-03-04 17:40:21,664 [INFO] Scraping league: Atlantic League
+2026-03-04 17:40:23,675 [INFO] Atlantic League teams page: https://atlanticleague.com/clubs/
+2026-03-04 17:40:25,948 [INFO] Found 32 potential team entries for Atlantic League
+2026-03-04 17:40:36,527 [INFO] Team: Scoreboard | URL: https://baseball.pointstreak.com/scoreboard.html?leagueid=174&seasonid=34102 | Phone: 1-866-892-0777
+2026-03-04 17:40:37,490 [ERROR] Failed to write team Scoreboard to sheet/DB: table team_scrapes has no column named phone_number
+2026-03-04 17:40:48,903 [INFO] Team: STATISTICS | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102 | Phone: 1-866-892-0777
+2026-03-04 17:40:49,582 [ERROR] Failed to write team STATISTICS to sheet/DB: table team_scrapes has no column named phone_number
+2026-03-04 17:41:03,170 [INFO] Team: Leaders | URL: https://baseball.pointstreak.com/leaders.html?leagueid=174&seasonid=34102 | Phone: 1-866-892-0777
+2026-03-04 17:41:03,853 [ERROR] Failed to write team Leaders to sheet/DB: table team_scrapes has no column named phone_number
+2026-03-04 17:41:14,183 [INFO] Team: All Players | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102 | Phone: 1-866-892-0777
+2026-03-04 17:41:15,050 [ERROR] Failed to write team All Players to sheet/DB: table team_scrapes has no column named phone_number
+2026-03-04 17:41:26,896 [INFO] Team: Attendance | URL: https://baseball.pointstreak.com/attendance.html?leagueid=174&seasonid=34102 | Phone: 1-866-892-0777
+2026-03-04 17:41:27,629 [ERROR] Failed to write team Attendance to sheet/DB: table team_scrapes has no column named phone_number
+2026-03-04 17:45:37,212 [INFO] League Team Scraper starting
+2026-03-04 17:45:43,436 [INFO] Scraping league: Atlantic League
+2026-03-04 17:45:46,577 [INFO] Atlantic League teams page: https://atlanticleague.com/clubs/
+2026-03-04 17:45:49,233 [INFO] Found 32 potential team entries for Atlantic League
+2026-03-04 17:45:49,244 [INFO] Team: Scoreboard | URL: https://baseball.pointstreak.com/scoreboard.html?leagueid=174&seasonid=34102
+2026-03-04 17:45:51,642 [INFO] Team: STATISTICS | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102
+2026-03-04 17:45:54,550 [INFO] Team: Leaders | URL: https://baseball.pointstreak.com/leaders.html?leagueid=174&seasonid=34102
+2026-03-04 17:45:56,739 [INFO] Team: All Players | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102
+2026-03-04 17:45:59,340 [INFO] Team: Attendance | URL: https://baseball.pointstreak.com/attendance.html?leagueid=174&seasonid=34102
+2026-03-04 17:46:01,962 [INFO] Team: STREAM FLO Baseball | URL: https://flosports.link/3G4yKOp
+2026-03-04 17:46:05,225 [INFO] Visiting team page for About Us (Atlantic League) in 2.7s
+2026-03-04 17:46:12,906 [INFO] Team: About Us | URL: https://share.flosports.tv/SHap
+2026-03-04 17:46:16,585 [INFO] Visiting team page for History (Atlantic League) in 2.0s
+2026-03-04 17:46:22,523 [INFO] Team: History | URL: https://share.flosports.tv/SHap
+2026-03-04 17:46:26,392 [INFO] Visiting team page for League Office (Atlantic League) in 2.9s
+2026-03-04 17:46:32,403 [INFO] Team: League Office | URL: https://share.flosports.tv/SHap
+2026-03-04 17:46:35,276 [INFO] Visiting team page for Contact Us (Atlantic League) in 3.0s
+2026-03-04 17:46:41,485 [INFO] Team: Contact Us | URL: https://share.flosports.tv/SHap
+2026-03-04 17:46:44,998 [INFO] Visiting team page for ALPB Official Baseball Sponsorship (Atlantic League) in 2.8s
+2026-03-04 17:46:50,980 [INFO] Team: ALPB Official Baseball Sponsorship | URL: https://share.flosports.tv/SHap
+2026-03-04 17:46:54,231 [INFO] Visiting team page for ALPB Rules (Atlantic League) in 2.1s
+2026-03-04 17:46:57,501 [INFO] Team: ALPB Rules | URL: https://atlanticleague.com/content/uploads/2025/04/ALPB-Rules-Regulations-25-Umpire-Edition-033025.pdf
+2026-03-04 17:47:00,309 [INFO] Visiting team page for Player Contracts Purchased (Atlantic League) in 2.1s
+2026-03-04 17:47:06,100 [INFO] Team: Player Contracts Purchased | URL: https://share.flosports.tv/SHap
+2026-03-04 17:47:09,764 [INFO] Visiting team page for Players In The Majors (Atlantic League) in 2.1s
+2026-03-04 20:51:51,015 [INFO] League Team Scraper starting
+2026-03-04 20:51:58,759 [INFO] Scraping league: Atlantic League
+2026-03-04 20:52:03,304 [INFO] Atlantic League teams page: https://atlanticleague.com/clubs/
+2026-03-04 20:52:05,585 [INFO] Found 32 potential team entries for Atlantic League
+2026-03-04 20:52:05,585 [INFO] Team: Scoreboard | URL: https://baseball.pointstreak.com/scoreboard.html?leagueid=174&seasonid=34102
+2026-03-04 20:52:08,029 [INFO] Team: STATISTICS | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102
+2026-03-04 20:52:10,283 [INFO] Team: Leaders | URL: https://baseball.pointstreak.com/leaders.html?leagueid=174&seasonid=34102
+2026-03-04 20:52:13,115 [INFO] Team: All Players | URL: https://baseball.pointstreak.com/stats.html?leagueid=174&seasonid=34102
+2026-03-04 20:52:16,005 [INFO] Team: Attendance | URL: https://baseball.pointstreak.com/attendance.html?leagueid=174&seasonid=34102
+2026-03-04 20:52:18,968 [INFO] Team: STREAM FLO Baseball | URL: https://flosports.link/3G4yKOp
+2026-03-04 20:52:21,785 [INFO] Visiting team page for About Us (Atlantic League) in 2.8s
+2026-03-04 20:52:24,569 [WARNING] Failed to open team page https://atlanticleague.com/about-us/: Page.goto: Target page, context or browser has been closed
+2026-03-04 20:52:24,569 [INFO] Team: About Us | URL: https://atlanticleague.com/about-us/

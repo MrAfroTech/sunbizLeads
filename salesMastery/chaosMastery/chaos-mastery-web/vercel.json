@@ -1,0 +1,27 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/chaos-mastery-checkout",
+      "destination": "/chaos-mastery-checkout/index.html"
+    },
+    {
+      "source": "/chaos-mastery-checkout/",
+      "destination": "/chaos-mastery-checkout/index.html"
+    }
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10,
+      "includeFiles": "node_modules/**"
+    }
+  }
+}

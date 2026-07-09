@@ -1,0 +1,351 @@
+{
+  "name": "08 - Email Outreach (Speaking)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 15 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 3 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:AA",
+          "useFirstRowAsHeaders": true,
+          "returnAll": false,
+          "limit": 10
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "contains",
+              "value": "Ready to Send"
+            }
+          ]
+        }
+      },
+      "id": "get-pitches",
+      "name": "Get Pitches Ready to Send",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const pitches = $input.all();\nconst today = new Date().toISOString().split('T')[0];\n\n// Count how many emails sent today\nconst sentToday = pitches.filter(item => {\n  const contactedDate = item.json.contacted_date || '';\n  return contactedDate.startsWith(today);\n}).length;\n\nconst maxDaily = 10;\nconst remaining = Math.max(0, maxDaily - sentToday);\n\nif (remaining === 0) {\n  throw new Error('Daily send limit reached (10/day)');\n}\n\n// Prioritize high-priority opportunities\nconst sorted = pitches.sort((a, b) => {\n  const aScore = parseInt(a.json.score) || 0;\n  const bScore = parseInt(b.json.score) || 0;\n  return bScore - aScore;\n});\n\nreturn sorted.slice(0, remaining);"
+      },
+      "id": "check-limits",
+      "name": "Check Send Limits",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Random delay between 3-8 minutes per email\nconst delayMs = Math.floor(Math.random() * 300000) + 180000;\nawait new Promise(resolve => setTimeout(resolve, delayMs));\n\nreturn $input.all();"
+      },
+      "id": "stagger-sends",
+      "name": "Stagger Sends",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.organizer_email }}",
+        "subject": "={{ $json.pitch_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.pitch_body }}",
+        "options": {
+          "replyTo": "your-email@domain.com",
+          "bcc": "your-email@domain.com"
+        }
+      },
+      "id": "send-pitch",
+      "name": "Send Pitch Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1050, 300],
+      "credentials": {
+        "gmailOAuth2Api": {
+          "id": "gmail-cred",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const opportunityData = $input.first().json;\n\nreturn {\n  ...opportunityData,\n  status: 'Contacted',\n  contacted_date: new Date().toISOString(),\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "log-send",
+      "name": "Create Send Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $json.event_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "mark-contacted",
+      "name": "Mark as Contacted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Contacts",
+          "mode": "name"
+        },
+        "columnToMatchOn": "contact_name",
+        "valueToMatchOn": "={{ $json.organizer_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "last_contact": "={{ $json.contacted_date }}",
+            "relationship_stage": "Pitch Sent"
+          }
+        }
+      },
+      "id": "log-contacts",
+      "name": "Log in Contacts Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1650, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $json.event_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Send Failed"
+          }
+        }
+      },
+      "id": "log-failure",
+      "name": "Log Failure",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 450],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=Speaking Pitch Failed: {{ $json.event_name }}",
+        "emailType": "text",
+        "message": "=Failed to send speaking pitch.\n\nEvent: {{ $json.event_name }}\nContact: {{ $json.organizer_email }}\nError: {{ $json.error }}\n\nReview and resend manually.",
+        "options": {}
+      },
+      "id": "alert-failure",
+      "name": "Alert on Failure",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1250, 450],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 3 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Pitches Ready to Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Pitches Ready to Send": {
+      "main": [
+        [
+          {
+            "node": "Check Send Limits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Send Limits": {
+      "main": [
+        [
+          {
+            "node": "Stagger Sends",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stagger Sends": {
+      "main": [
+        [
+          {
+            "node": "Send Pitch Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Pitch Email": {
+      "main": [
+        [
+          {
+            "node": "Create Send Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Log Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Send Record": {
+      "main": [
+        [
+          {
+            "node": "Mark as Contacted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Contacted": {
+      "main": [
+        [
+          {
+            "node": "Log in Contacts Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Failure": {
+      "main": [
+        [
+          {
+            "node": "Alert on Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

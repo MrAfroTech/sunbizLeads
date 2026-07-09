@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction — Chaos Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e5e5e5;
+    font-family: 'DM Sans', sans-serif;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    width: 816px;
+    min-height: 1056px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    position: relative;
+  }
+
+  /* ── PAGE HEADER ── */
+  .ph {
+    background: #1A2A44;
+    padding: 10px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .ph-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+  }
+  .ph-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+  }
+
+  /* ── PAGE CONTENT ── */
+  .pc {
+    padding: 36px 52px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── PAGE FOOTER ── */
+  .pf {
+    border-top: 1px solid #e0e4eb;
+    padding: 8px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .pf-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 1px;
+  }
+  .pf-title {
+    font-size: 10px;
+    color: #999;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #D4AF37;
+    margin-bottom: 10px;
+  }
+
+  /* ── CHAPTER TITLE ── */
+  .intro-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: #1A2A44;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 28px;
+  }
+
+  /* ── BODY COPY ── */
+  .body-p {
+    font-size: 13.5px;
+    color: #1A1A1A;
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  /* ── SINGLE-LINE EMPHASIS (short staccato lines) ── */
+  .staccato {
+    font-size: 13.5px;
+    color: #1A1A1A;
+    line-height: 1.8;
+    margin-bottom: 4px;
+  }
+  .staccato-block {
+    margin-bottom: 14px;
+  }
+
+  /* ── PULL QUOTE / CALLOUT ── */
+  .callout {
+    border-left: 3px solid #D4AF37;
+    padding: 10px 18px;
+    margin: 20px 0;
+    background: #F4F6F9;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout p {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: #1A2A44;
+    line-height: 1.65;
+  }
+
+  /* ── STAT HIGHLIGHT ── */
+  .stat-bar {
+    background: #1A2A44;
+    border-radius: 4px;
+    padding: 16px 22px;
+    margin: 20px 0;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: #D4AF37;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .stat-copy {
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── DIVIDER ── */
+  .rule {
+    border: none;
+    border-top: 1px solid #e0e4eb;
+    margin: 22px 0;
+  }
+
+  /* ── SIGNATURE BLOCK ── */
+  .sig-block {
+    margin-top: auto;
+    padding-top: 28px;
+    border-top: 2px solid #1A2A44;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .sig-name {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 26px;
+    color: #1A2A44;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .sig-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888;
+  }
+  .sig-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+    background: #1A2A44;
+    padding: 8px 14px;
+    border-radius: 3px;
+  }
+
+  /* continued note */
+  .cont-note {
+    text-align: right;
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     INTRO PAGE 1
+════════════════════════════════════════ -->
+<div class="page" id="intro-p1">
+  <div class="ph">
+    <span class="ph-brand">SEAMLESSLY</span>
+    <span class="ph-title">CHAOS MASTERY</span>
+  </div>
+
+  <div class="pc">
+    <div class="section-label">Introduction</div>
+    <div class="intro-title">Hospitality Didn't<br>Start as a Business.</div>
+
+    <p class="body-p">It started as a responsibility.</p>
+
+    <p class="body-p">Long before restaurants, bars, hotels, stadiums, or any structured venue existed, there was a simple expectation: if someone entered your space — physically or otherwise — you took care of them. You acknowledged them. You made them feel safe, welcome, and valued.</p>
+
+    <div class="staccato-block">
+      <p class="staccato">That wasn't branding.</p>
+      <p class="staccato">That wasn't strategy.</p>
+      <p class="staccato">That was the standard.</p>
+    </div>
+
+    <p class="body-p">So we're going back to that.</p>
+
+    <p class="body-p">Because you can't understand where hospitality is going until you understand where it came from — and what it was always meant to be.</p>
+
+    <hr class="rule">
+
+    <p class="body-p">In ancient civilizations, this responsibility wasn't just cultural — it was enforced.</p>
+
+    <div class="callout">
+      <p>In Babylonian times, tavern keepers who watered down beer could be put to death. Not fined. Not warned. Executed.</p>
+    </div>
+
+    <p class="body-p">Extreme? Maybe. But it makes one thing clear: the experience of the guest was taken seriously. Integrity wasn't optional. Trust wasn't negotiable. If you failed the people you served, it mattered — because the role you played mattered.</p>
+
+    <hr class="rule">
+
+    <p class="body-p">Somewhere along the way, we drifted from that. Not all at once. Not intentionally. But gradually. Quietly.</p>
+
+    <div class="staccato-block">
+      <p class="staccato">We replaced attentiveness with efficiency.</p>
+      <p class="staccato">We replaced connection with transactions.</p>
+      <p class="staccato">We replaced experience with optimization.</p>
+    </div>
+
+    <p class="body-p">And in doing so, we didn't just change operations — we changed what people feel.</p>
+
+    <p class="body-p">This isn't about one type of business. It's not about bars, or restaurants, or hotels, or events. It's about any environment where people show up with time, attention, and money — expecting something in return.</p>
+
+    <p class="body-p">And right now, across all of them, there's a disconnect.</p>
+
+    <div class="cont-note">Continued on next page →</div>
+  </div>
+
+  <div class="pf">
+    <span class="pf-num">i</span>
+    <span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     INTRO PAGE 2
+════════════════════════════════════════ -->
+<div class="page" id="intro-p2">
+  <div class="ph">
+    <span class="ph-brand">SEAMLESSLY</span>
+    <span class="ph-title">CHAOS MASTERY</span>
+  </div>
+
+  <div class="pc">
+    <div class="section-label" style="margin-bottom:18px;">Introduction — Continued</div>
+
+    <p class="body-p">I once heard someone responsible for serving a high-volume crowd say that moments of congestion — when people are waiting, trying to get attention, unable to engage — only make up about 10% of their operational window.</p>
+
+    <p class="body-p">From their perspective, that may be true.</p>
+
+    <p class="body-p">But that's the problem.</p>
+
+    <div class="stat-bar">
+      <div class="stat-num">70–90%</div>
+      <p class="stat-copy">Because while it may be 10% of the operation… it's 70–90% of the guest's experience. That moment — waiting, being overlooked, trying to engage and failing — isn't a small part of their experience. <strong>It is the experience.</strong></p>
+    </div>
+
+    <p class="body-p">It's the difference between feeling taken care of and feeling invisible. Between leaning in and checking out. Between staying longer and leaving early.</p>
+
+    <hr class="rule">
+
+    <p class="body-p">Today, people feel that disconnect everywhere. They show up ready to engage, ready to spend, ready to enjoy themselves… and instead find friction. They feel ignored. They feel rushed. They feel like they're competing for attention instead of being welcomed into it.</p>
+
+    <p class="body-p">And that frustration doesn't stay contained.</p>
+
+    <div class="callout">
+      <p>A great experience becomes a memory. A bad experience becomes a story. And stories spread.</p>
+    </div>
+
+    <p class="body-p">One bad experience doesn't just lose a single customer — it creates multiple conversations you'll never hear. Conversations that shape perception, influence decisions, and quietly turn future customers away before they ever arrive. Because the experience doesn't end when they leave. It follows them home.</p>
+
+    <hr class="rule">
+
+    <p class="body-p">At the same time, there's another cost — one that's less visible, but just as real. Opportunity is constantly being left behind. Not because people don't want to engage or spend, but because the system fails to meet them in the moment they're ready.</p>
+
+    <p class="body-p">It's the modern version of watering down the beer. Not literally — but operationally. It's the person who was ready to take the next step but couldn't. The customer who would have stayed longer but disengaged. The guest who came in with intent, but left without fulfillment.</p>
+
+    <div class="staccato-block" style="margin: 18px 0;">
+      <p class="staccato">The demand is there.</p>
+      <p class="staccato">The intent is there.</p>
+      <p class="staccato">But the connection is missed.</p>
+    </div>
+
+    <p class="body-p">And every missed connection is lost value — both experiential and financial.</p>
+
+    <p class="body-p">This book is about closing that gap. It's about returning to the original principle of hospitality — taking responsibility for the experience — while adapting it to the scale and complexity of today's world.</p>
+
+    <p class="body-p">Because experience and outcome are not competing forces. They are cause and effect. Get the experience right, and everything else follows. Ignore it, and no system, no strategy, no optimization will ever fully recover what's been lost.</p>
+
+    <!-- Signature -->
+    <div class="sig-block">
+      <div>
+        <div class="sig-name">Maurice Sanders</div>
+        <div class="sig-title">Founder, Seamlessly, Inc.</div>
+        <div style="margin-top:6px; font-size:11px; color:#888; letter-spacing:0.3px; line-height:1.8;">
+          305-434-0738 &nbsp;·&nbsp; <a href="mailto:maurice.sanders@seamlessly.us" style="color:#888; text-decoration:none;">maurice.sanders@seamlessly.us</a>
+        </div>
+      </div>
+      <div class="sig-logo">SEAMLESSLY</div>
+    </div>
+  </div>
+
+  <div class="pf">
+    <span class="pf-num">ii</span>
+    <span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span>
+  </div>
+</div>
+
+</body>
+</html>

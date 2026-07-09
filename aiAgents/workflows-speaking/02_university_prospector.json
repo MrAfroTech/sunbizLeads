@@ -1,0 +1,305 @@
+{
+  "name": "02 - University Prospector",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 */14 * 2"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Bi-Weekly on Tuesday 10 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "array": {
+            "values": [
+              {
+                "name": "search_queries",
+                "value": [
+                  "hospitality management programs USA",
+                  "culinary school guest speaker",
+                  "MBA entrepreneurship speaker series",
+                  "hotel management university speakers",
+                  "restaurant management program guest lectures",
+                  "Cornell hospitality school events"
+                ]
+              },
+              {
+                "name": "target_contacts",
+                "value": [
+                  "department chair",
+                  "program director",
+                  "student association president",
+                  "career services director"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "id": "set-university",
+      "name": "Define University Targets",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Query",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://serpapi.com/search?engine=google&q={{ encodeURIComponent($json.search_queries) }}&num=15&api_key={{ $credentials.serpApi.apiKey }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "search-universities",
+      "name": "Find Programs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchData = $input.first().json;\nconst results = searchData.organic_results || [];\n\nconst programs = results\n  .filter(result => {\n    const link = result.link || '';\n    const title = (result.title || '').toLowerCase();\n    // Filter for .edu domains and relevant keywords\n    return link.includes('.edu') && (\n      title.includes('hospitality') ||\n      title.includes('culinary') ||\n      title.includes('hotel') ||\n      title.includes('restaurant') ||\n      title.includes('food service')\n    );\n  })\n  .map(result => {\n    // Extract university name from URL\n    const urlMatch = result.link.match(/(?:https?:\\/\\/)?(?:www\\.)?([^\\.]+)\\.edu/);\n    const universityName = urlMatch ? urlMatch[1] : '';\n    \n    return {\n      event_name: `${universityName} - Guest Speaker Opportunity`,\n      event_type: 'university',\n      industry: 'Education/Hospitality',\n      event_date: '',\n      location: '',\n      format: 'in-person',\n      website: result.link,\n      cfp_deadline: 'Rolling',\n      speaker_app_link: '',\n      past_speakers: '',\n      attendance: 50,\n      audience_type: 'Students, Faculty',\n      organizer_name: '',\n      organizer_email: '',\n      organizer_linkedin: '',\n      score: 0,\n      status: 'New - University',\n      contacted_date: '',\n      last_activity: new Date().toISOString(),\n      response: '',\n      notes: 'University program - typically pays $500-2000 for guest lectures'\n    };\n  });\n\nreturn programs;"
+      },
+      "id": "parse-university",
+      "name": "Parse University Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.website }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "fetch-contact",
+      "name": "Get Department Contact Info",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Extract university department contact information from HTML. Look for: Department Chair, Program Director, Guest Speaker Coordinator. Return JSON with name, title, email. Prefer .edu emails."
+            },
+            {
+              "role": "user",
+              "content": "=University program: {{ $node[\"Parse University Results\"].json.event_name }}\n\nHTML (first 8000 chars):\n{{ $json.body.substring(0, 8000) }}\n\nFind:\n- Contact name\n- Title (chair/director/coordinator)\n- Email address\n- Department phone\n\nReturn JSON array of contacts. No markdown."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "extract-contacts",
+      "name": "Find Decision Makers",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1450, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const programData = $node[\"Parse University Results\"].json;\nconst aiResponse = $json.message ? JSON.parse($json.message.content || '{}') : {};\nconst contacts = aiResponse.contacts || [];\n\n// Take primary contact (usually dept chair)\nconst primaryContact = contacts[0] || {};\n\nreturn {\n  ...programData,\n  organizer_name: primaryContact.name || '',\n  organizer_email: primaryContact.email || '',\n  organizer_title: primaryContact.title || '',\n  status: contacts.length > 0 ? 'Contact Found - University' : 'Manual Review - University',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "process-contacts",
+      "name": "Format Contact Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_name": "={{ $json.event_name }}",
+            "event_type": "={{ $json.event_type }}",
+            "industry": "={{ $json.industry }}",
+            "event_date": "={{ $json.event_date }}",
+            "location": "={{ $json.location }}",
+            "format": "={{ $json.format }}",
+            "website": "={{ $json.website }}",
+            "cfp_deadline": "={{ $json.cfp_deadline }}",
+            "speaker_app_link": "={{ $json.speaker_app_link }}",
+            "past_speakers": "={{ $json.past_speakers }}",
+            "attendance": "={{ $json.attendance }}",
+            "audience_type": "={{ $json.audience_type }}",
+            "organizer_name": "={{ $json.organizer_name }}",
+            "organizer_email": "={{ $json.organizer_email }}",
+            "organizer_linkedin": "={{ $json.organizer_linkedin }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "response": "={{ $json.response }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "add-university",
+      "name": "Add University Opportunity",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1850, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Bi-Weekly on Tuesday 10 AM": {
+      "main": [
+        [
+          {
+            "node": "Define University Targets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define University Targets": {
+      "main": [
+        [
+          {
+            "node": "Process Each Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Query": {
+      "main": [
+        [
+          {
+            "node": "Find Programs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Programs": {
+      "main": [
+        [
+          {
+            "node": "Parse University Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse University Results": {
+      "main": [
+        [
+          {
+            "node": "Get Department Contact Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Department Contact Info": {
+      "main": [
+        [
+          {
+            "node": "Find Decision Makers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Decision Makers": {
+      "main": [
+        [
+          {
+            "node": "Format Contact Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Contact Data": {
+      "main": [
+        [
+          {
+            "node": "Add University Opportunity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 11: EXPERIENCE IS EVERYTHING</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+.dl-btns { display:flex; gap:10px; }
+.dl-btns button { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:8px 18px; border:none; border-radius:3px; cursor:pointer; }
+.btn-single { background:#00D4AA; color:#1A2A44; }
+.btn-all    { background:#D4AF37; color:#1A2A44; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:36px 64px 20px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:36px 64px 28px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:6px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:44px; color:#1A2A44; line-height:1; margin-bottom:16px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:16px; color:#1A2A44; line-height:1.65; margin-bottom:22px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:21px; color:#1A2A44; letter-spacing:1px; margin-bottom:8px; margin-top:18px; }
+.body     { font-size:14px; color:#1A1A1A; line-height:1.72; }
+.body p   { margin-bottom:12px; }
+.body strong { color:#1A2A44; font-weight:700; }
+
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.two-col-eq { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.three-col  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.four-col   { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.sidebar    { display:flex; flex-direction:column; gap:14px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:14px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:12px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.4; }
+.stat-sub { font-size:10.5px; color:#666; margin-top:4px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:12px 14px; font-size:13px; color:#1A2A44; line-height:1.6; }
+.callout strong { color:#D4AF37; }
+
+.q-card { padding:18px 20px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.teal { background:#00D4AA; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:42px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; line-height:1.65; margin-bottom:10px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr { color:#1A2A44; }
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text { color:#1A2A44; } .q-card.light .q-attr { color:#666; }
+
+.pill { display:inline-flex; align-items:center; background:#1A2A44; color:#fff; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; padding:5px 14px; border-radius:20px; }
+.pill.gold { background:#D4AF37; color:#1A2A44; }
+.pill.teal { background:#00D4AA; color:#1A2A44; }
+
+.flow-box { border:1.5px solid #1A2A44; padding:10px 14px; background:#fff; font-size:13px; color:#1A1A1A; line-height:1.5; border-radius:3px; }
+.flow-connector { display:flex; flex-direction:column; align-items:center; }
+.flow-line  { width:1.5px; height:16px; background:#1A2A44; }
+.flow-arrow { width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:7px solid #1A2A44; }
+
+.grid-card { background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.25); padding:18px; border-radius:4px; }
+.grid-card .gc-num { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; }
+.grid-card .gc-lbl { font-size:12px; font-weight:700; margin-top:4px; line-height:1.4; }
+.grid-card .gc-sub { font-size:10.5px; opacity:.65; margin-top:5px; line-height:1.4; }
+.gc-gold .gc-num { color:#D4AF37; } .gc-gold .gc-lbl { color:#fff; }
+.gc-teal .gc-num { color:#00D4AA; } .gc-teal .gc-lbl { color:#fff; }
+.gc-white .gc-num { color:#fff; }   .gc-white .gc-lbl { color:#D4AF37; }
+
+.prog-bar  { height:9px; background:#E8EEF5; border-radius:5px; overflow:hidden; margin-top:5px; }
+.prog-fill { height:100%; border-radius:5px; }
+
+.ltable { width:100%; border-collapse:collapse; }
+.ltable th { background:#1A2A44; color:#D4AF37; font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:1.5px; text-align:left; padding:9px 11px; }
+.ltable td { padding:9px 11px; font-size:12px; color:#1A1A1A; border-bottom:1px solid #eee; vertical-align:top; line-height:1.5; }
+.ltable tr:nth-child(even) td { background:#F4F6F9; }
+.ltable td:first-child { font-weight:700; color:#1A2A44; }
+
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+.chk-row  { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #F0F0F0; }
+.chk-box  { width:16px; height:16px; flex-shrink:0; border:2px solid #1A2A44; border-radius:2px; margin-top:1px; }
+.chk-text { font-size:13px; color:#1A1A1A; line-height:1.5; }
+.chk-text strong { color:#1A2A44; }
+
+.week-block { border-radius:3px; overflow:hidden; }
+.week-head  { padding:8px 14px; display:flex; align-items:center; justify-content:space-between; }
+.week-head span { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; }
+.week-head small { font-size:11px; opacity:.6; }
+.week-body  { border:1.5px solid; border-top:none; padding:10px 14px; border-radius:0 0 3px 3px; }
+
+/* Journey stage badge */
+.stage-badge { display:inline-flex; align-items:center; gap:6px; }
+.stage-num { width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:13px; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 11: EXPERIENCE IS EVERYTHING</div>
+    <div class="dl-bar-sub">15 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all"    onclick="downloadAll()">⬇ Download All 15 Pages</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 1 — CHAPTER OPENER
+══════════════════════════════════════════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:52px 80px 40px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part III — The Modern Hospitality Operating System</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 11</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:96px; color:#D4AF37; line-height:.92; margin-bottom:2px;">EXPERIENCE IS</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:96px; color:#fff; line-height:.92; margin-bottom:36px;">EVERYTHING</div>
+        <div style="width:72px; height:4px; background:#00D4AA; margin-bottom:30px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:21px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:560px;">
+          "Guests don't come back because the food was extraordinary. They come back because getting the food was effortless. EXPERIENCE IS not a feature of hospitality — it is hospitality."
+        </div>
+      </div>
+      <div>
+        <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:26px;"></div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#00D4AA; line-height:1;">3 Times</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">More likely guests repurchase a seamless experience vs f&b alone</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1;">52%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Of guests abandon lines when total journey time exceeds 8 minutes</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#fff; line-height:1;">37%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Increase in repeat visits when the guest EXPERIENCE IS smooth and frictionless</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1;">14%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Satisfaction loss per friction point encountered in the guest journey</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2 — THE CORE THESIS
+══════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1; align-items:start; gap:24px;">
+      <div>
+        <div class="label">The Paradigm Shift</div>
+        <div class="ch-title">GUEST BUY COMFORT</div>
+        <div class="ch-intro" style="max-width:100%; font-size:15px;">For decades, hospitality operators competed on product — better food, better drinks, better ambiance. The operators winning in 2025 have understood something different: guests buy the journey, not the destination. <BR><BR> GUESTS SPEND 80% OF THEIR WEEK GETTING OF THEIR COMFORT ZONE TO REACH THEIR GOALS. WHEN THEY ENTER YOUR ESTABLISHMENT THEY CRAVE TO STEP BACK INTO COMFORT</div>
+        <div class="body">
+          <p>Research consistently shows that guests are <strong>3 times more likely to repurchase a frictionless experience</strong> than one that delivers exceptional food with moderate friction. This is not a marginal preference — it is a fundamental reordering of what drives repeat behavior. The food is expected to be good. The journey is where decisions are actually made.</p>
+          <p>McKinsey's customer journey research confirms what hospitality operators have long suspected but rarely quantified: <strong> how the journey correlates more strongly with business outcomes</strong> — revenue growth, repeat visits, churn reduction — than any individual touchpoint. You can have a five-star kitchen and a two-star line management system. The two-star line will cost you everytime</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The hospitality truth:</strong> "Dollars flow where friction is low." — Brian Halligan, HubSpot CEO. This is as true at a stadium concession stand as it is at a luxury hotel. Friction is not a service problem. It is a revenue problem.
+          </div>
+          <div class="sec-head">The 3-Touchpoint Failure Threshold</div>
+          <p>Research from Stayntouch and Leverege hospitality data shows that <strong>73% of guests abandon</strong> when their journey encounters 3 or more friction points — regardless of how good any individual touchpoint is. Three bad moments in the same visit is not a minor inconvenience. It is a decision to find somewhere else next time. And 40% of those who leave do not return.</p>
+          <p>This makes friction auditing — not menu engineering, not staff hiring, not interior design — the highest-leverage activity available to an operator trying to grow repeat business. <strong>Fix the journey, and the metrics follow.</strong></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box">
+          <div class="stat-num">3×</div>
+          <div class="stat-lbl">More likely guests repurchase frictionless experience vs food/product alone</div>
+          <div class="stat-sub">Journey experience research — Medallia / McKinsey synthesis</div>
+          <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:75%; background:#D4AF37;"></div></div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">73%</div>
+          <div class="stat-lbl">Of guests abandon lines when friction exceeds 3 touchpoint</div>
+          <div class="stat-sub">Stayntouch / Leverege guest satisfaction data</div>
+          <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:73%; background:#00D4AA;"></div></div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">37%</div>
+          <div class="stat-lbl">Increase in repeat visits when guest EXPERIENCE IS optimized end-to-end</div>
+          <div class="stat-sub">SiteMinder hospitality journey research</div>
+          <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:37%; background:#D4AF37;"></div></div>
+        </div>
+        <div style="background:#1A2A44; padding:14px 15px; border-radius:3px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Operator Reframe</div>
+          <div style="font-size:12.5px; color:#fff; line-height:1.6;">Stop asking: "How good is our food?" Start asking: "How easy is it to get our food?" The first question has diminishing returns. The second has compounding ones.</div>
+        </div>
+        <div class="callout">
+          <strong>14% satisfaction loss</strong> per friction point encountered. At 3 friction points, you've lost more than 40% of the goodwill the food created.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 3 — THE FRICTION CLIFF (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Abandonment Science</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE FRICTION CLIFF</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">How Guest Loyalty Erodes — One Friction Point at a Time</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:20px;"></div>
+
+      <!-- Friction accumulation chart -->
+      <div style="display:flex; flex-direction:column; gap:10px; flex:1;">
+        <div style="display:grid; grid-template-columns:60px 1fr 160px; gap:14px; align-items:center; background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:12px 16px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#00D4AA; line-height:1;">0</div>
+            <div style="font-size:9px; color:#00D4AA; text-transform:uppercase; letter-spacing:1px; font-weight:700;">friction</div>
+          </div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:700; margin-bottom:4px;">No Friction Encountered</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5;">Arrival → order → wait → receive → leave without a single moment of confusion, delay, or frustration. Guest leaves satisfied. Probability of return visit: very high. This is the gold standard.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#00D4AA; font-weight:700; text-align:right; margin-bottom:5px;">RETURN INTENT: 91%</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:10px; overflow:hidden;"><div style="width:91%; height:100%; background:#00D4AA; border-radius:3px;"></div></div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:3px;">Satisfaction: 100% baseline</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:60px 1fr 160px; gap:14px; align-items:center; background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:3px; padding:12px 16px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#D4AF37; line-height:1;">1</div>
+            <div style="font-size:9px; color:#D4AF37; text-transform:uppercase; letter-spacing:1px; font-weight:700;">friction</div>
+          </div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:700; margin-bottom:4px;">One Friction Point — Tolerated</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5;">A slow line, a confusing menu, a payment hiccup — one friction point is absorbed. The guest notices it but it doesn't define the visit. Satisfaction drops 14%, but the experience is recoverable. A warm interaction at any other stage can offset this entirely.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#D4AF37; font-weight:700; text-align:right; margin-bottom:5px;">RETURN INTENT: 79%</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:10px; overflow:hidden;"><div style="width:79%; height:100%; background:#D4AF37; border-radius:3px;"></div></div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:3px;">Satisfaction: −14% from baseline</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:60px 1fr 160px; gap:14px; align-items:center; background:rgba(255,165,0,0.07); border:1px solid rgba(255,165,0,0.25); border-radius:3px; padding:12px 16px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#FFA500; line-height:1;">2</div>
+            <div style="font-size:9px; color:#FFA500; text-transform:uppercase; letter-spacing:1px; font-weight:700;">friction</div>
+          </div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:700; margin-bottom:4px;">Two Friction Points — Concerned</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5;">The guest is now actively noticing. Two bad moments creates a pattern in their mind: "this place has problems." Satisfaction has dropped 28%. They may finish the visit, but they're already comparing you to alternatives they know work better.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#FFA500; font-weight:700; text-align:right; margin-bottom:5px;">RETURN INTENT: 58%</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:10px; overflow:hidden;"><div style="width:58%; height:100%; background:#FFA500; border-radius:3px;"></div></div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:3px;">Satisfaction: −28% from baseline</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:60px 1fr 160px; gap:14px; align-items:center; background:rgba(255,107,107,0.09); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:12px 16px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#ff6b6b; line-height:1;">3</div>
+            <div style="font-size:9px; color:#ff6b6b; text-transform:uppercase; letter-spacing:1px; font-weight:700;">friction</div>
+          </div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:700; margin-bottom:4px;">⚠ Three Friction Points — The Abandonment Cliff</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5;">73% abandon at this threshold. The experience has crossed from "imperfect" to "broken." A 42% satisfaction drop means the good parts of the visit are irrelevant. Satisfaction: −42%. The guest's memory of the visit is now defined entirely by what went wrong.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#ff6b6b; font-weight:700; text-align:right; margin-bottom:5px;">RETURN INTENT: 27%</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:10px; overflow:hidden;"><div style="width:27%; height:100%; background:#ff6b6b; border-radius:3px;"></div></div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:3px;">Satisfaction: −42% from baseline</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:60px 1fr 160px; gap:14px; align-items:center; background:rgba(180,0,0,0.1); border:1px solid rgba(255,50,50,0.3); border-radius:3px; padding:12px 16px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#ff4444; line-height:1;">4+</div>
+            <div style="font-size:9px; color:#ff4444; text-transform:uppercase; letter-spacing:1px; font-weight:700;">friction</div>
+          </div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:700; margin-bottom:4px;">Four or More — Lost Guest, Active Detractor</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5;">The guest doesn't just not return — they tell others. Word-of-mouth turns negative. Online reviews reflect the frustration, not the food. The cost of these visits extends far beyond the table; every negative review is a future guest's first impression.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#ff4444; font-weight:700; text-align:right; margin-bottom:5px;">RETURN INTENT: 8%</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:10px; overflow:hidden;"><div style="width:8%; height:100%; background:#ff4444; border-radius:3px;"></div></div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:3px;">Now a negative brand ambassador</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin:14px 0;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.3); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The Operator Goal</div>
+          <div style="font-size:13px; color:#fff; line-height:1.6;">Keep friction below 2 points per visit, every visit. This isn't perfection — it's a measurable, achievable operational standard that compounds into loyalty over time.</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.3); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">What Creates Friction</div>
+          <div style="font-size:13px; color:#fff; line-height:1.6;">Lines, payment delays, order confusion, unclear pickup, no status updates, crowded exits. Most are solvable with process, not headcount.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 4 — THE 6-STAGE JOURNEY (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Journey Architecture</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE 6-STAGE GUEST JOURNEY</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">Arrival to Exit — Where Time Goes and Where Friction Hides</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:18px;"></div>
+
+      <!-- 6 stage horizontal journey -->
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-bottom:16px;">
+        <!-- Stage 1 -->
+        <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:14px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <div style="width:22px; height:22px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:12px; color:#1A2A44;">1</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37; letter-spacing:1px;">ARRIVAL</div>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4;">Parking, venue entry, first impressions</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#fff;">1.2 MIN</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#ff6b6b; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Friction Risk</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Long lines — 52% abandon at this stage</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.25); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Flow Fix</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">QR pre-scan at entry</div>
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:14px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <div style="width:22px; height:22px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:12px; color:#1A2A44;">2</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#00D4AA; letter-spacing:1px;">ORDER</div>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4;">Menu scan, item selection, payment, confirmation</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#fff;">2.1 MIN</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#ff6b6b; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Friction Risk</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Manual input — 42% of all service delays</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.25); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Flow Fix</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Mobile/QR ordering</div>
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:14px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <div style="width:22px; height:22px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:12px; color:#1A2A44;">3</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37; letter-spacing:1px;">WAIT</div>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4;">Status updates, queue visibility, perceived time</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#fff;">1.8 MIN</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#ff6b6b; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Friction Risk</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">No visibility — 31% frustration</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.25); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Flow Fix</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">SMS alerts + status display</div>
+          </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:14px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <div style="width:22px; height:22px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:12px; color:#1A2A44;">4</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#fff; letter-spacing:1px;">RECEIVE</div>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4;">Pickup, hand-off, order accuracy check</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#fff;">0.9 MIN</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#ff6b6b; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Friction Risk</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Expo bottleneck — 19% of delays</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.25); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Flow Fix</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Dedicated pickup shelf</div>
+          </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:14px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <div style="width:22px; height:22px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:12px; color:#1A2A44;">5</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37; letter-spacing:1px;">CONSUME</div>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4;">Seating, service touchpoints, experience quality</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#fff;">2.3 MIN</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#ff6b6b; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Friction Risk</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Space crunch, no staff visibility</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.25); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Flow Fix</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Flow zoning + staff positioning</div>
+          </div>
+        </div>
+
+        <!-- Stage 6 -->
+        <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:14px 12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+            <div style="width:22px; height:22px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:12px; color:#1A2A44;">6</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#00D4AA; letter-spacing:1px;">LEAVE</div>
+          </div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4;">Exit, payment closure, clearance, recall formation</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#fff;">0.7 MIN</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#ff6b6b; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Friction Risk</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Payment linger, unclear exit</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.25); border-radius:3px; padding:5px 8px;">
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:2px;">Flow Fix</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.7);">Auto-pay, digital receipt</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total time bar -->
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px 18px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <div style="font-size:11px; color:#D4AF37; font-weight:700; text-transform:uppercase; letter-spacing:2px;">Total Journey Benchmark</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#fff;">9.0 MINUTES — CURRENT INDUSTRY AVERAGE</div>
+        </div>
+        <div style="display:flex; height:12px; border-radius:6px; overflow:hidden; gap:1px;">
+          <div style="width:13.3%; background:#D4AF37; border-radius:3px 0 0 3px;" title="Arrival 1.2m"></div>
+          <div style="width:23.3%; background:#00D4AA;" title="Order 2.1m"></div>
+          <div style="width:20%; background:rgba(255,255,255,0.4);" title="Wait 1.8m"></div>
+          <div style="width:10%; background:#D4AF37;" title="Receive 0.9m"></div>
+          <div style="width:25.6%; background:rgba(255,255,255,0.2);" title="Consume 2.3m"></div>
+          <div style="width:7.8%; background:#00D4AA; border-radius:0 3px 3px 0;" title="Leave 0.7m"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:5px; font-size:9.5px; color:rgba(255,255,255,0.45);">
+          <span>Arrival 1.2m</span><span>Order 2.1m</span><span>Wait 1.8m</span><span>Receive 0.9m</span><span>Consume 2.3m</span><span>Leave 0.7m</span>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;">
+        <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:12px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:30px; color:#00D4AA;">4.1 MIN</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.7);">Chick-fil-A total flow benchmark — the best in class standard</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); padding:12px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:30px; color:#D4AF37;">8 MIN</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.7);">The abandonment threshold — 52% of guests drop off beyond this point</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:12px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:30px; color:#fff;">−62%</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.7);">Perceived wait compression with QR ordering at Stage 2 and 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 5 — FLOW VS FRICTION
+══════════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Operating Contrast</div>
+    <div class="ch-title">Same Venue, Different Systems</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:20px; max-width:620px;">The difference between a frictionless venue and a friction-filled one is rarely the staff, the food, or the location. It is the architecture of the experience — the systems that determine what happens at each stage of the guest's journey.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; flex:1; align-items:start;">
+      <!-- Friction column -->
+      <div>
+        <div style="background:#ff6b6b; padding:10px 16px; border-radius:3px 3px 0 0; display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:2px;">THE FRICTION VENUE</span>
+          <span style="font-size:11px; color:rgba(255,255,255,0.7);">3+ friction points per visit</span>
+        </div>
+        <div style="border:1.5px solid #ff6b6b; border-top:none; border-radius:0 0 3px 3px; overflow:hidden;">
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #fdd; background:#fff9f9;">
+            <div style="width:90px; background:#fff3f3; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #fdd;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#ff6b6b; text-align:center; line-height:1.2;">ARRIVE</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Guest sees a line. No signage. No QR option visible. Spends 2+ minutes deciding whether to stay. Anxiety sets in immediately.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #fdd; background:#fff;">
+            <div style="width:90px; background:#fff3f3; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #fdd;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#ff6b6b; text-align:center; line-height:1.2;">ORDER</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Waits at counter. Staff is entering a previous order. Verbal order taken. Manual POS input. Payment at terminal. Clock: 3–4 minutes of human friction.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #fdd; background:#fff9f9;">
+            <div style="width:90px; background:#fff3f3; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #fdd;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#ff6b6b; text-align:center; line-height:1.2;">WAIT</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Guest standing near counter with no progress signal. Other guests cluster. No status update. Time distortion kicks in — 5 minutes feels like 10.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #fdd; background:#fff;">
+            <div style="width:90px; background:#fff3f3; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #fdd;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#ff6b6b; text-align:center; line-height:1.2;">RECEIVE</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Name called over ambient noise. Guest misses it. Order sits. Staff calls again. Mild confusion at pickup. Wrong order for adjacent guest.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; background:#fff9f9;">
+            <div style="width:90px; background:#fff3f3; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #fdd;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#ff6b6b; text-align:center; line-height:1.2;">LEAVE</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Guest leaves frustrated. No follow-up. Mental note formed: "Not worth it." Three friction points accumulated. Return probability: 27%.</div>
+          </div>
+        </div>
+        <div style="background:#fff3f3; padding:10px 14px; border:1.5px solid #ff6b6b; border-top:none; border-radius:0 0 3px 3px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#ff6b6b;">TOTAL: ~12 MINUTES | RETURN RATE: 27%</div>
+        </div>
+      </div>
+
+      <!-- Flow column -->
+      <div>
+        <div style="background:#1A2A44; padding:10px 16px; border-radius:3px 3px 0 0; display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#00D4AA; letter-spacing:2px;">THE FLOW VENUE</span>
+          <span style="font-size:11px; color:rgba(255,255,255,0.6);">0–1 friction points per visit</span>
+        </div>
+        <div style="border:1.5px solid #1A2A44; border-top:none; border-radius:0 0 3px 3px; overflow:hidden;">
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #eef; background:#fff;">
+            <div style="width:90px; background:#F4F6F9; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #eee;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44; text-align:center; line-height:1.2;">ARRIVE</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">QR code visible at entry and tables. Guest scans immediately. No queue required. Mental clock doesn't start — guest is already engaged with the menu.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #eef; background:#f9fbff;">
+            <div style="width:90px; background:#F4F6F9; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #eee;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44; text-align:center; line-height:1.2;">ORDER</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Browse, select, customize, pay in-app. 90 seconds. No staff interaction required for intake. Order routes directly to KDS. Guest confirmation on screen.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #eef; background:#fff;">
+            <div style="width:90px; background:#F4F6F9; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #eee;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44; text-align:center; line-height:1.2;">WAIT</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Guest is seated and relaxed. Not watching a line. SMS notification when order is ready. Perceived wait: 3.8 minutes vs 9.2 at counter.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; border-bottom:1px solid #eef; background:#f9fbff;">
+            <div style="width:90px; background:#F4F6F9; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #eee;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44; text-align:center; line-height:1.2;">RECEIVE</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">SMS received. Guest walks to labeled pickup shelf. Order is there. Correct. No confusion, no wait. Clean retrieval in under 30 seconds.</div>
+          </div>
+          <div style="display:flex; align-items:stretch; background:#fff;">
+            <div style="width:90px; background:#F4F6F9; display:flex; align-items:center; justify-content:center; padding:10px; flex-shrink:0; border-right:1px solid #eee;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44; text-align:center; line-height:1.2;">LEAVE</div>
+            </div>
+            <div style="padding:10px 14px; font-size:12.5px; color:#1A1A1A; line-height:1.5;">Digital receipt already sent. Guest exits without waiting at checkout. Experience was smooth start to finish. Emotional recall: positive. Return probability: 91%.</div>
+          </div>
+        </div>
+        <div style="background:#F4F6F9; padding:10px 14px; border:1.5px solid #1A2A44; border-top:none; border-radius:0 0 3px 3px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#1A2A44;">TOTAL: ~5 MINUTES | RETURN RATE: 91%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 6 — LEADER PERSPECTIVES
+══════════════════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Operator Wisdom</div>
+    <div class="ch-title">What Leaders Know About Flow</div>
+    <div class="ch-intro" style="font-size:14.5px; margin-bottom:18px;">Three perspectives from operators and researchers who've measured flow directly — and built systems around the findings.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px;">
+      <div class="q-card navy" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#D4AF37; letter-spacing:3px; margin-bottom:10px;">SIX SIGMA + FLOW</div>
+        <div class="q-text" style="font-size:14px; color:#fff;">"Six Sigma cut our guest flow friction by 40% — every second in the journey compounds. One friction point tolerated becomes the template for the next."</div>
+        <div style="border-top:1px solid rgba(212,175,55,0.3); padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#D4AF37;">Robyn Pratt</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.55);">Former VP, Starwood Hotels</div>
+        </div>
+        <div style="margin-top:10px; background:rgba(212,175,55,0.15); border-radius:3px; padding:8px 10px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:32px; color:#D4AF37; line-height:1;">40%</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65);">Flow friction reduction via Six Sigma methods</div>
+        </div>
+      </div>
+
+      <div class="q-card gold" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#1A2A44; letter-spacing:3px; margin-bottom:10px;">FLOW OVER MENU</div>
+        <div class="q-text" style="font-size:14px; color:#1A2A44;">"Efficiency beats menu quality every time. Guests remember their exit speed, not their entrée prep. The last thing they feel is the thing they remember."</div>
+        <div style="border-top:1px solid rgba(26,42,68,0.2); padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#1A2A44;">Jim Taylor</div>
+          <div style="font-size:11px; color:rgba(26,42,68,0.65);">Restaurant Operations Expert, 25+ Years</div>
+        </div>
+        <div style="margin-top:10px; background:rgba(26,42,68,0.12); border-radius:3px; padding:8px 10px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:32px; color:#1A2A44; line-height:1;">67%</div>
+          <div style="font-size:11px; color:rgba(26,42,68,0.7);">Of retention driven by flow experience</div>
+        </div>
+      </div>
+
+      <div class="q-card teal" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#1A2A44; letter-spacing:3px; margin-bottom:10px;">CONVERSION SCIENCE</div>
+        <div class="q-text" style="font-size:14px; color:#1A2A44;">"Journey mapping reveals 5-minute arrival-to-order friction kills 1 in 3 conversions. Guests decide to return at the moment of ordering — not the moment of eating."</div>
+        <div style="border-top:1px solid rgba(26,42,68,0.2); padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#1A2A44;">SiteMinder</div>
+          <div style="font-size:11px; color:rgba(26,42,68,0.65);">Global Hospitality Technology Platform</div>
+        </div>
+        <div style="margin-top:10px; background:rgba(26,42,68,0.1); border-radius:3px; padding:8px 10px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:32px; color:#1A2A44; line-height:1;">33%</div>
+          <div style="font-size:11px; color:rgba(26,42,68,0.7);">Conversion loss from arrival-to-order friction alone</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ltable" style="margin-bottom:18px;">
+      <thead>
+        <tr>
+          <th style="width:20%;">Leader / Source</th>
+          <th style="width:40%;">Core Insight on Flow</th>
+          <th style="width:20%;">Key Stat</th>
+          <th style="width:20%;">Operator Implication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Robyn Pratt<br><span style="font-weight:400; color:#666;">ex-Starwood VP</span></td>
+          <td>Every second of friction in the guest journey compounds — like interest, but in reverse. Fix the flow early and the downstream stages self-correct.</td>
+          <td style="color:#1A2A44; font-weight:700;">40% friction reduction</td>
+          <td>Apply process engineering (Six Sigma, lean) to hospitality flow before investing in product upgrades.</td>
+        </tr>
+        <tr>
+          <td>Jim Taylor<br><span style="font-weight:400; color:#666;">Ops Expert</span></td>
+          <td>Guests form their loyalty decision at the exit, not the table. The last touchpoint is the most emotionally weighted — regardless of what came before.</td>
+          <td style="color:#1A2A44; font-weight:700;">67% retention via flow</td>
+          <td>Invest as much in seamess exit as you do in arrival and ordering — the exit is the last chance to cement the memory.</td>
+        </tr>
+        <tr>
+          <td>SiteMinder<br><span style="font-weight:400; color:#666;">Hospitality Platform</span></td>
+          <td>A 5-minute arrival-to-order window kills one in three conversions — before the guest has even experienced EVERYTHING. The journey is the first product.</td>
+          <td style="color:#1A2A44; font-weight:700;">33% conversion loss</td>
+          <td>Map your arrival-to-order time precisely. Every minute beyond 3 minutes at this stage is lost revenue, not inconvenience.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>The unified conclusion:</strong> All three operators and researchers point to the same operating principle — the journey is EVERYTHING. Food quality sets the floor; flow quality sets the ceiling on loyalty, repeat visits, and revenue per guest.
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 7 — FLOW EFFICIENCY DATA (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Data</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">EFFICIENCY — WHAT THE NUMBERS PROVE</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">Cross-Industry Data on Journey Optimization — Restaurants, Stadiums, and Events</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:22px;"></div>
+
+      <div class="four-col" style="margin-bottom:22px;">
+        <div class="grid-card gc-gold">
+          <div class="gc-num">+28%</div>
+          <div class="gc-lbl">Throughput gain for QSRs with optimized guest journeys</div>
+          <div class="gc-sub">State of the Restaurant Industry 2026, NRA. Venues with end-to-end flow optimization serve more guests in the same time window without adding staff.</div>
+        </div>
+        <div class="grid-card gc-teal">
+          <div class="gc-num">+41%</div>
+          <div class="gc-lbl">Throughput gain for events & stadiums using pre-order flow</div>
+          <div class="gc-sub">NRA industry data. Pre-ordering shifts the order intake bottleneck out of the venue window entirely — the kitchen processes demand before the crowd arrives.</div>
+        </div>
+        <div class="grid-card gc-white">
+          <div class="gc-num">+37%</div>
+          <div class="gc-lbl">Increase in repeat visits when total guest EXPERIENCE IS smooth</div>
+          <div class="gc-sub">SiteMinder hospitality platform data. Smooth EXPERIENCE IS not a nice-to-have; it is a primary driver of the metric that determines venue profitability over time.</div>
+        </div>
+        <div class="grid-card gc-gold">
+          <div class="gc-num">−14%</div>
+          <div class="gc-lbl">Satisfaction loss per friction point encountered in a single visit</div>
+          <div class="gc-sub">Accumulating. Three friction points = −42% satisfaction from baseline — enough to turn a good product experience into a permanent non-return.</div>
+        </div>
+      </div>
+
+      <!-- Section: venue type comparison -->
+      <div style="margin-bottom:20px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:14px;">Flow Optimization Impact by Venue Type</div>
+        <div style="display:flex; flex-direction:column; gap:9px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:160px; font-size:12px; color:rgba(255,255,255,0.8); text-align:right; flex-shrink:0;">QSR / Fast Casual</div>
+            <div style="flex:1; background:rgba(255,255,255,0.1); border-radius:3px; height:20px; overflow:hidden;"><div style="width:28%; height:100%; background:#D4AF37; border-radius:3px; display:flex; align-items:center; padding-left:8px;"><span style="font-size:11px; font-weight:700; color:#1A2A44;">+28% throughput</span></div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:160px; font-size:12px; color:rgba(255,255,255,0.8); text-align:right; flex-shrink:0;">Stadiums / Events</div>
+            <div style="flex:1; background:rgba(255,255,255,0.1); border-radius:3px; height:20px; overflow:hidden;"><div style="width:41%; height:100%; background:#00D4AA; border-radius:3px; display:flex; align-items:center; padding-left:8px;"><span style="font-size:11px; font-weight:700; color:#1A2A44;">+41% throughput</span></div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:160px; font-size:12px; color:rgba(255,255,255,0.8); text-align:right; flex-shrink:0;">Full-Service Restaurants</div>
+            <div style="flex:1; background:rgba(255,255,255,0.1); border-radius:3px; height:20px; overflow:hidden;"><div style="width:22%; height:100%; background:#fff; border-radius:3px; display:flex; align-items:center; padding-left:8px;"><span style="font-size:11px; font-weight:700; color:#1A2A44;">+22% throughput</span></div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:160px; font-size:12px; color:rgba(255,255,255,0.8); text-align:right; flex-shrink:0;">Hotels / Hospitality</div>
+            <div style="flex:1; background:rgba(255,255,255,0.1); border-radius:3px; height:20px; overflow:hidden;"><div style="width:35%; height:100%; background:#D4AF37; border-radius:3px; display:flex; align-items:center; padding-left:8px;"><span style="font-size:11px; font-weight:700; color:#1A2A44;">+35% satisfaction</span></div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:160px; font-size:12px; color:rgba(255,255,255,0.8); text-align:right; flex-shrink:0;">Bars / Nightlife</div>
+            <div style="flex:1; background:rgba(255,255,255,0.1); border-radius:3px; height:20px; overflow:hidden;"><div style="width:18%; height:100%; background:#00D4AA; border-radius:3px; display:flex; align-items:center; padding-left:8px;"><span style="font-size:11px; font-weight:700; color:#1A2A44;">+18% spend/visit</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:16px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
+        <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The Compound Effect</div>
+          <div style="font-size:13px; color:#fff; line-height:1.6;">A 37% increase in repeat visits compounds over a year. If your venue sees 500 guests per week, that's 185 additional visits per week from existing guests — without any additional customer acquisition.</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Stadium Economics</div>
+          <div style="font-size:13px; color:#fff; line-height:1.6;">A 41% throughput gain at a 10,000-seat venue during halftime means 4,100 more orders fulfilled. At $12 average per order that's $49,200 of additional revenue — per game — from the same staff and kitchen.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#fff; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The Non-Negotiable</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.6;">Flow optimization is the only lever that simultaneously increases throughput, increases satisfaction, reduces staff pressure, and increases repeat visits. No other single investment does all four.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 8 — STAGE FIX #1: ARRIVAL
+══════════════════════════════════════════════ -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Stage Fix #1 — Arrival</div>
+    <div class="ch-title">The Arrival: The First 90 Seconds</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">The arrival stage is where the guest's mental model of your venue is formed. In the first 90 seconds, they make a subconscious decision about whether this experience will be easy or hard. You have 90 seconds to set that expectation correctly.</div>
+        <div class="body">
+          <p>SiteMinder's journey mapping research identifies a 5-minute arrival-to-order friction window as the primary driver of the 33% conversion loss that most venues don't even know they're experiencing. Guests who spend more than 3 minutes in arrival confusion — finding a queue, locating an ordering option, or navigating unclear signage — <strong>are already less likely to return</strong>, regardless of what happens next.</p>
+          <div class="sec-head">What Friction DURING ARRIVAL Looks Like</div>
+          <p>Arrival friction is rarely dramatic. It's the absence of clear signals: no visible ordering path, no immediate indication of wait time, no QR code at eye level when the guest first stops moving. The guest spends 30–45 seconds scanning the environment for cues. Those seconds are not neutral — they are <strong>anxiety-generating time</strong> that sets a negative baseline for the rest of the visit.</p>
+          <p>Venues that resolve arrival friction in under 60 seconds — with visible QR options, clear flow signage, or immediate staff acknowledgment — see measurable satisfaction lifts at every subsequent stage of the journey. The arrival experience functions as a <strong>halo effect</strong>: a smooth start raises the baseline against which every subsequent touchpoint is measured.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The 3-second rule:</strong> A guest should be able to identify their ordering path within 3 seconds of arriving at your venue. If they can't, you've already created friction — and they haven't even ordered yet.
+          </div>
+          <div class="sec-head">QR Pre-Scan as the Arrival Standard</div>
+          <p>QR codes placed at venue entry points, parking areas, or queue positions allow guests to begin the ordering process before they've physically navigated to a counter or table. By the time they've settled into their position, <strong>the order is already placed.</strong> Arrival friction drops to near zero. The guest's first interaction with the venue is a productive one, not an anxious one.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Arrival Flow: Friction vs Flow</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div class="flow-box" style="background:rgba(255,107,107,0.1); border-color:rgba(255,107,107,0.4); color:#fff; font-size:12px;"><strong style="color:#ff6b6b;">FRICTION:</strong> Guest arrives → scans for queue → finds counter → waits → decides to stay or leave. Decision: 2–3 minutes. Anxiety: high.</div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#D4AF37;"></div><div class="flow-arrow" style="border-top-color:#D4AF37;"></div></div>
+            <div class="flow-box" style="background:rgba(0,212,170,0.1); border-color:#00D4AA; color:#fff; font-size:12px;"><strong style="color:#00D4AA;">FLOW:</strong> Guest arrives → sees QR at entry → scans → browsing menu in 15 seconds. Anxiety: eliminated. Already committed.</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">33%</div>
+          <div class="stat-lbl">Conversion loss from 5-minute arrival-to-order friction window</div>
+          <div class="stat-sub">SiteMinder hospitality journey mapping research</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">90 SEC</div>
+          <div class="stat-lbl">The arrival window — how quickly the guest forms their visit expectation</div>
+          <div class="stat-sub">Positive or negative baseline set in this window persists for the entire visit</div>
+        </div>
+        <div class="callout">
+          <strong>Quick fix:</strong> Place a QR code with 3 words — "Order here now" — at every arrival point. Measure time-to-first-scan. That number tells you your arrival friction score.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 9 — STAGE FIX #2: ORDER & WAIT
+══════════════════════════════════════════════ -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Stage Fix #2 — Order + Wait</div>
+    <div class="ch-title">The Two Minutes That Define the Visit</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Stages 2 and 3 — Order and Wait — combine for nearly 4 minutes of the average guest journey. They are also the two stages where friction compounds most aggressively and where the psychological impact of improvement is greatest.</div>
+        <div class="body">
+          <p>The order stage accounts for 42% of all service delays when handled through traditional counter or tableside verbal intake. The wait stage accounts for 31% of frustration events. Together, they represent <strong>73% of the guest's negative experience risk</strong> — concentrated in a 4-minute window that mobile and QR ordering can reduce to under 90 seconds of perceived engagement.</p>
+          <div class="sec-head">Why Order and Wait Are Inseparable</div>
+          <p>In a traditional counter-service model, ordering and waiting are experienced as a single continuous period of deprivation — the guest has not yet received anything, and every second of that state is registered as a wait. Mobile and QR ordering <strong>psychologically separates the order stage from the wait stage</strong>. The moment the guest submits their order, the wait begins — but now it's an engaged wait, not a passive one. The psychological clock resets.</p>
+          <p>Research from Stayntouch confirms this compression: QR/mobile order guests perceive their service time as 3.8 minutes versus 9.2 minutes at a counter queue — a 62% reduction. This happens not because the kitchen is faster but because <strong>the guest's experience of time changes</strong> when they move from passive waiting to active engagement.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The SMS effect at Stage 3:</strong> A single SMS notification during the wait stage — "Your order is being prepared" at the 2-minute mark — resets the guest's psychological timer. This alone can reduce perceived wait by 40% without changing kitchen operations.
+          </div>
+          <div class="sec-head">The No-Visibility Penalty</div>
+          <p>The worst version of the wait stage is invisible waiting — the guest stands near a counter with no feedback, no status, no indication of where they are in the queue. Invisible waiting inflates perceived time by an average of <strong>2–3x actual time</strong>. A 3-minute actual wait feels like 8 minutes with no signals. This is entirely preventable with notification systems.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Perceived Wait Comparison</div>
+          <div style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span style="font-size:12px; color:rgba(255,255,255,0.7); font-weight:600;">Counter Queue</span><span style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#ff6b6b;">9.2 MIN</span></div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:12px; overflow:hidden;"><div style="width:92%; height:100%; background:#ff6b6b; border-radius:3px;"></div></div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span style="font-size:12px; color:rgba(255,255,255,0.7); font-weight:600;">QR / Mobile</span><span style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#00D4AA;">3.8 MIN</span></div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:12px; overflow:hidden;"><div style="width:38%; height:100%; background:#00D4AA; border-radius:3px;"></div></div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.4); font-style:italic;">Same kitchen. Same ticket time. 62% perception difference.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">62%</div>
+          <div class="stat-lbl">Perceived wait reduction with QR/mobile vs counter ordering</div>
+          <div class="stat-sub">Stayntouch guest experience research</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">−40%</div>
+          <div class="stat-lbl">Perceived wait reduction from a single SMS progress notification</div>
+          <div class="stat-sub">Robyn Pratt, Six Sigma hospitality application</div>
+        </div>
+        <div class="callout">
+          <strong>Combined impact:</strong> QR ordering + SMS notification at Stage 3 compresses perceived wait from 9.2 minutes to approximately 2.3 minutes. This is sub-6-minute standard achieved without changing kitchen speed.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 10 — STAGE FIX #3: RECEIVE & LEAVE
+══════════════════════════════════════════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Stage Fix #3 — Receive + Leave</div>
+    <div class="ch-title">Receive & Leave: The Last Impression</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Jim Taylor's observation holds across all hospitality research: guests remember their exit speed, not their entrée prep. The Receive and Leave stages are the final chapters of the visit — and the ones that define the emotional memory the guest carries out.</div>
+        <div class="body">
+          <p>The Receive stage accounts for 19% of service delays — expo bottlenecks, name confusion at pickup, order accuracy errors. It's also the stage where a smooth experience can powerfully reinforce everything that came before, or a single friction point can undo it. The guest has been patient. They're about to receive what they came for. Any friction at this exact moment registers as a betrayal of that patience.</p>
+          <div class="sec-head">Receive Stage: The Pickup Design Problem</div>
+          <p>Most pickup failures are design failures, not operational ones. The counter is too small. Orders are called over ambient noise. Multiple orders sit in an unorganized cluster. Guests ask "is this mine?" repeatedly. Each of these creates a micro-friction event that doesn't appear in any operational metric but <strong>accumulates directly into the guest's exit emotion.</strong></p>
+          <p>The solution — labeled pickup shelves with SMS notification — resolves all three simultaneously. The shelf organizes orders spatially. The SMS eliminates the need to call names. The labeled position eliminates order confusion. A 25% error reduction and 40% perceived wait reduction follow as direct consequences.</p>
+          <div class="sec-head">Leave Stage: The Exit as a Revenue Moment</div>
+          <p>The Leave stage is typically treated as a logistical close — payment, exit, done. Progressive operators treat it as a <strong>loyalty formation moment.</strong> A guest who exits quickly and smoothly — digital receipt already sent, no lingering payment wait — leaves with a positive final emotion. That emotion is the one they'll associate with your venue when making their next dining decision.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>Auto-pay closes the loop:</strong> When payment is handled at the order stage via in-app checkout, the Leave stage becomes zero-friction by default. The guest simply exits. No wait, no terminal, no receipt confusion. The experience ends cleanly and positively.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Optimized Receive + Leave Flow</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div class="flow-box" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#fff; font-size:12px;"><strong style="color:#D4AF37;">Kitchen complete →</strong> Order placed on labeled pickup shelf by position number</div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#D4AF37;"></div><div class="flow-arrow" style="border-top-color:#D4AF37;"></div></div>
+            <div class="flow-box" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#fff; font-size:12px;"><strong style="color:#D4AF37;">SMS fires →</strong> "Your order #47 is ready at shelf B." Guest receives notification mid-seat.</div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#D4AF37;"></div><div class="flow-arrow" style="border-top-color:#D4AF37;"></div></div>
+            <div class="flow-box" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#fff; font-size:12px;"><strong style="color:#D4AF37;">Guest retrieves →</strong> Labeled shelf, correct order, no cluster. Under 30 seconds.</div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#00D4AA;"></div><div class="flow-arrow" style="border-top-color:#00D4AA;"></div></div>
+            <div class="flow-box" style="background:rgba(0,212,170,0.1); border-color:#00D4AA; color:#fff; font-size:12px;"><strong style="color:#00D4AA;">Auto-exit →</strong> Payment already done at order. Digital receipt sent. Guest walks out clean. Final emotion: positive.</div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">−25%</div>
+          <div class="stat-lbl">Fulfillment errors with labeled pickup shelf + SMS notification</div>
+          <div class="stat-sub">Robyn Pratt, Six Sigma hospitality application at Starwood</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">−40%</div>
+          <div class="stat-lbl">Perceived wait at pickup stage with SMS notification preceding retrieval</div>
+          <div class="stat-sub">Guest psychology: control = satisfaction</div>
+        </div>
+        <div class="callout">
+          <strong>Jim Taylor's principle:</strong> "Guests remember their exit speed, not their entrée prep." Design the exit as deliberately as you design the entrance.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 11 — JOURNEY MAP TEMPLATE (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Operator Tool</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">YOUR GUEST JOURNEY MAP</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:14px; letter-spacing:1.5px; text-transform:uppercase;">Identify Your #1 Friction Stage — Target Sub-8-Minute Total Journey
+</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:16px;"></div>
+
+      <!-- Journey map table -->
+      <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+        <!-- Header row -->
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:8px 12px; background:rgba(212,175,55,0.15); border-radius:3px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:11px; color:#D4AF37; letter-spacing:2px;">STAGE</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:11px; color:#D4AF37; letter-spacing:2px;">TOUCHPOINTS</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:11px; color:#D4AF37; letter-spacing:2px;">TIME</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:11px; color:#D4AF37; letter-spacing:2px;">FRICTION RISK</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:11px; color:#D4AF37; letter-spacing:2px;">THE FIX</div>
+        </div>
+
+        <!-- Stage rows -->
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:10px 12px; background:rgba(255,255,255,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:3px; align-items:start;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37;">ARRIVAL</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px;">Stage 1</div>
+          </div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Parking / queue entry / venue navigation / first ordering signal search</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff;">1.2m</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.4;">Long lines → 52% abandon. No visible ordering path → confusion within 15 seconds of arrival.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:#00D4AA; line-height:1.4;">QR pre-scan at entry. Visible within 3 seconds. Order starts before guest reaches position.</div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.15); border-radius:3px; align-items:start;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA;">ORDER</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px;">Stage 2</div>
+          </div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Menu navigation / item selection / customization / payment / order confirmation</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff;">2.1m</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.4;">Manual POS input → 42% of delays. Payment friction → 31%. Verbal errors → wrong orders.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:#00D4AA; line-height:1.4;">Mobile ordering. In-app payment. 90-second scan-to-confirm. Order to KDS immediately.</div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:10px 12px; background:rgba(255,255,255,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:3px; align-items:start;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37;">WAIT</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px;">Stage 3</div>
+          </div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Queue visibility / order status updates / preparation progress signals</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff;">1.8m</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.4;">No visibility → 31% frustration. Invisible wait inflates perceived time 2–3× actual duration.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:#00D4AA; line-height:1.4;">SMS status alert at 2 min. Digital order board. Perceived wait drops 40–62% with signals.</div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.15); border-radius:3px; align-items:start;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff;">RECEIVE</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px;">Stage 4</div>
+          </div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Order pickup / hand-off / accuracy verification / first consumption moment</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff;">0.9m</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.4;">Expo bottleneck → 19% of delays. Name confusion at pickup. Counter cluster creates ambient friction.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:#00D4AA; line-height:1.4;">Labeled pickup shelf. SMS notification on ready. −25% errors. −40% perceived pickup wait.</div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:10px 12px; background:rgba(255,255,255,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:3px; align-items:start;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37;">CONSUME</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px;">Stage 5</div>
+          </div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Seating / service touchpoints during meal / staff availability / ambiance quality</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff;">2.3m</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.4;">Space crunch / no staff visibility / slow follow-up orders. Lowest-friction stage if arrivals well-managed.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:#00D4AA; line-height:1.4;">Flow zoning. Staff repositioned from intake to tableside. QR re-order from seat.</div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:90px 1fr 80px 1fr 1fr; gap:8px; padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid rgba(0,212,170,0.2); border-radius:3px; align-items:start;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA;">LEAVE</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:2px;">Stage 6</div>
+          </div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Payment closure / receipt / exit navigation / final impression formation</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff;">0.7m</div>
+          <div style="background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.4;">Payment linger / unclear exit / receipt confusion. Final emotions are most heavily weighted in recall.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:6px 8px; font-size:11px; color:#00D4AA; line-height:1.4;">Auto-pay at order stage. Digital receipt sent. Guest exits clean. Zero terminal friction.</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-top:12px; margin-bottom:10px;"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:12px; color:rgba(255,255,255,0.6); font-style:italic;">Benchmark: Chick-fil-A hits 4.1 min total. Your Seamlessly QR slashes Stages 2–3 by 62%.</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#D4AF37;">TARGET: SUB-8 MIN TOTAL JOURNEY</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 12 — THE SEAMLESSLY FLOW BRIDGE
+══════════════════════════════════════════════ -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">From Framework to Platform</div>
+    <div class="ch-title">Seamlessly Touches 4 of 6 Journey Stages</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">The 6-stage journey framework isn't theoretical — it maps directly onto what Seamlessly's QR ordering and fulfillment platform was designed to fix. Four of the six stages are directly addressed by a single implementation.</div>
+        <div class="body">
+          <p>Most hospitality technology solves one problem in isolation — a POS, a reservation system, a loyalty app. Seamlessly's architecture was designed with the guest journey map as the operating blueprint: <strong>remove friction at every stage where technology can replace human intake processes</strong>, and free staff to operate in the stages where human presence creates value.</p>
+          <div class="sec-head">Stage-by-Stage Impact</div>
+          <p><strong>Stage 1 (Arrival):</strong> QR codes placed at venue entry points and seating areas allow guests to begin their order immediately upon arrival. Arrival friction drops to near zero — the guest is engaged with the menu within 15 seconds of walking in.</p>
+          <p><strong>Stage 2 (Order):</strong> The full order-to-payment cycle happens in the Seamlessly app in under 90 seconds. Manual POS input (42% of delays) and payment processing friction (31% of delays) are simultaneously eliminated — addressing 73% of average service delay in a single implementation.</p>
+          <p><strong>Stage 3 (Wait):</strong> Order confirmation routes directly to the KDS. The guest knows their order is in the system. Automated SMS notification at order-ready compresses perceived wait by 40–62%.</p>
+          <p><strong>Stage 4 (Receive):</strong> SMS alerts and labeled pickup positions eliminate counter clustering and name confusion. Fulfillment errors drop 25%. Pickup becomes a clean, sub-30-second interaction.</p>
+          <div class="callout" style="margin-top:14px;">
+            <strong>The net effect:</strong> Stages 1–4 optimized = average journey time compressed from 9+ minutes to under 5 minutes perceived. Return intent moves from the industry average of 58% (two friction points) toward the 91% frictionless benchmark. That's not a marginal improvement — it's a loyalty transformation.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;">Seamlessly Touches 4 of 6 Stages</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:8px 10px;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; flex-shrink:0;">1</div>
+              <div><div style="font-size:11px; color:#D4AF37; font-weight:700;">ARRIVAL</div><div style="font-size:11px; color:rgba(255,255,255,0.7);">QR at entry. Order starts in 15 seconds.</div></div>
+              <div style="margin-left:auto; font-size:10px; color:#00D4AA; font-weight:700;">FIXED ✓</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:8px 10px;">
+              <div style="width:28px; height:28px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; flex-shrink:0;">2</div>
+              <div><div style="font-size:11px; color:#00D4AA; font-weight:700;">ORDER</div><div style="font-size:11px; color:rgba(255,255,255,0.7);">90-second scan→order→pay. 73% delays removed.</div></div>
+              <div style="margin-left:auto; font-size:10px; color:#00D4AA; font-weight:700;">FIXED ✓</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:8px 10px;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; flex-shrink:0;">3</div>
+              <div><div style="font-size:11px; color:#D4AF37; font-weight:700;">WAIT</div><div style="font-size:11px; color:rgba(255,255,255,0.7);">SMS notification. Perceived wait −62%.</div></div>
+              <div style="margin-left:auto; font-size:10px; color:#00D4AA; font-weight:700;">FIXED ✓</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:8px 10px;">
+              <div style="width:28px; height:28px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; flex-shrink:0;">4</div>
+              <div><div style="font-size:11px; color:#fff; font-weight:700;">RECEIVE</div><div style="font-size:11px; color:rgba(255,255,255,0.7);">Labeled shelf + SMS. Errors −25%.</div></div>
+              <div style="margin-left:auto; font-size:10px; color:#00D4AA; font-weight:700;">FIXED ✓</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:3px; padding:8px 10px; opacity:.7;">
+              <div style="width:28px; height:28px; background:rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#fff; flex-shrink:0;">5</div>
+              <div><div style="font-size:11px; color:#fff; font-weight:700;">CONSUME</div><div style="font-size:11px; color:rgba(255,255,255,0.55);">Staff repositioned to tableside service.</div></div>
+              <div style="margin-left:auto; font-size:10px; color:rgba(255,255,255,0.4); font-weight:700;">INDIRECT</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:3px; padding:8px 10px; opacity:.7;">
+              <div style="width:28px; height:28px; background:rgba(0,212,170,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#fff; flex-shrink:0;">6</div>
+              <div><div style="font-size:11px; color:#00D4AA; font-weight:700;">LEAVE</div><div style="font-size:11px; color:rgba(255,255,255,0.55);">Auto-pay at order. Digital receipt. Clean exit.</div></div>
+              <div style="margin-left:auto; font-size:10px; color:#00D4AA; font-weight:700;">FIXED ✓</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#D4AF37; padding:14px 16px; border-radius:4px; text-align:center;">
+          <div style="font-size:10px; color:#1A2A44; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Stages Addressed</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#1A2A44; line-height:1;">4 0F 6</div>
+          <div style="font-size:12px; color:#1A2A44; line-height:1.5; margin-top:4px;">Journey stages directly or indirectly improved by a single Seamlessly deployment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 13 — WORKBOOK EXERCISES
+══════════════════════════════════════════════ -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 11 Workbook Exercises</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14px; color:#1A2A44; margin-bottom:20px; line-height:1.6;">Three exercises. Map your journey, find your friction, calculate the cost. Do these before Chapter 12 — the service standard work requires knowing your current baseline.</div>
+
+    <!-- Exercise 1 -->
+    <div style="margin-bottom:22px;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+        <div style="width:32px; height:32px; background:#1A2A44; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:17px;">1</span></div>
+        <div><div class="label" style="margin-bottom:0;">Exercise One</div><div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#1A2A44;">Map Your Current Guest Journey</div></div>
+      </div>
+      <div style="font-size:13px; color:#1A1A1A; margin-bottom:10px; line-height:1.6;">Walk your venue as a first-time guest during your next peak window. Time each stage. Write what a guest actually experiences — not what you intend them to experience.</div>
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:7px;">
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px; border:1px solid #ddd; border-top:3px solid #D4AF37;">
+          <div style="font-size:9px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">ARRIVAL</div>
+          <div class="fill-label" style="font-size:10px;">Time:</div><div class="fill-line" style="height:24px;"></div>
+          <div class="fill-label" style="font-size:10px; margin-top:5px;">Friction?</div><div class="fill-line" style="height:24px;"></div>
+        </div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px; border:1px solid #ddd; border-top:3px solid #00D4AA;">
+          <div style="font-size:9px; font-weight:700; color:#00D4AA; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">ORDER</div>
+          <div class="fill-label" style="font-size:10px;">Time:</div><div class="fill-line" style="height:24px;"></div>
+          <div class="fill-label" style="font-size:10px; margin-top:5px;">Friction?</div><div class="fill-line" style="height:24px;"></div>
+        </div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px; border:1px solid #ddd; border-top:3px solid #1A2A44;">
+          <div style="font-size:9px; font-weight:700; color:#1A2A44; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">WAIT</div>
+          <div class="fill-label" style="font-size:10px;">Time:</div><div class="fill-line" style="height:24px;"></div>
+          <div class="fill-label" style="font-size:10px; margin-top:5px;">Friction?</div><div class="fill-line" style="height:24px;"></div>
+        </div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px; border:1px solid #ddd; border-top:3px solid #D4AF37;">
+          <div style="font-size:9px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">RECEIVE</div>
+          <div class="fill-label" style="font-size:10px;">Time:</div><div class="fill-line" style="height:24px;"></div>
+          <div class="fill-label" style="font-size:10px; margin-top:5px;">Friction?</div><div class="fill-line" style="height:24px;"></div>
+        </div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px; border:1px solid #ddd; border-top:3px solid #00D4AA;">
+          <div style="font-size:9px; font-weight:700; color:#00D4AA; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">CONSUME</div>
+          <div class="fill-label" style="font-size:10px;">Time:</div><div class="fill-line" style="height:24px;"></div>
+          <div class="fill-label" style="font-size:10px; margin-top:5px;">Friction?</div><div class="fill-line" style="height:24px;"></div>
+        </div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px; border:1px solid #ddd; border-top:3px solid #1A2A44;">
+          <div style="font-size:9px; font-weight:700; color:#1A2A44; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">LEAVE</div>
+          <div class="fill-label" style="font-size:10px;">Time:</div><div class="fill-line" style="height:24px;"></div>
+          <div class="fill-label" style="font-size:10px; margin-top:5px;">Friction?</div><div class="fill-line" style="height:24px;"></div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
+        <div><div class="fill-label">Total journey time:</div><div class="fill-line"></div></div>
+        <div><div class="fill-label">Total friction points counted:</div><div class="fill-line"></div></div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div style="margin-bottom:22px;">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+        <div style="width:32px; height:32px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">2</span></div>
+        <div><div class="label" style="margin-bottom:0;">Exercise Two</div><div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#1A2A44;">Identify Your #1 Friction Stage</div></div>
+      </div>
+      <div style="font-size:13px; color:#1A1A1A; margin-bottom:10px; line-height:1.6;">Using the friction cliff data — 14% satisfaction loss per friction point, 73% abandon at 3 — identify which stage in your journey creates the most friction. Be specific.</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div style="background:#F4F6F9; padding:12px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">Your #1 friction stage:</div><div class="fill-line"></div>
+          <div style="font-size:10.5px; color:#666; margin-top:4px;">Which of the 6 stages?</div>
+        </div>
+        <div style="background:#F4F6F9; padding:12px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">What specifically happens:</div><div class="fill-line"></div>
+          <div style="font-size:10.5px; color:#666; margin-top:4px;">The exact friction event</div>
+        </div>
+        <div style="background:#F4F6F9; padding:12px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">How often per peak session:</div><div class="fill-line"></div>
+          <div style="font-size:10.5px; color:#666; margin-top:4px;">Frequency of this friction event</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+        <div style="width:32px; height:32px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">3</span></div>
+        <div><div class="label" style="margin-bottom:0;">Exercise Three</div><div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#1A2A44;">Calculate the Cost of Your Friction</div></div>
+      </div>
+      <div style="font-size:13px; color:#1A1A1A; margin-bottom:12px; line-height:1.6;">Using the 37% repeat visit increase from flow optimization and your current guest volume, estimate the revenue impact of reducing your #1 friction point.</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px;">
+        <div style="background:#F4F6F9; padding:12px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">Weekly unique guests:</div><div class="fill-line"></div>
+          <div style="font-size:10.5px; color:#666; margin-top:4px;">Current volume</div>
+        </div>
+        <div style="background:#F4F6F9; padding:12px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">Avg spend per visit:</div><div class="fill-line"></div>
+          <div style="font-size:10.5px; color:#666; margin-top:4px;">Per-cover average</div>
+        </div>
+        <div style="background:#F4F6F9; padding:12px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">+37% repeat visits =</div><div class="fill-line"></div>
+          <div style="font-size:10.5px; color:#666; margin-top:4px;">Additional visits per week</div>
+        </div>
+        <div style="background:#1A2A44; padding:12px; border-radius:4px;">
+          <div class="fill-label" style="color:#D4AF37;">Annual revenue lift:</div><div class="fill-line" style="border-color:rgba(255,255,255,0.2);"></div>
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.5); margin-top:4px;">×52 weeks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 14 — 30-DAY CHECKLIST
+══════════════════════════════════════════════ -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Implementation</div>
+    <div class="ch-title">Your 30-Day Optimization Plan</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; margin-bottom:18px; line-height:1.6;">Begin with a full journey walk, then systematically address friction stage by stage. Flow optimization compounds — each fixed stage makes the next one easier.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; flex:1;">
+      <div class="week-block">
+        <div class="week-head" style="background:#1A2A44;"><span style="color:#D4AF37;">WEEK 1 — JOURNEY AUDIT</span><small style="color:rgba(255,255,255,0.45);">Days 1–7</small></div>
+        <div class="week-body" style="border-color:#1A2A44;">
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Walk your venue as a first-time guest</strong> during peak — time every stage, count every friction point</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Record your total journey time</strong> and compare to the 8-minute abandonment threshold</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Ask 10 guests</strong> how they felt about each stage — arrival, ordering, and pickup specifically</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Identify your #1 friction stage</strong> — the one creating the most negative guest experience</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box"></div><div class="chk-text"><strong>Calculate your friction cost</strong> using Exercise 3 — put a dollar figure on the problem</div></div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head" style="background:#D4AF37;"><span style="color:#1A2A44;">WEEK 2 — ARRIVAL & ORDER FIX</span><small style="color:rgba(26,42,68,0.55);">Days 8–14</small></div>
+        <div class="week-body" style="border-color:#D4AF37;">
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Place QR codes at every arrival point</strong> — entry, tables, queue positions, and any dead-wait zones</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Test the 3-second QR rule:</strong> can a new guest see their ordering path within 3 seconds of arrival?</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Enable in-app payment</strong> at the order stage — eliminate the terminal interaction entirely</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Brief staff on their new role</strong> — from order intake to hospitality and experience delivery</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Re-time Stages 1 and 2</strong> after QR deployment — document the before/after numbers</div></div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head" style="background:#00D4AA;"><span style="color:#1A2A44;">WEEK 3 — WAIT & RECEIVE FIX</span><small style="color:rgba(26,42,68,0.55);">Days 15–21</small></div>
+        <div class="week-body" style="border-color:#00D4AA;">
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Activate SMS notifications</strong> — "order in progress" at 2 minutes, "order ready" at completion</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Set up a labeled pickup shelf</strong> — position numbers or names, clear sight lines, no counter cluster</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Assign a dedicated pickup coordinator</strong> during peak to ensure shelf accuracy and speed</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Survey guests on perceived wait:</strong> does it feel faster? What's their estimated wait vs actual?</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Measure order accuracy rate</strong> — has QR ordering reduced wrong orders vs counter verbal intake?</div></div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head" style="background:#F4F6F9; border:1.5px solid #1A2A44; border-bottom:none;"><span style="color:#1A2A44;">WEEK 4 — FULL JOURNEY REVIEW</span><small style="color:#999;">Days 22–30</small></div>
+        <div class="week-body" style="border-color:#1A2A44;">
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Walk the full journey again</strong> — time all 6 stages. How does the total compare to your Week 1 baseline?</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Count friction points</strong> — are you below 2 per visit? Have the 3-point abandonment triggers been eliminated?</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Review repeat visit data</strong> — have returning guests increased in the 30-day window?</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Document your friction-free standard:</strong> what does a zero-friction visit at your venue look like now?</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box"></div><div class="chk-text"><strong>Read Chapter 12: The 6-Minute Service Standard</strong> — build the speed layer on top of the flow foundation</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:12px 18px; border-radius:4px; margin-top:16px; display:flex; align-items:center; gap:14px;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#D4AF37; flex-shrink:0;">KEY PRINCIPLE</div>
+      <div style="font-size:13px; color:#fff; line-height:1.5;">EXPERIENCE IS not a feature you add to hospitality. It is EVERYTHING itself. Every reduction in friction is a direct investment in loyalty, repeat visits, and revenue per guest — without adding a single new menu item or hiring a single new employee.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 15 — CHAPTER SUMMARY + NEXT
+══════════════════════════════════════════════ -->
+<div class="page" id="p15">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary &amp; What Comes Next</div>
+    <div class="ch-title">Experience Is Everything</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:14px;max-width:620px;">Part III opens the modern hospitality operating system on one thesis: the product is not the plate — it is the full journey. When flow is designed, repeat behavior and revenue follow without a single new SKU.</div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">GUESTS BUY THE JOURNEY — NOT JUST THE FOOD</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">They are roughly <strong>3× more likely to repurchase a frictionless experience</strong> than one with exceptional food and moderate friction. Journey quality correlates with revenue, repeat visits, and churn more strongly than any isolated touchpoint.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THREE FRICTION MOMENTS BREAK TRUST</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Data cited in this chapter shows heavy abandonment when journeys stack <strong>3+ friction points</strong>, with a large share who do not return. Each extra friction point also drags satisfaction — small waits add up to a “never again” memory.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">TIME IS A HARD CEILING</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">When total journey time crosses roughly <strong>8 minutes</strong>, a majority of guests abandon the line. Benchmark the full path (industry averages near <strong>9 minutes</strong> vs best-in-class under <strong>5</strong>) — then design to stay under the threshold.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">DESIGN ALL SIX STAGES AS ONE SYSTEM</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;"><strong>Arrive → Order → Wait → Receive → Consume → Leave</strong> must be owned end-to-end. Prioritize visible QR paths, in-app payment at order, SMS and pickup clarity at wait/receive — then re-time the journey and count friction points again.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">5</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">FLOW COMPOUNDS INTO LOYALTY AND REVENUE</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Smooth journeys have been tied to roughly <strong>37% higher repeat visits</strong> — the 30-day plan turns diagnosis into weekly fixes. Experience is not a feature layered onto hospitality; it <em>is</em> hospitality in the guest’s memory.</div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Part III · Chapter 12</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">THE 6-MINUTE SERVICE STANDARD</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">You have mapped flow and removed structural friction. Chapter 12 adds the speed layer — tightening service windows so guests feel cared for before doubt or line anxiety sets in.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">11 · 15</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId() {
+  const pages = document.querySelectorAll('.page');
+  let closest = pages[0], closestDist = Infinity;
+  const center = window.scrollY + window.innerHeight / 2;
+  pages.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pc = window.scrollY + rect.top + rect.height / 2;
+    const d = Math.abs(center - pc);
+    if (d < closestDist) { closestDist = d; closest = p; }
+  });
+  return closest.id;
+}
+async function capturePage(id) {
+  const page = document.getElementById(id);
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
+  return await html2canvas(page, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:816, height:1056, scrollX:0, scrollY:-window.scrollY });
+}
+async function downloadVisible() {
+  const id = getVisiblePageId();
+  const num = id.replace('p','');
+  const canvas = await capturePage(id);
+  const a = document.createElement('a');
+  a.download = `chaos-mastery-ch11-p${num.padStart(2,'0')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+async function downloadAll() {
+  const btn = document.querySelector('.btn-all');
+  btn.disabled = true;
+  for (let i = 1; i <= 15; i++) {
+    btn.textContent = `Downloading ${i}/15...`;
+    const canvas = await capturePage('p'+i);
+    const a = document.createElement('a');
+    a.download = `chaos-mastery-ch11-p${String(i).padStart(2,'0')}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  btn.textContent = '⬇ Download All 15 Pages';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

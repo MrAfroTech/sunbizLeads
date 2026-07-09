@@ -1,0 +1,26 @@
+{
+  "name": "seamless-seo-lambda",
+  "version": "1.0.0",
+  "description": "SEO and Location Management Lambda Functions for Seamless Marketplace",
+  "main": "index.js",
+  "scripts": {
+    "create-tables": "node create-seo-tables.js",
+    "deploy": "./deploy-seo-tables.sh",
+    "test": "node test-seo-functions.js"
+  },
+  "keywords": [
+    "seo",
+    "dynamodb",
+    "location-management",
+    "meta-tags",
+    "schema-markup"
+  ],
+  "author": "Seamless Team",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}

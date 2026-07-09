@@ -1,0 +1,478 @@
+/* VendorBenefitsSlides.css - Presentation slides for vendor benefits */
+
+.vendor-benefits-presentation {
+  width: 100vw;
+  min-height: 100vh;
+  background: #0a0a0a;
+  font-family: var(--font-primary, 'Montserrat', sans-serif);
+  color: var(--text-light, #ffffff);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+/* Slides Container */
+.slides-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Slide */
+.benefit-slide {
+  position: absolute;
+  width: 90%;
+  max-width: 1400px;
+  height: 85vh;
+  padding: 60px 80px;
+  border-radius: 20px;
+  opacity: 0;
+  transform: scale(0.95) translateX(-50px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  overflow: hidden;
+}
+
+.benefit-slide.active {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Background Accent Elements */
+.slide-background-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 15% 80%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.slide-grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 0;
+}
+
+/* Slide Content */
+.slide-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header Section */
+.slide-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.main-headline {
+  font-family: var(--font-secondary, 'Playfair Display', serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.subheadline {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Bullet Points Container */
+.bullet-points-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1.5rem 2.5rem;
+  margin: 2rem 0;
+  flex: 1;
+  align-content: center;
+}
+
+.bullet-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  transition: all 0.3s ease;
+  animation: slideInUp 0.6s ease-out backwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bullet-point-item:hover {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+}
+
+.bullet-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+  border-radius: 10px;
+  color: #d4af37;
+}
+
+.bullet-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.bullet-text {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  flex: 1;
+}
+
+/* Stat Callout */
+.stat-callout {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  padding: 2rem 3rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 0 8px 40px rgba(212, 175, 55, 0.35);
+  }
+}
+
+.stat-callout-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  border-radius: 12px;
+  color: #0a0a0a;
+}
+
+.stat-callout-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.stat-text {
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 600;
+  margin: 0;
+  color: #f4d03f;
+  text-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Slide Number */
+.slide-number {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  z-index: 3;
+}
+
+/* Navigation Controls */
+.slide-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.nav-button:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+}
+
+.nav-button:active {
+  transform: scale(0.95);
+}
+
+/* Slide Indicators */
+.slide-indicators {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator-dot:hover {
+  background: rgba(212, 175, 55, 0.5);
+  transform: scale(1.2);
+}
+
+.indicator-dot.active {
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  width: 32px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Keyboard Hint */
+.keyboard-hint {
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0.5;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .benefit-slide {
+    padding: 50px 60px;
+  }
+
+  .bullet-points-container {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .benefit-slide {
+    padding: 40px 30px;
+    height: auto;
+    min-height: 85vh;
+  }
+
+  .main-headline {
+    font-size: 2rem;
+  }
+
+  .subheadline {
+    font-size: 1.1rem;
+  }
+
+  .bullet-points-container {
+    gap: 1rem;
+  }
+
+  .bullet-point-item {
+    padding: 1rem;
+  }
+
+  .bullet-text {
+    font-size: 1rem;
+  }
+
+  .stat-callout {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .stat-text {
+    font-size: 1.2rem;
+  }
+
+  .nav-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .slide-navigation {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vendor-benefits-presentation {
+    padding: 1rem 0;
+  }
+
+  .benefit-slide {
+    width: 95%;
+    padding: 30px 20px;
+  }
+
+  .main-headline {
+    font-size: 1.75rem;
+  }
+
+  .slide-header {
+    margin-bottom: 2rem;
+  }
+
+  .bullet-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .bullet-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .vendor-benefits-presentation {
+    height: auto;
+  }
+
+  .benefit-slide {
+    position: relative;
+    page-break-after: always;
+    opacity: 1;
+    transform: none;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .slide-navigation,
+  .keyboard-hint {
+    display: none;
+  }
+}
+
+/* Dark Mode Support (if needed) */
+@media (prefers-color-scheme: light) {
+  /* Keep dark theme for presentations */
+  .vendor-benefits-presentation {
+    background: #0a0a0a;
+    color: #ffffff;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

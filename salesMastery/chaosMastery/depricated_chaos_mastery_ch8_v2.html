@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 8: The Staff Burnout Cycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:34px 64px 18px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:34px 64px 26px 80px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#1A2A44;line-height:1;margin-bottom:14px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:14.5px;color:#1A2A44;line-height:1.65;margin-bottom:18px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1A2A44;letter-spacing:1px;margin-bottom:7px;margin-top:14px;}
+.body{font-size:13.5px;color:#1A1A1A;line-height:1.72;}
+.body p{margin-bottom:10px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.src-note{font-size:10px;color:#888;font-style:italic;line-height:1.5;border-top:1px solid #eee;padding-top:7px;margin-top:6px;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.gold{background:#D4AF37;}.q-card.teal{background:#00D4AA;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src{color:#1A2A44;}
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src{color:#1A2A44;}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 8: The Staff Burnout Cycle</div>
+    <div class="dl-bar-sub">13 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 13 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part II — The Hidden Leaks in Hospitality</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 8</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;line-height:.92;margin-bottom:2px;">THE STAFF</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#D4AF37;line-height:.92;margin-bottom:34px;">BURNOUT CYCLE</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "We lose good people not to better jobs, but to the daily grind of fixable chaos."
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Former General Manager, 150-cover urban bistro</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#e74c3c;line-height:1;">75%+</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">annual turnover rate — the industry average that compounds every single quarter</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#D4AF37;line-height:1;">59 DAYS</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">average employee tenure for most frontline teams turn over more than 6× yearly</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#00D4AA;line-height:1;">$2,305</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">hard cost to replace one hourly staff member — separation, replacement, and training</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#fff;line-height:1;">130%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">annual turnover rate for QSR — the segment where the cycle runs fastest and deepest</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE CRISIS DEFINED -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The Hidden Revenue Drain</div>
+        <div class="ch-title">Burnout From Operational Friction Is The Result Of Grinding People Down.</div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The hospitality industry doesn't have a people problem. It has a systems problem that looks like a people problem — because the people are the ones who leave when the systems fail.</div>
+        <div class="body">
+          <p>Staff burnout in hospitality is not a character flaw or a generational attitude shift. It is the predictable endpoint of a specific sequence of operational failures. According to 7shifts' labor cost research — based on a survey of 511 US operators — <strong>the average employee tenure in the industry is just 59 days.</strong> That is roughly three and a half months. Most frontline teams turn over completely more than three times per year.<span class="cite"> 7shifts, "What's the True Cost of Employee Turnover to the industry?" 7shifts.com</span></p>
+          <p>The annual turnover rate tells the same story from a different angle. According to multiple sources including 7shifts, Homebase, and Restroworks' 2025 restaurant turnover statistics, <strong>the average restaurant employee turnover rate in 2025 tops 75%.</strong> In fast food and QSR, that number exceeds 130%. The industry is cycling through its frontline workforce roughly every 14 months — on average.<span class="cite"> Homebase, "Restaurant Employee Turnover Rate: 2025 Statistics," joinhomebase.com; Restroworks, "Restaurant Turnover Statistics 2025," restroworks.com</span></p>
+          <div class="sec-head">The Cost That Doesn't Show Up in Labor Reports</div>
+          <p>Black Box Intelligence's State of the Workforce 2024 — drawn from 158 restaurant brands — puts hard numbers on each departure: <strong>$2,305 to replace one hourly employee; $10,518 to replace a non-GM manager; $16,770 to replace a General Manager.</strong> These figures cover separation, replacement advertising, and training — but they don't capture lost productivity, reduced service quality, or the institutional knowledge that walks out with every resignation.<span class="cite"> Black Box Intelligence, "Restaurant Turnover Trends Improve," Oct. 8, 2024, blackboxintelligence.com · 158 restaurant brands</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The compounding effect:</strong> At 75% annual turnover with an average replacement cost of $2,305 per hourly employee, a 20-person frontline team costs $34,575 per year just in replacement hard costs — before accounting for training time, manager overhead, or the productivity gap while a new hire comes up to speed. This is not a marginal cost. It is the third or fourth largest line item on the P&L.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#c0392b;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#f9d71c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Turnover Crisis in Numbers</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;">75%+</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">average annual turnover — full-service restaurants, 2025</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Homebase; Restroworks; 7shifts</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#f9d71c;line-height:1;">130%+</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">annual turnover for QSR / fast food in 2025 — the fastest-spinning revolving door</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Homebase, joinhomebase.com; Paytronix, paytronix.com</div>
+            </div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;">204%</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">of the national average quit rate — hospitality workers in Jan–April 2024</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Auguste Escoffier School, escoffierglobal.com · NRA data</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">$2,305</div>
+          <div class="stat-lbl">hard cost to replace one hourly employee (separation + hiring + training)</div>
+          <div class="stat-sub">Black Box Intelligence, State of the Workforce 2024 · 158 restaurant brands · blackboxintelligence.com</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">59 DAYS</div>
+          <div class="stat-lbl">average restaurant employee tenure — roughly 3 complete frontline team rotations per year</div>
+          <div class="stat-sub">7shifts, "True Cost of Employee Turnover" · 7shifts.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE 6-STAGE BURNOUT LOOP (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Cycle</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">THE 6-STAGE BURNOUT LOOP</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">How Operational Friction Turns Capable People Into Churn Statistics</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;">
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;letter-spacing:2px;">STAGE 1</div>
+            <div style="background:#D4AF37;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;">1</div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:8px;">OVERWHELM</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;">Understaffed shifts. Unpredictable scheduling. Manual processes that should be automated. Small requests piling up. Tech glitches nobody owns. A capable server is a zombie by hour three — not because they're weak, but because the environment is asking too much from too few.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Root cause: operational friction. Not the people — the systems.</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:2px;">STAGE 2</div>
+            <div style="background:#00D4AA;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;">2</div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:8px;">GUEST COMPLAINTS</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;">Guests blame staff for systemic failures. Long waits. Wrong orders. Missed communications. The server didn't fail — the system did. But the server takes the complaint, absorbs the frustration, and goes home feeling personally responsible for a problem they didn't create and couldn't solve.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Morale erodes fastest when employees absorb the fallout of unfixable systems.</div>
+        </div>
+        <div style="background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.25);border-radius:4px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#ff6b6b;letter-spacing:2px;">STAGE 3</div>
+            <div style="background:#ff6b6b;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;">3</div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:8px;">BURNOUT</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;">Exhaustion calcifies into cynicism and detachment. Error rates spike. Absenteeism increases. The employee stops caring about outcomes they were once invested in — not because their character changed, but because the repeated exposure to unresolvable friction depleted their psychological reserves.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Predictable scheduling alone can cut absenteeism by 25%. Source: Hybrid Payroll, hybridpayroll.com</div>
+        </div>
+        <div style="background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.25);border-radius:4px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#ff6b6b;letter-spacing:2px;">STAGE 4</div>
+            <div style="background:#e74c3c;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;">4</div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:8px;">DECISION TO QUIT</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;">7shifts documents that productivity starts to decline as soon as an employee decides to quit — often weeks before they give notice. The decision can be made silently. Managers rarely see it coming. The employee starts covering fewer responsibilities and disengages before the official separation happens.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">7shifts, "True Cost of Employee Turnover" · 7shifts.com</div>
+        </div>
+        <div style="background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.4);border-radius:4px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#e74c3c;letter-spacing:2px;">STAGE 5</div>
+            <div style="background:#e74c3c;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;">5</div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:8px;">TURNOVER</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;">The employee leaves. $2,305 in hard costs per hourly departure (Black Box Intelligence, 2024). $10,518 for a non-GM manager. $16,770 for a GM. The remaining team absorbs the gap, accelerating their own burnout. The cycle is now self-reinforcing.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Black Box Intelligence, State of Workforce 2024 · blackboxintelligence.com</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;letter-spacing:2px;">STAGE 6</div>
+            <div style="background:#D4AF37;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;">6</div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:8px;">REPEAT</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;">The new hire arrives into the same operational environment that burned out the last person. If nothing in the system has changed, the cycle runs again — typically in 59 days. The industry replaces its entire frontline team on average more than 3 times per year. Most operators call this normal. It is not normal. It is expensive.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">7shifts average tenure data · "streamline the process and tenure doubles"</div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:12px 0;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13.5px;color:rgba(255,255,255,0.65);text-align:center;line-height:1.5;">
+        Operational friction — unpredictable workflows, unclear roles, reactive firefighting — creates churn faster than wages or hours. Streamline the process, and tenure doubles.
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE HUMAN COST -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Financial Damage</div>
+    <div class="ch-title">What Turnover Actually Costs — Per Person, Per Year</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Everyone thinks they know what staff turnover costs. It’s the job posting, the onboarding, the paperwork. But that’s not where the real loss is. It’s in the hours your manager isn’t on the floor and the weeks your service slips while someone gets up to speed. It’s the guest who can’t explain why it feels different now—so they just don’t come back. Most of the cost isn’t tracked, and that’s why it’s underestimated.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Black Box Intelligence: The Hard Cost Breakdown</div>
+          <p>Black Box Intelligence's State of the Workforce 2024 — drawing from 158 hospitality brands — provides the most cited set of replacement cost figures in the industry. These are "hard costs" only: separation administration, replacement advertising, and formal training time.<span class="cite"> Black Box Intelligence, Oct. 8, 2024, blackboxintelligence.com · 158 brands</span></p>
+          <p>The Cornell Center for Hospitality Research adds further context: according to Restroworks' 2025 statistics — citing Cornell's research — <strong>the average cost of employee turnover is $5,864 per person</strong>, with training costs alone at $821. This broader figure captures more of the true cost that hard-cost frameworks miss.<span class="cite"> Restroworks, "Restaurant Turnover Statistics 2025" · restroworks.com, citing Cornell Center for Hospitality Research</span></p>
+          <div class="sec-head">The Labor Budget Consumption</div>
+          <p>Across the industry, 7shifts' operator survey data (511 US operators) establishes that <strong>turnover eats a significant share of the annual labor budget</strong> through compounding replacement costs. At a 75% annual turnover rate for a 20-person team, that is 15 replacement events per year. At $2,305 per hourly employee in hard costs alone, that is $34,575 in direct replacement costs — before capturing the manager time, training overhead, and productivity gap that Cornell's $5,864 per person figure includes.<span class="cite"> 7shifts, 7shifts.com; Black Box Intelligence, blackboxintelligence.com</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The performance connection:</strong> Black Box Intelligence's 2024 research documents a direct link between retention and restaurant performance. Restaurants in the top quartile for turnover outperform bottom-quartile peers on same-store traffic growth and sales. Lower turnover does not just reduce replacement costs — it produces guest experience quality that drives revenue. The cost of burnout compounds on both sides of the P&L simultaneously.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Source: Black Box Intelligence, State of the Workforce 2024 · blackboxintelligence.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">The Cost Stack — Per Departure</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;">
+              <div><div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Hourly Employee</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">Separation + hiring + training (hard costs)</div></div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#e74c3c;text-align:right;line-height:1;">$2,305</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(255,165,0,0.08);border:1px solid rgba(255,165,0,0.3);border-radius:3px;padding:10px 12px;">
+              <div><div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Cornell Full Cost (Hourly)</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">Including productivity loss and training depth</div></div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFA500;text-align:right;line-height:1;">$5,864</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div><div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Non-GM Manager</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">Black Box Intelligence 2024 hard cost</div></div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;text-align:right;line-height:1;">$10,518</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:3px;padding:10px 12px;">
+              <div><div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">General Manager</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">Black Box Intelligence 2024 hard cost</div></div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#00D4AA;text-align:right;line-height:1;">$16,770</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);margin-top:8px;font-style:italic;">Sources: Black Box Intelligence, State of the Workforce 2024 · blackboxintelligence.com · 158 brands; Cornell Center for Hospitality Research via Restroworks, restroworks.com</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">$34,575</div>
+          <div class="stat-lbl">annual hard replacement cost for a 20-person team at 75% turnover — before productivity losses</div>
+          <div class="stat-sub">Calculated from Black Box Intelligence $2,305 per hourly departure · 15 avg annual replacements</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — THE INDUSTRY SNAPSHOT (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Industry Data 2024–2025</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">THE PROBLEM AT SCALE</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Turnover Rates by Segment, Role & Year — Multi-Source Industry Benchmark</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <!-- Turnover bar chart -->
+      <div style="margin-bottom:18px;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;">Annual Turnover Rate by Segment (2025)</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:160px;font-size:11.5px;color:rgba(255,255,255,0.8);text-align:right;flex-shrink:0;">QSR / Fast Food</div>
+            <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:20px;overflow:hidden;position:relative;">
+              <div style="width:100%;height:100%;background:#e74c3c;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#fff;">130%+ turnover · QSR employees replaced more than once annually on average</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:160px;font-size:11.5px;color:rgba(255,255,255,0.8);text-align:right;flex-shrink:0;">Full-Service (All)</div>
+            <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:20px;overflow:hidden;">
+              <div style="width:77%;height:100%;background:#FFA500;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#fff;">75–100% avg annual</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:160px;font-size:11.5px;color:rgba(255,255,255,0.8);text-align:right;flex-shrink:0;">Full-Service FOH</div>
+            <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:20px;overflow:hidden;">
+              <div style="width:41%;height:100%;background:#D4AF37;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">41% per year</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:160px;font-size:11.5px;color:rgba(255,255,255,0.8);text-align:right;flex-shrink:0;">Full-Service BOH</div>
+            <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:20px;overflow:hidden;">
+              <div style="width:43%;height:100%;background:#D4AF37;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">43% per year</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:160px;font-size:11.5px;color:rgba(255,255,255,0.8);text-align:right;flex-shrink:0;">Management</div>
+            <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:20px;overflow:hidden;">
+              <div style="width:28%;height:100%;background:#00D4AA;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">28% per year</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:160px;font-size:11.5px;color:rgba(255,255,255,0.8);text-align:right;flex-shrink:0;">All US Industries (avg)</div>
+            <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:20px;overflow:hidden;">
+              <div style="width:47%;height:100%;background:rgba(255,255,255,0.3);border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">~47% national average</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: Restroworks (restroworks.com); Homebase (joinhomebase.com); Paytronix (paytronix.com); Black Box Intelligence (blackboxintelligence.com)</div>
+      </div>
+
+      <!-- Why they leave -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">Why Industry Workers Leave — Top Drivers (2025)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:3px;padding:11px;">
+            <div style="font-size:11px;font-weight:700;color:#ff6b6b;margin-bottom:4px;">INCONSISTENT SCHEDULING</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">Predictable scheduling alone cuts absenteeism 25% and turnover up to 20%.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">Hybrid Payroll; hybridpayroll.com</div>
+          </div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:3px;padding:11px;">
+            <div style="font-size:11px;font-weight:700;color:#ff6b6b;margin-bottom:4px;">NO UPWARD MOBILITY</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">37% of industry workers cite lack of upward mobility as the reason they want to leave their job.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">Homebase, joinhomebase.com</div>
+          </div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);border-radius:3px;padding:11px;">
+            <div style="font-size:11px;font-weight:700;color:#ff6b6b;margin-bottom:4px;">VALUES MISMATCH</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">7shifts' research identifies hasty hiring — bringing on someone who doesn't share team values — as the root driver of churn more than wages or hours alone.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">7shifts, 7shifts.com</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:3px;padding:11px;">
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:4px;">WAGE INSTABILITY</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">BLS: avg hospitality wage $19.61/hr in 2024 vs. $28/hr across all private industries. Tipped income volatility amplifies perceived instability.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">BLS via Hybrid Payroll; hybridpayroll.com</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:3px;padding:11px;">
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:4px;">PHYSICAL/EMOTIONAL LOAD</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">Long hours, difficult customers, physical demands of service work, emotional labor of absorbing guest complaints for system failures — all compound over time.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">Homebase, joinhomebase.com</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:11px;">
+            <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:4px;">CHAOTIC ONBOARDING</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">Overwhelming first weeks without structure or mentorship signal to new hires that the chaos they see is temporary. EHL Hospitality research shows that when training is neglected, new hires don’t last.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:4px;font-style:italic;">EHL Hospitality Business School, 2023 · via Hybrid Payroll</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        "Restaurant employees leave their employers at a rate that's 13 times more frequent than the rest of working Americans." — 7shifts, "True Cost of Employee Turnover" · 7shifts.com
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — WHAT'S WORKING -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Fix</div>
+    <div class="ch-title">What's Working vs. What's Not</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The pattern across every piece of retention research is consistent: operational fixes produce better retention outcomes than compensation adjustments alone. Smooth the process, and people stay. The chaos is what drives them out.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">What Works — Structural Interventions</div>
+          <p><strong>Predictable scheduling</strong> is the highest-leverage, lowest-cost retention tool available. Hybrid Payroll's synthesis of BLS and EHL research establishes that predictable scheduling reduces absenteeism by 25% and turnover by up to 20%. The mechanism is simple: staff who receive schedules with adequate notice can plan their lives — childcare, transportation, second jobs. Staff who cannot plan their lives feel controlled and disrespected. They leave.<span class="cite"> Hybrid Payroll, hybridpayroll.com · BLS; EHL Hospitality Business School, 2023</span></p>
+          <p><strong>Competitive GM compensation</strong> produces a measurable ripple effect. Black Box Intelligence's 2024 research found that establishments offering top-tier GM salaries see <strong>6% lower overall turnover</strong> compared to lower-paying peers. The GM sets the operational culture and the staffing environment. Investment in that role pays down throughout the entire team's retention.<span class="cite"> Black Box Intelligence, Oct. 8, 2024, blackboxintelligence.com · 158 brands</span></p>
+          <p>
+            <strong>Diversity in management</strong> shows a pattern most operators overlook: who’s leading the team matters. Brands closer to gender-balanced leadership see about <strong>23% lower staff turnover</strong>.
+          
+            Why? Because the environment changes. When leadership feels more balanced, the workplace runs with less friction—and people don’t feel the need to leave.
+            <span class="cite">Black Box Intelligence, 2024, blackboxintelligence.com</span>
+          </p>
+          <div class="sec-head">What Doesn't Work</div>
+          <p><strong>"Tough it out" culture</strong> — treating complaints as whining, ignoring repeat stressors, and rewarding endurance over effectiveness — is the single most reliable predictor of accelerated churn. 7shifts' research documents that managers who recognize early warning signs (more callouts, lower energy, drop in performance) and act quickly can intervene before the resignation decision is made. Those who don't, don't get the chance.<span class="cite"> 7shifts, 7shifts.com</span></p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The friction audit model:</strong> The most effective retention intervention documented in operator practice is the structured "friction audit" — identifying the three to five operational pain points that generate the most daily stress for frontline staff and fixing them in sequence. Operators who do this report tenure improvements measurable within 90 days.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Friction Fix Table</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(212,175,55,0.05);border-radius:3px;padding:5px 7px;align-items:center;">
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);font-weight:700;text-transform:uppercase;">Fix</div>
+              <div style="font-size:9px;color:rgba(212,175,55,0.7);font-weight:700;text-align:center;text-transform:uppercase;">Turnover Drop</div>
+              <div style="font-size:9px;color:rgba(0,212,170,0.7);font-weight:700;text-align:center;text-transform:uppercase;">Time to Implement</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 7px;align-items:center;">
+              <div style="font-size:12px;color:#fff;font-weight:600;">Shift forecasting tools</div>
+              <div style="font-size:12px;color:#00D4AA;font-weight:700;text-align:center;">20–30%</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.65);text-align:center;">1 week</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(212,175,55,0.08);border-radius:3px;padding:8px 7px;align-items:center;">
+              <div style="font-size:12px;color:#fff;font-weight:600;">Guest issue SOPs (empower staff)</div>
+              <div style="font-size:12px;color:#D4AF37;font-weight:700;text-align:center;">25–35%</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.65);text-align:center;">2 days</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(255,255,255,0.05);border-radius:3px;padding:8px 7px;align-items:center;">
+              <div style="font-size:12px;color:#fff;font-weight:600;">Weekly team huddles (vent + solve)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;text-align:center;">20–30%</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.65);text-align:center;">Immediate</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(255,255,255,0.05);border-radius:3px;padding:8px 7px;align-items:center;">
+              <div style="font-size:12px;color:#fff;font-weight:600;">Predictable scheduling</div>
+              <div style="font-size:12px;color:#00D4AA;font-weight:700;text-align:center;">~20%</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.65);text-align:center;">1–2 weeks</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:8px 7px;align-items:center;">
+              <div style="font-size:12px;color:#e74c3c;font-weight:600;">No fixes (status quo)</div>
+              <div style="font-size:12px;color:#e74c3c;font-weight:700;text-align:center;">0%</div>
+              <div style="font-size:11px;color:#e74c3c;text-align:center;">Ongoing bleed</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: Hybrid Payroll (hybridpayroll.com); Black Box Intelligence (blackboxintelligence.com); 7shifts (7shifts.com); operator practice models</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Brands closer to gender-balanced management report 23% lower non-management turnover."</div>
+          <div class="q-attr">Black Box Intelligence</div>
+          <div class="q-src">State of the Restaurant Workforce 2024 · 158 brands · blackboxintelligence.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — LEADER PERSPECTIVES -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Operator & Researcher Perspectives</div>
+    <div class="ch-title">Shift Forecasting Tools</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14.5px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:640px;">Four voices — from floor-level operations to academic research — converge on the same diagnosis: the burnout cycle is operational, not personal. Fix the process, not the people.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+      <div class="q-card navy" style="padding:18px;">
+        <div style="font-size:9px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">ON OPERATIONAL FRICTION</div>
+        <div class="q-text" style="font-size:14px;color:#fff;">"We lose good people to the daily grind of chaos. The same scheduling glitch, the same unclear table sections, the same kitchen comm breakdown — every shift. It's not that the work is hard. It's that the hard parts are never fixed."</div>
+        <div style="border-top:1px solid rgba(212,175,55,0.3);padding-top:8px;margin-top:8px;">
+          <div style="font-size:11.5px;font-weight:700;color:#D4AF37;">Former General Manager</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.55);">150-cover urban bistro</div>
+        </div>
+      </div>
+
+      <div class="q-card gold" style="padding:18px;">
+        <div style="font-size:9px;color:#1A2A44;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">ON ROOT CAUSE (VALUES VS. WAGES)</div>
+        <div class="q-text" style="font-size:14px;color:#1A2A44;">"Contrary to popular belief, high turnover isn't primarily caused by employee dissatisfaction with pay or scheduling. Hasty hiring is at the root of the problem. When you hire someone who doesn't share your team's values, no amount of training or tips will make them engaged in their work."</div>
+        <div style="border-top:1px solid rgba(26,42,68,0.2);padding-top:8px;margin-top:8px;">
+          <div style="font-size:11.5px;font-weight:700;color:#1A2A44;">7shifts Research Team</div>
+          <div style="font-size:10.5px;color:rgba(26,42,68,0.65);">"What's the True Cost of Employee Turnover to the Industry?"</div>
+          <div style="font-size:9.5px;color:rgba(26,42,68,0.45);font-style:italic;margin-top:2px;">Source: 7shifts.com · 511 US operators surveyed</div>
+        </div>
+      </div>
+
+      <div class="q-card light" style="padding:18px;">
+        <div style="font-size:9px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">ON COMPENSATION AND RETENTION</div>
+        <div class="q-text" style="font-size:14px;">"Establishments offering top-tier salaries — particularly for General Managers — are seeing 6% lower turnover compared to lower-paying counterparts. And restaurants with lower turnover levels perform better when it comes to traffic and sales growth."</div>
+        <div style="border-top:1px solid #eee;padding-top:8px;margin-top:8px;">
+          <div style="font-size:11.5px;font-weight:700;color:#1A2A44;">Black Box Intelligence</div>
+          <div style="font-size:10.5px;color:#666;">State of the Restaurant Workforce 2024</div>
+          <div style="font-size:9.5px;color:#aaa;font-style:italic;margin-top:2px;">Source: blackboxintelligence.com · 158 restaurant brands</div>
+        </div>
+      </div>
+
+      <div class="q-card teal" style="padding:18px;">
+        <div style="font-size:9px;color:#1A2A44;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">ON SCHEDULING AS RETENTION TOOL</div>
+        <div class="q-text" style="font-size:14px;color:#1A2A44;">"Studies show that predictable scheduling can cut absenteeism by 25 percent and turnover by as much as 20 percent. Unstable hours remain one of the strongest predictors of turnover in hospitality — staff who receive schedules only days in advance cannot plan childcare, transportation, or second jobs."</div>
+        <div style="border-top:1px solid rgba(26,42,68,0.2);padding-top:8px;margin-top:8px;">
+          <div style="font-size:11.5px;font-weight:700;color:#1A2A44;">Hybrid Payroll Research</div>
+          <div style="font-size:10.5px;color:rgba(26,42,68,0.7);">"Employee Turnover in Hospitality Industry" · citing BLS and EHL research</div>
+          <div style="font-size:9.5px;color:rgba(26,42,68,0.5);font-style:italic;margin-top:2px;">Source: hybridpayroll.com</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary table -->
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#1A2A44;">
+          <th style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1.5px;text-align:left;padding:8px 10px;">Source</th>
+          <th style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1.5px;text-align:left;padding:8px 10px;">Key Finding</th>
+          <th style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1.5px;text-align:left;padding:8px 10px;">Operator Implication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:8px 10px;font-size:12px;color:#1A2A44;border-bottom:1px solid #eee;font-weight:700;">Black Box Intelligence (158 brands)</td><td style="padding:8px 10px;font-size:12px;color:#1A1A1A;border-bottom:1px solid #eee;">The best-performing venues aren’t constantly replacing staff—they’re keeping them, and it shows in their traffic and sales.</td><td style="padding:8px 10px;font-size:12px;color:#1A1A1A;border-bottom:1px solid #eee;">Retention is a revenue strategy, not an HR strategy</td></tr>
+        <tr style="background:#F4F6F9;"><td style="padding:8px 10px;font-size:12px;color:#1A2A44;border-bottom:1px solid #eee;font-weight:700;">7shifts (511 operators)</td><td style="padding:8px 10px;font-size:12px;color:#1A1A1A;border-bottom:1px solid #eee;">Values mismatch in hiring drives churn more than wages alone</td><td style="padding:8px 10px;font-size:12px;color:#1A1A1A;border-bottom:1px solid #eee;">Hire for fit before speed; a bad hire resets the 59-day clock</td></tr>
+        <tr><td style="padding:8px 10px;font-size:12px;color:#1A2A44;font-weight:700;">Hybrid Payroll / BLS / EHL</td><td style="padding:8px 10px;font-size:12px;color:#1A1A1A;">Predictable scheduling reduces absenteeism 25% and turnover 20%</td><td style="padding:8px 10px;font-size:12px;color:#1A1A1A;">Scheduling consistency is the fastest structural lever available</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — FIX 1: MORALE & RECOGNITION -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Fix #1 — The Zero-Cost Retention Tool</div>
+    <div class="ch-title">Recognition, Morale & the Weekly Huddle</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Recognition costs nothing and pays better than most retention bonuses. Staff who feel seen, heard, and valued perform better, complain less, and leave later. The failure to provide this is not a resource problem. It is an attention problem.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Recognition Case</div>
+          <p>Homebase's 2025 retention research identifies a series of zero-cost or near-zero-cost retention interventions that independent operators consistently underuse: <strong>"Start recognizing good work. A simple 'thanks' or a public shout-out in pre-shift meetings goes a long way. Show your team the appreciation they deserve."</strong><span class="cite"> Homebase, "Restaurant Employee Turnover Rate: 2025," joinhomebase.com</span></p>
+          <p>The same research identifies improving first-week experience as one of the most effective structural interventions: <em>"Onboarding should feel welcoming rather than overwhelming. Pair new hires with a friendly mentor, and schedule regular check-ins to see how they're settling in."</em> EHL Hospitality Business School's 2023 research links neglected training directly to early-tenure attrition — the exit that happens within the first 30–60 days, before the new hire ever reaches full productivity.<span class="cite"> Homebase, joinhomebase.com; EHL Hospitality Business School, 2023, cited in hybridpayroll.com</span></p>
+          <div class="sec-head">The Weekly Huddle Model</div>
+          <p>The weekly team huddle — while they can come across as corny. A structured 10–15 minute pre-shift meeting that combines operational updates, acknowledgment of good work, and a "what's frustrating us this week?" component — is the cheapest friction reduction tool available to any operator. Its retention effect comes from two mechanisms: <strong>visibility</strong> (staff feel that their experience of the workplace is known to leadership) and <strong>agency</strong> (some percentage of the friction they raise gets resolved, confirming that the loop between complaint and change is real).</p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The "tough it out" failure mode:</strong> The opposing model — treating complaints as weakness, communicating that difficulties are personal failures rather than operational ones — is what 7shifts documents as the environment that accelerates the burnout loop. When staff feel that their legitimate operational frustrations will be dismissed, they stop raising them. The friction doesn't reduce; it just becomes invisible to management until the resignation lands.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Source: 7shifts, "True Cost of Employee Turnover" · 7shifts.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">The Russell In-Service Model</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">STEP 1 — RECOGNIZE (2 min)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Name one person who did something exceptional since the last meeting. Specific, not generic. "Sarah handled the 10-top last Friday without calling for backup" — not "everyone did great."</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">STEP 2 — SURFACE (5 min)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"What friction did you hit this week that slowed you down or made a guest experience worse?" Get it on the board. Don't judge it. Just record it.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;">STEP 3 — OWN ONE FIX (3 min)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Pick one item from the list. Assign it to a specific person with a specific deadline. "By Thursday: we have a printed ticket flow for the POS backup so the expo knows what to do when the system drops."</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">STEP 4 — CLOSE (2 min)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Restate the fix from last week and confirm whether it happened. The institutional credibility of the huddle depends on the loop closing consistently.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">37%</div>
+          <div class="stat-lbl">of restaurant workers cite lack of upward mobility as their reason for wanting to leave</div>
+          <div class="stat-sub">Homebase, "Restaurant Employee Turnover Rate: 2025" · joinhomebase.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — FIX 2: FLEXIBILITY & SOPs -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Fix #2 — Empowerment Through Clarity</div>
+    <div class="ch-title">Guest Issue SOPs: Empowering Staff to Resolve Instead of Absorb</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The most corrosive form of burnout is not overwork. It is helplessness. Staff who have no authority to resolve the guest complaints they receive — who must escalate everything, who are blamed for problems they can't fix — burn out in a specific way that wages can't address.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Empowerment Gap</div>
+          <p>The hospitality industry runs on a structural paradox: the staff members with the most direct contact with guests typically have the least authority to resolve guest problems. A server takes a complaint about a 20-minute wait, a wrong order, or a charging error — and has to find a manager who has the authority to fix any of those things. The guest's frustration is real. The server's embarrassment is real. The manager is unavailable for 8 minutes. The guest posts a 2-star review and directly mentions the server's name. The server doesn't want to come back tomorrow.</p>
+          <p>7shifts' research identifies empowerment as a direct retention lever: staff who feel they can resolve issues within their role — rather than escalating every friction point — report higher job satisfaction and lower intent to leave. <strong>Clarity of authority is the mechanism.</strong> A staff member who knows exactly what they are empowered to do — comp a drink, waive a fee, replace a dish without manager approval — moves through the shift with agency rather than anxiety.<span class="cite"> 7shifts, 7shifts.com</span></p>
+          <div class="sec-head">The SOP Solution</div>
+          <p>Standard operating procedures for guest-facing issue resolution are not bureaucracy — they are a retention tool. When every server knows that a wrong order gets a replacement dish and an apology, no manager call needed; when every bartender knows that a 20-minute wait for a bar seat gets a complimentary appetizer, no supervisor required — the operational friction of guest issue management disappears from the staff experience. Homebase's retention research explicitly recommends <strong>"building strong leaders"</strong> at every level, which includes giving frontline staff the authority to act without escalating every decision.<span class="cite"> Homebase, joinhomebase.com, 2025</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The values-hire connection:</strong> 7shifts' research identifies values mismatch in hiring as the root driver of churn. Staff who genuinely believe in hospitality as a mission — not just a job — respond to empowerment differently. They use it. Staff hired purely for availability fill shifts but don't build the institutional resilience that makes empowerment programs stick.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Source: 7shifts.com · 511 US operators</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#F4F6F9;border:2px solid #1A2A44;border-radius:4px;padding:16px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Guest Issue SOP — Empowerment Thresholds</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:28px;height:28px;background:#00D4AA;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:13px;color:#1A2A44;">✓</div>
+              <div><div style="font-size:12px;font-weight:700;color:#1A2A44;">Server authority (no manager needed)</div><div style="font-size:11.5px;color:#666;line-height:1.4;">Replace wrong/unsatisfactory dish. Comp one drink per complaint. Acknowledge wait times with apology and update.</div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:28px;height:28px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:13px;color:#1A2A44;">✓</div>
+              <div><div style="font-size:12px;font-weight:700;color:#1A2A44;">Supervisor authority (flag manager, act now)</div><div style="font-size:11.5px;color:#666;line-height:1.4;">Remove item from check. Comp appetizer for wait. Seat walk-in at manager's table during peak.</div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="width:28px;height:28px;background:#1A2A44;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;">GM</div>
+              <div><div style="font-size:12px;font-weight:700;color:#1A2A44;">GM authority only</div><div style="font-size:11.5px;color:#666;line-height:1.4;">Waive full check. Issue future credit. Address formal complaint or health issue.</div></div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:#888;margin-top:8px;font-style:italic;">When every staff member knows their authority level, every shift runs with clarity rather than anxiety.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">28%</div>
+          <div class="stat-lbl">lower management turnover vs. hourly staff — but still above pre-pandemic levels per Black Box Intelligence</div>
+          <div class="stat-sub">Black Box Intelligence, State of the Workforce 2024 · blackboxintelligence.com</div>
+        </div>
+        <div class="callout">
+          <strong>The SOP payoff:</strong> Staff who can act know they matter. Staff who can only report problems know they don't. Clarity of authority is the coolest morale tool available.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE SEAMLESSLY BRIDGE (Full bleed navy) -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The System Connection</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">TECHNOLOGY'S ROLE IN THE BURNOUT CYCLE</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">How Operational Friction Tools Either Accelerate or Reduce the Cycle</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;flex:1;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#e74c3c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Technology That Accelerates Burnout</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">FRAGMENTED POS SYSTEMS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Disconnected ordering, payment, and kitchen systems. Every table turn involves 5 steps too many. The cognitive load is invisible in labor reports but visible when one of your key employees resign.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">MANUAL WAITLIST MANAGEMENT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Host stand running paper lists during peak service leads to a very stressful task. The combination of guest pressure, lack of tools, and high visibility is a turnover accelerator.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">UNDEFINED COMMUNICATION CHANNELS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Staff who receive schedule changes via personal text, shift-swap requests via group chat, and manager feedback via a mix of verbal and written channels have no operational clarity. Every interaction leads to friction.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Technology That Reduces Burnout</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">UNIFIED ORDERING PLATFORM</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">When guests order through a single integrated channel — QR, app, or counter — staff spend time serving rather than repeating orders and tracking down modifications. The shift feels different.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">DIGITAL WAITLIST + GUEST TEXTING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The host stand armed with a digital waitlist tool becomes a strategic position, not a firefighting position. Guest expectations are set and managed automatically. The host's cognitive load — and abandonment rate — both drop.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">FORECAST-BASED SCHEDULING TOOLS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">These tools give managers visibility into expected volume before building the schedule — eliminating the overstaffed opening or understaffed peak that creates the first domino in the burnout loop.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:12px;"></div>
+      <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px 16px;">
+        <div style="font-size:13px;color:#fff;line-height:1.6;"><strong style="color:#D4AF37;">The core insight:</strong> Operational technology doesn't just affect guest experience. It directly shapes the employee experience that determines the length of their tenure. The operator who reduces ordering friction with a QR system isn't just improving table turns — they are removing one of the daily sources of staff stress that feeds the burnout cycle. The tools that serve guests and the tools that retain staff are increasingly the same tools.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE DIVERSITY & PERFORMANCE CONNECTION -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Long Game</div>
+    <div class="ch-title">Tenure Compounds: What Low-Turnover Teams Actually Produce</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Retention is not just a cost reduction strategy. It is a performance strategy. Black Box Intelligence's 2024 data establishes that low-turnover restaurants outperform high-turnover ones on the metrics that matter most: same-store traffic and sales growth.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Performance Premium of Stable Teams</div>
+          <p>Black Box Intelligence's State of the Workforce 2024 — drawn from 158 hospitality brands — documents the performance correlation directly: <strong>"restaurants with lower turnover levels perform better when it comes to traffic and sales growth."</strong> The direction of causality runs both ways: lower turnover allows the team to build the service quality that drives traffic, and higher traffic provides the environment where good staff want to stay.<span class="cite"> Black Box Intelligence, Oct. 8, 2024, blackboxintelligence.com · 158 brands</span></p>
+          <p>The Auguste Escoffier School's 2025 culinary hiring and retention trends research — drawing from NRA and BLS data — confirms that as of 2024, hospitality quit rates have eased to 3.9% monthly, down from a peak of 5.8% in 2021–2022. <strong>The industry is stabilizing, but the stabilization is not uniform.</strong> Operators who invested in retention infrastructure during the peak churn years are pulling ahead; those who continued to treat turnover as the cost of doing business are still cycling through staff at the same rate.<span class="cite"> Auguste Escoffier School, "2025 Culinary Industry Hiring & Retention Trends," escoffierglobal.com · NRA; BLS</span></p>
+          <div class="sec-head">The Diversity Retention Effect</div>
+          <p>Black Box Intelligence's 2024 research identifies a retention finding that most operators have not connected to their staffing strategy: <strong>brands closer to gender-balanced management report 23% lower non-management turnover.</strong> The most straightforward interpretation is that more equitable management creates a team culture with lower friction, less favoritism, and broader accountability — the conditions that allow all staff to stay longer.<span class="cite"> Black Box Intelligence, 2024, blackboxintelligence.com</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The compound advantage:</strong> A team that has been together for 12 months knows the regulars, anticipates the kitchen's patterns, and handles peak shifts with a shorthand that can't be trained in. Every additional 30 days of average tenure is worth more than the previous 30 because the value of institutional knowledge compounds. This is the asset that the 59-day average tenure is systematically destroying.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">The Trend Lines — 2021–2025</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:11px;color:#fff;">QSR hourly turnover peak (Q1 2022)</div>
+                <div style="font-size:11px;color:#e74c3c;font-weight:700;">173%</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:3px;height:8px;overflow:hidden;"><div style="width:100%;height:100%;background:#e74c3c;border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:11px;color:#fff;">QSR hourly turnover (Q3 2024)</div>
+                <div style="font-size:11px;color:#FFA500;font-weight:700;">135%</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:3px;height:8px;overflow:hidden;"><div style="width:78%;height:100%;background:#FFA500;border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:11px;color:#fff;">Full-service hourly turnover peak (Q4 2021)</div>
+                <div style="font-size:11px;color:#D4AF37;font-weight:700;">125%</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:3px;height:8px;overflow:hidden;"><div style="width:72%;height:100%;background:#D4AF37;border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:11px;color:#fff;">Full-service hourly turnover (Q3 2024)</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;">96%</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:3px;height:8px;overflow:hidden;"><div style="width:55%;height:100%;background:#00D4AA;border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="font-size:11px;color:#fff;">Industry quit rate (mid-2024)</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;">3.9%/mo</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:3px;height:8px;overflow:hidden;"><div style="width:39%;height:100%;background:#00D4AA;border-radius:3px;"></div></div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Source: Black Box Intelligence, State of the Workforce 2024 · 158 brands · blackboxintelligence.com; Escoffier School, escoffierglobal.com</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">23%</div>
+          <div class="stat-lbl">lower non-management turnover at brands with gender-balanced management teams</div>
+          <div class="stat-sub">Black Box Intelligence, State of the Workforce 2024 · blackboxintelligence.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — WORKBOOK -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 8 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">The friction audit starts with naming what everyone already knows but hasn't written down. List the three stress points your team hits most — then trace them to their operational root, not the person.</div>
+
+    <!-- Core exercise -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:14px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">Map Your Staff Stress Points — The Friction Audit</div>
+      </div>
+      <div style="padding:14px 18px;">
+        <div style="font-size:13px;color:#1A1A1A;margin-bottom:12px;line-height:1.6;">For each of the three stress points below, describe the friction, note how often it occurs, what it triggers (errors, walkouts, complaints), and one specific operational change to test next week.</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#F4F6F9;padding:12px;border-radius:3px;border-left:4px solid #e74c3c;">
+            <div class="fill-label" style="color:#c0392b;">STRESS POINT 1 — Description + frequency (daily? Peak only?):</div>
+            <div class="fill-line"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:5px;">
+              <div><div class="fill-label">Impact (errors? Walkouts? Complaints?):</div><div class="fill-line" style="margin:0;"></div></div>
+              <div><div class="fill-label">One quick fix to test next shift:</div><div class="fill-line" style="margin:0;"></div></div>
+            </div>
+          </div>
+          <div style="background:#F4F6F9;padding:12px;border-radius:3px;border-left:4px solid #D4AF37;">
+            <div class="fill-label" style="color:#1A2A44;">STRESS POINT 2 — Description + frequency:</div>
+            <div class="fill-line"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:5px;">
+              <div><div class="fill-label">Impact:</div><div class="fill-line" style="margin:0;"></div></div>
+              <div><div class="fill-label">One quick fix:</div><div class="fill-line" style="margin:0;"></div></div>
+            </div>
+          </div>
+          <div style="background:#F4F6F9;padding:12px;border-radius:3px;border-left:4px solid #00D4AA;">
+            <div class="fill-label" style="color:#1A2A44;">STRESS POINT 3 — Description + frequency:</div>
+            <div class="fill-line"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:5px;">
+              <div><div class="fill-label">Impact:</div><div class="fill-line" style="margin:0;"></div></div>
+              <div><div class="fill-label">One quick fix:</div><div class="fill-line" style="margin:0;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #D4AF37;">
+        <div class="fill-label">Calculate your current annual replacement cost:</div>
+        <div style="font-size:12px;color:#666;margin-bottom:8px;line-height:1.5;">Team size ___ × annual turnover % ___ = ___ replacements/yr × $2,305 = $_____ per year in hard costs alone.</div>
+        <div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">Complete your one-line action:</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:8px;line-height:1.5;">"We cut churn by solving [stress point #1] first because it triggers ___% of our team complaints."</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:11px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#D4AF37;flex-shrink:0;line-height:1.1;">TRACK<br>WEEKLY</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Track changes weekly — watch tenure climb as friction fades. The fastest way to confirm the fix worked is to measure callout rates, complaint frequency, and shift completion rates at the stress point you changed. If the number moves in the first 30 days, the fix is real. Scale it. Then move to stress point 2.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — SUMMARY + BRIDGE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">The Smoother the Process The Longer People Stay</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">The burnout cycle is not a character problem disguised as a hiring problem. It is an operational friction problem disguised as a people problem. Fix the system, and the people — the right people — will stay in it.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE 59-DAY CLOCK IS OPERATIONAL, NOT PERSONAL</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Average restaurant tenure is 59 days. The industry replaces its frontline more than 3× per year. This is not a generational attitude problem. It is the predictable outcome of operational environments with unresolved friction, unclear authority, and unpredictable scheduling. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: 7shifts, 7shifts.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">EVERY DEPARTURE COSTS MORE THAN OPERATORS CALCULATE</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">$2,305 in hard costs per hourly departure. $5,864 per person including productivity loss (Cornell). $10,518 for a non-GM manager. $16,770 for a GM. A 20-person team at 75% turnover generates $34,575 in hard replacement costs annually — before training overhead or productivity gaps. <span style="font-size:9.5px;color:#888;font-style:italic;">Black Box Intelligence 2024; Cornell via Restroworks</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">PREDICTABLE SCHEDULING IS THE FASTEST SINGLE LEVER</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Posting schedules 7–14 days ahead cuts absenteeism 25% and turnover up to 20%. It costs nothing except organizational discipline. It is the most consistently underprovided retention tool in the industry. <span style="font-size:9.5px;color:#888;font-style:italic;">Hybrid Payroll / BLS / EHL Hospitality Business School, hybridpayroll.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">RETENTION IS A REVENUE STRATEGY, NOT AN HR STRATEGY</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Black Box Intelligence documents that lower-turnover restaurants outperform higher-turnover peers on same-store traffic and sales growth. Retention doesn't just reduce replacement costs — it produces the service quality consistency that keeps guests coming back. The burnout cycle costs on both sides of the P&L. <span style="font-size:9.5px;color:#888;font-style:italic;">Black Box Intelligence 2024, blackboxintelligence.com · 158 brands</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Chapter 9</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">THE TECH STACK TRAP</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Chapter 8 identified how operational friction drives staff burnout. Chapter 9 goes deeper into the technology infrastructure that creates that friction — and introduces the concept of the Complexity Tax: every disconnected tool your team uses that makes their job harder instead of easier is costing you a percentage of your labor budget every single month.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">8 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch6-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=13;i++){btn.textContent=`Downloading ${i}/13...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch6-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 13 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

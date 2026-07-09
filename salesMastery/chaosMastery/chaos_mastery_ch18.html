@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 18: The Smart Venue</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:22px 64px 14px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:22px 64px 18px 80px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:12px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+/* Chapter 18 page-fit overrides (margin-safe, no copy edits) */
+#p2 .two-col,#p4 .two-col,#p6 .two-col,#p7 .two-col,#p9 .two-col,#p11 .two-col,#p12 .two-col{gap:14px!important;}
+#p2 .sidebar,#p4 .sidebar,#p6 .sidebar,#p7 .sidebar,#p9 .sidebar,#p11 .sidebar,#p12 .sidebar{gap:6px!important;}
+#p2 .ch-title,#p4 .ch-title,#p6 .ch-title,#p7 .ch-title,#p9 .ch-title,#p11 .ch-title,#p12 .ch-title{font-size:32px!important;line-height:.96!important;margin-bottom:4px!important;}
+#p2 .ch-intro,#p4 .ch-intro,#p6 .ch-intro,#p7 .ch-intro,#p9 .ch-intro,#p11 .ch-intro,#p12 .ch-intro{font-size:11.75px!important;line-height:1.4!important;margin-bottom:3px!important;}
+#p2 .body,#p4 .body,#p6 .body,#p7 .body,#p9 .body,#p11 .body,#p12 .body{font-size:12px!important;line-height:1.44!important;}
+#p2 .body p,#p4 .body p,#p6 .body p,#p7 .body p,#p9 .body p,#p11 .body p,#p12 .body p{margin-bottom:3px!important;}
+#p2 .sec-head,#p4 .sec-head,#p6 .sec-head,#p7 .sec-head,#p9 .sec-head,#p11 .sec-head,#p12 .sec-head{font-size:15px!important;margin-top:5px!important;margin-bottom:3px!important;letter-spacing:.5px!important;}
+#p2 .callout,#p4 .callout,#p6 .callout,#p7 .callout,#p9 .callout,#p11 .callout,#p12 .callout{padding:7px 9px!important;font-size:10.5px!important;line-height:1.42!important;margin-top:5px!important;}
+#p2 .stat-box,#p4 .stat-box,#p6 .stat-box,#p7 .stat-box,#p9 .stat-box,#p11 .stat-box,#p12 .stat-box{padding:7px 9px!important;}
+#p2 .stat-num,#p4 .stat-num,#p6 .stat-num,#p7 .stat-num,#p9 .stat-num,#p11 .stat-num,#p12 .stat-num{font-size:34px!important;}
+#p2 .stat-lbl,#p4 .stat-lbl,#p6 .stat-lbl,#p7 .stat-lbl,#p9 .stat-lbl,#p11 .stat-lbl,#p12 .stat-lbl{font-size:10.25px!important;line-height:1.3!important;}
+#p2 .stat-sub,#p4 .stat-sub,#p6 .stat-sub,#p7 .stat-sub,#p9 .stat-sub,#p11 .stat-sub,#p12 .stat-sub{font-size:9px!important;margin-top:2px!important;}
+#p2 .sidebar>div[style*="padding:16px"],#p4 .sidebar>div[style*="padding:16px"],#p6 .sidebar>div[style*="padding:16px"],#p7 .sidebar>div[style*="padding:16px"],#p9 .sidebar>div[style*="padding:16px"],#p11 .sidebar>div[style*="padding:16px"],#p12 .sidebar>div[style*="padding:16px"]{padding:9px 10px!important;}
+#p2 .sidebar [style*="padding:10px 12px"],#p4 .sidebar [style*="padding:10px 12px"],#p6 .sidebar [style*="padding:10px 12px"],#p7 .sidebar [style*="padding:10px 12px"],#p9 .sidebar [style*="padding:10px 12px"],#p11 .sidebar [style*="padding:10px 12px"],#p12 .sidebar [style*="padding:10px 12px"]{padding:6px 8px!important;}
+#p3 .navy-bg,#p5 .navy-bg,#p8 .navy-bg,#p10 .navy-bg{padding:18px 64px 14px 80px!important;}
+#p3 .navy-bg [style*="font-size:38px"],#p5 .navy-bg [style*="font-size:38px"],#p8 .navy-bg [style*="font-size:38px"],#p10 .navy-bg [style*="font-size:38px"]{font-size:32px!important;}
+#p3 .navy-bg [style*="margin-bottom:14px"],#p5 .navy-bg [style*="margin-bottom:14px"],#p8 .navy-bg [style*="margin-bottom:14px"],#p10 .navy-bg [style*="margin-bottom:14px"]{margin-bottom:8px!important;}
+#p3 .navy-bg [style*="margin-bottom:18px"],#p5 .navy-bg [style*="margin-bottom:18px"],#p8 .navy-bg [style*="margin-bottom:18px"],#p10 .navy-bg [style*="margin-bottom:18px"]{margin-bottom:10px!important;}
+#p3 .navy-bg [style*="padding:14px"],#p5 .navy-bg [style*="padding:14px"],#p8 .navy-bg [style*="padding:14px"],#p10 .navy-bg [style*="padding:14px"]{padding:10px!important;}
+#p3 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p5 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p8 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p10 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"]{font-size:11px!important;line-height:1.45!important;}
+#p13 .pc,#p14 .pc{padding:20px 64px 12px 80px!important;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 18: The Smart Venue</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part IV — The Networked Future</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 18</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:#fff;line-height:.92;margin-bottom:2px;">THE SMART</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:#D4AF37;line-height:.92;margin-bottom:34px;">VENUE</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "Data will talk to you if you're willing to listen — but first you have to acquire the data."
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Don Peppers, marketing strategist · cited in SiteMinder, "22 Hospitality Quotes for Hotels," siteminder.com</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">20–30%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">food waste reduction from predictive inventory — forecasting sales from historical patterns, weather, and local events instead of gut feel and yesterday's count</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">85%+</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">guest count accuracy from AI demand forecasting — cutting labor cost overruns by 25% because staffing matches predicted covers, not the manager's best guess</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">+35%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">repeat visit lift from when you have intimate knowledge of the customer built from purchase history turns occasional guests into regulars</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">+15%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">revenue gain from smarter stocking and staffing decisions — predictive analytics converts raw transaction data into foresight, not hindsight</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE CASE FOR PREDICTION -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The Game-Changer</div>
+        <div class="ch-title">Smart Venues Predict Profits.</div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Every hospitality operation generates a river of data every shift — covers, item sales, labor hours, waste, weather, reservations. The venue that ignores it; are winging it and ends every week surprised. The venue that reads lean into the data; manages by foresight and ends every week knowing exactly where the margin went and how to adjust.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">NetSuite on the Predictive Analytics Case</div>
+          <p>NetSuite's comprehensive analysis of predictive analytics in the hospitality industry documents the business case with precision: <strong>"Predictive analytics allows hospitality operators to make data-driven decisions instead of relying on subjective reasoning. Examples include predicting occupancy rates and adjusting pricing and staffing accordingly, predicting food and beverage demand so operators can plan purchases, reduce waste, and avoid costly overstocking or stockouts."</strong> The shift from subjective to data-driven is not a technology story. It is a margin story.<span class="cite"> NetSuite, "The Role of Predictive Analytics in the Hospitality Industry," netsuite.com/portal/resource/articles/erp/predictive-analytics-hospitality-industry.shtml</span></p>
+          <p>NetSuite documents the revenue impact directly: hospitality businesses using predictive analytics see revenue gains of <strong>10–15% from better pricing decisions and demand management.</strong> The mechanism is straightforward — when you know a local event is driving 40% more covers on Thursday, you staff for it, stock for it, and price for it. When you don’t, you send staff home early on a slow read and then get hit with a rush you can’t handle.<span class="cite"> NetSuite, netsuite.com</span></p>
+          <div class="sec-head">Apicbase on the Demand Forecasting Imperative</div>
+          <p>Apicbase's demand forecasting guide for restaurants documents the binary choice every operator faces: <em>"Most leading restaurants have transitioned from spreadsheets to advanced demand forecasting software, adopting a data-driven approach over guesstimates and intuition for procurement."</em> The operators still on monthly spreadsheets are not just behind on technology. They are making procurement decisions with data that is weeks old in an environment where demand shifts by the hour.<span class="cite"> Pieter Wellens, Apicbase, "Demand Forecasting in Restaurants: Unlocking Efficiency and Savings," get.apicbase.com</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The Starbucks benchmark:</strong> Starbucks deploys AI for hyper-local demand forecasting — identifying that iced coffee sales spike in specific neighborhoods during heat events and adjusting stock and staffing before the rush, not during it. The same logic applies at every scale: the intelligence is not in the size of the data set, it is in the discipline of reading the patterns that are already in the data the venue generates every shift.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#c0392b;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#f9d71c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Cost Gap</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:9px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;line-height:1;margin-bottom:3px;">GUT-FEEL SCHEDULING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">Manager builds shifts from memory. Overstaffed on Tuesdays, slammed on the Friday nobody tracked the sports schedule. Labor costs run 5–8 points over target. The surprise at week-end close costs $2,000–$4,000 in unnecessary payroll per month.</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:9px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#f9d71c;line-height:1;margin-bottom:3px;">PREDICTIVE SCHEDULING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">AI reads historical POS data, reservation volume, local events, and weather. Staffing matches predicted covers by hour. Labor costs run within 1–2 points of target consistently. No surprises at week-end close.</div>
+            </div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;line-height:1;margin-bottom:3px;">MONTHLY SPREADSHEETS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">Too late for daily ops. The decision you needed to make Tuesday afternoon is visible in Friday's export. The salmon you ran out of Wednesday was on the order placed Monday. By the time the data arrives, the shift has already happened.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">$10K+</div>
+          <div class="stat-lbl">annual savings from predictive inventory alone — waste reduction of 20–30% converts directly to recovered food cost that was previously being thrown away</div>
+          <div class="stat-sub">NetSuite, "Predictive Analytics in the Hospitality Industry," netsuite.com; Zigpoll, zigpoll.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — PREDICTIVE INVENTORY (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Intelligence Pillar 1</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">PREDICTIVE INVENTORY — FROM GUESSWORK TO PRECIse ORDERING</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Studies demonstrate how better demand visibility reduces spoilage by 20–30%.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Apicbase — How Demand Forecasting Actually Works</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">Apicbase's demand forecasting framework describes the full mechanics: the system analyzes past sales data to forecast demand for each menu item, cross-references projected demand against current inventory and outstanding deliveries, then generates <strong style="color:#D4AF37;">precise purchase orders tailored to individual suppliers.</strong> No manager builds the order from scratch. No guess about how many salmon portions to receive Thursday. The data does the math — the manager reviews and approves.</div>
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;">Pieter Wellens, Apicbase</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">"Demand Forecasting in Restaurants: Unlocking Efficiency and Savings" · get.apicbase.com</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">THE OVERSTOCKING PROBLEM</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Apicbase documents the cost: "Company capital is locked in perishable goods. When these products aren't sold, they go to waste and have to be thrown out, resulting in a direct financial loss." The manager who orders conservatively to avoid this still runs out — and loses the guest who wanted what the kitchen couldn't deliver.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">THE UNDERSTOCKING PROBLEM</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"If demand exceeds what the restaurant can supply, customers cannot order what they want. This significantly reduces the quality of the experience, which can lead to a customer not returning." — Apicbase. Every 86'd item is both a revenue miss and a guest relationship miss.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">THE FORECASTING SOLUTION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Data-driven ordering eliminates both issues simultaneously. Slim stock that matches predicted demand — not the manager's buffer anxiety. Food waste kept to a minimum. Orders arrive right-sized for the week ahead based on historical patterns and upcoming reservation volume.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Zigpoll — Multi-Location Predictive Inventory at Scale</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;">Zigpoll's analysis of predictive analytics for multi-location restaurant inventory documents the input variables that make forecasting accurate: <strong style="color:#D4AF37;">"Historical sales data, weather patterns, local events, and seasonal trends all feed the model."</strong> Waste reductions of 20–30% are achievable in multi-location operators who implement machine learning-based inventory systems — reducing spoilage costs by $10,000 or more annually per location. At a 10-location group, that is $100,000+ per year recovered from what was previously being thrown away.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:5px;">Zigpoll, "How Can Predictive Analytics Help Optimize Inventory Management," zigpoll.com</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(231,76,60,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Food waste reduction (predictive ordering)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;text-align:right;">20–30%</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(212,175,55,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Annual savings per location (waste)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;text-align:right;">$10K+</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(0,212,170,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Order accuracy improvement (vs. manual)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;text-align:right;">Significant</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(255,255,255,0.07);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Revenue gain (better pricing + demand mgmt)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;text-align:right;">10–15%</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);font-style:italic;">Sources: Zigpoll (zigpoll.com); NetSuite (netsuite.com); Apicbase (get.apicbase.com)</div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:10px;margin-top:4px;">
+            <div style="font-size:12px;color:#fff;line-height:1.5;"><strong style="color:#00D4AA;">The Tastewise finding:</strong> Food demand forecasting in 2026 is no longer optional for competitive operators. The platforms combining POS transaction history, social trend signals, and weather APIs to predict menu item demand are delivering a measurable competitive advantage over operators still ordering from last week's consumption report.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Tastewise, "How Food Demand Forecasting Impacts Foodservice in 2026," tastewise.io</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — DEMAND FORECASTING -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Intelligence Pillar 2</div>
+    <div class="ch-title">Forecasting has 85% Accuracy & Cuts Labor Waste 25%</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The staffing decision made Sunday afternoon for Thursday’s dinner shift is the most expensive recurring projection in hospitality. Miss by just three people and you’ve burned $300 in unnecessary labor. Miss low and the kitchen falls behind by 7:30pm—and guests feel it before they leave. AI demand forecasting turns that projection into an 85%+ accurate view of guest demand.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">GSS — The Restaurant Forecasting Framework</div>
+          <p>GSS's comprehensive guide to restaurant forecasting methods documents the baseline that even a simple historical data approach delivers: <strong>"Even basic calculations — like averaging sales from the last four Thursdays to forecast this Thursday — outperform gut-feel scheduling significantly."</strong> The jump from weekly averages to AI-powered forecasting — which incorporates weather, local events, social media sentiment, reservation volume, and competitive activity — pushes accuracy from roughly 70% to 85%+ for cover count prediction.<span class="cite"> GSS LP, "Restaurant Forecasting Methods, Tools, and Best Practices," gsslp.com</span></p>
+          <p>GSS identifies the four forecasting inputs that close the accuracy gap between historical averaging and AI prediction: <strong>historical sales data</strong> (same day/week/year prior), <strong>reservation data</strong> (advance bookings as a leading indicator), <strong>external factors</strong> (local events, weather, holidays), and <strong>promotional activity</strong> (internal campaigns and competitive promotions in the market). The restaurants combining all four consistently hit 85%+ accuracy — the threshold at which staffing decisions stop being guesses and start being plans.<span class="cite"> GSS LP, gsslp.com; Apicbase, get.apicbase.com</span></p>
+          <div class="sec-head">The 25% Labor Cost Reduction</div>
+          <p>The connection between demand accuracy and labor cost runs directly through the scheduling decision. Predictive analytics enables operators to adjust staffing levels in advance based on forecasted demand — <strong>not in response to demand that has already materialized.</strong> The 25% labor waste reduction from accurate forecasting is achievable because the manager staffing to a predicted cover count of 85 does not send four servers home at 6pm when 120 guests walk in.<span class="cite"> NetSuite, "The Role of Predictive Analytics in the Hospitality Industry," netsuite.com</span></p>
+          <div style="background:#1f9d55;color:#fff;border-left:4px solid #14532d;border-radius:3px;padding:10px 12px;margin:8px 0 0 0;font-size:12px;line-height:1.45;font-weight:700;">
+            Small forecasting gains compound fast: a 15% accuracy improvement can produce 3%+ profit growth.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Forecasting Accuracy Ladder</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">MONTHLY SPREADSHEET — ~50% accuracy</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Last month's totals divided by four. No day-of-week weighting, no event consideration, no weather input. Too narrow to drive daily staffing decisions. "Too late for daily ops."</div>
+            </div>
+            <div style="background:rgba(255,165,0,0.08);border:1px solid rgba(255,165,0,0.25);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#FFA500;margin-bottom:2px;">WEEKLY HISTORICAL AVERAGE — ~70% accuracy</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Average of the last 4 same-day results. Captures day-of-week variation. Misses events, weather, and local factors that can swing covers 30–40% from the average.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">GSS LP, gsslp.com</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">AI DEMAND FORECASTING — 85%+ accuracy</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Historical sales + reservations + weather + local events + promotions. Cover count prediction accurate to within 15% consistently. Staffing built from forecast, not intuition. Labor tracks within 1–2 points of target.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">NetSuite (netsuite.com); GSS LP (gsslp.com)</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">−25%</div>
+          <div class="stat-lbl">overstaffing from AI demand forecasting — staffing decisions built from 85%+ accurate cover predictions rather than memory and averages</div>
+          <div class="stat-sub">NetSuite, "Role of Predictive Analytics in the Hospitality Industry," netsuite.com</div>
+        </div>
+        <div class="q-card light" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Even basic calculations like averaging sales from the last four Thursdays significantly outperform gut-feel scheduling. Add AI and you move from 70% to 85%+ accuracy."</div>
+          <div class="q-attr">GSS LP</div>
+          <div class="q-src">"Restaurant Forecasting Methods, Tools, and Best Practices" · gsslp.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — PERSONALIZED EXPERIENCES (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Intelligence Pillar 3</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">WHEN YOU HAVE INTIMATE KNOWLEDGE OF THE CUSTOMER</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">The Guest Intelligence That Turns One-Time Visitors Into Regulars</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Ticket Fairy — Venue Customization in 2026</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">Ticket Fairy's 2026 venue customization analysis documents the expectation shift: <strong style="color:#D4AF37;">"Fans expect more than just a seat — they want to feel like VIPs, seen and recognized at every touchpoint."</strong> Their data shows that personalized experiences drive repeat attendance, higher per-visit spending, and social sharing that generates organic discovery — none of which is possible without the purchase history, preference data, and behavioral signals that smart venue systems track across every visit.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Ticket Fairy, "Personalizing the Venue Experience in 2026: Using Data to Treat Every Fan Like a VIP," ticketfairy.com</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">PURCHASE HISTORY PERSONALIZATION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Your usual IPA is ready" — the moment of recognition before the guest has to ask. Builds from transaction history in the POS/CRM. Every visit adds a data point that makes the next visit feel more personal with zero additional effort from staff.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">PREFERENCE-BASED COMMUNICATION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Ticket Fairy documents that personalized marketing messages — referencing a fan's past attendance, favorite artists, or specific seating preferences — consistently outperform generic event announcements on open rate, click rate, and conversion to purchase.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">REAL-TIME BEHAVIOR SIGNALS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">App dwell time, F&B ordering patterns, merchandise browsing, and section movement all generate signals that inform real-time customization — the upsell surfaced at the right moment because the system knows this guest's spending pattern, not because a server guessed.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Ticketmaster — Fan Insights at Scale</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">Ticketmaster's 2025 fan insights analysis documents the customization playbook at scale: <strong style="color:#D4AF37;">fan data from purchase behavior, location, demographics, and past attendance enables venues to tailor marketing, merchandise, and food and beverage offerings</strong> — creating experiences that feel uniquely crafted for each attendee. Ticketmaster identifies this as the driver of the higher per-event spending that personalized venues achieve versus generic event formats.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Ticketmaster, "Using Fan Insights to Power Personalized Live Event Experiences," business.ticketmaster.com</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(0,212,170,0.15);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Repeat visit lift (personalization)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;text-align:right;">+35%</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(212,175,55,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Guest LTV increase</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;text-align:right;">+22%</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(255,255,255,0.07);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Upsell conversion (data-driven prompt)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;text-align:right;">Higher</div>
+            </div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;">
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;"><strong style="color:#D4AF37;">The LatentView framework:</strong> Predictive analytics in hospitality enables "personalized recommendations, special offers, and early access to new menu items, increasing loyalty and the probability of return visits." Guests who receive personalized communication tied to their actual behavior — not demographic segments — respond at measurably higher rates because the message is relevant before they've had to indicate relevance themselves.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">LatentView, "Predictive Analytics in Hospitality: Use Cases, AI, and Hotel Technology," latentview.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — THE SMART VENUE CONCEPT -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Core Concept</div>
+    <div class="ch-title">The Smart Venue — One Dashboard That Anticipates Everything</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The smart venue is not a collection of analytics tools. It is one operating brain that connects inventory signals, demand forecasts, guest behavior, and staff positioning into a single real-time view — and then acts on what it sees automatically. Anticipates rushes. Auto-replinishes. While staff mentions upsells 
+          at the right moment. The manager manages the exceptions, not the routine.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">NetSuite — The Predictive Analytics Use Cases</div>
+          <p>NetSuite's hospitality analytics analysis documents the core use cases of the smart venue across four dimensions: <strong>Occupancy prediction and dynamic pricing</strong> — forecasting demand to adjust rates in real time (already documented in Chapter 16); <strong>food and beverage demand forecasting</strong> — planning purchases to reduce waste; <strong>staff scheduling optimization</strong> — aligning headcount to predicted demand; and <strong>guest experience personalization</strong> — delivering tailored offers based on behavioral data. Together, these four capabilities define the smart venue's operating advantage over gut-feel competitors.<span class="cite"> NetSuite, netsuite.com</span></p>
+          <div class="sec-head">The PhoneSuite / PhonesUite Big Data Framework</div>
+          <p>PhoneSuite's analysis of big data in hospitality documents the scope of what an smart venue can see: <strong>"Hotels can anticipate guest needs before they arise — alerting housekeeping to a room that will need early turnover based on check-in patterns, pre-stocking the mini-bar based on last visit preferences, and flagging VIP arrivals for proactive upgrades."</strong> Each of these is a prediction made from historical data, surfaced at the moment it is actionable. None requires a manager to remember a guest's preferences from a previous visit — the system remembers.<span class="cite"> PhoneSuite, "How Big Data and Predictive Analytics Are Changing Hospitality," phonesuite.com</span></p>
+          <div class="sec-head">The Auto-Order Intelligence</div>
+          <p>The most concrete expression of the smart venue's advantage is the auto-order: the system reads current inventory against demand forecast, calculates the order quantities needed to maintain target par levels through the forecast period, and generates a purchase order for manager review — or, in fully automated systems, places it directly with the supplier. Apicbase documents this as the operational endpoint of demand forecasting: the system "generates precise purchase orders tailored to individual suppliers" automatically, eliminating the procurement decisions that consume hours of kitchen manager time every week.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Smart Venue Dashboard — What It Shows</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">PREDICTED COVER COUNT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Tonight's forecast by 30-minute window — how many covers are expected at 6pm, 7pm, 8pm, and 9pm. Staffing and kitchen prep calibrated to these projections automatically.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">STOCK ALERT STATUS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Items below par level flagged in red. Auto-order queued for supplier review. No manager count required — the POS sales velocity calculates remaining stock against tonight's projected demand automatically.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">GUEST CUSTOMIZATION QUEUE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Tonight's reservations with guest profiles surfaced. VIP flags for loyalty members approaching a milestone. Preference notes for known guests. Birthday or anniversary alerts for surprise moments.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">LABOR COST TRACKER</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Real-time labor cost as percentage of sales — visible during service, not after close. Alert fires when labor percentage crosses the target threshold, enabling a cut decision before the damage compounds through the rest of the shift.</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: NetSuite (netsuite.com); PhoneSuite (phonesuite.com); Apicbase (get.apicbase.com)</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+22%</div>
+          <div class="stat-lbl">guest lifetime value improvement from data-driven customization — purchase history + behavioral signals turn one-time visits into recurring relationships</div>
+          <div class="stat-sub">Brief; LatentView, "Predictive Analytics in Hospitality," latentview.com; Ticket Fairy, ticketfairy.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — THE DATA INPUTS -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Data Foundation</div>
+    <div class="ch-title">The Five Data Inputs That Power Every Smart Venue Decision</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The smart venue's predictions are only as good as the data feeding them. The good news: every hospitality operation already generates the data. The POS, the reservation system, the scheduling tool, and the loyalty app collectively produce more than enough raw material to build a predictive intelligence layer. The work is connecting it and reading it consistently.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Input 1 — Guest Count by Time of Day (POS + Reservations)</div>
+          <p>The most fundamental intelligence input: how many guests came in during each 30-minute window, on each day of the week, over the trailing 90 days. This data already exists in every POS and reservation system. Aggregated by day type, it forms the baseline demand forecast — and the deviation from that baseline is where external factors like weather and local events show their impact. Target: track this weekly, with an alert for any deviation above 15% from the time of day average.</p>
+          <div class="sec-head">Input 2 — Sales by Menu Item (POS)</div>
+          <p>Which items sell, in what volume, at which time of day and price points — this is the inventory intelligence layer. LatentView's hospitality analytics framework documents how menu item sales velocity data drives procurement decisions: <strong>"AI can analyze large datasets from multiple sources, including historical sales data, customer preferences, and market trends, to optimize menu pricing, forecast food and beverage demand, and identify opportunities for upselling."</strong> The item-level sales data is already in the POS. The intelligence comes from reading it consistently rather than monthly.<span class="cite"> LatentView, "Predictive Analytics in Hospitality," latentview.com</span></p>
+          <div class="sec-head">Input 3 — Labor Cost as a Percentage of Sales (Scheduling + POS)</div>
+          <p>When labor cost and sales revenue live in separate systems, the labor percentage is calculated after the fact — a week-end diagnostic rather than a real-time signal. When they share a data layer (Chapter 17's unified platform), labor percentage is visible during service. The GSS forecasting framework documents this as the highest-value real-time metric for restaurant managers: the ability to make a staffing adjustment decision at 7pm Thursday based on live data rather than Sunday's projection.</p>
+          <div class="sec-head">Inputs 4 and 5 — Spoilage Rate and Repeat Visit Rate</div>
+          <p>Spoilage rate (waste as a percentage of purchased inventory) closes the procurement loop — the forecast is only as good as what it prevented from being thrown away. Repeat visit rate tracks the downstream impact of customization investments: when guests return at a higher rate, the customization system is working. Both metrics are trackable from existing POS and CRM data, requiring only the discipline of pulling and reviewing them weekly rather than never.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">5 Essential Data Points</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;">1</div>
+              <div>
+                <div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Guest Count by Time of Day</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.65);">Source: POS + reservations · Target: +10% forecast accuracy over gut-feel baseline</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;">2</div>
+              <div>
+                <div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Sales by menu item</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.65);">Source: POS · Target: cut waste 15% by ordering to sales velocity, not to last week's receipt</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;">3</div>
+              <div>
+                <div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Labor cost % of sales</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.65);">Source: Scheduling + POS · Target: stay under 30%; alert at 32% threshold during service</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;background:rgba(255,255,255,0.07);border-radius:3px;padding:8px 10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;">4</div>
+              <div>
+                <div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Inventory spoilage rate</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.65);">Source: Inventory system · Target: under 2%; current industry average 5–8% for non-forecasting operators</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;">5</div>
+              <div>
+                <div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">Repeat visit rate</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.65);">Source: CRM + POS · Target: 40%+; tracks the downstream impact of every customization investment</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: LatentView (latentview.com); NetSuite (netsuite.com); GSS LP (gsslp.com)</div>
+        </div>
+        <div class="callout">
+          <strong>The one-alert rule:</strong> Start with one automated alert this week. "Low stock on top seller" is the highest-value first alert — the item most likely to cause a guest-facing failure. One alert, consistently acted on, changes the operation before any additional analytics are needed.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — THE STARBUCKS MODEL (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Working Model</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE STARBUCKS MODEL — HYPER-LOCAL INTELLIGENCE AT SCALE</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">HOW A DATA-DRIVEN HOSPITALITY CHAIN TURNED ANALYTICS INTO A COMPETITIVE ADVANTAGE</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">What Starbucks Built</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">Starbucks deploys AI for hyper-local demand forecasting — identifying that iced coffee sales spike at specific locations during heat events, that certain neighborhoods have higher cold brew demand on Monday mornings vs. Tuesday afternoons, and that local university class schedules predictably drive cover surges at the nearest store. The intelligence is not national or regional. It is specific to one corner of one city — which is exactly where the inventory decision is made.</div>
+          </div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">What This Means at Every Scale</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">HEAT EVENT → ICED COFFEE SPIKE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The system reads the weather forecast and automatically adjusts the cold beverage prep quantity for tomorrow's opening shift. No manager decision required. The prep team arrives to exactly the right cold brew concentrate quantity for the forecasted demand.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">LOCAL EVENT → STAFFING SURGE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The forecasting system reads the local event calendar and identifies that a downtown arena show will drive 35% higher traffic to the nearest location between 5–7pm. Scheduling is adjusted before the event, not in real-time response to a line out the door.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">PURCHASE HISTORY → PERSONALIZED MENU</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The Starbucks app surfaces the customer's most likely order before they type it — based on time of day, weather, and their last 30 purchases. Order time drops. Conversion rate on the suggested item is measurably higher than on items the customer had to find themselves.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">The Independent Operator Application</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">The Starbucks model is not a billion-dollar technology investment. It is a data discipline applied systematically to the information that every single hospitality operation already generates. The independent bar tracking which beers sell by weather and day of week is doing the same thing as Starbucks — at one-location scale. The difference is consistency and tooling, not the intelligence of the approach.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">NetSuite hospitality analytics; Tastewise food demand forecasting analysis</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">What the Anti-Model Costs</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:5px;">Tastewise's food demand forecasting analysis documents what operators without intelligence systems experience: ingredients purchased on instinct or habit rather than forecast lead to spoilage rates of 5–8% — more than double the 2% target achievable with forecasting. At $150,000 in annual food cost, that is $4,500–$9,000 per year thrown away. Not because the chef didn't care. Because the data wasn't there to inform the order.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Tastewise, "How Food Demand Forecasting Impacts Foodservice in 2026," tastewise.io; Zigpoll, zigpoll.com</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:2px;margin-bottom:4px;">THE FORECAST ACCURACY PAYOFF</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;line-height:1;">20–30%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">food waste reduction</div></div>
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#00D4AA;line-height:1;">−25%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">labor cost variance</div></div>
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;">+15%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">revenue from smarter ops</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — WHAT'S WORKING VS NOT WORKING -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Evidence</div>
+    <div class="ch-title">Predictive Intelligence in Practice</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The operators who have deployed predictive analytics document consistent, measurable outcomes. The ones still running on monthly spreadsheets and gut-feel scheduling document consistent, measurable problems. The gap between the two groups is widening — because intelligence compounds. Every forecast cycle makes the next one more accurate.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">What's Working — Chains With AI Demand Tools</div>
+          <p>LatentView's analysis of predictive analytics in hospitality documents the chain-level results: AI-powered demand forecasting allows hotel and restaurant chains to <strong>"reduce operational costs by 10–15% by predicting slow periods and adjusting staffing, reducing energy consumption during quiet hours, and optimizing supply chain procurement."</strong> The operational cost reduction — distinct from the revenue gain from better pricing and customization — compounds across all locations at once, amplifying the ROI of analytics for multi-location operators.<span class="cite"> LatentView, latentview.com</span></p>
+          <p>The myhotelline.com analysis of predictive inventory in hotels documents the specific hotel-side outcomes: <strong>"Hotels that have adopted predictive analytics for inventory management report significant improvements — including reduced waste, better stock availability, higher guest satisfaction, and stronger financial performance."</strong> The four outcomes are not independent — waste reduction improves food cost, better stock availability reduces 86'd menu situations, higher satisfaction drives repeat visits, and the financial performance improvement is the compounded output of all three.<span class="cite"> MyHotelline, "Using Predictive Analytics to Improve Hotel Inventory Management," myhotelline.com</span></p>
+          <div class="sec-head">What's Not Working — Monthly Spreadsheets</div>
+          <p>The GSS restaurant forecasting guide is direct about the failure of backward-looking reporting: <strong>"The further back you go in time for historical data, the less relevant it becomes to current consumer behavior."</strong> Monthly averages lose the week-over-week variability that drives staffing decisions. The manager who reviewed last month's numbers Sunday afternoon does not know that a local college sports team made the playoffs and will drive 60% higher Thursday traffic this week — because that signal is not in last month's data. By the time monthly reporting surfaces the pattern, the shift has already happened 30 times.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Intelligence Models — What Works</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">✓ STARBUCKS — Hyper-local AI demand</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Location-specific inventory and staffing driven by weather, events, and purchase history. Iced coffee surge anticipated before the heat wave hits. Structural advantage at every decision point.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">✓ HOTEL CHAINS — Predictive inventory</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Reduced waste, better stock availability, higher guest satisfaction, stronger financial performance." The four outcomes that compound from one forecasting investment — measurable across every property in the group.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">MyHotelline, myhotelline.com</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">✓ RESTAURANT COMPANY EUROPE — 75+ locations</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Apicbase case study: Circus Kitchen lowered food costs 18% using demand forecasting. The same procurement intelligence platform that powers 75+ locations starts from the same data discipline available to a single-location independent.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Apicbase case study, get.apicbase.com</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">✗ MONTHLY SPREADSHEET REVIEW</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Too late for daily ops." By the time last month's spoilage rate appears in the export, it has already compounded 30 more times. The insight arrives after the damage — not before the decision.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">GSS LP, gsslp.com</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">18%</div>
+          <div class="stat-lbl">food cost reduction at Circus Kitchen using demand forecasting software— same procurement intelligence available to single-location operators</div>
+          <div class="stat-sub">Apicbase case study · "Circus Kitchen: Lowering food costs by 18%" · get.apicbase.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE HOTEL ANALYTICS CASE (Full bleed navy) -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Hotel Intelligence Layer</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">HOTEL PREDICTIVE ANALYTICS </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Artificial Intelligence Sees What Human Managers Never Could</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;">
+        <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:14px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:8px;">DYNAMIC PRICING</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">MyHotelline documents the mechanism: predictive analytics models analyze historical booking data, seasonal patterns, local events, and market competition to generate <strong style="color:#00D4AA;">accurate occupancy forecasts that drive dynamic rate adjustments.</strong> When a conference is booked six weeks out and competitor rates are rising, the smart hotel raises its rate before the demand surge rather than after it. Revenue management that reacts to demand captures some of it. Revenue management that predicts demand captures all of it.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:2px;">MyHotelline, "Using Predictive Analytics to Improve Hotel Inventory Management," myhotelline.com</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:8px;">PROACTIVE GUEST SERVICE</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">PhoneSuite's hospitality analytics framework documents the "before they ask" standard: <strong style="color:#D4AF37;">"Hotels can anticipate guest needs — alerting housekeeping to a room needing early turnover based on check-in patterns, pre-stocking the mini-bar based on last visit preferences, and flagging VIP arrivals for proactive upgrades."</strong> The common thread: each service action is triggered by data the guest provided on their last visit without knowing they provided it — their behavior was the signal.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:2px;">PhoneSuite, "How Big Data & Predictive Analytics Are Changing Hospitality," phonesuite.com</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:8px;">PREVENTIVE MAINTENANCE</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">LatentView documents the operational intelligence extension: <strong style="color:#fff;">"AI can predict when equipment like HVAC systems or elevators might fail, based on usage patterns and historical maintenance data — significantly reducing unexpected breakdowns, which can disrupt hotel operations and lead to costly repairs."</strong> A broken elevator during peak check-in is a guest experience failure and a revenue risk. The predictive maintenance system flags the failure pattern 2 weeks before the breakdown — not after a guest is stranded between floors.</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:2px;">LatentView, "Predictive Analytics in Hospitality: Use Cases, AI, and Hotel Technology," latentview.com</div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:14px 0;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.2);border-radius:3px;padding:10px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;margin-bottom:3px;">10–15%</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">operational cost reduction from predictive staffing and energy management</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">LatentView, latentview.com</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:10px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;margin-bottom:3px;">15–30%</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">hotel inventory waste reduction from predictive procurement — rooms, F&B, and amenities</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">MyHotelline, myhotelline.com</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:10px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;margin-bottom:3px;">+10–15%</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">revenue from dynamic pricing driven by occupancy prediction models</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">NetSuite, netsuite.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE EVENT INTELLIGENCE LAYER -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Event Intelligence Layer</div>
+    <div class="ch-title">Fan Data, Venue Analytics, and the Ultimate Event Experience</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Live events generate the richest behavioral data in hospitality — exactly what was consumed, when, where in the venue, in what sequence, and by which attendee type. The venue that reads this data builds the inventory, staffing, and customization intelligence that converts first-time attendees into season ticket holders and casual fans into superfans.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Ticketmaster — Fan Behavioral Intelligence</div>
+          <p>Ticketmaster's analysis of fan insights for live event customization documents the specific data signals that power smart event experiences: <strong>purchase behavior</strong> (what categories of events, at what price points, with what frequency), <strong>location data</strong> (proximity to venue, travel patterns), <strong>demographics</strong> (age, household income, family configuration), and <strong>past attendance</strong> (which specific events, which sections, which F&B items). Together, these signals enable venue operators to <strong>"tailor marketing, merchandise, and food and beverage offerings"</strong> with specificity that feels personal because it is personal.<span class="cite"> Ticketmaster, "Using Fan Insights to Power Personalized Live Event Experiences," business.ticketmaster.com</span></p>
+          <div class="sec-head">The On-Site Real-Time Layer</div>
+          <p>Ticket Fairy's venue customization analysis extends the intelligence into the live event experience itself: venue apps with purchase history data surface personalized F&B recommendations at the concession stand ("Based on your last visit, the craft lager is available at Section C — no line right now"). RFID wristbands track dwell time by zone, surfacing the concession stand congestion data that informs both tonight's operations and next event's layout decisions. <strong>Every touchpoint generates data that makes the next event more smart.</strong><span class="cite"> Ticket Fairy, "Personalizing the Venue Experience in 2026," ticketfairy.com</span></p>
+          <div class="sec-head">The F&B Intelligence Compound</div>
+          <p>The event venue that knows 63% of Friday night attendees for this artist type order craft beer in the first hour, and that 40% of those also purchase a food item when the concession line is under 4 minutes — can position staff, stock levels, and line management to capture that demand. <strong>PhoneSuite documents this as "hospitality predictive analytics that serves the right product to the right guest at the right time."</strong> At scale, the right offer at the right moment lifts per-attendee spend measurably — which is why the most sophisticated event venues invest in analytics infrastructure before they invest in physical upgrades.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Event Intelligence </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">PRE-EVENT — TICKETING DATA</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Purchase type, price point, section preference, advance booking window, group size. Tells you: who's coming, where they sit, what they've spent before, and what they're likely to spend tonight.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">DURING EVENT — RFID + POS DATA</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Zone dwell time, F&B purchase timing and category, merchandise interaction, app engagement. Tells you: where crowd is building, which concession stands are overwhelmed, which zones are underleveraged.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">POST-EVENT — BEHAVIORAL ANALYSIS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Total per-attendee spend, dwell time by zone, concession conversion rate, exit timing. Tells you: how to set up next event's inventory, staffing, and layout to improve every metric simultaneously.</div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Fan data from purchase behavior, location, demographics, and past attendance enables venues to tailor marketing, merchandise, and food and beverage offerings — creating experiences that feel uniquely crafted."</div>
+          <div class="q-attr">Ticketmaster Business</div>
+          <div class="q-src">"Using Fan Insights to Power Personalized Live Event Experiences" · business.ticketmaster.com</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+35%</div>
+          <div class="stat-lbl">repeat attendance lift from personalized fan experiences — data-driven recognition converts one-time attendees into loyal recurring fans</div>
+          <div class="stat-sub">Ticket Fairy, "Personalizing the Venue Experience in 2026," ticketfairy.com; brief customization research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MEASUREMENT STANDARD -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Intelligence KPIs</div>
+    <div class="ch-title">Measuring the Smart Venue — The Top Five Metrics</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The smart venue is not measured by the sophistication of its analytics tools. It is measured by whether the decisions those tools inform are more accurate and more profitable than the decisions they replaced. Five KPIs make that comparison concrete.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">KPI 1 — Demand Forecast Accuracy</div>
+          <p>Compare predicted cover count against actual covers served, by time of day, weekly. Target: within 15% of prediction consistently. Accuracy below 70% indicates missing data inputs — the forecast is not seeing the signals that are driving actual demand. The fix is usually adding one external data source (reservation volume, local events, or weather API) that the current model is not incorporating.</p>
+          <div class="sec-head">KPI 2 — Food Cost Percentage (vs. Target)</div>
+          <p>Track food cost as a percentage of food revenue weekly, with an alert set at the target threshold. The smart venue's procurement precision should keep food cost within 1–2 points of target consistently. Above that variance, the waste audit will identify the specific items whose ordering is still driven by habit rather than forecast. Target: food cost under 30%; inventory spoilage rate under 2%.</p>
+          <div class="sec-head">KPI 3 — Labor Cost Variance (vs. Forecast)</div>
+          <p>Track actual labor cost percentage against the forecast-driven scheduled cost, weekly by day. The smart venue's scheduling should close most of the gap between gut-feel and optimal — reducing labor variance from 5–8 points to 1–2 points consistently. Above 3 points of variance indicates the demand forecast is not feeding the scheduling decision, or an external event is shifting demand in ways the forecast missed.</p>
+          <div class="sec-head">KPIs 4 and 5 — Repeat Visit Rate and Average Check</div>
+          <p>A guest profile system can increase repeat visits by 35% within 90 days. Average spend per guest shows if upsells are working. AI suggestions can increase it by 5–10% compared to generic staff prompts. Both metrics are visible in the unified POS/CRM dashboard built in Chapter 17.</p>
+        </p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Intelligence KPI Dashboard</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.05);border:1px solid rgba(212,175,55,0.15);border-radius:3px;padding:6px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;">
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;">KPI</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Target</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Yours</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Demand forecast accuracy</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">±15%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(231,76,60,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Food cost % (spoilage)</div>
+                <div style="font-size:11px;color:#e74c3c;font-weight:700;text-align:center;">&lt;30% / &lt;2%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(212,175,55,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Labor cost variance</div>
+                <div style="font-size:11px;color:#D4AF37;font-weight:700;text-align:center;">&lt;3 pts</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ pts</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Repeat visit rate</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">40%+</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Average check lift (vs. baseline)</div>
+                <div style="font-size:11px;color:#fff;font-weight:700;text-align:center;">+5–10%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11.5px;color:#fff;line-height:1.5;"><strong style="color:#D4AF37;">Set one alert this week:</strong> "Low stock on top seller." Every other alert can wait. This one prevents the guest-facing failure that starts the guest relationship damage no analytics system can repair retroactively.</div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">5–8%</div>
+          <div class="stat-lbl">spoilage rate at venues without demand forecasting — vs. the 2% target achievable with data-driven procurement. At $150K food cost, that's $4.5K–$9K thrown away per year</div>
+          <div class="stat-sub">Tastewise, tastewise.io; Zigpoll, zigpoll.com; industry inventory benchmarks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 18 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">Pull the last 30 days of data this week. Fill in every current value. Set one automated alert. Watch what changes when the operation runs on insight instead of memory.</div>
+
+    <!-- Data tracking table -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">List 5 Data Points to Track — Rank by Priority</div>
+      </div>
+      <div style="padding:10px 18px;">
+        <div style="display:grid;grid-template-columns:18px 1fr 90px 90px 90px;gap:7px;margin-bottom:5px;">
+          <div></div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Data Point + Source</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Why Track It</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Current Value</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Target</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:18px 1fr 90px 90px 90px;gap:7px;background:#F4F6F9;padding:6px 8px;border-radius:3px;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;">1</div>
+            <div style="font-size:11.5px;color:#1A2A44;font-weight:600;">Guest Count by Time of Day (POS)</div>
+            <div style="font-size:11px;color:#666;text-align:center;">Staffing</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div style="font-size:11px;color:#1A2A44;text-align:center;">+10% accuracy</div>
+          </div>
+          <div style="display:grid;grid-template-columns:18px 1fr 90px 90px 90px;gap:7px;padding:6px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;">2</div>
+            <div style="font-size:11.5px;color:#1A2A44;font-weight:600;">Sales by menu item (POS)</div>
+            <div style="font-size:11px;color:#666;text-align:center;">Inventory mix</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div style="font-size:11px;color:#1A2A44;text-align:center;">Cut waste 15%</div>
+          </div>
+          <div style="display:grid;grid-template-columns:18px 1fr 90px 90px 90px;gap:7px;background:#F4F6F9;padding:6px 8px;border-radius:3px;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;">3</div>
+            <div style="font-size:11.5px;color:#1A2A44;font-weight:600;">Labor cost % of sales</div>
+            <div style="font-size:11px;color:#666;text-align:center;">Efficiency</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div style="font-size:11px;color:#1A2A44;text-align:center;">Under 30%</div>
+          </div>
+          <div style="display:grid;grid-template-columns:18px 1fr 90px 90px 90px;gap:7px;padding:6px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;">4</div>
+            <div style="font-size:11.5px;color:#1A2A44;font-weight:600;">Inventory spoilage rate</div>
+            <div style="font-size:11px;color:#666;text-align:center;">Waste audit</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div style="font-size:11px;color:#1A2A44;text-align:center;">Under 2%</div>
+          </div>
+          <div style="display:grid;grid-template-columns:18px 1fr 90px 90px 90px;gap:7px;background:#F4F6F9;padding:6px 8px;border-radius:3px;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;">5</div>
+            <div style="font-size:11.5px;color:#1A2A44;font-weight:600;">Repeat visit rate (CRM)</div>
+            <div style="font-size:11px;color:#666;text-align:center;">Loyalty signal</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div style="font-size:11px;color:#1A2A44;text-align:center;">40%+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">My one alert I'm setting this week:</div>
+        <div style="font-size:12px;color:#666;margin-bottom:6px;font-style:italic;line-height:1.5;">"Alert fires when [top-selling item] stock drops below [par level] — prompts auto-order review before the shift it will run out."</div>
+        <div class="fill-line"></div><div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">My 30-day data pull — baseline before intelligence is deployed:</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,0.7);margin-bottom:6px;font-style:italic;line-height:1.5;">Food cost: ___% · Spoilage: ___% · Labor variance: ___ pts · Repeat rate: ___% · Forecast accuracy: ___%</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">DATA<br>TALKS.<br>LISTEN<br>TO IT.</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Pull last 30 days of data this week. Set one alert on your top-selling item. Watch what happens when the operation runs on insight instead of Friday's weekly close report. Don Peppers was right: the data will talk to you. But first you have to acquire it — then actually look at it. That starts this week. Every marginal improvement that follows is permanent.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BRIDGE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">The Smart Venue Turns Data Into Foresight. Foresight Turns Into Margin.</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">Data-driven venues predict profits. Gut-feel venues bleed cash. Predictive inventory cuts waste 20–30%. Demand forecasting cuts labor cost 25%. Customization lifts repeat visits 35%. Together they add 15% to revenue. The smart venue doesn't need a bigger budget — it needs to read the data it already generates.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">PREDICTIVE INVENTORY CUTS FOOD WASTE 20–30% — WORTH $10K+ PER YEAR PER LOCATION</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Demand forecasting eliminates both overstocking and stockouts simultaneously. Apicbase documents the mechanic: historical sales + reservation volume + weather + events = precise purchase orders. Circus Kitchen cut food costs 18%. The same tool is available at one-location scale. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Apicbase (get.apicbase.com); Zigpoll (zigpoll.com); NetSuite (netsuite.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">85%+ DEMAND FORECAST ACCURACY CUTS LABOR COST VARIANCE BY 25%</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Historical sales + reservations + local events moves accuracy from 70% (weekly average) to 85%+ (AI-assisted). The staffing decision built from 85% accurate cover count keeps labor within 1–2 points of target vs. the 5–8 point variance of gut-feel scheduling. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: GSS LP (gsslp.com); NetSuite (netsuite.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">CUSTOMIZATION LIFTS REPEAT VISITS 35% AND LIFETIME VALUE 22%</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Purchase history, preference data, and behavioral signals turn generic service into the "Your usual IPA is ready" moment that converts one-time visitors into regulars. Ticketmaster, Ticket Fairy, and LatentView all document the measurable repeat-rate lift from data-driven personalization. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Ticket Fairy (ticketfairy.com); Ticketmaster (business.ticketmaster.com); LatentView (latentview.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">START WITH ONE ALERT ON YOUR TOP-SELLING ITEM THIS WEEK</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Pull the last 30 days of data. Set one stock-level alert. The intelligence doesn't require a new platform — it requires the discipline to look at data that is already being generated and act on it before the shift, not after the close. Every alert you set compounds the value of the next. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Chapter 18 exercise framework; GSS LP; Apicbase</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Final Section — The Operator Playbook</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">30-DAY · 90-DAY · 1-YEAR ACTION PLANS</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Chaos Mastery has mapped 4,000 years of hospitality leadership into a single operational framework — from the hidden leaks, through the modern operating system, through the networked future, through the smart venue. The Operator Playbook that follows converts every framework into a specific action, with a timeline, a metric, and a responsible owner. The knowledge becomes the operation starting now.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">18 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch16-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch16-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

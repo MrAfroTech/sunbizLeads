@@ -1,0 +1,7 @@
+project_id = "smqwemfobrqxnpcooigd"
+
+[functions.on-calculator-form-submit]
+verify_jwt = false
+
+[functions.send-calculator-followup-emails]
+verify_jwt = false

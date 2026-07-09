@@ -1,0 +1,500 @@
+{
+  "event_info": {
+    "name": "Horizon West Kids Expo",
+    "date": "July 23rd, 2025",
+    "location": "Gymnasium",
+    "address": "Horizon West Community Center",
+    "total_vendors": 42
+  },
+  "vendors": [
+    {
+      "id": 1,
+      "name": "Primrose School of Horizon West",
+      "booth": "A1",
+      "category": "Education",
+      "type": "education",
+      "description": "Presenting Sponsor - Quality early childhood education and daycare services",
+      "services": ["Early Childhood Education", "Daycare", "Pre-K Programs", "Summer Camps"],
+      "phone": "(407) 555-0101",
+      "website": "https://www.primroseschools.com",
+      "sponsor": "Presenting Sponsor",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "name": "Florida Film Academy",
+      "booth": "B7",
+      "category": "Education",
+      "type": "activities",
+      "description": "Film and video production education for young aspiring filmmakers",
+      "services": ["Film Classes", "Video Production", "Acting Workshops", "Summer Programs"],
+      "phone": "(407) 555-0102",
+      "website": "https://www.floridafilmacademy.com"
+    },
+    {
+      "id": 3,
+      "name": "Ice Factory of Central Florida",
+      "booth": "C12",
+      "category": "Recreation",
+      "type": "recreation",
+      "description": "Ice skating lessons, hockey programs, and birthday parties",
+      "services": ["Ice Skating Lessons", "Hockey Programs", "Birthday Parties", "Public Skating"],
+      "phone": "(407) 555-0103",
+      "website": "https://www.icefactorycfl.com"
+    },
+    {
+      "id": 4,
+      "name": "Goldfish Swim School",
+      "booth": "D5",
+      "category": "Recreation",
+      "type": "recreation",
+      "description": "Swimming lessons for children of all ages and skill levels",
+      "services": ["Swimming Lessons", "Water Safety", "Birthday Parties", "Swim Teams"],
+      "phone": "(407) 555-0104",
+      "website": "https://www.goldfishswimschool.com"
+    },
+    {
+      "id": 5,
+      "name": "State Farm Craig Martin",
+      "booth": "E9",
+      "category": "Insurance",
+      "type": "services",
+      "description": "Family insurance solutions and financial planning services",
+      "services": ["Auto Insurance", "Home Insurance", "Life Insurance", "Financial Planning"],
+      "phone": "(407) 555-0105",
+      "website": "https://www.statefarm.com"
+    },
+    {
+      "id": 6,
+      "name": "Chophouse Martial Arts",
+      "booth": "F3",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Martial arts training for kids and families",
+      "services": ["Karate Classes", "Self Defense", "Birthday Parties", "Summer Camps"],
+      "phone": "(407) 555-0106",
+      "website": "https://www.chophousemartialarts.com"
+    },
+    {
+      "id": 7,
+      "name": "Foundation Academy",
+      "booth": "A8",
+      "category": "Education",
+      "type": "education",
+      "description": "Christian private school education from K-12",
+      "services": ["K-12 Education", "Christian Curriculum", "Sports Programs", "Arts Programs"],
+      "phone": "(407) 555-0107",
+      "website": "https://www.foundationacademy.net"
+    },
+    {
+      "id": 8,
+      "name": "Striker Sports",
+      "booth": "G11",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Youth soccer programs and athletic training",
+      "services": ["Soccer Leagues", "Training Camps", "Private Lessons", "Birthday Parties"],
+      "phone": "(407) 555-0108",
+      "website": "https://www.strikersports.com"
+    },
+    {
+      "id": 9,
+      "name": "The Learning Experience Horizon West",
+      "booth": "B2",
+      "category": "Education",
+      "type": "education",
+      "description": "Early childhood education and enrichment programs",
+      "services": ["Daycare", "Pre-K", "STEM Programs", "Music & Arts"],
+      "phone": "(407) 555-0109",
+      "website": "https://www.thelearningexperience.com",
+      "sponsor": "Sponsor"
+    },
+    {
+      "id": 10,
+      "name": "JOY FM",
+      "booth": "H6",
+      "category": "Media",
+      "type": "services",
+      "description": "Christian radio station serving Central Florida families",
+      "services": ["Christian Music", "Family Programming", "Community Events", "Educational Content"],
+      "phone": "(407) 555-0110",
+      "website": "https://www.joyfm.com"
+    },
+    {
+      "id": 11,
+      "name": "Brian Davis Golf",
+      "booth": "I14",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Golf instruction and programs for youth and families",
+      "services": ["Golf Lessons", "Youth Programs", "Summer Camps", "Private Instruction"],
+      "phone": "(407) 555-0111",
+      "website": "https://www.briandavisgolf.com"
+    },
+    {
+      "id": 12,
+      "name": "Hamlin Pediatric Dentistry",
+      "booth": "J4",
+      "category": "Healthcare",
+      "type": "pediatrics",
+      "description": "Specialized dental care for children and teens",
+      "services": ["Pediatric Dentistry", "Orthodontics", "Preventive Care", "Emergency Dental"],
+      "phone": "(407) 555-0112",
+      "website": "https://www.hamlinpediatricdentistry.com"
+    },
+    {
+      "id": 13,
+      "name": "Orlando Dance Conservatory",
+      "booth": "K10",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Professional dance training for all ages and skill levels",
+      "services": ["Ballet", "Jazz", "Hip Hop", "Contemporary", "Competition Teams"],
+      "phone": "(407) 555-0113",
+      "website": "https://www.orlandodanceconservatory.com"
+    },
+    {
+      "id": 14,
+      "name": "Kelly's Homemade Ice Cream",
+      "booth": "L1",
+      "category": "Food & Treats",
+      "type": "food",
+      "description": "Locally made ice cream and frozen treats for the whole family",
+      "services": ["Ice Cream", "Birthday Parties", "Catering", "Special Events"],
+      "phone": "(407) 555-0114",
+      "website": "https://www.kellyshomemadeicecream.com"
+    },
+    {
+      "id": 15,
+      "name": "Legend Martial Arts",
+      "booth": "M7",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Traditional martial arts instruction for character development",
+      "services": ["Karate", "Taekwondo", "Self Defense", "Character Building"],
+      "phone": "(407) 555-0115",
+      "website": "https://www.legendmartialarts.com"
+    },
+    {
+      "id": 16,
+      "name": "Macaroni Kid Winter Garden",
+      "booth": "N13",
+      "category": "Media",
+      "type": "services",
+      "description": "Local family events and activities newsletter",
+      "services": ["Event Listings", "Family Activities", "Local Business Directory", "Community News"],
+      "phone": "(407) 555-0116",
+      "website": "https://wintergarden.macaronikid.com"
+    },
+    {
+      "id": 17,
+      "name": "Fun Bus West Orange",
+      "booth": "O5",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Mobile entertainment and party services",
+      "services": ["Mobile Parties", "School Events", "Summer Programs", "Birthday Parties"],
+      "phone": "(407) 555-0117",
+      "website": "https://www.funbuswestorange.com"
+    },
+    {
+      "id": 18,
+      "name": "Florida Virtual School",
+      "booth": "P8",
+      "category": "Education",
+      "type": "education",
+      "description": "Online K-12 education and course options",
+      "services": ["Online Classes", "Homeschool Support", "Dual Enrollment", "Credit Recovery"],
+      "phone": "(407) 555-0118",
+      "website": "https://www.flvs.net"
+    },
+    {
+      "id": 19,
+      "name": "Advanced Dermatology",
+      "booth": "Q12",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Pediatric and family dermatology services",
+      "services": ["Pediatric Dermatology", "Skin Cancer Screening", "Acne Treatment", "Eczema Care"],
+      "phone": "(407) 555-0119",
+      "website": "https://www.advanceddermatology.com"
+    },
+    {
+      "id": 20,
+      "name": "Sylvan Learning",
+      "booth": "R3",
+      "category": "Education",
+      "type": "tutoring",
+      "description": "Personalized tutoring and test prep services",
+      "services": ["Math Tutoring", "Reading Support", "Test Prep", "Study Skills"],
+      "phone": "(407) 555-0120",
+      "website": "https://www.sylvanlearning.com"
+    },
+    {
+      "id": 21,
+      "name": "Alexis Adapts",
+      "booth": "S9",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Occupational therapy and adaptive services for children",
+      "services": ["Occupational Therapy", "Adaptive Equipment", "Sensory Support", "Developmental Services"],
+      "phone": "(407) 555-0121",
+      "website": "https://www.alexisadapts.com"
+    },
+    {
+      "id": 22,
+      "name": "Oakland Nature Preserve",
+      "booth": "T6",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Nature education and outdoor recreation programs",
+      "services": ["Nature Programs", "Summer Camps", "Birthday Parties", "Educational Tours"],
+      "phone": "(407) 555-0122",
+      "website": "https://www.oaklandnaturepreserve.org"
+    },
+    {
+      "id": 23,
+      "name": "Mathnasium",
+      "booth": "U11",
+      "category": "Education",
+      "type": "tutoring",
+      "description": "Math learning center with customized instruction",
+      "services": ["Math Tutoring", "Test Prep", "Summer Programs", "Homework Help"],
+      "phone": "(407) 555-0123",
+      "website": "https://www.mathnasium.com"
+    },
+    {
+      "id": 24,
+      "name": "Horizons OBGYN",
+      "booth": "V4",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Women's health and family planning services",
+      "services": ["Women's Health", "Prenatal Care", "Family Planning", "Annual Exams"],
+      "phone": "(407) 555-0124",
+      "website": "https://www.horizonsobgyn.com"
+    },
+    {
+      "id": 25,
+      "name": "West Orlando Pediatrics",
+      "booth": "W14",
+      "category": "Healthcare",
+      "type": "pediatrics",
+      "description": "Comprehensive pediatric medical care",
+      "services": ["Well Child Visits", "Sick Visits", "Immunizations", "Sports Physicals"],
+      "phone": "(407) 555-0125",
+      "website": "https://www.westorlandopediatrics.com"
+    },
+    {
+      "id": 26,
+      "name": "Fun4Kids Orlando",
+      "booth": "X7",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Indoor playground and birthday party venue",
+      "services": ["Indoor Playground", "Birthday Parties", "Summer Camps", "Drop-in Play"],
+      "phone": "(407) 555-0126",
+      "website": "https://www.fun4kidsorlando.com"
+    },
+    {
+      "id": 27,
+      "name": "McCoy Federal Credit Union",
+      "booth": "Y2",
+      "category": "Financial",
+      "type": "services",
+      "description": "Family banking and financial education services",
+      "services": ["Youth Accounts", "Financial Education", "College Savings", "Family Banking"],
+      "phone": "(407) 555-0127",
+      "website": "https://www.mccoycu.org"
+    },
+    {
+      "id": 28,
+      "name": "Simple Speech Therapy",
+      "booth": "Z10",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Speech and language therapy for children",
+      "services": ["Speech Therapy", "Language Development", "Articulation", "Early Intervention"],
+      "phone": "(407) 555-0128",
+      "website": "https://www.simplespeechtherapy.com"
+    },
+    {
+      "id": 29,
+      "name": "Super Soccer Stars",
+      "booth": "AA5",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Soccer programs for young children",
+      "services": ["Toddler Soccer", "Preschool Programs", "After School Classes", "Birthday Parties"],
+      "phone": "(407) 555-0129",
+      "website": "https://www.supersoccerstars.com"
+    },
+    {
+      "id": 30,
+      "name": "Gatorland",
+      "booth": "BB13",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Wildlife park and educational programs",
+      "services": ["Educational Programs", "Birthday Parties", "Summer Camps", "Wildlife Shows"],
+      "phone": "(407) 555-0130",
+      "website": "https://www.gatorland.com"
+    },
+    {
+      "id": 31,
+      "name": "ABA Centers of Florida",
+      "booth": "CC8",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Applied Behavior Analysis therapy for autism",
+      "services": ["ABA Therapy", "Autism Support", "Behavioral Intervention", "Family Training"],
+      "phone": "(407) 555-0131",
+      "website": "https://www.abacenters.com"
+    },
+    {
+      "id": 32,
+      "name": "Evolving Minds Together",
+      "booth": "DD1",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Mental health and counseling services for families",
+      "services": ["Child Therapy", "Family Counseling", "Behavioral Support", "Mental Health Services"],
+      "phone": "(407) 555-0132",
+      "website": "https://www.evolvingmindstogether.com"
+    },
+    {
+      "id": 33,
+      "name": "Orlando Orthopaedic Center",
+      "booth": "EE12",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Pediatric orthopedic and sports medicine",
+      "services": ["Sports Medicine", "Injury Treatment", "Physical Therapy", "Orthopedic Surgery"],
+      "phone": "(407) 555-0133",
+      "website": "https://www.orlandoortho.com"
+    },
+    {
+      "id": 34,
+      "name": "I9 Sports",
+      "booth": "FF6",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Youth recreational sports leagues",
+      "services": ["Flag Football", "Soccer", "Basketball", "Baseball", "Lacrosse"],
+      "phone": "(407) 555-0134",
+      "website": "https://www.i9sports.com"
+    },
+    {
+      "id": 35,
+      "name": "PopStroke",
+      "booth": "GG9",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Mini golf and family entertainment venue",
+      "services": ["Mini Golf", "Birthday Parties", "Group Events", "Family Fun"],
+      "phone": "(407) 555-0135",
+      "website": "https://www.popstroke.com"
+    },
+    {
+      "id": 36,
+      "name": "Shisa Karate",
+      "booth": "HH3",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Traditional karate instruction for all ages",
+      "services": ["Karate Classes", "Self Defense", "Character Development", "Tournament Training"],
+      "phone": "(407) 555-0136",
+      "website": "https://www.shisakarate.com"
+    },
+    {
+      "id": 37,
+      "name": "Crush Yard",
+      "booth": "II11",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "Baseball and softball training facility",
+      "services": ["Batting Cages", "Private Lessons", "Team Training", "Birthday Parties"],
+      "phone": "(407) 555-0137",
+      "website": "https://www.crushyard.com"
+    },
+    {
+      "id": 38,
+      "name": "Sprout & Spark Books",
+      "booth": "JJ7",
+      "category": "Education",
+      "type": "education",
+      "description": "Children's bookstore and literacy programs",
+      "services": ["Children's Books", "Story Time", "Reading Programs", "Educational Games"],
+      "phone": "(407) 555-0138",
+      "website": "https://www.sproutandsparkbooks.com"
+    },
+    {
+      "id": 39,
+      "name": "Atlas Injury Health",
+      "booth": "KK14",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Sports injury prevention and treatment",
+      "services": ["Injury Treatment", "Physical Therapy", "Sports Medicine", "Wellness Programs"],
+      "phone": "(407) 555-0139",
+      "website": "https://www.atlasinjuryhealth.com"
+    },
+    {
+      "id": 40,
+      "name": "The Daily Brick",
+      "booth": "LL4",
+      "category": "Recreation",
+      "type": "activities",
+      "description": "LEGO-based building and engineering programs",
+      "services": ["LEGO Classes", "Engineering Programs", "Birthday Parties", "Summer Camps"],
+      "phone": "(407) 555-0140",
+      "website": "https://www.thedailybrick.com"
+    },
+    {
+      "id": 41,
+      "name": "Open Book Behavioral Health",
+      "booth": "MM8",
+      "category": "Healthcare",
+      "type": "healthcare",
+      "description": "Behavioral health services for children and families",
+      "services": ["Child Psychology", "Family Therapy", "Behavioral Assessment", "ADHD Support"],
+      "phone": "(407) 555-0141",
+      "website": "https://www.openbookbh.com"
+    },
+    {
+      "id": 42,
+      "name": "Observer Media Group",
+      "booth": "NN2",
+      "category": "Media",
+      "type": "services",
+      "description": "Local news and community information",
+      "services": ["Local News", "Community Events", "Business Directory", "Family Resources"],
+      "phone": "(407) 555-0142",
+      "website": "https://www.observermediagroup.com"
+    }
+  ],
+  "categories": [
+    "Education",
+    "Healthcare", 
+    "Recreation",
+    "Media",
+    "Insurance",
+    "Food & Treats",
+    "Financial"
+  ],
+  "expo_layout": {
+    "gymnasium_sections": [
+      "North Wall (A-H)",
+      "East Wall (I-P)", 
+      "South Wall (Q-X)",
+      "West Wall (Y-NN)",
+      "Center Courts (AA-MM)"
+    ],
+    "special_areas": {
+      "registration": "Main Entrance",
+      "food_court": "Center Court",
+      "activity_zone": "North Court",
+      "sponsor_showcase": "Premium Booths A1-A8"
+    }
+  }
+}

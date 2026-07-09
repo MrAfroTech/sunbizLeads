@@ -1,0 +1,28 @@
+{
+  "installCommand": "npm install --production",
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10,
+      "includeFiles": "node_modules/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/allevents", "destination": "/allevents.html" },
+    { "source": "/allevents.html", "destination": "/allevents.html" },
+    { "source": "/farm-tours", "destination": "/public/farm-tours.html" },
+    { "source": "/farm-tours.html", "destination": "/public/farm-tours.html" },
+    { "source": "/harvest-experiences", "destination": "/public/harvest-experiences.html" },
+    { "source": "/harvest-experiences.html", "destination": "/public/harvest-experiences.html" },
+    { "source": "/success.html", "destination": "/public/success.html" },
+    { "source": "/payment.html", "destination": "/payment.html" },
+    { "source": "/scan-tickets", "destination": "/public/scan-tickets.html" },
+    { "source": "/scan-tickets.html", "destination": "/public/scan-tickets.html" },
+    { "source": "/styles/(.*)", "destination": "/public/styles/$1" },
+    { "source": "/js/(.*)", "destination": "/public/js/$1" },
+    { "source": "/images/(.*)", "destination": "/public/images/$1" },
+    { "source": "/platformDrivenPages/tours/(.*)", "destination": "/platformDrivenPages/tours/$1" },
+    { "source": "/platformDrivenPages/tours", "destination": "/platformDrivenPages/tours/allevents.html" },
+    { "source": "/", "destination": "/public/index.html" }
+  ]
+}

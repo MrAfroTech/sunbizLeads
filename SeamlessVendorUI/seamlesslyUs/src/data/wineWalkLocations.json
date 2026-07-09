@@ -1,0 +1,136 @@
+{
+  "search_center": {
+    "address": "756 W Montrose St, Clermont, FL 34711",
+    "coordinates": {
+      "latitude": 28.5493,
+      "longitude": -81.7731
+    },
+    "radius": "0.25 miles (1,320 feet)"
+  },
+  "search_date": "2025-07-12",
+  "total_establishments": 6,
+  "establishments": [
+    {
+      "name": "The Roasted Spirit",
+      "category": "Bar/Cocktail Lounge",
+      "address": "756 W Montrose Street, Clermont, FL 34711",
+      "distance_from_center": "0.0 miles (same building)",
+      "phone": null,
+      "description": "Elevated spirits bar with the largest selection of sipping spirits in Clermont. Features scratch kitchen sharable tapas, small plates, and brunch on Sundays.",
+      "hours": {
+        "sunday_monday": "11am-11pm",
+        "tuesday_wednesday": "11am-12am",
+        "thursday": "11am-1am",
+        "friday_saturday": "11am-2am"
+      },
+      "specialties": ["Craft cocktails", "Tapas", "Sipping spirits", "Sunday brunch"],
+      "website": "https://www.theroastedspirit.com/"
+    },
+    {
+      "name": "Black Bear Kitchen",
+      "category": "BBQ Restaurant",
+      "address": "756 W Montrose St #101, Clermont, FL 34711",
+      "distance_from_center": "0.0 miles (same building)",
+      "phone": "(352) 432-3025",
+      "description": "BBQ restaurant serving brisket, pulled pork, chicken, turkey, and salmon with various BBQ sauces including Latin BBQ and FL Citrus BBQ.",
+      "hours": {
+        "sunday": "11:00 AM - 4:30 PM",
+        "monday": "11:00 AM - 7:30 PM",
+        "tuesday": "Closed",
+        "wednesday": "11:00 AM - 7:30 PM",
+        "thursday": "11:00 AM - 7:30 PM",
+        "friday": "11:00 AM - 12:00 AM",
+        "saturday": "11:00 AM - 12:00 AM"
+      },
+      "specialties": ["BBQ", "Brisket", "Pulled pork", "Street tacos"],
+      "website": "https://blackbearkitchen.com/"
+    },
+    {
+      "name": "Clermont Brewing Company",
+      "category": "Brewery/Restaurant",
+      "address": "750 W Desoto Street, Clermont, FL 34711",
+      "distance_from_center": "~0.1 miles",
+      "phone": null,
+      "description": "Craft brewery with on-site brewing, thin crust Neapolitan pizzas, gourmet salads, and live entertainment. Features three dining areas: indoor farmhouse dining, covered patio, and beer garden.",
+      "hours": {
+        "monday": "Closed",
+        "tuesday_wednesday": "3:00 PM - 10:00 PM",
+        "thursday": "3:00 PM - 10:00 PM",
+        "friday_saturday": "3:00 PM - 12:00 AM",
+        "sunday": "11:00 AM - 9:00 PM"
+      },
+      "specialties": ["Craft beer", "Neapolitan pizza", "Live music", "Bingo nights", "Happy hour"],
+      "events": ["Tuesday & Sunday Bingo", "Wednesday Trivia", "Thursday BOGO Pizza", "Weekend Live Music"],
+      "website": "https://clermontbrewingcompany.com/"
+    },
+    {
+      "name": "Salt Shack on the Lake",
+      "category": "Waterfront Restaurant/Bar",
+      "address": "846 W Osceola Street, Clermont, FL 34711",
+      "distance_from_center": "~0.2 miles",
+      "phone": "(352) 562-7840",
+      "description": "Rustic-refined waterfront restaurant on Lake Minneola offering gulf-to-table seafood with Caribbean-inspired menu and casual beachfront bar scene.",
+      "specialties": ["Fresh Gulf seafood", "Fish tacos", "Craft cocktails", "Waterfront dining", "Live music"],
+      "features": ["Lake views", "Outdoor seating", "White sand shoreline", "Tiki torches"],
+      "website": "https://salt-shack.com/"
+    },
+    {
+      "name": "Pepe's Cantina",
+      "category": "Mexican Restaurant/Bar",
+      "address": "794 W Minneola Avenue, Clermont, FL 34711",
+      "distance_from_center": "~0.15 miles",
+      "phone": null,
+      "description": "Vibrant Mexican restaurant offering authentic Mexican ingredients with innovative culinary techniques. Features tableside guacamole and full bar.",
+      "hours": {
+        "monday_thursday": "11:30 AM - 9:00 PM",
+        "friday_saturday": "11:30 AM - 10:00 PM",
+        "sunday": "11:30 AM - 9:00 PM"
+      },
+      "specialties": ["Tableside guacamole", "Ceviche", "Fajitas", "Fish tacos", "Margaritas"],
+      "website": null
+    },
+    {
+      "name": "Root & Branch Bistro + Bar",
+      "category": "Fine Dining Restaurant/Bar",
+      "address": "1200 Oakley Seaver Dr #102, Clermont, FL 34711",
+      "distance_from_center": "~0.2 miles",
+      "phone": "(352) 708-4529",
+      "description": "Upscale casual dining restaurant with scratch-made cuisine and crafted cocktails. Multiple award winner including 'Best of South Lake for Dinner'.",
+      "hours": {
+        "dinner": {
+          "monday_thursday": "4:00 PM - 9:00 PM",
+          "friday_saturday": "4:00 PM - 10:00 PM",
+          "sunday": "11:00 AM - 9:00 PM"
+        },
+        "brunch": {
+          "sunday": "11:00 AM - 2:00 PM"
+        },
+        "lunch": {
+          "friday_saturday": "11:00 AM - 3:00 PM"
+        }
+      },
+      "specialties": ["Fried Green Tomatoes (award-winning)", "Fashion Nut cocktail", "Short rib ravioli", "Pork chop", "Craft cocktails"],
+      "awards": ["Best of South Lake for Dinner (4 times)", "Taste of South Lake winner", "OpenTable Diner's Choice"],
+      "website": "https://www.rootandbranchbistroandbar.com/"
+    }
+  ],
+  "excluded_establishments": [
+    {
+      "name": "Grace O'Malley's Public House",
+      "reason": "Outside quarter-mile radius",
+      "address": "2400 S US-27, Clermont, FL 34711",
+      "estimated_distance": "~1.5 miles"
+    },
+    {
+      "name": "The View at Clermont National",
+      "reason": "Outside quarter-mile radius - located at golf course",
+      "address": "Diamond Club Drive, Clermont, FL 34711",
+      "estimated_distance": "~2+ miles"
+    }
+  ],
+  "notes": {
+    "methodology": "Distances estimated based on street addresses and downtown Clermont layout. Quarter-mile radius includes establishments within approximately 1,320 feet of the central location.",
+    "data_sources": "Web search results from July 2025",
+    "limitations": "Exact GPS coordinates not available for all establishments. Some smaller bars or restaurants may not have been captured in search results."
+  }
+}

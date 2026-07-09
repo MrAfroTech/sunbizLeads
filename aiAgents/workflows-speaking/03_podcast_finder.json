@@ -1,0 +1,301 @@
+{
+  "name": "03 - Podcast & Media Finder",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 1 * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Monthly 1st of Month 9 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "array": {
+            "values": [
+              {
+                "name": "search_queries",
+                "value": [
+                  "hospitality podcast guests",
+                  "restaurant business podcast",
+                  "food entrepreneurship podcast",
+                  "hotel industry podcast",
+                  "travel technology podcast",
+                  "venue operations podcast",
+                  "hospitality tech podcast"
+                ]
+              },
+              {
+                "name": "platforms",
+                "value": ["Apple Podcasts", "Spotify", "YouTube"]
+              }
+            ]
+          }
+        }
+      },
+      "id": "set-podcast",
+      "name": "Define Podcast Queries",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Query",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://serpapi.com/search?engine=google&q={{ encodeURIComponent($json.search_queries + ' accepting guests') }}&num=20&api_key={{ $credentials.serpApi.apiKey }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "search-podcasts",
+      "name": "Find Podcasts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchData = $input.first().json;\nconst results = searchData.organic_results || [];\nconst query = $node[\"Process Each Query\"].json.search_queries;\n\nconst podcasts = results\n  .filter(result => {\n    const title = (result.title || '').toLowerCase();\n    const link = result.link || '';\n    // Filter for actual podcasts\n    return (\n      link.includes('podcasts.apple.com') ||\n      link.includes('spotify.com/show') ||\n      link.includes('youtube.com') ||\n      title.includes('podcast') ||\n      result.snippet.toLowerCase().includes('podcast')\n    );\n  })\n  .map(result => {\n    // Determine platform\n    let platform = 'Website';\n    if (result.link.includes('apple.com')) platform = 'Apple Podcasts';\n    else if (result.link.includes('spotify.com')) platform = 'Spotify';\n    else if (result.link.includes('youtube.com')) platform = 'YouTube';\n    \n    return {\n      event_name: result.title,\n      event_type: 'podcast',\n      industry: query.includes('food') ? 'F&B' :\n                query.includes('hotel') ? 'Hospitality' :\n                query.includes('restaurant') ? 'Restaurant' : 'Hospitality',\n      event_date: 'Rolling',\n      location: 'Remote',\n      format: 'virtual',\n      website: result.link,\n      cfp_deadline: 'Rolling',\n      speaker_app_link: '',\n      past_speakers: '',\n      attendance: 0,\n      audience_type: 'Industry Professionals, Entrepreneurs',\n      organizer_name: '',\n      organizer_email: '',\n      organizer_linkedin: '',\n      score: 0,\n      status: 'New - Podcast',\n      contacted_date: '',\n      last_activity: new Date().toISOString(),\n      response: '',\n      notes: `Platform: ${platform}. Found via: ${query}`\n    };\n  });\n\nreturn podcasts;"
+      },
+      "id": "extract-podcast",
+      "name": "Extract Podcast Info",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.website }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "fetch-podcast",
+      "name": "Fetch Podcast Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Extract podcast host contact information. Look for: host name, contact email, booking form, LinkedIn profile. Return JSON."
+            },
+            {
+              "role": "user",
+              "content": "=Podcast: {{ $node[\"Extract Podcast Info\"].json.event_name }}\n\nHTML/Description:\n{{ $json.body.substring(0, 8000) }}\n\nExtract:\n- Host name\n- Contact email (or booking form URL)\n- Recent episode topics\n- Approximate subscriber count (if mentioned)\n\nReturn JSON. No markdown."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "extract-host",
+      "name": "Find Host Information",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1450, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const podcastData = $node[\"Extract Podcast Info\"].json;\nconst aiData = JSON.parse($json.message.content || '{}');\n\nreturn {\n  ...podcastData,\n  organizer_name: aiData.host_name || '',\n  organizer_email: aiData.contact_email || '',\n  speaker_app_link: aiData.booking_form || '',\n  attendance: aiData.subscriber_count || 0,\n  past_speakers: aiData.recent_topics || '',\n  status: aiData.contact_email ? 'Contact Found - Podcast' : 'Manual Review - Podcast',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "process-podcast",
+      "name": "Format Podcast Info",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_name": "={{ $json.event_name }}",
+            "event_type": "={{ $json.event_type }}",
+            "industry": "={{ $json.industry }}",
+            "event_date": "={{ $json.event_date }}",
+            "location": "={{ $json.location }}",
+            "format": "={{ $json.format }}",
+            "website": "={{ $json.website }}",
+            "cfp_deadline": "={{ $json.cfp_deadline }}",
+            "speaker_app_link": "={{ $json.speaker_app_link }}",
+            "past_speakers": "={{ $json.past_speakers }}",
+            "attendance": "={{ $json.attendance }}",
+            "audience_type": "={{ $json.audience_type }}",
+            "organizer_name": "={{ $json.organizer_name }}",
+            "organizer_email": "={{ $json.organizer_email }}",
+            "organizer_linkedin": "={{ $json.organizer_linkedin }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "response": "={{ $json.response }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "add-podcast",
+      "name": "Add to Pipeline",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1850, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Monthly 1st of Month 9 AM": {
+      "main": [
+        [
+          {
+            "node": "Define Podcast Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Podcast Queries": {
+      "main": [
+        [
+          {
+            "node": "Process Each Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Query": {
+      "main": [
+        [
+          {
+            "node": "Find Podcasts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Podcasts": {
+      "main": [
+        [
+          {
+            "node": "Extract Podcast Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Podcast Info": {
+      "main": [
+        [
+          {
+            "node": "Fetch Podcast Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Podcast Page": {
+      "main": [
+        [
+          {
+            "node": "Find Host Information",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Host Information": {
+      "main": [
+        [
+          {
+            "node": "Format Podcast Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Podcast Info": {
+      "main": [
+        [
+          {
+            "node": "Add to Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

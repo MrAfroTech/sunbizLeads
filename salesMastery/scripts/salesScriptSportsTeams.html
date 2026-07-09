@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seamlessly — Objection Tree</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-size:24px !important}
+:root{--navy:#1A2A44;--gold:#D4AF37;--teal:#2A9D8F;--light:#F4F1EA;--dim:#8899AA}
+body{background:var(--navy);color:var(--light);font-family:'DM Sans',sans-serif;padding:40px 32px;min-height:100vh}
+
+.opener{background:var(--gold);color:var(--navy);border-radius:14px;padding:28px 32px;margin-bottom:32px}
+.opener-lbl{font-family:'Bebas Neue',sans-serif;font-size:16px !important;letter-spacing:3px;opacity:0.55;margin-bottom:10px}
+.opener-txt{font-size:24px !important;font-weight:600;line-height:1.5}
+
+.you-say{background:rgba(42,157,143,0.12);border:1px solid rgba(42,157,143,0.3);border-radius:14px;padding:28px 32px;margin-bottom:22px}
+.you-lbl{font-family:'Bebas Neue',sans-serif;font-size:16px !important;letter-spacing:3px;color:var(--teal);margin-bottom:12px}
+.you-q{font-size:24px !important;font-weight:500;line-height:1.55;color:var(--light)}
+
+.they-lbl{font-family:'Bebas Neue',sans-serif;font-size:16px !important;letter-spacing:3px;color:var(--dim);margin-bottom:16px}
+.they-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.they-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px 24px;cursor:pointer;text-align:left;color:var(--light);font-family:'DM Sans',sans-serif;font-size:23px !important;line-height:1.45;transition:background .15s,border-color .15s;display:flex;align-items:flex-start;gap:14px}
+.they-btn:hover{background:rgba(212,175,55,0.08);border-color:rgba(212,175,55,0.45)}
+.they-btn .arr{color:var(--gold);font-size:19px !important;flex-shrink:0;margin-top:4px}
+
+.close-card{background:rgba(212,175,55,0.09);border:1px solid rgba(212,175,55,0.45);border-radius:14px;padding:32px}
+.close-lbl{font-family:'Bebas Neue',sans-serif;font-size:16px !important;letter-spacing:3px;color:var(--gold);margin-bottom:12px}
+.close-q{font-size:24px !important;font-weight:500;line-height:1.55;color:var(--light)}
+
+.controls{display:flex;gap:12px;margin-top:8px}
+.ctrl{font-family:'Bebas Neue',sans-serif;font-size:18px !important;letter-spacing:2px;padding:12px 22px;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--dim);transition:all .15s}
+.ctrl:hover{border-color:rgba(255,255,255,0.3);color:var(--light)}
+.ctrl.rst:hover{border-color:rgba(212,175,55,0.5);color:var(--gold)}
+
+.field-note{background:rgba(212,175,55,0.12);border:1px dashed rgba(212,175,55,0.4);border-radius:10px;padding:16px 22px;font-size:21px !important;color:var(--gold);margin-bottom:22px;letter-spacing:0.3px}
+
+.path-bar{font-size:18px !important;color:var(--dim);margin-bottom:20px;line-height:1.7;min-height:24px}
+.path-bar span{color:rgba(212,175,55,0.65)}
+</style>
+</head>
+<body>
+
+<div class="opener">
+  <div class="opener-lbl">OPENER</div>
+  <div class="opener-txt">"Hi [Name], this is Maurice with Seamlessly.<br><br>Who's in charge of merch and ticketing on gameday?"</div>
+</div>
+
+<div class="path-bar" id="pathbar"></div>
+<div id="view"></div>
+
+<script>
+/* ─── TREE ─────────────────────────────────────────────────────────────── */
+const ROOT = {
+  you: null,
+  they: "THEY SAY —",
+  options:[
+    { label:"That's me",                                               next: THATS_ME   },
+    { label:"What's this about? / What are you trying to sell?",       next: WHAT_ARE_YOU_SELLING },
+    { label:"You want [Name] / Try [Dept]",                            next: REDIRECT   },
+    { label:"We already have something",                               next: GOT_IT     },
+    { label:"We have an app / sunk cost / not looking to change",      next: SUNK_COST  },
+    { label:"What are you selling? / What does Seamlessly do?",        next: WHAT_ARE_YOU_SELLING },
+    { label:"Not interested / We're good",                             next: NO_INT     },
+    { label:"Just send me an email",                                   next: EMAIL      }
+  ]
+};
+
+function THATS_ME(){
+  return {
+    you:"Can you walk me through the fan purchase experience on game day?",
+    they:"THEY SAY —",
+    options:[
+      { label:"We use a POS / we have a system", next:()=>({
+          you:"That sounds pretty effecient — unless you're 100% happy with it; what do you wish worked differently?",
+          they:"THEY SAY —",
+          options:[
+            { label:"There are some things / not perfect", next:()=>({
+                you:"What's the biggest thing that still frustrates you about it?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Lines still get long / peak hours are rough", next:()=>({
+                      you:"When lines get long — are fans waiting it out or walking away without buying?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Some walk away", next:()=>CLOSE("So even with the system you have, you're still losing revenue at peak. If you could close that gap — what does that mean for you per event?") },
+                        { label:"They wait but they're frustrated", next:()=>CLOSE("Frustrated fans at the front of the line — are they still spending the same, or are they buying less by the time they get there?") }
+                      ]
+                    })
+                  },
+                  { label:"Reporting / no visibility into what's happening", next:()=>CLOSE("So you're running events without a clear picture of where things are breaking down. If you had that data in real time — what would that change for you operationally?") },
+                  { label:"Mobile ordering isn't working / low adoption", next:()=>({
+                      you:"Is that a fan awareness issue — they don't know it exists — or is the experience rough enough that they tried it and dropped off?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"They try it and drop off / too clunky", next:()=>CLOSE("So you have mobile in theory but it's not converting. If the experience was smooth enough that fans actually finished the order — what does that add to per-cap?") },
+                        { label:"Fans just don't know it's there", next:()=>CLOSE("What's being done to drive them toward it — signage, staff prompts, anything in the app?") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            },
+            { label:"Pretty happy / it works fine", next:()=>({
+                you:"On a sellout night, when everything's moving fast — how's it holding up then?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"It gets chaotic / lines stack up", next:()=>({
+                      you:"When lines stack up — where are fans actually walking away without buying?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Concessions mainly / the stands", next:()=>({
+                            you:"And when they walk away — do you have a sense of what that's costing per event?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"Probably a lot / no real number", next:()=>CLOSE("Some of the venues we work with were losing 15–20% of peak-hour revenue just to line abandonment. Would it make sense to look at what that gap looks like for you?") },
+                              { label:"We've tried to fix it / nothing's worked", next:()=>({
+                                  you:"What did you try — was it a vendor, an internal build?",
+                                  they:"THEY SAY —",
+                                  options:[
+                                    { label:"A vendor / it didn't deliver", next:()=>CLOSE("What didn't work about it — was it the tech, the support, or just didn't fit your operation?") },
+                                    { label:"Internal / we built something", next:()=>CLOSE("We typically work alongside what's already in place — not replacing it. Would it make sense to take a quick look at where the gaps are?") }
+                                  ]
+                                })
+                              }
+                            ]
+                          })
+                        },
+                        { label:"Merch / mobile / all of it", next:()=>({
+                            you:"When it's backed up across the board — is it showing up in fan feedback, or is it more something your staff is absorbing?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"We hear it from fans / surveys / social", next:()=>CLOSE("If you could fix the one thing showing up most in that feedback — what would it be?") },
+                              { label:"Staff is absorbing it / no real visibility", next:()=>CLOSE("So you don't have a clear picture of where it's breaking down. If you had that data — what would change for you operationally?") }
+                            ]
+                          })
+                        }
+                      ]
+                    })
+                  },
+                  { label:"It holds up / no real issues", next:()=>({
+                      you:"Even at halftime rush or right after gates open?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Well there are some waits but that's normal", next:()=>({
+                            you:"When those waits happen — are fans waiting it out or do some walk away?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"Some walk away", next:()=>CLOSE("So on your biggest nights there's revenue just walking out. If you could capture even half of that — what does that mean for you?") },
+                              { label:"They wait it out", next:()=>CLOSE("And while they're waiting — are they still in a buying mindset, or are they frustrated by the time they get to the front?") }
+                            ]
+                          })
+                        },
+                        { label:"No honestly pretty smooth", next:()=>CLOSE("That's rare — most venues struggle on sellout nights. What does your setup look like that makes it work that well?") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            }
+          ]
+        })
+      },
+      { label:"Mostly cash / old-school registers", next:()=>({
+          you:"Are you 100% happy with that setup — or are there things you wish were different?",
+          they:"THEY SAY —",
+          options:[
+            { label:"It's fine / gets the job done", next:()=>({
+                you:"On a full house night — how long are fans waiting to pay?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"10–15 minutes / pretty long", next:()=>({
+                      you:"When it gets that backed up — are fans giving up and going back to their seats without buying?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Yeah definitely", next:()=>CLOSE("So on your biggest revenue nights you're leaving money on the table. If fans had another way to order without touching the cash line — what would that mean for you?") },
+                        { label:"Most wait it out", next:()=>CLOSE("And when they finally get to the front after waiting that long — are they still in a buying mood?") }
+                      ]
+                    })
+                  },
+                  { label:"Not terrible but could be better", next:()=>({
+                      you:"Where does it usually slow down — payment, fulfillment, or both?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Payment / the line to order", next:()=>CLOSE("If fans could order and pay before they even got to the stand — what do you think that changes for volume?") },
+                        { label:"Fulfillment / kitchen keeping up", next:()=>CLOSE("So orders are coming in but the back end can't keep pace. Is that a staffing thing, or orders not sequenced in a way that helps the kitchen?") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            },
+            { label:"There are some frustrations / things I'd change", next:()=>({
+                you:"What's the biggest one?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Speed / lines are too slow", next:()=>CLOSE("And when those lines stack up — do you have a sense of how much it's costing you in walked-away sales per event?") },
+                  { label:"No data / can't see what's happening", next:()=>CLOSE("So you're running events without knowing where things are breaking down. If you had that visibility — what would that change for you?") },
+                  { label:"Fans want mobile / we don't have it", next:()=>CLOSE("You're already hearing it from fans — that's usually the last signal before it starts showing up in your per-cap numbers. What would it take to make that move?") }
+                ]
+              })
+            }
+          ]
+        })
+      },
+      { label:"We outsource it / concessionaire handles it", next:()=>({
+          you:"Who do you use for that?",
+          they:"THEY SAY — [write down the vendor name]",
+          __note:"📝 NOTE vendor name for follow-up call later",
+          options:[
+            { label:"[They name the vendor]", next:()=>({
+                you:"Got it — noted. What about merch — is that handled through them too, or is that a separate operation?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Merch is separate / we run that ourselves", next:()=>({
+                      you:"How are fans buying merch right now — is it cash, card at the stand, or do you have any kind of mobile or pre-order for that?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Cash and card at the stand only", next:()=>({
+                            you:"On a big game night — how long are those merch lines getting?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"Long / fans wait a while", next:()=>CLOSE("So merch is one area where fans are waiting and you own that experience directly. If fans could order merch from their phone before they even got to the stand — what does that change for volume?") },
+                              { label:"Not too bad / manageable", next:()=>CLOSE("And are fans buying merch throughout the event, or is it mostly a before-the-game thing? Because the teams seeing the biggest lift are capturing that in-game impulse purchase — is that something you're getting right now?") }
+                            ]
+                          })
+                        },
+                        { label:"We have some mobile / online for merch", next:()=>({
+                            you:"Is that driving a meaningful percentage of merch sales, or is most of it still coming through the physical stand?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"Most is still at the stand", next:()=>CLOSE("So the mobile channel exists but fans aren't really using it. Is that an awareness thing — fans don't know it's there — or is the experience not smooth enough to drive adoption?") },
+                              { label:"It's split / decent mobile volume", next:()=>CLOSE("That's actually ahead of most venues we talk to. Where's the next gap — is it the in-game impulse purchase, personalization, pre-order for pickup?") }
+                            ]
+                          })
+                        }
+                      ]
+                    })
+                  },
+                  { label:"Merch is through them too / all outsourced", next:()=>({
+                      you:"So everything fan-facing runs through them. When your per-cap numbers come in — are you seeing what you'd expect, or is there a gap you can't fully explain?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"There's a gap / we think we're leaving money", next:()=>CLOSE("That's worth looking at. The challenge with a fully outsourced setup is you have no visibility into where fans are dropping off. If you had that data sitting in your hands — what would you do with it?") },
+                        { label:"Numbers look okay / we're not sure", next:()=>CLOSE("Here's what I'd be curious about — do you know what your per-cap is on a sellout night versus a slow night? Because that spread tells you a lot about what's friction versus demand.") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function SUNK_COST(){
+  return {
+    you:"Totally understand — how long have you had it running?",
+    they:"THEY SAY —",
+    options:[
+      { label:"A year or more / a while", next:()=>({
+          you:"And when you built it — what was the main problem you were trying to solve?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Lines / speed of service", next:()=>({
+                you:"Is it doing that now — are the lines where you wanted them to be?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Better but still not where we want", next:()=>({
+                      you:"What's still not working the way you expected?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Fan adoption is low / they don't use it", next:()=>({
+                            you:"What percentage of fans would you say are actually ordering through it on a typical event night?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"Low / maybe 10–20%", next:()=>CLOSE("So you've invested in the app but most fans still aren't using it — which means the line problem is still there. What do you think is keeping them from adopting it?") },
+                              { label:"More than that but still not enough", next:()=>CLOSE("What would it take to get that number meaningfully higher — is it the UX, the awareness, or something about how it fits into the game day flow?") }
+                            ]
+                          })
+                        },
+                        { label:"The UX is clunky / fans drop off", next:()=>CLOSE("So fans are getting to the app but not finishing the order. That's usually a flow problem — too many steps before checkout. Is that something your team has capacity to fix, or is it sitting on the backlog?") },
+                        { label:"Kitchen can't keep up / fulfillment lags", next:()=>CLOSE("So the ordering side is working but the back-end can't keep pace. Is that a sequencing issue — orders coming in out of order for the kitchen — or purely a staffing thing?") }
+                      ]
+                    })
+                  },
+                  { label:"Honestly not really / still a problem", next:()=>({
+                      you:"What's the biggest gap between what you expected and what you're actually seeing?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Fans just aren't using it", next:()=>CLOSE("That's the most common thing we hear. You built the tool — but if fans aren't in the habit of opening it, the line problem doesn't go away. What's been tried to drive adoption?") },
+                        { label:"It's slow / performance issues", next:()=>CLOSE("A slow app on game day is worse than no app — fans try it once, it lags, they never go back. Is that a known issue internally or something you're still trying to diagnose?") },
+                        { label:"It doesn't cover everything / gaps remain", next:()=>({
+                            you:"What's still not covered — is it merch, in-seat ordering, something else?",
+                            they:"THEY SAY —",
+                            options:[
+                              { label:"Merch isn't in it", next:()=>CLOSE("So concessions are in the app but merch is still manual. On a big game night — how long are those merch lines getting?") },
+                              { label:"In-seat ordering / delivery", next:()=>CLOSE("So fans still have to leave their seat to order. How much of your revenue do you think you're missing just because the friction of getting up isn't worth it to them?") },
+                              { label:"Multiple gaps", next:()=>CLOSE("So the app solved part of the problem but there's still a significant piece that's unaddressed. If those gaps stayed open another season — what does that cost you?") }
+                            ]
+                          })
+                        }
+                      ]
+                    })
+                  }
+                ]
+              })
+            },
+            { label:"Fan experience / engagement", next:()=>({
+                you:"How are fans responding to it — are they actually using it, or is it more of a nice-to-have that's not really moving the needle?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Adoption is lower than we hoped", next:()=>({
+                      you:"What do you think is getting in the way — is it awareness, the experience itself, or just habit?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Awareness / fans don't know it exists", next:()=>CLOSE("So the tool is there but fans aren't finding it. What's been done to push them toward it — signage, staff prompts, anything in-venue?") },
+                        { label:"Experience / it's not smooth enough", next:()=>CLOSE("If the experience was smooth enough that fans actually finished the flow — what do you think that changes for engagement and revenue?") }
+                      ]
+                    })
+                  },
+                  { label:"It's being used / decent adoption", next:()=>({
+                      you:"Where's the next gap — what's the one thing the app still isn't doing that you wish it was?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Merch isn't integrated", next:()=>CLOSE("So you've got the ordering side working but merch is still a separate experience for fans. On a big night — how much of your merch revenue do you think is lost just because the stand line isn't worth it?") },
+                        { label:"No real data / reporting is weak", next:()=>CLOSE("So you built the fan-facing piece but you still don't have visibility into what's actually happening. If you had that data sitting in front of you after every event — what would you do with it?") },
+                        { label:"POS integration is messy", next:()=>CLOSE("Disconnected systems on the back end always end up creating friction on the front end eventually. Is that something your team is actively trying to solve, or is it being tolerated?") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            },
+            { label:"Revenue / increase per-cap", next:()=>({
+                you:"Is it moving the number — are you seeing a lift in per-cap since you rolled it out?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Not really / hard to tell", next:()=>CLOSE("So you've made a significant investment but the revenue impact isn't clear yet. What would you need to see to know if it's actually working?") },
+                  { label:"Some lift but not what we expected", next:()=>({
+                      you:"Where do you think the gap is — is it adoption, the average order size, or something about how the app fits into the game day flow?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Adoption — fans aren't using it enough", next:()=>CLOSE("If you doubled the percentage of fans ordering through the app — what does that do to your per-cap number?") },
+                        { label:"Order size is smaller than expected", next:()=>CLOSE("Is the app surfacing upsells and add-ons the way a good cashier would — or is it just taking the base order and moving on?") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            }
+          ]
+        })
+      },
+      { label:"Just launched / still early", next:()=>({
+          you:"What problem were you trying to solve when you built it?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Lines / speed", next:()=>CLOSE("Makes sense. What are you watching in these early events to know if it's working — adoption rate, line length, per-cap?") },
+            { label:"Fan experience / engagement", next:()=>CLOSE("Early days — are fans actually finding it and using it, or is it still pretty manual to get them there?") }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function WHAT_ARE_YOU_SELLING(){
+  return {
+    you:"You know… a lot of clients we talk to are dealing with the same few things — guests complaining about long lines… staff getting overwhelmed and burning out… and technology that was never built to work together.<br><br>We help with all of that — mobile ordering, keeping staff retention up, and consolidating tech stacks.<br><br>I mean … does any of that sound a little too familiar?",
+    they:"THEY SAY —",
+    options:[
+      { label:"We use a POS / we have a system", next:()=>({
+          you:"Are you 100% happy with it — or are there things you wish worked differently?",
+          they:"THEY SAY —",
+          options:[
+            { label:"There are some things / not perfect", next:()=>THATS_ME_UNHAPPY() },
+            { label:"Pretty happy with it", next:()=>({
+                you:"On a sellout night when everything's moving fast — how's it holding up then?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Gets chaotic / lines stack up", next:()=>THATS_ME_UNHAPPY() },
+                  { label:"Holds up fine", next:()=>CLOSE("That's rare. Where's the next thing on the wishlist — anything on fan experience you haven't been able to tackle yet?") }
+                ]
+              })
+            }
+          ]
+        })
+      },
+      { label:"We outsource it / concessionaire", next:()=>THATS_ME_OUTSOURCE() },
+      { label:"We have an app / built something", next:()=>SUNK_COST() },
+      { label:"Nothing formal / cash registers", next:()=>({
+          you:"Are you 100% happy with that — or are there things you wish were different?",
+          they:"THEY SAY —",
+          options:[
+            { label:"There are frustrations", next:()=>({
+                you:"What's the biggest one?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Lines / too slow", next:()=>CLOSE("And when those lines stack up — do you have a sense of how much it's costing in walked-away sales per event?") },
+                  { label:"No mobile option / fans want it", next:()=>CLOSE("You're already hearing it from fans — that's usually the last signal before it starts showing up in your per-cap numbers. What would it take to make that move?") }
+                ]
+              })
+            },
+            { label:"It works for now", next:()=>CLOSE("On a full house night — how long are fans waiting to pay?") }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function THATS_ME_UNHAPPY(){
+  return {
+    you:"What's the biggest thing that still frustrates you about it?",
+    they:"THEY SAY —",
+    options:[
+      { label:"Lines still get long / peak hours rough", next:()=>({
+          you:"When lines get long — are fans waiting it out or walking away without buying?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Some walk away", next:()=>CLOSE("So even with the system you have, you're still losing revenue at peak. If you could close that gap — what does that mean per event?") },
+            { label:"They wait but they're frustrated", next:()=>CLOSE("Frustrated fans at the front of the line — are they still spending the same, or buying less by the time they get there?") }
+          ]
+        })
+      },
+      { label:"Mobile isn't working / low adoption", next:()=>({
+          you:"Is that a fan awareness issue or is the experience rough enough that they tried it and dropped off?",
+          they:"THEY SAY —",
+          options:[
+            { label:"They drop off / too clunky", next:()=>CLOSE("So you have mobile in theory but it's not converting. If the experience was smooth enough that fans actually finished the order — what does that add to per-cap?") },
+            { label:"They just don't know it's there", next:()=>CLOSE("What's being done to drive them toward it — signage, staff prompts, anything in the app?") }
+          ]
+        })
+      },
+      { label:"No visibility / reporting is weak", next:()=>CLOSE("So you're running events without a clear picture of where things break down. If you had that data in real time — what would that change operationally?") }
+    ]
+  };
+}
+
+function THATS_ME_OUTSOURCE(){
+  return {
+    you:"Who do you use for that?",
+    they:"THEY SAY — [write down the vendor name]",
+    __note:"📝 NOTE vendor name for follow-up call later",
+    options:[
+      { label:"[They name the vendor]", next:()=>({
+          you:"Got it — noted. What about merch — is that handled through them too, or is that a separate operation?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Merch is separate / we run that", next:()=>({
+                you:"How are fans buying merch right now — cash, card at the stand, any mobile?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Cash and card only", next:()=>({
+                      you:"On a big game night — how long are those merch lines getting?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Long / fans wait a while", next:()=>CLOSE("So merch is one area where you own the experience directly and fans are still waiting. If they could order from their phone before they got to the stand — what does that change for volume?") },
+                        { label:"Not too bad", next:()=>CLOSE("Are fans buying throughout the event, or mostly pre-game? The teams seeing the biggest lift are capturing that in-game impulse — is that happening for you right now?") }
+                      ]
+                    })
+                  },
+                  { label:"Some mobile / online for merch", next:()=>({
+                      you:"Is that driving meaningful volume or is most still coming through the physical stand?",
+                      they:"THEY SAY —",
+                      options:[
+                        { label:"Most still at the stand", next:()=>CLOSE("So mobile exists but fans aren't using it. Is that an awareness thing or is the experience not smooth enough to drive adoption?") },
+                        { label:"Decent mobile volume", next:()=>CLOSE("That's ahead of most. Where's the next gap — in-game impulse, personalization, pre-order for pickup?") }
+                      ]
+                    })
+                  }
+                ]
+              })
+            },
+            { label:"All outsourced / merch too", next:()=>({
+                you:"When your per-cap numbers come in — are you seeing what you'd expect, or is there a gap you can't fully explain?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"There's a gap / think we're leaving money", next:()=>CLOSE("The challenge with a fully outsourced setup is you have no visibility into where fans are dropping off. If that data was in your hands — what would you do with it?") },
+                  { label:"Numbers look okay", next:()=>CLOSE("Do you know what your per-cap looks like on a sellout night versus a slow night? That spread tells you a lot about what's friction versus demand.") }
+                ]
+              })
+            }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function REDIRECT(){
+  return {
+    you:"Before I reach out to them — do you know how they're currently set up for fan ordering?",
+    they:"THEY SAY —",
+    options:[
+      { label:"I think they use [system] / not sure", next:()=>({
+          you:"On busy nights — do you ever hear about it being an issue? Lines backing up, fans complaining?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Yeah we hear about it", next:()=>({
+                you:"Do you know if it's been flagged internally as something to fix, or is it kind of just accepted?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"It's been flagged / they've tried things", next:()=>CLOSE("Good context. When I reach out to [Name] — is there a specific event or pain point I should reference so it's not a cold call?") },
+                  { label:"Just accepted / nobody's really pushing on it", next:()=>CLOSE("Got it. Would it be okay if I mentioned you flagged it when I reach out to them?") }
+                ]
+              })
+            },
+            { label:"Not really / I'm not close to it", next:()=>CLOSE("No worries. Is [Name] the right person, or is there someone closer to ops or revenue I should start with?") }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function GOT_IT(){
+  return {
+    you:"Are you 100% happy with it — or are there things you wish worked differently?",
+    they:"THEY SAY —",
+    options:[
+      { label:"There are some things / not perfect", next:()=>({
+          you:"What's the biggest thing that still frustrates you about it?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Lines still get long / peak hours are rough", next:()=>({
+                you:"When lines get long — are fans waiting it out or walking away without buying?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Some walk away", next:()=>CLOSE("So even with the system you have, you're still losing revenue at peak. If you could close that gap — what does that mean for you per event?") },
+                  { label:"They wait but they're frustrated", next:()=>CLOSE("Frustrated fans at the front of the line — are they still spending the same, or buying less by the time they get there?") }
+                ]
+              })
+            },
+            { label:"Mobile ordering isn't being used / low adoption", next:()=>({
+                you:"Is that a fan awareness issue — they don't know it's there — or is the experience rough enough that they tried it and dropped off?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"They try it and drop off / too clunky", next:()=>CLOSE("So you have mobile in theory but it's not converting. If the experience was smooth enough that fans actually finished the order — what does that add to per-cap?") },
+                  { label:"Fans just don't know it exists", next:()=>CLOSE("What's being done to push them toward it — signage, staff prompts, anything in the app?") }
+                ]
+              })
+            },
+            { label:"No visibility / reporting is weak", next:()=>CLOSE("So you're running events without a clear picture of where things are breaking down. If you had that data in real time — what would that change operationally?") }
+          ]
+        })
+      },
+      { label:"Pretty happy / it's working well", next:()=>({
+          you:"On your highest-volume nights — where does it still fall short?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Honestly it holds up well", next:()=>CLOSE("That's rare. Where's the next thing on the wishlist — anything on the fan experience side you haven't been able to tackle yet?") },
+            { label:"Peak hours get rough / lines build up", next:()=>({
+                you:"When fans are stacking up — do they wait it out, or do some walk away without buying?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Some walk away", next:()=>CLOSE("So on your biggest nights you're still leaving revenue on the table. If you could close that gap — what's the upside per event?") },
+                  { label:"They wait but frustrated", next:()=>CLOSE("A frustrated fan at the front of the line — are they spending what they would have, or are they already checked out?") }
+                ]
+              })
+            },
+            { label:"Just rolled it out / still early", next:()=>({
+                you:"What made you go with that solution?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Price / seemed like the right fit", next:()=>CLOSE("Makes sense. What are you watching most closely in these early months — adoption, speed, revenue lift?") },
+                  { label:"Someone recommended it / inherited it", next:()=>CLOSE("And now that it's in — are you seeing what you expected, or are there gaps already showing up?") }
+                ]
+              })
+            }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function NO_INT(){
+  return {
+    you:"Is it more a timing thing, or fan experience just isn't where the focus is right now?",
+    they:"THEY SAY —",
+    options:[
+      { label:"Timing / budget cycle / not the right time", next:()=>({
+          you:"When does that conversation usually happen for you — pre-season, budget review?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Pre-season / [specific window]", next:()=>({
+                you:"What typically drives that decision — is it revenue per cap, fan satisfaction scores, operational pressure?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"Revenue / per-cap numbers", next:()=>CLOSE("Good to know. When that window opens up — would it be worth having the full picture on what other venues are doing to move that number?") },
+                  { label:"Fan satisfaction / NPS", next:()=>CLOSE("Makes sense. Would it be okay if I followed up closer to that window — just to make sure you have the comparison when you're evaluating?") }
+                ]
+              })
+            },
+            { label:"No set cycle / ad hoc", next:()=>CLOSE("Got it. What would have to happen for it to become a priority — is it a threshold on complaints, a revenue target, something else?") }
+          ]
+        })
+      },
+      { label:"We're happy with what we have", next: ()=> GOT_IT() },
+      { label:"Not a priority / other things going on", next:()=>({
+          you:"What's taking most of the focus right now — is it operational, staffing, capital projects?",
+          they:"THEY SAY —",
+          options:[
+            { label:"[Any answer — operational / staffing / etc]", next:()=>CLOSE("Understood. Would it be okay if I checked back in once that settles — just to stay on your radar for when the timing is right?") }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function EMAIL(){
+  return {
+    you:"What's the best address?",
+    they:"THEY SAY —",
+    options:[
+      { label:"[They give it]", next:()=>({
+          you:"Is there anyone else I should loop in — ops, revenue, GM?",
+          they:"THEY SAY —",
+          options:[
+            { label:"Just me / I'll share it", next:()=>({
+                you:"Anything specific about your setup I should reference so it's relevant — not just a generic pitch?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"[They share context]", next:()=>CLOSE("Perfect. I'll send something short and specific. And if it sparks any questions — would a 10-minute call be okay to follow up?") },
+                  { label:"Nothing specific / just send it", next:()=>CLOSE("Got it. I'll keep it tight. And same thing — if anything in it is worth a quick conversation, would a 10-minute call work?") }
+                ]
+              })
+            },
+            { label:"Copy [Name] too", next:()=>({
+                you:"Good to know. What's [Name]'s role — so I know how to frame it for both of you?",
+                they:"THEY SAY —",
+                options:[
+                  { label:"[They describe role]", next:()=>CLOSE("Perfect. I'll write to both of you and make sure it speaks to both sides. Would a follow-up call work if it raises any questions?") }
+                ]
+              })
+            }
+          ]
+        })
+      }
+    ]
+  };
+}
+
+function CLOSE(q){
+  return { __close: true, q };
+}
+
+/* ─── ENGINE ────────────────────────────────────────────────────────────── */
+let history = [];
+let current = null;
+
+function resolve(node){
+  if(typeof node === "function") return resolve(node());
+  if(node && node.__close) return node;
+  return node;
+}
+
+function render(raw){
+  const node = resolve(raw);
+  current = raw;
+
+  const view  = document.getElementById("view");
+  const pbar  = document.getElementById("pathbar");
+
+  if(history.length){
+    pbar.innerHTML = "Path: " + history.map(h=>`<span>${h.label}</span>`).join(" › ");
+  } else {
+    pbar.innerHTML = "";
+  }
+
+  if(node.__close){
+    view.innerHTML = `
+      <div class="close-card">
+        <div class="close-lbl">YOU SAY —</div>
+        <div class="close-q">${node.q}</div>
+      </div>
+      <div class="controls" style="margin-top:12px">
+        ${history.length ? `<button class="ctrl" onclick="goBack()">← Back</button>` : ""}
+        <button class="ctrl rst" onclick="reset()">↺ Start Over</button>
+      </div>
+    `;
+    return;
+  }
+
+  const youHtml = node.you ? `
+    <div class="you-say">
+      <div class="you-lbl">YOU SAY —</div>
+      <div class="you-q">${node.you}</div>
+    </div>
+    ${node.__note ? `<div class="field-note">${node.__note}</div>` : ""}
+  ` : "";
+
+  const opts = (node.options||[]).map((o,i)=>`
+    <button class="they-btn" onclick="choose(${i})">
+      <span class="arr">›</span>
+      <span>${o.label}</span>
+    </button>
+  `).join("");
+
+  view.innerHTML = `
+    ${youHtml}
+    <div class="they-lbl">${node.they || "THEY SAY —"}</div>
+    <div class="they-grid">${opts}</div>
+    <div class="controls">
+      ${history.length ? `<button class="ctrl" onclick="goBack()">← Back</button>` : ""}
+      <button class="ctrl rst" onclick="reset()">↺ Start Over</button>
+    </div>
+  `;
+}
+
+function choose(i){
+  const node = resolve(current);
+  const opt  = node.options[i];
+  history.push({ label: opt.label, raw: current });
+  render(opt.next);
+}
+
+function goBack(){
+  if(!history.length) return;
+  const prev = history.pop();
+  render(prev.raw);
+}
+
+function reset(){
+  history = [];
+  render(ROOT);
+}
+
+/* boot — ROOT uses late-bound functions so resolve after define */
+ROOT.options[0].next = THATS_ME;
+ROOT.options[1].next = WHAT_ARE_YOU_SELLING;
+ROOT.options[2].next = REDIRECT;
+ROOT.options[3].next = GOT_IT;
+ROOT.options[4].next = SUNK_COST;
+ROOT.options[5].next = WHAT_ARE_YOU_SELLING;
+ROOT.options[6].next = NO_INT;
+ROOT.options[7].next = EMAIL;
+
+render(ROOT);
+</script>
+</body>
+</html>

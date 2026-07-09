@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 17: The Unified Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:22px 64px 14px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:22px 64px 18px 80px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:12px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+/* Chapter 17 — page-fit normalization (same non-transform logic used in Ch16) */
+#p2 .two-col,#p4 .two-col,#p6 .two-col,#p7 .two-col,#p9 .two-col,#p11 .two-col,#p12 .two-col{gap:14px!important;}
+#p2 .sidebar,#p4 .sidebar,#p6 .sidebar,#p7 .sidebar,#p9 .sidebar,#p11 .sidebar,#p12 .sidebar{gap:6px!important;}
+#p2 .ch-title,#p4 .ch-title,#p6 .ch-title,#p7 .ch-title,#p9 .ch-title,#p11 .ch-title,#p12 .ch-title{font-size:32px!important;line-height:.96!important;margin-bottom:4px!important;}
+#p2 .ch-intro,#p4 .ch-intro,#p6 .ch-intro,#p7 .ch-intro,#p9 .ch-intro,#p11 .ch-intro,#p12 .ch-intro{font-size:11.75px!important;line-height:1.4!important;margin-bottom:3px!important;}
+#p2 .body,#p4 .body,#p6 .body,#p7 .body,#p9 .body,#p11 .body,#p12 .body{font-size:12px!important;line-height:1.44!important;}
+#p2 .body p,#p4 .body p,#p6 .body p,#p7 .body p,#p9 .body p,#p11 .body p,#p12 .body p{margin-bottom:3px!important;}
+#p2 .sec-head,#p4 .sec-head,#p6 .sec-head,#p7 .sec-head,#p9 .sec-head,#p11 .sec-head,#p12 .sec-head{font-size:15px!important;margin-top:5px!important;margin-bottom:3px!important;letter-spacing:.5px!important;}
+#p2 .callout,#p4 .callout,#p6 .callout,#p7 .callout,#p9 .callout,#p11 .callout,#p12 .callout{padding:7px 9px!important;font-size:10.5px!important;line-height:1.42!important;margin-top:5px!important;}
+#p2 .stat-box,#p4 .stat-box,#p6 .stat-box,#p7 .stat-box,#p9 .stat-box,#p11 .stat-box,#p12 .stat-box{padding:7px 9px!important;}
+#p2 .stat-num,#p4 .stat-num,#p6 .stat-num,#p7 .stat-num,#p9 .stat-num,#p11 .stat-num,#p12 .stat-num{font-size:34px!important;}
+#p2 .stat-lbl,#p4 .stat-lbl,#p6 .stat-lbl,#p7 .stat-lbl,#p9 .stat-lbl,#p11 .stat-lbl,#p12 .stat-lbl{font-size:10.25px!important;line-height:1.3!important;}
+#p2 .stat-sub,#p4 .stat-sub,#p6 .stat-sub,#p7 .stat-sub,#p9 .stat-sub,#p11 .stat-sub,#p12 .stat-sub{font-size:9px!important;margin-top:2px!important;}
+#p2 .cite,#p4 .cite,#p6 .cite,#p7 .cite,#p9 .cite,#p11 .cite,#p12 .cite{font-size:8.5px!important;}
+#p2 .sidebar>div[style*="background:#1A2A44;padding:16px"],#p4 .sidebar>div[style*="background:#1A2A44;padding:16px"],#p6 .sidebar>div[style*="background:#1A2A44;padding:16px"],#p7 .sidebar>div[style*="background:#1A2A44;padding:16px"],#p9 .sidebar>div[style*="background:#1A2A44;padding:16px"],#p11 .sidebar>div[style*="background:#1A2A44;padding:16px"],#p12 .sidebar>div[style*="background:#1A2A44;padding:16px"]{padding:9px 10px!important;}
+#p2 .sidebar [style*="flex-direction:column;gap:9px"],#p4 .sidebar [style*="flex-direction:column;gap:7px"],#p6 .sidebar [style*="flex-direction:column;gap:7px"],#p7 .sidebar [style*="flex-direction:column;gap:7px"],#p9 .sidebar [style*="flex-direction:column;gap:7px"],#p11 .sidebar [style*="flex-direction:column;gap:7px"],#p12 .sidebar [style*="flex-direction:column;gap:7px"]{gap:3px!important;}
+#p2 .sidebar [style*="padding:9px 11px"],#p4 .sidebar [style*="padding:9px 11px"],#p6 .sidebar [style*="padding:9px 11px"],#p7 .sidebar [style*="padding:9px 11px"],#p9 .sidebar [style*="padding:9px 11px"],#p11 .sidebar [style*="padding:9px 11px"],#p12 .sidebar [style*="padding:9px 11px"]{padding:6px 8px!important;}
+
+#p3 .navy-bg,#p5 .navy-bg,#p8 .navy-bg,#p10 .navy-bg{padding:18px 64px 14px 80px!important;}
+#p3 .navy-bg [style*="font-size:38px"],#p5 .navy-bg [style*="font-size:38px"],#p8 .navy-bg [style*="font-size:38px"],#p10 .navy-bg [style*="font-size:38px"]{font-size:32px!important;}
+#p3 .navy-bg [style*="margin-bottom:14px"],#p5 .navy-bg [style*="margin-bottom:14px"],#p8 .navy-bg [style*="margin-bottom:14px"],#p10 .navy-bg [style*="margin-bottom:14px"]{margin-bottom:8px!important;}
+#p3 .navy-bg [style*="margin-bottom:18px"],#p5 .navy-bg [style*="margin-bottom:18px"],#p8 .navy-bg [style*="margin-bottom:18px"],#p10 .navy-bg [style*="margin-bottom:18px"]{margin-bottom:10px!important;}
+#p3 .navy-bg [style*="padding:14px"],#p5 .navy-bg [style*="padding:14px"],#p8 .navy-bg [style*="padding:14px"],#p10 .navy-bg [style*="padding:14px"]{padding:10px!important;}
+#p3 .navy-bg [style*="padding:12px"],#p5 .navy-bg [style*="padding:12px"],#p8 .navy-bg [style*="padding:12px"],#p10 .navy-bg [style*="padding:12px"]{padding:9px!important;}
+#p3 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p5 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p8 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p10 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"]{font-size:11px!important;line-height:1.45!important;}
+#p3 .navy-bg [style*="font-size:12.5px;color:rgba(255,255,255,0.8)"],#p5 .navy-bg [style*="font-size:12.5px;color:rgba(255,255,255,0.8)"],#p8 .navy-bg [style*="font-size:12.5px;color:rgba(255,255,255,0.8)"],#p10 .navy-bg [style*="font-size:12.5px;color:rgba(255,255,255,0.8)"]{font-size:10.75px!important;line-height:1.42!important;}
+#p3 .navy-bg [style*="line-height:1.65"],#p5 .navy-bg [style*="line-height:1.65"],#p8 .navy-bg [style*="line-height:1.65"],#p10 .navy-bg [style*="line-height:1.65"]{line-height:1.45!important;}
+
+#p13 .pc,#p14 .pc{padding:20px 64px 12px 80px!important;}
+#p13 .ch-title,#p14 .ch-title{font-size:33px!important;margin-bottom:6px!important;line-height:.97!important;}
+#p13 .ch-intro,#p14 .ch-intro{font-size:11.75px!important;line-height:1.42!important;margin-bottom:6px!important;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 17: The Unified Platform</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part IV — The Networked Future</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 17</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:#fff;line-height:.92;margin-bottom:2px;">THE UNIFIED</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;color:#D4AF37;line-height:.92;margin-bottom:34px;">PLATFORM</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "A single platform isn't convenience — it's survival when every competitor is consolidating and your eight separate tools are burning 15 staff hours a week just to keep them talking to each other."
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Tech-enabled restaurateur, cited in brief</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">12</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">disconnected apps the average restaurant juggles — generating $8,000+ per year in overlapping subscription waste before counting staff time lost to manual syncing</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">40%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">cost reduction when operators ditch scattered point solutions for a single unified platform — dropping software spend from $8K to roughly $2K annually</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">$5.28B</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">hotel management software market in 2025, growing to $9.41B by 2032 — the industry is consolidating onto all-in-one platforms at 8.6% CAGR</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">35%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">faster decision-making at chains that consolidate POS, reservations, and scheduling into one system — because the data is already in the same place</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE INTEGRATION CASE -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The Endgame Arrives</div>
+        <div class="ch-title">Fragmented Stacks Collapse Under Their Own Weight. Unified Platforms Win.</div>
+        <div class="ch-intro" style="max-width:100%;">Chapter 9 exposed the complexity tax of fragmented tech stacks — the 5–7% revenue drain hiding inside 8 to 15 disconnected subscriptions. Chapter 17 delivers the solution: the unified platform that collapses those "solutions" into one command center, cuts costs 40%, and turns scattered data into real-time intelligence the whole team can act on.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Market Integration Signal</div>
+          <p>Hotel Technology News documents the trend directly: <strong>"Over the past 18 months, we've seen a flurry of M&A activity across the hospitality tech ecosystem. Mews acquired both RMS and Atomize, while Cloudbeds acquired Whistle — and that's just the start. These aren't isolated moves. They mark a broader trend: the rise of end-to-end platforms that aim to own the full guest journey, from booking to post-stay communication."</strong> The era of point solutions is ending. The era of ecosystems has begun.<span class="cite"> Hotel Technology News, "5 Hospitality Software Trends in 2025 Every Hotel Manager Should Know," hoteltechnologynews.com, April 2025</span></p>
+          <p>The software market is growing to match: the global hotel management software market is projected to grow from <strong>$5.28 billion in 2025 to $9.41 billion by 2032</strong> at an 8.6% CAGR, according to G2's November 2025 review of the top hotel management platforms. That growth is not being driven by more point solutions — it is being driven by operators choosing unified platforms that replace five or six individual tools with a single system that does all of them better, together.<span class="cite"> G2 / Coherent Market Insights, cited in "7 Best Hotel Management Software: My Honest Review," learn.g2.com, Nov. 3, 2025</span></p>
+          <div class="sec-head">Why the Integration Wins Every Time</div>
+          <p>SevenRooms frames the operational problem that integration solves: <em>"Before SevenRooms, using multiple reservation systems made for scattered data collection and operational headaches. Now we have a single view of our guests and can follow up with each one automatically, strengthening those relationships while generating passive revenue."</em> The single-view guest profile is not a software feature. It is the operating advantage that unified platforms create and fragmented stacks can never provide.<span class="cite"> SevenRooms customer testimonial, sevenrooms.com</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The Hotel Technology News verdict:</strong> "Choosing hospitality software is no longer just about features — it's about ecosystems. Look for vendors that offer both depth and breadth, with a clear long-term vision." The operator who evaluates each tool in isolation is asking the wrong question. The right question is: which platform creates the ecosystem that makes every capability stronger because it shares data with everything else?
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Hotel Technology News, hoteltechnologynews.com, April 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Cost Gap</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">FRAGMENTED — 12 APPS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">$8,000+/year in overlapping subscriptions. 15 staff hours per week lost to manual syncing. Scattered data. No single guest view. Decision-making delayed by the time it takes to pull reports from multiple systems.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">UNIFIED — ONE PLATFORM</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">~$2,000/year in platform cost. Zero manual syncing — data flows automatically. Single guest profile updated in real time. Decision-making happens in one dashboard, not four exports and a spreadsheet.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;margin-bottom:4px;">NET SAVINGS: $6,000+/yr</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Before counting the 15 weekly staff hours recovered and the revenue uplift from better data-driven decisions.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">15 hrs</div>
+          <div class="stat-lbl">per week burned on manual data syncing between disconnected tools — "best-of-breed" sprawl that costs more in labor than it saves in feature quality</div>
+          <div class="stat-sub">Brief; Chapter 9 complexity tax research; Hotel Technology News, hoteltechnologynews.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE SIX "SOLUTIONS" (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Six "solutions"</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE SIX SYSTEMS COSTING YOU MONEY IN ISOLATION</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Current "Solution" pain, Unified Gain, and the Revenue Impact of Each</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;flex:1;">
+        <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;margin-bottom:6px;">TICKETING — THE NO-SHOW LEAK</div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">"Solution" pain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Ticketing data lives in its own system. No-show data never reaches scheduling. Revenue lost on empty seats never triggers a waitlist. Guest who buys a ticket is a stranger to the POS and the loyalty program.</span></div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Unified Gain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Ticket purchase triggers scheduling. No-show automatically opens waitlist. Ticket buyer enters CRM with full profile. Check-in scan activates loyalty rewards and F&B upsell prompt in same credential.</span></div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;text-align:center;margin-top:auto;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">+40% attendance</div></div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.25);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:6px;">POS — THE ISOLATED SALES PROBLEM</div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">"Solution" pain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Sales data sits in the POS. Inventory is tracked in a separate system. By the time a manager notices a 86'd item, ten guests have already ordered it. Real-time sales velocity never informs prep decisions.</span></div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Unified Gain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Every POS transaction updates inventory in real time. The kitchen sees sales velocity by item. Low-stock alerts fire automatically. AI dynamic menus suppress items approaching depletion before they run out.</span></div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;text-align:center;margin-top:auto;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">Real-time inventory</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:6px;">RESERVATIONS — DOUBLE-BOOK HELL</div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">"Solution" pain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Reservation system doesn't talk to the POS, so the host can't see which tables are still running on a check. Double-bookings happen. Walkins are turned away when reserved tables would have freed up in four minutes.</span></div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Unified Gain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Live table status from POS feeds the reservation floor map. The host sees exactly when the next table opens. Waitlist managed automatically. No-show at 7pm instantly offered to next guest on list.</span></div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;text-align:center;margin-top:auto;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">Auto-waitlists</div></div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:6px;">SCHEDULING — LABOR MISMATCHES</div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">"Solution" pain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Scheduling built from gut feel. Manager doesn't have reservation volume data when building the shift. Overstaffed on slow Tuesdays, understaffed on the Friday that also had three large-party reservations drop in that week.</span></div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Unified Gain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Reservations feed forecasting. Historical POS sales inform demand prediction. AI scheduling matches staff count to projected covers by hour — not by the manager's best guess built Sunday afternoon.</span></div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;text-align:center;margin-top:auto;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">Demand forecasting</div></div>
+        </div>
+        <div style="background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;margin-bottom:6px;">DELIVERY — ORDER FRAGMENTATION</div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">"Solution" pain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Delivery orders arrive through three different tablets. Staff manually re-enter into KDS. Cross-contamination between dine-in and delivery tickets during peak service creates missed orders, wrong items, and cold food.</span></div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Unified Gain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">All delivery channels route to one KDS queue. No re-entry, no tablet juggling. Dine-in and delivery managed by the kitchen in real time—not by chaos.</span></div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;text-align:center;margin-top:auto;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">Unified kitchen view</div></div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:6px;">ANALYTICS — INCOMPLETE PICTURE</div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">"Solution" pain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Sales are in the POS. Covers are in reservations. Labor cost is in scheduling. Getting a complete picture of revenue-per-cover with labor as a percentage requires exporting from three systems and building the analysis manually.</span></div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Unified Gain: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">One dashboard shows revenue, covers, labor cost, and table utilization together — in real time, not next morning. AI surfaces the insight: "Labor is running 3 points over on Thursdays specifically at the 6–9pm window."</span></div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;text-align:center;margin-top:auto;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">AI insights</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE HOTEL MANAGEMENT PLATFORM MARKET -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Market Evidence</div>
+    <div class="ch-title">Hotel Software Proves Integration Is Inevitable</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The hotel management software market is growing because the integration works. Operators who moved from fragmented point solutions to unified platforms documented measurable operational improvements — and the software providers who built the most complete ecosystems are winning the biggest market share.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The G2 Market Review — What Operators Need in 2025</div>
+          <p>G2's comprehensive 2025 review of hotel management software — evaluating real user feedback from thousands of hotel managers — establishes the four capabilities operators demand from a unified platform: a <strong>centralized reservation system</strong> that eliminates double-bookings and gives real-time visibility into availability; <strong>guest management</strong> that tracks preferences and history for personalization; <strong>real-time reporting and analytics</strong> that enable data-driven pricing and staffing decisions; and <strong>integration capability</strong> that eliminates manual data transfers between departments.<span class="cite"> Devyani Mehta, G2, "7 Best Hotel Management Software: My Honest Review," learn.g2.com, Nov. 3, 2025</span></p>
+          <p>The G2 review is explicit about why integration capability is critical: <strong>"The connectivity eliminates the need for manual data transfers, reduces the chance of errors, and improves workflow across departments. With everything synchronized, I can focus more on strategic decisions rather than manual data reconciliation."</strong> This is the platform value proposition in one sentence: less time reconciling, more time deciding.<span class="cite"> G2, learn.g2.com, Nov. 2025</span></p>
+          <div class="sec-head">The Hotelogix Case — Unified Operations in Practice</div>
+          <p>Hotelogix — serving 12,000+ hotels across 100+ countries — documents how the unified dashboard transforms hotel operations: <strong>"Reservations, revenue management, housekeeping, POS and serving guests better — Hotelogix unifies it all, for faster decisions and effortless control."</strong> The Fountain Inn case study embedded in their platform documentation shows the before/after: the property was manually managing check-ins and check-outs with no online distribution. After moving to a unified PMS with channel management and a consolidated dashboard, they gained real-time data on key metrics that drove measurable efficiency gains across every department.<span class="cite"> Hotelogix, hotelogix.com; Fountain Inn case study</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The Bangkok Kokotel case:</strong> The hotel had an on-premises system that was too expensive to maintain — inventory tracking, accounting, and bookings were all fragmented across separate tools. Switching to a unified cloud-based platform resolved all three simultaneously. One system, one vendor relationship, one training cycle — and the reporting that previously required pulling from multiple sources now arrived in a single dashboard. This is the integration dividend: it's not just cheaper, it's operationally refreshing.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Hotelogix, "Kokotel Hotels case study," hotelogix.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Four Demands of Operators</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">1. CENTRALIZED RESERVATIONS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Streamlines the booking process, ensuring no room is overbooked or left vacant. Real-time visibility into availability minimizes errors and improves operational efficiency."</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">2. GUEST MANAGEMENT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Guest preferences and history tracked across visits. Personalization happens automatically — not because a manager remembered, but because the system does.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">3. REAL-TIME ANALYTICS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Live occupancy, revenue, and feedback data for decisions that happen during service — not the morning after. "Helps me adjust pricing, staffing, and marketing on the fly."</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">4. INTEGRATION CAPABILITY</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Eliminates manual data transfers and reduces errors. Everything synchronized — I can focus on strategic decisions rather than reconciliation."</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Source: G2, "7 Best Hotel Management Software," learn.g2.com, Nov. 3, 2025</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">$9.41B</div>
+          <div class="stat-lbl">hotel management software market projected by 2032, growing from $5.28B in 2025 at 8.6% CAGR — integration is the category's growth engine</div>
+          <div class="stat-sub">Coherent Market Insights, cited in G2, learn.g2.com, Nov. 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — THE SEAMLESSLY MODEL (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Concept</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">SEAMLESSLY'S MODEL — ONE LOGIN RULES EVERYTHING</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">EACH ACTION TRIGGERS THE NEXT. THE UNIFIED STACK LEADS TO BETTER MARGINS</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">What the SEAMLESSLY Model DOES</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">The SEAMLESSLY concept names a reality that the best platforms in every hospitality category are already building toward: one platform that bundles everything from tickets to tips, where every system informs every other system in real time. The model works because hospitality operations are deeply interdependent — a ticket sale is not just a revenue event. It is a scheduling input, an inventory signal, a guest profile update, and a marketing trigger. <strong style="color:#D4AF37;">Treating it as only one of those things is the original design error that fragmented stacks make.</strong></div>
+          </div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">What Happens When the Systems Talk</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">TICKET PURCHASED →</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Guest record created in CRM. Parking pass generated. Scheduling system flags the expected cover count. Kitchen receives prep volume signal. Loyalty points reserved for post-event credit. All from one transaction.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">TABLE SEATED →</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Reservation confirmed in POS. Server alerted to guest preferences from CRM. Table timer starts. Estimated turn time updates the waitlist automatically. Loyalty status visible to server at tableside.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">ORDER PLACED →</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Inventory decremented in real time. Kitchen display shows ticket with timing in the unified queue. Low-stock threshold crossed on a menu item — AI menu suppresses it before the next table orders something that won't arrive.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">CHECK CLOSED →</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Revenue recorded in analytics. Guest profile updated with spend and item history. Table released in floor map. Loyalty points posted automatically. Re-engagement email triggered based on visit gap — no manager action required.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">The AWS Analogy: Platform Depth as a Moat</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">Amazon Web Services became the default cloud infrastructure not because any individual AWS service was categorically better than competitors, but because the services worked better together. Migrate one workload to AWS, and the next migration becomes easier because the infrastructure is already in place. The same dynamic is emerging in hospitality platforms <strong style="color:#D4AF37;"> </strong> and the operator who starts on the platform gets better integration value with every additional module they activate.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotel Technology News, hoteltechnologynews.com; Agilysys, agilysys.com; SevenRooms, sevenrooms.com</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">The 80%+ Flow Efficiency Target</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;">Operations running on a unified platform target 80%+ flow efficiency — the point at which the system is handling the majority of routine data flows, alerts, and updates automatically, freeing staff capacity for guest-facing work. Below 60% flow efficiency, staff are still spending meaningful time on tasks the platform should handle. The 40% cost reduction from integration gets the operator to breakeven on the platform investment. The 80%+ flow efficiency is where the profit improvement becomes structural.</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:2px;margin-bottom:5px;">THE PLATFORM ROI STACK</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+              <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:7px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00D4AA;line-height:1;">−40%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">software cost vs. fragmented stack</div></div>
+              <div style="background:rgba(212,175,55,0.1);border-radius:3px;padding:7px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;line-height:1;">+25%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">table utilization from live floor data</div></div>
+              <div style="background:rgba(255,255,255,0.07);border-radius:3px;padding:7px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;line-height:1;">+35%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">faster decisions from unified dashboard</div></div>
+              <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:7px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00D4AA;line-height:1;">+75%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);">data accuracy from eliminating manual re-entry</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — WORKING PLATFORMS -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Working Models</div>
+    <div class="ch-title">Unified Platforms Are Already Delivering</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The unified platform is not a future concept. It is operational today at scale. Each platform below demonstrates a different dimension of what integration unlocks — and each has documented, measurable results from operators who made the switch.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Toast — The Restaurant Ecosystem</div>
+          <p>Toast is an all-in-one restaurant POS and operations platform that runs the core in-venue workflow. It manages payments, orders, staff, payroll, loyalty, and online ordering in a single system. It provides real-time visibility into sales, labor, and performance at the restaurant level. The platform is designed to unify operations within individual venues. Its focus is internal efficiency rather than cross-venue coordination.</p>
+          <div class="sec-head">SevenRooms — Guest Management at the Center</div>
+          <p>SevenRooms is a guest experience and reservation platform for hospitality operators. It centralizes guest profiles, reservations, and marketing into a single system for each venue or brand. Operators use it to track guest preferences, visit history, and engagement over time. It enables personalized communication and retention based on guest behavior. Its focus is strengthening relationships within individual operators rather than across independent venues.</p>
+          <div class="sec-head">Agilysys — The Multi-Venue Resort Stack</div>
+          <p>Agilysys provides hospitality software for hotels, resorts, casinos, and multi-venue operators. It unifies core systems like POS, property management, inventory, and analytics. The platform supports complex hospitality environments with multiple revenue centers under one organization. It enables guest recognition and operational coordination across amenities within the same property. Its scope is enterprise and property-level optimization, not cross-network demand flow.</p>
+          <div class="sec-head">Mews — The Acquisition-Driven Ecosystem</div>
+          <p>Mews is a cloud-based hotel management platform built for modern hospitality operations. It consolidates reservations, pricing, payments, and operational workflows into a unified system. The platform streamlines hotel operations through automation and integrations. It replaces legacy property management systems with a more flexible cloud architecture. Its focus is optimizing individual hotels or portfolios rather than connecting independent venues into a shared network.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Platform Quick Reference</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11.5px;font-weight:700;color:#00D4AA;margin-bottom:2px;">TOAST</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">POS + online ordering + reservations + scheduling + payroll + loyalty. Best-in-class for US restaurants. One ecosystem, zero manual sync between modules.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11.5px;font-weight:700;color:#D4AF37;margin-bottom:2px;">SEVENROOMS</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">Guest profile at center. Reservations + waitlist + CRM + marketing automation. "Single view of guests, follow up automatically, generate passive revenue."</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11.5px;font-weight:700;color:#fff;margin-bottom:2px;">AGILYSYS</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">PMS + POS + inventory + analytics for hotels, resorts, casinos. Seamless guest recognition across hotel, spa, golf, and dining in one profile.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11.5px;font-weight:700;color:#00D4AA;margin-bottom:2px;">MEWS</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">Cloud-native PMS. Acquired RMS + Atomize for revenue management integration. PMS + pricing + operations in one native system — no duct tape.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11.5px;font-weight:700;color:#e74c3c;margin-bottom:2px;">✗ BEST-OF-BREED SPRAWL</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">Each tool excellent in isolation. Together: 15 hours/week of manual sync. $8K+/year in overlapping costs. Zero unified guest view. The anti-model.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+75%</div>
+          <div class="stat-lbl">data accuracy improvement from eliminating manual re-entry between systems — errors caused by manual transfer disappear when data flows automatically</div>
+          <div class="stat-sub">Brief; G2 hotel management software research (learn.g2.com); SevenRooms documented outcomes</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:8px;background:#1A2A44;border-left:4px solid #00D4AA;border-radius:4px;padding:8px 10px;">
+      <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">What Seamlessly Delivers</div>
+      <div style="font-size:10.5px;color:rgba(255,255,255,0.9);line-height:1.42;">We make hospitality easier to enter, navigate, and optimize—for both guests and operators, while helping restaurants capture customers they are losing during busy and slow periods by routing demand from nearby venues and reducing missed opportunities from overflow or low traffic. Instead of disconnected systems within a venue, we connect venues into a network within cities and across cities that captures demand, context, and behavior across locations, creating a cross-venue intelligence layer standalone operators cannot replicate. That network extends into on-site mobile ordering, where the system understands context—what venue a guest is in, how they behave there, and what they are likely to want next—so ordering, timing, and offers adapt in real time rather than operating in isolation. Over time, operators gain real-time visibility into shifting demand as it emerges, not months later through reporting lag, allowing them to respond to congestion and slow periods more intelligently while learning how demand moves across markets.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — THE MIGRATION STRATEGY -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Migration Plan</div>
+    <div class="ch-title">Migrating to a Unified Platform Without Adding Friction</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The biggest reason operators stay on fragmented stacks longer than they should is fear of migration. The fear is real — a poorly planned platform switch during peak season is operationally dangerous. A well-planned migration, executed in phases starting with the highest-pain systems, is the lowest-risk path to the highest-ROI technology investment an operator can make.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Phase 1 — Score Your Pain (Week 1)</div>
+          <p>The chapter exercise starts here: list every system currently running, assign a monthly cost, and score the ""solution" pain" on a 1–10 scale. The pain score captures how much friction the disconnect between this system and others is generating — errors, manual re-entry, reporting gaps, or lost revenue from data that isn't flowing where it should. <strong>The system with the highest pain score goes first.</strong> For most operators, that is the reservation system — the one that can't see table status from the POS, causing the host to turn away guests from tables that would have been clear in six minutes.</p>
+          <div class="sec-head">Phase 2 — Evaluate Platforms on the Flow Demo (Week 2)</div>
+          <p>The right question when evaluating platforms is not "does this have a reservation module?" Every platform has a reservation module. The right question is: <strong>"Show me the ticketing-to-POS flow."</strong> Walk from a guest's ticket purchase, through the kitchen receiving the prep signal, through the server seeing the guest's loyalty status at the table, through the check close updating the CRM and triggering the re-engagement email. If the platform can't demo that end-to-end flow without switching screens, it is not the unified platform the operation needs.</p>
+          <div class="sec-head">Phase 3 — Migrate in Phases, Measure Pre/Post</div>
+          <p>G2's hotel software guidance is explicit: migration should start with the centralized reservation system as the operational spine, because every other module — scheduling, POS, guest management — benefits from accurate real-time reservation data. Layer the POS next, connecting live table status to the reservation floor map. Then analytics, which is the module that proves the ROI of everything already migrated. <strong>Each phase should be measured on the specific metric it targets</strong> — reservation accuracy, table turn time, or labor cost percentage — before the next phase begins.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Migration Phase Plan</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">PHASE 1 — SCORE AND RANK</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">List every system. Assign monthly cost. Rate "solution" pain 1–10. Sort by pain score descending. The highest-pain system that connects to the most other systems is your migration starting point.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">PHASE 2 — EVALUATE THE DEMO</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Show me the ticketing-to-POS flow." If the platform demo requires switching tabs to show you how the data moves between modules, that is not a unified platform — it is a bundled set of point solutions with a shared logo.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">PHASE 3 — MIGRATE RESERVATIONS FIRST</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Centralized reservations as the operational spine. Every other module benefits from accurate real-time booking data. Do not attempt to migrate POS, scheduling, and reservations simultaneously — stagger to reduce operational risk.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">PHASE 4 — MEASURE BEFORE ADDING MORE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Each module migrated should show a measurable improvement on its specific metric before the next migration begins. Track reservation accuracy, turn time, or labor percentage — whichever the previous silo was degrading.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>The demo question that separates real platforms from bundled point solutions:</strong> "Show me the ticketing-to-POS flow." If the rep has to open four different tabs to show you that workflow, walk out. That is a reseller, not a platform.
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+25%</div>
+          <div class="stat-lbl">table utilization improvement when live POS floor data feeds the reservation system — the host knows exactly when the next table is available</div>
+          <div class="stat-sub">Brief; Chapter 13 flow design research; unified platform operational benchmarks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — AI ON THE UNIFIED PLATFORM (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The AI Multiplier</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">AI ON A UNIFIED PLATFORM IS A GAME CHANGER</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Hotel Technology News, Agilysys, and Mews on How Unified Data Makes AI Actually Work</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Why Disjointed AI Fails</div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">AI in a fragmented stack reads one data source and outputs one prediction. The scheduling AI that doesn't see real-time reservation velocity makes staffing recommendations based on historical patterns — missing the large-party event that booked Thursday afternoon. The inventory AI that doesn't see POS sales velocity can't flag that the salmon is going to be 86'd by 7pm. Each AI is optimizing for its own partial view, not the complete operation.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Chapter 9 complexity tax analysis; Chapter 15 scheduling research</div>
+          </div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Why Unified AI Wins</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">CROSS-MODULE PATTERN RECOGNITION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">AI on a unified platform sees that this guest has a Thursday dinner reservation, always orders the halibut, has a loyalty balance that triggers a comp upgrade, and hasn't visited in 47 days. One insight, four data sources, surfaced before the server picks up the menus.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">REAL-TIME OPERATIONAL ALERTS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">POS velocity triggers kitchen restock alert. Reservation floor map detects a no-show pattern developing. Scheduling AI sees labor trending over on the Thursday night window and flags it before the check is printed. All from one data layer.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">PERSONALIZED UPSELL AT THE RIGHT MOMENT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The AI that knows a guest's order history, current inventory, and the server's average check can suggest the exact upsell at the exact moment — on the server's handheld, before they walk to the table. Not a generic prompt. A specific recommendation with a reason to act on it.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">What Operators Are Deploying</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;">Hotel Technology News documents the 2025 AI reality: <strong style="color:#D4AF37;">"In 2023, AI was the hot topic. In 2025, it's the default. Nearly every leading platform now embeds AI-powered features into the core product — not as add-ons, but as essential components of daily workflows."</strong> With natural language prompts and no-code builders baked into modern hospitality platforms, operators can build custom automations — a personalized upsell tracker, a branded mobile concierge — without writing a line of code.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:5px;">Hotel Technology News, hoteltechnologynews.com, April 2025</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;">
+            <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Agilysys — AI Across the Full Stack</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:5px;">Agilysys Hospitality AI is built to "unify guest and operational data to automate tasks, deliver personalized experiences, drive insights, improve efficiency, and help hospitality operators compete with intelligent automation and analytics." The unified data layer is the prerequisite — without it, AI can automate one process in isolation but can't surface the cross-system insight that changes an operational decision.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Agilysys, "Hospitality AI Built for Real-World Operations," agilysys.com</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;letter-spacing:2px;margin-bottom:5px;">THE AI INVESTMENT SIGNAL</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;margin-bottom:3px;">+20% RevPAR</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">at chains adopting all-in-one systems with AI analytics — the unified data layer enabling revenue management decisions that fragmented stacks cannot support</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">Brief; Agilysys RevPAR optimization research; unified platform performance benchmarks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — THE COST MATH -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Financial Case</div>
+    <div class="ch-title">Unified Platforms Are Margin Insurance</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The platform integration conversation usually starts with the software cost reduction. That's the easy math. The harder math — and the bigger number — is the total cost of the fragmented stack, including the staff hours burned on manual syncing, the revenue lost to data gaps, and the decisions that came too late because the right information was in the wrong system.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Visible Cost — Subscription Waste</div>
+          <p>The average restaurant running 12 disconnected apps pays <strong>$8,000+ per year</strong> in overlapping subscriptions — tools that each solve one problem while creating integration problems with every other tool in the stack. The unified platform consolidating those 12 tools typically runs <strong>$1,500–$2,500 per year</strong> in all-in platform licensing. The direct cost reduction alone is $5,500–$6,500 annually, achievable from day one of migration. This is the Chapter 9 complexity tax, calculated and eliminated.</p>
+          <div class="sec-head">The Hidden Cost — Staff Hours</div>
+          <p>Fifteen staff hours per week burning on manual data syncing between disconnected tools is not visible on any invoice. At $20/hour, it represents $15,600/year in labor — money not spent on guest service, training, or management. The unified platform reduces that to near zero because data flows automatically between modules. <strong>The total cost of a fragmented stack is $8,000 in software plus $15,600 in hidden labor — $23,600/year to maintain an infrastructure that actively degrades the operation it is supposed to support.</strong></p>
+          <div class="sec-head">The Revenue Upside — Better Decisions Faster</div>
+          <p>The 35% faster decision-making from a unified dashboard is not a satisfaction metric. It is a revenue metric. The manager who can see labor cost as a percentage of revenue in real time — not after the weekly close — can intervene during Thursday's 7pm rush when labor is tracking 4 points over. That intervention, multiplied across 52 weeks, has a measurable dollar value. The 20% RevPAR lift at chains with all-in-one systems compounds on top of the cost reduction to make the platform's total ROI undeniable.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Full Cost Comparison</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:700;color:#e74c3c;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Fragmented Tech — Annual Cost</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Software subscriptions</span><span style="color:#e74c3c;font-weight:700;">$8,000+</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Manual sync labor (15 hrs × $20 × 52)</span><span style="color:#e74c3c;font-weight:700;">$15,600</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Revenue lost to data gaps (est.)</span><span style="color:#e74c3c;font-weight:700;">$5,000+</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#e74c3c;padding:5px 0;margin-top:2px;">
+                  <span>Total annual drag</span><span>$28,600+</span>
+                </div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Unified Platform — Annual True Cost</div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Platform licensing</span><span style="color:#00D4AA;font-weight:700;">$2,000</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Manual sync labor</span><span style="color:#00D4AA;font-weight:700;">~$0</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Revenue upside from better data</span><span style="color:#00D4AA;font-weight:700;">+$X</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#00D4AA;padding:5px 0;margin-top:2px;">
+                  <span>Net annual saving vs. fragmented</span><span>$26,600+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+20%</div>
+          <div class="stat-lbl">RevPAR at chains adopting all-in-one systems with AI analytics — the revenue upside that turns platform cost from an expense into an investment</div>
+          <div class="stat-sub">Brief; Agilysys performance benchmarks; unified platform RevPAR research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE INTEGRATION ARCHITECTURE (Full bleed navy) -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Architecture</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">WHAT A UNIFIED PLATFORM LOOKS LIKE AT THE ARCHITECTURE LEVEL</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Open APIs, Native Modules, and the Data Layer That Makes Everything Smarter</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Three-Layer Architecture</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:5px;">LAYER 1 — THE DATA LAYER</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:5px;">The unified database where guest profiles, transaction records, inventory levels, scheduling data, and event history all live. Every module reads from and writes to the same data — no duplication, no sync errors. This is what G2's review identifies as the core requirement: "real-time visibility into data that is accessible from anywhere, whether in the kitchen, front-of-house, or management desk."</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">G2, learn.g2.com; Hotelogix, hotelogix.com</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:5px;">LAYER 2 — THE MODULE LAYER</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:5px;">POS, reservations, scheduling, CRM, loyalty, analytics — each module is a specialized interface into the shared data layer. Actions in one module automatically update the data that every other module reads. The host closing a table in the reservation module immediately updates the POS floor map. The scheduler sees reservation volume the instant a large-party books.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Agilysys, agilysys.com; SevenRooms, sevenrooms.com</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:5px;">LAYER 3 — THE AI AND OPEN API LAYER</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:5px;">AI reads the unified data layer to surface insights no single-module tool could generate. Open APIs allow specialist tools — a custom loyalty app, a specific payment processor, a niche inventory system — to plug into the same data layer without breaking the unified architecture. Hotel Technology News documents this as the 2025 standard: "powerful integrations and open APIs, enabling seamless connections across the front desk, back office, and beyond."</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotel Technology News, hoteltechnologynews.com; Mews, mews.com</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Native vs. Integration — The Architecture Decision</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">INTEGRATION-FIRST (FRAGMENTED)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Best-of-breed tools connected via APIs that each vendor controls independently. When Vendor A updates their API, Vendor B's integration breaks. Data syncs on a schedule — not in real time. Each sync is a potential failure point.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">NATIVE-FIRST (UNIFIED)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Modules built on the same codebase share the same data in real time. No API maintenance, no sync schedule, no breakage when one vendor updates independently. The data is always current because it was never separated.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">OPEN API + NATIVE CORE (BEST MODEL)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Native core for the highest-frequency data (POS, reservations, scheduling) plus open APIs for specialist tools that plug into the same data layer. Mews, Agilysys, and SevenRooms all document this as their architecture target.</div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:12px;">
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;"><strong style="color:#D4AF37;">The RoomRaccoon model:</strong> G2's review of RoomRaccoon — the AI-powered hotel management platform — documents automated operations driven by a unified data layer: "AI-driven pricing, inventory management, and automation" working together because the AI reads the same data that every other module uses. No sync errors, no stale inventory, no rate decisions made on yesterday's occupancy data.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:5px;">G2, "7 Best Hotel Management Software," learn.g2.com, Nov. 2025; RoomRaccoon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — WHAT'S WORKING VS. NOT WORKING -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Evidence</div>
+    <div class="ch-title">Platform Integration in Practice</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The operators who have already made the switch document consistent results. The ones who are still waiting document consistent problems. The gap between them is widening — because unified platforms compound. Every new module activated makes the existing modules smarter.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">What's Working — Toast's Restaurant Ecosystem</div>
+          <p>Toast is the clearest example of what a purpose-built restaurant ecosystem delivers: POS transactions update inventory in real time. Scheduling is built from reservation forecasts. Loyalty points post at check close without a separate system login. The operator who consolidated onto Toast from six separate tools reports the operational reality that G2's research confirms: <strong>real-time data synchronization across devices — "whether it's in the kitchen, front-of-house, or management desk"</strong> — is what hotel and restaurant managers consistently identify as the single highest-value feature of a unified system.<span class="cite"> G2, learn.g2.com, Nov. 2025</span></p>
+          <div class="sec-head">What's Working — Cloudbeds for Independents</div>
+          <p>Cloudbeds is documented by G2 as the best all-in-one solution for independent hotels combining reservations, front desk, and payment management. Hotel Technology News notes that Cloudbeds acquired Whistle — the guest messaging platform — specifically to extend their unified stack into post-booking communication. <strong>The independent hotel that consolidates onto Cloudbeds gets reservations, front desk, payments, and guest messaging in one platform</strong> without enterprise-scale complexity or licensing cost.<span class="cite"> Hotel Technology News, hoteltechnologynews.com, April 2025; G2, learn.g2.com</span></p>
+          <div class="sec-head">What's Not Working — "Best-of-Breed" Sprawl</div>
+          <p>The best-of-breed argument — that each specialized tool is better than the corresponding module in a unified platform — is true for any individual comparison. Toast's POS might be marginally better than Cloudbeds' POS for a high-volume restaurant. But the manual sync that connects them to separate scheduling, loyalty, and analytics tools burns 15 hours per week in staff time and produces a 75% worse data accuracy rate on the insights that matter most. <strong>The best individual tool in a fragmented stack is worse than the adequate tool in a unified one</strong> — because the adequate tool feeds and reads from everything else in real time.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Integration Outcomes — Documented</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">✓ HOTELOGIX — FOUNTAIN INN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Moved from manual check-in/out with no online distribution to unified PMS with channel management. "A unified dashboard gave them data on key hotel metrics thereby boosting operational efficiency."</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotelogix, hotelogix.com</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">✓ SEVENROOMS — SINGLE GUEST VIEW</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Scattered data collection and operational headaches" resolved into "a single view of our guests" with automatic follow-up generating passive revenue. Zero manual data integration required.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">SevenRooms, sevenrooms.com</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">✓ AGILYSYS — RESORT DEPLOYMENT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Unified platform replacing disconnected systems — "seamless guest recognition and operational efficiency across hotel, spa, golf, and dining." One profile recognized at every revenue center.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Agilysys, agilysys.com</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">✗ KOKOTEL — BEFORE UNIFICATION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"On-premises system proving too expensive. Inventory tracking, accounting, and bookings were all over the place." Post-integration: all three resolved in one platform.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotelogix Kokotel case study, hotelogix.com</div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card light" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Ask any hotel IT manager what keeps them up at night, and 'integration' is still near the top of the list. Today, the market is shifting toward consolidated platforms that offer native tools designed to work seamlessly together."</div>
+          <div class="q-attr">Hotel Technology News</div>
+          <div class="q-src">hoteltechnologynews.com · April 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MEASUREMENT STANDARD -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Measuring the Unification</div>
+    <div class="ch-title">The Five KPIs That Prove Platform Integration Is Working</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">Platform integration is not a one-time event. It is an ongoing operational improvement that compounds with every module activated and every workflow automated. These five metrics make the compounding visible — and the business case for the next phase of integration undeniable.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Five Platform KPIs</div>
+          <p><strong>Software cost per month:</strong> Track total platform licensing cost before and after integration. Target: 40% reduction from pre-integration spend. If the unified platform costs more per month than the fragmented tools it replaced, the evaluation missed something — either an unnecessary module was included or the pricing structure was not correctly modeled.</p>
+          <p><strong>Manual sync hours per week:</strong> Track staff hours spent on manual data entry, system updates, and report assembly across tools. Target: 90%+ reduction post-integration. Any manual sync that survives migration is a gap in the platform's data layer — either a module not yet connected or a workflow that needs to be re-mapped.</p>
+          <p><strong>Table utilization rate (restaurants):</strong> Track the percentage of available covers actually served during peak windows. Target improvement: 20–25% over pre-platform baseline. The gain comes from the host having real-time POS table status — knowing exactly when the next table opens rather than walking the floor to check.</p>
+          <p><strong>Decision lag time (reporting):</strong> How long from an operational event to the manager seeing it in a dashboard? Target: under 5 minutes for real-time operational data, under 24 hours for weekly trend reports. Above these thresholds indicates data is still being manually assembled rather than flowing automatically.</p>
+          <p><strong>Data accuracy rate:</strong> Spot-check the guest profile accuracy quarterly — are preferences, visit history, and loyalty balances current and consistent across every touchpoint? Target: 90%+ accuracy. Below 80% indicates a module is still operating in isolation and writing to a separate record rather than the shared data layer.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Platform KPI Dashboard</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.05);border:1px solid rgba(212,175,55,0.15);border-radius:3px;padding:6px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;">
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;">KPI</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Target</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Yours</div>
+              </div>
+            </div>
+            <div style="background:rgba(231,76,60,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Software cost reduction</div>
+                <div style="font-size:11px;color:#e74c3c;font-weight:700;text-align:center;">−40%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Manual sync hours/wk</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">−90%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ hrs</div>
+              </div>
+            </div>
+            <div style="background:rgba(212,175,55,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Table utilization</div>
+                <div style="font-size:11px;color:#D4AF37;font-weight:700;text-align:center;">+25%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Decision lag time</div>
+                <div style="font-size:11px;color:#fff;font-weight:700;text-align:center;">&lt;5 min</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ min</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Data accuracy rate</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">90%+</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11.5px;color:#fff;line-height:1.5;"><strong style="color:#D4AF37;">Track pre/post metrics</strong> on each KPI before migrating the next module. Each phase should show improvement on its specific metric before the next phase begins.</div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">−40%</div>
+          <div class="stat-lbl">software cost reduction when operators consolidate 12 disconnected apps into one unified platform — dropping from $8K+ to roughly $2K annually</div>
+          <div class="stat-sub">Brief; Chapter 9 complexity tax data; unified platform operator benchmarks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 17 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">List every system currently running. Score the "solution" pain. Rank integration priority. Pitch the top platform demo this week. Track pre/post metrics starting from your highest-pain system first.</div>
+
+    <!-- System audit table -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">Prioritize Your Unification Targets — Score Every System</div>
+      </div>
+      <div style="padding:10px 18px;">
+        <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;margin-bottom:5px;">
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">System</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Monthly Cost</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Pain Score (1–10)</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Why It Hurts</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Unify Priority</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#D4AF37;">POS</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#e74c3c;">Reservations</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Scheduling</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Delivery</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Analytics</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 90px 80px 1fr 80px;gap:7px;background:#1A2A44;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1px;">TOTAL</div>
+            <div class="fill-line" style="margin:0;height:20px;border-color:rgba(255,255,255,0.3);"></div>
+            <div style="font-size:11px;color:#D4AF37;font-weight:700;text-align:center;">Avg: ___</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);font-style:italic;text-align:center;">Target: 50% cost cut</div>
+            <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">Migrate Q1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">The demo I'm booking this week:</div>
+        <div style="font-size:12px;color:#666;margin-bottom:6px;font-style:italic;line-height:1.5;">"Show me the ticketing-to-POS flow." If it requires switching screens, it's not a unified platform.</div>
+        <div class="fill-line"></div><div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">My pre-migration baseline (measure before switching):</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,0.7);margin-bottom:6px;font-style:italic;line-height:1.5;">Software cost: $___/mo · Manual sync hours: ___/wk · Table utilization: ___% · Decision lag: ___ min</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">UNIFIED<br>PLATFORMS<br>ARE<br>MARGIN<br>INSURANCE</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Not future tech. Margin insurance today. Every week on a fragmented stack costs $300 in hidden labor and $600 in software waste before a single operational error is counted. The operator who books the demo this week, migrates their highest-pain system first, and tracks pre/post metrics will have their ROI case documented before the end of Q1. That is the playbook. Run it.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BRIDGE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">The Fragmented Stack Is Costing You $28,600 a Year. The Platform Pays for Itself in Month One.</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">Fragmented stacks collapse under their own weight. Unified platforms unlock 30–50% efficiency gains by collapsing "solutions" into one command center. The math is not close. The only question is which platform, which module first, and how fast.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE AVERAGE RESTAURANT RUNS 12 DISCONNECTED APPS COSTING $8K+ PER YEAR IN WASTE</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Plus 15 staff hours per week on manual syncing at $20/hour = another $15,600 annually. Total fragmented stack cost before counting revenue lost to data gaps: $23,600+. The unified platform runs $2,000/year. The math does the work. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Brief; Chapter 9; Hotel Technology News, hoteltechnologynews.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE MARKET IS CONSOLIDATING — MEWS, CLOUDBEDS, AND AGILYSYS ARE BUILDING THE ECOSYSTEMS</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Hotel Technology News documents M&A integration across the hospitality tech stack as the dominant trend of 2024–2025. The era of point solutions is over. The operators choosing ecosystems now are building the competitive moats their competitors will have to buy their way into later. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Hotel Technology News (hoteltechnologynews.com); G2 (learn.g2.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE RIGHT EVALUATION QUESTION IS "SHOW ME THE TICKETING-TO-POS FLOW"</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Not "does this have a reservation module?" Every platform has one. The question is whether the data moves between modules in real time without manual intervention. If the demo requires switching screens to show you that flow, it's not a unified platform. Walk out. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: G2 (learn.g2.com); SevenRooms (sevenrooms.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">UNIFIED PLATFORMS ARE MARGIN INSURANCE — NOT FUTURE TECH</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">40% cost reduction. 75% better data accuracy. 35% faster decisions. 25% higher table utilization. 20% higher RevPAR. These are outcomes documented today by operators already on unified stacks. The margin insurance pays out from day one of migration. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Brief; Agilysys (agilysys.com); Hotelogix (hotelogix.com); G2</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Operator Playbook — What Comes Next</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">30-DAY · 90-DAY · 1-YEAR ACTION PLANS</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">The chapters of Chaos Mastery have mapped the hidden leaks, the modern operating systems, the networked future, and the unified platform. The final section arms you with the specific 30-day, 90-day, and 1-year checklists to implement every framework — so the knowledge becomes the operation, not just the read.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">17 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch15-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch15-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

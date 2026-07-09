@@ -1,0 +1,15 @@
+{
+  "name": "@fletcher-inssurance/api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.56.0",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2"
+  }
+}
+

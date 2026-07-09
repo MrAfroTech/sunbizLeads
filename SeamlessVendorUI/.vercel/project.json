@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_Mtibg3gpHdA08RhS9sOmSXkBeTh5",
+  "orgId": "team_BI6kuyCnevnV4h506D9v43J8",
+  "projectName": "seamless-client-site",
+  "settings": {
+    "createdAt": 1755439652027,
+    "framework": "create-react-app",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "22.x"
+  }
+}

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>28 Reels — @maurice.seamlessly</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #0a0a0a; color: #fff; padding: 48px 24px; min-height: 100vh; }
+
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 6px; text-transform: uppercase; color: #D4AF37; text-align: center; margin-bottom: 6px; }
+    .subtitle { font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.2); text-align: center; margin-bottom: 20px; }
+
+    .week-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+      padding-left: 4px;
+      border-left: 3px solid #D4AF37;
+      padding-left: 12px;
+    }
+
+    .post {
+      max-width: 860px;
+      margin: 0 auto 32px auto;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .post-header {
+      padding: 20px 24px 18px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: #161616;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .reel-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: #D4AF37;
+      line-height: 1;
+    }
+
+    .post-day {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+
+    .week-theme {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00D4AA;
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-left: auto;
+    }
+
+    .hook-stat {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+    }
+
+    .hook-sub {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .panel {
+      padding: 20px 24px;
+    }
+
+    .panel:first-child {
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .panel-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+      margin-bottom: 12px;
+    }
+
+    .reel-screens {
+      margin-bottom: 14px;
+    }
+
+    .screen {
+      padding: 10px 14px;
+      background: #1a1a1a;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.75);
+      border-left: 2px solid rgba(212,175,55,0.3);
+    }
+
+    .screen-num {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(212,175,55,0.5);
+      margin-bottom: 3px;
+    }
+
+    .caption-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+
+    .hashtags {
+      font-size: 12px;
+      color: rgba(0,212,170,0.5);
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      background: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: opacity 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .copy-btn:hover { opacity: 0.85; }
+    .copy-btn.copied { background: #00D4AA; color: #000; }
+
+    .copy-btn.reel-btn {
+      background: #D4AF37;
+      color: #000;
+    }
+
+    .reel-video-bar {
+      text-align: center;
+      margin: 8px 0 40px 0;
+    }
+    .reel-video-bar a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00D4AA;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,212,170,0.35);
+      padding-bottom: 2px;
+    }
+    .reel-video-bar a:hover { color: #D4AF37; border-bottom-color: rgba(212,175,55,0.45); }
+
+    .video-export-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #00D4AA;
+      text-decoration: none;
+    }
+    .video-export-link:hover { color: #D4AF37; }
+
+    @media (max-width: 640px) {
+      .panels { grid-template-columns: 1fr; }
+      .panel:first-child { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .hook-stat { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>28 Reels</h1>
+  <div class="subtitle">@maurice.seamlessly — May 2026</div>
+  <div class="reel-video-bar"><a href="reelVideos/reel-export.html">Typewriter reel video export</a></div>
+  <div id="root"></div>
+
+  <script src="reelVideos/reels-data.js"></script>
+  <script>
+    (function () {
+    
+      var DATA = [
+    
+        {
+          week: 'Week 1 — QR Code Reels',
+          day: 'Week 1 · Reel 1',
+          line1: 'Most businesses use QR codes like digital paper.',
+          line2: 'The scan is supposed to start the experience — not end it.',
+          caption:
+  `Printing a menu online and calling it innovation is like buying a smartphone just to use the flashlight.
+  
+  The real value starts after the scan:
+  
+  Upsells.
+  Loyalty.
+  Customer data.
+  Faster transactions.
+  Repeat purchases.
+  
+  That’s where modern QR implementation actually wins.`,
+          hashtags: '#QRCodeMarketing #HospitalityOperations #CustomerExperience #DigitalOrdering #Hospitality'
+        },
+    
+        {
+          day: 'Week 1 · Reel 2',
+          line1: 'A QR code should increase revenue.',
+          line2: 'Every scan should create an opportunity.',
+          caption:
+  `Using a QR code only for a menu is like owning a drive-thru but only serving one car at a time.
+  
+  Every scan should create an opportunity.
+  
+  Increase speed.
+  Increase order volume.
+  Increase repeat business.
+  
+  Every scan should have a purpose.`,
+          hashtags: '#QRCodeSystem #HospitalityOperations #RestaurantMarketing #RevenueGrowth #Hospitality'
+        },
+    
+        {
+          day: 'Week 1 · Reel 3',
+          line1: 'Customers already know how to scan.',
+          line2: 'The behavior is natural.',
+          caption:
+  `Ignoring QR behavior today is like a business ignoring credit cards in the early 2000s.
+  
+  Customers already understand scanning.
+  
+  The behavior is natural.
+  
+  Businesses now need systems behind the scan.
+  
+  That is where the real advantage is.`,
+          hashtags: '#DigitalOrdering #HospitalityOperations #QRCodeMarketing #RestaurantTech #Hospitality'
+        },
+    
+        {
+          day: 'Week 1 · Reel 4',
+          line1: 'Lines kill revenue.',
+          line2: 'Friction silently drains sales.',
+          caption:
+  `Long lines are like leaks in a bucket.
+  
+  You don’t notice how much you’re losing until it’s empty.
+  
+  The longer people wait...
+  the lower spending behavior becomes.
+  
+  Faster ordering increases throughput.`,
+          hashtags: '#HospitalityOperations #RevenueGrowth #GuestExperience #RestaurantOps #Hospitality'
+        },
+    
+        {
+          day: 'Week 1 · Reel 5',
+          line1: 'Most QR menus are wasting traffic.',
+          line2: 'Scans without systems are wasted opportunities.',
+          caption:
+  `Getting thousands of scans without collecting data is like owning a packed nightclub and never charging cover.
+  
+  Traffic alone means nothing.
+  
+  The value is in what happens after the scan.
+  
+  Every scan should have a purpose.`,
+          hashtags: '#QRCodeMarketing #CustomerData #HospitalityOperations #DigitalExperience #Hospitality'
+        },
+    
+        {
+          day: 'Week 1 · Reel 6',
+          line1: 'The menu is no longer the product.',
+          line2: 'The experience became the product.',
+          caption:
+  `Hospitality today is like air travel.
+  
+  People remember the experience more than the vehicle.
+  
+  The businesses winning today optimize:
+  
+  Speed.
+  Convenience.
+  Personalization.`,
+          hashtags: '#GuestExperience #HospitalityOperations #CustomerExperience #RestaurantTech #Hospitality'
+        },
+    
+        {
+          day: 'Week 1 · Reel 7',
+          line1: 'Hospitality is becoming scan-first.',
+          line2: 'The fastest operators remove friction fastest.',
+          caption:
+  `Businesses avoiding digital ordering today are like stores that refused to accept debit cards.
+  
+  Consumer behavior already changed.
+  
+  People expect speed.
+  Convenience.
+  Mobile ordering.
+  
+  The operators adapting fastest will win fastest.`,
+          hashtags: '#DigitalOrdering #HospitalityOperations #RestaurantTechnology #GuestExperience #Hospitality'
+        }
+    
+      ];
+    
+      var root = document.getElementById('root');
+      var lastWeek = '';
+    
+      DATA.forEach(function (post) {
+    
+        if (post.week && post.week !== lastWeek) {
+          var wl = document.createElement('div');
+          wl.className = 'week-label';
+          wl.style.marginTop = lastWeek ? '64px' : '0';
+          wl.textContent = post.week;
+          root.appendChild(wl);
+          lastWeek = post.week;
+        }
+    
+        var el = document.createElement('div');
+        el.className = 'post';
+    
+        var header = document.createElement('div');
+        header.className = 'post-header';
+    
+        var dayEl = document.createElement('div');
+        dayEl.className = 'post-day';
+        dayEl.textContent = post.day;
+        header.appendChild(dayEl);
+    
+        var l1 = document.createElement('div');
+        l1.className = 'image-line-1';
+        l1.textContent = post.line1;
+        header.appendChild(l1);
+    
+        if (post.line2) {
+          var l2 = document.createElement('div');
+          l2.className = 'image-line-2';
+          l2.textContent = post.line2;
+          header.appendChild(l2);
+        }
+    
+        el.appendChild(header);
+    
+        var cap = document.createElement('div');
+        cap.className = 'caption-block';
+    
+        var label = document.createElement('div');
+        label.className = 'caption-label';
+        label.textContent = 'Caption + Hashtags';
+        cap.appendChild(label);
+    
+        var capText = document.createElement('div');
+        capText.className = 'caption-text';
+        capText.textContent = post.caption;
+        cap.appendChild(capText);
+    
+        var hash = document.createElement('div');
+        hash.className = 'hashtags';
+        hash.textContent = post.hashtags;
+        cap.appendChild(hash);
+    
+        var full = post.caption + '\n\n' + post.hashtags;
+    
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy Caption';
+    
+        btn.addEventListener('click', function () {
+          navigator.clipboard.writeText(full).then(function () {
+            btn.textContent = '✓ Copied';
+            btn.classList.add('copied');
+    
+            setTimeout(function () {
+              btn.textContent = 'Copy Caption';
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+        });
+    
+        cap.appendChild(btn);
+        el.appendChild(cap);
+        root.appendChild(el);
+    
+      });
+    
+    }());
+  </script>
+</body>
+</html>

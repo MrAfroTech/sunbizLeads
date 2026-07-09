@@ -1,0 +1,82 @@
+{
+  "foodTrucks": [
+    {
+      "id": 1,
+      "name": "Taco Fiesta Express",
+      "type": "Mexican",
+      "description": "Authentic street tacos and burritos made fresh daily",
+      "lat": 28.5493,
+      "lng": -81.7731,
+      "menu": ["Street Tacos", "Burritos", "Quesadillas", "Horchata"],
+      "rating": 4.8,
+      "waitTime": "5-10 min",
+      "icon": "🌮"
+    },
+    {
+      "id": 2,
+      "name": "Burger Barn",
+      "type": "American",
+      "description": "Gourmet burgers and loaded fries with premium ingredients",
+      "lat": 28.5493,
+      "lng": -81.7731,
+      "menu": ["Classic Burger", "Bacon Cheeseburger", "Loaded Fries", "Milkshakes"],
+      "rating": 4.6,
+      "waitTime": "8-12 min",
+      "icon": "🍔"
+    },
+    {
+      "id": 3,
+      "name": "Pizza Mobile",
+      "type": "Italian",
+      "description": "Fresh wood-fired pizza by the slice with authentic toppings",
+      "lat": 28.5493,
+      "lng": -81.7731,
+      "menu": ["Margherita", "Pepperoni", "Veggie Supreme", "Garlic Knots"],
+      "rating": 4.7,
+      "waitTime": "3-7 min",
+      "icon": "🍕"
+    },
+    {
+      "id": 4,
+      "name": "Asian Fusion",
+      "type": "Asian",
+      "description": "Pan-Asian street food favorites with bold flavors",
+      "lat": 28.5493,
+      "lng": -81.7731,
+      "menu": ["Pad Thai", "Dumplings", "Bao Buns", "Bubble Tea"],
+      "rating": 4.9,
+      "waitTime": "10-15 min",
+      "icon": "🥢"
+    },
+    {
+      "id": 5,
+      "name": "Ice Cream Dream",
+      "type": "Dessert",
+      "description": "Artisanal ice cream and sundaes with unique flavors",
+      "lat": 28.5493,
+      "lng": -81.7731,
+      "menu": ["Vanilla Bean", "Chocolate Fudge", "Strawberry", "Sundaes"],
+      "rating": 4.5,
+      "waitTime": "2-5 min",
+      "icon": "🍦"
+    },
+    {
+      "id": 6,
+      "name": "Veggie Delight",
+      "type": "Vegetarian",
+      "description": "Plant-based comfort food that satisfies everyone",
+      "lat": 28.5493,
+      "lng": -81.7731,
+      "menu": ["Veggie Burger", "Falafel Wrap", "Quinoa Bowl", "Smoothies"],
+      "rating": 4.4,
+      "waitTime": "7-12 min",
+      "icon": "🥬"
+    }
+  ],
+  "festivalInfo": {
+    "name": "EzFest",
+    "date": "September 15-17, 2024",
+    "location": "Clermont, FL",
+    "description": "The ultimate food festival experience with the best food trucks, live music, and entertainment."
+  }
+} 

@@ -1,0 +1,68 @@
+{
+  "installCommand": "npm install",
+  "buildCommand": "npm run vercel-build",
+  "redirects": [
+    {
+      "source": "/calculator/magic-bands",
+      "destination": "https://www.seamlessly.us/calculator/magic-bands",
+      "permanent": false
+    },
+    {
+      "source": "/calculator/magic-bands/",
+      "destination": "https://www.seamlessly.us/calculator/magic-bands",
+      "permanent": false
+    },
+    {
+      "source": "/calculator/magic-bands/results",
+      "destination": "https://www.seamlessly.us/calculator/magic-bands/results",
+      "permanent": false
+    },
+    {
+      "source": "/calculator/magic-bands/results/",
+      "destination": "https://www.seamlessly.us/calculator/magic-bands/results",
+      "permanent": false
+    }
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/products/stadiums", "destination": "/products/stadiums/index.html" },
+    { "source": "/products/stadiums/", "destination": "/products/stadiums/index.html" },
+    { "source": "/products/festivals", "destination": "/products/festivals/index.html" },
+    { "source": "/products/festivals/", "destination": "/products/festivals/index.html" },
+    { "source": "/products/bars", "destination": "/products/bars/index.html" },
+    { "source": "/products/bars/", "destination": "/products/bars/index.html" },
+    { "source": "/products/qsr", "destination": "/products/qsr/index.html" },
+    { "source": "/products/qsr/", "destination": "/products/qsr/index.html" },
+    { "source": "/products/food-trucks", "destination": "/products/food-trucks/index.html" },
+    { "source": "/products/food-trucks/", "destination": "/products/food-trucks/index.html" },
+    { "source": "/products/districts", "destination": "/products/districts/index.html" },
+    { "source": "/products/districts/", "destination": "/products/districts/index.html" },
+    { "source": "/products/wristbands", "destination": "/products/wristbands/index.html" },
+    { "source": "/products/wristbands/", "destination": "/products/wristbands/index.html" },
+    { "source": "/products", "destination": "/products.html" },
+    { "source": "/products/", "destination": "/products.html" },
+    { "source": "/success", "destination": "/success.html" },
+    { "source": "/success/", "destination": "/success.html" },
+    { "source": "/audit", "destination": "/audit/index.html" },
+    { "source": "/audit/", "destination": "/audit/index.html" },
+    { "source": "/audit/start", "destination": "/audit/start/index.html" },
+    { "source": "/audit/start/", "destination": "/audit/start/index.html" },
+    { "source": "/audit/results", "destination": "/audit/results/index.html" },
+    { "source": "/audit/results/", "destination": "/audit/results/index.html" },
+    { "source": "/magicBandsImplementationGuide.html", "destination": "/magicBandsImplementationGuide.html" },
+    { "source": "/mainStreet", "destination": "/mainStreet/index.html" },
+    { "source": "/mainStreet/", "destination": "/mainStreet/index.html" },
+    { "source": "/mainStreet/calculator", "destination": "/mainStreet/calculator/index.html" },
+    { "source": "/mainStreet/calculator/", "destination": "/mainStreet/calculator/index.html" },
+    { "source": "/mainStreet/calculator/results", "destination": "/mainStreet/calculator/results.html" },
+    { "source": "/mainStreet/calculator/results/", "destination": "/mainStreet/calculator/results.html" },
+    { "source": "/mainStreet/playbook", "destination": "/mainStreet/districtRetentionPlaybook.html" },
+    { "source": "/mainStreet/playbook/", "destination": "/mainStreet/districtRetentionPlaybook.html" }
+  ]
+}

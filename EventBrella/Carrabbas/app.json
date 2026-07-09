@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Carrabbas",
+    "slug": "carrabbas-fan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0A1E3D",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.carrabbas.fanapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0A1E3D"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.carrabbas.fanapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "name": "Carrabbas",
+      "shortName": "Carrabbas",
+      "lang": "en",
+      "scope": "/",
+      "themeColor": "#0A1E3D",
+      "backgroundColor": "#0A1E3D",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "description": "Carrabbas Fan Experience App"
+    }
+  }
+}

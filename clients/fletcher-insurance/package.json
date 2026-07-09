@@ -1,0 +1,7 @@
+{
+  "name": "fletcher-insurance",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Root for Vercel: static web (apps/web) + serverless API (api/)"
+}

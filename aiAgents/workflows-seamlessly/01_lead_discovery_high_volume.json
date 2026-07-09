@@ -1,0 +1,215 @@
+{
+  "name": "01A - Lead Discovery: High-Volume Venues",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start-trigger",
+      "name": "Start Discovery",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "city",
+              "value": "Orlando"
+            }
+          ],
+          "number": [
+            {
+              "name": "min_reviews",
+              "value": 500
+            },
+            {
+              "name": "max_results_per_type",
+              "value": 20
+            }
+          ],
+          "array": {
+            "values": [
+              {
+                "name": "venue_types",
+                "value": ["stadium", "arena", "convention center", "large event venue", "festival grounds"]
+              }
+            ]
+          }
+        }
+      },
+      "id": "set-params",
+      "name": "Set Search Parameters",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Venue Type",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://maps.googleapis.com/maps/api/place/textsearch/json?query={{ $json.venue_types }}+in+{{ $node[\"Set Search Parameters\"].json.city }}&key={{ $credentials.googleMapsApi.apiKey }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "search-maps",
+      "name": "Search Google Maps",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.all()[0].json;\nconst places = inputData.results || [];\nconst city = $node[\"Set Search Parameters\"].json.city;\nconst minReviews = $node[\"Set Search Parameters\"].json.min_reviews;\n\nconst results = places\n  .filter(place => (place.user_ratings_total || 0) >= minReviews)\n  .slice(0, 20)\n  .map(place => ({\n    business_name: place.name,\n    category: place.types?.[0] || 'unknown',\n    city: city,\n    address: place.formatted_address || '',\n    website: place.website || '',\n    rating: place.rating || 0,\n    review_count: place.user_ratings_total || 0,\n    phone: place.formatted_phone_number || '',\n    place_id: place.place_id,\n    pain_signals: '',\n    pos_system: '',\n    location_count: 1,\n    score: 0,\n    status: 'New - High Volume',\n    email: '',\n    contacted_date: '',\n    last_activity: new Date().toISOString(),\n    engagement_level: '',\n    decision_maker_role: '',\n    estimated_monthly_loss: 0\n  }));\n\nreturn results;"
+      },
+      "id": "filter-venues",
+      "name": "Filter High-Volume Venues",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "business_name": "={{ $json.business_name }}",
+            "category": "={{ $json.category }}",
+            "city": "={{ $json.city }}",
+            "address": "={{ $json.address }}",
+            "website": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "rating": "={{ $json.rating }}",
+            "review_count": "={{ $json.review_count }}",
+            "pain_signals": "={{ $json.pain_signals }}",
+            "pos_system": "={{ $json.pos_system }}",
+            "location_count": "={{ $json.location_count }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "place_id": "={{ $json.place_id }}",
+            "engagement_level": "={{ $json.engagement_level }}",
+            "decision_maker_role": "={{ $json.decision_maker_role }}",
+            "estimated_monthly_loss": "={{ $json.estimated_monthly_loss }}"
+          }
+        }
+      },
+      "id": "write-pipeline",
+      "name": "Write to Pipeline",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start Discovery": {
+      "main": [
+        [
+          {
+            "node": "Set Search Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Search Parameters": {
+      "main": [
+        [
+          {
+            "node": "Process Each Venue Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Venue Type": {
+      "main": [
+        [
+          {
+            "node": "Search Google Maps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Google Maps": {
+      "main": [
+        [
+          {
+            "node": "Filter High-Volume Venues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter High-Volume Venues": {
+      "main": [
+        [
+          {
+            "node": "Write to Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write to Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Process Each Venue Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

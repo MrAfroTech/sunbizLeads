@@ -1,0 +1,182 @@
+{
+  "name": "12 - Response Parser & Status Updater",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {"interval": [{"field": "cronExpression", "expression": "0 */2 * * *"}]}
+      },
+      "id": "schedule-trigger",
+      "name": "Every 2 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "filters": {"unread": true},
+        "options": {"maxResults": 50}
+      },
+      "id": "fetch-emails",
+      "name": "Fetch Unread Emails",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [450, 300],
+      "credentials": {"gmailOAuth2Api": {"id": "gmail-cred", "name": "Gmail account"}}
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Opportunities", "mode": "name"},
+        "options": {"range": "A:AA", "useFirstRowAsHeaders": true, "returnAll": true},
+        "filters": {"conditions": [{"fieldName": "status", "condition": "equal", "value": "Contacted"}], "combinator": "and"}
+      },
+      "id": "get-opportunities",
+      "name": "Get Contacted Opportunities",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 450],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const emails = $('Fetch Unread Emails').all().map(i => i.json);\nconst opportunities = $('Get Contacted Opportunities').all().map(i => i.json);\nconst organizerEmails = new Set(opportunities.map(o => (o.organizer_email || '').toLowerCase().trim()).filter(Boolean));\n\nconst replies = emails.filter(email => {\n  const subject = (email.subject || '').toLowerCase();\n  const from = (email.from?.value?.[0]?.address || email.from?.email || '').toLowerCase();\n  if (!subject.includes('re:')) return false;\n  return organizerEmails.has(from);\n});\n\nreturn replies.map(r => ({ json: r }));"
+      },
+      "id": "filter-replies",
+      "name": "Filter Pitch Replies",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {"role": "system", "content": "Classify this email reply as exactly one of: interested, not_interested, needs_info, out_of_office, unrelated. Reply with ONLY that one word."},
+            {"role": "user", "content": "=Email reply:\n\nFrom: {{ $json.from }}\nSubject: {{ $json.subject }}\n\n{{ $json.snippet || $json.textPlain || $json.plainText || '' }}\n\nClassify as one of: interested, not_interested, needs_info, out_of_office, unrelated"}
+          ]
+        },
+        "options": {"temperature": 0}
+      },
+      "id": "classify-reply",
+      "name": "Classify Response Intent",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {"openAiApi": {"id": "openai-cred", "name": "OpenAI account"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const email = $('Filter Pitch Replies').item.json;\nconst classification = ($json.message?.content || $json.content || '').trim().toLowerCase();\nconst valid = ['interested', 'not_interested', 'needs_info', 'out_of_office', 'unrelated'];\nconst intent = valid.find(c => classification.includes(c)) || 'unrelated';\n\nconst opportunities = $('Get Contacted Opportunities').all().map(i => i.json);\nconst fromAddr = (email.from?.value?.[0]?.address || email.from?.email || '').toLowerCase();\nconst opp = opportunities.find(o => (o.organizer_email || '').toLowerCase() === fromAddr);\n\nif (!opp) return [{ json: { _skip: true, intent, note: 'No matching opportunity' } }];\n\nlet status, responseNote;\nif (intent === 'interested') { status = 'Interested'; responseNote = 'Positive response'; }\nelse if (intent === 'not_interested') { status = 'Declined'; responseNote = 'Polite decline'; }\nelse if (intent === 'needs_info') { status = 'Needs Follow-Up'; responseNote = (email.snippet || '').substring(0, 200); }\nelse if (intent === 'out_of_office' || intent === 'unrelated') { status = opp.status; responseNote = ''; }\n\nreturn [{ json: { ...opp, classification: intent, new_status: status, responded_date: new Date().toISOString(), response_note: responseNote, email_snippet: (email.snippet || email.textPlain || '').substring(0, 200), message_id: email.id } }];"
+      },
+      "id": "map-status",
+      "name": "Map to Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {"options": {"caseSensitive": true}, "conditions": [{"id": "skip-check", "leftValue": "={{ $json._skip }}", "rightValue": true, "operator": {"type": "boolean", "operation": "notEquals"}}, {"id": "not-ooo", "leftValue": "={{ $json.classification }}", "rightValue": "out_of_office", "operator": {"type": "string", "operation": "notEquals"}}, {"id": "not-unrelated", "leftValue": "={{ $json.classification }}", "rightValue": "unrelated", "operator": {"type": "string", "operation": "notEquals"}}], "combinator": "and"},
+        "options": {}
+      },
+      "id": "check-update",
+      "name": "Should Update Status",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Opportunities", "mode": "name"},
+        "columnToMatchOn": "organizer_email",
+        "valueToMatchOn": "={{ $json.organizer_email }}",
+        "values": {"mappingMode": "defineBelow", "value": {"status": "={{ $json.new_status }}", "responded_date": "={{ $json.responded_date }}", "response": "={{ $json.response_note }}", "last_activity": "={{ $now }}"}}
+      },
+      "id": "update-opportunity",
+      "name": "Update Opportunity Status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 250],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Response Log", "mode": "name"},
+        "columns": {"mappingMode": "defineBelow", "value": {"opportunity_id": "={{ $json.event_name }}", "response_date": "={{ $json.responded_date }}", "classification": "={{ $json.classification }}", "email_snippet": "={{ $json.email_snippet }}"}}
+      },
+      "id": "log-response",
+      "name": "Log to Response Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1650, 250],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "markAsRead",
+        "messageId": "={{ $json.message_id }}"
+      },
+      "id": "mark-read",
+      "name": "Mark Email as Read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1850, 250],
+      "credentials": {"gmailOAuth2Api": {"id": "gmail-cred", "name": "Gmail account"}}
+    },
+    {
+      "parameters": {
+        "conditions": {"options": {"caseSensitive": true}, "conditions": [{"id": "interested-check", "leftValue": "={{ $json.classification }}", "rightValue": "interested", "operator": {"type": "string", "operation": "equals"}}], "combinator": "and"},
+        "options": {}
+      },
+      "id": "check-interested",
+      "name": "Is Interested",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1450, 400]
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=🎯 INTERESTED: {{ $json.event_name }} - {{ $json.organizer_name }}",
+        "emailType": "text",
+        "message": "=High-priority: Organizer responded positively!\n\nEvent: {{ $json.event_name }}\nOrganizer: {{ $json.organizer_name }}\nEmail: {{ $json.organizer_email }}\n\nResponse snippet: {{ $json.email_snippet }}\n\nFollow up immediately.",
+        "options": {}
+      },
+      "id": "notify-interested",
+      "name": "Notify: Interested Lead",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1650, 350],
+      "credentials": {"smtp": {"id": "smtp-cred", "name": "SMTP account"}}
+    }
+  ],
+  "connections": {
+    "Every 2 Hours": {"main": [[{"node": "Get Contacted Opportunities", "type": "main", "index": 0}]]},
+    "Get Contacted Opportunities": {"main": [[{"node": "Fetch Unread Emails", "type": "main", "index": 0}]]},
+    "Fetch Unread Emails": {"main": [[{"node": "Filter Pitch Replies", "type": "main", "index": 0}]]},
+    "Filter Pitch Replies": {"main": [[{"node": "Classify Response Intent", "type": "main", "index": 0}]]},
+    "Classify Response Intent": {"main": [[{"node": "Map to Status", "type": "main", "index": 0}]]},
+    "Map to Status": {"main": [[{"node": "Should Update Status", "type": "main", "index": 0}]]},
+    "Should Update Status": {"main": [[{"node": "Update Opportunity Status", "type": "main", "index": 0}], [{"node": "Mark Email as Read", "type": "main", "index": 0}]]},
+    "Update Opportunity Status": {"main": [[{"node": "Log to Response Log", "type": "main", "index": 0}, {"node": "Is Interested", "type": "main", "index": 0}]]},
+    "Is Interested": {"main": [[{"node": "Notify: Interested Lead", "type": "main", "index": 0}]]}
+  },
+  "pinData": {},
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-15T00:00:00.000Z",
+  "versionId": "1"
+}

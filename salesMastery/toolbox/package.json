@@ -1,0 +1,11 @@
+{
+  "name": "salesmastery-toolbox",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Standalone toolbox (QR generator, assets) — run and deploy only from this folder",
+  "scripts": {
+    "start": "node scripts/static-server.mjs",
+    "deploy": "vercel",
+    "deploy:prod": "vercel --prod"
+  }
+}

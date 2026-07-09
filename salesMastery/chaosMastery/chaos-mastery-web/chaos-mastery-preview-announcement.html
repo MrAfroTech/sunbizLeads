@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Free Chapter Is Here — Start Reading Today">
+  <title>Your Free Chapter Is Here — Start Reading Today</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #1A2A44;
+      --navy-deep:  #0d1b2a;
+      --navy-mid:   #1e3a5f;
+      --gold:       #D4AF37;
+      --gold-light: #e8c84a;
+      --gold-dim:   rgba(212,175,55,0.12);
+      --gold-border:rgba(212,175,55,0.28);
+      --stat:       #00D4AA;
+      --white:      #FFFFFF;
+      --text-body:  rgba(255,255,255,0.72);
+      --text-dim:   rgba(255,255,255,0.40);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      padding: 40px 20px 80px;
+      min-height: 100vh;
+    }
+
+    /* ── OUTER SHELL ── */
+    .newsletter {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── HEADER ── */
+    .nl-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 52px 52px 48px;
+      background: var(--navy);
+      border-top: 6px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nl-header::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle at top right, rgba(212,175,55,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .nl-header-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--stat);
+      margin-bottom: 16px;
+    }
+
+    .nl-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      font-size: 34px;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .nl-logo span {
+      color: var(--gold);
+    }
+
+    /* ── HERO TITLE BLOCK ── */
+    .nl-title-block {
+      background: var(--navy);
+      padding: 52px 52px 48px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .nl-main-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      font-size: 42px;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .nl-hero-deck {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px; font-weight: 500;
+      color: var(--gold);
+      line-height: 1.65;
+      border-left: 3px solid var(--stat);
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    /* ── BODY WRAPPER ── */
+    .nl-body {
+      background: var(--navy);
+      padding: 0 52px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .nl-body::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.04) 100%);
+      pointer-events: none;
+    }
+
+    /* ── SECTION BLOCK ── */
+    .nl-section {
+      padding: 44px 0;
+      border-bottom: none;
+    }
+
+    .nl-section-body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .nl-section-body:last-child { margin-bottom: 0; }
+
+    .nl-section-body strong {
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    /* ── BOOK PREVIEW CTA ── */
+    .nl-book-preview-cta-block {
+      background: var(--navy);
+      padding: 52px 52px 56px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .nl-book-preview-cta-block::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle at bottom right, rgba(212,175,55,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .nl-book-preview-button {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: 1.5px;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      padding: 18px 38px;
+      text-decoration: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(212,175,55,0.30);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nl-book-preview-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(212,175,55,0.42);
+    }
+
+    @media (max-width: 480px) {
+      .nl-book-preview-cta-block {
+        padding: 36px 20px 42px;
+      }
+
+      .nl-book-preview-button {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="newsletter" id="newsletter">
+
+    <!-- ══ HEADER ══ -->
+    <header class="nl-header">
+      <div class="nl-header-eyebrow">Your Free Chapter Is Here — Start Reading Today</div>
+      <div class="nl-logo">Seamlessly<span>.</span></div>
+    </header>
+
+    <!-- ══ TITLE BLOCK ══ -->
+    <div class="nl-title-block">
+      <h1 class="nl-main-headline">Your Free Preview of Chaos Mastery Is Ready</h1>
+      <p class="nl-hero-deck">Chapter 4: And The Crowd Goes Wild</p>
+    </div>
+
+    <!-- ══ BODY ══ -->
+    <div class="nl-body">
+      <div class="nl-section">
+        <p class="nl-section-body">You have <strong>exclusive access</strong> to Chapter 4 of <strong>Chaos Mastery: Seamless Hospitality for the 21st Century</strong> — before the book officially drops on <strong>May 3, 2026</strong>.</p>
+        <p class="nl-section-body">This chapter pulls back the curtain on what separates <strong>venues that thrive</strong> from venues that just survive. You'll walk away with a <strong>new framework</strong> for how your guests experience every touchpoint — from the moment they decide to come to the moment they leave.</p>
+      </div>
+    </div>
+
+    <!-- ══ CTA ══ -->
+    <div class="nl-book-preview-cta-block">
+      <a
+        class="nl-book-preview-button"
+        href="https://chaosmastery.seamlessly.us/checkout.html#cart"
+      >Go To The Preview Page</a>
+    </div>
+
+  </div><!-- /newsletter -->
+
+</body>
+</html>

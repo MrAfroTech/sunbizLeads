@@ -1,0 +1,402 @@
+{
+  "name": "01 - Conference Hunter",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Weekly on Monday 9 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "array": {
+            "values": [
+              {
+                "name": "search_queries",
+                "value": [
+                  "hospitality conference 2026 call for speakers",
+                  "food and beverage summit CFP",
+                  "travel industry conference speakers",
+                  "restaurant innovation conference",
+                  "hotel technology summit",
+                  "venue operations conference",
+                  "POS system conference speakers",
+                  "guest experience conference"
+                ]
+              }
+            ]
+          },
+          "string": [
+            {
+              "name": "year",
+              "value": "2026"
+            },
+            {
+              "name": "search_engine",
+              "value": "google"
+            }
+          ]
+        }
+      },
+      "id": "set-params",
+      "name": "Define Search Queries",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Query",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://serpapi.com/search?engine=google&q={{ encodeURIComponent($json.search_queries) }}&num=20&api_key={{ $credentials.serpApi.apiKey }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "search-conferences",
+      "name": "Search for Conferences",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const searchData = $input.first().json;\nconst results = searchData.organic_results || [];\nconst query = $node[\"Process Each Query\"].json.search_queries;\n\nconst conferences = results\n  .filter(result => {\n    const title = (result.title || '').toLowerCase();\n    const snippet = (result.snippet || '').toLowerCase();\n    // Filter for conferences/summits/events\n    return (\n      title.includes('conference') || \n      title.includes('summit') || \n      title.includes('event') ||\n      snippet.includes('call for speakers') ||\n      snippet.includes('cfp') ||\n      snippet.includes('speaker application')\n    );\n  })\n  .map(result => {\n    // Extract date from snippet/title (simple regex)\n    const dateMatch = result.snippet.match(/\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \\d{1,2}(?:-\\d{1,2})?,? \\d{4}\\b/i);\n    const cfpMatch = result.snippet.match(/deadline:?\\s*([^\\.]+)/i);\n    \n    return {\n      event_name: result.title,\n      event_type: 'conference',\n      industry: query.includes('food') ? 'F&B' : \n                query.includes('hotel') ? 'Hospitality' :\n                query.includes('travel') ? 'Travel' :\n                query.includes('restaurant') ? 'Restaurant' : 'Hospitality',\n      event_date: dateMatch ? dateMatch[0] : '',\n      location: '',\n      format: 'in-person',\n      website: result.link,\n      cfp_deadline: cfpMatch ? cfpMatch[1].trim() : '',\n      speaker_app_link: '',\n      past_speakers: '',\n      attendance: 0,\n      audience_type: '',\n      organizer_name: '',\n      organizer_email: '',\n      organizer_linkedin: '',\n      score: 0,\n      status: 'New - Needs Enrichment',\n      contacted_date: '',\n      last_activity: new Date().toISOString(),\n      response: '',\n      notes: `Found via: ${query}`\n    };\n  });\n\nreturn conferences;"
+      },
+      "id": "extract-details",
+      "name": "Extract Conference Details",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "website-check",
+              "leftValue": "={{ $json.website }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-website",
+      "name": "Check Website Available",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.website }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "fetch-conference",
+      "name": "Get Conference Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1450, 250]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Extract conference information from website HTML. Return ONLY valid JSON.\n\nFields to extract:\n- event_date: \"Month DD-DD, YYYY\" format\n- location: \"City, State/Country\"\n- cfp_deadline: \"Month DD, YYYY\" or \"Rolling\" or \"Closed\"\n- speaker_application_link: URL or \"\"\n- estimated_attendance: number or 0\n- audience_type: \"C-suite executives\", \"venue operators\", \"tech professionals\", etc.\n- past_speakers: comma-separated names (max 5)\n\nIf not found, return empty string or 0."
+            },
+            {
+              "role": "user",
+              "content": "=Conference: {{ $node[\"Extract Conference Details\"].json.event_name }}\nWebsite HTML (first 8000 chars):\n{{ $json.body.substring(0, 8000) }}\n\nExtract conference details as JSON. No markdown formatting."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "parse-data",
+      "name": "Parse Conference Data",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1650, 250],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const baseData = $node[\"Get Conference Details\"].json;\nconst aiData = $json.message ? JSON.parse($json.message.content || '{}') : {};\n\nreturn {\n  ...baseData,\n  event_date: aiData.event_date || baseData.event_date,\n  location: aiData.location || baseData.location,\n  cfp_deadline: aiData.cfp_deadline || baseData.cfp_deadline,\n  speaker_app_link: aiData.speaker_application_link || '',\n  attendance: aiData.estimated_attendance || 0,\n  audience_type: aiData.audience_type || '',\n  past_speakers: aiData.past_speakers || '',\n  status: 'Enriched - Ready to Score',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "merge-data",
+      "name": "Combine Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1850, 250]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_name": "={{ $json.event_name }}",
+            "event_type": "={{ $json.event_type }}",
+            "industry": "={{ $json.industry }}",
+            "event_date": "={{ $json.event_date }}",
+            "location": "={{ $json.location }}",
+            "format": "={{ $json.format }}",
+            "website": "={{ $json.website }}",
+            "cfp_deadline": "={{ $json.cfp_deadline }}",
+            "speaker_app_link": "={{ $json.speaker_app_link }}",
+            "past_speakers": "={{ $json.past_speakers }}",
+            "attendance": "={{ $json.attendance }}",
+            "audience_type": "={{ $json.audience_type }}",
+            "organizer_name": "={{ $json.organizer_name }}",
+            "organizer_email": "={{ $json.organizer_email }}",
+            "organizer_linkedin": "={{ $json.organizer_linkedin }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "response": "={{ $json.response }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "add-pipeline",
+      "name": "Add to Pipeline",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2050, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_name": "={{ $json.event_name }}",
+            "event_type": "={{ $json.event_type }}",
+            "industry": "={{ $json.industry }}",
+            "status": "New - Needs Manual Enrichment",
+            "notes": "={{ $json.notes }} - Will be enriched in manual review"
+          }
+        }
+      },
+      "id": "add-basic",
+      "name": "Add Basic Info",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Weekly on Monday 9 AM": {
+      "main": [
+        [
+          {
+            "node": "Define Search Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Search Queries": {
+      "main": [
+        [
+          {
+            "node": "Process Each Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Query": {
+      "main": [
+        [
+          {
+            "node": "Search for Conferences",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search for Conferences": {
+      "main": [
+        [
+          {
+            "node": "Extract Conference Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Conference Details": {
+      "main": [
+        [
+          {
+            "node": "Check Website Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Website Available": {
+      "main": [
+        [
+          {
+            "node": "Get Conference Details",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add Basic Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Conference Details": {
+      "main": [
+        [
+          {
+            "node": "Parse Conference Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Conference Data": {
+      "main": [
+        [
+          {
+            "node": "Combine Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Data": {
+      "main": [
+        [
+          {
+            "node": "Add to Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Process Each Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

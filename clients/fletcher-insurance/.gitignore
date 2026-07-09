@@ -1,0 +1,3 @@
+.vercel
+apps/api/.env
+apps/web/.env

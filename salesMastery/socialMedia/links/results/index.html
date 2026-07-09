@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>See It In Action — Scan &amp; Scale</title>
+  <meta name="description" content="What venues using guest intelligence are experiencing — in their own words." />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css" />
+  <link rel="stylesheet" href="/links/styles/background-slider.css" />
+  <link rel="stylesheet" href="/links/results/styles/results.css" />
+</head>
+<body class="links-hub-page">
+  <div class="links-bg" aria-hidden="true">
+    <div class="links-bg__slides"></div>
+    <div class="links-bg__overlay"></div>
+  </div>
+
+  <main class="results-page">
+    <header class="results-header">
+      <span class="brand">
+        SCAN &amp; SCALE
+        <span class="brand-sub">Optimizing Venue Operations</span>
+      </span>
+      <h1 class="results-header__title">See It In Action</h1>
+      <p class="results-header__sub">
+        What venues using guest intelligence are experiencing — in their own words.
+      </p>
+    </header>
+
+    <section class="video-grid" aria-label="Video results">
+      <article class="video-card">
+        <button type="button" class="video-card__thumb" data-src="/links/results/videos/video-01.mp4" aria-label="Play: How one bar owner stopped losing revenue to long lines">
+          <video preload="none" poster="/links/results/videos/video-01.jpg" playsinline muted>
+            <source src="/links/results/videos/video-01.mp4" type="video/mp4" />
+          </video>
+          <span class="video-card__play" aria-hidden="true"></span>
+        </button>
+        <p class="video-card__desc">How one bar owner stopped losing revenue to long lines</p>
+      </article>
+
+      <article class="video-card">
+        <button type="button" class="video-card__thumb" data-src="/links/results/videos/video-02.mp4" aria-label="Play: What happens to upsell when guests order on their own terms">
+          <video preload="none" poster="/links/results/videos/video-02.jpg" playsinline muted>
+            <source src="/links/results/videos/video-02.mp4" type="video/mp4" />
+          </video>
+          <span class="video-card__play" aria-hidden="true"></span>
+        </button>
+        <p class="video-card__desc">What happens to upsell when guests order on their own terms</p>
+      </article>
+
+      <article class="video-card">
+        <button type="button" class="video-card__thumb" data-src="/links/results/videos/video-03.mp4" aria-label="Play: Why venue operators call this a guest intelligence layer">
+          <video preload="none" poster="/links/results/videos/video-03.jpg" playsinline muted>
+            <source src="/links/results/videos/video-03.mp4" type="video/mp4" />
+          </video>
+          <span class="video-card__play" aria-hidden="true"></span>
+        </button>
+        <p class="video-card__desc">Why venue operators call this a guest intelligence layer</p>
+      </article>
+
+      <article class="video-card">
+        <button type="button" class="video-card__thumb" data-src="/links/results/videos/video-04.mp4" aria-label="Play: The shift from reactive service to predictable revenue">
+          <video preload="none" poster="/links/results/videos/video-04.jpg" playsinline muted>
+            <source src="/links/results/videos/video-04.mp4" type="video/mp4" />
+          </video>
+          <span class="video-card__play" aria-hidden="true"></span>
+        </button>
+        <p class="video-card__desc">The shift from reactive service to predictable revenue</p>
+      </article>
+
+      <article class="video-card">
+        <button type="button" class="video-card__thumb" data-src="/links/results/videos/video-05.mp4" aria-label="Play: How knowing your guest changes your whole floor operation">
+          <video preload="none" poster="/links/results/videos/video-05.jpg" playsinline muted>
+            <source src="/links/results/videos/video-05.mp4" type="video/mp4" />
+          </video>
+          <span class="video-card__play" aria-hidden="true"></span>
+        </button>
+        <p class="video-card__desc">How knowing your guest changes your whole floor operation</p>
+      </article>
+
+      <article class="video-card">
+        <button type="button" class="video-card__thumb" data-src="/links/results/videos/video-06.mp4" aria-label="Play: What friction was costing this venue every single weekend">
+          <video preload="none" poster="/links/results/videos/video-06.jpg" playsinline muted>
+            <source src="/links/results/videos/video-06.mp4" type="video/mp4" />
+          </video>
+          <span class="video-card__play" aria-hidden="true"></span>
+        </button>
+        <p class="video-card__desc">What friction was costing this venue every single weekend</p>
+      </article>
+    </section>
+
+    <footer class="results-footer">
+      <a class="results-back" href="/links/">← Back to Links</a>
+    </footer>
+  </main>
+
+  <div class="video-overlay" id="video-overlay" hidden>
+    <button type="button" class="video-overlay__close" id="video-overlay-close" aria-label="Close video">×</button>
+    <video
+      class="video-overlay__player"
+      id="video-overlay-player"
+      playsinline
+      controls
+      preload="none"
+    ></video>
+  </div>
+
+  <script src="/links/js/background-slider.js"></script>
+  <script>
+    (function () {
+      var overlay = document.getElementById('video-overlay');
+      var player = document.getElementById('video-overlay-player');
+      var closeBtn = document.getElementById('video-overlay-close');
+
+      function closeOverlay() {
+        player.pause();
+        player.removeAttribute('src');
+        player.load();
+        overlay.hidden = true;
+        document.body.style.overflow = '';
+      }
+
+      function openOverlay(src) {
+        player.src = src;
+        player.load();
+        overlay.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+
+      document.querySelectorAll('.video-card__thumb').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var src = btn.getAttribute('data-src');
+          if (src) openOverlay(src);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeOverlay);
+
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeOverlay();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !overlay.hidden) closeOverlay();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>— - Event Page</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/" async></script>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-image">
+                <img src="/images/farmer-banks-field.png" alt="—" class="event-poster">
+            </div>
+
+            <div class="hero-info">
+                <h1>—</h1>
+                <div class="hero-meta">
+                    <div class="hero-meta-item">—</div>
+                    <div class="hero-meta-item location">—</div>
+                    <div class="hero-meta-item location">
+                        <a href="#organizer" class="organizer-link">—</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ticket Section -->
+        <div class="ticket-section">
+            <div class="ticket-content">
+                <div class="ticket-price">$10.00</div>
+                <button class="get-tickets-btn btn-select" data-tier="basic">Get Tickets</button>
+            </div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="event-details">Event Details</div>
+
+        <div class="details-content">
+            <p class="details-text">—</p>
+            <p class="details-text">—</p>
+            <p class="details-text">—</p>
+        </div>
+
+        <!-- Venue Section -->
+        <div class="venue-section">
+            <h2 class="section-title">Venue Information</h2>
+            <div class="venue-info">
+                <div class="venue-name">—</div>
+                <div class="venue-address">
+                    —<br>
+                    —<br>
+                    —
+                </div>
+            </div>
+
+            <div class="map-buttons">
+                <button class="map-btn map-btn-scroll" type="button">View Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=—" target="_blank" class="map-btn">Get Directions</a>
+            </div>
+
+            <div class="map-container" id="map-frame">
+                <iframe src="about:blank" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <!-- Organizer Section -->
+            <h2 class="section-title" id="organizer">Organizer Information</h2>
+            <div class="organizer-content">
+                <img src="/images/farmer-banks-field.png" alt="—" class="organizer-image">
+                <div class="organizer-details">
+                    <h3>—</h3>
+                    <p>—</p>
+                    <p>—</p>
+                    <p>—</p>
+                    <button class="more-events-btn" type="button">More Events</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modalTitle">Purchase Tickets</h2>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="customerName">Full Name *</label>
+                    <input type="text" id="customerName" name="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Email *</label>
+                    <input type="email" id="customerEmail" name="customerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Phone (Optional)</label>
+                    <input type="tel" id="customerPhone" name="customerPhone">
+                </div>
+                <div class="form-group">
+                    <label>Event Date</label>
+                    <div class="event-date-pill" id="eventDate">
+                        <span class="event-date-pill-icon">📅</span>
+                        <span>Saturday, January 03, 2026 • 8:00 AM - 10:00 AM EST</span>
+                    </div>
+                    <small style="color: var(--text-light); font-size: 0.9rem; display: block; margin-top: 5px;">
+                        This is a one-time Cassava Harvest on January 3, 2026.
+                    </small>
+                </div>
+                <div class="form-group" id="ticketCountGroup">
+                    <label for="ticketCount" id="ticketCountLabel">Number of Tickets *</label>
+                    <input type="number" id="ticketCount" name="ticketCount" min="1" max="10" value="1" required>
+                </div>
+                <div class="form-group" id="teamMemberGroup" style="display: none;">
+                    <label for="teamMemberName">Team Member Name *</label>
+                    <input type="text" id="teamMemberName" name="teamMemberName" placeholder="Enter your teammate's full name">
+                </div>
+                <div class="form-summary">
+                    <div class="summary-row">
+                        <span>Ticket Price:</span>
+                        <span id="ticketPrice">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Quantity:</span>
+                        <span id="ticketQuantity">1</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="totalAmount">$0.00</span>
+                    </div>
+                </div>
+                <div id="cardElement" class="stripe-card">
+                    <!-- Stripe Elements will create form elements here -->
+                    <!-- In test mode, this will show a test mode message -->
+                </div>
+                <div id="cardErrors" role="alert"></div>
+                <div id="testModeNotice" style="display: none; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; margin: 15px 0; color: #856404;">
+                    <strong>🧪 TEST MODE ACTIVE</strong><br>
+                    No real payment will be processed. This is a simulation for testing purposes.
+                </div>
+                <button type="submit" class="btn-purchase" id="submitButton">
+                    <span id="buttonText">Purchase Tickets</span>
+                    <span id="spinner" class="spinner hidden"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success">
+            <h2>🎉 Purchase Successful!</h2>
+            <p>Your tickets have been purchased and confirmation email with QR codes has been sent to your email.</p>
+            <p><strong>Transaction ID:</strong> <span id="successTransactionId"></span></p>
+            <button class="btn-close" onclick="closeSuccessModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Visit us at <a href="https://new-client.eventbrella.us" target="_blank">https://new-client.eventbrella.us</a></p>
+            <p class="footer-contact">For questions, contact —</p>
+            <p class="footer-terms"><a href="#terms">Terms and Conditions</a></p>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 14: Designing events seamlessly</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;min-height:0;padding:22px 64px 14px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;min-height:0;background:#1A2A44;padding:22px 64px 18px 80px;display:flex;flex-direction:column;}
+/* Dense pages 4–7: keep body inside fixed print frame */
+.page--fit > .pc{padding:14px 64px 8px 80px}
+.page--fit > .pc-full > .navy-bg{padding:14px 64px 10px 80px;overflow:hidden}
+.page--fit .ch-title{font-size:31px;line-height:0.98;margin-bottom:3px}
+.page--fit .label{margin-bottom:3px}
+.page--fit .sidebar{gap:7px}
+.page--fit .body{font-size:11px;line-height:1.42}
+.page--fit .body p{margin-bottom:4px}
+.page--fit .sec-head{font-size:15px;margin-top:5px;margin-bottom:3px}
+.page--fit .stat-box{padding:8px 10px}
+.page--fit .stat-num{font-size:36px}
+.page--fit .stat-lbl{font-size:10.5px;margin-top:1px;line-height:1.32}
+.page--fit .stat-sub{font-size:9px;margin-top:2px}
+.page--fit .callout{font-size:11.5px;padding:8px 10px;line-height:1.45}
+.page--fit .q-card{padding:11px 13px}
+.page--fit .q-text{font-size:12px;line-height:1.5;margin-bottom:5px}
+.page--fit .q-mark{font-size:28px}
+.page--fit .q-src{font-size:9px}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:11.5px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 14: Designing events seamlessly</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part III — The Modern Hospitality Operating System</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 14</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:#fff;line-height:.92;margin-bottom:2px;">DESIGNING</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:#D4AF37;line-height:.92;margin-bottom:34px;">events seamlessly</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          “The guest journey isn’t the headline act, but it decides if there’s an encore.”
+          
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">$30.8B</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">global online event ticketing market in 2024 — growing to $40.4B by 2030 at 4.6% CAGR, with mobile-first adoption accelerating fastest</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">$11.7B</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">smart ticketing market in 2025, growing at 13.1% CAGR to $39.6B by 2035 — sports and entertainment segment leads at $5.1B</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">55%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">of online ticketing revenue through mobile in 2024 — the event experience now begins on a phone, not at the gate</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">22%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">attendance lost to logistics friction at disconnected events — unified systems lift NPS 45 points by eliminating it from ticketing through exit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE CRISIS DEFINED -->
+<div class="page page--fit" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;min-height:0;align-items:start;gap:12px;">
+      <div>
+        <div class="label">The Event Flow Crisis</div>
+        <div class="ch-title">Great memories are created when event logistics are crafted with fans in mind</div>
+        <div class="ch-intro" style="max-width:100%;">Ticketing, parking, rideshare, and venue flow are not four separate problems. They are one system. When that system is disconnected — separate apps, separate payment rails, separate data environments — 22% of attendance evaporates into logistics friction. When it is unified, NPS rises 45 points and per-attendee revenue climbs 32%.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Scope of the Market</div>
+          <p>The Global Strategic Business Report on Online Event Ticketing documents the scale: the market was valued at <strong>$30.8 billion in 2024 and is projected to reach $40.4 billion by 2030</strong>, growing at a CAGR of 4.6%. Live Nation alone organized over 50,000 events in 2023 with revenue reaching approximately $22.73 billion. This is not a niche sector — it is one of the highest-volume hospitality categories, and it is being transformed by integrated digital infrastructure.<span class="cite"> Global Strategic Business Report, Online Event Ticketing, GlobeNewswire, Feb. 12, 2025; SNS Insider market analysis, snsinsider.com</span></p>
+          <p>The smart ticketing layer on top of that market is growing even faster: Global Market Insights documents the smart ticketing market at <strong>$11.7 billion in 2025, expanding at 13.1% CAGR to $39.6 billion by 2035.</strong> The sports and entertainment segment alone was valued at $5.1 billion in 2025 — because large stadiums, arenas, and concert venues handle massive surges in entry traffic, making fast, frictionless access not a luxury but an operational requirement.<span class="cite"> Global Market Insights, "Smart Ticketing Market Size & Share, Growth Trends 2026–2035," gminsights.com, Dec. 2025</span></p>
+          <div class="sec-head">friction leads to headaches</div>
+          <p>The Softjourn event industry analysis — updated January 2026 — identifies the core challenge: <strong>"The ticketing industry in 2026 faces both unprecedented challenges and exciting opportunities for innovation. The platforms and venues that successfully navigate these obstacles will establish competitive advantages that define the industry's next decade."</strong> The obstacle is always the same: fragmented systems that force attendees to navigate multiple apps, payment methods, and data environments to complete what should be a single integrated journey.<span class="cite"> Meghan Neville, Softjourn, "Top Event Ticketing Industry Challenges in 2026," softjourn.com, updated Jan. 6, 2026</span></p>
+          <div class="callout" style="margin-top:6px;">
+            <strong>The integration opportunity:</strong> Softjourn's Venue Mapping Tool documentation establishes the capability: linking VMT with RFID or mobile ticketing solutions "automates gate entry based on seating assignments — not only simplifying security logistics but also providing valuable data on attendee movement, contributing to better crowd management and post-event analysis." The integrated event is not just smoother. It is measurably more profitable.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#c0392b;padding:11px;border-radius:4px;">
+          <div style="font-size:9.5px;color:#f9d71c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">The Disconnection Cost</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:6px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;">22%</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.85);line-height:1.32;">attendance lost to logistics friction at events with disconnected ticketing, parking, and entry systems</div>
+              <div style="font-size:8.5px;color:rgba(255,255,255,0.4);margin-top:2px;font-style:italic;">Brief; industry event operations benchmarks</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:6px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#f9d71c;line-height:1;">+45 pts</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.85);line-height:1.32;">NPS lift at events where ticketing, parking, rideshare, and venue flow operate as one unified system</div>
+              <div style="font-size:8.5px;color:rgba(255,255,255,0.4);margin-top:2px;font-style:italic;">Brief; event operations NPS research</div>
+            </div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;">+32%</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.85);line-height:1.32;">per-attendee spend lift from unified ticketing that enables in-app F&B upsells, parking upgrades, and merchandise at point of purchase</div>
+              <div style="font-size:8.5px;color:rgba(255,255,255,0.4);margin-top:2px;font-style:italic;">Brief; event technology spend research</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">$50K+</div>
+          <div class="stat-lbl">estimated revenue loss per show from separate wristbands, cash lots, and uncoordinated rideshare — before calculating NPS damage</div>
+          <div class="stat-sub">Brief estimate; event operations research</div>
+        </div>
+        <div class="q-card light">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Modern technology in ticketing and event management is helping venues ensure that the entire attendee journey — from ticket purchase to last song — is smooth, engaging, and memorable."</div>
+          <div class="q-attr">Ticket Fairy</div>
+          <div class="q-src">"The Future of Nightclub Ticketing Technology: How 2026 Innovations Are Shaping Nightlife" · ticketfairy.com · Jan. 22, 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE MARKET CONTEXT (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Market Backdrop</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE DIGITAL REVOLUTION -- 2034 & Beyond</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">the Digital Infrastructure Reshaping Live Events</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Trajectory Of Online Event Ticketing</div>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:12px;">
+            <div style="display:grid;grid-template-columns:50px 1fr 80px;gap:8px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:right;">2024</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:16px;overflow:hidden;"><div style="width:30%;height:100%;background:#D4AF37;border-radius:2px;"></div></div>
+              <div style="font-size:11.5px;font-weight:700;color:#D4AF37;">$30.8B</div>
+            </div>
+            <div style="display:grid;grid-template-columns:50px 1fr 80px;gap:8px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:right;">2030</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:16px;overflow:hidden;"><div style="width:40%;height:100%;background:#FFA500;border-radius:2px;"></div></div>
+              <div style="font-size:11.5px;font-weight:700;color:#FFA500;">$40.4B</div>
+            </div>
+            <div style="display:grid;grid-template-columns:50px 1fr 80px;gap:8px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:right;">2033</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:16px;overflow:hidden;"><div style="width:70%;height:100%;background:#00D4AA;border-radius:2px;"></div></div>
+              <div style="font-size:11.5px;font-weight:700;color:#00D4AA;">$101B</div>
+            </div>
+            <div style="display:grid;grid-template-columns:50px 1fr 80px;gap:8px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:right;">2034</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:16px;overflow:hidden;"><div style="width:100%;height:100%;background:#e74c3c;border-radius:2px;"></div></div>
+              <div style="font-size:11.5px;font-weight:700;color:#e74c3c;">$107B</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);font-style:italic;margin-bottom:12px;">Sources: GlobeNewswire (Feb. 2025); ResearchAndMarkets; Market.us digital ticketing report</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:12px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">The digital ticketing market has experienced significant transformation as event organizers pivot toward fully digital workflows. Market.us documents the architecture shift: <strong style="color:#D4AF37;">"This landscape has been reshaped by the integration of mobile wallets, QR codes, contactless systems, and blockchain."</strong> The surge in smartphone usage and internet availability has facilitated an entirely digital approach to ticket issuance and validation — replacing legacy paper-based methods entirely.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);font-style:italic;margin-top:5px;">Market.us, "Digital Ticketing Market Size, Share," market.us</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">The Smart Ticketing Layer — Sports & Entertainment</div>
+          <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;margin-bottom:5px;">$5.1B</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:5px;">Sports and entertainment segment of the smart ticketing market in 2025 — the category leader, because arenas and venues "handle massive surges in entry traffic, making fast, frictionless access essential."</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Global Market Insights, gminsights.com, Dec. 2025</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">MOBILE-FIRST IS NOW THE DEFAULT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">55% of online ticketing revenue through mobile in 2024. Market.us confirms: 70% of consumers prefer buying tickets via smartphone. Mobile ticketing means the event experience begins at the point of purchase — not at the gate.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">DYNAMIC PRICING IS GOING MAINSTREAM</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">SNS Insider documents: "Dynamic pricing strategies — platforms are increasingly using real-time demand data to adjust ticket prices, optimizing revenue." The operator who controls their own ticketing platform captures the dynamic pricing upside. The one who uses a third-party platform shares it.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">BLOCKCHAIN TICKETING IS ARRIVING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Ticket Fairy documents the blockchain ticketing platform market at $0.95B in 2024, projected to $3.6B by 2034. Anti-scalping enforcement, transferable ownership records, and NFT-based VIP passes are all active use cases by 2026.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        "In 2023, Live Nation organized over 50,000 events with revenue reaching approximately $22.73 billion, highlighting the growing demand for online ticketing." — SNS Insider (snsinsider.com)
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE FOUR FRICTION STAGES -->
+<div class="page page--fit" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Four-Stage Friction Map</div>
+    <div class="ch-title">The Four Stages Where Events Break Down</div>
+    <div class="two-col" style="flex:1;min-height:0;align-items:start;gap:12px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">Every event has four logistics stages where friction is the villian. Each stage is connected — parking friction generates late arrivals that create entry surges, entry delays produce F&B abandonment, and exit congestion destroys the final impression that determines whether the attendee comes back. They must be designed as one system.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Stage 1 — Ticketing: The 18% No-Show Problem</div>
+          <p>The first friction point is the moment between ticket purchase and actual attendance. <strong>18% of ticket holders become no-shows</strong> — many due to logistics anxiety (parking concerns, traffic uncertainty, rideshare unavailability) as opposed to losing interest.. Dynamic pricing combined with waitlist management captures sellout revenue from cancellations. Bundling parking and rideshare credits into the ticket purchase at checkout eliminates the logistics anxiety that triggers pre-event drop-off.<span class="cite"> Brief; Zoho Backstage, "Top 7 Event Ticketing Industry Trends in 2026," zoho.com/backstage</span></p>
+          <div class="sec-head">Stage 2 — Parking: The 22% Late Arrival Bottleneck</div>
+          <p>Parking bottlenecks cause <strong>22% of late arrivals</strong> and <strong>28% of early exits</strong>. Pre-booked parking zones that are validated at ticket purchase eliminate the arrival decision that generates queue congestion. Shuttle integration — where the shuttle scan validates against the ticket QR — removes the payment friction at the boarding point and feeds real-time capacity data back to venue operations. The operator who treats parking as a separate product is operating a self-inflicted attendance leak.</p>
+          <div class="sec-head">Stage 3 — Entry: The 90-Second Gate Standard</div>
+          <p>Zoho Backstage's 2026 event ticketing trends analysis documents the mobile ticket operational advantage directly: <strong>"Mobile tickets allow real-time check-ins, reduce entry delays, and lower the costs tied to printing and logistics."</strong> Integrated with mobile event apps, digital tickets double as session passes, networking tools, and notification hubs. The 90-second entry benchmark — from gate approach to cleared entry — is achievable with QR scan plus capacity gate management. Above that threshold, crowd pressure at the entry point generates safety risk and F&B abandonment.<span class="cite"> Zoho Backstage, zoho.com/backstage</span></p>
+          <div class="sec-head">Stage 4 — Exit: The Rideshare Surge Problem</div>
+          <p>Post-event rideshare surges spike <strong>200% without pre-booking</strong> — with 35% of attendees experiencing significant delays that become the dominant memory of the event. Geo-fenced rideshare zones combined with staggered exit communications (capacity heatmap-triggered announcements directing different sections to depart at different intervals) cut the post-event delay to 12 minutes from the industry average of 45 minutes.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <!-- The friction/fix matrix -->
+        <div style="background:#1A2A44;padding:11px;border-radius:4px;">
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Event Element — Friction → Fix → Gain</div>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="background:rgba(212,175,55,0.15);">
+              <th style="font-size:8.5px;color:#D4AF37;text-align:left;padding:4px 5px;letter-spacing:1px;">Stage</th>
+              <th style="font-size:8.5px;color:#D4AF37;text-align:center;padding:4px 5px;letter-spacing:1px;">Friction</th>
+              <th style="font-size:8.5px;color:#D4AF37;text-align:center;padding:4px 5px;letter-spacing:1px;">Fix</th>
+              <th style="font-size:8.5px;color:#D4AF37;text-align:center;padding:4px 5px;letter-spacing:1px;">Gain</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:4px 5px;font-size:10.5px;font-weight:700;color:#fff;">Ticketing</td><td style="padding:4px 5px;font-size:10px;color:#e74c3c;text-align:center;">18% no-shows</td><td style="padding:4px 5px;font-size:10px;color:rgba(255,255,255,0.7);text-align:center;">Dynamic + waitlist</td><td style="padding:4px 5px;font-size:10px;color:#00D4AA;font-weight:700;text-align:center;">+25% sellouts</td></tr>
+              <tr style="background:rgba(255,255,255,0.04);"><td style="padding:4px 5px;font-size:10.5px;font-weight:700;color:#fff;">Parking</td><td style="padding:4px 5px;font-size:10px;color:#e74c3c;text-align:center;">22% late arrivals</td><td style="padding:4px 5px;font-size:10px;color:rgba(255,255,255,0.7);text-align:center;">Pre-book + shuttle</td><td style="padding:4px 5px;font-size:10px;color:#00D4AA;font-weight:700;text-align:center;">−40% jams</td></tr>
+              <tr><td style="padding:4px 5px;font-size:10.5px;font-weight:700;color:#fff;">Rideshare</td><td style="padding:4px 5px;font-size:10px;color:#e74c3c;text-align:center;">35% post-exit delays</td><td style="padding:4px 5px;font-size:10px;color:rgba(255,255,255,0.7);text-align:center;">Geo-priority + credits</td><td style="padding:4px 5px;font-size:10px;color:#00D4AA;font-weight:700;text-align:center;">+30% satisfaction</td></tr>
+              <tr style="background:rgba(255,255,255,0.04);"><td style="padding:4px 5px;font-size:10.5px;font-weight:700;color:#fff;">Venue Flow</td><td style="padding:4px 5px;font-size:10px;color:#e74c3c;text-align:center;">25% congestion</td><td style="padding:4px 5px;font-size:10px;color:rgba(255,255,255,0.7);text-align:center;">Capacity heatmaps</td><td style="padding:4px 5px;font-size:10px;color:#00D4AA;font-weight:700;text-align:center;">+20% capacity</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">28%</div>
+          <div class="stat-lbl">early exits driven by parking bottlenecks — attendees who leave before the headline act also miss the peak F&B and merch window</div>
+          <div class="stat-sub">Brief; event operations research</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">200%</div>
+          <div class="stat-lbl">post-event rideshare surge spike without pre-booking — the worst moment of the event becomes the dominant memory</div>
+          <div class="stat-sub">Brief; rideshare demand data; event operations benchmarks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — THE TICKETING LAYER (Full bleed navy) -->
+<div class="page page--fit" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:2px;">Stage 1 Deep Dive</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:33px;color:#fff;line-height:0.98;margin-bottom:2px;">WHERE INTEGRATION BEGINS AND REVENUE expands </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:8px;letter-spacing:1.5px;text-transform:uppercase;">Dynamic Pricing, Bundling, Anti-Scalping, and the Mobile-First Default</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:10px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:0;align-content:start;">
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:9px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:12.5px;color:#D4AF37;letter-spacing:1px;margin-bottom:4px;">DYNAMIC PRICING — THE SELLOUT STRATEGY</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.4;margin-bottom:3px;">SNS Insider's online event ticketing market analysis documents the shift: <strong style="color:#D4AF37;">"Platforms are increasingly using real-time demand data to adjust ticket prices, optimizing revenue and enhancing accessibility."</strong> Dynamic pricing combined with waitlist management converts the 18% no-show window into a +25% sellout rate — cancellations are immediately offered to waitlisted buyers at current demand pricing, rather than leaving the seat empty.</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,0.35);font-style:italic;">SNS Insider, snsinsider.com; Market.us digital ticketing market report</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:9px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:12.5px;color:#00D4AA;letter-spacing:1px;margin-bottom:4px;">BUNDLING — THE NO-SHOW REDUCTION MODEL</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.4;margin-bottom:3px;">Smart operators bundle ticket + parking + Uber credits at checkout, cutting no-shows 37% via geo-fenced rideshare availability confirmation. The psychological mechanism: when an attendee has pre-paid parking and a confirmed rideshare credit, their commitment to attend increases from tentative to logistically complete. Formula 1's integrated apps (ticket validates parking) and Coachella's Uber bundle partnerships are the industry models.</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; event operations bundling research; Formula 1 and Coachella operational models</div>
+          </div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:9px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:12.5px;color:#e74c3c;letter-spacing:1px;margin-bottom:4px;">ANTI-SCALPING — THE 2025/2026 ENFORCEMENT WAVE</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.4;margin-bottom:3px;">Ticket Fairy's 2026 nightclub ticketing analysis documents the scale: by 2025, major platforms reported blocking millions of bot purchase attempts on high-demand events, with AI-based monitoring deployed across the industry. "A famous UK venue scrapped 10,000+ suspicious ticket orders in a crackdown." Modern systems use purchase limits, account verification, AI anomaly detection, and blockchain transfer records to eliminate scalpers from the resale chain.</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,0.35);font-style:italic;">Ticket Fairy, "The Future of Nightclub Ticketing Technology," ticketfairy.com, Jan. 22, 2026; TechRadar security reports</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:9px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:12.5px;color:#fff;letter-spacing:1px;margin-bottom:4px;">MOBILE-FIRST — THE 2026 DEFAULT</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.4;margin-bottom:3px;">Market.us: <strong style="color:#D4AF37;">"Smartphones now commonly act as digital ticket wallets, easing purchase, storage, and validation all in a single device and simultaneously reducing costs associated with paper production and logistics."</strong> 70% of consumers prefer mobile ticket purchase. The mobile wallet integration means the ticket, parking pass, F&B credit, and rideshare booking can all live in the same digital object — scanned once at every touchpoint in the event journey.</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,0.35);font-style:italic;">Market.us, "Digital Ticketing Market Size," market.us; SNS Insider market analysis</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:9px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:12.5px;color:#00D4AA;letter-spacing:1px;margin-bottom:4px;">DATA OWNERSHIP AT TICKETING</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.4;margin-bottom:3px;">The ticketing layer is the event's primary data capture opportunity — the moment when the attendee's name, contact, payment method, preferences, and purchase history are first recorded. Softjourn's analysis of the 2026 ticketing challenge identifies <strong style="color:#00D4AA;">data management as the primary strategic priority:</strong> "managing, analyzing, and securing vast amounts of data — leveraging advanced data platforms that utilize AI and machine learning for efficient data processing." The operator who owns the ticketing platform owns the attendee data.</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,0.35);font-style:italic;">Softjourn, "Top Event Ticketing Industry Challenges in 2026," softjourn.com, Jan. 2026</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:8px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:11.5px;color:#D4AF37;letter-spacing:2px;margin-bottom:4px;">THE UPSELL WINDOW AT TICKETING</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:21px;color:#D4AF37;line-height:1;">+32%</div><div style="font-size:9.5px;color:rgba(255,255,255,0.65);line-height:1.32;">per-attendee spend from F&B, parking, and merch upsells at ticket purchase</div></div>
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:21px;color:#00D4AA;line-height:1;">+25%</div><div style="font-size:9.5px;color:rgba(255,255,255,0.65);line-height:1.32;">sellout rate improvement from dynamic pricing + waitlist recovery</div></div>
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:21px;color:#fff;line-height:1;">−37%</div><div style="font-size:9.5px;color:rgba(255,255,255,0.65);line-height:1.32;">no-show reduction from bundled parking and rideshare at checkout</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — PARKING + ENTRY -->
+<div class="page page--fit" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Stages 2 & 3 Deep Dive</div>
+    <div class="ch-title">Parking and Entry — The 2-Minute Arrival Standard</div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;">
+    <div class="two-col" style="flex:1;min-height:0;align-items:start;gap:12px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">Parking is the first physical experience of the event. Entry is the first branded experience. Both are measured in seconds — and both produce immediate revenue impact. Late arrivals miss the opening F&B window. Entry delays generate crowd pressure that degrades safety, satisfaction, and yield simultaneously.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Parking Integration Model</div>
+          <p>The pre-booked parking model eliminates the three failure modes that generate 22% late arrivals: the attendee who can't find parking, the attendee who parks too far away, and the attendee who waits in a cash lot queue while the show starts. <strong>Pre-paid parking zones validated against the ticket QR</strong> — the same mobile wallet scan that enters the venue also confirms parking — reduce the parking-to-venue transit time from an industry average of 22 minutes to a target of 2 minutes.</p>
+          <p>The shuttle validation model extends this: Softjourn's Venue Mapping Tool documentation confirms that <strong>"linking VMT with RFID or mobile ticketing solutions automates gate entry based on seating assignments — simplifying security logistics while providing valuable data on attendee movement."</strong> The shuttle scan reads the same ticket QR. No additional wristband, no second payment, no ambiguity about eligibility. One credential, every touchpoint.<span class="cite"> Softjourn, "Challenges and Trends Shaping the Events Industry in 2026," softjourn.com, Jan. 2026</span></p>
+          <div class="sec-head">The 90-Second Entry Standard</div>
+          <p>Zoho Backstage's 2026 event ticketing trends analysis frames mobile ticketing as the entry solution: <strong>"Mobile tickets allow real-time check-ins, reduce entry delays, and lower the costs tied to printing and logistics. Integrated with mobile event apps, digital tickets can also double as session passes, networking tools, and notification hubs that keep attendees engaged from entry to exit."</strong> The attendee who scans once at the gate is already inside the event ecosystem before their seat is located.<span class="cite"> Zoho Backstage, "Top 7 Event Ticketing Industry Trends in 2026," zoho.com/backstage</span></p>
+          <p>Ticket Fairy's nightclub ticketing analysis documents the operational consequence of frictionless entry: <strong>"If 500 people breeze through entry with no issues, security and door staff can more quickly pivot to other tasks like monitoring the floor or processing exceptions. Automation — like self-scan kiosks or automated age verification — helps cover labor gaps."</strong> Frictionless entry is not just a satisfaction metric. It is a staff efficiency gain.</p>
+          <div class="callout" style="margin-top:6px;">
+            <strong>Capacity gate management:</strong> QR scanning combined with real-time capacity tracking enables dynamic gate assignment — directing high-volume entry periods to the lowest-wait gate based on current throughput data. Above the 90-second threshold per person, crowd pressure at single-point entry becomes both a safety issue and an NPS issue. Every second above threshold compounds both.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:11px;border-radius:4px;">
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">The Arrival-to-Seat Journey — Before and After</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:7px 9px;">
+              <div style="font-size:9.5px;font-weight:700;color:#e74c3c;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Disconnected Event (Before)</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">Park (cash, 10–15 min) → Walk to venue (10 min) → Join entry queue (15–20 min) → Wristband exchange → Security check → Find seat. Total: 35–45 minutes. 28% of this group exits early from frustration.</div>
+            </div>
+            <div style="text-align:center;font-size:11px;color:rgba(212,175,55,0.4);">↓ unified system</div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:7px 9px;">
+              <div style="font-size:9.5px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Unified Event (After)</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.4;">Pre-paid parking confirmed at purchase → Navigate to designated lot (GPS-guided) → QR scan at shuttle/gate validates ticket + parking simultaneously → Capacity gate directs to shortest queue → Seat. Total: 8–12 minutes.</div>
+            </div>
+          </div>
+          <div style="font-size:8.5px;color:rgba(255,255,255,0.3);margin-top:5px;font-style:italic;">Sources: Brief; Softjourn VMT documentation, softjourn.com; Zoho Backstage, zoho.com/backstage</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">95%</div>
+          <div class="stat-lbl">QR scan success rate target — below this, gate bottleneck generates entry delays that cascade into F&B abandonment and safety concern</div>
+          <div class="stat-sub">Brief target; Ticket Fairy, ticketfairy.com; event entry operations benchmarks</div>
+        </div>
+        <div class="q-card navy">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Mobile ticketing isn't just a trend — it's the new default. Attendees can access event agendas or scan into workshops and lounges without juggling papers or wristbands."</div>
+          <div class="q-attr">Zoho Backstage</div>
+          <div class="q-src">"Top 7 Event Ticketing Industry Trends in 2026" · zoho.com/backstage</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:8px 14px;border-radius:4px;display:flex;align-items:center;gap:10px;margin-top:6px;flex-shrink:0;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;flex-shrink:0;line-height:1.1;">CLEAR<br>EXITS<br>BUILD<br>TRUST</div>
+      <div style="font-size:10.5px;color:#fff;line-height:1.45;">After tragedies like the E2 nightclub stampede—where <strong>21 people died</strong>—fear of dense, confined crowds becomes very real. For the <strong>7–12% of people with Social Anxiety Disorder</strong>, that fear often leads to avoiding large events altogether when exits feel uncertain. That hesitation translates directly into lost attendance, shorter stays, and lower spend per guest. When people don't feel safe leaving, they don't fully show up—or they don't come at all.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — VENUE FLOW + EXIT -->
+<div class="page page--fit" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Stages 3 & 4 Deep Dive</div>
+    <div class="ch-title">Venue Flow and the Rideshare Exit — The 12-Minute Standard</div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;">
+    <div class="two-col" style="flex:1;min-height:0;align-items:start;gap:12px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">Capacity heatmaps turn a crowd into a managed flow. Real-time occupancy data enables dynamic F&B station staffing, congestion alerts, and exit routing that converts the 45-minute post-event rideshare nightmare into a 12-minute staggered departure. The exit is the last memory. Make it the best one.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Venue Flow Layer — Capacity Heatmaps</div>
+          <p>Softjourn's venue mapping documentation establishes the data capability: RFID and mobile ticket integration "provides valuable data on attendee movement, contributing to better crowd management and post-event analysis." Real-time capacity heatmaps — generated from entry scan data and distributed sensor networks — give venue operations teams live visibility into which zones are approaching capacity, which F&B stations are under-staffed relative to demand, and which corridors are generating congestion that will produce either safety issues or service abandonment. <strong>+20% effective capacity utilization</strong> is achievable from heatmap-directed staffing alone — without increasing physical space.<span class="cite"> Softjourn, softjourn.com, Jan. 2026; Global Market Insights, gminsights.com</span></p>
+          <div class="sec-head">The Staggered Exit Model</div>
+          <p>The 200% post-event rideshare surge is not a rideshare problem. It is a simultaneous exit problem. When every attendee attempts to leave the moment the show ends, rideshare availability is overwhelmed, parking lots grid-lock, and the final 45 minutes of the guest's experience becomes the dominant memory — overriding 3 hours of positive event sentiment.</p>
+          <p>The staggered exit model uses the same capacity heatmap data to direct section-by-section departures via app notification: <strong>"Section F, your rideshare zone is now available with no surge pricing — head to Gate 3."</strong> The geo-fenced rideshare staging area — where Uber and Lyft drivers are pre-positioned in dedicated zones — absorbs staggered demand rather than a simultaneous surge. Target: <strong>12 minutes from section notification to highway, down from 45-minute industry average.</strong></p>
+          <div class="callout" style="margin-top:6px;">
+            <strong>The geo-fenced surge prevention model:</strong> Coachella's Uber bundle — where rideshare credits are included with VIP ticket purchase — pre-commits both the attendee and the driver network to a specific departure zone. The driver shows up because the rider is confirmed. The rider uses the credit because it is already paid for. Surge pricing is suppressed because supply and demand arrive together rather than colliding. This is not a rideshare feature — it is an event design decision made at the ticketing checkout.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:11px;border-radius:4px;">
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">The Exit Redesign — Stage by Stage</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:6px 8px;">
+              <div style="font-size:10px;font-weight:700;color:#D4AF37;margin-bottom:1px;">T−60 MIN — HEATMAP BRIEFING</div>
+              <div style="font-size:10.5px;color:rgba(255,255,255,0.75);line-height:1.35;">Venue ops reviews live capacity data by zone. Identifies which sections will generate exit pressure first. Stages rideshare pickup zones and notifies drivers via app API.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:6px 8px;">
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;margin-bottom:1px;">T−15 MIN — STAGGER BEGINS</div>
+              <div style="font-size:10.5px;color:rgba(255,255,255,0.75);line-height:1.35;">App push: "Section A — your rideshare zone opens in 15 minutes. No surge." Early leavers directed to dedicated exit corridor with pre-positioned transport. Parking lot exits opened sequentially based on zone.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:6px 8px;">
+              <div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:1px;">T+0 — GEO-FENCED ZONES ACTIVE</div>
+              <div style="font-size:10.5px;color:rgba(255,255,255,0.75);line-height:1.35;">Each section directed to designated rideshare staging zone via in-app navigation. Drivers pre-positioned by zone match. Rideshare credit (if bundled) activates automatically via geo-fence trigger.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:6px 8px;">
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;margin-bottom:1px;">TARGET OUTCOME</div>
+              <div style="font-size:10.5px;color:rgba(255,255,255,0.75);line-height:1.35;">12 minutes zone-to-highway. 200% surge reduced to &lt;20%. Last NPS question answered: "My exit was fast and organized." That answer drives the repeat ticket purchase.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">12 min</div>
+          <div class="stat-lbl">zone-to-highway target with geo-fenced staggered rideshare — down from 45-minute industry average without coordination</div>
+          <div class="stat-sub">Brief; event exit operations benchmarks; rideshare geo-zone research</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+20%</div>
+          <div class="stat-lbl">effective capacity utilization from heatmap-directed F&B staffing and congestion management — same physical space, more revenue</div>
+          <div class="stat-sub">Brief; Softjourn VMT documentation, softjourn.com; Global Market Insights smart ticketing data</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:8px 14px;border-radius:4px;display:flex;align-items:center;gap:10px;margin-top:6px;flex-shrink:0;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;flex-shrink:0;line-height:1.1;">she<br>was<br>right<br></div>
+      <div style="font-size:10.5px;color:#fff;line-height:1.45;">Call it a modern twist on the pop hit <em>Girls Just Want to Have Fun</em> by Cyndi Lauper—today's guests don't just want fun, they want frictionless fun. Simple upgrades like pre-purchased rideshare credits remove the stress of getting in and out, letting attendees stay fully present in the experience. That matters even more with the rise of solo female travelers and a growing wave of first-time earners with disposable income and a willingness to spend. When you remove logistics anxiety, you unlock a crowd that shows up earlier, stays longer, and spends more.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — WORKING MODELS (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Working Models</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">from FORMULA 1 TO COACHELLa </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">What the Working Models Prove — and What the Failing Models Cost</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;letter-spacing:1.5px;margin-bottom:8px;">✓ FORMULA 1 — TICKET VALIDATES PARKING</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:8px;">Formula 1's integrated app model is the benchmark for event logistics unification. The ticket credential — stored in the event app's mobile wallet — validates parking entry at the designated lot. No separate parking ticket, no cash transaction, no second QR scan. One credential serves the entire arrival chain: purchase confirmation, parking validation, gate scan, and in-venue cashless payment. The result: Formula 1 events consistently rank among the highest NPS scores in live sports for operations quality.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; Formula 1 event operations model; Global Market Insights sports and entertainment ticketing data, gminsights.com</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;letter-spacing:1.5px;margin-bottom:8px;">✓ COACHELLA — THE RIDESHARE BUNDLE MODEL</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:8px;">Coachella's Uber partnership — bundling rideshare credits into VIP and weekend pass purchases — commits the driver network to festival-specific pickup zones before the event begins. Riders arrive knowing their transportation home is already paid for and geo-fenced. Drivers operate in dedicated festival staging areas with guaranteed demand. Surge pricing is suppressed by the pre-committed supply/demand match. The rideshare exit that typically degrades the final festival memory becomes a smooth, pre-planned departure.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; Coachella/Uber rideshare bundle operational model</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;letter-spacing:1.5px;margin-bottom:8px;">✗ THE ANTI-MODEL — SEPARATE WRISTBANDS, CASH LOTS</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:8px;">The fragmented event model — separate ticketing app, cash parking lot, wristband exchange at entry, no rideshare coordination — produces the worst outcome: chaos that costs an estimated $50,000+ per show in direct revenue loss (abandoned F&B, capacity underutilization, no-shows) plus the compounding NPS damage that reduces repeat ticket purchase rates for future events. Every friction point that could have been unified was instead left to the attendee to solve independently.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; event operations cost research</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">The Ticket Fairy Framework — Attendee Journey as Product</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">Ticket Fairy's 2026 analysis frames the integrated approach directly: <em>"It's often said that the event starts not when the doors open, but when the ticket is bought — because that's when anticipation begins. Modern technology in ticketing and event management is helping venues ensure that this entire journey is smooth, engaging, and memorable for attendees."</em></div>
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;">Ticket Fairy</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">"The Future of Nightclub Ticketing Technology" · ticketfairy.com · Jan. 22, 2026</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:2px;margin-bottom:5px;">THE SINGLE-CREDENTIAL STANDARD</div>
+            <div style="font-size:13px;color:#fff;line-height:1.6;">One QR code in one mobile wallet validates: <strong style="color:#D4AF37;">ticket entry</strong> + <strong style="color:#00D4AA;">parking access</strong> + <strong style="color:#fff;">shuttle boarding</strong> + <strong style="color:#D4AF37;">cashless F&B</strong> + <strong style="color:#00D4AA;">rideshare credit activation</strong>. This is the event equivalent of Chapter 9's unified platform stack — one credential, every touchpoint, all data in one place.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — THE DATA LAYER -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Data Dimension</div>
+    <div class="ch-title">Events Are Data Machines; Leading to Money Machines</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Every scan, every purchase, every zone entry at a unified event generates attendee data. That data — purchase behavior, dwell time, F&B preferences, rideshare usage, section movement — is the most valuable output of a well-run event. The operator who built the unified infrastructure owns it. The one who used Eventbrite or a third-party parking app does not.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Eventbrite Data Problem (Chapter 10, Applied to Events)</div>
+          <p>The same dynamic documented in Chapter 10 — delivery platforms owning restaurant guest data — applies directly to event ticketing. <strong>Eventbrite, Ticketmaster, and StubHub control attendee data from events processed through their platforms.</strong> The venue receives transaction data but not the attendee relationship — no email list, no purchase history, no behavioral data for future event promotion. Softjourn's analysis identifies this as the core 2026 challenge: operators must either build first-party ticketing infrastructure or accept permanent dependence on platforms that own the relationship.<span class="cite"> Softjourn, "Top Event Ticketing Industry Challenges in 2026," softjourn.com, Jan. 2026</span></p>
+          <div class="sec-head">The Attendee Movement Dataset</div>
+          <p>Softjourn's RFID and mobile ticket integration documentation makes the data value explicit: the integration "provides valuable data on attendee movement, contributing to better crowd management and post-event analysis." A full event movement dataset answers the questions that determine future event design: Which zones had the highest dwell time? Which F&B stations generated the longest queues? Which exits were overwhelmed and when? This is not a post-event report — it is a real-time operations feed and a long-term design intelligence asset.<span class="cite"> Softjourn, softjourn.com</span></p>
+          <div class="sec-head">The Re-Marketing Asset</div>
+          <p>The attendee who bought a ticket through the venue's first-party platform is in the venue's CRM. The attendee who bought through Eventbrite is in Eventbrite's CRM. The difference at the next event announcement is absolute: <strong>the venue with owned data sends "You attended this artist's last show — you have priority access to the next one" to 10,000 opted-in contacts. The venue without owned data sends the announcement to social media followers and pays for digital ads.</strong> The lifetime value calculation is the same as Chapter 10's $81,000 annual LTV premium — scaled to the event context.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">First-Party vs. Platform Ticketing — Data Comparison</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">PLATFORM TICKETING (Eventbrite, Ticketmaster)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Operator receives: transaction total, date, section. Operator does NOT receive: attendee name, email, purchase history, behavioral data, or re-marketing permission. Future promotions require platform fees or blind outreach.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">FIRST-PARTY TICKETING (Owned platform)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Operator receives: full attendee profile — name, email, purchase history, section preference, F&B spend, dwell time, exit zone, rideshare usage. Re-marketing to every previous attendee for next event: zero platform fee.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">THE MOVEMENT DATASET (Bonus)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">RFID + QR scan data generates zone occupancy by minute, F&B station queue depth, and exit corridor congestion timeline. Post-event analysis directly informs next-event design. Only accessible with first-party infrastructure.</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: Softjourn, softjourn.com; Chapter 10 data ownership framework</div>
+        </div>
+        <div class="callout">
+          <strong>The tech challenge Softjourn flags:</strong> "Managing, analyzing, and securing vast amounts of data is a complex challenge that the ticketing industry faces, especially given the paramount importance of data in strategic decision-making." This is the 2026 infrastructure investment — building the data platform before the next event, not after.
+          <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Softjourn, "Top Event Ticketing Industry Challenges in 2026," softjourn.com, Jan. 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE BLOCKCHAIN + SECURITY LAYER -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Security and Fraud Layer</div>
+    <div class="ch-title">Anti-Scalping, Blockchain Tickets &  Trust</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The event that cannot guarantee the authenticity of its tickets cannot guarantee its attendance numbers, revenue, or guest experience. Counterfeit tickets, scalper bots, and fraudulent transfers are not edge cases — they are systematic attacks on event revenue that the industry is now solving with AI, blockchain, and biometric verification.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Scale of the Bot Problem</div>
+          <p>Ticket Fairy's 2026 analysis documents the enforcement response: <strong>"By 2025, major ticket platforms reported blocking millions of bot purchase attempts on high-demand events."</strong> The attack mechanism is systematic: bots purchase high-demand tickets the instant they go on sale, resell them at multiples of face value, and deprive genuine fans of access while extracting revenue that should belong to the event operator. The UK venue that <strong>"scrapped 10,000+ suspicious ticket orders"</strong> demonstrates the scale of the problem at a single event.<span class="cite"> Ticket Fairy, "The Future of Nightclub Ticketing Technology," ticketfairy.com, Jan. 22, 2026</span></p>
+          <div class="sec-head">The Blockchain Ticket Solution</div>
+          <p>Market.us documents the blockchain ticketing market at $0.95 billion in 2024, growing to $3.6 billion by 2034 at sustained CAGR. The mechanism: blockchain ticket records create an immutable ownership chain — each transfer is recorded, the ownership history is verifiable, and counterfeit tickets cannot exist because they cannot produce a valid blockchain transaction record. <strong>NFT-based VIP passes extend this into loyalty: the blockchain record proves attendance history, enabling tiered access, early-sale priority, and personalized perks for verified returning attendees.</strong><span class="cite"> Ticket Fairy, ticketfairy.com; Market.us, market.us</span></p>
+          <div class="sec-head">The AI Monitoring Layer</div>
+          <p>Modern ticketing systems deploy AI anomaly detection that identifies scalper patterns before purchase completes: <strong>"If one account tries to buy 40 tickets the second they go on sale, a smart system will throttle or block it."</strong> Combined with purchase limits, account verification, and CAPTCHA enforcement, AI monitoring protects the event's ticket inventory from bot capture — ensuring that the attendees who scan at the gate are the attendees who intended to attend, not scalper intermediaries.<span class="cite"> Ticket Fairy, ticketfairy.com, Jan. 2026</span></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Anti-Fraud Stack — 2026</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">LAYER 1 — PURCHASE CONTROLS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Purchase limits, account verification, CAPTCHA enforcement, AI anomaly detection at point of sale. Blocks bot accounts before transaction completes.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">LAYER 2 — TRANSFER CONTROLS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Verified transfer system with identity confirmation at resale. Blockchain records create an immutable transfer history. Counterfeit tickets cannot produce a valid chain record.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">LAYER 3 — ENTRY VERIFICATION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">QR scan at entry validates against the blockchain or platform record. Each ticket activates exactly once — duplicate scan attempt triggers security flag, not valid entry.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">ANTI-MODEL — PAPER + CASH</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">No fraud controls at any layer. Counterfeiting trivial. No ownership record. No transfer history. Revenue leak at every stage: sale, resale, and entry. Survives only at very small events.</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Source: Ticket Fairy, ticketfairy.com, Jan. 2026; Market.us, market.us</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">$3.6B</div>
+          <div class="stat-lbl">blockchain ticketing platform market projected by 2034 — from $0.95B in 2024, growing on anti-scalping, NFT loyalty, and transfer security demand</div>
+          <div class="stat-sub">Ticket Fairy, ticketfairy.com; Market.us digital ticketing market report</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE INTEGRATION ARCHITECTURE (Full bleed navy) -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Unified Architecture</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">FROM TICKET PURCHASE TO HIGHWAY EXIT</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">One Credential. Every Touchpoint. All Data in One Place.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <!-- The journey flow diagram -->
+      <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+        <div style="display:grid;grid-template-columns:140px 1fr 120px;gap:12px;align-items:center;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;">PURCHASE<br>(T−2 weeks)</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;">Ticket + parking zone + rideshare credit bundled at checkout. One payment, one QR, all credentials stored in mobile wallet. Dynamic pricing captures demand. Waitlist activated for cancellations. Anti-bot controls deployed. Attendee data enters first-party CRM — name, email, preferences, payment method.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;text-align:center;line-height:1.3;">−37%<br>no-shows</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 120px;gap:12px;align-items:center;background:rgba(255,165,0,0.08);border:1px solid rgba(255,165,0,0.25);border-radius:4px;padding:12px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#FFA500;letter-spacing:1px;">ARRIVAL<br>(T−2 hours)</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;">App sends GPS route to designated parking zone. Pre-paid lot opens on license plate recognition or QR. Shuttle boarding validates same QR as ticket. Real-time capacity by lot shared in-app — no guesswork about where to park, no cash required, no second credential needed.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#FFA500;text-align:center;line-height:1.3;">2 min<br>park-to-gate</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 120px;gap:12px;align-items:center;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:12px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;">ENTRY<br>(T−30 min)</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;">Capacity gate management directs to lowest-wait entry point via app notification. QR scan validates ticket + confirms parking record simultaneously. Single scan, cleared in 90 seconds or under. Digital ticket becomes session pass, F&B credit wallet, and network hub inside the venue.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;text-align:center;line-height:1.3;">95%<br>scan success</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 120px;gap:12px;align-items:center;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:12px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;">IN-VENUE<br>(T+0 to close)</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;">Capacity heatmaps track zone occupancy in real time. F&B stations staffed dynamically based on demand data. Cashless payment via the same mobile wallet credential. RFID and QR scan data generates movement dataset for post-event analysis and future design iteration.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#fff;text-align:center;line-height:1.3;">+20%<br>capacity util.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 120px;gap:12px;align-items:center;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:12px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;">EXIT<br>(T+ event end)</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;">Staggered exit notifications by section via in-app push. Geo-fenced rideshare zones open sequentially. Bundled rideshare credit activates on geo-fence trigger — no surge, pre-committed supply. Parking lot exits open by zone, preventing simultaneous exodus. Target: 12 minutes zone-to-highway.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;text-align:center;line-height:1.3;">12 min<br>to highway</div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:10px 0;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;">
+        "The event starts not when the doors open, but when the ticket is bought — because that's when anticipation begins." — Ticket Fairy (ticketfairy.com, Jan. 2026)
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MEASUREMENT FRAMEWORK -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Measurement Standard</div>
+    <div class="ch-title">If Any Stage Exceeds 3 Minutes, Rebuild The Root Level</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Seamless event scaling. The measurement discipline that drives continuous improvement is the same as Chapter 13: time every stage before and after each change, hold the benchmark tight, and rebuild the root layer when any downstream metric exceeds tolerance. The 3-minute rule is the operational standard for high-volume event flow.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Five Event Flow KPI's</div>
+          <p><strong>Scan success rate:</strong> Target 95%+. Scan failures below 95% generate entry bottlenecks that cascade into crowd pressure, safety risk, and F&B abandonment. Track by gate and by hour. Failures above 5% indicate a ticket format problem, WiFi dead zone at the gate, or QR quality issue — each with a specific upstream fix.</p>
+          <p><strong>Park-to-gate time:</strong> Target under 2 minutes. Above 2 minutes indicates either parking zone assignment too far from venue or insufficient shuttle frequency. Track for the first 20% of capacity to arrive — this is the leading indicator for the full-event arrival experience.</p>
+          <p><strong>Gate clear time (per person):</strong> Target under 90 seconds. Above 90 seconds at peak entry generates crowd pressure compounding at rate per additional second. Track during the 30-minute window before official start — this is the highest-volume entry period for most events.</p>
+          <p><strong>No-show rate:</strong> Target under 10%. Above 15% indicates the bundling or pre-commitment model is not yet deployed. Each percentage point above target is capacity and revenue that should have been recovered via waitlist or dynamic pricing.</p>
+          <p><strong>Post-event rideshare wait time:</strong> Target under 12 minutes from section notification to vehicle pickup. Above 15 minutes indicates the staggered departure sequence is not sufficient or the geo-fenced staging zones are under-supplied. This is the single metric most correlated with NPS score variance between events of equivalent quality.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Event Flow KPI Dashboard</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.05);border:1px solid rgba(212,175,55,0.15);border-radius:3px;padding:6px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 60px 60px;gap:5px;">
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;">KPI</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Target</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Yours</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 60px 60px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Scan success rate</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">95%+</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(212,175,55,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 60px 60px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Park-to-gate</div>
+                <div style="font-size:11px;color:#D4AF37;font-weight:700;text-align:center;">&lt;2 min</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ min</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 60px 60px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Gate clear (per person)</div>
+                <div style="font-size:11px;color:#fff;font-weight:700;text-align:center;">&lt;90 sec</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ sec</div>
+              </div>
+            </div>
+            <div style="background:rgba(231,76,60,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 60px 60px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">No-show rate</div>
+                <div style="font-size:11px;color:#e74c3c;font-weight:700;text-align:center;">&lt;10%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 60px 60px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Rideshare wait (post-event)</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">&lt;12 min</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ min</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11.5px;color:#fff;line-height:1.5;"><strong style="color:#D4AF37;">The 3-minute rule:</strong> If any stage exceeds 3 minutes average friction, the problem is in the stage before it. Rebuild at the root layer</div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Time 100 attendees door-to-last-call.</strong> The 3-minute stage limit is the operational standard. Find the first stage that exceeds it — that is where the unified fix goes next event.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 14 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">Map your event ecosystem. Time 100 attendees door-to-last-call. Score every stage. Identify the first stage above the 3-minute threshold. Integrate the upstream fix before next event.</div>
+
+    <!-- Stage audit table -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">Map Your Event Ecosystem — Stage by Stage</div>
+      </div>
+      <div style="padding:10px 18px;">
+        <div style="display:grid;grid-template-columns:90px 90px 1fr 1fr 90px;gap:7px;margin-bottom:5px;">
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Stage</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Current Friction</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Unified Solution</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Metric Target</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Today Score</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:90px 90px 1fr 1fr 90px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#D4AF37;">Ticket</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 90px 1fr 1fr 90px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#e74c3c;">Parking</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 90px 1fr 1fr 90px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Entry</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 90px 1fr 1fr 90px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#00D4AA;">Rideshare Exit</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">First stage exceeding 3 minutes:</div>
+        <div class="fill-line"></div>
+        <div class="fill-label" style="margin-top:6px;">The upstream fix I can apply before the next event:</div>
+        <div class="fill-line"></div><div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">My one-line commitment:</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:rgba(255,255,255,0.7);margin-bottom:8px;line-height:1.5;">"Next event, we bundle [parking/Uber] into tickets — and track no-show drop against today's baseline of ___."</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">EVENTS<br>SCALE ON<br>SEAMLESS-<br>NESS</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Every friction point you eliminate at the ticketing stage pays forward through parking, entry, and exit. Every dollar of integration investment compounds across every future event. The operator who builds the unified event infrastructure once has a structural advantage over every competitor still handing out separate wristbands and directing guests to a cash parking lot. Start with the bundle at checkout — track no-show rate — measure the compounding effect across three events.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BRIDGE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">The Frictionless Event Is One System </div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">Disconnected logistics lose 22% attendance. Unified systems — where ticket validates parking, entry, F&B, and rideshare in a single credential — lift NPS 45 points and per-attendee spend 32%.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">TICKETING IS WHERE ALL INTEGRATION BEGINS — AND WHERE DATA IS CAPTURED</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Dynamic pricing + waitlist adds 25% sellout recovery. Bundled parking and rideshare cuts no-shows 37%. First-party ticketing captures attendee data the operator owns permanently. Mobile-first is the 2026 default at 70% consumer preference. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Market.us; GlobeNewswire; SNS Insider; Softjourn (softjourn.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">PARKING AND ENTRY SET THE FIRST PHYSICAL IMPRESSION</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">28% of early exits trace to parking frustration — before the event has started. 2-minute park-to-gate and 90-second gate clear are achievable through pre-booked zones and QR-only entry. One credential, all touchpoints. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Brief; Softjourn (softjourn.com); Zoho Backstage; Ticket Fairy (ticketfairy.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE EXIT IS THE LAST IMPRESSION — AND THE MOST CORRELATED WITH NPS</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Post-event rideshare surges 200% without pre-coordination. Geo-fenced staggered exit with bundled rideshare credits cuts wait to 12 minutes. The last 12 minutes determine whether the attendee buys a ticket next time. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Brief; rideshare demand research; Coachella operational model</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">IF ANY STAGE EXCEEDS 3 MINUTES, THE PROBLEM IS ONE STAGE UPSTREAM</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">The five KPIs — scan success, park-to-gate, gate clear, no-show rate, rideshare wait — cascade directly. Every metric above benchmark traces to a specific upstream integration gap. Measure before and after each fix. Events scale when they're seamless. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Brief; Global Market Insights (gminsights.com); event operations benchmarks</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Chapter 15</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">STAFF LONGEVITY SYSTEMS</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Chapters 13 and 14 built frictionless environments for guests and event attendees. Chapter 15 builds the human operating system inside those environments. Staff longevity is not a benefits question — it is a systems question. The venues that retain their best people longest run on the same frictionless design principles applied to their teams.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">14 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch12-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch12-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

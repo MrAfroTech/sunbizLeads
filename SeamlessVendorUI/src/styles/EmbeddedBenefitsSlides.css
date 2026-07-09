@@ -1,0 +1,385 @@
+/* EmbeddedBenefitsSlides.css - Compact version for webinar page */
+
+.embedded-benefits-slides {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+}
+
+/* Slides Container */
+.embedded-slides-container {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Slide */
+.embedded-benefit-slide {
+  position: absolute;
+  width: 100%;
+  padding: 50px 40px;
+  border-radius: 16px;
+  opacity: 0;
+  transform: scale(0.9) translateX(-30px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.embedded-benefit-slide.active {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Background Effect */
+.embedded-slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+  z-index: 0;
+}
+
+/* Slide Content */
+.embedded-slide-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Header */
+.embedded-slide-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.embedded-main-headline {
+  font-family: var(--font-secondary, 'Playfair Display', serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.embedded-main-headline .gradient-text {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.embedded-subheadline {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Bullet Points */
+.embedded-bullet-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem 1.5rem;
+  margin: 2rem 0;
+}
+
+.embedded-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  transition: all 0.3s ease;
+}
+
+.embedded-bullet-item:hover {
+  background: rgba(212, 175, 55, 0.05);
+  border-color: rgba(212, 175, 55, 0.25);
+  transform: translateY(-2px);
+}
+
+.embedded-bullet-icon {
+  flex-shrink: 0;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+  border-radius: 8px;
+  color: #d4af37;
+}
+
+.embedded-bullet-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.embedded-bullet-text {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  flex: 1;
+}
+
+/* Stat Callout */
+.embedded-stat-callout {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.04));
+  border: 2px solid rgba(212, 175, 55, 0.25);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+}
+
+.embedded-stat-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  border-radius: 10px;
+  color: #0a0a0a;
+  flex-shrink: 0;
+}
+
+.embedded-stat-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.embedded-stat-text {
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+  margin: 0;
+  color: #f4d03f;
+  text-shadow: 0 2px 6px rgba(212, 175, 55, 0.25);
+}
+
+/* Navigation */
+.embedded-slide-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.embedded-nav-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  border: 2px solid rgba(212, 175, 55, 0.25);
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.embedded-nav-button:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  transform: scale(1.1);
+}
+
+.embedded-nav-button:active {
+  transform: scale(0.95);
+}
+
+/* Slide Indicators */
+.embedded-slide-indicators {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.embedded-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.embedded-indicator:hover {
+  background: rgba(212, 175, 55, 0.5);
+  transform: scale(1.2);
+}
+
+.embedded-indicator.active {
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  width: 28px;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .embedded-benefits-slides {
+    padding: 30px 15px;
+  }
+
+  .embedded-slides-container {
+    min-height: 550px;
+  }
+
+  .embedded-benefit-slide {
+    padding: 40px 30px;
+  }
+
+  .embedded-bullet-points {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .embedded-slides-container {
+    min-height: 500px;
+  }
+
+  .embedded-benefit-slide {
+    padding: 30px 20px;
+  }
+
+  .embedded-main-headline {
+    font-size: 1.75rem;
+  }
+
+  .embedded-subheadline {
+    font-size: 1rem;
+  }
+
+  .embedded-bullet-item {
+    padding: 0.8rem;
+  }
+
+  .embedded-bullet-text {
+    font-size: 0.95rem;
+  }
+
+  .embedded-stat-callout {
+    flex-direction: column;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .embedded-stat-text {
+    font-size: 1.1rem;
+  }
+
+  .embedded-nav-button {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .embedded-benefits-slides {
+    padding: 20px 10px;
+  }
+
+  .embedded-slides-container {
+    min-height: 450px;
+  }
+
+  .embedded-benefit-slide {
+    padding: 25px 15px;
+  }
+
+  .embedded-main-headline {
+    font-size: 1.5rem;
+  }
+
+  .embedded-slide-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .embedded-bullet-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .embedded-bullet-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .embedded-bullet-text {
+    font-size: 0.9rem;
+  }
+
+  .embedded-stat-callout {
+    padding: 1rem;
+  }
+
+  .embedded-stat-text {
+    font-size: 1rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

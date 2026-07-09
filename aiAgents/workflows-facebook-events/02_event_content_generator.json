@@ -1,0 +1,416 @@
+{
+  "name": "02 - Event Content Generator (AI-Powered)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 10 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 10 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "equal",
+              "keyValue": "Ready to Post"
+            },
+            {
+              "keyName": "description",
+              "condition": "empty"
+            }
+          ]
+        }
+      },
+      "id": "read-events",
+      "name": "Get Events Needing Content",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.8,
+          "responseFormat": "json_object"
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are an expert at writing Facebook Event descriptions that drive ticket sales and RSVPs.\n\nFACEBOOK EVENT DESCRIPTION BEST PRACTICES:\n- Hook in first line (why attend?)\n- Event details (what, when, where)\n- What makes this special/unique\n- Clear CTA (buy tickets, RSVP)\n- Use emojis strategically (2-3 max)\n- Include hashtags (2-3 relevant)\n- Length: 150-250 words\n\nTONE: Exciting but authentic. Create FOMO without being salesy.\n\nSTRUCTURE:\n1. Hook (1 sentence - why this is unmissable)\n2. What's happening (event type, performers/features)\n3. When & Where (date, time, venue address)\n4. Why attend (unique angle, special offers)\n5. Ticketing info (price, link, limited availability if true)\n6. CTA (Get tickets now, RSVP, share with friends)\n\nReturn JSON with description and suggested hashtags."
+            },
+            {
+              "role": "user",
+              "content": "Create Facebook Event description for:\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nDate: {{ $json.event_date }}\nTime: {{ $json.event_time }}\nCategory: {{ $json.event_category }}\nTicket Price: {{ $json.ticket_price }}\nLocation: {{ $json.location }}\n\nBasic description from venue: {{ $json.description }}\n\nMake it exciting and drive ticket sales.\n\nReturn JSON:\n{\n  \"event_description\": \"Full Facebook event description\",\n  \"short_description\": \"One-liner for posts (60 chars)\",\n  \"hashtags\": [\"hashtag1\", \"hashtag2\", \"hashtag3\"]\n}"
+            }
+          ]
+        }
+      },
+      "id": "generate-description",
+      "name": "Write Facebook Event Description",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.8
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write a Facebook Page post promoting an event.\n\nFACEBOOK PAGE POST RULES:\n- Attention-grabbing first line (question, stat, or bold claim)\n- Mobile-optimized (short paragraphs, line breaks)\n- Include event details but link to Facebook Event for more\n- Create urgency (limited tickets, early bird, selling fast)\n- 80-120 words\n- 2-4 emojis\n- End with strong CTA\n\nPOST STRUCTURE:\n[Hook emoji] Opening hook\n\n[Event details in 2-3 lines]\n\n[Why attend / what makes it special]\n\n[CTA] Get tickets: [link]\n[Event details in Facebook Event]\n\n[Hashtags]"
+            },
+            {
+              "role": "user",
+              "content": "Write promotional Facebook post for:\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nDate: {{ $json.event_date }} at {{ $json.event_time }}\nCategory: {{ $json.event_category }}\n\nTicket link: {{ $json.ticket_link }}\n\nUse the hook: {{ $node[\"Write Facebook Event Description\"].json.choices[0].message.content }}\n\nReturn ONLY the post text. No JSON."
+            }
+          ]
+        }
+      },
+      "id": "generate-post",
+      "name": "Write Page Post Copy",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $input.all()[0].json;\nconst descNode = $node[\"Write Facebook Event Description\"];\nconst postNode = $node[\"Write Page Post Copy\"];\n\n// Parse OpenAI response\nlet eventDesc = {};\ntry {\n  const descContent = descNode.json.choices?.[0]?.message?.content || descNode.json.message?.content || '{}';\n  eventDesc = typeof descContent === 'string' ? JSON.parse(descContent) : descContent;\n} catch (e) {\n  // If not JSON, use as-is\n  eventDesc = { event_description: descNode.json.choices?.[0]?.message?.content || '' };\n}\n\nconst pagePost = postNode.json.choices?.[0]?.message?.content || postNode.json.message?.content || '';\n\nreturn {\n  ...eventData,\n  description: eventDesc.event_description || eventDesc.description || '',\n  short_description: eventDesc.short_description || '',\n  hashtags: (eventDesc.hashtags || []).map(tag => tag.startsWith('#') ? tag : `#${tag}`).join(' '),\n  page_post_copy: pagePost,\n  status: 'Content Ready - Pending Approval',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "package-content",
+      "name": "Package Event Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "description": "={{ $json.description }}",
+            "status": "={{ $json.status }}",
+            "notes": "={{ $json.notes || '' }}\\nContent generated: {{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "save-content",
+      "name": "Save Generated Content",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-free",
+              "leftValue": "={{ $json.ticket_price }}",
+              "rightValue": "Free",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "is-low-cost",
+              "leftValue": "={{ parseInt(($json.ticket_price || '0').toString().replace(/[^0-9]/g, '')) }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "check-approval",
+      "name": "Check Approval Needed",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  ...$input.first().json,\n  status: 'Approved - Ready to Post',\n  approved_by: 'auto',\n  approved_date: new Date().toISOString()\n};"
+      },
+      "id": "mark-approved",
+      "name": "Mark Approved",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 250]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "Review Facebook Event: {{ $json.event_name }}",
+        "text": "AI-generated content ready for review:\n\nEVENT: {{ $json.event_name }}\nVENUE: {{ $json.venue_name }}\nDATE: {{ $json.event_date }} at {{ $json.event_time }}\nPRICE: {{ $json.ticket_price }}\n\n---\nFACEBOOK EVENT DESCRIPTION:\n{{ $json.description }}\n\n---\nPAGE POST COPY:\n{{ $json.page_post_copy }}\n\n---\nHASHTAGS: {{ $json.hashtags }}\n\n---\nApprove by updating Google Sheet status to \"Approved - Ready to Post\"\nOr edit content and then approve.",
+        "options": {}
+      },
+      "id": "request-review",
+      "name": "Request Review",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1650, 350],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll"
+      },
+      "id": "merge-approval",
+      "name": "Merge Approval Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "notes": "={{ $json.notes || '' }}\\nApproved: {{ $json.approved_date || 'Pending manual review' }}"
+          }
+        }
+      },
+      "id": "update-status",
+      "name": "Update Approval Status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 10 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Events Needing Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events Needing Content": {
+      "main": [
+        [
+          {
+            "node": "Write Facebook Event Description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Facebook Event Description": {
+      "main": [
+        [
+          {
+            "node": "Write Page Post Copy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Page Post Copy": {
+      "main": [
+        [
+          {
+            "node": "Package Event Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Package Event Content": {
+      "main": [
+        [
+          {
+            "node": "Save Generated Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Generated Content": {
+      "main": [
+        [
+          {
+            "node": "Check Approval Needed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Approval Needed": {
+      "main": [
+        [
+          {
+            "node": "Mark Approved",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Request Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Approved": {
+      "main": [
+        [
+          {
+            "node": "Merge Approval Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Review": {
+      "main": [
+        [
+          {
+            "node": "Merge Approval Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Approval Paths": {
+      "main": [
+        [
+          {
+            "node": "Update Approval Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

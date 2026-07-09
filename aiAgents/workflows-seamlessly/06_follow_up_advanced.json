@@ -1,0 +1,407 @@
+{
+  "name": "06 - Follow-Up (Advanced Multi-Stage)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 15 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 3 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:V",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Contacted"
+            }
+          ]
+        }
+      },
+      "id": "get-contacted",
+      "name": "Get Contacted Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = $input.all();\nconst now = new Date();\n\nconst segmented = leads.map(item => {\n  const data = item.json;\n  const contactedDate = new Date(data.contacted_date);\n  const daysSinceContact = Math.floor((now - contactedDate) / (1000 * 60 * 60 * 24));\n  \n  // Determine venue size (affects follow-up timing)\n  const venueSize = data.review_count >= 500 ? 'large' : 'small';\n  \n  // Small venues: faster cycle (3, 7 days)\n  // Large venues: slower cycle (5, 10, 20 days)\n  const followUpDays = venueSize === 'large' ? [5, 10, 20] : [3, 7, 14];\n  \n  let followUpStage = null;\n  let action = 'wait';\n  \n  if (daysSinceContact === followUpDays[0] && !data.engagement_level.includes('followup_1')) {\n    followUpStage = 1;\n    action = 'send_followup_1';\n  } else if (daysSinceContact === followUpDays[1] && !data.engagement_level.includes('followup_2')) {\n    followUpStage = 2;\n    action = 'send_followup_2';\n  } else if (daysSinceContact === followUpDays[2] && !data.engagement_level.includes('final')) {\n    followUpStage = 3;\n    action = 'send_final';\n  } else if (daysSinceContact > followUpDays[2]) {\n    action = 'close_lost';\n  }\n  \n  return {\n    ...data,\n    days_since_contact: daysSinceContact,\n    venue_size: venueSize,\n    follow_up_stage: followUpStage,\n    action: action\n  };\n});\n\n// Filter only leads needing action\nreturn segmented.filter(lead => lead.action !== 'wait');"
+      },
+      "id": "determine-strategy",
+      "name": "Determine Follow-Up Strategy",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "mode": "expression",
+        "value": "={{ $json.action }}",
+        "rules": {
+          "values": [
+            {
+              "value": "send_followup_1"
+            },
+            {
+              "value": "send_followup_2"
+            },
+            {
+              "value": "send_final"
+            },
+            {
+              "value": "close_lost"
+            }
+          ]
+        }
+      },
+      "id": "route-followup",
+      "name": "Route Follow-Up Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write a brief follow-up email (80 words max) that adds value without asking for anything. Share an insight, case study, or industry statistic relevant to their venue type. End with 'Let me know if you'd like to see how this applies to [Venue Name].' Tone: helpful, not pushy."
+            },
+            {
+              "role": "user",
+              "content": "=Original email sent to {{ $json.business_name }}:\n{{ $json.email_body }}\n\nVenue type: {{ $json.category }}\nPain points: {{ $json.pain_signals }}\n\nWrite a value-add follow-up. Share something useful (stat, case study, tip)."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "write-followup1",
+      "name": "Write Follow-Up 1",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1050, 200],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write a follow-up (100 words) sharing a specific case study from a similar venue. Format: 'Quick update—thought you'd find this interesting...' then describe the venue, problem, solution, results. End with 'Would a similar outcome interest [Venue Name]?'"
+            },
+            {
+              "role": "user",
+              "content": "=Venue: {{ $json.business_name }}\nType: {{ $json.category }}\n\nCreate a fictional but realistic case study of a {{ $json.category }} that used Seamlessly. Include:\n- Similar venue size/type\n- Specific problem (long waits, tech chaos)\n- Results (30% revenue, 45% turnover reduction)"
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "write-followup2",
+      "name": "Write Follow-Up 2",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1050, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write a brief final follow-up (50 words). Acknowledge they're probably busy. No pressure. Offer to reconnect in 6 months if timing isn't right now. Tone: gracious, professional exit."
+            },
+            {
+              "role": "user",
+              "content": "=Write a final follow-up for {{ $json.business_name }}. Keep it short and gracious."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "write-final",
+      "name": "Write Final Touch",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1050, 400],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $node[\"Get Contacted Leads\"].json.email }}",
+        "subject": "=Re: {{ $node[\"Get Contacted Leads\"].json.email_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.message.content }}"
+      },
+      "id": "send-followup",
+      "name": "Send Follow-Up Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1250, 300],
+      "credentials": {
+        "gmailOAuth2Api": {
+          "id": "gmail-cred",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "engagement_level": "={{ 'followup_' + $node[\"Determine Follow-Up Strategy\"].json.follow_up_stage }}",
+            "last_activity": "={{ $now }}"
+          }
+        }
+      },
+      "id": "log-followup",
+      "name": "Log Follow-Up Sent",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Closed Lost - No Response"
+          }
+        }
+      },
+      "id": "close-lost",
+      "name": "Mark Closed Lost",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 500],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 3 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Contacted Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Contacted Leads": {
+      "main": [
+        [
+          {
+            "node": "Determine Follow-Up Strategy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determine Follow-Up Strategy": {
+      "main": [
+        [
+          {
+            "node": "Route Follow-Up Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Follow-Up Type": {
+      "main": [
+        [
+          {
+            "node": "Write Follow-Up 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write Follow-Up 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write Final Touch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Closed Lost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Follow-Up 1": {
+      "main": [
+        [
+          {
+            "node": "Send Follow-Up Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Follow-Up 2": {
+      "main": [
+        [
+          {
+            "node": "Send Follow-Up Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Final Touch": {
+      "main": [
+        [
+          {
+            "node": "Send Follow-Up Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Follow-Up Email": {
+      "main": [
+        [
+          {
+            "node": "Log Follow-Up Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

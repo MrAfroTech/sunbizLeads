@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tier 3 Revenue Dominance Tracker | Seamlessly</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: transparent;
+      min-height: 100vh;
+      color: #1a1410;
+      line-height: 1.6;
+    }
+    .app-content { position: relative; z-index: 2; min-height: 100vh; }
+    .page-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(212, 175, 55, 0.6); z-index: 1; pointer-events: none; }
+    .background-slider { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
+    .background-slider__slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity 1500ms ease-in-out; }
+    .background-slider__slide--active { opacity: 1; z-index: 1; }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 160px 24px 60px; /* nav bar (~60px) + partner banner (~50px) = ~120px */
+      background: rgba(255, 255, 255, 0.6);
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    
+    h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 700;
+      color: #1a1410;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 24px 0 16px;
+      color: #1a1410;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      border-bottom: 2px solid rgba(139, 116, 78, 0.3);
+    }
+    
+    .tab {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1410;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: -2px;
+    }
+    
+    .tab:hover {
+      color: #1a1410;
+    }
+    
+    .tab.active {
+      color: #1a1410;
+      border-bottom-color: #e0b841;
+    }
+    
+    .panel {
+      display: none;
+    }
+    
+    .panel.active {
+      display: block;
+    }
+    
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    
+    .kpi-item {
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(139, 116, 78, 0.3);
+      background: #fff;
+    }
+    
+    .kpi-item label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1410;
+    }
+    
+    .kpi-item input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 1px solid rgba(139, 116, 78, 0.4);
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1410;
+      font-family: inherit;
+    }
+    
+    .kpi-item input:focus {
+      outline: none;
+      border-color: #e0b841;
+      box-shadow: 0 0 0 2px rgba(224, 184, 65, 0.2);
+    }
+    
+    .kpi-item .benchmark {
+      font-size: 12px;
+      color: #1a1410;
+      margin-top: 4px;
+    }
+    
+    .kpi-item .status {
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    
+    .kpi-item .status.at {
+      color: #2e7d32;
+    }
+    
+    .kpi-item .status.below {
+      color: #c62828;
+    }
+    
+    .intangibles-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .intangibles-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: #1a1410;
+    }
+    
+    .intangibles-list li:before {
+      content: '\2713';
+      position: absolute;
+      left: 0;
+      color: #e0b841;
+      font-weight: 700;
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 140px 16px 40px;
+      }
+      
+      .card {
+        padding: 32px 24px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .tabs {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-slider" id="bgSlider" aria-hidden="true">
+    <div class="background-slider__slide background-slider__slide--active" style="background-image: url('/pexels-pixabay-262047.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-bluerhinomedia-2788792.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-brett-sayles-2339712.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-wb2008-2290070.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935100.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-pixabay-260922.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935077.jpg')"></div>
+  </div>
+  <div class="page-overlay" aria-hidden="true"></div>
+  <div class="app-content">
+  <div class="container">
+    <div class="card">
+      <h1>Tier 3 Revenue Dominance Tracker</h1>
+      <div class="tabs">
+        <button type="button" class="tab active" data-tab="kpi">KPI Dashboard</button>
+        <button type="button" class="tab" data-tab="intangibles">Fan Legacy Intangibles</button>
+      </div>
+
+      <div id="panelKpi" class="panel active">
+        <h2>Enter your metrics</h2>
+        <div class="kpi-grid" id="kpiGrid"></div>
+      </div>
+
+      <div id="panelIntangibles" class="panel">
+        <h2>7 Elite Intangibles to Dominate Hearts</h2>
+        <ul class="intangibles-list">
+          <li>Choreographed tifo displays by supporter groups</li>
+          <li>Exclusive pre-game tailgate vibes with alumni tales</li>
+          <li>AR filters letting fans join on-field moments via phone</li>
+          <li>Building a profound sense of belonging to a rising dynasty</li>
+          <li>Creating lifelong advocates who pack houses through identity not incentives</li>
+          <li>Immersive storytelling that connects current fans to team history</li>
+          <li>Supporter culture that makes attendance feel like membership</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script>
+    (function() {
+      var slides = document.querySelectorAll('#bgSlider .background-slider__slide');
+      if (slides.length > 1) {
+        var i = 0;
+        setInterval(function() {
+          slides[i].classList.remove('background-slider__slide--active');
+          i = (i + 1) % slides.length;
+          slides[i].classList.add('background-slider__slide--active');
+        }, 5000);
+      }
+    })();
+  </script>
+  <script>
+    (function() {
+      var kpis = [
+        { id: 'ebitda', label: 'EBITDA margin (%)', benchmark: '20%+', atOrAbove: 20, numeric: true, suffix: '%' },
+        { id: 'digital', label: 'Digital sales percentage (%)', benchmark: '40%+', atOrAbove: 40, numeric: true, suffix: '%' },
+        { id: 'arpa', label: 'ARPA ($)', benchmark: '$35-45', atOrAbove: 35, numeric: true, prefix: '$' },
+        { id: 'attendance', label: 'Average attendance', benchmark: '4,000+', atOrAbove: 4000, numeric: true },
+        { id: 'sponsor', label: 'Sponsor revenue (%)', benchmark: '35-50%', atOrAbove: 35, numeric: true, suffix: '%' },
+        { id: 'wait', label: 'Avg line wait (minutes)', benchmark: 'Under 8 min', belowIsGood: true, atOrAbove: 8, numeric: true },
+        { id: 'erosion', label: 'Profit erosion from fragmented tech (%)', benchmark: 'Under 15%', belowIsGood: true, atOrAbove: 15, numeric: true, suffix: '%' },
+        { id: 'revenueTarget', label: 'Revenue target toward $20M by 2027 ($M)', benchmark: 'Track to $20M', atOrAbove: 0, numeric: true, prefix: '$' },
+        { id: 'conversion', label: 'Game-day conversion rate (%)', benchmark: 'Higher is better', atOrAbove: 50, numeric: true, suffix: '%' },
+      ];
+
+      var grid = document.getElementById('kpiGrid');
+      kpis.forEach(function(k) {
+        var wrap = document.createElement('div');
+        wrap.className = 'kpi-item';
+        wrap.dataset.id = k.id;
+        wrap.innerHTML =
+          '<label for="' + k.id + '">' + k.label + '</label>' +
+          '<input type="' + (k.numeric ? 'number' : 'text') + '" id="' + k.id + '" step="any" placeholder="Enter value">' +
+          '<div class="benchmark">Benchmark: ' + k.benchmark + '</div>' +
+          '<div class="status" id="status-' + k.id + '"></div>';
+        grid.appendChild(wrap);
+      });
+
+      function parseVal(input, k) {
+        var raw = input.value.trim();
+        if (!raw) return null;
+        if (k.prefix === '$' && k.id === 'revenueTarget') return parseFloat(raw.replace(/[^0-9.]/g, '')) || null;
+        if (k.suffix === '%') return parseFloat(raw.replace('%', '')) || null;
+        return parseFloat(raw) || null;
+      }
+
+      function updateStatus() {
+        kpis.forEach(function(k) {
+          var input = document.getElementById(k.id);
+          var statusEl = document.getElementById('status-' + k.id);
+          if (!input || !statusEl) return;
+          var val = parseVal(input, k);
+          if (val === null) { statusEl.textContent = ''; statusEl.className = 'status'; return; }
+          var at = false;
+          if (k.belowIsGood) at = val < k.atOrAbove;
+          else at = val >= k.atOrAbove;
+          statusEl.textContent = at ? 'At or above benchmark' : 'Below benchmark';
+          statusEl.className = 'status ' + (at ? 'at' : 'below');
+        });
+      }
+
+      grid.addEventListener('input', updateStatus);
+      grid.addEventListener('change', updateStatus);
+
+      document.querySelectorAll('.tab').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var t = btn.dataset.tab;
+          document.querySelectorAll('.tab').forEach(function(b) { b.classList.remove('active'); });
+          document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+          btn.classList.add('active');
+          var panel = t === 'kpi' ? document.getElementById('panelKpi') : document.getElementById('panelIntangibles');
+          if (panel) panel.classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "./static/css/main.7aa3c72d.css",
+    "main.js": "./static/js/main.deb418ba.js",
+    "static/media/avatar_no_background.png": "./static/media/avatar_no_background.51bf758d6d0093c8b157.png",
+    "static/media/ez-logo-ultra-thin.svg": "./static/media/ez-logo-ultra-thin.c4e8fad09ff5a576be0e4f2c9550c8be.svg",
+    "index.html": "./index.html",
+    "main.7aa3c72d.css.map": "./static/css/main.7aa3c72d.css.map",
+    "main.deb418ba.js.map": "./static/js/main.deb418ba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7aa3c72d.css",
+    "static/js/main.deb418ba.js"
+  ]
+}

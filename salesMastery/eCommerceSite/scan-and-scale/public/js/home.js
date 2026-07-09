@@ -96,50 +96,6 @@
     });
   }
 
-  function initTrustedMarquee() {
-    var bar = document.getElementById('home-trusted');
-    if (!bar) return;
-
-    var images = bar.querySelectorAll('.home-trusted__logo');
-
-    function hideLogo(img) {
-      img.hidden = true;
-    }
-
-    function onLogoError(img) {
-      console.warn('[home-trusted] Logo failed to load:', img.src);
-      hideLogo(img);
-    }
-
-    function onLogoLoad(img) {
-      if (img.naturalWidth > 0) {
-        img.dataset.logoOk = '1';
-      } else {
-        onLogoError(img);
-      }
-    }
-
-    images.forEach(function (img) {
-      var settled = false;
-
-      function settle(ok) {
-        if (settled) return;
-        settled = true;
-        if (ok) onLogoLoad(img);
-        else onLogoError(img);
-      }
-
-      img.addEventListener('error', function () {
-        settle(false);
-      });
-      img.addEventListener('load', function () {
-        settle(img.naturalWidth > 0);
-      });
-
-      if (img.complete) settle(img.naturalWidth > 0);
-    });
-  }
-
   function initBenefitReveal() {
     var cards = document.querySelectorAll('[data-benefit-reveal]');
     if (!cards.length) return;
@@ -171,7 +127,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    initTrustedMarquee();
     initBenefitReveal();
 
     loadManifest()

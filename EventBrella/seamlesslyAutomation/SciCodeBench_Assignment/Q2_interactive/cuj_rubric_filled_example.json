@@ -1,0 +1,73 @@
+{
+  "rubric_name": "Interactive API design CUJ (filled example)",
+  "description": "Example filled rubric for a typical single-shot or weakly interactive Gemini answer. At least 30% of criteria have human_rating false (c3, c5, c7, c8, c10 = 5/10 = 50%).",
+  "criteria": [
+    {
+      "id": "c1",
+      "criterion": "Model asked at least one specific clarifying question before proposing the API.",
+      "human_rating": true,
+      "notes": "Model asked about key format."
+    },
+    {
+      "id": "c2",
+      "criterion": "Model proposed a minimal API and explicitly asked for user confirmation before implementing.",
+      "human_rating": true,
+      "notes": "Model proposed endpoints and asked 'Does this work?'"
+    },
+    {
+      "id": "c3",
+      "criterion": "Model did not output full implementation code in the first response.",
+      "human_rating": false,
+      "notes": "First response included full code block; no prior clarification only."
+    },
+    {
+      "id": "c4",
+      "criterion": "After user input, model provided implementation sketch or code matching agreed API.",
+      "human_rating": true,
+      "notes": "Implementation matched proposal."
+    },
+    {
+      "id": "c5",
+      "criterion": "Model mentioned at least one edge case or failure mode.",
+      "human_rating": false,
+      "notes": "No edge case or failure mode mentioned."
+    },
+    {
+      "id": "c6",
+      "criterion": "Responses were structured in clear steps.",
+      "human_rating": true,
+      "notes": "Some structure present."
+    },
+    {
+      "id": "c7",
+      "criterion": "Model avoided assuming unspecified details without asking or stating assumption.",
+      "human_rating": false,
+      "notes": "Assumed string keys and in-memory dict without stating."
+    },
+    {
+      "id": "c8",
+      "criterion": "Model invited further interaction at least once.",
+      "human_rating": false,
+      "notes": "Ended without inviting follow-up."
+    },
+    {
+      "id": "c9",
+      "criterion": "API proposal included get, set, delete, list_keys.",
+      "human_rating": true,
+      "notes": "All four operations present."
+    },
+    {
+      "id": "c10",
+      "criterion": "Tone was collaborative rather than purely instructive.",
+      "human_rating": false,
+      "notes": "Mostly instructive; little 'shall we' or 'your preference'."
+    }
+  ],
+  "summary": {
+    "total_criteria": 10,
+    "human_rating_true": 5,
+    "human_rating_false": 5,
+    "percent_false": 50,
+    "headroom_requirement_met": true
+  }
+}

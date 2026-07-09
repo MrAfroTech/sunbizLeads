@@ -1,0 +1,103 @@
+{
+  "success": true,
+  "events": [
+    {
+      "eventId": "event_001",
+      "organizerId": "current_user_id",
+      "name": "Corporate Conference 2024",
+      "description": "Annual corporate conference featuring industry leaders, networking opportunities, and cutting-edge presentations.",
+      "date": "2024-03-15T09:00:00Z",
+      "endDate": "2024-03-15T17:00:00Z",
+      "location": "Convention Center, Downtown City",
+      "address": "123 Convention Blvd, City, ST 12345",
+      "capacity": 500,
+      "status": "published",
+      "category": "Business",
+      "tags": ["networking", "corporate", "leadership"],
+      "imageUrl": "/images/conference-2024.jpg",
+      "createdAt": "2024-01-15T10:00:00Z",
+      "updatedAt": "2024-02-01T14:30:00Z",
+      "analytics": {
+        "totalTicketsSold": 247,
+        "totalRevenue": 74100,
+        "conversionRate": 49.4,
+        "avgTicketPrice": 300,
+        "dailySales": [
+          { "date": "2024-02-01", "sales": 12, "revenue": 3600 },
+          { "date": "2024-02-02", "sales": 8, "revenue": 2400 },
+          { "date": "2024-02-03", "sales": 15, "revenue": 4500 },
+          { "date": "2024-02-04", "sales": 23, "revenue": 6900 },
+          { "date": "2024-02-05", "sales": 18, "revenue": 5400 }
+        ]
+      },
+      "ticketTypes": [
+        { 
+          "id": "tt_001", 
+          "name": "General Admission", 
+          "price": 299, 
+          "quantityAvailable": 400, 
+          "sold": 180,
+          "description": "Full conference access including all sessions and lunch"
+        },
+        { 
+          "id": "tt_002", 
+          "name": "VIP Package", 
+          "price": 499, 
+          "quantityAvailable": 100, 
+          "sold": 67,
+          "description": "Premium seating, networking dinner, and exclusive sessions"
+        }
+      ]
+    },
+    {
+      "eventId": "event_002",
+      "organizerId": "current_user_id",
+      "name": "Tech Summit 2024",
+      "description": "Innovation and technology summit showcasing the latest in AI, blockchain, and emerging technologies.",
+      "date": "2024-04-20T10:00:00Z",
+      "endDate": "2024-04-20T18:00:00Z",
+      "location": "Tech Innovation Center",
+      "address": "456 Innovation Ave, Tech City, TC 54321",
+      "capacity": 300,
+      "status": "draft",
+      "category": "Technology",
+      "tags": ["tech", "innovation", "ai", "blockchain"],
+      "imageUrl": "/images/tech-summit-2024.jpg",
+      "createdAt": "2024-02-10T09:00:00Z",
+      "updatedAt": "2024-02-15T16:45:00Z",
+      "analytics": {
+        "totalTicketsSold": 45,
+        "totalRevenue": 13500,
+        "conversionRate": 15.0,
+        "avgTicketPrice": 300,
+        "dailySales": [
+          { "date": "2024-02-10", "sales": 5, "revenue": 1500 },
+          { "date": "2024-02-11", "sales": 3, "revenue": 900 },
+          { "date": "2024-02-12", "sales": 8, "revenue": 2400 },
+          { "date": "2024-02-13", "sales": 12, "revenue": 3600 },
+          { "date": "2024-02-14", "sales": 17, "revenue": 5100 }
+        ]
+      },
+      "ticketTypes": [
+        { 
+          "id": "tt_003", 
+          "name": "Early Bird", 
+          "price": 199, 
+          "quantityAvailable": 150, 
+          "sold": 30,
+          "description": "Limited time early bird pricing"
+        },
+        { 
+          "id": "tt_004", 
+          "name": "Regular", 
+          "price": 299, 
+          "quantityAvailable": 150, 
+          "sold": 15,
+          "description": "Standard conference access"
+        }
+      ]
+    }
+  ],
+  "total": 2,
+  "demoMode": true
+}

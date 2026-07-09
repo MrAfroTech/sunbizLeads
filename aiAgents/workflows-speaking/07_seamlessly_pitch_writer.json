@@ -1,0 +1,329 @@
+{
+  "name": "07 - Seamlessly Pitch Writer",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 13 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 1 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:AA",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "contains",
+              "value": "High Priority"
+            },
+            {
+              "fieldName": "status",
+              "condition": "contains",
+              "value": "Qualified"
+            },
+            {
+              "fieldName": "contacted_date",
+              "condition": "equal",
+              "value": ""
+            }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "get-opportunities",
+      "name": "Get Qualified Opportunities",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Speaking Assets",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:H",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        }
+      },
+      "id": "get-topics",
+      "name": "Get Available Topics",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 400],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a speaking opportunity pitch expert writing emails for Seamlessly founder.\n\nSPEAKER CREDENTIALS:\n- Founder, Seamlessly (hospitality tech platform)\n- 100+ venues, 30% avg revenue increase\n- Past speaking: Hospitality Tech Summit, Restaurant Innovation Conference\n\nAVAILABLE TOPICS:\n1. \"The $25M Wait-Time Problem: Mobile Ordering's Impact on Revenue\"\n2. \"Death by a Thousand Apps: Unifying Hospitality Tech Stacks\"\n3. \"How We Increased Venue Revenue 30% in 90 Days\"\n4. \"The Future of Guest Experience: Network Effects in Hospitality\"\n\nPITCH RULES:\n- Length: 200-250 words\n- Structure: Hook → Credibility → Topic Fit → Value → CTA\n- Tone: Professional, confident, not salesy\n- Reference their specific event/audience\n- Match topic to event type (conference vs university vs podcast)\n\nReturn JSON:\n{\n  \"subject\": \"subject line (12 words max)\",\n  \"opener\": \"personalized hook\",\n  \"body\": \"full pitch body\",\n  \"recommended_topic\": \"topic title\",\n  \"ps\": \"optional PS\"\n}"
+            },
+            {
+              "role": "user",
+              "content": "=Write a speaking pitch for:\n\nEvent: {{ $json.event_name }}\nType: {{ $json.event_type }}\nIndustry: {{ $json.industry }}\nDate: {{ $json.event_date }}\nAttendance: {{ $json.attendance }}\nAudience: {{ $json.audience_type }}\nOrganizer: {{ $json.organizer_name }}\nCFP Deadline: {{ $json.cfp_deadline }}\nPast Speakers: {{ $json.past_speakers }}\n\nAvailable Topics:\n{{ $node[\"Get Available Topics\"].json.map(t => `- ${t.topic_title}: ${t.one_liner}`).join('\\n') }}\n\nTailor the pitch to this specific event. Choose the best topic match. Reference their audience type."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "write-pitch",
+      "name": "Write Speaking Pitch",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const opportunityData = $node[\"Get Qualified Opportunities\"].json;\n\nlet pitchData;\ntry {\n  const content = $json.message.content;\n  pitchData = JSON.parse(content);\n} catch (e) {\n  console.error('Failed to parse pitch JSON:', e);\n  // Fallback pitch\n  pitchData = {\n    subject: `Speaking Opportunity: ${opportunityData.event_name}`,\n    opener: `Hi ${opportunityData.organizer_name || 'there'},`,\n    body: `I noticed ${opportunityData.event_name} is seeking speakers. As founder of Seamlessly (hospitality tech platform helping 100+ venues increase revenue 30%), I'd love to share insights on mobile ordering and unified tech stacks. Would my expertise align with your audience?`,\n    recommended_topic: 'The $25M Wait-Time Problem',\n    ps: ''\n  };\n}\n\n// Construct full email\nconst fullBody = `${pitchData.opener}\\n\\n${pitchData.body}${pitchData.ps ? '\\n\\nP.S. ' + pitchData.ps : ''}`;\n\n// Add signature\nconst signature = `\\n\\nBest regards,\\n[Your Name]\\nFounder, Seamlessly\\n[Your Email]\\n[Your Phone]\\n[Your Website]`;\n\nreturn {\n  ...opportunityData,\n  pitch_subject: pitchData.subject,\n  pitch_body: fullBody + signature,\n  recommended_topic: pitchData.recommended_topic,\n  status: opportunityData.score >= 18 ? 'Ready to Send - High Priority' : 'Ready to Send - Qualified',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "process-pitch",
+      "name": "Format Pitch Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $json.event_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "pitch_subject": "={{ $json.pitch_subject }}",
+            "pitch_body": "={{ $json.pitch_body }}",
+            "recommended_topic": "={{ $json.recommended_topic }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "save-pitch",
+      "name": "Save Pitch to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "high-priority-check",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": 18,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-high-priority",
+      "name": "Check if High Priority",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=Review High-Priority Speaking Pitch: {{ $json.event_name }}",
+        "emailType": "text",
+        "message": "=High-priority speaking pitch ready for review:\n\nTO: {{ $json.organizer_email }}\nSUBJECT: {{ $json.pitch_subject }}\n\nBODY:\n{{ $json.pitch_body }}\n\n---\nEvent: {{ $json.event_name }}\nScore: {{ $json.score }}\nRecommended Topic: {{ $json.recommended_topic }}\n\nReview and approve before sending.",
+        "options": {}
+      },
+      "id": "request-review",
+      "name": "Request Manual Review",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1450, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 1 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Qualified Opportunities",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Available Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Qualified Opportunities": {
+      "main": [
+        [
+          {
+            "node": "Write Speaking Pitch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Topics": {
+      "main": [
+        [
+          {
+            "node": "Write Speaking Pitch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Speaking Pitch": {
+      "main": [
+        [
+          {
+            "node": "Format Pitch Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Pitch Email": {
+      "main": [
+        [
+          {
+            "node": "Save Pitch to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Pitch to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Check if High Priority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if High Priority": {
+      "main": [
+        [
+          {
+            "node": "Request Manual Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

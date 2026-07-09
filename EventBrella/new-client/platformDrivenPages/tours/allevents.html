@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events - — <br><br> —</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        /* Hero section with images on sides */
+        .hero-section {
+            grid-template-columns: 1fr 1.5fr 1fr;
+            min-height: 320px;
+            background-image: url('/vertical-garden-farming-iron-rack-260nw-1938275770.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-section .hero-info,
+        .hero-section .hero-image {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-section .hero-image img {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .hero-section .hero-image {
+                max-height: 180px;
+                overflow: hidden;
+                padding: 15px !important;
+            }
+            .hero-section .hero-image img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        
+        .event-details-badges {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 10px 10px;
+        }
+        
+        .detail-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            flex: 0 1 auto;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        
+        .detail-badge:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .detail-badge span:first-child {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .detail-badge span:last-child {
+            color: #ffffff;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .events-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .events-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .events-header h1 {
+            color: var(--primary-brown, #8B4513);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .events-header p {
+            color: var(--text-light, #666);
+            font-size: 1.1rem;
+        }
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .event-card {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-width: 0;
+            width: 100%;
+            position: relative;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(139, 69, 19, 0.2);
+            border-color: var(--primary-brown, #8B4513);
+        }
+        .event-card.selected {
+            border-color: var(--primary-brown, #8B4513);
+            background: #fff9e6;
+        }
+        .event-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: #333;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            width: 280px;
+            max-width: 90vw;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        .event-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+        }
+        .event-card:hover .event-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .event-date {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-brown, #8B4513);
+            margin-bottom: 8px;
+        }
+        .event-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .event-time {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .event-venue {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .event-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-brown, #8B4513);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .select-event-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: var(--primary-brown, #8B4513);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+        .select-event-btn:hover {
+            background: var(--primary-gold, #D2691E);
+        }
+        .select-event-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #monthlyDateSelect {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color, #ddd);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        #monthlyDateSelect:focus {
+            outline: none;
+            border-color: var(--primary-brown, #8B4513);
+        }
+        @media (max-width: 1200px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .events-header h1 {
+                font-size: 2rem;
+            }
+            .event-details-badges {
+                gap: 8px;
+                padding: 15px 5px;
+                flex-wrap: wrap;
+            }
+            .detail-badge {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+                flex: 1 1 auto;
+                min-width: 120px;
+            }
+            .detail-badge span:first-child {
+                font-size: 0.9rem;
+            }
+            .hero-info h1 {
+                font-size: 32px !important;
+            }
+            .event-tooltip {
+                width: 250px;
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+            .events-container > div[style*="display: flex"] {
+                flex-direction: column !important;
+            }
+            .events-container > div[style*="display: flex"] > a {
+                min-width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <!-- Left Image -->
+            <div class="hero-image" style="display: flex; align-items: center; justify-content: center; padding: 20px; height: 100%;">
+                <img src="/images/farmer-banks-field.png" alt="—" style="border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+            </div>
+            
+            <!-- Center Content -->
+            <div class="hero-info" style="text-align: center; padding: 30px 30px;">
+                <h1 style="text-align: center; margin-bottom: 15px; font-size: 2rem; line-height: 1.2;">—<br>—</h1>
+                <div class="hero-meta" style="text-align: center; margin-bottom: 25px; align-items: center; gap: 8px;">
+                    <div class="hero-meta-item" style="justify-content: center;">Guided Farm Tours and Community Harvests</div>
+                </div>
+                
+                <!-- Event Details Badges -->
+                <div class="event-details-badges" style="margin-top: 20px; padding: 15px 0;">
+                    <div class="detail-badge">
+                        <span style="font-size: 1rem;">🌾</span>
+                        <span>Harvests</span>
+                    </div>
+                    <div class="detail-badge">
+                        <span style="font-size: 1rem;">🚜</span>
+                        <span>Farm Tours</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Image -->
+            <div class="hero-image" style="display: flex; align-items: center; justify-content: center; padding: 20px; height: 100%;">
+                <img src="/images/farmer-banks-greenhouse.png" alt="—" style="border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+            </div>
+        </div>
+
+        <!-- Events Selection Section -->
+        <div class="events-container">
+            <div class="events-header">
+            </div>
+
+            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; max-width: 800px; margin: 0 auto;">
+                <a href="/platformDrivenPages/tours/farm-tours.html" style="text-decoration: none; flex: 1; min-width: 300px; max-width: 400px;">
+                    <div class="event-card" style="text-align: center; padding: 40px 30px;">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">🚜</div>
+                        <div class="event-name" style="font-size: 1.8rem; margin-bottom: 15px;">Farm Tours</div>
+                        <p style="color: #666; font-size: 1rem; line-height: 1.6; margin-bottom: 25px;">—</p>
+                        <button class="select-event-btn" style="margin-top: 0;">
+                            View Farm Tours
+                        </button>
+                    </div>
+                </a>
+                
+                <a href="/platformDrivenPages/tours/harvest-experiences.html" style="text-decoration: none; flex: 1; min-width: 300px; max-width: 400px;">
+                    <div class="event-card" style="text-align: center; padding: 40px 30px;">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">🌾</div>
+                        <div class="event-name" style="font-size: 1.8rem; margin-bottom: 15px;">Community Harvests</div>
+                        <p style="color: #666; font-size: 1rem; line-height: 1.6; margin-bottom: 25px;">—</p>
+    
+                        <button class="select-event-btn" style="margin-top: 0;">
+                            View Harvests
+                        </button>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="event-details">Event Details</div>
+
+        <div class="details-content">
+            <p class="details-text">—</p>
+            
+            <p class="details-text" style="margin-top: 20px;">—</p>
+            
+            <p class="details-text" style="margin-top: 20px;">—</p>
+            
+            <p class="details-text" style="margin-top: 30px;"><strong>For more information:</strong><br>
+            <a href="mailto:—" style="color: var(--primary-brown, #8B4513);">—</a><br>
+            —</p>
+        </div>
+
+        <!-- Venue Section -->
+        <div class="venue-section">
+            <h2 class="section-title">Venue Information</h2>
+            <div class="venue-info">
+                <div class="venue-name">—</div>
+                <div class="venue-address">
+                    —<br>
+                    —<br>
+                    —
+                </div>
+            </div>
+
+            <div class="map-buttons">
+                <button class="map-btn map-btn-scroll" type="button">View Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=—" target="_blank" class="map-btn">Get Directions</a>
+            </div>
+
+            <div class="map-container" id="map-frame">
+                <iframe src="about:blank" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <!-- Organizer Section -->
+            <h2 class="section-title" id="organizer">Organizer Information</h2>
+            <div class="organizer-content">
+                <img src="https://s3.amazonaws.com//images/farmer-banks-field.png" alt="—" class="organizer-image">
+                <div class="organizer-details">
+                    <h3>—</h3>
+                    <p>—</p>
+                    <p>—</p>
+                    <p>+1 (352) 234-4658</p>
+                    <button class="more-events-btn" type="button">More Events</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Visit us at <a href="https://https://new-client.eventbrella.us" target="_blank">https://new-client.eventbrella.us</a></p>
+            <p class="footer-contact">For questions, contact —</p>
+            <p class="footer-terms"><a href="#terms">Terms and Conditions</a></p>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
+

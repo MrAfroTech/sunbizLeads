@@ -1,0 +1,126 @@
+{
+  "epics": [
+    {
+      "summary": "Eventbrella Site v1 Ready",
+      "description": "The digital ticketing platform needs to be ready for end users and ticket vendors",
+      "stories": [
+        {
+          "summary": "Scan similar event ticketing sites and mirror and give updates to site",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Research Integration steps then integrate with site",
+          "description": "",
+          "tasks": []
+        }
+      ],
+      "tasks": [
+        {
+          "summary": "Update with Orlando pirates event cards",
+          "description": ""
+        },
+        {
+          "summary": "Update farmer banks code to hide past events",
+          "description": ""
+        },
+        {
+          "summary": "Add Cloudflare safety for ticketing",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "summary": "Orlando Pirates Jira",
+      "description": "Orlando Pirates app and platform enhancements",
+      "stories": [
+        {
+          "summary": "Add QR code options for specific discounts (e.g., season ticket holders), Cash App, and Venmo to the wallet feature for loading funds",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Add specific mobile app download options (download from Google Store) for mobile users",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Build community feed and Add filters to the community feed to ensure appropriate content",
+          "description": "Low Priority",
+          "tasks": []
+        }
+      ],
+      "tasks": [
+        {
+          "summary": "Turn the high-value area on the initial landing page into a slider to allow a potential sponsor advertisement",
+          "description": ""
+        },
+        {
+          "summary": "Prepare a limited-time question poll on the app for trivia activation during home games",
+          "description": ""
+        },
+        {
+          "summary": "Add a full-width, half-height button for the game day program PDF link above the four quick action buttons on the quick actions page",
+          "description": ""
+        },
+        {
+          "summary": "Update app home page for game days so that get tickets isn't the main option",
+          "description": ""
+        },
+        {
+          "summary": "RSS feed for live stream of game on home page",
+          "description": "www.orlandopirates.com/piratesontv"
+        },
+        {
+          "summary": "Update site with 2026 schedule",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "summary": "CVO TASKS",
+      "description": "Chief Visionary Officer strategic initiatives and business development tasks",
+      "stories": [
+        {
+          "summary": "Complete speaker ai agent",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Pirates Port Marketing Strategy",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Adjacent League/Teams Marketing Strategy",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Lead magnet and sales funnel for different niches Event planner marketing strategy",
+          "description": "",
+          "tasks": []
+        },
+        {
+          "summary": "Duplicate Farmerbanks folder as the template for future clients",
+          "description": "",
+          "tasks": []
+        }
+      ],
+      "tasks": [
+        {
+          "summary": "LLC Reels Conversion for press master ig posts",
+          "description": ""
+        },
+        {
+          "summary": "1MC Presentation complete",
+          "description": ""
+        },
+        {
+          "summary": "Create video for home page",
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

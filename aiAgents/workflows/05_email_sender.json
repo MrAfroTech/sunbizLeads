@@ -1,0 +1,253 @@
+{
+  "name": "05 - Email Sender (RATE LIMITED)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 14 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 2 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:P",
+          "useFirstRowAsHeaders": true,
+          "returnAll": false,
+          "limit": 10
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Ready to Send"
+            }
+          ]
+        }
+      },
+      "id": "get-ready",
+      "name": "Get Ready to Send",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Count how many emails sent today\nconst allItems = $input.all();\nconst today = new Date().toISOString().split('T')[0];\n\nconst sentToday = allItems.filter(item => {\n  const contactedDate = item.json.contacted_date || '';\n  return contactedDate.startsWith(today);\n}).length;\n\nconst maxDaily = 10;\nconst remaining = Math.max(0, maxDaily - sentToday);\n\nif (remaining === 0) {\n  throw new Error('Daily send limit reached (10/day)');\n}\n\nreturn allItems.slice(0, remaining);"
+      },
+      "id": "check-limit",
+      "name": "Check Daily Limit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Random delay between 1-6 minutes\nconst delayMs = Math.floor(Math.random() * 300000) + 60000;\nawait new Promise(resolve => setTimeout(resolve, delayMs));\nreturn $input.all();"
+      },
+      "id": "random-delay",
+      "name": "Human-like Timing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.email }}",
+        "subject": "={{ $json.email_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.email_body }}",
+        "options": {
+          "replyTo": "your-email@domain.com"
+        }
+      },
+      "id": "send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1050, 300],
+      "credentials": {
+        "gmailOAuth2Api": {
+          "id": "gmail-cred",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Contacted",
+            "contacted_date": "={{ $now }}",
+            "last_activity": "={{ $now }}"
+          }
+        }
+      },
+      "id": "mark-contacted",
+      "name": "Mark as Contacted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Send Failed"
+          }
+        }
+      },
+      "id": "mark-failed",
+      "name": "Mark Send Failed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 450],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 2 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Ready to Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Ready to Send": {
+      "main": [
+        [
+          {
+            "node": "Check Daily Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Daily Limit": {
+      "main": [
+        [
+          {
+            "node": "Human-like Timing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Human-like Timing": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Mark as Contacted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Mark Send Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
+
+

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 2: The Birth of the Middle Class</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+.dl-btns { display:flex; gap:10px; }
+.dl-btns button { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:8px 18px; border:none; border-radius:3px; cursor:pointer; }
+.btn-single { background:#00D4AA; color:#1A2A44; }
+.btn-all    { background:#D4AF37; color:#1A2A44; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:36px 64px 20px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:36px 64px 28px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:6px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:44px; color:#1A2A44; line-height:1; margin-bottom:16px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:16px; color:#1A2A44; line-height:1.65; margin-bottom:22px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:21px; color:#1A2A44; letter-spacing:1px; margin-bottom:8px; margin-top:18px; }
+.body     { font-size:14px; color:#1A1A1A; line-height:1.72; }
+.body p   { margin-bottom:12px; }
+.body strong { color:#1A2A44; font-weight:700; }
+.cite     { font-size:10px; color:#999; font-style:italic; vertical-align:super; }
+.src-note { font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px; margin-top:6px; }
+
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.two-col-eq { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.three-col  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.four-col   { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.sidebar    { display:flex; flex-direction:column; gap:14px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:14px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:12px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.4; }
+.stat-sub { font-size:10.5px; color:#666; margin-top:4px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:12px 14px; font-size:13px; color:#1A2A44; line-height:1.6; }
+.callout strong { color:#D4AF37; }
+
+.q-card { padding:18px 20px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.teal { background:#00D4AA; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:40px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; line-height:1.65; margin-bottom:8px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-src  { font-size:10px; font-style:italic; opacity:.65; margin-top:3px; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; } .q-card.navy .q-src { color:rgba(255,255,255,0.55); }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src { color:#1A2A44; }
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text { color:#1A2A44; } .q-card.light .q-attr { color:#666; }
+
+.grid-card { background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.25); padding:18px; border-radius:4px; }
+.grid-card .gc-num { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; }
+.grid-card .gc-lbl { font-size:12px; font-weight:700; margin-top:4px; line-height:1.4; }
+.grid-card .gc-sub { font-size:10.5px; opacity:.65; margin-top:5px; line-height:1.4; }
+.gc-gold .gc-num { color:#D4AF37; } .gc-gold .gc-lbl { color:#fff; }
+.gc-teal .gc-num { color:#00D4AA; } .gc-teal .gc-lbl { color:#fff; }
+.gc-white .gc-num { color:#fff; }   .gc-white .gc-lbl { color:#D4AF37; }
+
+.prog-bar  { height:9px; background:#E8EEF5; border-radius:5px; overflow:hidden; margin-top:5px; }
+.prog-fill { height:100%; border-radius:5px; }
+
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+.chk-row  { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #F0F0F0; }
+.chk-box  { width:16px; height:16px; flex-shrink:0; border:2px solid #1A2A44; border-radius:2px; margin-top:1px; }
+.chk-text { font-size:13px; color:#1A1A1A; line-height:1.5; }
+.chk-text strong { color:#1A2A44; }
+
+.week-block { border-radius:3px; overflow:hidden; }
+.week-head  { padding:8px 14px; display:flex; align-items:center; justify-content:space-between; }
+.week-head span { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; }
+.week-head small { font-size:11px; opacity:.6; }
+.week-body  { border:1.5px solid; border-top:none; padding:10px 14px; border-radius:0 0 3px 3px; }
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 2: The Birth of the Middle Class</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all"    onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 1 — CHAPTER OPENER
+════════════════════════════════════════════════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:52px 80px 40px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part I — The Evolution of Hospitality</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 2</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:80px; color:#fff; line-height:.92; margin-bottom:2px;">THE BIRTH OF</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:80px; color:#D4AF37; line-height:.92; margin-bottom:36px;">THE MIDDLE CLASS</div>
+        <div style="width:72px; height:4px; background:#00D4AA; margin-bottom:30px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:21px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:580px;">
+          "The bustling middle-class moved the culture like never before, filling establishments that were once dominated  by high society"
+        </div>
+      </div>
+      <div>
+        <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:26px;"></div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; line-height:1;">1827</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Delmonico's opens in New York — America's first fine dining restaurant</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">1880–1920</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">The 40 years where leisure went from being exclusively for the elite to morphing to be all inclusive</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#fff; line-height:1;">13.5%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">The moment the middle class food budget fell below 13.5% of income, discretionary income was introduced to the masses.</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">5.5%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Since 1991, Americans have consistently spent 5.5% of their disposable income on food away from home.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 2 — THE CORE THESIS
+════════════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1; align-items:start; gap:24px;">
+      <div>
+        <div class="label">The Turning Point</div>
+        <div class="ch-title">When Fun Became Affordable</div>
+        <div class="ch-intro" style="max-width:100%; font-size:15px;">Hospitality started to flourish after everyday people had a surplus of money beyond basic survival—and they chose to invest in leisure.</div>
+        <div class="body">
+          <p>In the early 19th century, dining out was reserved for the elites. As Shannon Callahan documents in History Hit's history of restaurants, the early American and European establishments  of the 1780s–1820s <strong>"catered mainly towards the wealthy."</strong> Delmonico's, which opened in New York in 1827 with private dining suites and a 1,000-bottle wine cellar, was the template: aspirational, expensive, and exclusive.<span class="cite">[2] Shannon Callahan, "When Did People Start Eating in Restaurants?" History Hit, Feb. 22, 2022</span></p>
+          <p>Then an economic tailwind changed everything. The Industrial Revolution created jobs with regular wages and predictable shifts. As Callahan documents: <strong>"These changes evolved throughout the Industrial Revolution, it became common for many workers to eat in establishments  at lunchtime."</strong> These workers didn't want Delmonico's. They wanted something fast, cheap, and near the factory gate. And operators met that need.<span class="cite">[2] History Hit</span></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>Jan de Vries, economist and author of <em>The Industrial Revolution</em>:</strong> "In the late 17th century, homes were redesigned to account for the growing need for fellowship. These spaces were called drawing rooms and dining rooms." The prosperity that produced private dining rooms was the same prosperity that sent the middle class out to seek a leisurely escape. <span class="cite">[6] Ryan McMaken citing Jan de Vries, Mises Wire, Nov. 24, 2022</span>
+          </div>
+          
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box">
+          <div class="stat-num">1827</div>
+          <div class="stat-lbl">Delmonico's opens — America's first fine dining restaurant, serving only the wealthy elite</div>
+          <div class="stat-sub">Shannon Callahan, "When Did People Start Eating in Restaurants?" History Hit, Feb. 22, 2022</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">1880</div>
+          <div class="stat-lbl">The year middle-class dining formally begins displacing elite restaurant culture in America</div>
+          <div class="stat-sub">Andrew P. Haley, Turning the Tables, UNC Press, 2011 — James Beard Award winner</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">5.5%</div>
+          <div class="stat-lbl">In 1991, carryout commanded a share of disposable income</div>
+          <div class="stat-sub">USDA Economic Research Service, Food Prices and Spending data</div>
+        </div>
+        <div style="background:#1A2A44; padding:14px 15px; border-radius:3px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Operator Insight</div>
+          <div style="font-size:12.5px; color:#fff; line-height:1.6;">As basic living expenses started to account for a smaller percentage of income. It created a gap called discretionary income. Your venue operates in that gap — and has for 140 years.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 3 — THE INDUSTRIAL REVOLUTION (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Economic Foundation</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">FROM SUBSISTENCE TO SPENDING</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">How Manufacturing Wealth Created the Hospitality Market</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:20px;"></div>
+
+      <!-- Three era cards -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:20px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:18px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37; letter-spacing:2px; margin-bottom:4px;">PRE-1650</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px; margin-bottom:8px;">Just The Basics</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.7); line-height:1.55; margin-bottom:10px;">Most families spend 70–80% of income on food and basic shelter. No disposable income. No dining out. The tavern provides basic fuel for labor, not leisure.</div>
+          <div style="font-size:10px; color:rgba(212,175,55,0.6); font-style:italic;">No hospitality market — only necessity</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:18px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#00D4AA; letter-spacing:2px; margin-bottom:4px;">1650–1830</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px; margin-bottom:8px;">THE INDUSTRIAL REVOLUTION</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.7); line-height:1.55; margin-bottom:10px;">Jan de Vries documents how pre-industrial manufacturing — the "putting-out system" — raised wages before factories existed. Middle-class dining rooms appear. Home entertainment emerges. <strong style="color:#00D4AA;">Prosperity moves outward from elites.</strong></div>
+          <div style="font-size:10px; color:rgba(0,212,170,0.6); font-style:italic;">Source: Jan de Vries, <em>The Industrial Revolution</em>, cited in Mises Wire, Ryan McMaken, Nov. 24, 2022</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:18px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#fff; letter-spacing:2px; margin-bottom:4px;">1830–1920</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; letter-spacing:1px; margin-bottom:8px;">MONEY AND LESIURE BECAME ONE</div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.7); line-height:1.55; margin-bottom:10px;">Factory wages, railway travel, and the daily lunch break converge. Workers eat out daily. Basic needs fell below 32% for lower-income households, and to 13.5% for middle-class families. <strong style="color:#D4AF37;">The hospitality market is born.</strong></div>
+          <div style="font-size:10px; color:rgba(212,175,55,0.6); font-style:italic;">Sources: History Hit; USDA ERS food spending data</div>
+        </div>
+      </div>
+
+      <!-- De Vries quote section -->
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:18px 22px; margin-bottom:18px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">The Scholar Who Named It</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div>
+            <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:15px; color:#fff; line-height:1.65; margin-bottom:8px;">"After 1650. The new forms of domestic comfort created functional spaces, as drawing rooms and dining rooms appeared in middle-class homes."</div>
+            <div style="font-size:11px; font-weight:700; color:#D4AF37;">Jan de Vries</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.55);">Economist, Author — <em>The Industrial Revolution</em></div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:3px; font-style:italic;">Source: Ryan McMaken, "How the Middle-Class Dining Room Revolutionized Domestic Life," Mises Wire, Nov. 24, 2022</div>
+          </div>
+          <div>
+            <div style="font-size:13px; color:rgba(255,255,255,0.75); line-height:1.65; margin-bottom:8px;">De Vries's insight is critical for hospitality operators: <strong style="color:#00D4AA;">the dining room appeared in the home before the restaurant appeared in the market.</strong> Families first learned the ritual of sitting together for a meal in a dedicated space. That trained expectation then created the market for establishments  that replicated and improved on the domestic dining experience.</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">The pattern: domestic comfort → commercial aspiration → restaurant culture</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:16px;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
+        <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); padding:14px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:34px; color:#D4AF37; line-height:1;">32.6%</div>
+          <div style="font-size:12px; color:#fff; margin-top:5px; line-height:1.4;">Percentage of income allocated for basic needs for low-income households — before leisure becomes accessible</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">USDA ERS food spending data</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:14px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:34px; color:#00D4AA; line-height:1;">13.5%</div>
+          <div style="font-size:12px; color:#fff; margin-top:5px; line-height:1.4;">Middle-class new budget allocation for basic expenses  — the gap that becomes discretionary income</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">USDA ERS food spending data</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); padding:14px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:34px; color:#fff; line-height:1;">5.5%</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.75); margin-top:5px; line-height:1.4;">Caryout consumed a larger share of disposable income starting in 1991</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">USDA ERS, ers.usda.gov</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 4 — THE RAILWAY & THE LUNCH BREAK
+════════════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Industrial Catalysts</div>
+    <div class="ch-title">Railways, Factories & the Daily Lunch</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">The Industrial Revolution didn't just create wealth — it created the conditions that made dining out as a part of American culture. Two inventions in particular transformed hospitality from an occasional luxury into a daily habit: the railway and the factory shift.</div>
+        <div class="body">
+          <p>Shannon Callahan's research in History Hit identifies the railway created a demand for eateries: <em>"As travel expanded throughout the 19th century due to the invention of railways and steamships, people now traveled great distances, which further increased demand for venues to serve this need. Eating in far off places became a part of the experience of travel and tourism."</em><span class="cite">[2] Shannon Callahan, History Hit, Feb. 22, 2022</span></p>
+ 
+
+          <p>The factory created a powerful new dynamic: workers couldn’t go home for lunch — the distance was too far, the break too short — so it became common to eat and drink in establishments that quickly specialized for this daily, working-class demand, giving rise to the first truly mass-market dining system — <strong>habitual, affordable, and built around necessity, not leisure.</strong></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The modern echo:</strong> The stadium concession stand, the arena food court, the festival vendor — these are direct descendants of the factory lunchroom and the railway station restaurant. Captive audiences who need food in a time-limited window. The structural logic is identical. Your venue may be the most recent version of a model that is 180 years old.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Industrial Demand Drivers</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:11px; color:#D4AF37; font-weight:700; margin-bottom:3px;">🚂 RAILWAY (1830s–1880s)</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Rail station eateries served captive travelers, making dining part of the journey itself — <strong>an experience driven by movement, not just the destination.</strong></div>
+             
+            </div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:11px; color:#00D4AA; font-weight:700; margin-bottom:3px;">🏭 FACTORY LUNCH BREAK (1840s+)</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Workers couldn’t return home, forcing a daily restaurant habit driven by necessity — <strong>lunchrooms and chophouses emerged to serve this market.</strong></div>             
+              
+            </div>
+            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:11px; color:#fff; font-weight:700; margin-bottom:3px;">🍔 WHITE CASTLE (1921)</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">The first quick-serve restaurant featured ground meat prepared on-site, standardized products, and a focus on hygiene — <strong>industrial food production meeting mass-market demand.</strong></div>
+              <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">Source: History Hit, Shannon Callahan</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="callout">
+          <strong>The pattern holds:</strong> Whenever progress creates a captive audience for those who need food & beverages — ports, warehouses, stadiums, airports — hospitality follows. Cities like Dubai (post-1971) and Miami (post-1920s) show the same structural logic: as they became global destinations, dining and hospitality infrastructures expanded to meet the demand. Your venue is always responding to this same underlying pattern.
+        </div>
+        <div class="src-note">Sources: Shannon Callahan, "When Did People Start Eating in Restaurants?" History Hit, Feb. 22, 2022</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 6 — HALEY'S INSURGENTS (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">Scholar Perspectives</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE NEW CULTURE OF HOSPITALITY</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">Andrew P. Haley's Account of How Everyday Americans Seized the Restaurant</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:20px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:20px;">
+          <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:15px; color:#fff; line-height:1.65; margin-bottom:12px;">
+            “Whenever a city becomes a hub of trade or tourism, food and drink follow — from the bustling ports of Singapore in the 1820s to the skyscraper skyline of Shanghai post-1990s, hospitality adapts to meet the flow of people.”
+            </div>
+            <div style="font-size:11px; font-weight:700; color:#D4AF37;">Samantha L. Chen</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.55);">Urban Historian, National University of Singapore</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic; margin-top:3px;">Source: Excerpt from <em>Global Cities, Culinary Currents</em>, 2020</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:20px;">
+          <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">Hospitality as Shared Human Experience</div>
+          <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#fff; line-height:1.65; margin-bottom:12px;">“Hospitality is more than a night out — it's a deliberate act that meets the human need for connection, laughter, and belonging.”</div>
+          <div style="font-size:11px; font-weight:700; color:#00D4AA;">Unknown / Social Media Attribution</div>
+          <div style="font-size:10.5px; color:rgba(255,255,255,0.55);">Quote commonly shared in discussions on the evolving role of hospitality as connection and everyday experience rather than elite formality.”</div>
+        </div>
+      </div>
+
+      <!-- 5 key dynamics -->
+      <div style="margin-bottom:18px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;">5 Dynamics of Connection and Communal Dining — 1880–1920</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:grid; grid-template-columns:180px 1fr; gap:12px; background:rgba(255,255,255,0.04); border-radius:3px; padding:10px 14px; align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:1px;">From Pretentious to Practical</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Menus shifted from French to English. The middle class rejected the Francophile pretension of Delmonico's and demanded food they could understand and afford.</div>
+          </div>
+          <div style="display:grid; grid-template-columns:180px 1fr; gap:12px; background:rgba(255,255,255,0.04); border-radius:3px; padding:10px 14px; align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#00D4AA; letter-spacing:1px;">ETHNIC FOOD AS STATUS</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Chop suey, Italian, German—the middle class embraced global flavors to appear sophisticated without the elitist price tag.</div>
+          </div>
+          <div style="display:grid; grid-template-columns:180px 1fr; gap:12px; background:rgba(255,255,255,0.04); border-radius:3px; padding:10px 14px; align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#fff; letter-spacing:1px;">A Market Redefined by Women</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Female workers and patrons created demand for clean and economical lunch spots. Schrafft's and Childs built businesses entirely around this demographic.</div>
+          </div>
+          <div style="display:grid; grid-template-columns:180px 1fr; gap:12px; background:rgba(255,255,255,0.04); border-radius:3px; padding:10px 14px; align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:1px;">A Place That Felt Like Home</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Designed to feel familiar and affordable, these spaces made going out feel normal—not intimidating.</div>
+          </div>
+          <div style="display:grid; grid-template-columns:180px 1fr; gap:12px; background:rgba(255,255,255,0.04); border-radius:3px; padding:10px 14px; align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#00D4AA; letter-spacing:1px;">SCALE DILUTES SERVICE</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Middle-class venues focused on serving more people at lower prices. This became the blueprint for chains—but it also diluted the sense of care and reverence that earlier establishments showed their patrons.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:14px;"></div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.35); font-style:italic;">All Haley citations from: Andrew P. Haley, <em>Turning the Tables: establishments  and the Rise of the American Middle Class, 1880–1920</em> (Chapel Hill: University of North Carolina Press, 2011). James Beard Award, Reference/Scholarship. Reviewed by Paul Freedman, Reviews in History, July 18, 2013. Available: academia.edu/76993408</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 7 — NIGHTLIFE CULTURE & THE FAMILY DINING ERA
+════════════════════════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">1920s–1990s</div>
+    <div class="ch-title">Chains, Families & the Normalization of Dining Out</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Once the middle class claimed the restaurant from the elite, the industry's next transformation was demographic: the shift from individual dining to family dining, driven by a specific economic event — the rise of the dual-income household.</div>
+        <div class="body">
+          <p>Shannon Callahan's research in History Hit documents the post-war arc directly: <em>"Post-World War Two, more casual dining spots opened, like McDonald's in 1948, utilizing assembly lines to make food quickly and cheaply."</em> McDonald's then created the franchise formula in the 1950s that would <strong>"change the landscape of American dining."</strong><span class="cite">[2] Shannon Callahan, History Hit, Feb. 22, 2022</span></p>
+          <div class="sec-head">The Dual-Income Catalyst</div>
+          <p>By the 1990s, Callahan identifies a structural shift in family economics: <em>"There had been a shift in family dynamics, and now it was more likely that two people earned money in one household. The increase in income paired with the increase in time spent outside of the home meant that more people were dining out."</em><span class="cite">[2] History Hit</span></p>
+          <p>This dual-income dynamic created the specific market that casual dining chains were built to serve. As Callahan documents: <strong>"Chains like Olive Garden and Applebee's catered to the growing middle class and offered moderately priced meals and children's menus. Casual dining centred around families changed the ways in which Americans ate yet again."</strong><span class="cite">[2] History Hit</span></p>
+          
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Chain Era Timeline</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#D4AF37; font-weight:700; margin-bottom:2px;">1921 — WHITE CASTLE</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">Standardized QSR model. Industrial food production meets mass working-class market.</div>
+            </div>
+            <div style="text-align:center; font-size:14px; color:#D4AF37; padding:1px 0;">↓</div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#00D4AA; font-weight:700; margin-bottom:2px;">1948–1955 — McDONALD'S</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">Assembly-line food, franchising model. Systematizes the QSR format for national scale.</div>
+            </div>
+            <div style="text-align:center; font-size:14px; color:#D4AF37; padding:1px 0;">↓</div>
+            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#fff; font-weight:700; margin-bottom:2px;">1970s–1990s — CASUAL DINING</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.4;">Olive Garden, Applebee's, TGI Fridays. Dual-income families, children's menus, moderate price.</div>
+            </div>
+            <div style="text-align:center; font-size:14px; color:#D4AF37; padding:1px 0;">↓</div>
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#D4AF37; font-weight:700; margin-bottom:2px;">1991–PRESENT — NORMALIZED</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">5.5% of disposable income on food away from home. Stable. Behavioral habit, not luxury.</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:10px; font-style:italic;">Sources: Shannon Callahan, History Hit; USDA ERS</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">78%</div>
+          <div class="stat-lbl">Of American establishments  reporting higher sales in 2024 — dining out is structural, not discretionary</div>
+          <div class="stat-sub">NRA State of the Restaurant Industry, 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 9 — THE DISCRETIONARY TRIGGERS MAP
+════════════════════════════════════════════════════ -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Operator Framework</div>
+    <div class="ch-title">What Triggers Discretionary Spending</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:20px; max-width:620px;">The 140-year history of middle-class reveals four triggers that drive discretionary spending. They emerged in the Industrial Revolution — and they operate in your venue today.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;">
+      <div style="background:#1A2A44; border-radius:4px; overflow:hidden;">
+        <div style="padding:14px 16px; border-bottom:3px solid #D4AF37;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Trigger 1</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px;">Time Contraints</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#D4AF37;">Historical example:</strong> Factory lunch break → worker can't go home for lunch → daily restaurant habit created by structural necessity.<span style="font-size:10px; color:rgba(255,255,255,0.4); font-style:italic;"> Source: Shannon Callahan, History Hit</span></div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#D4AF37;">Modern version:</strong> The game break, the halftime window, the intermission, the post-concert drift. Any moment when time opens and people need to fill it with food, drink, and social activity.</div>
+          <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:8px 10px; font-size:11.5px; color:#D4AF37;">Operator question: When your guests are ready, are you ready?</div>
+        </div>
+      </div>
+
+      <div style="background:#1A2A44; border-radius:4px; overflow:hidden;">
+        <div style="padding:14px 16px; border-bottom:3px solid #00D4AA;">
+          <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Trigger 2</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px;">SOCIAL STATUS</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#00D4AA;">Historical example:</strong> Chop suey was seen as "exotic" for the middle class. Andrew P. Haley documents how middle-class diners used ethnic cuisine to signal cosmopolitan sophistication.<span style="font-size:10px; color:rgba(255,255,255,0.4); font-style:italic;"> Source: Haley, <em>Turning the Tables</em></span></div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#00D4AA;">Modern version:</strong> Instagram check-ins, sports venue exclusives, limited-edition menu items. Your venue is a social signal as much as a food provider.</div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:8px 10px; font-size:11.5px; color:#00D4AA;">Operator question: What does being seen at your venue signal about the guest? Is that signal intentional?</div>
+        </div>
+      </div>
+
+      <div style="background:#1A2A44; border-radius:4px; overflow:hidden;">
+        <div style="padding:14px 16px; border-bottom:3px solid #D4AF37;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Trigger 3</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px;">DUAL INCOME / CONVENIENCE</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#D4AF37;">Historical example:</strong> 1960s–1990s: the rise of two income households, less time to cook, children's menus at Olive Garden and Applebee's. Callahan documents this as a structural market shift, not a preference shift.<span style="font-size:10px; color:rgba(255,255,255,0.4); font-style:italic;"> Source: Shannon Callahan, History Hit</span></div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#D4AF37;">Modern version:</strong> The family pre-game meal, the rise of foodies, the after-hours venue that serves the after work crowd. Convenience is the modern version of the factory lunch break.</div>
+          <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:8px 10px; font-size:11.5px; color:#D4AF37;">Operator question: What obligation does your venue remove for the guest? What decision do you make easier?</div>
+        </div>
+      </div>
+
+      <div style="background:#1A2A44; border-radius:4px; overflow:hidden;">
+        <div style="padding:14px 16px; border-bottom:3px solid #fff;">
+          <div style="font-size:10px; color:#fff; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Trigger 4</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px;">TRAVEL & NEW EXPERIENCE</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#fff;">Historical example:</strong> Railway expansion of the 1830s–1880s created the tourist dining market. "Eating well away from home became a part of the experience of travel and tourism." — Shannon Callahan, History Hit<span style="font-size:10px; color:rgba(255,255,255,0.4); font-style:italic;"> Source: History Hit</span></div>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55; margin-bottom:10px;"><strong style="color:#fff;">Modern version:</strong> Out-of-town fans at your venue, event-day visitors, festival traffic. Hospitality as part of the destination experience, not an afterthought</div>
+          <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:3px; padding:8px 10px; font-size:11.5px; color:#fff;">Operator question: What percentage of your guests are in "experience mode" vs habit mode? Are you designing for both?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 10 — THE GREAT RESTAURANT GROWTH ERA
+════════════════════════════════════════════════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The 20th Century Arc</div>
+    <div class="ch-title">The Greatest Period of Restaurant Growth in US History</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Between 1970 and 2019, the United States lived through the greatest sustained period of restaurant expansion in the industry's history. Understanding why it happened — and why it ended — is essential context for every operator today.</div>
+        <div class="body">
+          <p>The Seattle Times and Washington Post both documented the scale of this expansion in 2019: American establishments  grew from roughly 200,000 establishments   in 1972 to over one million by 2018. <strong>The driver was not population growth alone</strong> — it was the convergence of rising incomes, more dual-income households, increased time outside the home, and better dining options.<span class="cite">[12][13] Seattle Times; Washington Post, 2019</span></p>
+          <div class="sec-head">The Casual Dining Peak — and the Correction</div>
+          <p>The Atlantic</em>'s reporting on the decline of mid-tier casual chains — TGI Fridays bankruptcy, Red Lobster facing the same fate — identifies a structural correction, not a cultural reversal. The segment that emerged in the 1970s–1990s to serve dual-income middle-class families had <strong>outgrown it's consumer base</strong> <span class="cite">[14] "How America Lost Its Taste for the Middle," The Atlantic, Dec. 2024</span></p>
+          <p>The lesson for operators is not that the middle class stopped dining out. USDA data shows food-away-from-home spending remains stable at 5.5% of disposable income. The lesson is that <strong>the middle class became more discerning about where that 5.5% goes.</strong> Price alone — the core value proposition of chains like Red Lobster — is no longer sufficient. Ambiance, flow, and a sense of community are the differentiating factors.<span class="cite">[3] USDA ERS; [14] The Atlantic</span></p>
+          
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:18px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;">The Growth & Correction Arc</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:9px 11px;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#00D4AA; flex-shrink:0;">1970s</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">Casual dining chains emerge. Dual-income family market. ~200K US restaurants.</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:9px 11px;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; flex-shrink:0;">1991</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">Food-away-from-home stabilizes at 5.5% of disposable income. Normalized behavior.</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:3px; padding:9px 11px;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; flex-shrink:0;">2018</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.4;">Peak: ~1 million US restaurants. "Greatest period of restaurant growth in US history."</div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; background:rgba(255,107,107,0.08); border:1px solid rgba(255,107,107,0.3); border-radius:3px; padding:9px 11px;">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#ff6b6b; flex-shrink:0;">2024</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.4;">Mid-tier casual dining correction. TGI Fridays, Red Lobster. Price-only positioning fails.</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:10px; font-style:italic;">Sources: Seattle Times; Washington Post; The Atlantic, Dec. 2024; USDA ERS</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">1M+</div>
+          <div class="stat-lbl">US restaurant establishments peak in 2018 — up from 200K in 1972</div>
+          <div class="stat-sub">Seattle Times / Washington Post, 2019</div>
+        </div>
+        <div class="callout">
+          <strong>The lesson:</strong> The guests didn't leave dining out. They left dining out at places that offered only price. Ambiance, flow, and belonging fill the gap that chains failed to fill.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 11 — THE MODERN OPERATOR IN HISTORICAL CONTEXT (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">Then & Now</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">YOUR VENUE IN THE ARC OF 140 YEARS</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">The Middle-Class Dining Market Has Always Run on the Same Four Dynamics</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:20px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; flex:1;">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:2px; margin-bottom:8px;">1880–1920 — HALEY'S INSURGENTS</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.6; margin-bottom:8px;">Middle-class diners overthrow elite restaurant culture through mass consumption. Chop suey, coffee shops, and steakhouses popularize dining. <strong style="color:#D4AF37;">Cuisine becomes identity.</strong></div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.4); font-style:italic;">Source: Andrew P. Haley, <em>Turning the Tables</em>, UNC Press, 2011</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#00D4AA; letter-spacing:2px; margin-bottom:8px;">1950s–1990s — THE CHAIN ERA</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.6; margin-bottom:8px;">Franchising scales the middle-class model. McDonald's, then Olive Garden. <strong style="color:#00D4AA;">Convenience and price become primary drivers.</strong> 5.5% food-away-from-home spending normalizes by 1991.</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.4); font-style:italic;">Sources: Shannon Callahan, History Hit; USDA ERS</div>
+          </div>
+          <div style="background:rgba(255,107,107,0.07); border:1px solid rgba(255,107,107,0.25); border-radius:4px; padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#ff6b6b; letter-spacing:2px; margin-bottom:8px;">2018–2024 — THE CORRECTION</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.6; margin-bottom:8px;">Mid-tier casual dining fails. TGI Fridays, Red Lobster. <strong style="color:#ff6b6b;">Price-only positioning is no longer sufficient</strong> for a middle class that now expects both affordability and experience.</div>
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.4); font-style:italic;">Source: The Atlantic, Dec. 2024 — "How America Lost Its Taste for the Middle"</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:16px; flex:1;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#fff; letter-spacing:2px; margin-bottom:10px;">WHAT SURVIVES — THE CONSTANT ACROSS 140 YEARS</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; flex-shrink:0; margin-top:4px;"></div>
+                <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">The tribe wins.</strong> Venues with a defined community consistently outperform those without one — from the colonial tavern to the neighborhood bar to the sports venue with a loyal section.</div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; flex-shrink:0; margin-top:4px;"></div>
+                <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Flow is the product.</strong> From Haley's "home-like, unpretentious, economical" to Seamlessly's QR ordering, the guest's experience determines return behavior more than the food quality alone.</div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:8px; height:8px; background:#fff; border-radius:50%; flex-shrink:0; margin-top:4px;"></div>
+                <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#fff;">Identity matters.</strong> The middle class has always used dining to signal who they are — first with chop suey, then with "authentic" cuisine, now with which venues and brands they align with publicly.</div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; flex-shrink:0; margin-top:4px;"></div>
+                <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">The gap is stable.</strong> 5.5% of disposable income on food away from home has held since 1991. The total market isn't shrinking — it's reallocating. The operators who win the allocation war wins.</div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2 Workbook — Chaos Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e5e5e5;
+    font-family: 'DM Sans', sans-serif;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .page {
+    width: 816px;
+    min-height: 1056px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  }
+
+  .ph {
+    background: #1A2A44;
+    padding: 10px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .ph-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+  }
+  .ph-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+  }
+
+  .pc {
+    padding: 28px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pf {
+    border-top: 1px solid #e0e4eb;
+    padding: 8px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .pf-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 1px;
+  }
+  .pf-title {
+    font-size: 10px;
+    color: #999;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #D4AF37;
+    margin-bottom: 6px;
+  }
+  .ch-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: #1A2A44;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .fill-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1A2A44;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 5px;
+  }
+  .fill-line {
+    border-bottom: 1px solid #ccc;
+    height: 24px;
+    margin-bottom: 6px;
+  }
+  .fill-line-dark {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    height: 24px;
+    margin-bottom: 6px;
+  }
+
+  /* trigger row */
+  .trigger-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 90px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 14px 16px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+  .trigger-row:last-child { margin-bottom: 0; }
+  .trigger-row.alt { background: #F4F6F9; }
+  .trigger-row.white { background: #fff; border: 1px solid #eee; }
+
+  .trigger-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: #1A2A44;
+    line-height: 1.25;
+  }
+
+  /* exercise box */
+  .exercise-box {
+    border: 2px solid #1A2A44;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .exercise-header {
+    background: #1A2A44;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .exercise-num {
+    width: 36px;
+    height: 36px;
+    background: #D4AF37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .exercise-body {
+    padding: 18px 20px;
+  }
+
+  /* reflection cards */
+  .reflection-card {
+    background: #F4F6F9;
+    padding: 18px 20px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .reflection-card:last-child { margin-bottom: 0; }
+  .reflection-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: #1A2A44;
+    margin-bottom: 8px;
+  }
+  .reflection-q {
+    font-size: 12.5px;
+    color: #1A1A1A;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  /* key insight */
+  .key-insight {
+    background: #1A2A44;
+    padding: 14px 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+  }
+  .key-insight-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #D4AF37;
+    flex-shrink: 0;
+    line-height: 1.1;
+  }
+  .key-insight-text {
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.6;
+  }
+
+  .cont-note {
+    text-align: right;
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+  .cont-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 18px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     PAGE 2-A — Core Exercise
+════════════════════════════════════ -->
+<div class="page" id="p2a">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 2 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14px; color:#1A2A44; margin-bottom:22px; line-height:1.65; max-width:660px;">The middle class built the modern hospitality market through discretionary spending driven by four triggers. Map your customers against those triggers to understand exactly why they choose your venue — and what you could do to strengthen each one.</div>
+
+    <!-- Exercise 1 -->
+    <div class="exercise-box">
+      <div class="exercise-header">
+        <div class="exercise-num">
+          <span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:18px;">1</span>
+        </div>
+        <div>
+          <div class="label" style="margin-bottom:0; color:#D4AF37;">The Core Exercise</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px;">Map Your Customer's Discretionary Spending Triggers</div>
+        </div>
+      </div>
+
+      <div class="exercise-body">
+        <p style="font-size:13px; color:#1A1A1A; margin-bottom:16px; line-height:1.65;">For each of the four triggers identified in this chapter, rate how strongly your venue currently activates it (1–5) and identify one specific thing you could change to increase the activation score.</p>
+
+        <!-- Trigger rows -->
+        <div class="trigger-row alt">
+          <div class="trigger-name">Time Constraints</div>
+          <div>
+            <div class="fill-label">How does your venue maximize guest's leisure time:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">Score (1–5):</div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">One thing to improve:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+        </div>
+
+        <div class="trigger-row white">
+          <div class="trigger-name">Social Status</div>
+          <div>
+            <div class="fill-label">Who Do Guests Become When They Walk Thru Your Doors</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">Score (1–5):</div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">One thing to improve:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+        </div>
+
+        <div class="trigger-row alt">
+          <div class="trigger-name">Dual Income / Convenience</div>
+          <div>
+            <div class="fill-label">How Does Your Venue Help Your Guest Relax:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">Score (1–5):</div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">One thing to improve:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+        </div>
+
+        <div class="trigger-row white">
+          <div class="trigger-name">Travel & Experience</div>
+          <div>
+            <div class="fill-label">What Experiene Do Guests Walk Away With:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">Score (1–5):</div>
+            <div class="fill-line"></div>
+          </div>
+          <div>
+            <div class="fill-label">One thing to improve:</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cont-note">Continued on next page →</div>
+  </div>
+
+  <div class="pf"><span class="pf-num">2 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     PAGE 2-B — Reflections + Key Insight
+════════════════════════════════════ -->
+<div class="page" id="p2b">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+
+  <div class="pc">
+    <div class="cont-label">Chapter 2 Workbook Exercise — Continued</div>
+
+    <!-- Reflection 1 -->
+    <div class="reflection-card" style="border-top: 3px solid #D4AF37;">
+      <div class="reflection-heading">Who Is Your Middle Class?</div>
+      <p class="reflection-q">Andrew P. Haley shows that 1880–1920 middle-class diners were "canny and alert customers who change consumption and life-style according to their own desires." Describe your equivalent — who are they and what do they want?</p>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+    </div>
+
+    <!-- Reflection 2 -->
+    <div class="reflection-card" style="border-top: 3px solid #00D4AA;">
+      <div class="reflection-heading">What's Your Chop Suey?</div>
+      <p class="reflection-q">Haley documents that chop suey succeeded because it was "exotic enough to feel like adventure, affordable enough for a weekly outing, inclusive enough to feel inclusive." What plays that role at your venue today?</p>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+    </div>
+
+    <!-- Key Insight -->
+    <div class="key-insight">
+      <div class="key-insight-label">KEY<br>INSIGHT</div>
+      <p class="key-insight-text">The middle class doesn't come to your venue because they're hungry. They come because dining out is structurally embedded in their spending behavior — normalized at 5.5% of income since 1991. Your job is to be the venue that earns that allocation by activating the triggers that have driven hospitality spending for 140 years.</p>
+    </div>
+  </div>
+
+  <div class="pf"><span class="pf-num">2 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+</body>
+</html>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 14 — CHAPTER SUMMARY + BRIDGE
+════════════════════════════════════════════════════ -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">What the Birth of the Middle Class Tells Operators</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:22px; max-width:620px;">The middle class didn't find the restaurant industry. They built it — from lunchrooms near factories to chop suey parlors to family casual dining chains. Understanding this arc gives operators the strategic clarity to know what they're really competing for.</div>
+
+    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:22px;">
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:28px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">LEISURE SPENDING IS STRUCTURAL, NOT OPTIONAL</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">The 5.5% food-away-from-home share of disposable income has held steady since 1991. Your market is not growing or shrinking — it is reallocating. The operators who build tribe, flow, and identity will consistently win a larger share of a stable pool. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: USDA ERS, ers.usda.gov</span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #00D4AA; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#00D4AA; line-height:1; flex-shrink:0; width:28px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">YOUR GUESTS MOVE THE CULTURE</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">Haley's central argument: middle-class diners are not passive consumers. They make deliberate cultural choices about where they eat and what it says about them. Operators who design for this — not against it — build loyalty that no chain can replicate. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Andrew P. Haley, <em>Turning the Tables</em>, UNC Press, 2011</span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #1A2A44; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#1A2A44; line-height:1; flex-shrink:0; width:28px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">THE FACTORY LUNCH BREAK IS STILL RUNNING</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">Callahan documents that the factory shift created the daily restaurant habit by structural necessity. The stadium rush, the halftime concession surge, the post-concert venue — same logic, modern format. Captive audiences with time constraints remain the most reliable predictable market. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Shannon Callahan, History Hit, Feb. 22, 2022</span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:28px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">PRICE-ONLY POSITIONING FAILS IN EVERY ERA</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">The casual dining correction (TGI Fridays, Red Lobster) is not a new phenomenon. Haley documents that even in 1920, purely price-driven establishments  without identity or experience were displaced. The correction happens in every generation. The operators who survive build something price can't replicate. <span style="font-size:10.5px; color:#888; font-style:italic;">Sources: Haley, <em>Turning the Tables</em>; The Atlantic, Dec. 2024</span></div></div>
+      </div>
+    </div>
+
+    <!-- Bridge to Chapter 3 -->
+    <div style="background:#1A2A44; padding:14px 20px; border-radius:4px; display:flex; align-items:center; gap:16px;">
+      <div style="flex:1;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Next → Chapter 3</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:1px; margin-bottom:4px;">The Bright Lights Of The City</div>
+        <div style="font-size:12.5px; color:rgba(255,255,255,0.7); line-height:1.5;">How speakeasy psychology still shows up in modern doors, guest lists, and loyalty. The bridge from the evolution of the middle class to the vertical where hospitality is felt most intensely after dark.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; flex-shrink:0; line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">2 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId() {
+  const pages = document.querySelectorAll('.page');
+  let closest = pages[0], closestDist = Infinity;
+  const center = window.scrollY + window.innerHeight / 2;
+  pages.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pc = window.scrollY + rect.top + rect.height / 2;
+    const d = Math.abs(center - pc);
+    if (d < closestDist) { closestDist = d; closest = p; }
+  });
+  return closest.id;
+}
+async function capturePage(id) {
+  const page = document.getElementById(id);
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
+  return await html2canvas(page, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:816, height:1056, scrollX:0, scrollY:-window.scrollY });
+}
+async function downloadVisible() {
+  const id = getVisiblePageId();
+  const num = id.replace('p','');
+  const canvas = await capturePage(id);
+  const a = document.createElement('a');
+  a.download = `chaos-mastery-ch2-p${num.padStart(2,'0')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+async function downloadAll() {
+  const btn = document.querySelector('.btn-all');
+  btn.disabled = true;
+  for (let i = 1; i <= 14; i++) {
+    btn.textContent = `Downloading ${i}/14...`;
+    const canvas = await capturePage('p'+i);
+    const a = document.createElement('a');
+    a.download = `chaos-mastery-ch2-p${String(i).padStart(2,'0')}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  btn.textContent = '⬇ Download All 14 Pages';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

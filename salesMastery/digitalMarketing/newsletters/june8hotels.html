@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan &amp; Scale — Hotels Edition Issue 004</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #111;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+}
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+
+.nl-calc-banner {
+  width: 100%;
+  background: #1A2A44;
+  border-bottom: 3px solid #D4AF37;
+  padding: 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.nl-calc-banner.bottom {
+  border-bottom: none;
+  border-top: 3px solid #D4AF37;
+}
+.nl-calc-banner-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+.nl-calc-banner-text em {
+  font-style: normal;
+  color: #D4AF37;
+  font-weight: 600;
+}
+.nl-calc-banner-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #1A2A44;
+  background: #D4AF37;
+  padding: 14px 28px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: opacity 0.2s;
+}
+.nl-calc-banner-btn:hover { opacity: 0.88; }
+
+.nl-header { background: #1A2A44; border-bottom: 4px solid #D4AF37; position: relative; overflow: hidden; }
+.nl-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.04) 79px, rgba(212,175,55,0.04) 80px),
+    repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px);
+  z-index: 1;
+}
+.nl-header-inner { padding: 32px 40px 24px; position: relative; z-index: 2; }
+.nl-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #00D4AA; text-transform: uppercase; margin-bottom: 8px; }
+.nl-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; letter-spacing: 3px; line-height: 1; margin-bottom: 2px; }
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.5; }
+.nl-issue-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+
+.hero-band {
+  background: #D4AF37;
+  padding: 28px 40px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.hero-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: #1A2A44; line-height: 1; flex-shrink: 0; opacity: 0.15; }
+.hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.6); margin-bottom: 6px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #1A2A44; letter-spacing: 1px; line-height: 1.05; }
+
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+.opening-quote { border-left: 4px solid #D4AF37; padding: 16px 20px; background: #FEFCF3; border-radius: 0 4px 4px 0; }
+.opening-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: #1A2A44; line-height: 1.65; }
+
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.8; }
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+
+.section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #D4AF37; margin-bottom: 8px; }
+.section-head { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 14px; line-height: 1; }
+
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pillar-card {
+  background: #1A2A44;
+  border-radius: 4px;
+  padding: 20px;
+  border-bottom: 3px solid #D4AF37;
+  position: relative;
+  overflow: hidden;
+}
+.pillar-card:nth-child(2) { border-color: #00D4AA; }
+.pillar-card:nth-child(3) { border-color: #00D4AA; }
+.pillar-card:nth-child(4) { border-color: #D4AF37; }
+.pillar-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: rgba(255,255,255,0.06);
+  position: absolute;
+  top: 8px; right: 12px;
+  line-height: 1;
+}
+.pillar-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 6px; }
+.pillar-card:nth-child(2) .pillar-label,
+.pillar-card:nth-child(3) .pillar-label { color: #00D4AA; }
+.pillar-head { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; letter-spacing: 0.5px; margin-bottom: 8px; }
+.pillar-body { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+.contrast-block { background: #F4F6F9; border-radius: 4px; padding: 24px; }
+.contrast-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 16px; }
+.contrast-row { display: flex; gap: 16px; margin-bottom: 12px; }
+.contrast-row:last-child { margin-bottom: 0; }
+.contrast-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.contrast-tag.tactic { background: rgba(224,82,82,0.12); color: #C03C3C; }
+.contrast-tag.framework { background: rgba(0,212,170,0.12); color: #00A884; }
+.contrast-text { font-size: 13.5px; color: #333; line-height: 1.6; }
+
+.usecase-strip { display: flex; flex-direction: column; gap: 8px; }
+.usecase-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #F9FAFB;
+  border-left: 3px solid transparent;
+  border-radius: 0 3px 3px 0;
+}
+.usecase-item:nth-child(odd) { border-color: #D4AF37; }
+.usecase-item:nth-child(even) { border-color: #00D4AA; }
+.uc-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: #D4AF37; flex-shrink: 0; width: 90px; padding-top: 1px; }
+.usecase-item:nth-child(even) .uc-label { color: #00A884; }
+.uc-body { font-size: 13px; color: #1A2A44; line-height: 1.55; }
+.uc-body strong { font-weight: 700; }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-card { background: #1A2A44; border-radius: 4px; padding: 18px 16px; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #D4AF37; line-height: 1; margin-bottom: 6px; }
+.stat-card:nth-child(2) .stat-num { color: #00D4AA; }
+.stat-desc { font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+.cta-block { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.cta-hint { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.4); text-align: center; }
+.cta-btn { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; padding: 18px 28px; border-radius: 4px; text-decoration: none; display: block; text-align: center; background: #D4AF37; color: #1A2A44; transition: opacity 0.2s; }
+.cta-btn:hover { opacity: 0.88; }
+.cta-sub { font-size: 12px; color: rgba(26,42,68,0.5); text-align: center; font-style: italic; }
+
+.nl-footer { background: #1A2A44; padding: 28px 40px; border-top: 4px solid #D4AF37; }
+.social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.social-btn { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; padding: 8px 14px; border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.2s; text-align: center; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-icon { width: 14px; height: 14px; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(212,175,55,0.2); padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #D4AF37; letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.footer-note { font-size: 10.5px; color: rgba(255,255,255,0.35); font-style: italic; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-calc-banner">
+    <span class="nl-calc-banner-text">A guest standing at your front desk for 6 minutes has already formed an opinion about your property — before they see the room. <em>Find out what a faster arrival flow is worth to your hotel's revenue and reviews.</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Scan &amp; Scale — Guest Intelligence Series</div>
+      <div class="nl-wordmark">SCAN &amp; <span>SCALE</span></div>
+      <div class="nl-subtitle">QR intelligence for hotels and hospitality operators</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 004</div>
+        <div class="meta-pill teal">Hotels Edition</div>
+        <div class="meta-pill outline">5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">2</div>
+    <div class="hero-text">
+      <div class="hero-kicker">Speed Is Revenue — The Arrival Gap Shaping Your Guest's Entire Stay</div>
+      <div class="hero-headline">YOUR GUESTS DECIDE HOW THEY FEEL ABOUT YOUR HOTEL<br>IN THE FIRST TWO MINUTES.</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="opening-quote">
+      <p>"The front desk line isn't just a wait. It's the first impression of every single stay — and it's setting the emotional baseline for everything that follows."</p>
+    </div>
+
+    <div class="body-text">
+      <p>The check-in moment is different from almost every other service interaction in hospitality. A guest waiting at a restaurant bar is still inside the experience — they're surrounded by ambiance, drinks, people. A guest standing at a hotel front desk queue is in a holding pattern. They haven't started their stay yet. And every minute they wait is a minute they're building a slightly worse baseline mood for the hours ahead.</p>
+      <p>The target that hospitality technology operators are now benchmarking against is <strong>2 minutes</strong> for the arrival flow. That's the expectation that's forming among guests — particularly the 82% of Gen Z hotel travelers who already prefer app or kiosk check-in to the front desk. The properties that get there aren't just winning on satisfaction scores. They're freeing their staff to do the parts of hospitality that can't be automated, and they're setting up guests to spend more throughout the stay.</p>
+      <p>Speed at check-in isn't the whole picture. But it is the beginning of it. Get the arrival right and everything downstream — F&B spend, amenity usage, ancillary bookings — performs better.</p>
+    </div>
+
+    <div>
+      <div class="section-label">WHY ARRIVAL SPEED IS THE HIGHEST-LEVERAGE TOUCHPOINT IN HOTEL OPERATIONS</div>
+      <div class="section-head">Four Reasons Faster Check-In Compounds Into Revenue.</div>
+      <div class="pillars">
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <div class="pillar-label">THE 2-MINUTE BENCHMARK</div>
+          <div class="pillar-head">The New Guest Expectation for Arrival Flow Is 2 Minutes. Most Hotels Are Still at 6+.</div>
+          <div class="pillar-body">Hospitality tech benchmarks now point to 2 minutes as the guest expectation for a frictionless arrival. Contactless check-in processes are saving 4 to 6 minutes per interaction compared to traditional front desk flows. That gap between expectation and current performance is where guest satisfaction scores are being won and lost before the room is ever seen.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <div class="pillar-label">THE GEN Z PREFERENCE</div>
+          <div class="pillar-head">82% of Gen Z Hotel Guests Prefer Digital Check-In. They're Also Your Fastest-Growing Segment.</div>
+          <div class="pillar-body">Gen Z hotel travelers aren't a niche — they're the demographic that's going to drive hospitality revenue for the next two decades. 82% of them prefer app or kiosk check-in to standing at a front desk. Properties that still rely exclusively on traditional arrival flows are creating friction at exactly the moment this audience expects to feel welcomed and efficient.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <div class="pillar-label">THE STAFF REALLOCATION</div>
+          <div class="pillar-head">Faster Arrival Flow Gives Staff Back the Time to Do the Things That Drive Ancillary Revenue.</div>
+          <div class="pillar-body">When front desk staff are processing a 25 to 30% faster check-in flow through contactless processes, the minutes they recover don't disappear — they become available for upsell conversations, restaurant recommendations, amenity introductions, and the human moments that drive ancillary spend. Speed at the desk isn't about replacing hospitality. It's about creating more time for the parts of it that move revenue.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">04</div>
+          <div class="pillar-label">THE REVIEW CORRELATION</div>
+          <div class="pillar-head">Check-In Experience Is One of the Top-Cited Factors in Hotel Reviews — Positive and Negative.</div>
+          <div class="pillar-body">Guests who experience a slow or frustrating check-in are significantly more likely to mention it in their review — and to let it color how they describe the entire stay. The inverse is also true: a smooth, fast arrival creates goodwill that carries forward. That goodwill shows up in review scores, which directly affect booking conversion on OTAs. Arrival speed is literally a distribution metric.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">THE NUMBERS BEHIND THE ARRIVAL SPEED OPPORTUNITY</div>
+      <div class="section-head">What a Faster Check-In Actually Moves.</div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">82%</div>
+          <div class="stat-desc">of Gen Z hotel travelers prefer app or kiosk check-in over the traditional front desk</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">30%</div>
+          <div class="stat-desc">reduction in check-in time with contactless or kiosk-based arrival processes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6 min</div>
+          <div class="stat-desc">saved per check-in interaction through contactless arrival — time that transfers to staff and guests</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>The 70% of hotel guests overall who say they prefer app or kiosk check-in aren't asking for a worse experience. They're asking for a different one — one where the transactional part of arrival is handled efficiently so the relational part can be more genuine. The properties that understand that distinction tend to score higher on both speed and warmth metrics, because their staff aren't buried in administrative processing when a guest walks in.</p>
+      <p>That's the paradox of hotel arrival speed: getting faster at the transactional moment doesn't make the stay feel less personal. Done right, it makes the personal moments easier to actually have.</p>
+    </div>
+
+    <div>
+      <div class="section-label">WHAT THE GAP LOOKS LIKE IN PRACTICE</div>
+      <div class="section-head">Same Property. Same Guests. Two Different Arrival Outcomes.</div>
+      <div class="contrast-block">
+        <div class="contrast-title">The difference is whether your arrival process sets guests up to enjoy their stay — or just endure it.</div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A guest checks in after a long travel day. The front desk queue is 8 minutes. They finally get processed, make it to their room, and decide to just order delivery rather than visit the hotel restaurant. Your F&B operation loses a cover it never knew it was competing for.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same guest. Mobile check-in was available from the car. They go straight to their room. Energy intact, they make it down to the bar. The staff member who would have spent 6 minutes processing their check-in is instead recommending a cocktail pairing. Ancillary spend happens because the friction was gone.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A Gen Z traveler books your property based on strong reviews. Check-in is a 10-minute front desk queue. Their first impression is formed in that queue — and it doesn't match the 4-star promise. That mismatch shows up in their review, which affects future booking conversion before you ever talk to the next guest.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same traveler. App check-in is smooth, keyless entry works on the first try, and the room is exactly what was promised. Their review reflects a stay that lived up to its billing from the first moment. That review converts the next booking — and the one after that.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">WHERE THE SPEED OPPORTUNITY SITS IN YOUR PROPERTY RIGHT NOW</div>
+      <div class="section-head">Four Arrival Moments That Are Slower Than Your Guests Expect.</div>
+      <div class="usecase-strip">
+        <div class="usecase-item">
+          <div class="uc-label">CHECK-IN FLOW</div>
+          <div class="uc-body"><strong>The traditional front desk queue is the most visible friction point in your arrival experience.</strong> 70% of guests overall — and 82% of Gen Z guests — would prefer to bypass it entirely if a smooth digital option existed. Contactless check-in doesn't eliminate the front desk. It gives guests the choice, and that choice itself is part of the experience they're paying for.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">GROUP ARRIVAL</div>
+          <div class="uc-body"><strong>Group arrivals — conferences, weddings, sports events — are where front desk bottlenecks become operationally critical.</strong> A hotel processing 40 rooms from the same group through a traditional front desk flow is creating a 45-minute queue for guests who already know each other and are comparing notes on how the arrival felt. Mobile pre-check-in for groups isn't a convenience feature. It's a reputation management strategy.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">CHECKOUT SPEED</div>
+          <div class="uc-body"><strong>Checkout friction leaves a final impression that sticks.</strong> Contactless checkout processes save 4 to 6 minutes per interaction — but more importantly, they send guests off on a positive note instead of a queue-generated frustration. The last thing a guest experiences at your property is what they remember when they're deciding whether to rebook or recommend.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">IN-STAY REQUESTS</div>
+          <div class="uc-body"><strong>Guests who can make in-stay requests digitally — housekeeping, F&B, amenity bookings — spend more and report higher satisfaction.</strong> The mechanism is access without friction. A guest who can order room service via a QR code instead of navigating a hold-heavy phone system is more likely to order. That ease of access is a direct driver of ancillary revenue per stay.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>The hotels that are winning on both satisfaction and ancillary revenue aren't doing it by investing in more front desk staff. They're doing it by making the transactional moments fast enough that their existing staff can focus on the relational ones. Speed creates the space for hospitality. Without it, the whole stay starts behind.</p>
+      <p>If you want to see what your arrival flow looks like against current guest expectations — and where the biggest gap is in your specific operation — the Scan &amp; Scale audit walks through exactly that. Free, specific to your property, and gives you a real picture of what's being left on the table at check-in.</p>
+    </div>
+
+    <div class="cta-block">
+      <p class="cta-hint">No pressure — just a clearer picture of what you're working with</p>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/calculator/magic-bands?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank">
+        RUN YOUR FREE VENUE REVENUE AUDIT →
+      </a>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/magicBandsImplementationGuide.html?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank" style="background: #1A2A44; color: #D4AF37; border: 2px solid #D4AF37;">
+        GET THE GUEST INTELLIGENCE DEPLOYMENT GUIDE →
+      </a>
+      <p class="cta-sub">Takes about 10 minutes. You'll walk away with a number, not a pitch.</p>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Scan &amp; Scale
+      </a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Book A Demo
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN &amp; SCALE</div>
+        <div class="footer-copy">A Seamlessly Production · Guest Intelligence Series · © 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">
+        You're receiving this because you engaged with the Scan &amp; Scale Revenue Audit.
+      </div>
+    </div>
+  </div>
+
+  <div class="nl-calc-banner bottom">
+    <span class="nl-calc-banner-text">A guest standing at your front desk for 6 minutes has already formed an opinion about your property — before they see the room. <em>Find out what a faster arrival flow is worth to your hotel's revenue and reviews.</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+</div>
+</body>
+</html>

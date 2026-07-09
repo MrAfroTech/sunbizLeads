@@ -1,0 +1,190 @@
+2026-03-04 20:58:44,338 [INFO] Team Outreach Agent starting
+2026-03-04 21:03:35,023 [INFO] Team Outreach Agent starting
+2026-03-04 21:04:02,612 [INFO] Team Outreach Agent starting
+2026-03-04 21:04:10,392 [INFO] Processing: Buffalo Bisons - https://www.milb.com/buffalo
+2026-03-04 21:04:21,953 [ERROR] Error for Buffalo Bisons: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:04:22,637 [INFO] Done. Status=error. Waiting 3.3s
+2026-03-04 21:04:25,905 [INFO] Processing: Charlotte Knights - https://www.milb.com/charlotte
+2026-03-04 21:04:42,631 [ERROR] Error for Charlotte Knights: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:04:43,323 [INFO] Done. Status=error. Waiting 4.3s
+2026-03-04 21:04:47,630 [INFO] Processing: Columbus Clippers - https://www.milb.com/columbus
+2026-03-04 21:04:58,264 [ERROR] Error for Columbus Clippers: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:04:58,954 [INFO] Done. Status=error. Waiting 3.8s
+2026-03-04 21:05:02,756 [INFO] Processing: Durham Bulls - https://www.milb.com/durham
+2026-03-04 21:05:17,760 [ERROR] Error for Durham Bulls: Page.goto: Timeout 15000ms exceeded.
+Call log:
+  - navigating to "https://www.milb.com/durham", waiting until "domcontentloaded"
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 350, in process_row
+    page.goto(url, wait_until="domcontentloaded", timeout=15000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9054, in goto
+    self._sync(
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 552, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 153, in goto
+    await self._channel.send(
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.goto: Timeout 15000ms exceeded.
+Call log:
+  - navigating to "https://www.milb.com/durham", waiting until "domcontentloaded"
+
+2026-03-04 21:05:18,550 [INFO] Done. Status=error. Waiting 3.2s
+2026-03-04 21:05:21,745 [INFO] Processing: Gwinnett Stripers - https://www.milb.com/gwinnett
+2026-03-04 21:05:37,291 [ERROR] Error for Gwinnett Stripers: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:05:38,282 [INFO] Done. Status=error. Waiting 4.2s
+2026-03-04 21:05:42,476 [INFO] Processing: Indianapolis Indians - https://www.milb.com/indianapolis
+2026-03-04 21:06:07,299 [ERROR] Error for Indianapolis Indians: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:06:08,623 [INFO] Done. Status=error. Waiting 4.1s
+2026-03-04 21:06:12,740 [INFO] Processing: Iowa Cubs - https://www.milb.com/iowa
+2026-03-04 21:06:25,626 [ERROR] Error for Iowa Cubs: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:06:27,308 [INFO] Done. Status=error. Waiting 3.9s
+2026-03-04 21:06:31,206 [INFO] Processing: Jacksonville Jumbo Shrimp - https://www.milb.com/jacksonville
+2026-03-04 21:06:48,998 [ERROR] Error for Jacksonville Jumbo Shrimp: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:06:49,689 [INFO] Done. Status=error. Waiting 3.3s
+2026-03-04 21:06:52,955 [INFO] Processing: Lehigh Valley IronPigs - https://www.milb.com/lehigh-valley
+2026-03-04 21:07:11,981 [ERROR] Error for Lehigh Valley IronPigs: Timeout 10000ms exceeded.
+Traceback (most recent call last):
+  File "/Users/missioncontrol/SeamlessMarketplace/aiAgents/team-outreach/agent.py", line 351, in process_row
+    page.wait_for_load_state("networkidle", timeout=10000)
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 9152, in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 572, in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 273, in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/missioncontrol/QuantResearch/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 301, in _wait_for_load_state_impl
+    await waiter.result()
+playwright._impl._errors.TimeoutError: Timeout 10000ms exceeded.
+2026-03-04 21:07:12,668 [INFO] Done. Status=error. Waiting 4.8s

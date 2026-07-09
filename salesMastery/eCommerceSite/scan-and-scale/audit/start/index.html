@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Your Audit — QR Revenue Audit</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css" />
+  <link rel="stylesheet" href="/audit/styles/audit.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="brand">
+        SCAN &amp; SCALE
+        <span class="brand-sub">Seamlessly System Storefront</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/audit">QR Audit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell" style="padding-top: 40px;">
+    <div id="audit-gate" class="audit-gate" hidden>
+      <div style="background:#0f1e35; border-left:3px solid #D4AF37; border-radius:6px; padding:14px 18px; margin:0 0 20px;">
+        <p style="color:#ffffff; font-size:0.95rem; font-style:italic; margin:0 0 8px; line-height:1.6;">
+          "The Magic Code system has made my events run smoother by giving my guests more ways to purchase tickets and frictionless entry."
+        </p>
+        <p style="color:#D4AF37; font-size:0.85rem; font-weight:700; margin:0;">— Farmer Banks, Event Operator</p>
+      </div>
+      <p>Purchase the QR Revenue Audit to access the guided assessment.</p>
+      <a href="/audit" class="btn btn-primary">Get the Audit — $17</a>
+    </div>
+
+    <div id="audit-wizard" class="audit-panel" hidden>
+      <p class="audit-progress" id="audit-progress-label">Question 1 of 10</p>
+      <div class="audit-progress-bar" aria-hidden="true"><span id="audit-progress-bar" style="width: 10%;"></span></div>
+      <div class="audit-question">
+        <h2 id="audit-question-title"></h2>
+        <div id="audit-question-body"></div>
+      </div>
+      <div class="audit-actions">
+        <button type="button" class="btn btn-primary" id="audit-next-btn" disabled>Next</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © <span id="footer-year"></span> Seamlessly · scan-and-scale.seamlessly.us
+  </footer>
+
+  <script src="/audit/js/audit-logic.js"></script>
+  <script src="/audit/js/audit-wizard.js"></script>
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

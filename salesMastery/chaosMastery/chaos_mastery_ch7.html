@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 7: The Weight of Broken Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub   { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+.dl-btns { display:flex; gap:10px; }
+.dl-btns button { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:8px 18px; border:none; border-radius:3px; cursor:pointer; }
+.btn-single { background:#00D4AA; color:#1A2A44; }
+.btn-all    { background:#D4AF37; color:#1A2A44; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:28px 64px 16px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:22px 64px 18px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:4px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:38px; color:#1A2A44; line-height:1; margin-bottom:12px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; line-height:1.5; margin-bottom:10px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1A2A44; letter-spacing:1px; margin-bottom:5px; margin-top:10px; }
+.body     { font-size:12.5px; color:#1A1A1A; line-height:1.58; }
+.body p   { margin-bottom:7px; }
+.body strong { color:#1A2A44; font-weight:700; }
+.cite     { font-size:10px; color:#999; font-style:italic; vertical-align:super; }
+.src-note { font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px; margin-top:6px; }
+
+.two-col  { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.sidebar  { display:flex; flex-direction:column; gap:10px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:10px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:11px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.3; }
+.stat-sub { font-size:10px; color:#666; margin-top:3px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+.stat-box.red  { border-color:#e05252; } .stat-box.red  .stat-num { color:#e05252; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:9px 12px; font-size:12.5px; color:#1A2A44; line-height:1.55; }
+.callout strong { color:#D4AF37; }
+.callout.teal { border-left-color:#00D4AA; } .callout.teal strong { color:#00D4AA; }
+.callout.red  { border-left-color:#e05252; background:#fff5f5; } .callout.red strong { color:#e05252; }
+
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+.q-card { padding:14px 16px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.teal { background:#00D4AA; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:36px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; line-height:1.6; margin-bottom:8px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-src  { font-size:10px; font-style:italic; opacity:.65; margin-top:3px; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; }
+.q-card.navy .q-attr { color:#D4AF37; }
+.q-card.navy .q-src  { color:rgba(255,255,255,0.55); }
+.q-card.teal .q-mark,.q-card.teal .q-text,.q-card.teal .q-attr,.q-card.teal .q-src { color:#1A2A44; }
+
+@media print {
+  @page { size: letter; margin: 0; }
+  html, body { margin:0; padding:0; background:#fff; }
+  .dl-bar { display:none; }
+  .page { margin:0; page-break-after:always; }
+}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 7: The Weight of Broken Systems</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all"    onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- ════════ PAGE 1 — CHAPTER OPENER ════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:48px 80px 32px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part II — The Evolution of Hospitality</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 7</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:72px; color:#fff; line-height:.92; margin-bottom:2px;">THE WEIGHT</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:72px; color:#00D4AA; line-height:.92; margin-bottom:28px;">OF BROKEN SYSTEMS</div>
+        <div style="width:72px; height:4px; background:#D4AF37; margin-bottom:24px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:560px;">
+          The technology fragmentation documented in Chapter 6 doesn't stay in the back office. It travels — shift by shift, system error by system error — until it shows up on the floor as the thing every guest can feel but nobody wants to name: a staff that's running out of capacity to care.
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#e05252; line-height:1;">74%</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">annual staff turnover rate in hospitality — nearly triple the national average of 25%</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">64%</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">of hospitality managers have seen employees quit specifically because of burnout</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; line-height:1;">$5,864</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">average cost to replace a single front of house hospitality employee, per Cornell research</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#fff; line-height:1;">5%</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">drop in guest satisfaction scores for every single point increase in staff turnover rate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 2 — THE BRIDGE: FROM SYSTEMS TO PEOPLE ════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Causal Chain</div>
+    <div class="ch-title" style="margin-bottom:6px;">When the System Breaks Down, People Break Down</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">Chapter 6 documented the technology stack — six disconnected systems, delivery app commissions that erase margin, and guest data owned by platforms rather than operators. This chapter starts where that one ended: at the moment a server finishes correcting a third-party order error on their fourth different screen while simultaneously managing a table of eight who have been waiting twelve minutes for their entrees.</div>
+        <div class="body" style="font-size:11px; line-height:1.30;">
+          <p>That moment — multiplied across every shift, every venue, every week — is what the data has been measuring for years without the industry fully naming it. The hospitality sector has the highest staff turnover rate of any industry in the United States. <strong>The U.S. Bureau of Labor Statistics recorded average monthly separations in leisure and hospitality of 5.8% throughout 2024 — the highest rate across all industries.</strong><span class="cite"> Hybrid Payroll, citing BLS mid-2024 data</span> Annualized, that figure puts hospitality turnover at 70–75% annually, compared to a national average of 30–35%.</p>
+          <div class="sec-head">The Systems–Burnout Connection</div>
+          <p>The connection between operational systems and staff outcomes is not theoretical. Axonify's 2024 survey of 500 U.S. frontline hospitality managers found that among the top factors contributing to burnout, managers ranked understaffing second only to high stress — and understaffing is the direct output of turnover, which is itself accelerated by the operational conditions that broken systems create.<span class="cite"> Axonify, Frontline Hospitality Survey, Q3 2024</span></p>
+          <p>Axial Shift's operational research distills the mechanism plainly: turnover builds from "misunderstandings, inconsistencies, and accumulated minor operational frictions." Those frictions — the menu that didn't update across platforms, the order that came through incorrectly from the delivery integration, the scheduling system that didn't pull from the POS demand data — are the daily texture of a fragmented tech environment.<span class="cite"> Axial Shift, "Hospitality Burnout," 2025</span></p>
+          <div class="sec-head">The Cycle the Data Describes</div>
+          <p>Fragmented systems create operational friction. Operational friction creates staff overload. Staff overload creates burnout. Burnout drives turnover. Turnover drives understaffing. Understaffing forces the remaining staff to absorb more friction. And round it goes — <strong>each revolution of the cycle degrading both the employee experience and the guest experience simultaneously, while raising costs and shrinking margin on every turn.</strong></p>
+          <div class="callout"><strong>The chapter's argument:</strong> Hospitality's labor crisis is not primarily a compensation problem, a generational problem, or a post-pandemic anomaly. It is, in significant part, an operational design problem — and operational design is something operators can actually control.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box red">
+          <div class="stat-num">5.8%</div>
+          <div class="stat-lbl">monthly separation rate in leisure & hospitality in 2024 — the highest of any US industry</div>
+          <div class="stat-sub">U.S. Bureau of Labor Statistics, mid-2024</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">47%</div>
+          <div class="stat-lbl">of frontline hospitality managers in the US are personally experiencing burnout</div>
+          <div class="stat-sub">Axonify Frontline Hospitality Survey, Q3 2024</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">68%</div>
+          <div class="stat-lbl">of managers say their team members have directly expressed burnout to them</div>
+          <div class="stat-sub">Axonify, 2024</div>
+        </div>
+        <div class="callout teal"><strong>The key framing:</strong> Every percentage point of avoidable friction in a staff member's shift is a percentage point closer to the moment they decide the math no longer works for them.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 3 — THE FRICTION INVENTORY ════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">What Staff Are Actually Managing</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">AN INVENTORY OF DAILY FRICTION</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">Every Item Below Is a Withdrawal From Your Staff's Cognitive and Emotional Reserve</div>
+      <div style="height:2px; background:linear-gradient(90deg,#00D4AA,#D4AF37,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div style="background:rgba(229,57,53,0.1); border:1px solid rgba(229,57,53,0.3); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#e05252; letter-spacing:1px; margin-bottom:5px;">PLATFORM ORDER ERRORS</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5;">A delivery app order comes in for an item the kitchen 86'd two hours ago — but the menu update didn't propagate to the third-party platform. A staff member must contact the guest, manage the disappointment, and reconcile the error across two systems. This happens multiple times per shift at most venues running fragmented delivery integrations.</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:1px; margin-bottom:5px;">MULTI-SYSTEM LOOKUP</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5;">A guest mentions they have a reservation. The POS doesn't connect to the reservation system. The server checks a tablet, the host stand's screen, and a printed sheet before confirming the booking — while the guest waits and the table behind them waves for attention. Every second of that lookup is a second the staff member is not delivering hospitality.</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#00D4AA; letter-spacing:1px; margin-bottom:5px;">SCHEDULE UNCERTAINTY</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5;">69% of shift workers in hospitality say their schedules change without warning.<span style="font-size:9px; opacity:0.65;"> OysterLink, 2025</span> A labor scheduling system that isn't integrated with POS demand data cannot produce accurate schedules — so managers adjust manually, late, under pressure. Staff can't plan childcare, transportation, or a second job. Predictable scheduling alone can cut turnover by up to 20%.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#fff; letter-spacing:1px; margin-bottom:5px;">ONBOARDING TO SIX DASHBOARDS</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5;">A new hire in a fragmented stack environment must be trained on the POS, the delivery platform, the reservation system, the inventory tool, the loyalty system, and whatever communication platform the manager uses for scheduling. Operators cite the increasing need for consolidated stacks specifically because "operators are finding it difficult to choose and onboarding is becoming a barrier to retention."<span style="font-size:9px; opacity:0.65;"> Modern Restaurant Management, 2024</span></div>
+        </div>
+        <div style="background:rgba(229,57,53,0.1); border:1px solid rgba(229,57,53,0.3); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#e05252; letter-spacing:1px; margin-bottom:5px;">END-OF-SHIFT RECONCILIATION</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5;">When systems don't share data, someone has to reconcile them. Managers must cross-reference delivery platform reports with POS totals, identify discrepancies from third-party order errors, and manually update inventory counts. This is the hidden labor cost of fragmentation — absorbed by management, on top of everything else, at the end of every shift.</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:1px; margin-bottom:5px;">GUEST EXPECTATION GAPS</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5;">28% of frontline managers are concerned their teams cannot meet guest expectations.<span style="font-size:9px; opacity:0.65;"> Axonify, 2024</span> When a guest's loyalty points don't appear because the loyalty system doesn't see their delivery order history, or when a returning guest's preferences aren't in the system because they always book through an OTA — staff are left to apologize for failures that originated in the architecture, not in their effort.</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(229,57,53,0.1); border:1px solid rgba(229,57,53,0.3); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#e05252; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Cumulative Effect</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">None of these friction points is catastrophic on its own. Together, across a full shift, across a full week, they compose an environment where excellence becomes structurally difficult — not because the staff lacks skill or motivation, but because the systems they're working within are not designed to help them succeed.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 4 — THE BURNOUT DATA ════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Burnout Crisis by the Numbers</div>
+    <div class="ch-title">What Happens to a Workforce That Runs Out of Margin</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">Burnout is not a feeling. In operational terms, it is a measurable reduction in a staff member's capacity to absorb friction, maintain service standards, and stay in the role. The hospitality industry's burnout numbers in 2024 are not a warning sign — they are an active crisis, the downstream consequence of operational environments that have been accumulating stress without releasing it.</div>
+        <div class="body" style="font-size:11.5px; line-height:1.36;">
+          <p>Axonify's Q3 2024 survey of 500 U.S. frontline hospitality managers produced numbers that should end the debate about whether burnout is a real operational problem: <strong>47% of frontline managers are personally experiencing burnout. 68% report that team members have directly told them about feeling burned out. And 64% have seen employees leave specifically because of burnout.</strong><span class="cite"> Axonify, Frontline Hospitality Survey, Q3 2024</span></p>
+          <div class="sec-head">The Primary Burnout Drivers</div>
+          <p>Managers identified the leading contributors: high stress levels (73%), understaffing (70%), long working hours (67%), customer volatility or escalations (53%), and lack of well-being support (52%).<span class="cite"> Axonify, 2024</span> Three of those five — understaffing, long hours, and customer escalations — are directly worsened by operational friction. Understaffing results from turnover accelerated by poor working conditions. Long hours result from covering for understaffed shifts. Customer escalations increase when service is delayed by system failures.</p>
+          <div class="sec-head">Who Burns Out First</div>
+          <p>OysterLink's 2025 burnout analysis finds that younger workers aged 18–29 and those in frontline guest-facing positions show the highest burnout rates, with 68% of younger hospitality workers reporting being "very stressed" at work.<span class="cite"> OysterLink, "Burnout in Hospitality: 2025 Data"</span> These are precisely the workers the industry depends on for volume — the servers, the bartenders, the hosts, the concessions staff — and they are burning out at rates that make sustainable staffing structurally difficult.</p>
+          <p>The broader workforce picture is equally stark. About 50% of hospitality workers take on additional jobs just to make ends meet. Only 33% feel genuinely engaged in their daily work. Nearly all (98%) report working overtime, with 75% receiving insufficient advance notice of schedule changes.<span class="cite"> OysterLink, 2025</span> <strong>This is not a workforce that is disengaged by choice. It is a workforce that has been asked to absorb too much with too little support.</strong></p>
+          <div class="callout"><strong>The tipping point:</strong> 40% of hospitality employees saw no pay raise in 2024, and another 25% received only a 1–2% bump — well below inflation. When staff are absorbing operational friction on flat wages, burnout is not a risk to manage. It is a scheduled outcome.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box red">
+          <div class="stat-num">73%</div>
+          <div class="stat-lbl">of managers cite high stress as the top contributor to burnout in their teams</div>
+          <div class="stat-sub">Axonify Frontline Hospitality Survey, Q3 2024</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">70%</div>
+          <div class="stat-lbl">cite understaffing as a primary burnout driver — the direct output of unresolved turnover</div>
+          <div class="stat-sub">Axonify, 2024</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">28%</div>
+          <div class="stat-lbl">of managers are concerned their teams simply cannot meet guest expectations today</div>
+          <div class="stat-sub">Axonify, 2024</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Hospitality has seen its ups and downs, often hit hard by socioeconomic factors. Our data highlights the urgent need for companies to take a modern and agile approach."</div>
+          <div class="q-attr">Carol Leaman, CEO</div>
+          <div class="q-src">Axonify — Frontline Hospitality Survey, August 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 5 — THE TURNOVER MATH ════════ -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Financial Reality</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">WHAT TURNOVER ACTUALLY COSTS YOUR OPERATION</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">The Numbers Most Operators Can't See Because They're Too Busy Managing the Churn</div>
+      <div style="height:2px; background:linear-gradient(90deg,#00D4AA,#D4AF37,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#e05252; letter-spacing:1px; margin-bottom:6px;">THE PER-PERSON COST</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Cornell University's Center for Hospitality Research calculates the average cost of replacing a single front of house employee at $5,864. Black Box Intelligence's 2024 State of the Workforce report found hard costs (separation, replacement, and training) now average $2,305 per hourly employee, $10,518 per non-GM manager, and $16,770 per General Manager. The average full-service restaurant loses approximately $150,000 per year in staff turnover costs alone.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Sources: Cornell Center for Hospitality Research; Black Box Intelligence, Oct. 2024; National Restaurant Association; notch financial</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">THE SCALE PROBLEM</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">A typical restaurant employs 15–20 front-of-house staff, 8–10 back-of-house, and 3–5 managers. At 50% FOH turnover, an operator replaces 7–10 servers and hosts every year. At $5,864 per replacement, that is $41,000–$58,000 in FOH replacement costs before accounting for reduced service quality while new hires develop competency. The training cost component alone averages $821 per employee.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Sources: 7shifts Restaurant Workforce Report 2025; Cornell Center for Hospitality Research; Restroworks turnover statistics 2025</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">THE GUEST SATISFACTION PENALTY</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Cornell's Center for Hospitality Research found that a single point increase in turnover can erode guest satisfaction scores by up to 5%. Hotels with above-average turnover suffer up to 12% lower customer satisfaction scores overall. Lower guest satisfaction means lower repeat rates, higher acquisition costs for new guests, and — in the era of public reviews — reputational damage that compounds across every future booking decision.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Cornell Center for Hospitality Research, via Hybrid Payroll analysis, 2025</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE PRODUCTIVITY LOSS WINDOW</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Turnover costs begin before the exit. Productivity declines as soon as a staff member decides to leave — often weeks before giving notice. Remaining staff absorb the gap through additional workload, accelerating their own burnout trajectory. The new hire arrives undertrained relative to the departing employee's institutional knowledge. The gap between departure and full competency typically spans 4–6 weeks — during which service consistency suffers and the surviving team carries the additional load.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Sources: 7shifts; Decision Logic; Rewards Network restaurant labor analysis</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Compounding Equation</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">The turnover cost is not a fixed annual line item. It is an accumulating liability. Every replacement that leaves before full competency is an employee whose first weeks cost more to deliver less. Every manager overwhelmed by recruiting and onboarding is a manager not improving operations or reducing friction. Every service gap that damages a guest relationship is a future revenue event that will not happen. Turnover doesn't just cost money — it costs the future.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 6 — THE UNDERSTAFFING SPIRAL ════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Understaffing Feedback Loop</div>
+    <div class="ch-title">How Being Short Staffed Creates More  Exits</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">Understaffing is not a static condition. It is a self-fulfiling loop with a reliable sequence: one person leaves, the remaining team absorbs the gap, their workload increases, their satisfaction drops, the next person thinking about leaving is now closer to the exit — and the loop accelerates. The hospitality industry's persistent labor shortage is not only a supply problem. It is a retention problem created and sustained by operational conditions.</div>
+        <div class="body" style="font-size:11.5px; line-height:1.38;">
+          <p>In January 2024 alone, the hospitality industry lost 781,000 workers but hired 1.05 million new employees — a net replacement rather than growth cycle.<span class="cite"> CiHMS, "Hospitality Labor Shortage," 2025; BLS data</span> As of late 2024, the American Hotel and Lodging Association's survey of 282 hoteliers found that 65% still reported staffing shortages, with 9% describing themselves as severely understaffed.<span class="cite"> AHLA Front Desk Feedback Survey, Jan. 2025</span></p>
+          <div class="sec-head">What Happens to the Survivors</div>
+          <p>NetSuite's analysis of hospitality challenges frames the structural trap precisely: when operators expect experienced staff to take on more duties to cover gaps, straddling tenured employees with increased workloads is more likely to lead to burnout, "decreasing your number of viable staff even further."<span class="cite"> NetSuite, "13 Common Challenges in the Hospitality Industry," 2025</span> The very response to understaffing most often deployed — ask the existing team to cover — is the mechanism that drives the next wave of departures.</p>
+          <div class="sec-head">The Guest Experience Consequence</div>
+          <p>Cloudbeds's 2025 PMS User Experience report documented a 40.5% churn rate across the hospitality industry, with US properties averaging 50%.<span class="cite"> Cloudbeds, "Combatting Turnover: How Hotels Can Improve Retention," 2025</span> The guest-experience consequence is direct: <strong>constant onboarding means a portion of every front-of-house team is always new. New staff make more errors. They lack the institutional knowledge to recover gracefully from service failures. And guests notice — not in an abstract survey, but in the moment when they ask a server about a dish and the server doesn't know the answer.</strong></p>
+          <p>Hospitality venues with high turnover also struggle with what Cloudbeds identifies as "gaps in service expectations" — inconsistencies in the experience that arise when every rotation of the staff wheel brings new people with different training levels, different familiarity with the venue's standards, and different thresholds for the operational friction they're willing to absorb.</p>
+          <div class="callout"><strong>The manager's dilemma:</strong> You can't fix understaffing by hiring faster if the conditions that drove the last person out haven't changed. Every new hire enters the same environment that burned out their predecessor. The cycle doesn't break until the environment changes.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box red">
+          <div class="stat-num">781K</div>
+          <div class="stat-lbl">hospitality workers lost in January 2024 alone — replaced by 1.05M new hires in a constant replacement cycle, not growth</div>
+          <div class="stat-sub">BLS data via CiHMS, 2025</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">65%</div>
+          <div class="stat-lbl">of hotels still reporting staffing shortages as of early 2025, down from 76% in May 2024</div>
+          <div class="stat-sub">AHLA Front Desk Feedback Survey, Jan. 2025</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">50%</div>
+          <div class="stat-lbl">average annual churn rate at US hotel properties in 2025 — the highest of any country in the study</div>
+          <div class="stat-sub">Cloudbeds PMS User Experience Report, 2025</div>
+        </div>
+        <div style="background:#1A2A44; padding:13px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">The Understaffing Loop</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-size:11.5px;">
+            <div style="background:rgba(229,57,53,0.1); border-left:3px solid #e05252; padding:7px 10px; border-radius:0 3px 3px 0;"><span style="color:#e05252; font-weight:700;">1.</span><span style="color:rgba(255,255,255,0.8);"> Employee burns out → exits</span></div>
+            <div style="background:rgba(212,175,55,0.1); border-left:3px solid #D4AF37; padding:7px 10px; border-radius:0 3px 3px 0;"><span style="color:#D4AF37; font-weight:700;">2.</span><span style="color:rgba(255,255,255,0.8);"> Remaining team absorbs the workload</span></div>
+            <div style="background:rgba(255,255,255,0.05); border-left:3px solid rgba(255,255,255,0.3); padding:7px 10px; border-radius:0 3px 3px 0;"><span style="color:#fff; font-weight:700;">3.</span><span style="color:rgba(255,255,255,0.8);"> New hire arrives undertrained, needs coverage</span></div>
+            <div style="background:rgba(0,212,170,0.1); border-left:3px solid #00D4AA; padding:7px 10px; border-radius:0 3px 3px 0;"><span style="color:#00D4AA; font-weight:700;">4.</span><span style="color:rgba(255,255,255,0.8);"> Service gaps emerge → guests experience inconsistency</span></div>
+            <div style="background:rgba(229,57,53,0.1); border-left:3px solid #e05252; padding:7px 10px; border-radius:0 3px 3px 0;"><span style="color:#e05252; font-weight:700;">5.</span><span style="color:rgba(255,255,255,0.8);"> Stressed survivors reach their exit threshold → repeat</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 7 — THE GUEST FEELS IT ════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Guest Experience Impact</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">What guests feel when the team is running on fumes</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">What shows up in reviews and repeat visits</div>
+      <div style="height:2px; background:linear-gradient(90deg,#00D4AA,#D4AF37,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#e05252; letter-spacing:1px; margin-bottom:6px;">THE ATTENTIVENESS DROP</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Burned-out employees are measurably less attentive. OysterLink's research confirms that burned-out staff are less engaged, less motivated, and less capable of delivering quality service consistently. A server managing three additional tables because a colleague called out, while simultaneously troubleshooting a delivery platform error, is physiologically incapable of the attentiveness that defines excellent hospitality.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: OysterLink, "Burnout in Hospitality: 2025 Data"</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">THE INCONSISTENCY PROBLEM</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">High-turnover venues cannot deliver consistent experiences. A guest accustomed to a certain server's knowledge of the menu, or a hotel guest who expects the front desk to know their preferences, encounters a different person with different training every visit. Consistency is not a luxury in hospitality. For guests who are deciding whether to return, it is the primary decision variable.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Cloudbeds, Hybrid Payroll hospitality analysis, 2025</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">THE TIP EROSION SIGNAL</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Axonify's 2024 survey found that 61% of frontline managers noticed guests leaving lower tips. That finding is both a signal and a further accelerant: lower tips reduce staff income on flat wages, increasing financial pressure and accelerating exit decisions. The burnout loop is not just operational — it is economic. <strong>Guests reduce tips when service is slow or inattentive. Understaffing leads directly to staff burnout They're understaffed because turnover is high.</strong></div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Axonify Frontline Hospitality Survey, Q3 2024</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE GUEST VOLATILITY ESCALATION</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">As services slow and errors increase, guest frustration escalates. Axonify found that 53% of managers cite customer volatility and escalations as a primary burnout driver, and that nearly half (48%) have had to ask a guest to leave or ban one entirely in the last year due to poor treatment of workers. The relationship between operational failure and guest aggression is direct — and its cost is absorbed entirely by front of house staff, not by the systems that caused the delay.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Axonify Frontline Hospitality Survey, Q3 2024</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Review Platform Amplifier</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">Every service failure created by an understaffed, over-burdened team is now a potential public record. Google reviews, Yelp, TripAdvisor, and OpenTable ratings are the digital artifacts of the operational environment that operators build. A staff burnout problem is, in the era of public reviews, also a reputation problem — and reputation problems have compounding cost consequences that extend well beyond the shift in which they originated.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 8 — TRAINING AS A RETENTION LEVER ════════ -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Training Gap</div>
+    <div class="ch-title" style="margin-bottom:5px;">Undertrained Staff; Underperform And Then Leave</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:20px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:5px;">Training is simultaneously one of the highest-leverage retention tools available to hospitality operators and one of the most consistently underfunded. The math is stark: investing in the development of an employee costs a fraction of replacing them — yet the industry consistently underinvests in training while overpaying in turnover costs. More often than not, it comes down to the environment—fragmented systems and time lost to manual reconciliation leave no room for training.</div>
+        <div class="body" style="font-size:11px; line-height:1.33;">
+          <p>Axonify's survey found that more than half (54%) of frontline managers say their company does not currently offer training around mental health and well-being — a gap that has direct retention consequences given burnout's role in departure decisions.<span class="cite"> Axonify, Q3 2024</span> A 2023 EHL Hospitality Business School report linked neglected training directly to attrition: staff who don't receive the skills to succeed in their roles disengage and exit.<span class="cite"> Hybrid Payroll, citing EHL Hospitality Business School, 2023</span></p>
+          <div class="sec-head">The Onboarding Bottleneck</div>
+          <p>Fragmented systems are making onboarding harder and harder. A new hire must be trained not just on service standards and menu knowledge, but on multiple disconnected systems — each with its own interface, error states, and workarounds. Modern Restaurant Management's 2024 outlook identified this directly: "Operators are finding it difficult to choose what is the best solution for their individual needs" and are recognizing an "increased need to reduce turnover rates and make onboarding a smoother and more efficient process."<span class="cite"> Modern Restaurant Management, 2024 Outlook, Part Three</span></p>
+          <p>The time a new employee spends navigating system complexity is time they are not developing the service intuition that makes a hospitality worker excellent at their job. <strong>A server who spends their first two weeks learning six dashboards instead of learning the menu, the regulars, and the kitchen's rhythms is being set up for a mediocre start — and mediocre starts correlate strongly with early exits.</strong></p>
+          <div class="sec-head">The Unskilling Phenomenon</div>
+          <p>More than half (54%) of frontline managers believe "unskilling" — when the skills required for a task are reduced or eliminated by technology — is actively happening in the hospitality industry.<span class="cite"> Axonify, 2024</span> This is the paradox of poorly deployed technology: it was meant to make staff more capable, but when implemented without integration or training investment. Making the role feel both less rewarding and less portable as a career.</p>
+          <div class="callout"><strong>The training investment case:</strong> Cornell's research shows replacing an employee costs $5,864. Just the proess of training a new hire costs approximately $821. The operator who invests in training retains more staff, spends less on replacement, and delivers more consistent guest experience. The math is not subtle.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box red">
+          <div class="stat-num">54%</div>
+          <div class="stat-lbl">of managers say their company offers no training on mental health or well-being — despite burnout being the top exit driver</div>
+          <div class="stat-sub">Axonify, Q3 2024</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">$821</div>
+          <div class="stat-lbl">average training cost per employee replacement — vs $5,864 total turnover cost per person</div>
+          <div class="stat-sub">Cornell Center for Hospitality Research</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">54%</div>
+          <div class="stat-lbl">of managers believe “unskilling” — technology reducing the skills required — is actively occurring in hospitality.</div>
+          <div class="stat-sub">Axonify, 2024</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Operators need less tools to do more and are going to find an even increased need to reduce turnover rates and make onboarding a smoother and more efficient process."</div>
+          <div class="q-attr">Industry Forecast</div>
+          <div class="q-src">Modern Restaurant Management, 2024 Outlook, Part Three</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 9 — SCHEDULING AS THE HIDDEN VARIABLE ════════ -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Scheduling Problem</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">THE SCHEDULE IS A RETENTION INSTRUMENT</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">How Disconnected Scheduling Creates a Predictable Path to Departure</div>
+      <div style="height:2px; background:linear-gradient(90deg,#00D4AA,#D4AF37,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#e05252; letter-spacing:1px; margin-bottom:6px;">THE UNPREDICTABILITY PENALTY</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">69% of shift workers in hospitality say their schedules frequently change without warning. Nearly all (98%) report working overtime, with 75% not receiving enough advance notice. The impact is not abstract: staff who can't plan their lives around their work schedule can't reliably show up — and can't build the work-life stability that sustains long-term commitment to a role. Unpredictable scheduling is one of the strongest statistical predictors of voluntary departure.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: OysterLink, "Burnout in Hospitality: 2025 Data"</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">THE 20% RETENTION UPSIDE</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Research shows that predictable scheduling alone can cut absenteeism by 25% and turnover by as much as 20%. For a restaurant replacing 10 employees per year at $5,864 each, a 20% reduction in turnover is $11,700 in direct annual savings — before accounting for service quality improvements and manager time recovered from recruiting and onboarding. The scheduling problem is a solvable one. But solving it requires scheduling software that is integrated with actual POS demand data — not intuition.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Hybrid Payroll, "Employee Turnover in Hospitality Industry," 2025</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">THE NOTEBOOK MANAGER</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">TimeForge's industry analysis describes the scenario still playing out in thousands of venues: "A restaurant manager scribbling schedules on a worn notepad, trying to balance staff availability with unpredictable customer rushes." That outdated approach — still common even in technology-adjacent venues — results in overstaffed slow periods and understaffed peaks, frustrating employees and guests alike. Workforce management software that pulls from POS demand data converts guesswork into precision.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: TimeForge, "Labor Shortages Impact Restaurant Operations," 2025</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE LABOR TARGET DISCIPLINE</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">7shifts' Restaurant Workforce Report 2025 found that restaurants using POS and software analytics to track labor (76% of respondents) consistently outperform those using historical data and guesswork. "The restaurants that go through the full process required to accurately set a responsible labor cost target hit their targets 75 or 80 percent of the time." Labor cost control and staff satisfaction should be aligned. The operator who schedules efficiently protects both margin and morale.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: 7shifts Restaurant Workforce Report 2025</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Scheduling Opportunity</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">Scheduling is not an administrative function. It is a frontline retention instrument. The operator who gives staff predictable, accurate schedules built from real demand data is the operator who provides something most of the industry cannot: the ability to plan a life around a job. In a labor market where hospitality competes against retail, gig work, and remote roles. Schedule predictability is a competitive advantage.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 10 — WHAT TECHNOLOGY DOES WHEN IT WORKS ════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Technology Reversal</div>
+    <div class="ch-title">Utilize Systems That Support Your Staff</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:11.5px; line-height:1.40; margin-bottom:5px;">The focus of this chapter is not that technology is the enemy of staff wellbeing. It’s not innovation causing the damage—it’s bad implementation. fragmented, and isolated tech — is. The same class of tools that creates friction when disconnected from each other removes friction when unified. The hospitality industry's technology investment is not the problem. The architecture of that investment is.</div>
+        <div class="body" style="font-size:11px; line-height:1.34;">
+          <p>Hospitality Technology's 2025 analysis of the burnout question reached a precise conclusion: mobile and contactless technologies, when well-integrated, "significantly ease the workload on teams." Mobile point-of-sale technology allows a server to place orders directly from the table to the kitchen — eliminating the transit time of walking to a traditional terminal on the other side of the restaurant. Contactless payment systems remove the need to handle transactions manually, speeding table turns and reducing errors.<span class="cite"> Hospitality Technology, "From Burnout to Breakthrough," March 2025</span></p>
+          <div class="sec-head">The KDS Impact</div>
+          <p>Kitchen Display Systems (KDS) replace paper ticket chaos with color-coded, sequenced displays that route orders accurately and in real time. Sunday App's hospitality technology analysis notes that when tickets pile up and kitchen staff are navigating cramped receipt printers, "errors are bound to happen" — and those errors feed back to the front of house as guest problems that front of house staff must resolve.<span class="cite"> Sunday App, "Tech That Helps with Staffing Shortages," 2025</span> A well-integrated KDS removes a category of error before it reaches the guest — and reduces the emotional labor of service recovery.</p>
+          <div class="sec-head">The Staffing Flexibility Gain</div>
+          <p>Modern Restaurant Management's 2024 outlook identified automation of routine tasks as the key path to "reducing the workload on staff and allowing more time to dedicate to customer interactions."<span class="cite"> Modern Restaurant Management, 2024 Outlook, Part Three</span> This is the core design principle of technology that serves hospitality rather than straining it: <strong>handle the transaction mechanics, the data synchronization, and the order routing automatically — so that the human energy in the room can be spent on what technology cannot replicate: genuine connection, attentive service, and the warmth that makes a guest want to return.</strong></p>
+          <p>49% of restaurant operators now express optimism about technology's role in reducing labor costs, per the 7shifts Workforce Report. That optimism is not misplaced — it is the industry beginning to recognize that the technology investment of the past two decades was not wrong in intent. It was wrong in architecture.<span class="cite"> 7shifts, Restaurant Workforce Report 2025</span></p>
+          <div class="callout"><strong>The principle:</strong> Technology earns its place in a hospitality operation by removing friction from the staff experience. When it adds friction, it has failed — and the cost of that failure is paid first by the staff, and then by the guest.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box teal">
+          <div class="stat-num">49%</div>
+          <div class="stat-lbl">of restaurant operators are optimistic about technology's role in reducing labor costs — up significantly from prior years</div>
+          <div class="stat-sub">7shifts Restaurant Workforce Report 2025</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">70%</div>
+          <div class="stat-lbl">of restaurant operators still struggling to fill openings — the gap that integrated technology must help close</div>
+          <div class="stat-sub">National Restaurant Association; Modern Restaurant Management, 2024</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Technology solutions have helped us stay close to our labor budget while saving management an incredible amount of time — accurate, correct, and helpful for budgeting, forecasting, and scheduling."</div>
+          <div class="q-attr">Restaurant Operator</div>
+          <div class="q-src">7shifts Restaurant Workforce Report 2025</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">10–20</div>
+          <div class="stat-lbl">hours per week saved in manual management work when AI-powered unified systems replace fragmented reconciliation</div>
+          <div class="stat-sub">Hospitality Headline, "The Unified Restaurant Tech Stack," 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 11 — THE WAGE FLOOR AND THE CEILING ════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">Compensation in Context</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">Even when pay isn’t optimal, other factors carry just as much weight.</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">What the Wage Data Tells Operators — And What It Can't Fix on Its Own</div>
+      <div style="height:2px; background:linear-gradient(90deg,#00D4AA,#D4AF37,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">THE WAGE GAP IS REAL</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">The BLS lists the average nonsupervisory hospitality wage at $19.61 per hour in 2024, compared with $28.00 per hour across all private industries. That $8.39 hourly gap — approximately $17,000 annually on a full-time schedule — is real and meaningful. 85% of operators have increased wages over the past year to attract talent, per the National Restaurant Association. But higher pay hasn't solved the retention problem on its own. Black Box Intelligence found that top-tier GM salaries correlate with 6% lower turnover — meaningful, but not definitive.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Sources: BLS 2024 via Hybrid Payroll; National Restaurant Association; Black Box Intelligence, Oct. 2024</div>
+        </div>
+        <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#e05252; letter-spacing:1px; margin-bottom:6px;">WHY RAISES ALONE DON'T SOLVE IT</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Hybrid Payroll's 2025 industry analysis identifies unpredictable scheduling, limited career development, weak onboarding, and high-stress environments as the structural causes of turnover — causes that wages cannot address directly. A staff member who receives a raise but still faces six disconnected systems, last-minute schedule changes, and no clear development path has less reason to leave financially — but the same operational reasons that drove their peers out are still present. Compensation buys time. It doesn't buy commitment.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Hybrid Payroll, "Employee Turnover in Hospitality Industry," 2025</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">WHAT GEN Z IS TELLING OPERATORS</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">The hospitality workforce is increasingly Gen Z — workers who have grown up with frictionless digital experiences as the baseline. They are not less committed to excellence; they are more sensitive to operational dysfunction. Hospitality Institute's 2024 analysis found that this generation values "meaningful experiences, flexible arrangements, and alignment with personal values" above job security and financial rewards alone. They will not stay in environments that feel chaotic when the alternative is a retail or gig role with a predictable schedule.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Hospitality.Institute, "Navigating Modern Motivation Challenges," 2024</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE FULL RETENTION PICTURE</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">The operators retaining staff most effectively in 2024 and 2025 are combining competitive compensation with operational excellence: predictable scheduling, clear onboarding, well-integrated technology, and consistent management. Cloudbeds’ research makes it clear: wages alone aren’t enough—career mobility and advancement paths; matter just as much. Staff who can see a future in the role — and who are not burning energy managing broken systems — are staff who stay.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Cloudbeds, "Combatting Turnover: How Hotels Can Improve Retention," 2025; AHLA, 2025</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Retention Equation</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">Retention = fair compensation + operational clarity + schedule predictability. Operators who don't focus on these factors are missing the compound effect of addressing them. The staffing crisis is not a single-variable problem. The operators winning the retention battle know it requires a systems-level response.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 12 — THE MODERN PARALLEL ════════ -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Historical Arc Continued</div>
+    <div class="ch-title">Servie Still Comes First — The Systems Just Changed</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">In 4,000 years of hospitality, the constant has never been the technology, the location, or the menu. It has been the human being standing between the guest's need and its fulfillment. Every operator who has lost sight of that — who optimized for scale without optimizing for the people delivering it — has built something that eventually unravels. The current labor crisis is the latest expression of a pattern the history of hospitality has documented repeatedly. Contrary to popular belief; people don't mind working. They do mind working in bad environments</div>
+        <div class="body" style="font-size:11.5px; line-height:1.38;">
+          <div class="sec-head" style="margin-top:0;">Harry M. Stevens and the Captive Staff</div>
+          <p>Chapter 5 documented that the golden age of stadiums and highway restaurants treated both guests and staff as a low priority. Turnover seemed cheaper than retention. The concession model that Harry M. Stevens built across Yankee Stadium and a dozen racetracks in the early 20th century was not designed to develop hospitality talent — it was designed to move product. The "no imagination required" ethos that defined those early concession stands was not just a guest experience philosophy. It was a staffing philosophy. <strong>And its descendants — fast-food chains optimized for replication, delivery platforms optimized for volume — inherited the same core assumption: that staff was easily replaceable.</strong></p>
+          <div class="sec-head">The Camden Yards Lesson, Restated</div>
+          <p>When Camden Yards opened in 1992, it didn't just redesign the fan experience. It began to redesign what was expected of the people delivering it. An experience-forward venue requires experience-forward staff — people who know the product, take pride in the environment, and find meaning in the craft. You cannot deliver an elevated guest experience through a demoralized, undertrained, chronically understaffed team. The venue design and the staffing model must be aligned.</p>
+          <div class="sec-head">The Operator's Real Competitive Advantage</div>
+          <p>In the current era — where any venue's location can be found in 30 seconds on Google Maps, where menus are posted online and compared before a guest arrives, where the experience itself is the only remaining differentiator — the competitive advantage is the team. <strong>An operator who retains experienced, engaged staff delivers a guest experience that cannot be replicated by a competitor who opens a venue next month down the street.</strong> Staff retention is now a brand strategy, not just an HR function.</p>
+          <div class="callout"><strong>The 4,000-year constant:</strong> Hospitality has always been people serving people. Every era's technology has changed the mechanism. None has changed the requirement. The operator who treats their staff as the primary product — and builds systems that support rather than burden them — is the operator building something that lasts.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; text-align:center;">
+            Then vs. Now — The Staffing Pattern
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Golden Age</div><div style="font-size:11px; color:#fff; line-height:1.4;">Staff captive. Options limited. Turnover tolerated as cost of doing business.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Now</div><div style="font-size:11px; color:#fff; line-height:1.4;">Staff have options. 70%+ annual turnover proves the old model is unsustainable.</div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Tech Era</div><div style="font-size:11px; color:#fff; line-height:1.4;">Six systems added. Staff trained on all. Operational burden increased, not reduced.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Now</div><div style="font-size:11px; color:#fff; line-height:1.4;">Unified stacks reduce friction. Staff can focus on guests rather than dashboards.</div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Camden Yards 1992</div><div style="font-size:11px; color:#fff; line-height:1.4;">Experience-forward design requires experience-forward staffing. You can't separate the two.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Now</div><div style="font-size:11px; color:#fff; line-height:1.4;">Your venue design, your tech stack, and your staffing model must be coherent. Misalignment is costly.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"We can't change wages or rewrite labor laws. But we can give operators the tools to replace chaos with clarity, run better services, and protect the people who keep hospitality alive."</div>
+          <div class="q-attr">Axial Shift</div>
+          <div class="q-src">"Hospitality Burnout: How Operators Can Protect Their Teams," 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 13 — WORKBOOK EXERCISE ════════ -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 7 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; margin-bottom:12px; line-height:1.6; max-width:640px;">Your turnover rate is the report card your operational environment is issuing. This exercise maps the friction your staff absorbs daily and connects it to the retention outcomes you're experiencing — so you can see the cost of what you've been tolerating.</div>
+
+    <div style="border:2px solid #1A2A44; border-radius:4px; overflow:hidden; margin-bottom:10px;">
+      <div style="background:#1A2A44; padding:10px 20px; display:flex; align-items:center; gap:12px;">
+        <div style="width:32px; height:32px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">A</span></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px;">Calculate Your Turnover Cost</div>
+      </div>
+      <div style="padding:12px 20px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Total FOH staff count:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">servers, hosts, bartenders</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Employees who left last 12 months:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">your annual exit number</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Your turnover rate (exits ÷ total):</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">express as a percentage</div></div>
+        <div style="background:#1A2A44; padding:9px; border-radius:3px; grid-column:span 3;"><div class="fill-label" style="color:#D4AF37;">Annual turnover cost (exits × $5,864 Cornell baseline):</div><div class="fill-line" style="border-color:rgba(255,255,255,0.2);"></div><div style="font-size:10px; color:rgba(255,255,255,0.4);">This is the minimum recoverable value if you cut turnover by just 20%</div></div>
+      </div>
+    </div>
+
+    <div style="border:2px solid #00D4AA; border-radius:4px; overflow:hidden; margin-bottom:10px;">
+      <div style="background:#1A2A44; padding:10px 20px; display:flex; align-items:center; gap:12px; border-bottom:3px solid #00D4AA;">
+        <div style="width:32px; height:32px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">B</span></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px;">Score the Friction in Your Current Environment (1=low, 5=high)</div>
+      </div>
+      <div style="padding:12px 20px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Frequency of order errors from delivery platform integration:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = rare, 5 = multiple per shift</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Schedule predictability for your team:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = always set 2 weeks ahead, 5 = frequent last-minute changes</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Time spent by managers on manual reconciliation/admin per shift:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = &lt;30 min, 5 = 2+ hours</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Time for a new hire to reach full competency:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = 1–2 weeks, 5 = 6+ weeks</div></div>
+        <div style="background:#1A2A44; padding:9px; border-radius:3px; grid-column:span 2;"><div class="fill-label" style="color:#00D4AA;">FRICTION SCORE TOTAL (out of 20) — anything above 12 is a documented retention risk:</div><div class="fill-line" style="border-color:rgba(255,255,255,0.2);"></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:11px 16px; border-radius:4px; display:flex; align-items:center; gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#00D4AA; flex-shrink:0; line-height:1.1;">KEY<br>INSIGHT</div>
+      <div style="font-size:12.5px; color:#fff; line-height:1.5;">Your friction score is your turnover forecast. High friction environments produce high turnover. The cost is $5,864 per exit, measurable guest satisfaction decline, and compounding operational degradation with every cycle of the loop.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 14 — CHAPTER SUMMARY + BRIDGE ════════ -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary &amp; What Comes Next</div>
+    <div class="ch-title">What The Weight of Broken Systems Tells Operators</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; line-height:1.6; margin-bottom:14px; max-width:620px;">The technology fragmentation documented in Chapter 6 and the staff burnout cycle documented here are not separate problems. They are one problem viewed from two angles. The operator who resolves the systems crisis resolves the people crisis — because operational clarity is the precondition for a workforce that can deliver excellent hospitality consistently.</div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #e05252; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#e05252; line-height:1; flex-shrink:0; width:24px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">BURNOUT IS THE OPERATIONAL ENVIRONMENT EXPRESSING ITSELF THROUGH PEOPLE</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">47% of frontline managers are burned out. 64% have seen employees leave because of it. The leading drivers — understaffing, long hours, customer volatility — are all downstream of operational friction that starts in broken systems. Burnout is not a morale problem. It is an operations problem with a human face. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Axonify, Q3 2024</span></div></div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#D4AF37; line-height:1; flex-shrink:0; width:24px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">TURNOVER IS THE MOST UNDERESTIMATED LINE ITEM IN HOSPITALITY OPERATIONS</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">At $5,864 per front of house replacement, a venue losing 25 employees per year is spending $146,000 annually on churn — before accounting for service quality degradation, guest satisfaction decline, or the management time absorbed by constant recruiting. That number is invisible in most P&amp;Ls. It shouldn't be. <span style="font-size:10.5px; color:#888; font-style:italic;">Sources: Cornell CHR; National Restaurant Association</span></div></div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #00D4AA; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#00D4AA; line-height:1; flex-shrink:0; width:24px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">SCHEDULE PREDICTABILITY AND OPERATIONAL CLARITY ARE RETENTION INSTRUMENTS</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">Predictable scheduling cuts turnover by up to 20%. Integrated technology removes 10–20 hours of manual management labor per week. These are not employee benefits — they are operational improvements that happen to benefit employees. The operator who makes their venue easier to work in makes it more likely their team stays. <span style="font-size:10.5px; color:#888; font-style:italic;">Sources: Hybrid Payroll; Hospitality Headline 2026</span></div></div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #1A2A44; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#1A2A44; line-height:1; flex-shrink:0; width:24px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">THE GUEST EXPERIENCE IS ONLY AS STRONG AS THE TEAM DELIVERING IT</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">A single point increase in turnover erodes guest satisfaction by up to 5%. High-turnover venues suffer up to 12% lower customer satisfaction scores. Every departure is not just an HR event — it is a guest experience event. The chain from systems to staff to guests is direct, measurable, and unavoidable. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Cornell Center for Hospitality Research, via Hybrid Payroll</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:12px 18px; border-radius:4px; display:flex; align-items:center; gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:3px;">Next → Chapter 8</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px; margin-bottom:3px;">THE STAFF BURNOUT CYCLE</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.5;">Chapter 8 goes deeper into the burnout cycle itself — the specific triggers, the role of management in amplifying or interrupting it, and the operational frameworks operators can implement to protect their teams. It builds directly on the system-level analysis of this chapter and the technology analysis of Chapter 6 to complete the arc of Part II.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; flex-shrink:0; line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">7 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId() {
+  const pages = document.querySelectorAll('.page');
+  let closest = pages[0], closestDist = Infinity;
+  const center = window.scrollY + window.innerHeight / 2;
+  pages.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pc = window.scrollY + rect.top + rect.height / 2;
+    const d = Math.abs(center - pc);
+    if (d < closestDist) { closestDist = d; closest = p; }
+  });
+  return closest.id;
+}
+async function capturePage(id) {
+  const page = document.getElementById(id);
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
+  return await html2canvas(page, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:816, height:1056, scrollX:0, scrollY:-window.scrollY });
+}
+async function downloadVisible() {
+  const id = getVisiblePageId();
+  const num = id.replace('p','');
+  const canvas = await capturePage(id);
+  const a = document.createElement('a');
+  a.download = `chaos-mastery-ch7-p${num.padStart(2,'0')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+async function downloadAll() {
+  const btn = document.querySelector('.btn-all');
+  btn.disabled = true;
+  for (let i = 1; i <= 14; i++) {
+    btn.textContent = `Downloading ${i}/14...`;
+    const canvas = await capturePage('p'+i);
+    const a = document.createElement('a');
+    a.download = `chaos-mastery-ch7-p${String(i).padStart(2,'0')}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  btn.textContent = '⬇ Download All 14 Pages';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

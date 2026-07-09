@@ -1,0 +1,22 @@
+project_id = "smqwemfobrqxnpcooigd"
+
+[functions.on-lead-submit]
+verify_jwt = false
+
+[functions.ingest-lead-event]
+verify_jwt = false
+
+[functions.score-lead]
+verify_jwt = true
+
+[functions.send-followup-emails]
+verify_jwt = true
+
+[functions.send-calculator-abandon-emails]
+verify_jwt = true
+
+[functions.daily-org-funnel-snapshot]
+verify_jwt = false
+
+[functions.purge-test-leads]
+verify_jwt = true

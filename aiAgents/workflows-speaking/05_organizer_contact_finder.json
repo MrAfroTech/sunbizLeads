@@ -1,0 +1,283 @@
+{
+  "name": "05 - Organizer Contact Finder",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 11 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 11 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:U",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "organizer_email",
+              "condition": "equal",
+              "value": ""
+            },
+            {
+              "fieldName": "website",
+              "condition": "notEqual",
+              "value": ""
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "get-opportunities",
+      "name": "Get Opportunities Needing Contacts",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.website }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "fetch-website",
+      "name": "Fetch Event Website",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Extract event organizer contact information from website HTML. Look for: Program Manager, Event Coordinator, Speaker Relations, Conference Director. Return JSON with name, title, email, LinkedIn profile URL if available. Prioritize .edu emails for universities, professional emails for conferences."
+            },
+            {
+              "role": "user",
+              "content": "=Event: {{ $node[\"Get Opportunities Needing Contacts\"].json.event_name }}\nEvent Type: {{ $node[\"Get Opportunities Needing Contacts\"].json.event_type }}\n\nHTML (first 10000 chars):\n{{ $json.body.substring(0, 10000) }}\n\nExtract:\n- Organizer name\n- Title/role\n- Email address\n- LinkedIn profile (if mentioned)\n- Phone number (optional)\n\nReturn JSON. No markdown."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "extract-contacts",
+      "name": "Find Organizer Contacts",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const opportunityData = $node[\"Get Opportunities Needing Contacts\"].json;\nconst aiResponse = JSON.parse($json.message.content || '{}');\n\n// Take primary contact\nconst primaryContact = aiResponse.contacts ? aiResponse.contacts[0] : aiResponse;\n\nreturn {\n  ...opportunityData,\n  organizer_name: primaryContact.name || aiResponse.organizer_name || '',\n  organizer_email: primaryContact.email || aiResponse.email || '',\n  organizer_linkedin: primaryContact.linkedin || aiResponse.linkedin_url || '',\n  status: (primaryContact.email || aiResponse.email) ? 'Contact Found - Ready to Score' : 'Manual Review - No Contact',\n  last_activity: new Date().toISOString(),\n  notes: opportunityData.notes + ' | Contact extraction attempted'\n};"
+      },
+      "id": "process-contacts",
+      "name": "Format Contact Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $json.event_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "organizer_name": "={{ $json.organizer_name }}",
+            "organizer_email": "={{ $json.organizer_email }}",
+            "organizer_linkedin": "={{ $json.organizer_linkedin }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "update-contacts",
+      "name": "Update Contact Info",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Contacts",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "contact_name": "={{ $json.organizer_name }}",
+            "title": "={{ $json.organizer_title || 'Event Organizer' }}",
+            "organization": "={{ $json.event_name }}",
+            "email": "={{ $json.organizer_email }}",
+            "linkedin": "={{ $json.organizer_linkedin }}",
+            "phone": "",
+            "event_related": "={{ $json.event_name }}",
+            "relationship_stage": "New Lead",
+            "last_contact": "",
+            "notes": "Extracted from event website"
+          }
+        }
+      },
+      "id": "add-to-contacts",
+      "name": "Add to Contacts Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 11 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Opportunities Needing Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Opportunities Needing Contacts": {
+      "main": [
+        [
+          {
+            "node": "Fetch Event Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Event Website": {
+      "main": [
+        [
+          {
+            "node": "Find Organizer Contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Organizer Contacts": {
+      "main": [
+        [
+          {
+            "node": "Format Contact Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Contact Data": {
+      "main": [
+        [
+          {
+            "node": "Update Contact Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Contact Info": {
+      "main": [
+        [
+          {
+            "node": "Add to Contacts Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

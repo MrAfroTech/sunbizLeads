@@ -1,0 +1,985 @@
+{
+  "name": "06 - Cross-Platform Sync & Analytics",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 */4 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every 4 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "equal",
+              "keyValue": "Promoted on Facebook"
+            }
+          ]
+        }
+      },
+      "id": "read-promoted-events",
+      "name": "Get Promoted Events",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all();\n\n// Filter events that haven't been posted to Instagram yet\nconst eventsNeedingInstagram = events.filter(item => {\n  const data = item.json;\n  const instagramPosted = data.instagram_posted === true || data.instagram_posted === 'TRUE' || data.instagram_posted === true;\n  const hasInstagramId = data.venue_instagram_id && data.venue_instagram_id !== '' && data.venue_instagram_id !== null;\n  const hasImage = data.image_url && data.image_url !== '';\n  \n  return !instagramPosted && hasInstagramId && hasImage;\n});\n\nreturn eventsNeedingInstagram.map(item => item.json);"
+      },
+      "id": "filter-instagram-ready",
+      "name": "Filter Instagram Ready Events",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-instagram-id",
+              "leftValue": "={{ $json.venue_instagram_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            },
+            {
+              "id": "not-null",
+              "leftValue": "={{ $json.venue_instagram_id }}",
+              "rightValue": null,
+              "operator": {
+                "type": "any",
+                "operation": "notEqual"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-instagram-setup",
+      "name": "Check Instagram Setup",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Event",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.8
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write Instagram captions for event promotion.\n\nINSTAGRAM CAPTION RULES:\n- Hook in first 2 lines (visible before \"...more\")\n- Line breaks for readability\n- 3-5 emojis (strategic placement)\n- 5-10 hashtags (mix of branded + discovery)\n- Call-to-action in bio link reference\n- 100-150 words max\n- Conversational, not salesy\n\nSTRUCTURE:\n[Hook emoji] Attention-grabbing opening\n\n[Event details - what, when, where]\n\n[Why attend / what makes special]\n\n[CTA] Link in bio for tickets 🎟️\n\n[Hashtags]"
+            },
+            {
+              "role": "user",
+              "content": "Create Instagram caption for:\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nDate: {{ $json.event_date }} at {{ $json.event_time }}\nCategory: {{ $json.event_category }}\n\nOriginal Facebook post: {{ $json.page_post_copy || $json.description }}\n\nAdapt for Instagram - more visual, more emojis, mention \"link in bio\"\n\nReturn ONLY caption text. No JSON."
+            }
+          ]
+        }
+      },
+      "id": "generate-instagram-caption",
+      "name": "Write Instagram Caption",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1250, 250],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $input.first().json;\nconst captionNode = $node[\"Write Instagram Caption\"];\nconst caption = captionNode.json.choices?.[0]?.message?.content || captionNode.json.message?.content || '';\n\nreturn {\n  ...eventData,\n  instagram_caption: caption,\n  instagram_image_url: eventData.image_url || '',\n  has_instagram_image: (eventData.image_url || '') !== ''\n};"
+      },
+      "id": "format-instagram-data",
+      "name": "Format for Instagram API",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 250]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_instagram_id }}/media",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "={{ $json.instagram_image_url }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.instagram_caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "create-instagram-container",
+      "name": "Stage Instagram Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1650, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Format for Instagram API\"].json;\nconst apiResponse = $input.first().json;\n\n// Handle both success and error responses\nlet creationId = '';\nlet success = false;\nlet errorMessage = '';\n\nif (apiResponse.id) {\n  creationId = apiResponse.id;\n  success = true;\n} else if (apiResponse.error) {\n  errorMessage = apiResponse.error.message || JSON.stringify(apiResponse.error);\n  success = false;\n} else if (apiResponse.body?.id) {\n  creationId = apiResponse.body.id;\n  success = true;\n} else if (apiResponse.body?.error) {\n  errorMessage = apiResponse.body.error.message || JSON.stringify(apiResponse.body.error);\n  success = false;\n}\n\nreturn {\n  ...eventData,\n  instagram_creation_id: creationId,\n  instagram_container_success: success,\n  instagram_error: errorMessage\n};"
+      },
+      "id": "extract-creation-id",
+      "name": "Get Media Container ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1850, 250]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "container-success",
+              "leftValue": "={{ $json.instagram_container_success }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-container-success",
+      "name": "Check Container Created",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2050, 250]
+    },
+    {
+      "parameters": {
+        "waitTime": 30,
+        "unit": "seconds"
+      },
+      "id": "wait-instagram-processing",
+      "name": "Wait for Instagram Processing",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2250, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_instagram_id }}/media_publish",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.instagram_creation_id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "publish-instagram",
+      "name": "Publish to Instagram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2450, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Get Media Container ID\"].json;\nconst publishResponse = $input.first().json;\n\n// Handle both success and error responses\nlet instagramPostId = '';\nlet success = false;\nlet errorMessage = '';\n\nif (publishResponse.id) {\n  instagramPostId = publishResponse.id;\n  success = true;\n} else if (publishResponse.error) {\n  errorMessage = publishResponse.error.message || JSON.stringify(publishResponse.error);\n  success = false;\n} else if (publishResponse.body?.id) {\n  instagramPostId = publishResponse.body.id;\n  success = true;\n} else if (publishResponse.body?.error) {\n  errorMessage = publishResponse.body.error.message || JSON.stringify(publishResponse.body.error);\n  success = false;\n}\n\nreturn {\n  ...eventData,\n  instagram_post_id: instagramPostId,\n  instagram_post_url: success ? `https://www.instagram.com/p/${instagramPostId}/` : '',\n  instagram_posted: success,\n  instagram_posted_date: success ? new Date().toISOString() : '',\n  status: success ? 'Promoted on Facebook + Instagram' : eventData.status,\n  last_activity: new Date().toISOString(),\n  instagram_error: errorMessage || eventData.instagram_error\n};"
+      },
+      "id": "process-instagram-response",
+      "name": "Extract Instagram Post ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2650, 200]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "instagram_post_id": "={{ $json.instagram_post_id }}",
+            "instagram_posted": "={{ $json.instagram_posted }}",
+            "instagram_posted_date": "={{ $json.instagram_posted_date }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "update-instagram-status",
+      "name": "Log Instagram Post",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2850, 200],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.seamlessly.com/v1/events/{{ $json.event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"instagram_post_id\": \"{{ $json.instagram_post_id }}\",\n  \"instagram_post_url\": \"{{ $json.instagram_post_url }}\",\n  \"instagram_posted\": true,\n  \"cross_platform_promotion\": true\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "sync-seamlessly",
+      "name": "Update Seamlessly Dashboard",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3050, 200]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "attending_count,interested_count,maybe_count,noreply_count,ticket_uri"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-fb-event-stats",
+      "name": "Get FB Event Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 450]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_post_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "shares,reactions.summary(true),comments.summary(true)"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-fb-post-stats",
+      "name": "Get FB Post Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1050, 450]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.instagram_post_id }}/insights",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "metric",
+              "value": "impressions,reach,engagement,saved"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-instagram-stats",
+      "name": "Get Instagram Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 450]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Get Promoted Events\"].json;\nconst fbEvent = $node[\"Get FB Event Analytics\"]?.json || {};\nconst fbPost = $node[\"Get FB Post Analytics\"]?.json || {};\nconst igPost = $node[\"Get Instagram Analytics\"]?.json || {};\n\n// Extract Facebook metrics\nconst fbEventRSVPs = (fbEvent.attending_count || 0) + \n                     (fbEvent.interested_count || 0) + \n                     (fbEvent.maybe_count || 0);\n\nconst fbPostEngagement = (fbPost.shares?.count || 0) + \n                         (fbPost.reactions?.summary?.total_count || 0) + \n                         (fbPost.comments?.summary?.total_count || 0);\n\n// Extract Instagram metrics\nconst igMetrics = igPost.data || [];\nlet igImpressions = 0;\nlet igReach = 0;\nlet igEngagement = 0;\n\nigMetrics.forEach(metric => {\n  if (metric.name === 'impressions') igImpressions = metric.values?.[0]?.value || 0;\n  if (metric.name === 'reach') igReach = metric.values?.[0]?.value || 0;\n  if (metric.name === 'engagement') igEngagement = metric.values?.[0]?.value || 0;\n});\n\n// Calculate totals\nconst totalEngagement = fbPostEngagement + igEngagement;\nconst totalReach = (fbPost.reach || 0) + igReach;\n\n// Calculate engagement rate\nconst engagementRate = totalReach > 0 ? \n  parseFloat(((totalEngagement / totalReach) * 100).toFixed(2)) : 0;\n\nreturn {\n  ...eventData,\n  // Facebook metrics\n  fb_event_rsvps: fbEventRSVPs,\n  fb_attending: fbEvent.attending_count || 0,\n  fb_interested: fbEvent.interested_count || 0,\n  fb_post_shares: fbPost.shares?.count || 0,\n  fb_post_reactions: fbPost.reactions?.summary?.total_count || 0,\n  fb_post_comments: fbPost.comments?.summary?.total_count || 0,\n  \n  // Instagram metrics\n  ig_impressions: igImpressions,\n  ig_reach: igReach,\n  ig_engagement: igEngagement,\n  \n  // Aggregated metrics\n  total_engagement: totalEngagement,\n  total_reach: totalReach,\n  engagement_rate: engagementRate,\n  \n  // Performance tier\n  performance_tier: engagementRate >= 5 ? 'Excellent' :\n                   engagementRate >= 3 ? 'Good' :\n                   engagementRate >= 1 ? 'Average' : 'Poor',\n  \n  metrics_updated: new Date().toISOString()\n};"
+      },
+      "id": "aggregate-metrics",
+      "name": "Calculate Total Performance",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 450]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb_event_rsvps": "={{ $json.fb_event_rsvps }}",
+            "fb_post_reactions": "={{ $json.fb_post_reactions }}",
+            "ig_impressions": "={{ $json.ig_impressions }}",
+            "ig_engagement": "={{ $json.ig_engagement }}",
+            "total_engagement": "={{ $json.total_engagement }}",
+            "total_reach": "={{ $json.total_reach }}",
+            "engagement_rate": "={{ $json.engagement_rate }}",
+            "performance_tier": "={{ $json.performance_tier }}",
+            "metrics_updated": "={{ $json.metrics_updated }}"
+          }
+        }
+      },
+      "id": "update-analytics",
+      "name": "Save Performance Metrics",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1650, 450],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "high-performance",
+              "leftValue": "={{ $json.performance_tier }}",
+              "rightValue": "Excellent",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "good-performance",
+              "leftValue": "={{ $json.performance_tier }}",
+              "rightValue": "Good",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "check-performance-tier",
+      "name": "Check Performance Tier",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1850, 450]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "🎉 High-Performing Event: {{ $json.event_name }}",
+        "text": "Event promotion is performing exceptionally well!\n\nEVENT: {{ $json.event_name }}\nVENUE: {{ $json.venue_name }}\nPERFORMANCE TIER: {{ $json.performance_tier }}\n\n📊 CROSS-PLATFORM METRICS:\n\nFacebook Event:\n- Total RSVPs: {{ $json.fb_event_rsvps }}\n- Attending: {{ $json.fb_attending }}\n- Interested: {{ $json.fb_interested }}\n\nFacebook Post:\n- Reactions: {{ $json.fb_post_reactions }}\n- Shares: {{ $json.fb_post_shares }}\n- Comments: {{ $json.fb_post_comments }}\n\nInstagram Post:\n- Impressions: {{ $json.ig_impressions }}\n- Reach: {{ $json.ig_reach }}\n- Engagement: {{ $json.ig_engagement }}\n\nTOTAL PERFORMANCE:\n- Total Reach: {{ $json.total_reach }}\n- Total Engagement: {{ $json.total_engagement }}\n- Engagement Rate: {{ $json.engagement_rate }}%\n\n🔗 LINKS:\n- Facebook Event: {{ $json.facebook_event_url }}\n- Facebook Post: {{ $json.facebook_post_url }}\n- Instagram Post: {{ $json.instagram_post_url }}\n- Tickets: {{ $json.ticket_link }}\n\nConsider: Boost top-performing posts for additional reach.",
+        "options": {}
+      },
+      "id": "success-report",
+      "name": "Send Success Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2050, 400],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.seamlessly.com/v1/analytics/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"event_id\": \"{{ $json.event_id }}\",\n  \"metrics\": {\n    \"facebook\": {\n      \"event_rsvps\": {{ $json.fb_event_rsvps }},\n      \"post_engagement\": {{ ($json.fb_post_reactions || 0) + ($json.fb_post_shares || 0) + ($json.fb_post_comments || 0) }}\n    },\n    \"instagram\": {\n      \"impressions\": {{ $json.ig_impressions }},\n      \"reach\": {{ $json.ig_reach }},\n      \"engagement\": {{ $json.ig_engagement }}\n    },\n    \"total_reach\": {{ $json.total_reach }},\n    \"total_engagement\": {{ $json.total_engagement }},\n    \"engagement_rate\": {{ $json.engagement_rate }},\n    \"performance_tier\": \"{{ $json.performance_tier }}\"\n  },\n  \"timestamp\": \"{{ $json.metrics_updated }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "export-analytics",
+      "name": "Push to Seamlessly Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2050, 500]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "notes": "={{ $json.notes || '' }}\\nInstagram posting failed - {{ $json.instagram_error }}"
+          }
+        }
+      },
+      "id": "log-instagram-error",
+      "name": "Mark Instagram Failed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1850, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "⚠️ Instagram Post Failed: {{ $json.event_name }}",
+        "text": "Failed to post event to Instagram.\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nInstagram ID: {{ $json.venue_instagram_id }}\n\nError: {{ $json.instagram_error }}\n\nPossible issues:\n- Instagram Business account not connected\n- Invalid image URL\n- Caption violates Instagram policies\n- API rate limit\n\nEvent is still promoted on Facebook.\nConsider manual Instagram posting.",
+        "options": {}
+      },
+      "id": "alert-instagram-error",
+      "name": "Alert Instagram Failure",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2050, 350],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "Instagram Not Connected: {{ $json.venue_name }}",
+        "text": "Event cannot be cross-posted to Instagram - account not connected.\n\nVenue: {{ $json.venue_name }}\nEvent: {{ $json.event_name }}\n\nAction: Connect {{ $json.venue_name }}'s Instagram Business account\nto Seamlessly for cross-platform promotion.\n\nFacebook promotion is active.",
+        "options": {}
+      },
+      "id": "notify-missing-instagram",
+      "name": "Notify Missing Instagram",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [850, 350],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "waitTime": 3,
+        "unit": "seconds"
+      },
+      "id": "wait-rate-limit",
+      "name": "Wait for Rate Limit",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [3250, 200]
+    }
+  ],
+  "connections": {
+    "Every 4 Hours": {
+      "main": [
+        [
+          {
+            "node": "Get Promoted Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Promoted Events": {
+      "main": [
+        [
+          {
+            "node": "Filter Instagram Ready Events",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get FB Event Analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Instagram Ready Events": {
+      "main": [
+        [
+          {
+            "node": "Check Instagram Setup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Instagram Setup": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Missing Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Event": {
+      "main": [
+        [
+          {
+            "node": "Write Instagram Caption",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Instagram Caption": {
+      "main": [
+        [
+          {
+            "node": "Format for Instagram API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Instagram API": {
+      "main": [
+        [
+          {
+            "node": "Stage Instagram Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage Instagram Post": {
+      "main": [
+        [
+          {
+            "node": "Get Media Container ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Media Container ID": {
+      "main": [
+        [
+          {
+            "node": "Check Container Created",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Container Created": {
+      "main": [
+        [
+          {
+            "node": "Wait for Instagram Processing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Instagram Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Instagram Processing": {
+      "main": [
+        [
+          {
+            "node": "Publish to Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish to Instagram": {
+      "main": [
+        [
+          {
+            "node": "Extract Instagram Post ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Instagram Post ID": {
+      "main": [
+        [
+          {
+            "node": "Log Instagram Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Instagram Post": {
+      "main": [
+        [
+          {
+            "node": "Update Seamlessly Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Seamlessly Dashboard": {
+      "main": [
+        [
+          {
+            "node": "Wait for Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get FB Event Analytics": {
+      "main": [
+        [
+          {
+            "node": "Get FB Post Analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get FB Post Analytics": {
+      "main": [
+        [
+          {
+            "node": "Get Instagram Analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Instagram Analytics": {
+      "main": [
+        [
+          {
+            "node": "Calculate Total Performance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Total Performance": {
+      "main": [
+        [
+          {
+            "node": "Save Performance Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Performance Metrics": {
+      "main": [
+        [
+          {
+            "node": "Check Performance Tier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Performance Tier": {
+      "main": [
+        [
+          {
+            "node": "Send Success Report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Push to Seamlessly Analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Instagram Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Instagram Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000000Z",
+  "versionId": "1"
+}

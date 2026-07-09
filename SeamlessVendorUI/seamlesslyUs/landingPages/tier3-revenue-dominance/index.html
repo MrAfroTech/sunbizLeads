@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tier 3 Revenue Dominance Tracker | Seamlessly</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: transparent;
+      min-height: 100vh;
+      color: #1a1410;
+      line-height: 1.6;
+    }
+    .app-content { position: relative; z-index: 2; min-height: 100vh; }
+    .page-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(212, 175, 55, 0.6); z-index: 1; pointer-events: none; }
+    .background-slider { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
+    .background-slider__slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity 1500ms ease-in-out; }
+    .background-slider__slide--active { opacity: 1; z-index: 1; }
+    
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 160px 24px 60px; /* nav bar (~60px) + partner banner (~50px) = ~120px */
+      background: rgba(255, 255, 255, 0.6);
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    
+    h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 700;
+      color: #1a1410;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    
+    .subheadline {
+      font-size: 18px;
+      color: #1a1410;
+      margin-bottom: 32px;
+    }
+    
+    .social-proof {
+      text-align: center;
+      padding: 16px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1410;
+    }
+    
+    .social-proof span {
+      color: #e0b841;
+    }
+    
+    .success-message {
+      display: none;
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      color: #1a1410;
+    }
+    
+    .error-message {
+      display: none;
+      background: #ffebee;
+      border-left: 4px solid #c62828;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      color: #c62828;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1410;
+    }
+    
+    .form-group label .required {
+      color: #c62828;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"] {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 1px solid rgba(139, 116, 78, 0.4);
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1410;
+      font-family: inherit;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #e0b841;
+      box-shadow: 0 0 0 2px rgba(224, 184, 65, 0.2);
+    }
+    
+    .form-group input::placeholder {
+      color: #1a1410;
+    }
+    
+    .checkbox-group {
+      margin-bottom: 24px;
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1410;
+      cursor: pointer;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: #e0b841;
+      cursor: pointer;
+    }
+    
+    .cta-button {
+      width: 100%;
+      padding: 18px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1410;
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(224, 184, 65, 0.3);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    
+    .cta-button:hover {
+      background: linear-gradient(135deg, #e5c860, #e0b841);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(224, 184, 65, 0.4);
+    }
+    
+    .cta-button:disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      transform: none;
+      filter: grayscale(0.4);
+    }
+    
+    .urgency-text {
+      text-align: center;
+      font-size: 14px;
+      color: #1a1410;
+      margin-top: 16px;
+    }
+    
+    .privacy-text {
+      text-align: center;
+      font-size: 12px;
+      color: #1a1410;
+      margin-top: 24px;
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 140px 16px 40px;
+      }
+      
+      .card {
+        padding: 32px 24px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .subheadline {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>window.API_BASE_URL = '';</script>
+  <div class="background-slider" id="bgSlider" aria-hidden="true">
+    <div class="background-slider__slide background-slider__slide--active" style="background-image: url('/pexels-pixabay-262047.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-bluerhinomedia-2788792.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-brett-sayles-2339712.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-wb2008-2290070.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935100.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-pixabay-260922.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935077.jpg')"></div>
+  </div>
+  <div class="page-overlay" aria-hidden="true"></div>
+  <div class="app-content">
+  <div class="container">
+    <div class="card">
+      <h1 style="text-align: center;">Tier 3 Revenue Dominance Tracker – Free Dashboard for $10M Powerhouses</h1>
+      <p class="subheadline">
+        At $10M revenue, 4,000+ fans, 35-50% sponsors, and $35-45 ARPA, you're pro-adjacent — but fragmented tech and line thresholds over 8 minutes erode 15-25% profit potential. This tracker covers the 9 KPIs — like EBITDA margin under 20% and digital sales under 40% — separating feeders from full pros, with benchmarks to hit $20M by 2027. It also reveals the 7 elite intangibles that cement dynasty-level fan loyalty.
+      </p>
+      
+      <p class="social-proof">Official Partner of <span>the Orlando Pirates (Kia Center)</span></p>
+      
+      <div class="success-message" id="successMessage">
+        &#127881; Taking you to your dashboard...
+      </div>
+      <div class="error-message" id="errorMessage">
+        Something went wrong. Please try again or email us at team@ezdrink.us
+      </div>
+      
+      <form id="leadForm">
+        <div class="form-group">
+          <label>Name <span class="required">*</span></label>
+          <input type="text" name="name" required placeholder="Your name">
+        </div>
+        
+        <div class="form-group">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" name="email" required placeholder="your@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label>Phone <span style="color: #1a1410; font-weight: 400;">(optional)</span></label>
+          <input type="tel" name="phone" placeholder="(555) 123-4567">
+        </div>
+        
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="consent_sms">
+            <span>I'd like to receive updates via SMS. By checking, I consent to receive texts at the number provided. Msg & data rates may apply.</span>
+          </label>
+        </div>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="consent_promo">
+            <span>Yes! Send me strategies to make great events even better</span>
+          </label>
+        </div>
+        
+        <button type="submit" class="cta-button" id="submitBtn">GET MY FREE TRACKER</button>
+        
+        <p class="urgency-text">Instant access – dominate revenue</p>
+        
+        <p class="privacy-text">We respect your privacy. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </div>
+  </div>
+  <script>
+    (function() {
+      var slides = document.querySelectorAll('#bgSlider .background-slider__slide');
+      if (slides.length > 1) {
+        var i = 0;
+        setInterval(function() {
+          slides[i].classList.remove('background-slider__slide--active');
+          i = (i + 1) % slides.length;
+          slides[i].classList.add('background-slider__slide--active');
+        }, 5000);
+      }
+    })();
+  </script>
+  <script>
+    (function() {
+      var form = document.getElementById('leadForm');
+      var successMessage = document.getElementById('successMessage');
+      var errorMessage = document.getElementById('errorMessage');
+      var submitBtn = document.getElementById('submitBtn');
+      var defaultBtnText = 'GET MY FREE TRACKER';
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        var nameInput = form.querySelector('input[name="name"]');
+        var emailInput = form.querySelector('input[name="email"]');
+        var phoneInput = form.querySelector('input[name="phone"]');
+        var consentSmsInput = form.querySelector('input[name="consent_sms"]');
+        var consentPromoInput = form.querySelector('input[name="consent_promo"]');
+
+        var payload = {
+          name: nameInput ? nameInput.value.trim() : '',
+          email: emailInput ? emailInput.value.trim() : '',
+          phone: phoneInput ? phoneInput.value.trim() : '',
+          consent_sms: consentSmsInput ? consentSmsInput.checked : false,
+          consent_promo: consentPromoInput ? consentPromoInput.checked : false
+        };
+
+        fetch((window.API_BASE_URL || window.location.origin) + '/api/submit-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function(response) {
+            if (response.ok) {
+              successMessage.style.display = 'block';
+              form.style.display = 'none';
+              document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+              window.location.href = 'tier3-revenue-dominance-tracker.html';
+            } else {
+              errorMessage.style.display = 'block';
+              submitBtn.disabled = false;
+              submitBtn.textContent = defaultBtnText;
+            }
+          })
+          .catch(function() {
+            errorMessage.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = defaultBtnText;
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

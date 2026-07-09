@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@mauricethefirst — Guest Experience Series (Metallic)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:          #C9A84C;
+      --gold-light:    #E2C97E;
+      --gold-dark:     #9A7828;
+      --silver-light:  #E8E8E8;
+      --silver-mid:    #A8A9AD;
+      --silver-dark:   #6E6E6E;
+      --white-base:    #F8F6F2;
+      --charcoal:      #1C1C1E;
+      --charcoal-soft: #2E2E30;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #111112;
+      padding: 40px 32px 80px;
+      color: var(--white-base);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+
+    .page-header {
+      width: 1080px;
+      margin: 0 auto 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+    }
+    .page-header-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: 0.04em;
+      color: var(--white-base);
+      line-height: 1;
+    }
+    .page-header h1 span { color: var(--gold); }
+    .page-header-sub { font-size: 13px; color: rgba(248,246,242,0.45); margin-top: 8px; }
+
+    .day-label {
+      width: 1080px;
+      margin: 48px auto 12px;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: rgba(201,168,76,0.55);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .day-label::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.15); }
+
+    .carousel { width: 1080px; margin: 0 auto 8px; }
+    .carousel-window { width: 1080px; overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      flex-shrink: 0;
+      position: relative;
+      padding: 80px 108px 108px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .white-slide { background: var(--white-base); color: var(--charcoal); }
+    .white-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(168,169,173,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .white-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(105deg, transparent 0px, transparent 2px, rgba(201,168,76,0.012) 2px, rgba(201,168,76,0.012) 3px);
+      pointer-events: none;
+    }
+
+    .silver-slide {
+      background: linear-gradient(135deg, #CECECE 0%, #B8B8B8 30%, #D4D4D4 55%, #ADADAD 80%, #C8C8C8 100%);
+      color: var(--charcoal);
+    }
+    .silver-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.35) 0%, transparent 45%),
+        radial-gradient(ellipse at 30% 80%, rgba(100,100,100,0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, rgba(201,168,76,0.08) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .silver-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(115deg, transparent 0px, transparent 4px, rgba(255,255,255,0.06) 4px, rgba(255,255,255,0.06) 5px);
+      pointer-events: none;
+    }
+
+    .gold-slide {
+      background: linear-gradient(135deg, #C9A84C 0%, #B8962A 30%, #D4B655 55%, #9A7828 80%, #C9A84C 100%);
+      color: var(--charcoal);
+    }
+    .gold-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 20%, rgba(255,255,255,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 20% 75%, rgba(100,70,0,0.18) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .gold-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(120deg, transparent 0px, transparent 3px, rgba(255,255,255,0.045) 3px, rgba(255,255,255,0.045) 4px);
+      pointer-events: none;
+    }
+
+    .profile { display: flex; align-items: center; gap: 18px; margin-bottom: 80px; position: relative; z-index: 2; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .white-slide .avatar  { background: rgba(201,168,76,0.12); border: 2px solid rgba(201,168,76,0.45); }
+    .silver-slide .avatar { background: rgba(255,255,255,0.3);  border: 2px solid rgba(255,255,255,0.6); }
+    .gold-slide .avatar   { background: rgba(28,28,30,0.12);    border: 2px solid rgba(28,28,30,0.3); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .white-slide  .avatar-placeholder svg { stroke: rgba(201,168,76,0.5); }
+    .silver-slide .avatar-placeholder svg { stroke: rgba(28,28,30,0.35); }
+    .gold-slide   .avatar-placeholder svg { stroke: rgba(28,28,30,0.4); }
+    .avatar-placeholder svg { width: 28px; height: 28px; stroke-width: 1.5; fill: none; }
+
+    .profile-name   { font-family: 'DM Sans', sans-serif; font-size: 21px; font-weight: 700; line-height: 1.2; color: var(--charcoal); }
+    .profile-handle { font-size: 17px; font-weight: 300; margin-top: 2px; }
+    .white-slide  .profile-handle { color: rgba(201,168,76,0.75); }
+    .silver-slide .profile-handle { color: rgba(28,28,30,0.5); }
+    .gold-slide   .profile-handle { color: rgba(28,28,30,0.5); }
+
+    .content { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+
+    .slide-rule { width: 56px; height: 3px; margin-bottom: 32px; flex-shrink: 0; }
+    .white-slide  .slide-rule { background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+    .silver-slide .slide-rule { background: linear-gradient(90deg, var(--charcoal), var(--silver-dark)); }
+    .gold-slide   .slide-rule { background: linear-gradient(90deg, rgba(28,28,30,0.7), rgba(28,28,30,0.3)); }
+
+    .slide-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 54px;
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      max-width: 760px;
+      white-space: pre-line;
+      color: var(--charcoal);
+    }
+    .slide-text .accent { color: var(--gold-dark); }
+    .slide-text .accent-green { color: #27AE60; }
+
+    .ghost {
+      position: absolute; bottom: 16px; right: 56px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 300px; line-height: 1; letter-spacing: -12px;
+      user-select: none; pointer-events: none; z-index: 1;
+    }
+    .white-slide  .ghost { color: rgba(201,168,76,0.07); }
+    .silver-slide .ghost { color: rgba(28,28,30,0.06); }
+    .gold-slide   .ghost { color: rgba(28,28,30,0.08); }
+
+    .slide-accent-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
+    .white-slide  .slide-accent-bar { background: linear-gradient(180deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--silver-mid) 100%); }
+    .silver-slide .slide-accent-bar { background: linear-gradient(180deg, var(--gold) 0%, var(--silver-dark) 100%); }
+    .gold-slide   .slide-accent-bar { background: linear-gradient(180deg, var(--charcoal) 0%, var(--charcoal-soft) 100%); }
+
+    .watermark {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.18em; white-space: nowrap; z-index: 10;
+    }
+    .white-slide  .watermark { color: rgba(28,28,30,0.28); }
+    .silver-slide .watermark { color: rgba(28,28,30,0.32); }
+    .gold-slide   .watermark { color: rgba(28,28,30,0.28); }
+
+    .nav { width: 1080px; margin: 12px auto 0; display: flex; justify-content: space-between; align-items: center; }
+    .nav-btn {
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; border: 1px solid rgba(201,168,76,0.4);
+      background: transparent; color: var(--gold); border-radius: 3px; transition: all 0.2s;
+    }
+    .nav-btn:hover:not(:disabled) { background: var(--gold); color: #1C1C1E; }
+    .nav-btn:disabled { opacity: 0.2; cursor: default; }
+    .dots { display: flex; gap: 8px; align-items: center; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(201,168,76,0.2); transition: all 0.3s; }
+    .dot.active { background: var(--gold); width: 20px; border-radius: 4px; }
+
+    .download-btn {
+      display: block; width: 1080px; margin: 10px auto 0;
+      padding: 14px 24px; font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: opacity 0.2s;
+    }
+    .download-btn:disabled { opacity: 0.4; cursor: default; }
+    .download-current { background: linear-gradient(135deg, var(--gold-dark), var(--gold-light)); color: #1C1C1E; border: none; }
+    .download-current:hover:not(:disabled) { opacity: 0.85; }
+    .download-all { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); margin-top: 6px; }
+    .download-all:hover:not(:disabled) { background: rgba(201,168,76,0.08); }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-label">@mauricethefirst · Guest Experience Series</div>
+  <h1>WASTED <span>EFFORT</span> CAROUSELS</h1>
+  <div class="page-header-sub">9 carousels · Metallic Color System · White / Silver / Gold</div>
+</div>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="../personalBrandPhotos/profilePic-embed.js"></script>
+
+<script>
+(function () {
+
+  const PHOTO_SRC = window.PROFILE_PIC_DATA_URL || encodeURI('../personalBrandPhotos/profilePic.png');
+
+  const THEME_SETS = {
+    wsg: ['white-slide', 'silver-slide', 'gold-slide', 'silver-slide', 'white-slide'],
+    sg:  ['silver-slide', 'gold-slide', 'silver-slide', 'gold-slide', 'silver-slide']
+  };
+
+  const CAROUSEL_SETS = ['wsg', 'wsg', 'sg', 'wsg', 'sg', 'wsg', 'sg', 'wsg', 'wsg'];
+
+  const DATA = [
+
+    {
+      day: 'Reel 1 — The Tablet Problem',
+      title: 'You bought the tablet.\nYou set up the QR code.\nYour regulars still feel like strangers.',
+      screens: [
+        'Not because the technology failed. Because it was solving the wrong problem.',
+        'You sped up the order. You sped up the payment. Nobody sped up knowing who the guest actually was.',
+        'The guest who has been there six times sat down tonight and got treated like a first-timer.',
+        'Technology that moves transactions faster is not the same as technology that makes guests feel known.',
+        'The operators winning right now are not using tech to replace service. They are using it to make service accurate.'
+      ],
+      finalSetup: 'What technology have you added to your venue — and did it make guests feel faster or more known?'
+    },
+
+    {
+      day: 'Reel 2 — The Credit Problem',
+      title: 'The guest raved about how great your staff was.\n\nThe right technology can make your crew even better.',
+      screens: [
+        'The system works behind the curtain.',
+        'While server remembered the order, their preferences, and their name.',
+        'They had context. They had history. They had information that most staff never get.',
+        'The best hospitality give guests an unforgettable feeling.',
+        'When your staff looks like veterans on day one, that\'s talent combined with the right information at the right time.'
+      ],
+      finalSetup: 'Think about a time a staff member made you feel like a regular. What do you think they actually knew about you before you sat down?'
+    },
+
+    {
+      day: 'Reel 3 — The Speed Problem',
+      title: 'Speed without a purpose is just efficient neglect.',
+      screens: [
+        'Efficiency is not the same as intelligence.',
+        'You can have the fastest checkout in the city and still have guests who leave feeling like nobody cared.',
+        'The guest does not remember how fast the check came. They remember whether the experience felt personal.',
+        'The operators who have figured this out are not moving faster. They are moving with more information.'
+      ],
+      finalSetup: 'What is the one thing your venue has gotten faster at — and did it make the guest experience better or just quicker?'
+    },
+
+    {
+      day: 'Reel 4 — The People Problem',
+      title: 'You mentored the whole team.\nComplaints didn\'t stop.\n\nYou hired more people.\nComplaints didn\'t stop.\n\nThe problem was never the people.',
+      screens: [
+        'Most operators go to the people first. More training. Better hiring. Tighter management.',
+        'And the problem persists. Because it was never the people.',
+        'It was the moments between people that nobody was managing.',
+        'The wait before the greeting landed. The gap where a reorder should have happened. The drag at checkout that ruined an otherwise great night.',
+        'Those moments do not show up on a staffing report. But they show up on your revenue, your reviews, and your return rate.'
+      ],
+      finalSetup: 'What operational problem have you tried to solve by changing your staff — that the staff change did not actually fix?'
+    },
+
+    {
+      day: 'Reel 5 — The Full House Problem',
+      title: 'You packed the house every weekend.\n\nBut you\'re you\'ve lost countless regulars.\n\nA full room isn\'t the same as a loyal one.',
+      screens: [
+        'Covers are not customers. A full house on Saturday does not mean you are building anything.',
+        'The venues that look the most successful from the outside are sometimes the worst at retention.',
+        'If you cannot name your top ten regulars, you do not have regulars. You have repeat strangers.',
+        'Loyalty is not built on volume. It is built on whether the guest feels like the venue actually knows them.',
+        'The operators building real loyalty are not necessarily the busiest. They are the most accurate.'
+      ],
+      finalSetup: 'How many of last Saturday\'s guests will you recognize when they walk in next weekend?'
+    },
+
+    {
+      day: 'Reel 6 — The AI Fear Problem',
+      title: 'Your staff isn\'t being replaced by AI.\n\nThey\'re being outworked by operators whose staff walks into every shift more prepared.',
+      screens: [
+        'The conversation about AI in hospitality is almost always about replacement. It is the wrong conversation.',
+        'Nobody is replacing the server. Nobody is replacing the bartender who makes a guest feel at home.',
+        'What is changing is what those people know before the first interaction starts.',
+        'One operator\'s staff walks in knowing nothing about tonight\'s guests. Another\'s walks in knowing their names, their orders, their preferences.',
+        'That is not AI replacing people. That is information making people better at their jobs.'
+      ],
+      finalSetup: 'What do you think AI actually should and should not do in a hospitality setting?'
+    },
+
+    {
+      day: 'Reel 7 — The Competition Problem',
+      title: 'The venue down the street isn\'t bigger than you.\n\nDoesn\'t have better food.\n\nTheir guests never feel like first-timers.',
+      screens: [
+        'You have looked at that venue and tried to figure out what they are doing differently.',
+        'The menu is comparable. The price point is similar. The location is not better.',
+        'But their guests come back at a different rate. But you can\'t figure out why.',
+        'The difference isn\'t price. It\'s whether the guest feels like the venue remembers them.',
+        'That is not a hospitality gift. It is an operational decision. And it is one that is available to every venue.'
+      ],
+      finalSetup: 'Is there a venue in your market that you can\'t figure out why guests keep going back to?'
+    },
+
+    {
+      day: 'Reel 8',
+      title: 'Every menu option you add makes every decision harder.',
+      screens: [
+        'Why? \n \n Decision fatigue.',
+        'Every additional item asks guests to make an extra decision.',
+        'Most people struggle when there are too many choices.',
+        'More items hide your the items that have the highest ROI',
+        'Which menu items are making you money... and which ones are just taking up space?'
+      ]
+    },
+
+    {
+      day: 'Reel 9',
+      title: 'What guests say about what gets them to come back to an establishment  ➡️',
+      screens: [
+        'Recognition — "They know me" ',
+        'Consistency — "I know what I\'ll get" ',
+        'Belonging — "This feels like my place" ',
+        ' Convenience — "It\'s easy to choose"',
+        ' Value — "It\'s worth coming back"'
+      ]
+    }
+
+  ];
+
+  const root = document.getElementById('root');
+
+  DATA.forEach(function (item, di) {
+
+    const THEMES = THEME_SETS[CAROUSEL_SETS[di] || 'wsg'];
+
+    const dayLabel = document.createElement('div');
+    dayLabel.className = 'day-label';
+    dayLabel.textContent = item.day;
+    root.appendChild(dayLabel);
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+    const win = document.createElement('div');
+    win.className = 'carousel-window';
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+    const slides = [];
+
+    const all = [item.title, ...item.screens, ...(item.finalSetup ? [item.finalSetup] : [])];
+
+    all.forEach(function (text, i) {
+      const theme = THEMES[i % THEMES.length];
+      const slide = document.createElement('div');
+      slide.className = 'slide ' + theme;
+
+      const bar = document.createElement('div');
+      bar.className = 'slide-accent-bar';
+      slide.appendChild(bar);
+
+      const profile = document.createElement('div');
+      profile.className = 'profile';
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      const img = document.createElement('img');
+      img.src = PHOTO_SRC;
+      img.alt = 'Maurice Sanders';
+      const ph = document.createElement('div');
+      ph.className = 'avatar-placeholder';
+      ph.style.display = 'none';
+      ph.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+      img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+      avatar.appendChild(img); avatar.appendChild(ph);
+      const info = document.createElement('div');
+      const nameEl = document.createElement('div');
+      nameEl.className = 'profile-name';
+      nameEl.textContent = 'Maurice Sanders';
+      const handleEl = document.createElement('div');
+      handleEl.className = 'profile-handle';
+      handleEl.textContent = '@maurice.seamlessly';
+      info.appendChild(nameEl); info.appendChild(handleEl);
+      profile.appendChild(avatar); profile.appendChild(info);
+      slide.appendChild(profile);
+
+      const content = document.createElement('div');
+      content.className = 'content';
+      const rule = document.createElement('div');
+      rule.className = 'slide-rule';
+      content.appendChild(rule);
+      const textEl = document.createElement('div');
+      textEl.className = 'slide-text';
+      if (text.includes('<')) { textEl.innerHTML = text; } else { textEl.textContent = text; }
+      content.appendChild(textEl);
+      slide.appendChild(content);
+
+      const ghost = document.createElement('div');
+      ghost.className = 'ghost';
+      ghost.textContent = i + 1;
+      slide.appendChild(ghost);
+
+      const wm = document.createElement('div');
+      wm.className = 'watermark';
+      wm.textContent = '@mauricethefirst';
+      slide.appendChild(wm);
+
+      track.appendChild(slide);
+      slides.push(slide);
+    });
+
+    win.appendChild(track);
+    carousel.appendChild(win);
+    let current = 0;
+
+    const nav = document.createElement('div');
+    nav.className = 'nav';
+    const prev = document.createElement('button');
+    prev.className = 'nav-btn'; prev.textContent = '← Back';
+    const next = document.createElement('button');
+    next.className = 'nav-btn'; next.textContent = 'Next →';
+    const dots = document.createElement('div');
+    dots.className = 'dots';
+    const dotEls = slides.map(function (_, idx) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (idx === 0 ? ' active' : '');
+      dots.appendChild(d);
+      return d;
+    });
+
+    function slideBg(s) {
+      if (s.classList.contains('silver-slide')) return '#C8C8C8';
+      if (s.classList.contains('gold-slide')) return '#C9A84C';
+      return '#F8F6F2';
+    }
+    function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+    function waitImgs(node) {
+      return Promise.all(Array.from(node.querySelectorAll('img')).map(function (img) {
+        if (img.complete && img.naturalWidth) return Promise.resolve();
+        return new Promise(function (res) {
+          img.addEventListener('load', res, { once: true });
+          img.addEventListener('error', res, { once: true });
+        });
+      }));
+    }
+    function capture(s, n) {
+      return waitImgs(s).then(function () { return document.fonts.ready; }).then(function () {
+        return html2canvas(s, { scale: 1, useCORS: true, allowTaint: true, logging: false, backgroundColor: slideBg(s) });
+      }).then(function (c) {
+        const a = document.createElement('a');
+        a.download = 'guest-metallic-' + slug(item.day) + '-slide-' + n + '.png';
+        a.href = c.toDataURL('image/png');
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      });
+    }
+
+    const dlBtn = document.createElement('button');
+    dlBtn.type = 'button'; dlBtn.className = 'download-btn download-current';
+    const dlAllBtn = document.createElement('button');
+    dlAllBtn.type = 'button'; dlAllBtn.className = 'download-btn download-all';
+    dlAllBtn.textContent = 'Download All Slides';
+
+    function updateLabel() { dlBtn.textContent = 'Download PNG — Slide ' + (current + 1) + ' of ' + slides.length; }
+    function update() {
+      track.style.transform = 'translateX(-' + (current * 1080) + 'px)';
+      dotEls.forEach(function (d, idx) { d.className = 'dot' + (idx === current ? ' active' : ''); });
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      updateLabel();
+    }
+
+    dlBtn.addEventListener('click', function () {
+      dlBtn.disabled = true; dlBtn.textContent = 'Generating…';
+      const orig = dlBtn.style.display; dlBtn.style.display = 'none';
+      capture(slides[current], current + 1).then(function () {
+        dlBtn.style.display = orig; dlBtn.disabled = false; updateLabel();
+      }).catch(function (e) { dlBtn.style.display = orig; dlBtn.disabled = false; updateLabel(); console.error(e); });
+    });
+
+    dlAllBtn.addEventListener('click', function () {
+      const saved = current;
+      dlAllBtn.disabled = true; dlBtn.disabled = true;
+      let chain = Promise.resolve();
+      slides.forEach(function (s, idx) {
+        chain = chain.then(function () {
+          current = idx; update();
+          dlAllBtn.textContent = 'Generating ' + (idx + 1) + ' / ' + slides.length + '…';
+          return capture(s, idx + 1);
+        });
+      });
+      chain.then(function () {
+        current = saved; update(); dlAllBtn.disabled = false; dlBtn.disabled = false; dlAllBtn.textContent = 'Download All Slides';
+      }).catch(function (e) {
+        current = saved; update(); dlAllBtn.disabled = false; dlBtn.disabled = false; dlAllBtn.textContent = 'Download All Slides'; console.error(e);
+      });
+    });
+
+    prev.onclick = function () { if (current > 0) { current--; update(); } };
+    next.onclick = function () { if (current < slides.length - 1) { current++; update(); } };
+
+    nav.appendChild(prev); nav.appendChild(dots); nav.appendChild(next);
+    carousel.appendChild(nav);
+    update();
+
+    root.appendChild(carousel);
+    root.appendChild(dlBtn);
+    root.appendChild(dlAllBtn);
+  });
+
+})();
+</script>
+</body>
+</html>

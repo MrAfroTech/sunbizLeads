@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan & Scale — Weekly Venue Intelligence</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background:#111;
+  font-family:'DM Sans', sans-serif;
+  display:flex;
+  justify-content:center;
+  padding:32px 16px;
+}
+
+.newsletter {
+  width:640px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+.nl-header {
+  background:#1A2A44;
+  border-bottom:4px solid #D4AF37;
+  padding:32px 40px 24px;
+}
+
+.nl-eyebrow {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#00D4AA;
+  text-transform:uppercase;
+}
+
+.nl-wordmark {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:42px;
+  color:#fff;
+  letter-spacing:3px;
+  margin-top:8px;
+}
+
+.nl-wordmark span { color:#D4AF37; }
+
+.nl-subtitle {
+  font-size:14px;
+  font-style:italic;
+  color:rgba(255,255,255,0.55);
+  margin-top:6px;
+}
+
+/* HERO */
+.hero-band {
+  background:#D4AF37;
+  padding:28px 40px;
+}
+
+.hero-kicker {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(26,42,68,0.6);
+}
+
+.hero-headline {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:24px;
+  color:#1A2A44;
+  line-height:1.05;
+  margin-top:6px;
+}
+
+/* BODY */
+.nl-body {
+  padding:36px 40px;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.opening-quote {
+  border-left:4px solid #D4AF37;
+  padding:16px 20px;
+  background:#FEFCF3;
+  font-family:'DM Serif Display', serif;
+  font-style:italic;
+  font-size:17px;
+  color:#1A2A44;
+}
+
+.insight {
+  font-size:15px;
+  line-height:1.8;
+  color:#1A1A1A;
+}
+
+.insight p { margin-bottom:14px; }
+
+.insight strong { color:#1A2A44; }
+
+.stat-row {
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  padding:20px 24px;
+  background:#F4F6FA;
+  border-radius:6px;
+  border-left:4px solid #1A2A44;
+}
+
+.stat-item {
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.stat-number {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:30px;
+  color:#D4AF37;
+  letter-spacing:2px;
+  line-height:1;
+}
+
+.stat-label {
+  font-size:13px;
+  color:#1A2A44;
+  line-height:1.5;
+}
+
+.stat-source {
+  font-size:10px;
+  color:rgba(26,42,68,0.4);
+  font-style:italic;
+}
+
+/* CTA */
+.cta-block {
+  margin-top:10px;
+  padding:22px;
+  border:1px solid rgba(26,42,68,0.12);
+  border-radius:6px;
+  background:#F9FAFB;
+  text-align:center;
+}
+
+.cta-hint {
+  font-size:10px;
+  letter-spacing:3px;
+  font-weight:700;
+  text-transform:uppercase;
+  color:rgba(26,42,68,0.5);
+}
+
+.cta-btn {
+  display:inline-block;
+  margin-top:12px;
+  padding:18px 28px;
+  font-family:'Bebas Neue', sans-serif;
+  font-size:20px;
+  letter-spacing:2px;
+  text-decoration:none;
+  background:#D4AF37;
+  color:#1A2A44;
+  border-radius:4px;
+}
+
+.cta-sub {
+  font-size:12px;
+  margin-top:10px;
+  font-style:italic;
+  color:rgba(26,42,68,0.5);
+}
+
+/* FOOTER */
+.nl-footer {
+  background:#1A2A44;
+  padding:28px 40px;
+  border-top:4px solid #D4AF37;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* SOCIAL */
+.social-grid {
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+}
+
+.social-btn {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:12px;
+  letter-spacing:1.5px;
+  padding:10px 12px;
+  border-radius:3px;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  transition:0.2s;
+  text-align:center;
+}
+
+.social-btn:hover { opacity:0.85; }
+
+.social-btn.ig {
+  background:#D4AF37;
+  color:#1A2A44;
+}
+
+.social-btn.li {
+  background:#0077B5;
+  color:#fff;
+}
+
+.social-btn.web {
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.25);
+}
+
+.social-btn.talk {
+  background:#00D4AA;
+  color:#1A2A44;
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom {
+  border-top:1px solid rgba(212,175,55,0.2);
+  padding-top:16px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.footer-brand {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:18px;
+  color:#D4AF37;
+  letter-spacing:3px;
+}
+
+.footer-copy {
+  font-size:11px;
+  color:rgba(255,255,255,0.4);
+}
+
+.footer-note {
+  font-size:10.5px;
+  color:rgba(255,255,255,0.35);
+  font-style:italic;
+  text-align:right;
+}
+</style>
+</head>
+
+<body>
+
+<div class="newsletter">
+
+  <!-- HEADER -->
+  <div class="nl-header">
+    <div class="nl-eyebrow">Scan & Scale — Weekly Venue Intelligence</div>
+    <div class="nl-wordmark">SCAN & <span>SCALE</span></div>
+    <div class="nl-subtitle">
+      Operational insights for food halls, markets, and entertainment districts
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-band">
+    <div class="hero-kicker">
+      JUNE 2026 — SUMMER FOOT TRAFFIC IS UP. CAPTURE RATE IS NOT.
+    </div>
+    <div class="hero-headline">
+      GUESTS ARE WALKING THROUGH YOUR DISTRICT. MOST LEAVE WITHOUT SPENDING WHAT THEY COULD HAVE.
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="nl-body">
+
+    <div class="opening-quote">
+      "The guest who walks in undecided is your highest-value opportunity. Most districts let them walk out the same way."
+    </div>
+
+    <div class="insight">
+      <p>Food halls and entertainment districts run on dwell time. The longer a guest stays, the more they spend — in theory. But dwell time without direction just turns into browsing.</p>
+      <p>The difference between a guest who spends $18 and one who spends $52 usually comes down to one thing: did they feel like the venue knew what to offer them, and when?</p>
+      <p>That's not a staffing problem. It's a recognition problem.</p>
+    </div>
+
+    <!-- STAT BLOCK -->
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-number">24%</div>
+        <div class="stat-label">Average sales lift from proximity-based offers delivered while the guest is still on-site.</div>
+        <div class="stat-source">Strategy& / PwC</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">59%</div>
+        <div class="stat-label">Of consumers show higher engagement with offers when they're reached at the physical location — not after.</div>
+        <div class="stat-source">Strategy& / PwC</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <p>Both numbers point to the same thing: <strong>the window to influence a guest's spend closes the moment they leave your property.</strong></p>
+      <p>When a guest can be recognized at entry — not just tracked after the fact — you can surface the right offer while they're still deciding. That's what turns foot traffic into revenue.</p>
+      <p>Most districts aren't set up for that yet. The ones that are will own the summer season.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <div class="cta-hint">See your per-visit revenue leakage</div>
+
+      <a class="cta-btn"
+         href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}">
+        RUN THE REVENUE LEAK SIMULATOR →
+      </a>
+
+      <div class="cta-sub">Free. Takes under 2 minutes.</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="nl-footer">
+
+    <!-- SOCIAL GRID -->
+    <div class="social-grid">
+
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">
+        Instagram
+      </a>
+
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">
+        LinkedIn
+      </a>
+
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products" target="_blank">
+        Scan & Scale
+      </a>
+
+      <a class="social-btn talk" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        Let's Talk
+      </a>
+
+    </div>
+
+    <!-- FOOTER BOTTOM -->
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN & SCALE</div>
+        <div class="footer-copy">
+          A Seamlessly Production · Venue Intelligence Series · © 2026 All rights reserved.
+        </div>
+      </div>
+
+      <div class="footer-note">
+        You're receiving this because you engaged with the Scan & Scale Revenue Audit.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

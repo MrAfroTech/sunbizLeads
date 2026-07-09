@@ -1,0 +1,31 @@
+// App Brand Colors
+export const Colors = {
+  teal: '#1B9B9E',
+  navy: '#0A1E3D',
+  white: '#FFFFFF',
+  black: '#000000',
+  lightGray: '#E5E5E5',
+  gray: '#888888',
+  orange: '#FF6B35',
+  gold: '#C9A961',
+  success: '#4CAF50',
+  error: '#F44336',
+  warning: '#FF9800',
+  info: '#2196F3',
+  textPrimary: '#000000',
+  textSecondary: '#666666',
+  textOnDark: '#FFFFFF',
+  backgroundLight: '#FFFFFF',
+  backgroundGray: '#F5F5F5',
+  backgroundDark: '#0A1E3D',
+  // Carrabba's tab bar (exact spec)
+  navCream: '#F5F0E8',
+  navCharcoal: '#1A1A1A',
+  tabActiveText: '#FFFFFF',
+  tabActiveBg: '#8B2020',
+  tabBorderAccent: '#8B2020',
+  // Slider controls
+  sliderArrowBg: '#8B2020',
+  sliderDotActive: '#8B2020',
+  sliderDotInactive: '#F5F0E8',
+};

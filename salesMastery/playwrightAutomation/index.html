@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seamlessly — Staff Page Selector Debugger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --navy:#0D1B2A;
+      --navy2:#132B45;
+      --gold:#C9A84C;
+      --gold2:#E8C97A;
+      --teal:#1A7A6E;
+      --light:#F8F5EF;
+      --dim:rgba(248,245,239,0.7);
+      --card:rgba(255,255,255,0.05);
+      --card2:rgba(255,255,255,0.08);
+      --stroke:rgba(201,168,76,0.28);
+      --stroke2:rgba(201,168,76,0.44);
+      --shadow:0 14px 45px rgba(0,0,0,0.42);
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(1200px 540px at 18% -10%, rgba(26,122,110,0.35) 0%, rgba(26,122,110,0) 60%),
+        radial-gradient(900px 520px at 96% 18%, rgba(201,168,76,0.25) 0%, rgba(201,168,76,0) 55%),
+        linear-gradient(180deg, var(--navy) 0%, #08131F 100%);
+      color:var(--light);
+      font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      padding:44px 28px 56px;
+    }
+    .wrap{ max-width:1120px; margin:0 auto; }
+    .top{
+      display:flex;
+      gap:18px;
+      align-items:flex-end;
+      justify-content:space-between;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(201,168,76,0.18);
+      margin-bottom:26px;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .logo{
+      font-family:"Bebas Neue", sans-serif;
+      font-size:46px;
+      letter-spacing:3px;
+      line-height:1;
+    }
+    .logo span{ color:var(--gold); }
+    .sub{
+      font-size:14px;
+      color:var(--dim);
+      max-width:640px;
+      line-height:1.55;
+    }
+    .pill{
+      font-family:"Bebas Neue", sans-serif;
+      letter-spacing:2.4px;
+      font-size:14px;
+      color:var(--gold2);
+      border:1px solid rgba(201,168,76,0.35);
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(201,168,76,0.08);
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin-bottom:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:linear-gradient(135deg, rgba(201,168,76,0.38), rgba(26,122,110,0.28), rgba(201,168,76,0.12));
+      opacity:0.26;
+      filter:blur(16px);
+      pointer-events:none;
+    }
+    .panel > *{ position:relative; }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:12px;
+      align-items:end;
+    }
+    label{
+      font-family:"Bebas Neue", sans-serif;
+      letter-spacing:2.5px;
+      font-size:14px;
+      color:rgba(248,245,239,0.8);
+      display:block;
+      margin-bottom:8px;
+    }
+    input{
+      width:100%;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px solid rgba(201,168,76,0.28);
+      background:rgba(13,27,42,0.55);
+      color:var(--light);
+      outline:none;
+      font-size:14px;
+    }
+    input:focus{
+      border-color:rgba(201,168,76,0.55);
+      box-shadow:0 0 0 4px rgba(201,168,76,0.13);
+    }
+    .btn{
+      padding:14px 18px;
+      border-radius:12px;
+      border:1px solid rgba(201,168,76,0.35);
+      background:linear-gradient(135deg, var(--gold), var(--gold2));
+      color:var(--navy);
+      font-weight:800;
+      letter-spacing:0.5px;
+      cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease;
+      min-width:152px;
+    }
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 28px rgba(201,168,76,0.22); }
+    .btn:disabled{
+      opacity:0.55;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    .meta{
+      margin-top:14px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .chip{
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.04);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:13px;
+      color:rgba(248,245,239,0.86);
+    }
+    .chip strong{ color:var(--gold2); font-weight:800; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .row{ grid-template-columns: 1fr; }
+      .btn{ width:100%; min-width:unset; }
+      .grid{ grid-template-columns: 1fr; }
+      .pill{ display:none; }
+    }
+    .card{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:16px;
+      padding:18px 18px 14px;
+    }
+    .card h2{
+      font-family:"Bebas Neue", sans-serif;
+      font-size:18px;
+      letter-spacing:2.8px;
+      margin-bottom:12px;
+      color:rgba(248,245,239,0.9);
+    }
+    .help{
+      color:rgba(248,245,239,0.72);
+      font-size:13px;
+      line-height:1.7;
+    }
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:12px;
+    }
+    .cand{
+      border:1px solid rgba(201,168,76,0.20);
+      background:linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 100%);
+      border-radius:14px;
+      padding:12px 12px;
+    }
+    .candTop{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+      margin-bottom:8px;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      color:rgba(248,245,239,0.92);
+      word-break:break-word;
+    }
+    .badge{
+      font-family:"Bebas Neue", sans-serif;
+      letter-spacing:2px;
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(26,122,110,0.38);
+      background:rgba(26,122,110,0.14);
+      color:rgba(232,201,122,0.95);
+      white-space:nowrap;
+    }
+    .ex{
+      border-top:1px dashed rgba(255,255,255,0.12);
+      padding-top:10px;
+      display:grid;
+      gap:8px;
+    }
+    .exRow{
+      display:grid;
+      grid-template-columns: 1fr 120px;
+      gap:10px;
+      align-items:start;
+    }
+    .exRow .dim{ color:rgba(248,245,239,0.60); font-size:12px; }
+    .exRow .sz{
+      color:rgba(248,245,239,0.75);
+      font-size:12px;
+      text-align:right;
+    }
+    .err{
+      margin-top:12px;
+      color:#ffd6d6;
+      background:rgba(255, 77, 79, 0.10);
+      border:1px solid rgba(255, 77, 79, 0.30);
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .ok{
+      margin-top:12px;
+      color:rgba(248,245,239,0.86);
+      background:rgba(201,168,76,0.10);
+      border:1px solid rgba(201,168,76,0.26);
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .small{ font-size:12px; color:rgba(248,245,239,0.62); margin-top:8px; line-height:1.6; }
+    a{ color:var(--gold2); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo">Seam<span>less</span>ly</div>
+        <div class="sub">
+          Paste a live staff/team page URL. The server will open it in Chromium (Playwright),
+          then return the most likely repeating “card” selectors and a few example nodes so we can tune scraping rules per site.
+        </div>
+      </div>
+      <div class="pill">Selector Debugger</div>
+    </div>
+
+    <div class="panel">
+      <div class="row">
+        <div>
+          <label for="url">Staff page URL</label>
+          <input id="url" placeholder="https://example.com/staff" autocomplete="off" />
+          <div class="small">
+            Tip: use the exact staff directory page, not the homepage. If the site is heavily client-rendered, you can set headless=false in the request later.
+          </div>
+        </div>
+        <button class="btn" id="run" type="button">Analyze</button>
+      </div>
+      <div class="meta" id="meta" style="display:none"></div>
+      <div id="status"></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Candidate card selectors</h2>
+        <div class="help">
+          Sorted by a simple “hint score” (repeated elements + class/text hints like “staff/team/card/coach”).
+          The goal is to quickly see what selector pattern is most stable for a given team site.
+        </div>
+        <div class="list" id="candidates"></div>
+      </div>
+      <div class="card">
+        <h2>What to send back</h2>
+        <div class="help">
+          After you test a live page, send back:
+          <div class="list" style="margin-top:12px">
+            <div class="cand">
+              <div class="candTop">
+                <code>top selector</code>
+                <span class="badge">count</span>
+              </div>
+              <div class="ex">
+                <div class="dim">and whether it captures: name, title, email/phone, photo</div>
+              </div>
+            </div>
+          </div>
+          <div class="small">We’ll adjust the extraction rules to match each site’s HTML structure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const elUrl = document.getElementById("url");
+    const elRun = document.getElementById("run");
+    const elMeta = document.getElementById("meta");
+    const elCandidates = document.getElementById("candidates");
+    const elStatus = document.getElementById("status");
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll("\"","&quot;")
+        .replaceAll("'","&#39;");
+    }
+
+    function setStatus(kind, msg){
+      elStatus.innerHTML = "";
+      if(!msg) return;
+      const div = document.createElement("div");
+      div.className = kind;
+      div.textContent = msg;
+      elStatus.appendChild(div);
+    }
+
+    function setMeta({ title, elapsedMs, likelyStaffScore }){
+      elMeta.style.display = "flex";
+      elMeta.innerHTML = `
+        <div class="chip"><strong>Title</strong> ${escapeHtml(title || "(none)")}</div>
+        <div class="chip"><strong>Elapsed</strong> ${escapeHtml(elapsedMs)}ms</div>
+        <div class="chip"><strong>Staff-likelihood</strong> ${escapeHtml(likelyStaffScore)}</div>
+      `;
+    }
+
+    function renderCandidates(items){
+      if(!items || !items.length){
+        elCandidates.innerHTML = `<div class="small">No candidates returned. Try a different URL or a page that clearly lists staff cards.</div>`;
+        return;
+      }
+      elCandidates.innerHTML = items.map((c) => {
+        const examples = (c.examples || []).slice(0, 4).map((ex) => {
+          const txt = ex && ex.text ? ex.text : "";
+          const size = ex && ex.rect ? `${ex.rect.w}×${ex.rect.h}` : "";
+          return `
+            <div class="exRow">
+              <div class="dim">${escapeHtml(txt || "(no text)")}</div>
+              <div class="sz">${escapeHtml(size)}</div>
+            </div>
+          `;
+        }).join("");
+        return `
+          <div class="cand">
+            <div class="candTop">
+              <code>${escapeHtml(c.selector)}</code>
+              <span class="badge">${escapeHtml(c.count)} cards</span>
+            </div>
+            <div class="ex">
+              ${examples || `<div class="dim">(no examples)</div>`}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function analyze(){
+      const url = (elUrl.value || "").trim();
+      if(!url){
+        setStatus("err", "Paste a staff page URL first.");
+        return;
+      }
+      elRun.disabled = true;
+      setStatus("ok", "Running Playwright analysis…");
+      elCandidates.innerHTML = "";
+      elMeta.style.display = "none";
+
+      try{
+        const resp = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
+        });
+        const json = await resp.json().catch(() => ({}));
+        if(!resp.ok || !json.ok){
+          throw new Error(json.error || `Request failed (${resp.status})`);
+        }
+        setMeta(json);
+        renderCandidates(json.candidates || []);
+        setStatus("", "");
+      }catch(err){
+        setStatus("err", err && err.message ? err.message : String(err));
+      }finally{
+        elRun.disabled = false;
+      }
+    }
+
+    elRun.addEventListener("click", analyze);
+    elUrl.addEventListener("keydown", (e) => {
+      if(e.key === "Enter") analyze();
+    });
+  </script>
+</body>
+</html>
+

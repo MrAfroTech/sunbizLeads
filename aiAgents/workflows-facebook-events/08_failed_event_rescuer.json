@@ -1,0 +1,1047 @@
+{
+  "name": "08 - Failed Event Rescuer (Auto-Recovery)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every Hour",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "contains",
+              "keyValue": "Failed"
+            }
+          ]
+        }
+      },
+      "id": "read-failed-events",
+      "name": "Get Failed Events",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const failedEvents = $input.all();\n\nconst classified = failedEvents.map(item => {\n  const data = item.json;\n  const notes = (data.notes || '').toLowerCase();\n  const status = (data.status || '').toLowerCase();\n  \n  // Classify failure type\n  let failureType = 'unknown';\n  let isRecoverable = false;\n  let retryStrategy = null;\n  let priority = 'medium';\n  \n  // Rate Limit Errors\n  if (notes.includes('rate limit') || notes.includes('429')) {\n    failureType = 'rate_limit';\n    isRecoverable = true;\n    retryStrategy = 'wait_and_retry';\n    priority = 'high';\n  }\n  // Authentication Errors\n  else if (notes.includes('invalid token') || notes.includes('401') || notes.includes('403')) {\n    failureType = 'auth_error';\n    isRecoverable = true;\n    retryStrategy = 'refresh_token';\n    priority = 'critical';\n  }\n  // Image Errors\n  else if (notes.includes('image') || notes.includes('invalid url')) {\n    failureType = 'image_error';\n    isRecoverable = true;\n    retryStrategy = 'use_fallback_image';\n    priority = 'medium';\n  }\n  // Network/Timeout Errors\n  else if (notes.includes('timeout') || notes.includes('network') || notes.includes('econnrefused')) {\n    failureType = 'network_error';\n    isRecoverable = true;\n    retryStrategy = 'retry_immediately';\n    priority = 'high';\n  }\n  // Validation Errors\n  else if (notes.includes('validation') || notes.includes('policy') || notes.includes('content')) {\n    failureType = 'validation_error';\n    isRecoverable = false;\n    retryStrategy = 'manual_review';\n    priority = 'low';\n  }\n  // Duplicate Errors\n  else if (notes.includes('duplicate') || notes.includes('already exists')) {\n    failureType = 'duplicate';\n    isRecoverable = false;\n    retryStrategy = 'mark_complete';\n    priority = 'low';\n  }\n  // Event in Past\n  else if (notes.includes('past') || notes.includes('expired')) {\n    failureType = 'event_expired';\n    isRecoverable = false;\n    retryStrategy = 'archive';\n    priority = 'low';\n  }\n  \n  // Check retry count\n  const retryCount = parseInt(data.retry_count) || 0;\n  const maxRetries = 3;\n  \n  if (retryCount >= maxRetries) {\n    isRecoverable = false;\n    retryStrategy = 'escalate_to_human';\n    priority = 'critical';\n  }\n  \n  // Calculate time since failure\n  const failedAt = new Date(data.last_activity || data.posted_date || new Date());\n  const now = new Date();\n  const hoursSinceFailed = (now - failedAt) / (1000 * 60 * 60);\n  \n  // Determine if should retry now\n  let shouldRetryNow = false;\n  \n  if (failureType === 'rate_limit') {\n    shouldRetryNow = hoursSinceFailed >= 1;\n  } else if (failureType === 'network_error') {\n    shouldRetryNow = true;\n  } else if (failureType === 'auth_error') {\n    shouldRetryNow = true;\n  } else if (failureType === 'image_error') {\n    shouldRetryNow = true;\n  }\n  \n  return {\n    ...data,\n    failure_type: failureType,\n    is_recoverable: isRecoverable,\n    retry_strategy: retryStrategy,\n    retry_count: retryCount,\n    priority: priority,\n    should_retry_now: shouldRetryNow,\n    hours_since_failed: hoursSinceFailed\n  };\n});\n\nreturn classified;"
+      },
+      "id": "classify-failures",
+      "name": "Analyze Failure Reasons",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+              },
+              "conditions": [
+                {
+                  "id": "rate-limit",
+                  "leftValue": "={{ $json.failure_type }}",
+                  "rightValue": "rate_limit",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                },
+                {
+                  "id": "should-retry",
+                  "leftValue": "={{ $json.should_retry_now }}",
+                  "rightValue": true,
+                  "operator": {
+                    "type": "boolean",
+                    "operation": "true"
+                  }
+                }
+              ],
+              "combinator": "and"
+            },
+            "renameOutput": true,
+            "outputKey": "rate_limit"
+          },
+          {
+            "conditions": {
+              "options": {
+                "caseSensitive": true,
+                "leftValue": "",
+                "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "auth-error",
+                "leftValue": "={{ $json.failure_type }}",
+                "rightValue": "auth_error",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "renameOutput": true,
+          "outputKey": "auth_error"
+        },
+        {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "image-error",
+              "leftValue": "={{ $json.failure_type }}",
+              "rightValue": "image_error",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "renameOutput": true,
+        "outputKey": "image_error"
+      },
+      {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+        },
+        "conditions": [
+          {
+            "id": "network-error",
+            "leftValue": "={{ $json.failure_type }}",
+            "rightValue": "network_error",
+            "operator": {
+              "type": "string",
+              "operation": "equals"
+            }
+          }
+        ],
+        "combinator": "and"
+      },
+      "renameOutput": true,
+      "outputKey": "network_error"
+    },
+    {
+      "conditions": {
+        "options": {
+          "caseSensitive": true,
+          "leftValue": "",
+          "typeValidation": "strict"
+      },
+      "conditions": [
+        {
+          "id": "validation-error",
+          "leftValue": "={{ $json.failure_type }}",
+          "rightValue": "validation_error",
+          "operator": {
+            "type": "string",
+            "operation": "equals"
+          }
+        }
+      ],
+      "combinator": "and"
+    },
+    "renameOutput": true,
+    "outputKey": "validation_error"
+  },
+  {
+    "conditions": {
+      "options": {
+        "caseSensitive": true,
+        "leftValue": "",
+        "typeValidation": "strict"
+    },
+    "conditions": [
+      {
+        "id": "duplicate",
+        "leftValue": "={{ $json.failure_type }}",
+        "rightValue": "duplicate",
+        "operator": {
+          "type": "string",
+          "operation": "equals"
+        }
+      }
+    ],
+    "combinator": "and"
+  },
+  "renameOutput": true,
+  "outputKey": "duplicate"
+},
+{
+  "conditions": {
+    "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict"
+  },
+  "conditions": [
+    {
+      "id": "expired",
+      "leftValue": "={{ $json.failure_type }}",
+      "rightValue": "event_expired",
+      "operator": {
+        "type": "string",
+        "operation": "equals"
+      }
+    }
+  ],
+  "combinator": "and"
+},
+"renameOutput": true,
+"outputKey": "event_expired"
+},
+{
+  "conditions": {
+    "options": {
+      "caseSensitive": true,
+      "leftValue": "",
+      "typeValidation": "strict"
+  },
+  "conditions": [
+    {
+      "id": "max-retries",
+      "leftValue": "={{ $json.retry_count }}",
+      "rightValue": 3,
+      "operator": {
+        "type": "number",
+        "operation": "gte"
+      }
+    }
+  ],
+  "combinator": "and"
+},
+"renameOutput": true,
+"outputKey": "max_retries_exceeded"
+}
+]
+},
+"options": {}
+},
+"id": "route-recovery",
+"name": "Route Recovery Strategy",
+"type": "n8n-nodes-base.switch",
+"typeVersion": 3,
+"position": [850, 300]
+},
+{
+  "parameters": {
+    "jsCode": "const event = $input.first().json;\nconst hoursSince = event.hours_since_failed;\n\nif (hoursSince >= 1) {\n  return {\n    ...event,\n    retry_action: 'retry_original_operation',\n    notes: (event.notes || '') + ' | Rate limit window passed, retrying'\n  };\n} else {\n  return {\n    ...event,\n    retry_action: 'wait',\n    notes: (event.notes || '') + ' | Waiting for rate limit window'\n  };\n}"
+  },
+  "id": "check-rate-limit",
+  "name": "Check Rate Limit Status",
+  "type": "n8n-nodes-base.code",
+  "typeVersion": 2,
+  "position": [1050, 100]
+},
+{
+  "parameters": {
+    "method": "POST",
+    "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/events",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+      "parameters": [
+        {
+          "name": "access_token",
+          "value": "={{ $credentials.facebookPageToken.token }}"
+        }
+      ]
+    },
+    "sendBody": true,
+    "contentType": "json",
+    "bodyParametersJson": "={\n  \"name\": \"{{ $json.event_name }}\",\n  \"description\": \"{{ $json.description }}\",\n  \"start_time\": \"{{ $json.event_date }}T{{ $json.event_time }}\",\n  \"location\": \"{{ $json.location }}\",\n  \"ticket_uri\": \"{{ $json.ticket_link }}\"\n}",
+    "options": {
+      "timeout": 15000,
+      "response": {
+        "response": {
+          "responseFormat": "json"
+        }
+      }
+    }
+  },
+  "id": "retry-event-creation",
+  "name": "Retry Event Creation",
+  "type": "n8n-nodes-base.httpRequest",
+  "typeVersion": 4.2,
+  "position": [1250, 100]
+},
+{
+  "parameters": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/oauth/access_token",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+      "parameters": [
+        {
+          "name": "grant_type",
+          "value": "fb_exchange_token"
+        },
+        {
+          "name": "client_id",
+          "value": "={{ $credentials.facebookApp.clientId }}"
+        },
+        {
+          "name": "client_secret",
+          "value": "={{ $credentials.facebookApp.clientSecret }}"
+        },
+        {
+          "name": "fb_exchange_token",
+          "value": "={{ $credentials.facebookPageToken.token }}"
+        }
+      ]
+    },
+    "options": {
+      "response": {
+        "response": {
+          "responseFormat": "json"
+        }
+      }
+    }
+  },
+  "id": "refresh-token",
+  "name": "Refresh Page Access Token",
+  "type": "n8n-nodes-base.httpRequest",
+  "typeVersion": 4.2,
+  "position": [1050, 200]
+},
+{
+  "parameters": {
+    "jsCode": "const newToken = $input.first().json.access_token;\nconst originalEvent = $node[\"Route Recovery Strategy\"].json;\n\n// Note: In production, update credentials via n8n credential API\n// This is pseudo-code for the concept\nreturn {\n  ...originalEvent,\n  new_access_token: newToken,\n  retry_action: 'token_refreshed_retry',\n  notes: (originalEvent.notes || '') + ' | Token refreshed, retrying original operation'\n};"
+  },
+  "id": "store-token",
+  "name": "Store New Token",
+  "type": "n8n-nodes-base.code",
+  "typeVersion": 2,
+  "position": [1250, 200]
+},
+{
+  "parameters": {
+    "method": "POST",
+    "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/events",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+      "parameters": [
+        {
+          "name": "access_token",
+          "value": "={{ $json.new_access_token }}"
+        }
+      ]
+    },
+    "sendBody": true,
+    "contentType": "json",
+    "bodyParametersJson": "={\n  \"name\": \"{{ $json.event_name }}\",\n  \"description\": \"{{ $json.description }}\",\n  \"start_time\": \"{{ $json.event_date }}T{{ $json.event_time }}\",\n  \"location\": \"{{ $json.location }}\",\n  \"ticket_uri\": \"{{ $json.ticket_link }}\"\n}",
+    "options": {
+      "response": {
+        "response": {
+          "responseFormat": "json"
+        }
+      }
+    }
+  },
+  "id": "retry-with-token",
+  "name": "Retry with New Token",
+  "type": "n8n-nodes-base.httpRequest",
+  "typeVersion": 4.2,
+  "position": [1450, 200]
+},
+{
+  "parameters": {
+    "jsCode": "const event = $input.first().json;\n\nconst fallbackImages = {\n  'concert': 'https://your-cdn.com/default-concert.jpg',\n  'sports': 'https://your-cdn.com/default-sports.jpg',\n  'nightlife': 'https://your-cdn.com/default-nightlife.jpg',\n  'food-festival': 'https://your-cdn.com/default-food.jpg',\n  'networking': 'https://your-cdn.com/default-networking.jpg',\n  'other': 'https://your-cdn.com/default-event.jpg'\n};\n\nconst fallbackImage = fallbackImages[event.event_category] || fallbackImages['other'];\n\nreturn {\n  ...event,\n  image_url: fallbackImage,\n  retry_action: 'retry_with_fallback_image',\n  notes: (event.notes || '') + ' | Using fallback image'\n};"
+  },
+  "id": "apply-fallback-image",
+  "name": "Apply Fallback Image",
+  "type": "n8n-nodes-base.code",
+  "typeVersion": 2,
+  "position": [1050, 300]
+},
+{
+  "parameters": {
+    "method": "POST",
+    "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/events",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+      "parameters": [
+        {
+          "name": "access_token",
+          "value": "={{ $credentials.facebookPageToken.token }}"
+        }
+      ]
+    },
+    "sendBody": true,
+    "contentType": "json",
+    "bodyParametersJson": "={\n  \"name\": \"{{ $json.event_name }}\",\n  \"description\": \"{{ $json.description }}\",\n  \"start_time\": \"{{ $json.event_date }}T{{ $json.event_time }}\",\n  \"location\": \"{{ $json.location }}\",\n  \"ticket_uri\": \"{{ $json.ticket_link }}\"\n}",
+    "options": {
+      "response": {
+        "response": {
+          "responseFormat": "json"
+        }
+      }
+    }
+  },
+  "id": "retry-with-fallback",
+  "name": "Create Event with Fallback",
+  "type": "n8n-nodes-base.httpRequest",
+  "typeVersion": 4.2,
+  "position": [1250, 300]
+},
+{
+  "parameters": {
+    "waitTime": 30,
+    "unit": "seconds"
+  },
+  "id": "wait-network",
+  "name": "Wait 30 Seconds",
+  "type": "n8n-nodes-base.wait",
+  "typeVersion": 1.1,
+  "position": [1050, 400]
+},
+{
+  "parameters": {
+    "method": "POST",
+    "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/events",
+    "authentication": "genericCredentialType",
+    "genericAuthType": "httpHeaderAuth",
+    "sendQuery": true,
+    "queryParameters": {
+      "parameters": [
+        {
+          "name": "access_token",
+          "value": "={{ $credentials.facebookPageToken.token }}"
+        }
+      ]
+    },
+    "sendBody": true,
+    "contentType": "json",
+    "bodyParametersJson": "={\n  \"name\": \"{{ $json.event_name }}\",\n  \"description\": \"{{ $json.description }}\",\n  \"start_time\": \"{{ $json.event_date }}T{{ $json.event_time }}\",\n  \"location\": \"{{ $json.location }}\",\n  \"ticket_uri\": \"{{ $json.ticket_link }}\"\n}",
+    "options": {
+      "response": {
+        "response": {
+          "responseFormat": "json"
+        }
+      }
+    }
+  },
+  "id": "retry-network",
+  "name": "Retry After Network Recovery",
+  "type": "n8n-nodes-base.httpRequest",
+  "typeVersion": 4.2,
+  "position": [1250, 400]
+},
+{
+  "parameters": {
+    "fromEmail": "noreply@seamlessly.com",
+    "toEmail": "your-email@domain.com",
+    "subject": "⚠️ Event Needs Review: {{ $json.event_name }}",
+    "text": "Event failed Facebook validation and needs manual review.\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nError: {{ $json.notes }}\n\nPossible issues:\n- Content violates Facebook policies\n- Event description too long\n- Invalid date/time format\n- Missing required fields\n\nReview and edit in Google Sheets.\nAfter editing, change status to \"Ready to Post\" to retry.",
+    "options": {}
+  },
+  "id": "escalate-validation",
+  "name": "Escalate Validation Error",
+  "type": "n8n-nodes-base.emailSend",
+  "typeVersion": 2.1,
+  "position": [1050, 500],
+  "credentials": {
+    "smtp": {
+      "id": "smtp-cred",
+      "name": "SMTP account"
+    }
+  }
+},
+{
+  "parameters": {
+    "operation": "update",
+    "documentId": {
+      "__rl": true,
+      "value": "={{ $credentials.googleSheets.sheetId }}",
+      "mode": "id"
+    },
+    "sheetName": {
+      "__rl": true,
+      "value": "Facebook Events Pipeline",
+      "mode": "name"
+    },
+    "columnToMatchOn": "event_id",
+    "valueToMatchOn": "={{ $json.event_id }}",
+    "columns": {
+      "mappingMode": "defineBelow",
+      "value": {
+        "status": "Failed - Manual Review Required",
+        "notes": "={{ $json.notes }} | Escalated for manual review at {{ $now }}"
+      }
+    }
+  },
+  "id": "update-validation-status",
+  "name": "Update Status",
+  "type": "n8n-nodes-base.googleSheets",
+  "typeVersion": 4,
+  "position": [1250, 500],
+  "credentials": {
+    "googleSheetsOAuth2Api": {
+      "id": "google-sheets-cred",
+      "name": "Google Sheets account"
+    }
+  }
+},
+{
+  "parameters": {
+    "operation": "update",
+    "documentId": {
+      "__rl": true,
+      "value": "={{ $credentials.googleSheets.sheetId }}",
+      "mode": "id"
+    },
+    "sheetName": {
+      "__rl": true,
+      "value": "Facebook Events Pipeline",
+      "mode": "name"
+    },
+    "columnToMatchOn": "event_id",
+    "valueToMatchOn": "={{ $json.event_id }}",
+    "columns": {
+      "mappingMode": "defineBelow",
+      "value": {
+        "status": "Duplicate - Archived",
+        "notes": "={{ $json.notes }} | Duplicate event detected, skipping"
+      }
+    }
+  },
+  "id": "archive-duplicate",
+  "name": "Archive Duplicate",
+  "type": "n8n-nodes-base.googleSheets",
+  "typeVersion": 4,
+  "position": [1050, 600],
+  "credentials": {
+    "googleSheetsOAuth2Api": {
+      "id": "google-sheets-cred",
+      "name": "Google Sheets account"
+    }
+  }
+},
+{
+  "parameters": {
+    "operation": "update",
+    "documentId": {
+      "__rl": true,
+      "value": "={{ $credentials.googleSheets.sheetId }}",
+      "mode": "id"
+    },
+    "sheetName": {
+      "__rl": true,
+      "value": "Facebook Events Pipeline",
+      "mode": "name"
+    },
+    "columnToMatchOn": "event_id",
+    "valueToMatchOn": "={{ $json.event_id }}",
+    "columns": {
+      "mappingMode": "defineBelow",
+      "value": {
+        "status": "Expired - Archived",
+        "notes": "={{ $json.notes }} | Event date has passed"
+      }
+    }
+  },
+  "id": "archive-expired",
+  "name": "Archive Past Event",
+  "type": "n8n-nodes-base.googleSheets",
+  "typeVersion": 4,
+  "position": [1050, 700],
+  "credentials": {
+    "googleSheetsOAuth2Api": {
+      "id": "google-sheets-cred",
+      "name": "Google Sheets account"
+    }
+  }
+},
+{
+  "parameters": {
+    "fromEmail": "noreply@seamlessly.com",
+    "toEmail": "your-email@domain.com,engineering@company.com",
+    "subject": "🚨 CRITICAL: Event Failed After 3 Retries",
+    "text": "Event has failed 3 times and needs immediate attention.\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nFailure Type: {{ $json.failure_type }}\nOriginal Error: {{ $json.notes }}\n\nThis event will NOT be automatically retried.\nManual intervention required.\n\nAction: Review event data and retry manually or cancel.",
+    "options": {}
+  },
+  "id": "escalate-critical",
+  "name": "Escalate to Team",
+  "type": "n8n-nodes-base.emailSend",
+  "typeVersion": 2.1,
+  "position": [1050, 800],
+  "credentials": {
+    "smtp": {
+      "id": "smtp-cred",
+      "name": "SMTP account"
+    }
+  }
+},
+{
+  "parameters": {
+    "operation": "update",
+    "documentId": {
+      "__rl": true,
+      "value": "={{ $credentials.googleSheets.sheetId }}",
+      "mode": "id"
+    },
+    "sheetName": {
+      "__rl": true,
+      "value": "Facebook Events Pipeline",
+      "mode": "name"
+    },
+    "columnToMatchOn": "event_id",
+    "valueToMatchOn": "={{ $json.event_id }}",
+    "columns": {
+      "mappingMode": "defineBelow",
+      "value": {
+        "status": "CRITICAL - Max Retries Exceeded",
+        "notes": "={{ $json.notes }} | Max retries exceeded, escalated to team"
+      }
+    }
+  },
+  "id": "flag-critical",
+  "name": "Flag for Urgent Review",
+  "type": "n8n-nodes-base.googleSheets",
+  "typeVersion": 4,
+  "position": [1250, 800],
+  "credentials": {
+    "googleSheetsOAuth2Api": {
+      "id": "google-sheets-cred",
+      "name": "Google Sheets account"
+    }
+  }
+},
+{
+  "parameters": {
+    "mode": "combine",
+    "combineBy": "combineAll"
+  },
+  "id": "merge-retry-attempts",
+  "name": "Merge Retry Attempts",
+  "type": "n8n-nodes-base.merge",
+  "typeVersion": 2.1,
+  "position": [1650, 300]
+},
+{
+  "parameters": {
+    "jsCode": "const retryResponse = $input.first().json;\nconst originalEvent = $node[\"Route Recovery Strategy\"]?.json || {};\n\n// Handle both success and error responses\nlet facebookEventId = '';\nlet success = false;\nlet errorMessage = '';\n\nif (retryResponse.id) {\n  facebookEventId = retryResponse.id;\n  success = true;\n} else if (retryResponse.error) {\n  errorMessage = retryResponse.error.message || JSON.stringify(retryResponse.error);\n  success = false;\n} else if (retryResponse.body?.id) {\n  facebookEventId = retryResponse.body.id;\n  success = true;\n} else if (retryResponse.body?.error) {\n  errorMessage = retryResponse.body.error.message || JSON.stringify(retryResponse.body.error);\n  success = false;\n}\n\nif (success) {\n  return {\n    ...originalEvent,\n    facebook_event_id: facebookEventId,\n    facebook_event_url: `https://facebook.com/events/${facebookEventId}`,\n    status: 'Facebook Event Created',\n    retry_count: (originalEvent.retry_count || 0) + 1,\n    recovered_at: new Date().toISOString(),\n    notes: (originalEvent.notes || '') + ` | Recovered successfully after ${(originalEvent.retry_count || 0) + 1} attempts`\n  };\n} else {\n  return {\n    ...originalEvent,\n    retry_count: (originalEvent.retry_count || 0) + 1,\n    status: 'Failed - Retry Unsuccessful',\n    notes: (originalEvent.notes || '') + ` | Retry attempt ${(originalEvent.retry_count || 0) + 1} failed: ${errorMessage}`\n  };\n}"
+  },
+  "id": "validate-recovery",
+  "name": "Validate Recovery",
+  "type": "n8n-nodes-base.code",
+  "typeVersion": 2,
+  "position": [1850, 300]
+},
+{
+  "parameters": {
+    "operation": "update",
+    "documentId": {
+      "__rl": true,
+      "value": "={{ $credentials.googleSheets.sheetId }}",
+      "mode": "id"
+    },
+    "sheetName": {
+      "__rl": true,
+      "value": "Facebook Events Pipeline",
+      "mode": "name"
+    },
+    "columnToMatchOn": "event_id",
+    "valueToMatchOn": "={{ $json.event_id }}",
+    "columns": {
+      "mappingMode": "defineBelow",
+      "value": {
+        "facebook_event_id": "={{ $json.facebook_event_id }}",
+        "status": "={{ $json.status }}",
+        "retry_count": "={{ $json.retry_count }}",
+        "recovered_at": "={{ $json.recovered_at }}",
+        "notes": "={{ $json.notes }}"
+      }
+    }
+  },
+  "id": "log-recovery",
+  "name": "Log Recovery Result",
+  "type": "n8n-nodes-base.googleSheets",
+  "typeVersion": 4,
+  "position": [2050, 300],
+  "credentials": {
+    "googleSheetsOAuth2Api": {
+      "id": "google-sheets-cred",
+      "name": "Google Sheets account"
+    }
+  }
+},
+{
+  "parameters": {
+    "conditions": {
+      "options": {
+        "caseSensitive": true,
+        "leftValue": "",
+        "typeValidation": "strict"
+      },
+      "conditions": [
+        {
+          "id": "recovery-success",
+          "leftValue": "={{ $json.facebook_event_id }}",
+          "rightValue": "",
+          "operator": {
+            "type": "string",
+            "operation": "isNotEmpty"
+          }
+        }
+      ],
+      "combinator": "and"
+    },
+    "options": {}
+  },
+  "id": "check-recovery-success",
+  "name": "Check Recovery Success",
+  "type": "n8n-nodes-base.if",
+  "typeVersion": 2,
+  "position": [2250, 300]
+},
+{
+  "parameters": {
+    "fromEmail": "noreply@seamlessly.com",
+    "toEmail": "your-email@domain.com",
+    "subject": "✅ Event Recovered: {{ $json.event_name }}",
+    "text": "Event successfully recovered after failure!\n\nEvent: {{ $json.event_name }}\nFailure Type: {{ $json.failure_type }}\nRecovery Strategy: {{ $json.retry_strategy }}\nAttempts: {{ $json.retry_count }}\n\nEvent is now live: {{ $json.facebook_event_url }}",
+    "options": {}
+  },
+  "id": "notify-recovery",
+  "name": "Notify Recovery",
+  "type": "n8n-nodes-base.emailSend",
+  "typeVersion": 2.1,
+  "position": [2450, 250],
+  "credentials": {
+    "smtp": {
+      "id": "smtp-cred",
+      "name": "SMTP account"
+    }
+  }
+}
+  ],
+  "connections": {
+    "Every Hour": {
+      "main": [
+        [
+          {
+            "node": "Get Failed Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Failed Events": {
+      "main": [
+        [
+          {
+            "node": "Analyze Failure Reasons",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Failure Reasons": {
+      "main": [
+        [
+          {
+            "node": "Route Recovery Strategy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Recovery Strategy": {
+      "main": [
+        [
+          {
+            "node": "Check Rate Limit Status",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Refresh Page Access Token",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Apply Fallback Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 30 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escalate Validation Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Archive Duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Archive Past Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escalate to Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Rate Limit Status": {
+      "main": [
+        [
+          {
+            "node": "Retry Event Creation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Event Creation": {
+      "main": [
+        [
+          {
+            "node": "Merge Retry Attempts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refresh Page Access Token": {
+      "main": [
+        [
+          {
+            "node": "Store New Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store New Token": {
+      "main": [
+        [
+          {
+            "node": "Retry with New Token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry with New Token": {
+      "main": [
+        [
+          {
+            "node": "Merge Retry Attempts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply Fallback Image": {
+      "main": [
+        [
+          {
+            "node": "Create Event with Fallback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Event with Fallback": {
+      "main": [
+        [
+          {
+            "node": "Merge Retry Attempts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 30 Seconds": {
+      "main": [
+        [
+          {
+            "node": "Retry After Network Recovery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry After Network Recovery": {
+      "main": [
+        [
+          {
+            "node": "Merge Retry Attempts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escalate Validation Error": {
+      "main": [
+        [
+          {
+            "node": "Update Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escalate to Team": {
+      "main": [
+        [
+          {
+            "node": "Flag for Urgent Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Retry Attempts": {
+      "main": [
+        [
+          {
+            "node": "Validate Recovery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Recovery": {
+      "main": [
+        [
+          {
+            "node": "Log Recovery Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Recovery Result": {
+      "main": [
+        [
+          {
+            "node": "Check Recovery Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Recovery Success": {
+      "main": [
+        [
+          {
+            "node": "Notify Recovery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

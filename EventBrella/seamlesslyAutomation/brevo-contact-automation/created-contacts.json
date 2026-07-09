@@ -1,0 +1,52 @@
+{
+  "createdAt": "2026-03-01T03:51:05.409Z",
+  "listId": 18,
+  "created": [
+    {
+      "email": "jeff.levack@placeholder.local",
+      "id": null,
+      "firstName": "Jeff",
+      "lastName": "Levack"
+    },
+    {
+      "email": "damon.ware@placeholder.local",
+      "id": null,
+      "firstName": "Damon",
+      "lastName": "Ware"
+    },
+    {
+      "email": "rich.szesnat@placeholder.local",
+      "id": null,
+      "firstName": "Rich",
+      "lastName": "Szesnat"
+    },
+    {
+      "email": "andy.guelcher@placeholder.local",
+      "id": null,
+      "firstName": "Andy",
+      "lastName": "Guelcher"
+    },
+    {
+      "email": "mike.kwarta@placeholder.local",
+      "id": null,
+      "firstName": "Mike",
+      "lastName": "Kwarta"
+    },
+    {
+      "email": "info@kccougars.com",
+      "id": 2645,
+      "firstName": "",
+      "lastName": ""
+    },
+    {
+      "email": "lincoln.saltdogs@placeholder.local",
+      "id": 2646,
+      "firstName": "",
+      "lastName": ""
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "failed": 0
+  }
+}

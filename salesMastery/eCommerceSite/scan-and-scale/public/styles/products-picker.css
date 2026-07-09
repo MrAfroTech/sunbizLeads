@@ -1,0 +1,169 @@
+/* Products hub only — venue-type card grid (linked from products.html) */
+
+.page-products .products-picker-head {
+  text-align: center;
+  margin-bottom: clamp(20px, 3vw, 32px);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-products .products-picker-head h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px, 4.2vw, 46px);
+  letter-spacing: 1px;
+  color: #fff;
+  line-height: 1.08;
+  margin-bottom: 10px;
+}
+
+.page-products .products-picker-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(15px, 2vw, 17px);
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.45;
+}
+
+.page-products-main.shell {
+  padding-bottom: 48px;
+}
+
+.page-products .products-venue-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 22px);
+  align-items: stretch;
+}
+
+/* ScanBand™ is always last in DOM — full-width bottom row */
+.page-products .products-venue-grid .product-venue-card:last-child {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.page-products .products-venue-grid .product-venue-card:last-child .product-venue-card__photo {
+  aspect-ratio: auto;
+  flex: 0 0 clamp(140px, 38%, 280px);
+  min-height: min(220px, 40vw);
+  align-self: stretch;
+}
+
+.page-products .products-venue-grid .product-venue-card:last-child .product-venue-card__photo img {
+  height: 100%;
+  min-height: 180px;
+}
+
+.page-products .products-venue-grid .product-venue-card:last-child .product-venue-card__body {
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .page-products .products-venue-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-products .products-venue-grid .product-venue-card:last-child {
+    grid-column: auto;
+    flex-direction: column;
+  }
+
+  .page-products .products-venue-grid .product-venue-card:last-child .product-venue-card__photo {
+    flex: none;
+    aspect-ratio: 21 / 9;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .page-products .products-venue-grid .product-venue-card:last-child .product-venue-card__photo img {
+    min-height: 0;
+    height: 100%;
+  }
+}
+
+.product-venue-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: rgba(26, 42, 68, 0.72);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product-venue-card:hover {
+  border-color: rgba(212, 175, 55, 0.65);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+.product-venue-card:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.product-venue-card__photo {
+  aspect-ratio: 3 / 4;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.product-venue-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-venue-card__body {
+  padding: 14px 16px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+.product-venue-card__collection {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0;
+}
+
+.product-venue-card__name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(21px, 2.4vw, 28px);
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  line-height: 1.08;
+  margin: 0;
+}
+
+.product-venue-card__price {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.product-venue-card__cta.btn {
+  margin-top: auto;
+  align-self: stretch;
+  text-align: center;
+  pointer-events: none;
+}
+
+.product-venue-card:hover .product-venue-card__cta.btn-primary {
+  filter: brightness(1.05);
+}

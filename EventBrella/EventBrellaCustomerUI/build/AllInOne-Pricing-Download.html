@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventBrella - All-In-One Business Platform Pricing</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .container { max-width: 100%; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        /* Hero Section */
+        .pricing-hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Competitor Comparison Section */
+        .competitor-comparison {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .competitor-comparison h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        .competitor-list {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+        
+        .separator {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #999;
+            margin: 20px 0;
+        }
+        
+        .total-box, .eventbrella-box, .savings-box {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .total-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        
+        .eventbrella-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .savings-box {
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+        }
+        
+        /* Pricing Tiers Table */
+        .pricing-table-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .pricing-table-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #2D5016;
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        th.popular {
+            background: #DAA520;
+            position: relative;
+        }
+        
+        th.popular::before {
+            content: "⭐ MOST POPULAR + 1 MONTH FREE ⭐";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6b35;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tr:hover {
+            background: #f0f8f0;
+        }
+        
+        /* Pricing Cards Section */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            border: 3px solid transparent;
+        }
+        
+        .pricing-card.popular {
+            border-color: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        
+        .tier-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .tier-tagline {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .price-container {
+            margin: 30px 0;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2D5016;
+        }
+        
+        .period {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .setup-fee {
+            background: rgba(218, 165, 32, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+        }
+        
+        .trial-badge {
+            background: rgba(45, 80, 22, 0.1);
+            color: #DAA520;
+            padding: 8px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .savings-badge {
+            background: rgba(218, 165, 32, 0.1);
+            color: #DAA520;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin: 15px 0;
+        }
+        
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+        
+        .features-list li::before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .popular-for {
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+        
+        /* CTA Buttons */
+        .cta-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .cta-button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button.starter {
+            background: #2D5016;
+        }
+        
+        .cta-button.professional {
+            background: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .cta-button.enterprise {
+            background: #333;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .footer strong {
+            color: #2D5016;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-button.professional {
+                transform: scale(1);
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn no-print" onclick="window.print()">📄 Download PDF</button>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="pricing-hero">
+            <h1 class="hero-title">All-In-One Business Platform</h1>
+            <p class="hero-subtitle">
+                Stop paying for 10 different apps. Get everything you need in one platform—with all your data in one secure place.
+            </p>
+        </div>
+        
+        <!-- Competitor Comparison Section -->
+        <div class="competitor-comparison">
+            <h2>IF YOU BOUGHT THESE SEPARATELY FROM COMPETITORS:</h2>
+            <div class="competitor-list">
+                <p>• Mindbody/Vagaro (Massage Booking): $100/month</p>
+                <p>• Libsyn/Podbean (Podcast Hosting): $30/month</p>
+                <p>• Calendly/Acuity (Scheduling): $35/month</p>
+                <p>• Square/Clover (POS System): $60/month</p>
+                <p>• Toast/ChowNow (Mobile Ordering for Cafe): $125/month</p>
+                <p>• Beaconstac/QR Code Generator (QR Codes): $20/month</p>
+                <p>• Eventbrite/Ticketmaster (Event Ticketing & Space Rental): $65/month</p>
+                <p>• WordPress/Wix (Website & Blog Hosting): $45/month</p>
+                <p>• HubSpot/Mailchimp (CRM & Email Marketing): $50/month</p>
+                <p>• Twilio/SimpleTexting (SMS Marketing): $25/month</p>
+            </div>
+            
+            <div class="separator">────────────────────────────────────</div>
+            
+            <div class="total-box">
+                <strong>TOTAL IF BOUGHT SEPARATELY: $555/month ($6,660/year)</strong>
+            </div>
+            
+            <div class="eventbrella-box">
+                <strong>EVENTBRELLA ALL-IN-ONE PRICE: Starting at $199/month</strong>
+            </div>
+            
+            <div class="savings-box">
+                <strong>YOU SAVE: Up to $356/month ($4,272/year)</strong>
+            </div>
+        </div>
+        
+        <!-- Pricing Cards -->
+        <div class="pricing-cards">
+            <!-- Starter Card -->
+            <div class="pricing-card">
+                <h3 class="tier-name">Starter</h3>
+                <p class="tier-tagline">Get the basics</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">199</span>
+                    <span class="period">/month</span>
+                </div>
+                <div class="setup-fee">+ $300 one-time setup fee</div>
+                <div class="savings-badge">Save 64% vs buying separately</div>
+                <ul class="features-list">
+                    <li>Staff Accounts: 2</li>
+                    <li>Monthly Appointments: 1,000</li>
+                    <li>Booking System: Basic</li>
+                    <li>POS System: Square Integration</li>
+                    <li>Mobile Ordering (Cafe): Basic</li>
+                    <li>Storage: 5GB (for podcasts)</li>
+                    <li>QR Codes: 100</li>
+                    <li>Event Ticketing & Space Rental: ✗</li>
+                    <li>Website & Blog Hosting: ✗</li>
+                    <li>Weekly Blog Posts: ✗</li>
+                    <li>CRM: ✗</li>
+                    <li>Custom Integrations: ✗</li>
+                    <li>Brand Customization: ✗</li>
+                    <li>Account Manager: ✗</li>
+                    <li>Support Response: Email (48hrs)</li>
+                </ul>
+                <p class="popular-for">Perfect for: Solo practitioners just starting out</p>
+            </div>
+            
+            <!-- Professional Card -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3 class="tier-name">Professional</h3>
+                <p class="tier-tagline">Everything you need to scale</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">297</span>
+                    <span class="period">/month</span>
+                </div>
+                <div class="setup-fee">+ $300 one-time setup fee</div>
+                <div class="trial-badge">🎁 30-day free trial included</div>
+                <div class="savings-badge">Save 46% vs buying separately</div>
+                <ul class="features-list">
+                    <li>Staff Accounts: 10</li>
+                    <li>Monthly Appointments: Unlimited</li>
+                    <li>Booking System: Full Featured</li>
+                    <li>POS System: Square + Advanced Reporting</li>
+                    <li>Mobile Ordering (Cafe): Unlimited</li>
+                    <li>Storage: 50GB (for podcasts)</li>
+                    <li>QR Codes: Unlimited</li>
+                    <li>Event Ticketing & Space Rental: ✓</li>
+                    <li>Website & Blog Hosting: ✓</li>
+                    <li>Weekly Blog Posts: ✓ (4 posts/month)</li>
+                    <li>CRM: 200 contacts (Email & SMS)</li>
+                    <li>Custom Integrations: ✓</li>
+                    <li>Brand Customization: ✗</li>
+                    <li>Account Manager: ✗</li>
+                    <li>Support Response: Priority (24hrs)</li>
+                </ul>
+                <p class="popular-for">Perfect for: Growing businesses & multi-location</p>
+            </div>
+            
+            <!-- Enterprise Card -->
+            <div class="pricing-card">
+                <h3 class="tier-name">Enterprise</h3>
+                <p class="tier-tagline">Built for serious operations</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">399</span>
+                    <span class="period">/month</span>
+                </div>
+                <div style="background: rgba(45, 80, 22, 0.1); padding: 10px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem; border: 1px solid rgba(45, 80, 22, 0.3); color: #2D5016; font-weight: 600;">No setup fee</div>
+                <div class="savings-badge">Save 28% vs buying separately</div>
+                <ul class="features-list">
+                    <li>Staff Accounts: Unlimited</li>
+                    <li>Monthly Appointments: Unlimited</li>
+                    <li>Booking System: Full Featured</li>
+                    <li>POS System: Square + Advanced Reporting</li>
+                    <li>Mobile Ordering (Cafe): Unlimited</li>
+                    <li>Storage: 200GB (for podcasts)</li>
+                    <li>QR Codes: Unlimited</li>
+                    <li>Event Ticketing & Space Rental: ✓</li>
+                    <li>Website & Blog Hosting: ✓</li>
+                    <li>Weekly Blog Posts: ✓ (4 posts/month)</li>
+                    <li>CRM: 1,000 contacts (Email & SMS)</li>
+                    <li>Custom Integrations: ✓</li>
+                    <li>Brand Customization: ✓</li>
+                    <li>Account Manager: Dedicated</li>
+                    <li>Support Response: Priority (2hrs)</li>
+                </ul>
+                <p class="popular-for">Perfect for: Franchises & enterprise chains</p>
+            </div>
+        </div>
+        
+        <!-- Pricing Tiers Table -->
+        <div class="pricing-table-section">
+            <h2>PRICING TIERS TABLE</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter<br>$199/month</th>
+                        <th class="popular">Professional<br>$297/month</th>
+                        <th>Enterprise<br>$399/month</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Staff Accounts</strong></td>
+                        <td>2</td>
+                        <td>10</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monthly Appointments</strong></td>
+                        <td>1,000</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Booking System</strong></td>
+                        <td>Basic</td>
+                        <td>Full Featured</td>
+                        <td>Full Featured</td>
+                    </tr>
+                    <tr>
+                        <td><strong>POS System</strong></td>
+                        <td>Square Integration</td>
+                        <td>Square + Advanced Reporting</td>
+                        <td>Square + Advanced Reporting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Ordering (Cafe)</strong></td>
+                        <td>Basic</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage (Podcasts)</strong></td>
+                        <td>5GB</td>
+                        <td>50GB</td>
+                        <td>200GB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QR Codes</strong></td>
+                        <td>100</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Event Ticketing & Space Rental</strong></td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Website & Blog Hosting</strong></td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Weekly Blog Posts</strong></td>
+                        <td>✗</td>
+                        <td>4 posts/month</td>
+                        <td>4 posts/month</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRM (Email & SMS)</strong></td>
+                        <td>✗</td>
+                        <td>200 contacts</td>
+                        <td>1,000 contacts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Integrations</strong></td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Brand Customization</strong></td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Account Manager</strong></td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>Dedicated</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support Response</strong></td>
+                        <td>Email (48hrs)</td>
+                        <td>Priority (24hrs)</td>
+                        <td>Priority (2hrs)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 style="margin-bottom: 30px; color: #2D5016;">Ready to Simplify Your Business?</h2>
+            <div class="cta-buttons">
+                <div class="cta-button starter">Get Started</div>
+                <div class="cta-button professional">Start Free Trial</div>
+                <div class="cta-button enterprise">Contact Sales</div>
+            </div>
+            <p style="margin-top: 30px; color: #666; font-size: 0.9rem;">
+                All plans include a 30-day money-back guarantee. No setup fees for Enterprise plan.
+            </p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>EventBrella</strong> - All-In-One Business Platform</p>
+            <p>Massage Booking • Podcast Hosting • Scheduling • POS • Mobile Ordering • QR Codes • Event Ticketing</p>
+            <p style="margin-top: 20px;">Contact: info@eventbrella.com</p>
+        </div>
+    </div>
+</body>
+</html>

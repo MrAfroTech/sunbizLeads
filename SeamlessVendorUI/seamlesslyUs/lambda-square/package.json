@@ -1,0 +1,24 @@
+{
+  "name": "ezdrink-square-lambda",
+  "version": "1.0.0",
+  "description": "Square integration and vendor management Lambda functions",
+  "main": "square-lambda-handler.js",
+  "scripts": {
+    "test": "node test-local.js",
+    "deploy": "./deploy.sh"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.873.0",
+    "@aws-sdk/lib-dynamodb": "^3.873.0",
+    "@smithy/util-middleware": "^4.0.5"
+  },
+  "keywords": [
+    "square",
+    "oauth",
+    "lambda",
+    "aws",
+    "vendor-management"
+  ],
+  "author": "",
+  "license": "ISC"
+}

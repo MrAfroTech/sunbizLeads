@@ -1,0 +1,4 @@
+project_id = "smqwemfobrqxnpcooigd"
+
+[functions.track-calculator-event]
+verify_jwt = false

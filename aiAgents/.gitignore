@@ -1,0 +1,12 @@
+# Credentials - NEVER commit these
+credentials/*.json
+!credentials/credentials-template.json
+credentials/*.txt
+credentials/*.key
+credentials/*.pem
+.env
+.env.local
+
+# Keep the credentials directory structure
+!credentials/.gitignore
+!credentials/README.md

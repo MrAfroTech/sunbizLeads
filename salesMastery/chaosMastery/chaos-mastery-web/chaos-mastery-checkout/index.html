@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="cmc-api-base" content="">
+  <title>Preorder — Chaos Mastery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #0d1b2a;
+      --navy: #1A2A44;
+      --gold: #D4AF37;
+      --gold-light: #e8c84a;
+      --text-body: rgba(255, 255, 255, 0.72);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+      background: var(--navy-deep);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cmc-page {
+      width: 100%;
+      max-width: 520px;
+      background: var(--navy);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 40px 36px 36px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+    .cmc-redirect-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.55;
+      text-align: center;
+      margin: 0;
+    }
+    .cmc-primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+    }
+    .cmc-primary-btn:hover:not(:disabled) {
+      opacity: 0.95;
+    }
+    #cardErrors {
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #f87171;
+      line-height: 1.5;
+    }
+    #cmcSuccess {
+      display: none;
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.55;
+    }
+    .cmc-hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <main class="cmc-page">
+    <div id="cmcSuccess">You're locked in. We'll notify you the moment your copy ships.</div>
+    <div id="cmcRedirect" aria-live="polite">
+      <p class="cmc-redirect-text">Redirecting to secure checkout…</p>
+    </div>
+    <div id="cmcError" class="cmc-hidden">
+      <p id="cardErrors" role="alert"></p>
+      <button type="button" class="cmc-primary-btn" id="retryButton">Try again</button>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var API_BASE_URL = '/api';
+      var PENDING_CHECKOUT_KEY = 'cmc_pending_checkout';
+      var redirectEl = document.getElementById('cmcRedirect');
+      var errorBlock = document.getElementById('cmcError');
+      var successEl = document.getElementById('cmcSuccess');
+      var cardErrors = document.getElementById('cardErrors');
+      var retryButton = document.getElementById('retryButton');
+
+      var params = new URLSearchParams(window.location.search);
+      var sessionId = params.get('session_id');
+      var pending = sessionStorage.getItem(PENDING_CHECKOUT_KEY) === '1';
+
+      function showSuccess() {
+        redirectEl.classList.add('cmc-hidden');
+        errorBlock.classList.add('cmc-hidden');
+        successEl.style.display = 'block';
+      }
+
+      function showRedirect() {
+        redirectEl.classList.remove('cmc-hidden');
+        errorBlock.classList.add('cmc-hidden');
+        cardErrors.textContent = '';
+      }
+
+      function showError(msg) {
+        redirectEl.classList.add('cmc-hidden');
+        errorBlock.classList.remove('cmc-hidden');
+        cardErrors.textContent = msg || 'An error occurred. Please try again.';
+      }
+
+      async function startCheckout() {
+        showRedirect();
+        try {
+          var paymentResponse = await fetch(API_BASE_URL + '/chaos-mastery-stripe-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({}),
+          });
+          var paymentContentType = paymentResponse.headers.get('content-type') || '';
+          var paymentData;
+          if (!paymentContentType.includes('application/json')) {
+            var rawText = await paymentResponse.text();
+            throw new Error(
+              'Payment service returned a non-JSON response (status ' + paymentResponse.status + '). ' +
+              rawText.slice(0, 140)
+            );
+          }
+          paymentData = await paymentResponse.json();
+          if (!paymentData.success) {
+            throw new Error(paymentData.message || 'Payment initialization failed');
+          }
+          if (paymentData.sessionUrl) {
+            sessionStorage.setItem(PENDING_CHECKOUT_KEY, '1');
+            window.location.href = paymentData.sessionUrl;
+          } else {
+            throw new Error('No checkout session URL received');
+          }
+        } catch (err) {
+          console.error('Payment error:', err);
+          showError(err.message || 'An error occurred. Please try again.');
+        }
+      }
+
+      if (sessionId && pending) {
+        sessionStorage.removeItem(PENDING_CHECKOUT_KEY);
+        showSuccess();
+        return;
+      }
+
+      if (sessionId && !pending) {
+        try {
+          history.replaceState(null, '', window.location.pathname + window.location.hash);
+        } catch (e) {}
+      }
+
+      retryButton.addEventListener('click', function () {
+        startCheckout();
+      });
+
+      startCheckout();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+/* DemoPage.css - Combined with loading animation */
+
+.demo-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.demo-hero {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./bar-background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.demo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(224, 184, 65, 0.3), rgba(21, 21, 21, 0.8));
+}
+
+.demo-content {
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.demo-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #e0b841, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.demo-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+/* Video Demo Section */
+.video-demo-section {
+  padding: 60px 20px;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.video-container {
+  margin: 30px auto;
+  max-width: 800px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.video-poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: #121212;
+}
+
+.demo-video {
+  display: block;
+  width: 100%;
+  z-index: 5;
+}
+
+/* Loading Animation Styles */
+.loading-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background elements */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.gradient-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.15), transparent 40%),
+              radial-gradient(circle at 70% 60%, rgba(184, 134, 11, 0.1), transparent 50%) !important;
+  z-index: 2;
+}
+
+.grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 3;
+}
+
+/* Logo styling */
+.logo {
+  position: relative;
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+  z-index: 10;
+}
+
+.ez-text {
+  color: #e0b841;
+  background: linear-gradient(135deg, #d4af37, #f5e28a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.drink-text {
+  color: #fff;
+  font-weight: 300;
+}
+
+/* Loading message */
+.loading-message {
+  position: relative;
+  font-size: 18px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+  max-width: 600px;
+  z-index: 10;
+  padding: 0 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* Loading animation */
+.loading-bar {
+  position: relative;
+  width: 200px;
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.loading-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #d4af37, #f5e28a);
+  animation: loadingAnimation 3s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.limited-time-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #e0b841;
+  color: #000;
+  text-align: center;
+  padding: 0.75rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.pulse-dot {
+  height: 10px;
+  width: 10px;
+  background-color: #ff4d4d;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 77, 77, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
+  }
+}
+
+.promo-section {
+  background-color: #1a1a1a;
+  padding: 50px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.promo-content {
+  margin-bottom: 40px;
+}
+
+.promo-content h3 {
+  font-size: 1.8rem;
+  color: #e0b841;
+}
+
+.promo-cta {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #222;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.promo-cta h2 {
+  color: #e0b841;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(to right, #e0b841, #d4af37);
+  color: #000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  margin: 1.5rem 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(224, 184, 65, 0.4);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(224, 184, 65, 0.6);
+}
+
+.hurry-text {
+  font-style: italic;
+  color: #e0b841;
+}
+
+.demo-features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-highlight {
+  text-align: center;
+  padding: 2rem;
+  background-color: #222;
+  border-radius: 8px;
+  margin: 1rem;
+  flex: 1;
+  min-width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.feature-highlight:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-highlight h3 {
+  color: #e0b841;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .demo-title {
+    font-size: 2rem;
+  }
+  
+  .demo-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .logo {
+    font-size: 48px;
+  }
+  
+  .loading-message {
+    font-size: 16px;
+  }
+  
+  .promo-cta h2 {
+    font-size: 1.5rem;
+  }
+  
+  .cta-button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}

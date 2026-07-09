@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Seamlessly">
+  <rect width="200" height="200" fill="#1A2A44"/>
+  <rect x="24" y="24" width="152" height="152" fill="none" stroke="#D4AF37" stroke-width="2"/>
+  <text x="100" y="108"
+        font-family="Georgia, serif"
+        font-size="28"
+        font-weight="700"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        fill="#D4AF37">S</text>
+  <text x="100" y="148"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="14"
+        font-weight="600"
+        letter-spacing="2"
+        text-anchor="middle"
+        fill="#FFFFFF">SEAMLESSLY</text>
+</svg>

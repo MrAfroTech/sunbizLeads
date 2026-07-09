@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy-deep:#0d1b2a;
+      --navy:#1A2A44;
+      --gold:#D4AF37;
+      --gold-light:#e8c84a;
+      --gold-border:rgba(212,175,55,0.28);
+      --text-body:rgba(255,255,255,0.72);
+      --text-dim:rgba(255,255,255,0.40);
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:40px 20px 80px;
+      background:var(--navy-deep);
+      color:#fff;
+      font-family:'Inter',sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .bp-page{
+      width:100%;
+      max-width:720px;
+      background:var(--navy);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 12px 40px rgba(0,0,0,0.35);
+    }
+
+    .bp-header{
+      padding:52px 52px 26px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      position:relative;
+      text-align:center;
+      background:linear-gradient(180deg, rgba(26,42,68,0.98) 0%, rgba(13,27,42,1) 100%);
+    }
+
+    .bp-header::before{
+      content:'';
+      position:absolute;
+      top:-120px;
+      right:-120px;
+      width:280px;
+      height:280px;
+      background:radial-gradient(circle at top right, rgba(212,175,55,0.18) 0%, transparent 65%);
+      pointer-events:none;
+    }
+
+    .bp-eyebrow{
+      font-family:'Inter',sans-serif;
+      font-size:11px;
+      font-weight:600;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:16px;
+      position:relative;
+      z-index:1;
+    }
+
+    .bp-h1{
+      font-family:'Montserrat',sans-serif;
+      font-weight:900;
+      font-size:34px;
+      line-height:1.12;
+      margin:0 0 14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .bp-subheadline{
+      font-family:'Inter',sans-serif;
+      font-size:16px;
+      font-weight:500;
+      color:var(--text-body);
+      line-height:1.65;
+      margin:0 auto;
+      max-width:560px;
+      position:relative;
+      z-index:1;
+    }
+
+    .bp-content{
+      padding:34px 52px 48px;
+      text-align:center;
+    }
+
+    .bp-body{
+      font-size:16px;
+      font-weight:500;
+      line-height:1.75;
+      color:var(--text-body);
+      margin:0 0 18px;
+    }
+
+    .bp-bullets{
+      text-align:left;
+      margin:18px auto 28px;
+      padding:0;
+      list-style:none;
+      max-width:520px;
+    }
+
+    .bp-bullets li{
+      color:var(--text-body);
+      font-weight:500;
+      line-height:1.65;
+      margin:12px 0;
+      padding-left:20px;
+      position:relative;
+    }
+
+    .bp-bullets li::before{
+      content:'';
+      position:absolute;
+      left:0;
+      top:9px;
+      width:8px;
+      height:8px;
+      border-radius:2px;
+      background:var(--gold);
+    }
+
+    .bp-form{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .bp-input{
+      width:100%;
+      max-width:420px;
+      padding:16px 18px;
+      border-radius:12px;
+      border:1px solid rgba(212,175,55,0.28);
+      background:rgba(13,27,42,0.85);
+      color:#fff;
+      outline:none;
+      font-family:'Inter',sans-serif;
+      font-size:16px;
+    }
+
+    .bp-input::placeholder{
+      color:rgba(255,255,255,0.45);
+    }
+
+    .bp-primary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px 34px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      background:linear-gradient(135deg, var(--gold), var(--gold-light));
+      color:var(--navy);
+      font-family:'Montserrat',sans-serif;
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:1.2px;
+      box-shadow:0 4px 16px rgba(212,175,55,0.30);
+      transition:transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .bp-primary-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 24px rgba(212,175,55,0.42);
+    }
+
+    .bp-primary-btn:disabled{
+      opacity:0.65;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .bp-status{
+      font-size:14px;
+      color:rgba(255,255,255,0.60);
+      line-height:1.6;
+      min-height:20px;
+    }
+
+    .bp-success{
+      display:none;
+      margin-top:16px;
+    }
+
+    .bp-success-head{
+      font-family:'Inter',sans-serif;
+      font-weight:600;
+      font-size:16px;
+      color:rgba(255,255,255,0.85);
+      margin:0 0 8px;
+    }
+
+    .bp-success-sub{
+      font-size:14px;
+      color:var(--text-body);
+      margin:0 0 18px;
+      line-height:1.7;
+    }
+
+    .bp-secondary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 28px;
+      border-radius:10px;
+      border:1px solid rgba(212,175,55,0.35);
+      background:transparent;
+      color:var(--gold);
+      font-family:'Montserrat',sans-serif;
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:1.2px;
+      text-decoration:none;
+      box-shadow:none;
+      transition:transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .bp-secondary-btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(212,175,55,0.7);
+    }
+
+    .bp-legal-note{
+      margin-top:18px;
+      font-size:12px;
+      color:rgba(255,255,255,0.35);
+      line-height:1.6;
+    }
+
+    @media (max-width:480px){
+      body{ padding:28px 14px 60px; }
+      .bp-header{ padding:44px 20px 22px; }
+      .bp-content{ padding:26px 20px 36px; }
+      .bp-h1{ font-size:26px; }
+      .bp-input{ max-width:320px; }
+      .bp-primary-btn{ width:100%; max-width:320px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="bp-page">
+    <section class="bp-header">
+      <div class="bp-eyebrow">Book Preview</div>
+      <h1 class="bp-h1">Most Hospitality Businesses Are Optimizing the Wrong Thing.</h1>
+      <p class="bp-subheadline">
+        They chase efficiency… and lose the customer.
+        They cut costs… and kill the experience.
+        And they wonder why margins stay tight.
+      </p>
+    </section>
+
+    <section class="bp-content">
+      <p class="bp-body">
+        This book breaks down how hospitality evolved —
+        from a time when watering down beer meant death…
+        to taverns that built nations…
+        to the middle class reshaping access…
+        to today — where technology is misused and profits suffer because of it.
+      </p>
+
+      <ul class="bp-bullets">
+        <li>When quality dropped, consequences were severe.</li>
+        <li>Hospitality once built trust before it built revenue.</li>
+        <li>Scale didn’t ruin experience — shortcuts did.</li>
+        <li>Technology should enhance service — not replace it.</li>
+      </ul>
+
+      <div id="bpFormFields" class="bp-form">
+        <input id="bpEmailInput" class="bp-input" type="email" inputmode="email" placeholder="Enter your email" autocomplete="email" />
+        <button id="bpSubmitBtn" class="bp-primary-btn" type="button">Send Me the Preview</button>
+      </div>
+      <div id="bpStatus" class="bp-status" aria-live="polite"></div>
+
+      <div id="bpSuccess" class="bp-success">
+        <p class="bp-success-head">Check your email. Your preview is on the way.</p>
+        <p class="bp-success-sub">Want to see how this increases your revenue?</p>
+        <a id="bpDemoLink" class="bp-secondary-btn" href="/demo" >Book a Demo</a>
+        <div class="bp-legal-note">No spam. Just the preview and a single follow-up conversation.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const formWrap = document.getElementById('bpFormFields');
+      const emailInput = document.getElementById('bpEmailInput');
+      const submitBtn = document.getElementById('bpSubmitBtn');
+      const statusEl = document.getElementById('bpStatus');
+
+      const successWrap = document.getElementById('bpSuccess');
+      const demoLink = document.getElementById('bpDemoLink');
+
+      const params = new URLSearchParams(window.location.search);
+      const urlEmail = (params.get('email') || '').trim().toLowerCase();
+
+      const isValidEmail = function (value) {
+        // Simple validation for UX; backend still validates.
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
+      };
+
+      const normalizeEmail = function (value) {
+        return String(value || '').trim().toLowerCase();
+      };
+
+      const makeDoneKey = function (email) {
+        return 'bp_brevo_done_' + normalizeEmail(email);
+      };
+
+      const makeInflightKey = function (email) {
+        return 'bp_brevo_inflight_' + normalizeEmail(email);
+      };
+
+      let inFlight = false;
+
+      function showSuccess() {
+        formWrap.style.display = 'none';
+        submitBtn.disabled = true;
+        statusEl.textContent = '';
+        successWrap.style.display = 'block';
+        inFlight = false;
+      }
+
+      function showError(message) {
+        statusEl.textContent = message || 'Please try again.';
+        submitBtn.disabled = false;
+        inFlight = false;
+        formWrap.style.display = 'flex';
+      }
+
+      async function addToBrevo(email) {
+        const doneKey = makeDoneKey(email);
+        const inflightKey = makeInflightKey(email);
+
+        if (sessionStorage.getItem(doneKey) === '1') {
+          showSuccess();
+          return;
+        }
+
+        if (sessionStorage.getItem(inflightKey) === '1') {
+          statusEl.textContent = 'Sending your preview…';
+          return;
+        }
+
+        sessionStorage.setItem(inflightKey, '1');
+
+        try {
+          inFlight = true;
+          submitBtn.disabled = true;
+          statusEl.textContent = 'Sending your preview…';
+
+          const res = await fetch('/api/addToBrevo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: normalizeEmail(email) })
+          });
+
+          if (!res.ok) {
+            const data = await res.json().catch(function () { return null; });
+            const errMsg =
+              (data && (data.error || (typeof data === 'string' ? data : ''))) ||
+              (await res.text().catch(function () { return ''; })) ||
+              'Brevo request failed';
+            throw new Error(errMsg);
+          }
+
+          sessionStorage.setItem(doneKey, '1');
+          sessionStorage.removeItem(inflightKey);
+          showSuccess();
+        } catch (err) {
+          sessionStorage.removeItem(inflightKey);
+          showError(err && err.message ? err.message : 'Sorry — something went wrong. Please try again.');
+          console.error('addToBrevo error:', err);
+        }
+      }
+
+      function startAutoCaptureIfPresent() {
+        if (!urlEmail) return;
+
+        // Prefill the input for accessibility, even if we hide it.
+        emailInput.value = urlEmail;
+        formWrap.style.display = 'none';
+        submitBtn.disabled = true;
+        statusEl.textContent = 'Sending your preview…';
+        addToBrevo(urlEmail);
+      }
+
+      async function onManualSubmit() {
+        const email = normalizeEmail(emailInput.value);
+        if (!isValidEmail(email)) {
+          showError('Please enter a valid email address.');
+          return;
+        }
+        await addToBrevo(email);
+      }
+
+      submitBtn.addEventListener('click', function () {
+        if (inFlight) return;
+        onManualSubmit();
+      });
+
+      // Auto-capture if `?email=` exists
+      if (urlEmail) {
+        // Immediately attempt once (deduped via sessionStorage keys)
+        startAutoCaptureIfPresent();
+      } else {
+        // Fallback: show manual entry
+        formWrap.style.display = 'flex';
+        successWrap.style.display = 'none';
+        statusEl.textContent = '';
+        emailInput.focus();
+      }
+    })();
+  </script>
+</body>
+</html>
+

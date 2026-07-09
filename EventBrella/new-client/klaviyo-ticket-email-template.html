@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Event Ticket</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f5f5f5;">
+    <!-- Main Container -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <!-- Email Container (max-width: 600px) -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    
+                    <!-- Header Section -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); padding: 30px 20px; text-align: center;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+                                New Client
+                            </h1>
+                            <p style="margin: 10px 0 0 0; color: #ffffff; font-size: 14px; opacity: 0.9;">
+                                —
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Main Content -->
+                    <tr>
+                        <td style="padding: 30px 20px;">
+                            
+                            <!-- Welcome Message -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding-bottom: 20px;">
+                                        <h2 style="margin: 0; color: #333333; font-size: 24px; font-weight: bold;">
+                                            Your Ticket Confirmation
+                                        </h2>
+                                        <p style="margin: 10px 0 0 0; color: #666666; font-size: 16px; line-height: 1.5;">
+                                            Hi {{ event.customer_name }},
+                                        </p>
+                                        <p style="margin: 10px 0 0 0; color: #666666; font-size: 16px; line-height: 1.5;">
+                                            Your ticket purchase has been confirmed! We're excited to have you join us.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Ticket Details Card -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fafafa; border: 2px solid #e0e0e0; border-radius: 8px; margin: 20px 0;">
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <h3 style="margin: 0; color: #8B4513; font-size: 20px; font-weight: bold; text-transform: uppercase;">
+                                                        {{ event.event_name }}
+                                                    </h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="120" style="color: #666666; font-size: 14px; font-weight: bold;">Date:</td>
+                                                            <td style="color: #333333; font-size: 14px;">{{ event.event_date }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="120" style="color: #666666; font-size: 14px; font-weight: bold;">Time:</td>
+                                                            <td style="color: #333333; font-size: 14px;">{{ event.event_time }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #e0e0e0;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="120" style="color: #666666; font-size: 14px; font-weight: bold;">Venue:</td>
+                                                            <td style="color: #333333; font-size: 14px;">{{ event.event_venue }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="120" style="color: #666666; font-size: 14px; font-weight: bold;">Transaction ID:</td>
+                                                            <td style="color: #333333; font-size: 14px; font-family: monospace;">{{ event.transaction_id }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- QR Code Section -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 30px 0;">
+                                <tr>
+                                    <td align="center" style="padding: 20px; background-color: #ffffff; border: 2px dashed #8B4513; border-radius: 8px;">
+                                        <p style="margin: 0 0 15px 0; color: #333333; font-size: 16px; font-weight: bold;">
+                                            Your Entry QR Code
+                                        </p>
+                                        <img src="{{ event.qr_code_url }}" alt="Event Ticket QR Code" width="350" height="350" style="display: block; margin: 0 auto; max-width: 100%; height: auto; border: 4px solid #8B4513; border-radius: 8px; background-color: #ffffff; padding: 10px;" />
+                                        <p style="margin: 15px 0 0 0; color: #666666; font-size: 14px; line-height: 1.5; text-align: center;">
+                                            <strong>Show this QR code at the event entrance</strong>
+                                        </p>
+                                        <p style="margin: 5px 0 0 0; color: #999999; font-size: 12px; line-height: 1.5; text-align: center;">
+                                            Please arrive 15 minutes before the event start time
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Instructions Section -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 20px 0;">
+                                <tr>
+                                    <td style="padding: 20px; background-color: #fff9e6; border-left: 4px solid #D2691E; border-radius: 4px;">
+                                        <p style="margin: 0 0 10px 0; color: #333333; font-size: 16px; font-weight: bold;">
+                                            📋 Important Information
+                                        </p>
+                                        <ul style="margin: 0; padding-left: 20px; color: #666666; font-size: 14px; line-height: 1.8;">
+                                            <li>Present your QR code at the entrance for scanning</li>
+                                            <li>Keep this email accessible on your phone or print it out</li>
+                                            <li>Arrive 15 minutes early to ensure smooth entry</li>
+                                            <li>Contact us if you have any questions before the event</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer Section -->
+                    <tr>
+                        <td style="background-color: #2c2c2c; padding: 25px 20px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; color: #ffffff; font-size: 16px; font-weight: bold;">
+                                {{ event.organizer_name }}
+                            </p>
+                            <p style="margin: 0 0 15px 0; color: #cccccc; font-size: 14px; line-height: 1.5;">
+                                Thank you for your purchase! We look forward to seeing you at the event.
+                            </p>
+                            <p style="margin: 0; color: #999999; font-size: 12px;">
+                                Questions? Contact us at your support email or visit our website
+                            </p>
+                            <p style="margin: 10px 0 0 0; color: #999999; font-size: 11px;">
+                                This is an automated confirmation email. Please do not reply to this message.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+

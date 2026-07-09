@@ -1,0 +1,763 @@
+{
+  "name": "07 - Post-Event Analytics & Learning",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 6 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 6 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "notContains",
+              "keyValue": "Analytics Complete"
+            }
+          ]
+        }
+      },
+      "id": "read-completed-events",
+      "name": "Get Yesterday's Events",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all();\nconst yesterday = new Date();\nyesterday.setDate(yesterday.getDate() - 1);\nyesterday.setHours(0, 0, 0, 0);\n\nconst validEvents = events.filter(item => {\n  const data = item.json;\n  const eventDate = new Date(data.event_date);\n  \n  // Only analyze if:\n  // 1. Event was yesterday or earlier\n  // 2. Has Facebook Event ID\n  // 3. Was actually posted\n  return eventDate <= yesterday &&\n         data.facebook_event_id &&\n         data.facebook_event_id !== '' &&\n         (data.status === 'Promoted on Facebook' || \n          data.status === 'Promoted on Facebook + Instagram');\n});\n\nreturn validEvents.map(item => item.json);"
+      },
+      "id": "filter-events",
+      "name": "Validate Events for Analysis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-events",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-events-available",
+      "name": "Check Events Available",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Event",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "attending_count,declined_count,interested_count,maybe_count,noreply_count,ticket_uri"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-fb-event-stats",
+      "name": "Fetch Final Event Metrics",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_post_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "shares,reactions.summary(true),comments.summary(true),insights.metric(post_impressions,post_engaged_users)"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-fb-post-stats",
+      "name": "Fetch Post Engagement",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.instagram_post_id }}/insights",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "metric",
+              "value": "impressions,reach,engagement,saves,profile_visits"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-ig-stats",
+      "name": "Fetch Instagram Performance",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 400]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.seamlessly.com/v1/events/{{ $json.event_id }}/sales",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-sales-data",
+      "name": "Fetch Ticket Sales Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Process Each Event\"].json;\nconst fbEventStats = $node[\"Fetch Final Event Metrics\"]?.json || {};\nconst fbPostStats = $node[\"Fetch Post Engagement\"]?.json || {};\nconst igStats = $node[\"Fetch Instagram Performance\"]?.json || {};\nconst salesData = $node[\"Fetch Ticket Sales Data\"]?.json || {};\n\n// Facebook Event Metrics\nconst totalRSVPs = (fbEventStats.attending_count || 0) + \n                   (fbEventStats.interested_count || 0) + \n                   (fbEventStats.maybe_count || 0);\nconst rsvpConversionRate = totalRSVPs > 0 ? \n  parseFloat(((fbEventStats.attending_count || 0) / totalRSVPs * 100).toFixed(2)) : 0;\n\n// Facebook Post Metrics\nconst postInsights = fbPostStats.insights?.data || [];\nconst impressions = postInsights.find(m => m.name === 'post_impressions')?.values?.[0]?.value || 0;\nconst engagedUsers = postInsights.find(m => m.name === 'post_engaged_users')?.values?.[0]?.value || 0;\n\nconst totalReactions = fbPostStats.reactions?.summary?.total_count || 0;\nconst totalShares = fbPostStats.shares?.count || 0;\nconst totalComments = fbPostStats.comments?.summary?.total_count || 0;\nconst totalEngagement = totalReactions + totalShares + totalComments;\n\nconst engagementRate = impressions > 0 ? \n  parseFloat(((totalEngagement / impressions) * 100).toFixed(2)) : 0;\n\n// Instagram Metrics (if available)\nconst igMetrics = igStats.data || [];\nconst igImpressions = igMetrics.find(m => m.name === 'impressions')?.values?.[0]?.value || 0;\nconst igEngagement = igMetrics.find(m => m.name === 'engagement')?.values?.[0]?.value || 0;\nconst igSaves = igMetrics.find(m => m.name === 'saves')?.values?.[0]?.value || 0;\n\n// Ticket Sales Attribution\nconst ticketsSold = salesData.total_sold || salesData.tickets_sold || 0;\nconst revenue = salesData.total_revenue || salesData.revenue || 0;\nconst avgTicketPrice = ticketsSold > 0 ? parseFloat((revenue / ticketsSold).toFixed(2)) : 0;\n\n// Calculate social attribution (% of sales from social)\nconst socialReferrals = salesData.referral_sources?.facebook || salesData.facebook_referrals || 0;\nconst socialAttribution = ticketsSold > 0 ? \n  parseFloat(((socialReferrals / ticketsSold) * 100).toFixed(2)) : 0;\n\n// ROI Calculation\nconst promotionCost = eventData.promotion_budget || 0;\nconst socialRevenue = parseFloat((revenue * (socialAttribution / 100)).toFixed(2));\nconst roi = promotionCost > 0 ? \n  parseFloat((((socialRevenue - promotionCost) / promotionCost) * 100).toFixed(2)) : 0;\n\n// Overall Performance Score (1-100)\nlet performanceScore = 0;\n\n// Engagement weight (40 points)\nif (engagementRate >= 5) performanceScore += 40;\nelse if (engagementRate >= 3) performanceScore += 30;\nelse if (engagementRate >= 1) performanceScore += 20;\nelse performanceScore += 10;\n\n// RSVP weight (30 points)\nif (totalRSVPs >= 100) performanceScore += 30;\nelse if (totalRSVPs >= 50) performanceScore += 20;\nelse if (totalRSVPs >= 20) performanceScore += 10;\n\n// Ticket sales weight (30 points)\nif (socialAttribution >= 30) performanceScore += 30;\nelse if (socialAttribution >= 15) performanceScore += 20;\nelse if (socialAttribution >= 5) performanceScore += 10;\n\n// Performance tier\nlet performanceTier = 'Poor';\nif (performanceScore >= 80) performanceTier = 'Excellent';\nelse if (performanceScore >= 60) performanceTier = 'Good';\nelse if (performanceScore >= 40) performanceTier = 'Average';\n\nreturn {\n  ...eventData,\n  \n  // Facebook Event Stats\n  fb_event_attending: fbEventStats.attending_count || 0,\n  fb_event_interested: fbEventStats.interested_count || 0,\n  fb_event_maybe: fbEventStats.maybe_count || 0,\n  fb_event_total_rsvps: totalRSVPs,\n  fb_event_rsvp_conversion: rsvpConversionRate,\n  \n  // Facebook Post Stats\n  fb_post_impressions: impressions,\n  fb_post_engaged_users: engagedUsers,\n  fb_post_reactions: totalReactions,\n  fb_post_shares: totalShares,\n  fb_post_comments: totalComments,\n  fb_post_total_engagement: totalEngagement,\n  fb_post_engagement_rate: engagementRate,\n  \n  // Instagram Stats\n  ig_impressions: igImpressions,\n  ig_engagement: igEngagement,\n  ig_saves: igSaves,\n  \n  // Cross-platform totals\n  total_impressions: impressions + igImpressions,\n  total_engagement: totalEngagement + igEngagement,\n  \n  // Ticket Sales\n  tickets_sold: ticketsSold,\n  ticket_revenue: revenue,\n  avg_ticket_price: avgTicketPrice,\n  social_attribution_percent: socialAttribution,\n  social_revenue: socialRevenue,\n  \n  // ROI\n  promotion_cost: promotionCost,\n  roi_percent: roi,\n  \n  // Performance\n  performance_score: performanceScore,\n  performance_tier: performanceTier,\n  \n  // Meta\n  analytics_completed_at: new Date().toISOString(),\n  status: 'Analytics Complete'\n};"
+      },
+      "id": "aggregate-metrics",
+      "name": "Aggregate All Metrics",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {
+          "temperature": 0.7,
+          "responseFormat": "json_object"
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a social media analytics expert specializing in event promotion.\n\nAnalyze event performance and provide actionable insights.\n\nReturn JSON with:\n{\n  \"summary\": \"2-3 sentence performance summary\",\n  \"strengths\": [\"what worked well\"],\n  \"weaknesses\": [\"what could improve\"],\n  \"recommendations\": [\"specific actions for future events\"],\n  \"content_effectiveness\": \"analysis of post copy/timing\",\n  \"audience_insights\": \"who engaged most, when\"\n}"
+            },
+            {
+              "role": "user",
+              "content": "Analyze this event's performance:\n\nEvent: {{ $json.event_name }}\nType: {{ $json.event_category }}\nDate: {{ $json.event_date }}\n\nFacebook Metrics:\n- Event RSVPs: {{ $json.fb_event_total_rsvps }}\n- Post Impressions: {{ $json.fb_post_impressions }}\n- Engagement Rate: {{ $json.fb_post_engagement_rate }}%\n- Shares: {{ $json.fb_post_shares }}\n\nInstagram Metrics:\n- Impressions: {{ $json.ig_impressions }}\n- Engagement: {{ $json.ig_engagement }}\n- Saves: {{ $json.ig_saves }}\n\nBusiness Impact:\n- Tickets Sold: {{ $json.tickets_sold }}\n- Social Attribution: {{ $json.social_attribution_percent }}%\n- ROI: {{ $json.roi_percent }}%\n\nPost Timing: {{ $json.posted_date }}\nContent Style: {{ $json.page_post_copy || $json.description }}\n\nProvide insights and recommendations."
+            }
+          ]
+        }
+      },
+      "id": "generate-insights",
+      "name": "AI Performance Analysis",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1850, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const performanceData = $node[\"Aggregate All Metrics\"].json;\nconst aiResponse = $node[\"AI Performance Analysis\"].json;\n\nlet aiInsights = {};\ntry {\n  const content = aiResponse.choices?.[0]?.message?.content || aiResponse.message?.content || '{}';\n  aiInsights = typeof content === 'string' ? JSON.parse(content) : content;\n} catch (e) {\n  aiInsights = { summary: 'Analysis pending', strengths: [], weaknesses: [], recommendations: [] };\n}\n\nreturn {\n  ...performanceData,\n  ai_summary: aiInsights.summary || '',\n  ai_strengths: (aiInsights.strengths || []).join(' | '),\n  ai_weaknesses: (aiInsights.weaknesses || []).join(' | '),\n  ai_recommendations: (aiInsights.recommendations || []).join(' | '),\n  ai_content_analysis: aiInsights.content_effectiveness || '',\n  ai_audience_insights: aiInsights.audience_insights || ''\n};"
+      },
+      "id": "format-insights",
+      "name": "Format Insights",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fb_event_attending": "={{ $json.fb_event_attending }}",
+            "fb_event_total_rsvps": "={{ $json.fb_event_total_rsvps }}",
+            "fb_post_impressions": "={{ $json.fb_post_impressions }}",
+            "fb_post_engagement_rate": "={{ $json.fb_post_engagement_rate }}",
+            "ig_impressions": "={{ $json.ig_impressions }}",
+            "ig_engagement": "={{ $json.ig_engagement }}",
+            "tickets_sold": "={{ $json.tickets_sold }}",
+            "social_attribution_percent": "={{ $json.social_attribution_percent }}",
+            "roi_percent": "={{ $json.roi_percent }}",
+            "performance_score": "={{ $json.performance_score }}",
+            "performance_tier": "={{ $json.performance_tier }}",
+            "ai_summary": "={{ $json.ai_summary }}",
+            "ai_recommendations": "={{ $json.ai_recommendations }}",
+            "analytics_completed_at": "={{ $json.analytics_completed_at }}",
+            "status": "={{ $json.status }}"
+          }
+        }
+      },
+      "id": "update-analytics",
+      "name": "Save Performance Data",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.seamlessly.com/v1/events/{{ $json.event_id }}/analytics",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"facebook_performance\": {\n    \"rsvps\": {{ $json.fb_event_total_rsvps }},\n    \"impressions\": {{ $json.fb_post_impressions }},\n    \"engagement_rate\": {{ $json.fb_post_engagement_rate }},\n    \"social_attribution\": {{ $json.social_attribution_percent }}\n  },\n  \"performance_tier\": \"{{ $json.performance_tier }}\",\n  \"roi\": {{ $json.roi_percent }},\n  \"ai_insights\": \"{{ $json.ai_summary }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "sync-seamlessly",
+      "name": "Sync Analytics to Seamlessly",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $input.first().json;\n\n// Store successful patterns for future AI content generation\nif (event.performance_tier === 'Excellent' || event.performance_tier === 'Good') {\n  const postedDate = new Date(event.posted_date);\n  \n  return {\n    event_type: event.event_category || 'other',\n    content_style: event.page_post_copy || event.description || '',\n    posting_time: postedDate.getHours(),\n    posting_day: postedDate.getDay(),\n    engagement_rate: event.fb_post_engagement_rate || 0,\n    performance_score: event.performance_score || 0,\n    \n    // Patterns to learn\n    successful_opening: (event.page_post_copy || event.description || '').split('\\n')[0],\n    optimal_length: (event.page_post_copy || event.description || '').length,\n    used_urgency: (event.page_post_copy || event.description || '').toLowerCase().includes('today') || \n                 (event.page_post_copy || event.description || '').toLowerCase().includes('now'),\n    \n    learned_at: new Date().toISOString()\n  };\n}\n\nreturn null; // Skip low performers"
+      },
+      "id": "create-training-data",
+      "name": "Create Training Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-training-data",
+              "leftValue": "={{ $json }}",
+              "rightValue": null,
+              "operator": {
+                "type": "any",
+                "operation": "notEqual"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-training-data",
+      "name": "Check if Training Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "AI Learning Data",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_type": "={{ $json.event_type }}",
+            "content_style": "={{ $json.content_style }}",
+            "posting_time": "={{ $json.posting_time }}",
+            "posting_day": "={{ $json.posting_day }}",
+            "engagement_rate": "={{ $json.engagement_rate }}",
+            "performance_score": "={{ $json.performance_score }}",
+            "successful_opening": "={{ $json.successful_opening }}",
+            "optimal_length": "={{ $json.optimal_length }}",
+            "used_urgency": "={{ $json.used_urgency }}",
+            "learned_at": "={{ $json.learned_at }}"
+          }
+        }
+      },
+      "id": "save-training-data",
+      "name": "Save to AI Training Data",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [3050, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-excellent",
+              "leftValue": "={{ $json.performance_tier }}",
+              "rightValue": "Excellent",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-performance-tier",
+      "name": "Check Performance Tier",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [3050, 350]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "🎉 High-Performing Event: {{ $json.event_name }}",
+        "text": "Excellent performance detected!\n\nEVENT: {{ $json.event_name }}\nVENUE: {{ $json.venue_name }}\nDATE: {{ $json.event_date }}\n\n📊 PERFORMANCE:\n- Score: {{ $json.performance_score }}/100\n- Tier: {{ $json.performance_tier }}\n- Engagement Rate: {{ $json.fb_post_engagement_rate }}%\n- Total RSVPs: {{ $json.fb_event_total_rsvps }}\n\n💰 BUSINESS IMPACT:\n- Tickets Sold: {{ $json.tickets_sold }}\n- Social Attribution: {{ $json.social_attribution_percent }}%\n- Revenue: ${{ $json.ticket_revenue }}\n- ROI: {{ $json.roi_percent }}%\n\n🤖 AI INSIGHTS:\n{{ $json.ai_summary }}\n\n✅ What Worked:\n{{ $json.ai_strengths }}\n\n💡 Recommendations:\n{{ $json.ai_recommendations }}\n\nView full analytics: [link to dashboard]",
+        "options": {}
+      },
+      "id": "success-report",
+      "name": "Send Win Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [3250, 300],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "waitTime": 2,
+        "unit": "seconds"
+      },
+      "id": "wait-rate-limit",
+      "name": "Wait for Rate Limit",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [3450, 300]
+    }
+  ],
+  "connections": {
+    "Daily at 6 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Yesterday's Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Yesterday's Events": {
+      "main": [
+        [
+          {
+            "node": "Validate Events for Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Events for Analysis": {
+      "main": [
+        [
+          {
+            "node": "Check Events Available",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Events Available": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Event": {
+      "main": [
+        [
+          {
+            "node": "Fetch Final Event Metrics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Post Engagement",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Instagram Performance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Final Event Metrics": {
+      "main": [
+        [
+          {
+            "node": "Fetch Ticket Sales Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Post Engagement": {
+      "main": [
+        [
+          {
+            "node": "Fetch Ticket Sales Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Instagram Performance": {
+      "main": [
+        [
+          {
+            "node": "Fetch Ticket Sales Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Ticket Sales Data": {
+      "main": [
+        [
+          {
+            "node": "Aggregate All Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate All Metrics": {
+      "main": [
+        [
+          {
+            "node": "AI Performance Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Performance Analysis": {
+      "main": [
+        [
+          {
+            "node": "Format Insights",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Insights": {
+      "main": [
+        [
+          {
+            "node": "Save Performance Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Performance Data": {
+      "main": [
+        [
+          {
+            "node": "Sync Analytics to Seamlessly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync Analytics to Seamlessly": {
+      "main": [
+        [
+          {
+            "node": "Create Training Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Training Data": {
+      "main": [
+        [
+          {
+            "node": "Check if Training Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Training Data": {
+      "main": [
+        [
+          {
+            "node": "Save to AI Training Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to AI Training Data": {
+      "main": [
+        [
+          {
+            "node": "Check Performance Tier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Performance Tier": {
+      "main": [
+        [
+          {
+            "node": "Send Win Report",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait for Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Win Report": {
+      "main": [
+        [
+          {
+            "node": "Wait for Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

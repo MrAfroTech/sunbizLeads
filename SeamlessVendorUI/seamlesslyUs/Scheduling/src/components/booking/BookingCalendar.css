@@ -1,0 +1,323 @@
+/* Coffee & Conversations Collective - Booking Calendar (Redesigned) */
+
+.booking-calendar {
+  background: var(--surface-white-3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 35px;
+  border: 1px solid var(--surface-white-10);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-view-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--surface-white-10);
+}
+
+.calendar-view-toggle button {
+  background: transparent;
+  border: 1px solid var(--surface-white-20);
+  padding: 10px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-gray);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.calendar-view-toggle button.active {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+  color: var(--text-white);
+  border-color: var(--accent-purple);
+  font-weight: 600;
+  box-shadow: 0 4px 12px var(--accent-purple-glow);
+}
+
+.calendar-view-toggle button:hover:not(.active) {
+  background: var(--surface-white-5);
+  border-color: var(--accent-purple);
+  color: var(--text-white);
+}
+
+.calendar-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.calendar-section,
+.time-slots-section {
+  min-width: 0;
+}
+
+/* Calendar Month View */
+.calendar-month {
+  background: var(--surface-white-3);
+  border: 1px solid var(--surface-white-10);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.calendar-header h3 {
+  font-family: var(--font-secondary);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-white);
+  margin: 0;
+}
+
+.nav-button {
+  background: var(--surface-white-5);
+  border: 1px solid var(--surface-white-10);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-white);
+  transition: all 0.2s;
+  font-family: var(--font-primary);
+}
+
+.nav-button:hover {
+  background: var(--purple-overlay-10);
+  border-color: var(--accent-purple);
+  color: var(--accent-purple-light);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text-gray);
+  padding: 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-white-3);
+  border: 1px solid var(--surface-white-10);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-white);
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.calendar-day:hover:not(.disabled):not(.empty) {
+  border-color: var(--accent-purple);
+  background: var(--purple-overlay-10);
+  transform: scale(1.05);
+}
+
+.calendar-day.selected {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+  color: var(--text-white);
+  font-weight: 700;
+  border-color: var(--accent-purple-light);
+  box-shadow: 0 4px 12px var(--accent-purple-glow);
+}
+
+.calendar-day.disabled {
+  color: var(--text-darker-gray);
+  cursor: not-allowed;
+  background: var(--surface-darker);
+  opacity: 0.4;
+  border-color: transparent;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  cursor: default;
+  border-color: transparent;
+}
+
+/* Time Slots Section */
+.time-slots-container {
+  background: var(--surface-white-3);
+  border: 1px solid var(--surface-white-10);
+  border-radius: 12px;
+  padding: 24px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.time-slots-container h4 {
+  font-family: var(--font-secondary);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 25px;
+}
+
+.time-slot-group {
+  margin-bottom: 30px;
+}
+
+.time-slot-group:last-child {
+  margin-bottom: 0;
+}
+
+.time-slot-group h5 {
+  font-size: 12px;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+}
+
+.time-slot {
+  background: var(--surface-white-5);
+  border: 1px solid var(--surface-white-10);
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-white);
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.time-slot:hover {
+  border-color: var(--accent-purple);
+  background: var(--purple-overlay-10);
+  transform: translateY(-2px);
+}
+
+.time-slot.selected {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
+  border-color: var(--accent-purple-light);
+  color: var(--text-white);
+  font-weight: 600;
+  box-shadow: 0 4px 12px var(--accent-purple-glow);
+}
+
+.duration-note {
+  margin-top: 24px;
+  padding: 14px 18px;
+  background: var(--purple-overlay-5);
+  border-left: 3px solid var(--accent-purple);
+  border-radius: 6px;
+}
+
+.duration-note p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-light-gray);
+  font-weight: 500;
+}
+
+/* Placeholder States */
+.time-slots-placeholder,
+.time-slots-loading,
+.time-slots-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-gray);
+}
+
+.time-slots-placeholder p,
+.time-slots-loading p,
+.time-slots-empty p {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.time-slots-empty .suggestion {
+  font-size: 13px;
+  color: var(--text-darker-gray);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+/* Scrollbar Styling */
+.time-slots-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.time-slots-container::-webkit-scrollbar-track {
+  background: var(--surface-white-5);
+  border-radius: 10px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb {
+  background: var(--accent-purple);
+  border-radius: 10px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-purple-light);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .calendar-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .time-slots-container {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .booking-calendar {
+    padding: 20px;
+  }
+  
+  .calendar-month {
+    padding: 16px;
+  }
+  
+  .calendar-grid {
+    gap: 4px;
+  }
+  
+  .calendar-day {
+    font-size: 12px;
+  }
+  
+  .time-slots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .time-slot {
+    padding: 12px;
+    font-size: 13px;
+  }
+}

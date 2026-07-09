@@ -1,0 +1,15 @@
+{
+  "name": "salesmastery-social-media",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Social assets including Instagram link hub at /links",
+  "scripts": {
+    "vercel-build": "node scripts/build-public.js",
+    "start": "npm run vercel-build && serve public",
+    "dev": "npm run vercel-build && serve public"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}

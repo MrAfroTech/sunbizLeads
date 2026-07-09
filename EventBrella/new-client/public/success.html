@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - —</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .success-title {
+            font-size: 32px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        .success-message {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .back-button:hover {
+            background: var(--secondary-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1 class="success-title">Payment Successful!</h1>
+        <p class="success-message">
+            Your tickets have been purchased successfully. Check your email for your ticket confirmation with QR codes.
+        </p>
+        <a href="/" class="back-button">Return to Event Page</a>
+    </div>
+</body>
+</html>
+

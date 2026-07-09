@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Generator — Version B (Navy + Gold)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #1A2A44;
+      --gold:       #D4AF37;
+      --gold-light: #e8c84a;
+      --white:      #FFFFFF;
+      --stat:       #131414;
+      --image-pct:  58%;
+      --text-pct:   42%;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d1b2a;
+      min-height: 100vh;
+      color: var(--white);
+      padding: 24px;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 24px;
+      color: var(--gold); text-align: center; margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center; color: rgba(255,255,255,0.4);
+      font-size: 13px; margin-bottom: 40px;
+    }
+
+    .carousel-label {
+      width: 100%; max-width: 1080px;
+      margin: 48px auto 8px auto;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); border-left: 3px solid var(--gold); padding-left: 10px;
+    }
+
+    .carousel-label:first-of-type { margin-top: 0; }
+
+    .slide-label {
+      width: 100%; max-width: 1080px;
+      margin: 0 auto 8px auto;
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: rgba(255,255,255,0.28); padding-left: 2px;
+    }
+
+    .section { margin-bottom: 8px; }
+
+    .box-wrapper { display: inline-block; margin-bottom: 16px; }
+
+    .carousel-card {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      background: var(--navy);
+    }
+
+    .card-left {
+      width: var(--image-pct);
+      flex-shrink: 0; height: 100%;
+      position: relative; overflow: hidden;
+    }
+
+    .card-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-left-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(270deg, rgba(26,42,68,0.80) 0%, rgba(26,42,68,0.04) 45%, transparent 100%);
+      pointer-events: none; z-index: 1;
+    }
+
+    .card-left-corner {
+      position: absolute; top: 0; left: 0;
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.28) 0%, transparent 60%);
+      pointer-events: none; z-index: 2;
+    }
+
+    .img-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+    }
+
+    .img-placeholder svg { width: 56px; height: 56px; stroke: rgba(212,175,55,0.35); }
+    .img-placeholder p {
+      font-family: 'Inter', sans-serif; font-size: 20px;
+      color: rgba(212,175,55,0.35); text-align: center; padding: 0 32px; line-height: 1.5;
+    }
+
+    .card-right {
+      width: var(--text-pct);
+      flex-shrink: 0; height: 100%;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 64px 52px 60px 48px;
+      background: var(--navy); position: relative;
+    }
+
+    .card-right::after {
+      content: ''; position: absolute;
+      right: 0; top: 0; bottom: 0; width: 6px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.08) 100%);
+    }
+
+    .card-top-row { display: flex; flex-direction: column; gap: 14px; }
+
+    .card-topic-tag {
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; line-height: 1.3;
+    }
+
+    .card-rule { width: 48px; height: 4px; background: var(--gold); border-radius: 2px; }
+
+    .card-logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px;
+      color: rgba(255,255,255,0.14); letter-spacing: 1px;
+    }
+
+    .card-body {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; padding: 40px 0; gap: 28px;
+    }
+
+    .card-headline {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      color: var(--white); line-height: 1.13;
+    }
+
+    .stat-box {
+      display: block;
+      background: rgba(212,175,55,0.1);
+      border: 2px solid rgba(212,175,55,0.32);
+      border-radius: 12px; padding: 20px 26px;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.1);
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      color: var(--stat); line-height: 1; display: block; font-size: 72px;
+    }
+
+    .stat-label {
+      display: block; font-family: 'Inter', sans-serif; font-size: 18px;
+      color: rgba(255,255,255,0.48); margin-top: 8px; line-height: 1.4;
+    }
+
+    .card-body-text {
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      color: rgba(255,255,255,0.72); line-height: 1.65; font-size: 22px;
+    }
+
+    .card-bottom-row { display: flex; flex-direction: column; gap: 12px; }
+
+    .card-slide-indicator {
+      font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 600;
+      color: rgba(212,175,55,0.4); letter-spacing: 1px;
+    }
+
+    .card-cta {
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      color: rgba(212,175,55,0.48);
+    }
+
+    .download-btn {
+      display: block;
+      width: 1080px;
+      margin: 0 auto 32px auto;
+      padding: 14px 24px;
+      font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212,175,55,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Carousel Generator — Version B</h1>
+  <p class="subtitle">Navy + Gold · Staffing & Operations · 10 Carousels × 6 Slides</p>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+  (function () {
+
+    var IMGS = [
+      '../dataPhotos/download.jpeg',
+      '../dataPhotos/download (1).jpeg',
+      '../dataPhotos/download (2).jpeg',
+      '../dataPhotos/images.jpeg',
+      '../dataPhotos/images (1).jpeg',
+      '../dataPhotos/images (2).jpeg',
+      '../dataPhotos/images (3).jpeg'
+    ];
+
+    var IMG_SETS = [
+      [0,1,2,3,4,5],
+      [1,2,3,4,5,6],
+      [2,3,4,5,6,0],
+      [3,4,5,6,0,1],
+      [4,5,6,0,1,2],
+      [5,6,0,1,2,3],
+      [6,0,1,2,3,4],
+      [0,2,4,6,1,3],
+      [1,3,5,0,2,4],
+      [2,4,6,1,3,5]
+    ];
+
+    var CAROUSELS = [
+      {
+        title: 'Carousel 1 — Consistent Service When Staffing Is Thin',
+        slides: [
+          {
+            headline: 'Top 5 Ways to Keep Service Consistent When Staffing Is Thin',
+            body: 'Your team is smaller. Your standards can\'t be.',
+            stat: null
+          },
+          {
+            headline: 'Guests judge on speed, cleanliness, and accuracy first.',
+            body: 'A thin team doesn\'t change what guests expect. It just raises the cost of every miss.',
+            stat: null
+          },
+          {
+            headline: 'A smaller team amplifies every missed handoff.',
+            body: 'With fewer people on the floor, one dropped ball ripples across the entire shift.',
+            stat: null
+          },
+          {
+            headline: 'Checklists reduce errors when headcount is low.',
+            body: 'Clear opening, closing, and shift-change checklists keep quality consistent without adding labor.',
+            stat: null
+          },
+          {
+            headline: 'Cross-trained staff cover gaps faster than specialists.',
+            body: 'When everyone can do more than one job, your team absorbs callouts without a full breakdown.',
+            stat: null
+          },
+          {
+            headline: 'Standardize the non-negotiables. Let everything else flex.',
+            body: 'Leaders who define the minimum acceptable standard give their teams clarity under pressure. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 2 — Why Employees Stay or Leave in Hospitality',
+        slides: [
+          {
+            headline: 'Top 5 Reasons Employees Stay or Leave in Hospitality',
+            body: 'Pay gets them in the door. Everything else keeps them there.',
+            stat: null
+          },
+          {
+            headline: 'Daily stress often matters more than pay.',
+            body: 'Operators who only adjust wages without fixing the work environment keep losing people.',
+            stat: null
+          },
+          {
+            headline: 'Unstable schedules are a top reason people quit.',
+            body: 'When staff can\'t plan their lives, they find a job that lets them.',
+            stat: null
+          },
+          {
+            headline: 'Poor manager communication drives turnover fast.',
+            body: 'People don\'t leave jobs. They leave managers who don\'t communicate expectations clearly.',
+            stat: null
+          },
+          {
+            headline: 'Employees stay longer when they see a path to growth.',
+            body: 'A clear promotion track or skill-building opportunity is worth more than a one-time raise.',
+            stat: null
+          },
+          {
+            headline: 'Respect in the workplace is one of the strongest retention factors.',
+            body: 'Hospitality workers who feel valued stay. The ones who don\'t leave and tell everyone why. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 3 — Flexible Scheduling Moves That Boost Retention',
+        slides: [
+          {
+            headline: 'Top 5 Flexible Scheduling Moves That Boost Retention',
+            body: 'The schedule is one of the cheapest retention tools you have. Most operators underuse it.',
+            stat: null
+          },
+          {
+            headline: 'Posting schedules earlier gives staff control over their lives.',
+            body: 'Two weeks of advance notice is the difference between a stable team and a revolving door.',
+            stat: null
+          },
+          {
+            headline: 'Shift swapping reduces conflict and last-minute callouts.',
+            body: 'When staff can trade shifts without drama, they solve coverage problems before you have to.',
+            stat: null
+          },
+          {
+            headline: 'Partial flexibility helps workers with school or family needs.',
+            body: 'You don\'t have to offer full flexibility to make a difference. Small accommodations drive big loyalty.',
+            stat: null
+          },
+          {
+            headline: 'Predictable scheduling lowers burnout.',
+            body: 'Erratic hours exhaust people over time. Consistency keeps them performing at a higher level longer.',
+            stat: null
+          },
+          {
+            headline: 'Rotating weekends fairly improves morale across the team.',
+            body: 'When the burden is shared, resentment drops and cooperation goes up. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 4 — Training Gaps That Turn Into Guest Complaints',
+        slides: [
+          {
+            headline: 'Top 5 Training Gaps That Turn Into Guest Complaints',
+            body: 'Most guest complaints start before the guest even sits down.',
+            stat: null
+          },
+          {
+            headline: 'Inconsistent product knowledge creates slower service and more mistakes.',
+            body: 'When your team doesn\'t know the menu or the systems, guests pay for it.',
+            stat: null
+          },
+          {
+            headline: 'Poor POS training leads to order errors and delays.',
+            body: 'A staff member who isn\'t comfortable at the register slows down every guest behind them.',
+            stat: null
+          },
+          {
+            headline: 'Weak conflict training makes guest recovery harder.',
+            body: 'Staff who aren\'t prepared to handle complaints turn a recoverable moment into a bad review.',
+            stat: null
+          },
+          {
+            headline: 'New staff struggle most during peak periods.',
+            body: 'Onboarding that doesn\'t include high-volume simulation leaves your newest people exposed when it matters most.',
+            stat: null
+          },
+          {
+            headline: 'Training that stops after onboarding leaves teams unprepared.',
+            body: 'One-time training creates a knowledge ceiling. Ongoing coaching is what separates good teams from great ones. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 5 — Low-Cost Ways to Improve Morale Fast',
+        slides: [
+          {
+            headline: 'Top 5 Low-Cost Ways to Improve Morale Fast',
+            body: 'You don\'t need a budget increase to change the energy in your operation.',
+            stat: null
+          },
+          {
+            headline: 'Recognize wins in real time, not just at monthly meetings.',
+            body: 'A call-out in the moment hits harder than a plaque six weeks later. Staff remember what managers notice.',
+            stat: null
+          },
+          {
+            headline: 'Keep shift goals simple and visible.',
+            body: 'When the team knows what a good shift looks like before it starts, they\'re more motivated to deliver it.',
+            stat: null
+          },
+          {
+            headline: 'Reduce confusion with clearer communication.',
+            body: 'Ambiguity is demoralizing. When staff know exactly what\'s expected, performance and confidence both improve.',
+            stat: null
+          },
+          {
+            headline: 'Give staff better break routines and coverage.',
+            body: 'A team that gets real breaks comes back sharper. Coverage that makes breaks possible is a morale investment.',
+            stat: null
+          },
+          {
+            headline: 'Let employees solve small problems without red tape.',
+            body: 'Autonomy is motivating. Staff who are trusted to fix small things feel ownership — and act like it. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 6 — Reduce Turnover Without Raising Payroll',
+        slides: [
+          {
+            headline: 'Top 5 Ways to Reduce Turnover Without Raising Payroll',
+            body: 'Retention isn\'t always a compensation problem. Most of the time it\'s an operations problem.',
+            stat: null
+          },
+          {
+            headline: 'Improve scheduling fairness.',
+            body: 'When staff feel the schedule is built fairly — not based on favoritism — trust in leadership increases.',
+            stat: null
+          },
+          {
+            headline: 'Train managers to give better feedback.',
+            body: 'Managers who only correct mistakes without recognizing effort push people out the door faster than low pay does.',
+            stat: null
+          },
+          {
+            headline: 'Build stronger onboarding for the first 30 days.',
+            body: 'Most turnover happens early. A structured first month reduces the dropout rate before it starts.',
+            stat: null
+          },
+          {
+            headline: 'Create small recognition systems.',
+            body: 'Peer shoutouts, shift MVPs, and simple team milestones cost nothing and signal that effort is seen.',
+            stat: null
+          },
+          {
+            headline: 'Make it easier for employees to ask for help before they burn out.',
+            body: 'Teams that feel safe raising concerns stay longer. Silence isn\'t loyalty — it\'s the last stage before quitting. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 7 — Guest Experience Mistakes Under Pressure',
+        slides: [
+          {
+            headline: 'Top 5 Guest Experience Mistakes Hospitality Teams Make Under Pressure',
+            body: 'Busy periods don\'t create problems. They reveal the ones already there.',
+            stat: null
+          },
+          {
+            headline: 'Slower service without communication.',
+            body: 'Guests can accept a wait. They can\'t accept being ignored. A 10-second update changes the entire experience.',
+            stat: null
+          },
+          {
+            headline: 'Ignoring guests while managing internal fire drills.',
+            body: 'When staff are focused on the operation and not the guest, the guest feels it immediately.',
+            stat: null
+          },
+          {
+            headline: 'Inconsistent standards between shifts.',
+            body: 'When the lunch team and the dinner team operate differently, guests notice — even if they can\'t name it.',
+            stat: null
+          },
+          {
+            headline: 'Rushing the guest interaction instead of guiding it.',
+            body: 'Speed without warmth reads as indifference. Guests leave feeling processed, not served.',
+            stat: null
+          },
+          {
+            headline: 'Failing to recover quickly after a mistake.',
+            body: 'The mistake rarely costs you the guest. The response to it does. Recovery speed is a skill. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 8 — Leadership Habits That Keep Teams Engaged',
+        slides: [
+          {
+            headline: 'Top 5 Leadership Habits That Keep Teams Engaged',
+            body: 'The team takes its cue from whoever is running the floor.',
+            stat: null
+          },
+          {
+            headline: 'Showing up consistently.',
+            body: 'Leadership presence during difficult shifts builds more trust than any speech during a team meeting.',
+            stat: null
+          },
+          {
+            headline: 'Communicating expectations clearly.',
+            body: 'Engaged teams know what good looks like. Disengaged teams are guessing.',
+            stat: null
+          },
+          {
+            headline: 'Recognizing effort, not just outcomes.',
+            body: 'Staff who are only acknowledged when results are great disengage when results are hard to achieve.',
+            stat: null
+          },
+          {
+            headline: 'Coaching instead of only correcting.',
+            body: 'A leader who only corrects mistakes trains people to hide problems. A coach builds people who solve them.',
+            stat: null
+          },
+          {
+            headline: 'Staying calm during busy periods.',
+            body: 'Anxiety is contagious. So is composure. The energy of the leader sets the energy of the room. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 9 — Front and Back of House Communication',
+        slides: [
+          {
+            headline: 'Top 5 Ways to Improve Communication Between Front and Back of House',
+            body: 'Most service failures aren\'t skill failures. They\'re communication failures.',
+            stat: null
+          },
+          {
+            headline: 'Use one shared source of truth for orders and updates.',
+            body: 'When the floor and the kitchen are working from the same information, gaps close and errors drop.',
+            stat: null
+          },
+          {
+            headline: 'Standardize how issues get escalated.',
+            body: 'A clear escalation path means problems get solved instead of argued about during service.',
+            stat: null
+          },
+          {
+            headline: 'Keep shift handoffs short and structured.',
+            body: 'Five minutes of focused handoff communication prevents thirty minutes of confusion mid-shift.',
+            stat: null
+          },
+          {
+            headline: 'Reduce shouting by using clearer systems.',
+            body: 'When the system communicates, your staff don\'t have to. Noise is a symptom of a broken process.',
+            stat: null
+          },
+          {
+            headline: 'Hold quick daily check-ins before service starts.',
+            body: 'Two minutes of alignment before the doors open is worth more than an hour of damage control after. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      },
+      {
+        title: 'Carousel 10 — Simple Systems That Make a Busy Operation Run Smoother',
+        slides: [
+          {
+            headline: 'Top 5 Simple Systems That Make a Busy Operation Run Smoother',
+            body: 'The best operators don\'t run on hustle. They run on systems.',
+            stat: null
+          },
+          {
+            headline: 'Checklists for opening, closing, and turnover.',
+            body: 'Every task that lives in someone\'s head is a task that gets dropped when that person is absent.',
+            stat: null
+          },
+          {
+            headline: 'A clear task board for priorities.',
+            body: 'When the team can see what needs to happen and in what order, decision-making speed improves across the board.',
+            stat: null
+          },
+          {
+            headline: 'Defined roles during peak periods.',
+            body: 'Ambiguity during a rush is expensive. Knowing exactly who does what before the rush starts is free.',
+            stat: null
+          },
+          {
+            headline: 'A quick issue-reporting process.',
+            body: 'Problems that are easy to report get fixed faster. Friction in the reporting process means problems stay hidden.',
+            stat: null
+          },
+          {
+            headline: 'Standard response steps for common guest problems.',
+            body: 'When the team knows the playbook, recovery is faster, more consistent, and less stressful for everyone. / ➜ Follow for more.',
+            stat: null
+          }
+        ]
+      }
+    ];
+
+    var root = document.getElementById('root');
+
+    CAROUSELS.forEach(function (carousel, cIdx) {
+
+      var clabel = document.createElement('div');
+      clabel.className = 'carousel-label';
+      clabel.textContent = carousel.title;
+      root.appendChild(clabel);
+
+      carousel.slides.forEach(function (slide, sIdx) {
+
+        var slabel = document.createElement('div');
+        slabel.className = 'slide-label';
+        slabel.textContent = 'Slide ' + (sIdx + 1) + ' of 6';
+        root.appendChild(slabel);
+
+        var section = document.createElement('div');
+        section.className = 'section';
+
+        var boxWrapper = document.createElement('div');
+        boxWrapper.className = 'box-wrapper';
+
+        var card = document.createElement('div');
+        card.className = 'carousel-card';
+
+        var imgSrc = IMGS[IMG_SETS[cIdx][sIdx]];
+
+        var left = document.createElement('div');
+        left.className = 'card-left';
+
+        var corner = document.createElement('div');
+        corner.className = 'card-left-corner';
+        left.appendChild(corner);
+
+        var img = document.createElement('img');
+        img.className = 'card-image';
+        img.src = imgSrc; img.alt = '';
+
+        var ph = document.createElement('div');
+        ph.className = 'img-placeholder';
+        ph.style.display = 'none';
+        ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><p>' + imgSrc + '</p>';
+        img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+        left.appendChild(img);
+        left.appendChild(ph);
+
+        var fade = document.createElement('div');
+        fade.className = 'card-left-fade';
+        left.appendChild(fade);
+
+        card.appendChild(left);
+
+        var right = document.createElement('div');
+        right.className = 'card-right';
+
+        var topRow = document.createElement('div');
+        topRow.className = 'card-top-row';
+        var tag = document.createElement('div'); tag.className = 'card-topic-tag'; tag.textContent = 'From Chaos to Clarity'; topRow.appendChild(tag);
+        var rule = document.createElement('div'); rule.className = 'card-rule'; topRow.appendChild(rule);
+        var logo = document.createElement('div'); logo.className = 'card-logo'; logo.textContent = 'Seamlessly'; topRow.appendChild(logo);
+        right.appendChild(topRow);
+
+        var body = document.createElement('div');
+        body.className = 'card-body';
+
+        var hlLen = slide.headline.length;
+        var hlSize = hlLen < 30 ? 56 : hlLen < 50 ? 46 : hlLen < 70 ? 37 : 30;
+        var hl = document.createElement('div');
+        hl.className = 'card-headline';
+        hl.style.fontSize = hlSize + 'px';
+        hl.textContent = slide.headline;
+        body.appendChild(hl);
+
+        if (slide.stat) {
+          var box = document.createElement('div');
+          box.className = 'stat-box';
+          var sn = document.createElement('span'); sn.className = 'stat-number'; sn.textContent = slide.stat.n; box.appendChild(sn);
+          var sl = document.createElement('span'); sl.className = 'stat-label'; sl.textContent = slide.stat.l; box.appendChild(sl);
+          body.appendChild(box);
+        }
+
+        slide.body.split(' / ').forEach(function (line) {
+          var p = document.createElement('div'); p.className = 'card-body-text'; p.textContent = line.trim(); body.appendChild(p);
+        });
+
+        right.appendChild(body);
+
+        var bottomRow = document.createElement('div');
+        bottomRow.className = 'card-bottom-row';
+        var ind = document.createElement('div'); ind.className = 'card-slide-indicator'; ind.textContent = (sIdx + 1) + ' / 6'; bottomRow.appendChild(ind);
+        var cta = document.createElement('div'); cta.className = 'card-cta'; cta.textContent = 'seamlessly.us'; bottomRow.appendChild(cta);
+        right.appendChild(bottomRow);
+
+        card.appendChild(right);
+        boxWrapper.appendChild(card);
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'download-btn';
+        var defaultBtnText = 'Download PNG  —  C' + (cIdx + 1) + ' · Slide ' + (sIdx + 1);
+        btn.textContent = defaultBtnText;
+
+        btn.addEventListener('click', function () {
+          btn.disabled = true;
+          btn.textContent = 'Generating PNG...';
+          var btnOriginalDisplay = btn.style.display;
+          btn.style.display = 'none';
+
+          html2canvas(card, {
+            scale: 1,
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            backgroundColor: '#1A2A44',
+            onclone: function (clonedDoc, clonedNode) {
+              var style = clonedNode.style;
+              if (style) {
+                style.background = '#1A2A44';
+                style.backgroundColor = '#1A2A44';
+              }
+            }
+          }).then(function (canvas) {
+            btn.style.display = btnOriginalDisplay;
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            var imgData = canvas.toDataURL('image/png');
+            var link = document.createElement('a');
+            link.download = 'v-b-c' + (cIdx + 1) + '-s' + (sIdx + 1) + '.png';
+            link.href = imgData;
+            link.click();
+          }).catch(function (err) {
+            btn.style.display = btnOriginalDisplay;
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            console.error('PNG generation failed:', err);
+          });
+        });
+
+        section.appendChild(boxWrapper);
+        section.appendChild(btn);
+        root.appendChild(section);
+      });
+    });
+
+  }());
+  </script>
+</body>
+</html>

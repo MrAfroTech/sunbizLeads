@@ -1,0 +1,1150 @@
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import * as Papa from "papaparse";
+import { supabase } from "./src/supabase.js";
+import {
+  TEAMS_MASTER_TABLE,
+  TEAMS_UI_TABLE,
+  CONTACTS_UI_TABLE,
+} from "./src/footballSupabaseTables.js";
+import {
+  normalizeTeamName,
+  teamNameMatchesScrapedExclusion,
+} from "./scrapedContactsExcludedCompanies.js";
+
+function parseCSV(file) {
+  return new Promise((resolve) => {
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => resolve(results.data),
+    });
+  });
+}
+
+const inlineInputStyle = {
+  border: "none",
+  background: "transparent",
+  fontSize: 12,
+  fontFamily: "inherit",
+  color: "#1a1a1a",
+  padding: "4px 0",
+  width: "100%",
+  boxSizing: "border-box",
+  outline: "none",
+  borderBottom: "1px solid transparent",
+};
+const inlineInputFocusStyle = { borderBottom: "1px solid #FF4D00" };
+
+function mapTeamRow(row) {
+  return {
+    id: row.id,
+    team_name: row.team_name ?? "",
+    league_tier: row.league_tier ?? "",
+    league: row.league ?? "",
+    website: row.website ?? "",
+    outreach_tier: row.outreach_tier ?? "not_engaged",
+    status: row.status ?? "none",
+    called: Boolean(row.called),
+    emailed: Boolean(row.emailed),
+    sales_nav: Boolean(row.sales_nav),
+    broken_site_link: Boolean(row.broken_site_link),
+    expanded: false,
+    contacts: [],
+  };
+}
+
+function mapContactRow(row) {
+  return {
+    id: row.id,
+    contact_name: row.contact_name ?? "",
+    phone: row.phone ?? "",
+    email: row.email ?? "",
+  };
+}
+
+const STATUS_PRIORITY = {
+  none: 0,
+  contacted: 1,
+  replied: 2,
+  meeting_booked: 3,
+};
+
+function tierKey(leagueTier) {
+  const t = (leagueTier ?? "").trim();
+  return t ? t.toLowerCase() : "__empty__";
+}
+
+function tierLabelForKey(key, displayLabel) {
+  if (key === "__empty__") return "(No tier)";
+  return displayLabel || key;
+}
+
+function mergeTeamRows(base, incoming) {
+  const baseStatus = STATUS_PRIORITY[base.status] ?? 0;
+  const incomingStatus = STATUS_PRIORITY[incoming.status] ?? 0;
+  return {
+    ...base,
+    team_name: base.team_name || incoming.team_name,
+    league_tier: base.league_tier || incoming.league_tier,
+    league: base.league || incoming.league,
+    website: base.website || incoming.website,
+    outreach_tier:
+      base.outreach_tier === "engaged" || incoming.outreach_tier === "engaged"
+        ? "engaged"
+        : "not_engaged",
+    status: incomingStatus > baseStatus ? incoming.status : base.status,
+    called: Boolean(base.called || incoming.called),
+    emailed: Boolean(base.emailed || incoming.emailed),
+    sales_nav: Boolean(base.sales_nav || incoming.sales_nav),
+    contacts: [...(base.contacts || []), ...(incoming.contacts || [])],
+  };
+}
+
+export default function FootballTracker() {
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [search, setSearch] = useState("");
+  /** Normalized tier keys (lowercase / `__empty__`) that are visible in the table */
+  const [visibleTierKeys, setVisibleTierKeys] = useState(
+    () => new Set(["fbs", "fcs"])
+  );
+  const [dragging, setDragging] = useState(false);
+  const [csvImportError, setCsvImportError] = useState(null);
+  const [csvImporting, setCsvImporting] = useState(false);
+  const csvFileInputRef = useRef(null);
+
+  const loadRecords = useCallback(async () => {
+    const [teamsRes, contactsRes] = await Promise.all([
+      supabase.from(TEAMS_UI_TABLE).select("*").order("id", { ascending: true }),
+      supabase
+        .from(CONTACTS_UI_TABLE)
+        .select("*")
+        .order("created_at", { ascending: true }),
+    ]);
+    console.log("[Tracker] Load raw football_teams_ui response:", {
+      error: teamsRes.error,
+      rowCount: teamsRes.data?.length,
+      firstRowCheckboxes: teamsRes.data?.[0]
+        ? {
+            id: teamsRes.data[0].id,
+            called: teamsRes.data[0].called,
+            calledType: typeof teamsRes.data[0].called,
+            emailed: teamsRes.data[0].emailed,
+            emailedType: typeof teamsRes.data[0].emailed,
+            sales_nav: teamsRes.data[0].sales_nav,
+            sales_navType: typeof teamsRes.data[0].sales_nav,
+          }
+        : "no rows",
+    });
+    if (teamsRes.error || contactsRes.error) {
+      setLoading(false);
+      return;
+    }
+
+    const contactsByTeam = (contactsRes.data || []).reduce((acc, c) => {
+      const tid = c.team_id;
+      if (!acc[tid]) acc[tid] = [];
+      acc[tid].push(mapContactRow(c));
+      return acc;
+    }, {});
+
+    const mergedByName = new Map();
+    (teamsRes.data || []).forEach((row) => {
+      const team = {
+        ...mapTeamRow(row),
+        contacts: contactsByTeam[row.id] || [],
+      };
+      const key = normalizeTeamName(team.team_name);
+      if (!key) return;
+      const existing = mergedByName.get(key);
+      mergedByName.set(key, existing ? mergeTeamRows(existing, team) : team);
+    });
+
+    setRecords(Array.from(mergedByName.values()));
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    loadRecords();
+  }, [loadRecords]);
+
+  const updateRecord = (id, field, value) => {
+    setRecords((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, [field]: value } : r))
+    );
+    supabase
+      .from(TEAMS_UI_TABLE)
+      .update({ [field]: value })
+      .eq("id", id)
+      .select()
+      .then(({ data, error }) => {
+        console.log("[Tracker] Update fired:", { id, field, value });
+        console.log("[Tracker] Update response:", { data, error });
+      });
+  };
+
+  const toggleExpand = (teamId) => {
+    setRecords((prev) =>
+      prev.map((r) =>
+        r.id === teamId ? { ...r, expanded: !r.expanded } : r
+      )
+    );
+  };
+
+  const updateContactLocal = (teamId, contactId, field, value) => {
+    setRecords((prev) =>
+      prev.map((r) => {
+        if (r.id !== teamId) return r;
+        return {
+          ...r,
+          contacts: r.contacts.map((c) =>
+            c.id === contactId ? { ...c, [field]: value } : c
+          ),
+        };
+      })
+    );
+  };
+
+  const persistContactField = (contactId, field, value) => {
+    supabase
+      .from(CONTACTS_UI_TABLE)
+      .update({ [field]: value })
+      .eq("id", contactId);
+  };
+
+  const deleteContact = async (teamId, contactId) => {
+    await supabase.from(CONTACTS_UI_TABLE).delete().eq("id", contactId);
+    setRecords((prev) =>
+      prev.map((r) => {
+        if (r.id !== teamId) return r;
+        return {
+          ...r,
+          contacts: r.contacts.filter((c) => c.id !== contactId),
+        };
+      })
+    );
+  };
+
+  const addContact = async (teamId) => {
+    const { data, error } = await supabase
+      .from(CONTACTS_UI_TABLE)
+      .insert({ team_id: teamId, contact_name: "", phone: "", email: "" })
+      .select()
+      .single();
+    if (error) return;
+    const contact = mapContactRow(data);
+    setRecords((prev) =>
+      prev.map((r) =>
+        r.id === teamId
+          ? { ...r, contacts: [...r.contacts, contact] }
+          : r
+      )
+    );
+  };
+
+  const handleFile = useCallback(async (file) => {
+    if (!file) return;
+    setCsvImportError(null);
+    setCsvImporting(true);
+    try {
+      const raw = await parseCSV(file);
+      const built = raw
+        .filter((r) => r.team_name != null && String(r.team_name).trim() !== "")
+        .map((r) => ({
+          team_name: String(r.team_name || r["team_name"] || "").trim(),
+          website: String(r.website || r["website"] || "").trim(),
+          league: String(r.league || r["league"] || "").trim(),
+          league_tier: String(r.tier != null ? r.tier : r["tier"] != null ? r["tier"] : "").trim(),
+        }));
+
+      const seen = new Set();
+      const uniqueRecords = built.filter((r) => {
+        const key = normalizeTeamName(r.team_name);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+
+      if (uniqueRecords.length === 0) {
+        setCsvImportError("No rows with a team_name column were found.");
+        return;
+      }
+
+      const { error } = await supabase
+        .from(TEAMS_MASTER_TABLE)
+        .upsert(uniqueRecords, { onConflict: "team_name" })
+        .select("id");
+      if (error) {
+        setCsvImportError(error.message || "Import failed.");
+        return;
+      }
+
+      const names = uniqueRecords.map((r) => r.team_name);
+      const { data: masterRows, error: syncErr } = await supabase
+        .from(TEAMS_MASTER_TABLE)
+        .select("*")
+        .in("team_name", names);
+      if (syncErr) {
+        setCsvImportError(syncErr.message || "Could not sync after import.");
+        await loadRecords();
+        return;
+      }
+      for (const row of masterRows || []) {
+        if (teamNameMatchesScrapedExclusion(row.team_name)) {
+          await supabase.from(TEAMS_UI_TABLE).delete().eq("id", row.id);
+        } else {
+          await supabase.from(TEAMS_UI_TABLE).upsert(row, { onConflict: "id" });
+        }
+      }
+
+      await loadRecords();
+    } finally {
+      setCsvImporting(false);
+    }
+  }, [loadRecords]);
+
+  const handleDrop = useCallback(
+    (e) => {
+      e.preventDefault();
+      setDragging(false);
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    },
+    [handleFile]
+  );
+
+  const tierOptions = useMemo(() => {
+    const labelByKey = new Map();
+    records.forEach((r) => {
+      const raw = (r.league_tier ?? "").trim();
+      const key = tierKey(r.league_tier);
+      if (!labelByKey.has(key)) labelByKey.set(key, raw);
+    });
+    return [...labelByKey.entries()].sort((a, b) => {
+      const order = { fbs: 0, fcs: 1, __empty__: 99 };
+      const ao = order[a[0]] ?? 50;
+      const bo = order[b[0]] ?? 50;
+      if (ao !== bo) return ao - bo;
+      return tierLabelForKey(a[0], a[1]).localeCompare(
+        tierLabelForKey(b[0], b[1])
+      );
+    });
+  }, [records]);
+
+  const toggleTierVisible = (key) => {
+    setVisibleTierKeys((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  const filtered = useMemo(() => {
+    return records.filter((r) => {
+      const matchTier = visibleTierKeys.has(tierKey(r.league_tier));
+      const matchFilter =
+        activeFilter === "all" ||
+        (activeFilter === "engaged" && r.outreach_tier === "engaged") ||
+        (activeFilter === "not_engaged" && r.outreach_tier === "not_engaged");
+      const q = search.toLowerCase();
+      const matchSearch =
+        !q ||
+        (r.team_name && r.team_name.toLowerCase().includes(q)) ||
+        (r.league && r.league.toLowerCase().includes(q)) ||
+        (r.league_tier && r.league_tier.toLowerCase().includes(q)) ||
+        (r.contacts && r.contacts.some(
+          (c) =>
+            (c.contact_name && c.contact_name.toLowerCase().includes(q)) ||
+            (c.email && c.email.toLowerCase().includes(q)) ||
+            (c.phone && c.phone.toLowerCase().includes(q))
+        ));
+      return matchTier && matchFilter && matchSearch;
+    });
+  }, [records, activeFilter, search, visibleTierKeys]);
+
+  const engagedCount = records.filter((r) => r.outreach_tier === "engaged").length;
+  const notEngagedCount = records.filter((r) => r.outreach_tier === "not_engaged").length;
+  const meetingBookedCount = records.filter(
+    (r) => r.status === "meeting_booked"
+  ).length;
+
+  const exportCSV = () => {
+    const headers = [
+      "Team Name",
+      "League Tier",
+      "League",
+      "Website",
+      "Contact Name",
+      "Phone",
+      "Email",
+      "Outreach Tier",
+      "Status",
+      "Broken Site Link",
+      "Called",
+      "Emailed",
+      "Sales Nav",
+    ];
+    const rows = [];
+    records.forEach((r) => {
+      if (r.contacts.length === 0) {
+        rows.push([
+          r.team_name,
+          r.league_tier,
+          r.league,
+          r.website,
+          "",
+          "",
+          "",
+          r.outreach_tier,
+          r.status,
+          r.broken_site_link ? "Yes" : "No",
+          r.called ? "Yes" : "No",
+          r.emailed ? "Yes" : "No",
+          r.sales_nav ? "Yes" : "No",
+        ]);
+      } else {
+        r.contacts.forEach((c) => {
+          rows.push([
+            r.team_name,
+            r.league_tier,
+            r.league,
+            r.website,
+            c.contact_name,
+            c.phone,
+            c.email,
+            r.outreach_tier,
+            r.status,
+            r.broken_site_link ? "Yes" : "No",
+            r.called ? "Yes" : "No",
+            r.emailed ? "Yes" : "No",
+            r.sales_nav ? "Yes" : "No",
+          ]);
+        });
+      }
+    });
+    const csv = [headers, ...rows]
+      .map((row) => row.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "football-team-tracker.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const tableGridCols = "32px 190px 180px 240px 140px 50px 50px 50px 50px";
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f5f5f5",
+        color: "#1a1a1a",
+        fontFamily: "'DM Mono', 'Courier New', monospace",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          borderBottom: "1px solid #e0e0e0",
+          padding: "22px 36px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: "#ffffff",
+        }}
+      >
+        <div>
+          <div
+            style={{
+              fontSize: 10,
+              letterSpacing: "0.22em",
+              color: "#FF4D00",
+              textTransform: "uppercase",
+              marginBottom: 5,
+            }}
+          >
+            Seamlessly · Sales Ops
+          </div>
+          <div
+            style={{
+              fontSize: 20,
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              color: "#1a1a1a",
+            }}
+          >
+            Football Team Tracker
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: "28px 36px", maxWidth: 1200, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "64px 40px", color: "#888888", fontSize: 14 }}>
+            Loading…
+          </div>
+        ) : records.length === 0 ? (
+          <div>
+            <div
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragging(true);
+              }}
+              onDragLeave={() => setDragging(false)}
+              onDrop={handleDrop}
+              onClick={() => csvFileInputRef.current?.click()}
+              style={{
+                border: `1.5px dashed ${dragging ? "#FF4D00" : "#cccccc"}`,
+                borderRadius: 8,
+                padding: "64px 40px",
+                textAlign: "center",
+                background: dragging ? "rgba(255,77,0,0.05)" : "#fafafa",
+                transition: "all 0.2s",
+                cursor: "pointer",
+              }}
+            >
+              <div style={{ fontSize: 36, marginBottom: 14 }}>🏈</div>
+              <div style={{ fontSize: 14, color: "#888888", marginBottom: 8 }}>
+                Drop your CSV here (columns: <strong style={{ color: "#888888" }}>tier</strong>, <strong style={{ color: "#888888" }}>league</strong>,{" "}
+                <strong style={{ color: "#888888" }}>team_name</strong>, <strong style={{ color: "#888888" }}>website</strong>)
+              </div>
+              <div
+                style={{
+                  display: "inline-block",
+                  background: "#FF4D00",
+                  color: "#fff",
+                  padding: "10px 24px",
+                  fontSize: 10,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  borderRadius: 3,
+                  cursor: "pointer",
+                  marginTop: 12,
+                }}
+              >
+                Choose File
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Stat cards */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                gap: 10,
+                marginBottom: 24,
+              }}
+            >
+              <div
+                onClick={() => setActiveFilter("all")}
+                style={{
+                  background: "rgba(0,0,0,0.03)",
+                  borderRadius: 6,
+                  padding: "14px 16px",
+                  cursor: "pointer",
+                  borderBottom:
+                    activeFilter === "all"
+                      ? "3px solid #1a1a1a"
+                      : "3px solid transparent",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 9,
+                    color: "#888888",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    marginBottom: 6,
+                  }}
+                >
+                  Total
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#1a1a1a" }}>
+                  {records.length}
+                </div>
+              </div>
+              <div
+                onClick={() => setActiveFilter("engaged")}
+                style={{
+                  background: "rgba(255,77,0,0.06)",
+                  borderRadius: 6,
+                  padding: "14px 16px",
+                  cursor: "pointer",
+                  borderBottom:
+                    activeFilter === "engaged"
+                      ? "3px solid #FF4D00"
+                      : "3px solid transparent",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 9,
+                    color: "#888888",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    marginBottom: 6,
+                  }}
+                >
+                  Engaged
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#FF4D00" }}>
+                  {engagedCount}
+                </div>
+              </div>
+              <div
+                onClick={() => setActiveFilter("not_engaged")}
+                style={{
+                  background: "rgba(170,170,170,0.06)",
+                  borderRadius: 6,
+                  padding: "14px 16px",
+                  cursor: "pointer",
+                  borderBottom:
+                    activeFilter === "not_engaged"
+                      ? "3px solid #aaaaaa"
+                      : "3px solid transparent",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 9,
+                    color: "#888888",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    marginBottom: 6,
+                  }}
+                >
+                  Not Engaged
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#aaaaaa" }}>
+                  {notEngagedCount}
+                </div>
+              </div>
+              <div
+                style={{
+                  background: "rgba(68,255,204,0.06)",
+                  borderRadius: 6,
+                  padding: "14px 16px",
+                  cursor: "default",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 9,
+                    color: "#888888",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    marginBottom: 6,
+                  }}
+                >
+                  Meeting Booked
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#44ffcc" }}>
+                  {meetingBookedCount}
+                </div>
+              </div>
+            </div>
+
+            {/* Controls: search + import / export */}
+            <div style={{ marginBottom: 20 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 10,
+                  flexWrap: "wrap",
+                }}
+              >
+                <input
+                  placeholder="Search team name, contact, email…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #cccccc",
+                    color: "#1a1a1a",
+                    padding: "6px 14px",
+                    fontSize: 11,
+                    borderRadius: 3,
+                    width: 280,
+                    outline: "none",
+                    fontFamily: "inherit",
+                  }}
+                />
+                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                  <button
+                    type="button"
+                    disabled={csvImporting}
+                    onClick={() => csvFileInputRef.current?.click()}
+                    style={{
+                      background: "#FF4D00",
+                      border: "1px solid #FF4D00",
+                      color: "#fff",
+                      padding: "7px 16px",
+                      fontSize: 10,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      cursor: csvImporting ? "wait" : "pointer",
+                      borderRadius: 3,
+                      fontFamily: "inherit",
+                      opacity: csvImporting ? 0.7 : 1,
+                    }}
+                  >
+                    {csvImporting ? "Importing…" : "Import CSV"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={exportCSV}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #FF4D00",
+                      color: "#FF4D00",
+                      padding: "7px 16px",
+                      fontSize: 10,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                      borderRadius: 3,
+                      fontFamily: "inherit",
+                    }}
+                  >
+                    Export CSV
+                  </button>
+                </div>
+              </div>
+              {tierOptions.length > 0 && (
+                <div
+                  style={{
+                    marginTop: 14,
+                    paddingTop: 14,
+                    borderTop: "1px solid #eeeeee",
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 12,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 9,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "#888888",
+                      paddingTop: 4,
+                      flexShrink: 0,
+                    }}
+                  >
+                    League tier
+                  </span>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignItems: "center",
+                      gap: "10px 18px",
+                    }}
+                  >
+                    {tierOptions.map(([key, displayLabel]) => (
+                      <label
+                        key={key}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          cursor: "pointer",
+                          fontSize: 11,
+                          color: "#1a1a1a",
+                          userSelect: "none",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={visibleTierKeys.has(key)}
+                          onChange={() => toggleTierVisible(key)}
+                          style={{ cursor: "pointer" }}
+                        />
+                        {tierLabelForKey(key, displayLabel)}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div style={{ fontSize: 10, color: "#888888", marginTop: 6 }}>
+                CSV columns: <strong style={{ color: "#666" }}>tier</strong>,{" "}
+                <strong style={{ color: "#666" }}>league</strong>,{" "}
+                <strong style={{ color: "#666" }}>team_name</strong>,{" "}
+                <strong style={{ color: "#666" }}>website</strong>. New rows are added; matching{" "}
+                <strong style={{ color: "#666" }}>team_name</strong> updates tier / league / website only.
+              </div>
+              {csvImportError && (
+                <div style={{ fontSize: 11, color: "#cc4444", marginTop: 8 }}>{csvImportError}</div>
+              )}
+            </div>
+
+            {/* Table — header + rows in one horizontally scrollable container */}
+            <div
+              style={{
+                overflowX: "auto",
+                width: "100%",
+                border: "1px solid #e0e0e0",
+                borderRadius: 6,
+                background: "#ffffff",
+              }}
+            >
+              <div style={{ minWidth: 1100 }}>
+                {/* Header row */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: tableGridCols,
+                    padding: "9px 18px",
+                    borderBottom: "1px solid #e0e0e0",
+                    fontSize: 9,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "#888888",
+                    gap: 8,
+                  }}
+                >
+                  <span style={{ width: 32 }} />
+                  <span>Team Name</span>
+                  <span>League</span>
+                  <span>Website</span>
+                  <span>Status</span>
+                  <span
+                    title="Broken site link"
+                    aria-label="Broken site link"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "50px",
+                      fontSize: 12,
+                      letterSpacing: "normal",
+                      color: "#cc4444",
+                    }}
+                  >
+                    ✕
+                  </span>
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>📞</span>
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>📧</span>
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>🧭</span>
+                </div>
+                {/* Data rows — vertically scrollable */}
+                <div style={{ maxHeight: 500, overflowY: "auto" }}>
+                  {filtered.length === 0 && (
+                    <div
+                      style={{
+                        padding: 40,
+                        textAlign: "center",
+                        color: "#888888",
+                        fontSize: 13,
+                      }}
+                    >
+                      No records match this filter.
+                    </div>
+                  )}
+                  {filtered.map((r) => (
+                    <div key={r.id}>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: tableGridCols,
+                        padding: "8px 18px",
+                        borderBottom: r.expanded ? "none" : "1px solid #eeeeee",
+                        alignItems: "center",
+                        gap: 8,
+                      }}
+                    >
+                    <button
+                      type="button"
+                      onClick={() => toggleExpand(r.id)}
+                      style={{
+                        width: 28,
+                        height: 28,
+                        padding: 0,
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                        fontSize: 12,
+                        color: "#555555",
+                      }}
+                      aria-label={r.expanded ? "Collapse" : "Expand"}
+                    >
+                      {r.expanded ? "▼" : "▶"}
+                    </button>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: "#1a1a1a",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {r.team_name || "—"}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        color: "#888888",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {r.league || "—"}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {r.website ? (
+                        <a
+                          href={
+                            r.website.startsWith("http")
+                              ? r.website
+                              : `https://${r.website}`
+                          }
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            color: "#88aaff",
+                            textDecoration: "none",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            display: "block",
+                          }}
+                        >
+                          {r.website}
+                        </a>
+                      ) : (
+                        "—"
+                      )}
+                    </span>
+                    <select
+                      value={r.status}
+                      onChange={(e) =>
+                        updateRecord(r.id, "status", e.target.value)
+                      }
+                      style={{
+                        border: "none",
+                        background: "transparent",
+                        fontSize: 11,
+                        cursor: "pointer",
+                        color: "#1a1a1a",
+                        fontFamily: "inherit",
+                        padding: 0,
+                        appearance: "auto",
+                      }}
+                    >
+                      <option value="none">None</option>
+                      <option value="contacted">Contacted</option>
+                      <option value="replied">Replied</option>
+                      <option value="meeting_booked">Meeting Booked</option>
+                    </select>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>
+                      <input
+                        type="checkbox"
+                        checked={r.broken_site_link}
+                        onChange={(e) =>
+                          updateRecord(r.id, "broken_site_link", e.target.checked)
+                        }
+                        style={{ cursor: "pointer" }}
+                        aria-label="Broken site link"
+                      />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>
+                      <input
+                        type="checkbox"
+                        checked={r.called}
+                        onChange={(e) =>
+                          updateRecord(r.id, "called", e.target.checked)
+                        }
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>
+                      <input
+                        type="checkbox"
+                        checked={r.emailed}
+                        onChange={(e) =>
+                          updateRecord(r.id, "emailed", e.target.checked)
+                        }
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "50px" }}>
+                      <input
+                        type="checkbox"
+                        checked={r.sales_nav}
+                        onChange={(e) =>
+                          updateRecord(r.id, "sales_nav", e.target.checked)
+                        }
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
+                  </div>
+                  {r.expanded && (
+                    <div
+                      style={{
+                        padding: "12px 18px 16px",
+                        background: "#fafafa",
+                        borderBottom: "1px solid #eeeeee",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr 220px 220px 60px",
+                          gap: 8,
+                          alignItems: "center",
+                          fontSize: 9,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "#888888",
+                          marginBottom: 8,
+                          paddingLeft: 32,
+                        }}
+                      >
+                        <span>Contact Name</span>
+                        <span>Phone</span>
+                        <span>Email</span>
+                        <span />
+                      </div>
+                      {r.contacts.map((c) => (
+                        <div
+                          key={c.id}
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 220px 220px 60px",
+                            gap: 8,
+                            alignItems: "center",
+                            paddingLeft: 32,
+                            marginBottom: 6,
+                          }}
+                        >
+                          <input
+                            type="text"
+                            value={c.contact_name}
+                            onChange={(e) =>
+                              updateContactLocal(r.id, c.id, "contact_name", e.target.value)
+                            }
+                            onBlur={(e) =>
+                              persistContactField(c.id, "contact_name", e.target.value)
+                            }
+                            onFocus={(e) =>
+                              Object.assign(e.target.style, inlineInputFocusStyle)
+                            }
+                            style={{ ...inlineInputStyle, fontSize: 11 }}
+                          />
+                          <input
+                            type="text"
+                            value={c.phone}
+                            onChange={(e) =>
+                              updateContactLocal(r.id, c.id, "phone", e.target.value)
+                            }
+                            onBlur={(e) =>
+                              persistContactField(c.id, "phone", e.target.value)
+                            }
+                            onFocus={(e) =>
+                              Object.assign(e.target.style, inlineInputFocusStyle)
+                            }
+                            style={{ ...inlineInputStyle, fontSize: 11 }}
+                          />
+                          <input
+                            type="text"
+                            value={c.email}
+                            onChange={(e) =>
+                              updateContactLocal(r.id, c.id, "email", e.target.value)
+                            }
+                            onBlur={(e) =>
+                              persistContactField(c.id, "email", e.target.value)
+                            }
+                            onFocus={(e) =>
+                              Object.assign(e.target.style, inlineInputFocusStyle)
+                            }
+                            style={{ ...inlineInputStyle, fontSize: 11 }}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => deleteContact(r.id, c.id)}
+                            style={{
+                              padding: "4px 8px",
+                              fontSize: 10,
+                              color: "#cc4444",
+                              background: "transparent",
+                              border: "1px solid #cc4444",
+                              borderRadius: 3,
+                              cursor: "pointer",
+                              fontFamily: "inherit",
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      ))}
+                      <div style={{ paddingLeft: 32, marginTop: 8 }}>
+                        <button
+                          type="button"
+                          onClick={() => addContact(r.id)}
+                          style={{
+                            padding: "6px 12px",
+                            fontSize: 10,
+                            letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            color: "#FF4D00",
+                            background: "transparent",
+                            border: "1px solid #FF4D00",
+                            borderRadius: 3,
+                            cursor: "pointer",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          + Add Contact
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                marginTop: 12,
+                fontSize: 10,
+                color: "#888888",
+              }}
+            >
+              Showing {filtered.length} of {records.length}
+            </div>
+          </>
+        )}
+      </div>
+      <input
+        ref={csvFileInputRef}
+        type="file"
+        accept=".csv"
+        style={{ display: "none" }}
+        onChange={(e) => {
+          handleFile(e.target.files?.[0]);
+          e.target.value = "";
+        }}
+      />
+    </div>
+  );
+}

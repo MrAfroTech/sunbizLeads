@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management Hook — Seamlessly</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-border: rgba(212,175,55,0.3);
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #222; font-family: 'DM Sans', sans-serif; color: var(--white); padding: 40px 20px; margin: 0; display: flex; flex-direction: column; align-items: center; }
+
+  .card-wrap { width: 1280px; }
+
+  .banner {
+    width: 1280px;
+    background: #000;
+    border-bottom: 2px solid var(--gold-border);
+    padding: 24px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hook-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .hook-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(212,175,55,0.5);
+    white-space: nowrap;
+  }
+
+  .hook-line { flex: 1; height: 1px; background: var(--gold-border); }
+
+  .banner-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .banner-line {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+
+  .banner-line.gold {
+    color: var(--gold);
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* download */
+  .card-dl {
+    display: block; width: 100%; padding: 10px 20px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 2px;
+    color: #000; background: linear-gradient(135deg, #D4AF37, #e8c84a);
+    border: none; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(212,175,55,0.28); transition: box-shadow 0.2s;
+  }
+  .card-dl:hover { box-shadow: 0 6px 22px rgba(212,175,55,0.5); }
+  .card-dl:disabled { opacity: 0.55; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function dl(id, filename, btn) {
+    btn.disabled = true;
+    btn.textContent = 'Generating PNG…';
+    document.fonts.ready.then(function() {
+      html2canvas(document.getElementById(id), {
+        scale: 2, useCORS: true, allowTaint: true,
+        backgroundColor: '#000000', logging: false
+      }).then(function(canvas) {
+        var a = document.createElement('a');
+        a.download = filename;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        btn.disabled = false;
+        btn.textContent = '↓  Download as PNG';
+      });
+    });
+  }
+</script>
+
+<div id="banner" style="width:1280px;">
+  <div class="banner">
+    <div class="hook-row">
+      <div class="hook-label">The Hook For End Users</div>
+      <div class="hook-line"></div>
+    </div>
+    <div class="banner-lines">
+      <div class="banner-line">Mobile Ordering</div>
+      <div class="banner-line gold">Shorter Lines</div>
+    </div>
+  </div>
+</div>
+
+<button class="card-dl" onclick="dl('banner','seamlessly-management-hook.png',this)">↓ &nbsp; Download as PNG</button>
+
+</body>
+</html>

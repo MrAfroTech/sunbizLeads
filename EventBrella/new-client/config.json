@@ -1,0 +1,6 @@
+{
+  "clientName": "New Client",
+  "homeUrl": "https://new-client.eventbrella.us/allevents",
+  "eventsSource": "api/events.js",
+  "active": true
+}

@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+
+.calculator-plus-page {
+  min-height: 100vh;
+}
+
+.calculator-plus-upsell {
+  margin-top: 28px;
+  padding: 28px 24px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(26, 42, 68, 0.95), rgba(26, 42, 68, 0.75));
+}
+
+.calculator-plus-upsell-badge {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1a2a44;
+  background: #d4af37;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+
+.calculator-plus-upsell-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  color: #f5ecd7;
+  margin: 0 0 12px;
+}
+
+.calculator-plus-upsell-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #c8b89a;
+  margin: 0 0 18px;
+}
+
+.calculator-plus-upsell-list {
+  margin: 0 0 20px;
+  padding-left: 1.2rem;
+  color: #f5ecd7;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.calculator-plus-upsell-list li {
+  margin-bottom: 6px;
+}
+
+.calculator-plus-upsell-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.calculator-plus-upsell-price-amount {
+  font-family: 'DM Mono', monospace;
+  font-size: 2.4rem;
+  color: #d4af37;
+  line-height: 1;
+}
+
+.calculator-plus-upsell-price-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #9a8060;
+}
+
+.calculator-plus-upsell-cta {
+  display: inline-block;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #d4af37;
+  color: #1a2a44;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.calculator-plus-upsell-cta:hover:not(:disabled) {
+  background: #e8c97a;
+  transform: translateY(-1px);
+}
+
+.calculator-plus-upsell-cta:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.calculator-plus-upsell-error {
+  margin-top: 12px;
+  color: #e05c3a;
+  font-size: 0.9rem;
+}
+
+.calculator-plus-page .watch-vs-order-calc-header h2 {
+  color: #f5ecd7;
+}
+
+.calculator-plus-section {
+  margin-bottom: 32px;
+}
+
+.calculator-plus-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #d4af37;
+  margin: 0 0 12px;
+  letter-spacing: 0.03em;
+}
+
+.calculator-plus-section-body,
+.calculator-plus-section-note {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f5ecd7;
+  margin: 0;
+}
+
+.calculator-plus-section-note {
+  margin-bottom: 12px;
+  color: #c8b89a;
+  font-size: 0.92rem;
+}
+
+.calculator-plus-priority-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.calculator-plus-priority-list li {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.calculator-plus-priority-rank {
+  font-weight: 700;
+  color: #d4af37;
+}
+
+.calculator-plus-priority-label {
+  color: #f5ecd7;
+}
+
+.calculator-plus-priority-impact {
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  color: #d4af37;
+}
+
+.calculator-plus-roi-table th {
+  color: #d4af37;
+}
+
+.calculator-plus-benchmark-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .calculator-plus-benchmark-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calculator-plus-benchmark-card {
+  padding: 18px;
+  border-radius: 10px;
+  background: rgba(26, 42, 68, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.calculator-plus-benchmark-card--muted {
+  opacity: 0.85;
+}
+
+.calculator-plus-benchmark-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #c8b89a;
+  margin-bottom: 8px;
+}
+
+.calculator-plus-benchmark-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 2rem;
+  color: #d4af37;
+  line-height: 1.1;
+}
+
+.calculator-plus-benchmark-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #9a8060;
+  margin-top: 4px;
+}
+
+.calculator-plus-kit-cta {
+  margin-top: 8px;
+  text-align: center;
+}

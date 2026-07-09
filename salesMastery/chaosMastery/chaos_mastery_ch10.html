@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 10: The Data Ownership Crisis</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:22px 64px 14px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:22px 64px 18px 80px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:11.5px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.src-note{font-size:10px;color:#888;font-style:italic;line-height:1.5;border-top:1px solid #eee;padding-top:7px;margin-top:6px;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.gold{background:#D4AF37;}.q-card.teal{background:#00D4AA;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src{color:#1A2A44;}
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src{color:#1A2A44;}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 10: The Data Ownership Crisis</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part II — The Hidden Leaks in Hospitality</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 10</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:68px;color:#fff;line-height:.92;margin-bottom:2px;">THE DATA</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:68px;color:#D4AF37;line-height:.92;margin-bottom:34px;">OWNERSHIP CRISIS</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "If you don't own your customer data, you don't own your business."
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Hospitality industry axiom, widely cited among independent operators</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">67%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">DoorDash US delivery market share in 2025 — one platform sits between you and the majority of delivery customers</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">15–35%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">commission per order charged by delivery platforms — drastically eliminating margins</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">0</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">customer email addresses and phone numbers an operator receives from a standard DoorDash order — the data stays with the platform</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">$1.2B</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">DoorDash paid for SevenRooms in 2025 — expanding data capture from delivery into the reservations channel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE CRISIS DEFINED -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The Silent Handover</div>
+        <div class="ch-title">Third-Party Platforms Hijack Your Customer Relationships</div>
+        <div class="ch-intro" style="max-width:100%;">Every order placed through DoorDash, Uber Eats, or Grubhub generates a customer record. It includes the guest's name, phone number, email address, delivery address, and order history. That record belongs to the platform — not to the restaurant that cooked the food.</div>
+        <div class="body">
+          <p>The Restaurant Business Online's documentation of the data ownership debate is explicit: <strong>"Data ownership has been one of the major sticking points between establishments and delivery providers. establishments say lack of access to customer information allows the companies to get between them and their guests."</strong><span class="cite"> Joe Guszkowski, "NYC bill would require delivery companies to share data with establishments," Restaurant Business Online, May 14, 2021, restaurantbusinessonline.com</span></p>
+          <p>The DoorDash spokesperson's response in that same article makes the platform's position equally explicit: <em>"DoorDash is committed to protecting user data and privacy and cannot support efforts to force delivery platforms to share customer data without customer consent."</em> The data lives with DoorDash.<span class="cite"> DoorDash spokesperson, quoted in Restaurant Business Online, restaurantbusinessonline.com, May 2021</span></p>
+          <div class="sec-head">The Market Share Math</div>
+          <p>As of 2025, DoorDash held approximately <strong>67% of the US delivery market share</strong>, with Uber Eats trailing at 23%, according to digital restaurant operations firm Deliverect — data cited in CNBC's reporting on the restaurant reservation wars. That means on a standard delivery channel, the platform that owns your customer data is the one processing two-thirds of every delivery order your venue fulfills. <strong>You cook the food. They own the customer.</strong><span class="cite"> Deliverect, cited in CNBC, "Restaurant reservation wars heat up," Feb. 25, 2026</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The flywheel running against you:</strong> CherryBerry RMS's analysis of third-party delivery impact documents the structural trap: <em>"establishments lose ownership of customer data and relationships, making it impossible to build loyalty programs or conduct direct marketing."</em> Without data, there is no loyalty program. Without a loyalty program, there is no retention tool. Without retention, repeat visit revenue — which once drove 70% of revenue for most independent operators — migrates to platforms that can re-target those same guests with competitor offers. <span class="cite"> CherryBerry RMS, "Third-Party Delivery Apps Are Destroying Your Restaurant," Medium, Nov. 20, 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#c0392b;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#f9d71c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Data Loss in Numbers</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;">0</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">customer emails received from a standard DoorDash marketplace order — data stays with the platform</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">DoorDash marketplace terms; Restaurant Business Online, restaurantbusinessonline.com</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#f9d71c;line-height:1;">67%</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">of US delivery market controlled by DoorDash in 2025 — the single platform that owns most delivery customer data</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Deliverect via CNBC, Feb. 25, 2026</div>
+            </div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;">15–35%</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">commission per order — establishments pay platforms to process orders while platforms keep the customer relationship</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">CherryBerry RMS, Medium, Nov. 20, 2025</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">$1.2B</div>
+          <div class="stat-lbl">DoorDash acquisition of SevenRooms (2025) — extending platform data capture from delivery to reservations</div>
+          <div class="stat-sub">CNBC, "Restaurant reservation wars heat up as DoorDash enters the arena with Resy, OpenTable," Feb. 25, 2026</div>
+        </div>
+        <div class="q-card light">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Establishments lose ownership of customer data and relationships, making it impossible to build loyalty programs or conduct direct marketing."</div>
+          <div class="q-attr">CherryBerry RMS</div>
+          <div class="q-src">"Third-Party Delivery Apps Are Destroying Your Restaurant," Medium, Nov. 20, 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE RESERVATION WARS (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Battle for Your Guests</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE RESERVATION WARS — HOW PLATFORMS CAPTURED THE DINING ROOM TOO</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">DoorDash, Uber Eats, and AmEx Are Now Competing for Your Dine-In Guest Data</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Consolidation Moves — 2024–2026</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;margin-bottom:5px;">DOORDASH ACQUIRES SEVENROOMS — $1.2B (2025)</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:5px;">SevenRooms focuses on direct bookings through a restaurant's own website — the exact channel operators use to capture guest data without platform intermediaries. CNBC reports that the SevenRooms integration <strong style="color:#e74c3c;">"gives DoorDash and its establishments access to more data about diners."</strong></div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Source: CNBC, "Restaurant reservation wars heat up," Feb. 25, 2026</div>
+            </div>
+            <div style="background:rgba(255,165,0,0.08);border:1px solid rgba(255,165,0,0.25);border-radius:4px;padding:14px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#FFA500;letter-spacing:1px;margin-bottom:5px;">UBER EATS + OPENTABLE PARTNERSHIP</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:5px;">Uber integrated OpenTable reservations directly into its app — before DoorDash's SevenRooms acquisition. Both platforms now offer delivery, takeout, and table reservations in one interface. The guest relationship is fully inside the platform.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Source: CNBC, Feb. 25, 2026</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:14px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:5px;">AMERICAN EXPRESS BUYS TOCK — $400M (2024)</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:5px;">AmEx already owned Resy. Acquiring Tock — focused on upscale establishments — extends their reservation data coverage to the premium dining segment. AmEx now has the cardholder relationship and the dining reservation relationship simultaneously.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Source: CNBC, Feb. 25, 2026</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">What This Means for Independent Operators</div>
+          <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:15px;color:#fff;line-height:1.65;margin-bottom:10px;">"It's three very large, very ambitious, very well-resourced companies all vying for the same exact piece of real estate, which is high-demand establishments."</div>
+          <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:4px;">Ben Leventhal</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-bottom:12px;">Resy and Eater founder; Founder, Blackbird Labs (restaurant loyalty for independents)</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-bottom:14px;">Source: CNBC, "Restaurant reservation wars heat up as DoorDash enters the arena with Resy, OpenTable," Feb. 25, 2026</div>
+
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">Platform consolidation across delivery and reservations creates a single entity that controls the guest relationship from discovery through repeat visit. <strong style="color:#D4AF37;">The platform that books the table gets the guest's dining preferences. The platform that delivers the food gets the guest's order history.</strong> The restaurant gets the transaction — and a monthly invoice.</div>
+          </div>
+          <div style="margin-top:10px;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;">
+            <div style="font-size:11.5px;color:#fff;line-height:1.55;"><strong style="color:#00D4AA;">DoorDash's DashPass strategy:</strong> In select cities, DashPass subscribers get exclusive access to tables at trendy establishments — turning reservation access into a platform loyalty benefit. <strong style="color:#00D4AA;">The restaurant's table is now a DoorDash loyalty reward.</strong></div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Source: CNBC, Feb. 25, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:12px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        Restaurant Business Online: "We continued to hear some of the same complaints from establishments about how hard it is to convert third-party delivery customers to first-party channels. Some operators have now given up entirely on converting people." — Joe Guszkowski, Nov. 24, 2025
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE COST OF NOT OWNING DATA -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Financial Damage</div>
+    <div class="ch-title">What Platform Dependency Costs — Per Guest, Per Year</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The commission line on the invoice is visible. The cost of not being able to re-market to those guests next month is not. The true cost of platform dependency is not 15–35% per order. It is the compounding lifetime value surrendered with every transaction processed through a channel you don't control.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Commission Math</div>
+          <p>CherryBerry RMS's analysis establishes the base economics: <strong>"DoorDash charges establishments commission fees of 15–35% per order, which eliminates profit margins for most establishments that typically operate on only 3–5% margins."</strong> The analysis goes further: <em>"Many establishments operate at a loss on delivery orders through Uber Eats. When a platform takes 30% commission on a $50 order ($15), and the restaurant must cover food costs (28–35%), labour (30–35%), and other expenses, the math results in negative profitability."</em><span class="cite"> CherryBerry RMS, Medium, Nov. 20, 2025</span></p>
+          <p>This is the visible cost. The invisible cost is what happens next. The guest who just ordered through DoorDash is now in DoorDash's CRM, not yours. DoorDash can re-target them with a competitor's promotion next week. <strong>You cannot contact them at all.</strong></p>
+          <div class="sec-head">The Retention Destruction</div>
+          <p>Restaurant Business Online's Joe Guszkowski — reporting on 2025 restaurant technology — documents the conversion problem directly: <em>"We continued to hear some of the same complaints from establishments about how hard it is to convert third-party delivery customers to first-party channels. Some operators have now given up entirely on converting people, and are instead treating third- and first-party customers as totally separate audiences."</em><span class="cite"> Joe Guszkowski, Restaurant Business Online, Nov. 24, 2025, restaurantbusinessonline.com</span></p>
+          <p>The operators who have "given up on converting" have accepted a permanent structural disadvantage: they are spending marketing dollars to acquire customers who will continue to re-order through the platform that owns the relationship. <strong>The platform earns the commission on every repeat visit. The operator earns the margin. The margin on a delivery order through a 30% commission platform is, mathematically, often nothing.</strong></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The cold acquisition multiplier:</strong> Without an owned email or SMS list, every marketing dollar spent is spent on cold acquisition — reaching people who have never ordered before. Cold acquisition costs 5x more than retention marketing to repeat guests. Operators without first-party data lists are permanently trapped in the more expensive half of the marketing funnel.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Commission Math — Per $50 Order</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:3px;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.25);">
+              <div style="font-size:12px;color:#fff;">Order Revenue</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">$50.00</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:3px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.25);">
+              <div style="font-size:12px;color:#fff;">Platform commission (30%)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#e74c3c;">−$15.00</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:3px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);">
+              <div style="font-size:12px;color:#fff;">Food cost (32%)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#ff6b6b;">−$16.00</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:3px;background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);">
+              <div style="font-size:12px;color:#fff;">Labor (33%)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#ff6b6b;">−$16.50</div>
+            </div>
+            <div style="height:1px;background:rgba(212,175,55,0.3);"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:3px;background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.4);">
+              <div style="font-size:12px;font-weight:700;color:#e74c3c;">Operator net</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#e74c3c;">$2.50 — or less</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Source: CherryBerry RMS, "Third-Party Delivery Apps Are Destroying Your Restaurant," Medium, Nov. 20, 2025</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">5×</div>
+          <div class="stat-lbl">more expensive to acquire a new customer than to retain an existing one — without owned data, you're always in cold acquisition mode</div>
+          <div class="stat-sub">Industry marketing benchmark; widely cited in hospitality retention research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — THE DATA OWNERSHIP MAP (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Ownership Landscape</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">WHO OWNS YOUR CUSTOMER — BY CHANNEL</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Control Level, Retention Impact & Fix Priority Across Every Guest Channel</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <!-- Ownership table -->
+      <div style="margin-bottom:16px;">
+        <div style="display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:8px;margin-bottom:6px;">
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Data Owner</div>
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Your Control</div>
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Retention Impact</div>
+          <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Fix Priority</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:8px;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:12px 10px;align-items:start;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;line-height:1.2;">YOU<br>(email/SMS/CRM)</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#00D4AA;">Full.</strong> You own segments, automations, re-targeting, personalization. Every guest can receive "Your favorite table is open Thursday" — no paywall, no platform intermediary, no competitor ad next to your message.</div>
+            <div style="font-size:12px;color:#00D4AA;font-weight:700;">+35% repeat rate<br><span style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:400;">Direct channels drive higher LTV, higher AOV, and more frequent visits than platform-mediated orders</span></div>
+            <div style="background:rgba(0,212,170,0.2);border-radius:3px;padding:8px 10px;font-size:12px;color:#fff;font-weight:700;">🔴 BUILD NOW<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7);">Every week without a customer list is a week of compounding disadvantage</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:8px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:12px 10px;align-items:start;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;line-height:1.2;">DELIVERY APPS<br>(DoorDash, Uber)</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#e74c3c;">Low / pay-to-access.</strong> Standard marketplace orders: zero customer data. Drive, Storefront, and Self-Delivery products from DoorDash allow data access — but require separate agreements and technology.</div>
+            <div style="font-size:12px;color:#e74c3c;font-weight:700;">−25% loyalty<br><span style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:400;">Platform nudges guests toward competitors; you cannot contact them directly to retain them</span></div>
+            <div style="background:rgba(231,76,60,0.2);border-radius:3px;padding:8px 10px;font-size:12px;color:#fff;font-weight:700;">🔴 MIGRATE 20%+<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7);">Shift at least 20% of delivery volume to first-party direct channels immediately</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:8px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:12px 10px;align-items:start;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;line-height:1.2;">RESERVATIONS<br>(OpenTable, Resy)</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Medium / export fees.</strong> OpenTable and Resy collect guest dining data — preferences, history, special occasions. Export is possible but may require higher subscription tiers. The data is technically accessible but not fully owned.</div>
+            <div style="font-size:12px;color:#D4AF37;font-weight:700;">−15% follow-up<br><span style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:400;">Guest records exist but can't be freely used for marketing without platform permission</span></div>
+            <div style="background:rgba(212,175,55,0.15);border-radius:3px;padding:8px 10px;font-size:12px;color:#fff;font-weight:700;">🟡 SWITCH TO OWNED<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7);">Prioritize direct booking via your own website for new reservations</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:150px 1fr 1fr 1fr;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:12px 10px;align-items:start;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;line-height:1.2;">SOCIAL / GOOGLE<br>(Instagram, Maps)</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#fff;">None.</strong> Followers are not yours — they belong to the platform. Algorithm changes can cut reach overnight. Google Maps reviews drive traffic but produce no contact data. You are entirely dependent on platform algorithm favor.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);font-weight:700;">Neutral / variable<br><span style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:400;">Good for discovery; zero retention value without conversion to owned channels</span></div>
+            <div style="background:rgba(255,255,255,0.08);border-radius:3px;padding:8px 10px;font-size:12px;color:#fff;font-weight:700;">🟢 AMPLIFY OWNED<br><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7);">Use social as acquisition, not retention. Push every follower toward your email/SMS list</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        "Customer data is the new location advantage: it fuels precision retention that no foot-traffic play matches in the app era."
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — THE POLITICAL BATTLEGROUND -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Legislative Fight</div>
+    <div class="ch-title">Cities Are Fighting for Your Data — And What It Means</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The data ownership battle between establishments and platforms has become a legislative fight. Cities are proposing laws that would require platforms to share guest data with the establishments that fulfill their orders. The platforms are fighting back. While the legal battle plays out, operators need a strategy that doesn't depend on a legislative win.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The NYC Legislation</div>
+          <p>Restaurant Business Online documented the data ownership fight directly: <strong>"A bill introduced in the New York City Council would require third-party delivery companies like DoorDash, Uber Eats and Grubhub to share more data with the establishments that use their marketplaces — including a customer's name, phone number, email address, delivery address and the contents of the order."</strong> The New York City Hospitality Alliance supported the bill.<span class="cite"> Joe Guszkowski, Restaurant Business Online, May 14, 2021, restaurantbusinessonline.com</span></p>
+          <div class="sec-head">DoorDash's Response — The Privacy Shield Argument</div>
+          <p>DoorDash's position — articulated in their response to the NYC bill — is the playbook every major platform uses to defend data control: <em>"DoorDash is committed to protecting user data and privacy and cannot support efforts to force delivery platforms to share customer data without customer consent."</em> The privacy framing transforms a commercial data monopoly argument into a consumer protection argument — and it has been effective in slowing legislative progress.<span class="cite"> DoorDash spokesperson, quoted in Restaurant Business Online, restaurantbusinessonline.com</span></p>
+          <p>The Independent Restaurant Coalition has gone further, calling for federal regulation: <strong>"Third-party platforms impose unsustainable financial burdens on independent establishments"</strong> through commission fees and data control structures that prevent operators from building independent guest relationships.<span class="cite"> Independent Restaurant Coalition, independentrestaurantcoalition.com, 2025</span></p>
+          <div class="sec-head">What Operators Can't Wait For</div>
+          <p>Grubhub's response to the NYC bill reveals the market movement happening regardless of legislation: the platform launched <strong>Grubhub Direct</strong> — allowing independent establishments to create their own ordering websites and capture customer data from those orders. The spokesperson's statement: <em>"We believe in the principle that establishments should have the data to build relationships with their customers."</em><span class="cite"> Grubhub spokesperson, quoted in Restaurant Business Online, restaurantbusinessonline.com</span></p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The practical implication:</strong> The platforms that allow data access are doing so through their own products — DoorDash Drive, Storefront, and Self-Delivery; Grubhub Direct — which require separate agreements and redirect more of the relationship back to the platform anyway. The only channel that genuinely returns data ownership to the operator is first-party ordering through the operator's own domain.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Legislative & Market Timeline</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">2021 — NYC BILL INTRODUCED</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">NYC Council proposes requiring platforms to share customer name, email, phone with establishments. DoorDash opposes. Bill stalls.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Restaurant Business Online, restaurantbusinessonline.com</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">2024 — AMEX ACQUIRES TOCK ($400M)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">AmEx (owner of Resy) adds Tock, covering upscale dining reservations. Card + reservations data combined.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">CNBC, Feb. 25, 2026</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">2025 — DOORDASH ACQUIRES SEVENROOMS ($1.2B)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The platform that owned delivery data now also owns the reservations data platform operators were using to bypass them.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">CNBC, Feb. 25, 2026</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">2025 — DOORDASH BREACH / LAWSUIT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">DoorDash confirmed a data breach exposing customer names, phones, and emails. Class-action lawsuit filed Nov. 2025. The data platforms hold is also a liability they create for themselves and the operators who depend on them.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Joe Guszkowski, Restaurant Business Online, Nov. 24, 2025</div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"We believe in the principle that establishments should have the data to build relationships with their customers."</div>
+          <div class="q-attr">Grubhub Spokesperson</div>
+          <div class="q-src">Quoted in Restaurant Business Online, restaurantbusinessonline.com, 2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — WHAT IS WORKING -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Reclaim Strategy</div>
+    <div class="ch-title">the Power of Direct Channels That Return Data to You</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The data ownership battle can't wait for legislation. It has to be won at the transaction level — by building the direct channels that capture guest information at the moment of engagement, before it flows through a platform that will keep it.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">First-Party Ordering — The Highest-Leverage Move</div>
+          <p>Qu's 2025 State of Digital Report — drawing from 170 brands across 85,000 locations — establishes the market directly: <strong>40% of brands now identify first-party digital sales as their biggest revenue growth opportunity in 2025.</strong> For QSR brands specifically, that number rises to 55%. The logic is simple: first-party ordering means the brand owns the guest data, the relationship, and the full margin — no commission, no platform intermediary, no competitor ad served alongside the confirmation email.<span class="cite"> Qu 2025 State of Digital Report, qubeyond.com · 170 brands, 85,000 locations</span></p>
+          <div class="sec-head">The QR Code Collection Loop</div>
+          <p>The highest-converting real-world data capture mechanism for in-venue operators is the QR code opt-in at point of transaction. When a guest pays their tab, scans for a menu, or closes out at the bar, the QR interaction captures an email or phone number in exchange for a discount on the next visit, a loyalty enrollment, or access to a members-only perk. This is the "text every tab closeout for opt-in" model — and it works because the moment of transaction is the moment of highest engagement.</p>
+          <div class="sec-head">The Loyalty Re-Investment</div>
+          <p>Qu's data documents a market-wide pivot: operators are shifting budget from traditional loyalty programs (which require data they don't have) to <strong>guest data platforms</strong> — investments that build the underlying owned data infrastructure. Guest data platform spending rose 11% year-over-year in 2025 while traditional loyalty spending dropped 8%. <strong>The market is buying the foundation before the building.</strong><span class="cite"> Qu 2025 State of Digital Report, qubeyond.com</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The Intouch Insight finding:</strong> Their 2025 Third-Party Delivery Study — based on 600 mystery shops across the US from April to June 2025 — found that first-party channels showed stronger control over order customization and the guest relationship. The report notes: <em>"First-party channels showed that operators are serious about owning the relationship."</em> <span class="cite"> Intouch Insight, "Are the 2025 Third-Party Delivery Trends a Warning Sign for Operators?" intouchinsight.com, Jan. 8, 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Data Reclaim Playbook</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">QR OPT-IN AT TAB CLOSE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Text your number for 10% off your next visit" — highest conversion moment. Guest is already engaged and transacting. Capture rate: 15–25% per shift.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">FIRST-PARTY ORDERING APP</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Every first-party digital order = one complete guest record. No commission. Full data ownership. 40% of brands cite this as their top 2025 revenue growth lever.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Qu 2025 State of Digital Report, qubeyond.com</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">EMAIL RECEIPT CAPTURE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Email your receipt?" at POS checkout — captures address with near-zero friction. Works with every POS system that supports digital receipts.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;">DIRECT BOOKING INCENTIVE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Book direct and get a complimentary appetizer" — shifts reservations away from OpenTable/Resy to your own booking system where you keep the guest data.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">40%</div>
+          <div class="stat-lbl">of restaurant brands name first-party digital ordering as their #1 revenue growth opportunity for 2025</div>
+          <div class="stat-sub">Qu 2025 State of Digital Report · 170 brands, 85,000 locations · qubeyond.com</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+11%</div>
+          <div class="stat-lbl">YoY increase in guest data platform spending in 2025 — operators building the owned data foundation first</div>
+          <div class="stat-sub">Qu 2025 State of Digital Report, qubeyond.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — THE CONVERSION PROBLEM (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Hardest Problem</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">the dilema of converting THIRD-PARTY CUSTOMERS</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">The industry's Honest Assessment — and the Industry's Emerging Response</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:14px;">
+        <div>
+          <div style="font-size:10px;color:#e74c3c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Honest Problem Statement</div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:16px;margin-bottom:12px;">
+            <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14.5px;color:#fff;line-height:1.65;margin-bottom:8px;">"We continued to hear some of the same complaints from establishments about how hard it is to convert third-party delivery customers to first-party channels. Some operators have now given up entirely on converting people, and are instead treating third- and first-party customers as totally separate audiences."</div>
+            <div style="font-size:11px;font-weight:700;color:#e74c3c;">Joe Guszkowski</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.5);font-style:italic;">Senior Editor, Restaurant Business Online · Nov. 24, 2025 · restaurantbusinessonline.com</div>
+          </div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">Guszkowski's analysis captures the uncomfortable reality: conversion from third-party to first-party is hard because platforms make it hard. The platform's loyalty mechanics — DashPass credits, exclusive tables, reward points — are designed to deepen the guest's relationship with the platform, not with the restaurant. Every incentive the platform creates to retain the guest is an incentive the restaurant must compete against.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Why Platforms Win the Retention Battle</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">PLATFORM LOYALTY PROGRAMS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">DashPass, Uber One — subscription loyalty programs that reward guests for staying on the platform, regardless of where they order from.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">COMPETITOR RECOMMENDATIONS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">After your guest orders, the platform's algorithm immediately recommends similar establishments. The repeat order may go to you — or to the competitor with better platform placement or a promotional fee paid.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">PLATFORM RE-TARGETING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The platform can run a promotion specifically targeting your previous customers to order from a competitor. You cannot run the equivalent — because you don't have the customer's contact information.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">THE EMERGING RESPONSE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Treat third- and first-party as separate audiences with separate strategies. Use platforms for new customer acquisition. Use owned channels for retention. The goal is not to eliminate platforms — it is to stop using them for the customer relationship.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px 16px;margin-bottom:12px;">
+        <div style="font-size:13px;color:#fff;line-height:1.6;"><strong style="color:#D4AF37;">The Intouch Insight 2025 benchmark:</strong> First-party channels showed "operators are serious about owning the relationship" — stronger customization control and higher guest satisfaction scores than third-party channels. The operators building first-party infrastructure now are not just recovering data — they are building the service quality advantage that compounds over time. <span style="font-size:9.5px;color:rgba(255,255,255,0.4);font-style:italic;">Intouch Insight, 2025 Third-Party Delivery Study, intouchinsight.com · 600 mystery shops</span></div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;">
+        Platform dependence is not a channel strategy. It is a surrender of the guest relationship. The first-party investment that feels expensive today is the compounding advantage that eliminates cold acquisition costs in three years.
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — THE LTV MATH -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Lifetime Value Calculation</div>
+    <div class="ch-title">Customer Data as An Advantage — The power of LTV</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">Location used to be the competitive advantage. Being on a busy corner, near a stadium, on the right downtown block — those positions guaranteed traffic. In the app era, location is still important. But customer data has replaced it as the primary driver of repeat revenue. The operator who owns the relationship doesn't need the foot traffic — they can create it.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The LTV Equation</div>
+          <p>A guest who visits once per month, spends $45 per visit, for 2 years has a lifetime value of $1,080. The same guest who receives a well-timed re-engagement message — "Your favorite table is available Thursday" — and visits 1.3x per month instead has a lifetime value of $1,404. <strong>The difference is not the guest's loyalty. It is the operator's ability to communicate with them.</strong></p>
+          <p>Qu's 2025 State of Digital Report documents the revenue impact concretely: <em>"Even one extra visit per guest each year can boost revenue by 5 to 10%."</em> That calculation — cited from Blaze Pizza CTO Chris Demery — was made in the context of unified data enabling personalized communication. Without owned data, that visit never gets triggered. The guest who would have responded to "we miss you" never receives the message.<span class="cite"> Chris Demery, CTO Blaze Pizza, via Qu 2025 State of Digital Report, qubeyond.com · MURTEC 2025</span></p>
+          <div class="sec-head">The Retention Advantage</div>
+          <p>The data ownership advantage is most powerful not in mass email blasts but in precise moments: the birthday message sent 3 days before the guest's birthday, the "you haven't visited in 45 days" re-engagement trigger, the "we just launched your favorite item in a new preparation" notification. <strong>None of these are possible without the guest's contact information and purchase history in a system you control.</strong></p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The 5x acquisition cost multiplier:</strong> Without a list, every new guest is a cold acquisition. Cold acquisition costs 5x more than retaining a previous client — an email to an opted-in guest who has already visited twice costs a fraction of the cost of a social media ad. The operator who doesn't own their data is permanently running the more expensive version of their marketing spend.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The LTV Comparison — Owned vs. Platform Guest</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;margin-bottom:6px;">Platform Data</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">Visits 1x/month. $45 avg. You have no contact info. No re-engagement possible. Platform re-targets them with a competitor offer. Retention depends entirely on the guest's own motivation.</div>
+              <div style="margin-top:8px;border-top:1px solid rgba(231,76,60,0.3);padding-top:8px;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#e74c3c;">$540/yr LTV</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.4);">12 months × 1 visit × $45 avg</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;margin-bottom:6px;">When you own the data</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">Same guest. Now in your CRM. Receives birthday offer in Month 2, re-engagement offer in Month 5 when visits lag, seasonal menu announcement in Month 9. Visits average 1.3x/month.</div>
+              <div style="margin-top:8px;border-top:1px solid rgba(0,212,170,0.3);padding-top:8px;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#00D4AA;">$702/yr LTV</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.4);">12 months × 1.3 visits × $45 avg</div>
+              </div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px;text-align:center;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;">+$162/yr per guest</div>
+              <div style="font-size:11.5px;color:#fff;margin-top:3px;">Multiply by 500 When you own the data = <strong style="color:#D4AF37;">$81,000 annual LTV premium</strong> from data ownership alone</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+5–10%</div>
+          <div class="stat-lbl">annual revenue boost from just one extra guest visit per year — enabled by personalized data-driven re-engagement</div>
+          <div class="stat-sub">Chris Demery, CTO Blaze Pizza, via Qu 2025 State of Digital Report · qubeyond.com · MURTEC 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE BLACKBIRD MODEL / INDEPENDENTS FIGHTING BACK -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Independent Operator Response</div>
+    <div class="ch-title">How To Gain Data Ownership</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The data ownership battle is not only being fought by lawyers and legislators. It is being fought every shift by independent operators who are making deliberate choices about which channels they build for — and which guests they own. The first-party movement is not theoretical. It is operational.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Blackbird Labs Model</div>
+          <p>Ben Leventhal — Resy and Eater founder — responded to the platform consolidation trend not by lobbying or litigating but by building: <strong>Blackbird Labs, a loyalty program specifically designed to return data ownership to independent establishments.</strong> The company, founded in 2022, allows independent establishments to capture guest data through a loyalty layer that the restaurant controls, not the platform.<span class="cite"> Ben Leventhal, cited in CNBC, "Restaurant reservation wars heat up," Feb. 25, 2026</span></p>
+          <p>Leventhal's founding logic reflects the same insight this chapter opens with: in a market where DoorDash, Uber Eats, and AmEx are all racing to control the dining relationship, the independent operator's best defense is owning the relationship independently — through tools designed specifically to return data sovereignty to the restaurant.</p>
+          <div class="sec-head">DoorDash's Own Response — The Direct Products</div>
+          <p>Restaurant Business Online documents that DoorDash's position is not entirely monolithic: <strong>"DoorDash's Drive, Storefront and Self-Delivery products, which establishments can use to help fulfill orders they generate themselves, allow establishments to keep customer data."</strong> The distinction is critical: orders generated through the DoorDash marketplace belong to DoorDash. Orders generated through the restaurant's own channels and fulfilled using DoorDash logistics can belong to the restaurant.<span class="cite"> Restaurant Business Online, restaurantbusinessonline.com, 2021</span></p>
+          <p>This is the architecture that gives operators a path forward: <strong>use platform logistics without using platform marketplace</strong>. Own the ordering channel, own the data, optionally outsource the delivery. The commission structure is different — typically lower for self-delivery arrangements — and the data stays with the restaurant.</p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The operational prescription:</strong> Build your own ordering channel. Use platforms as a logistics layer, not a customer acquisition layer. Every guest who orders through your domain is a guest record in your CRM. Every guest who orders through the marketplace is a guest record in theirs. 
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Channels That Return Data Control</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">YOUR BRANDED ORDERING APP</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Full data ownership. Guest profile builds with every order. Loyalty program works because it reads from complete transaction history.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">QR ORDERING (IN-VENUE)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Guest scans your QR code, orders through your system. You capture the contact at point of transaction with consent built into the order flow.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">SMS TEXT-TO-JOIN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Tabletop cards, receipts, and QR codes invite guests to text a keyword for discounts. Immediate mobile number capture with consent. Works on any budget.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">DOORDASH DRIVE / STOREFRONT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Platform fulfillment + restaurant-controlled ordering. Guest arrives through your domain, fulfillment handled by DoorDash logistics. Data stays with you.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Source: Restaurant Business Online, restaurantbusinessonline.com</div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card gold" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"DoorDash's Drive, Storefront and Self-Delivery products allow establishments to keep customer data — when establishments generate the orders themselves."</div>
+          <div class="q-attr">Restaurant Business Online</div>
+          <div class="q-src">restaurantbusinessonline.com · Joe Guszkowski · 2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE DATA BREACH RISK (Full bleed navy) -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Hidden Risk</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">PLATFORM DATA means PLATFORM reLIABILITY & liability</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">When Platforms owns Your Data, Security Failures Tarnish Your Data</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#e74c3c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The DoorDash Breach — November 2025</div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:8px;">DoorDash confirmed a November 2025 data breach in which a cybercriminal gained access to systems through a social engineering attack targeting an employee. The breach exposed <strong style="color:#e74c3c;">customer first and last names, phone numbers, email addresses, and physical addresses</strong> — of DoorDash customers, merchants, and couriers.</div>
+            <div style="font-size:11px;font-weight:700;color:#e74c3c;">Impact Scale</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;margin-top:4px;">A proposed class-action lawsuit was filed in Northern California District Court, arguing DoorDash's failure to prevent the breach put victims at risk of identity theft. Restaurant Business Online reports that data breach class actions surged by more than 1,265% from 2018 to 2024, per law firm Duane Morris.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:6px;">Source: Joe Guszkowski, Restaurant Business Online, Nov. 24, 2025; restaurantbusinessonline.com</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">The Operator Exposure</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;">When a platform that holds your guests' data is breached, those guests experience it as a breach of the guest relationship — even though the restaurant had no control over the platform's security. Per IBM, the average cost of a data breach globally is $4.4 million, but $10.2 million in the US. The operator bears reputational cost without operational control.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:6px;">IBM Cost of a Data Breach Report; cited in Restaurant Business Online</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">The KPMG Consumer Behavior Finding</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.4);border-radius:4px;padding:14px;text-align:center;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;margin-bottom:5px;">19%</div>
+              <div style="font-size:12.5px;color:#fff;line-height:1.4;">of customers would stop visiting a brand entirely if a data breach occurred</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);margin-top:4px;font-style:italic;">KPMG research, cited in Restaurant Dive</div>
+            </div>
+            <div style="background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3);border-radius:4px;padding:14px;text-align:center;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#FFA500;line-height:1;margin-bottom:5px;">33%</div>
+              <div style="font-size:12.5px;color:#fff;line-height:1.4;">would take an extended break from the brand following a breach</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);margin-top:4px;font-style:italic;">KPMG research, cited in Restaurant Dive</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;text-align:center;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:5px;">$10.2M</div>
+              <div style="font-size:12.5px;color:#fff;line-height:1.4;">average cost of a data breach in the US — falls on the establishments whose guests were exposed</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);margin-top:4px;font-style:italic;">IBM Cost of a Data Breach Report, cited in Restaurant Business Online</div>
+            </div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;">
+            <div style="font-size:12.5px;color:#fff;line-height:1.6;"><strong style="color:#00D4AA;">The data ownership advantage includes security:</strong> When you own your guest data in your own system, you control the security standards, the access permissions, and the incident response. When a platform is breached, you have no control — and you absorb the reputational consequence.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        "Data breaches aren't cheap, financially or reputationally." — Restaurant Dive · $148 average per compromised record; $3.92 million average breach cost (IBM). Operators who don't own the data don't control the risk.
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MIGRATION ROADMAP -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Reclaim Roadmap</div>
+    <div class="ch-title">How to Reclaim Your Data Without Losing Your Volume</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The goal is not to eliminate platforms overnight. It is to build the first-party infrastructure that gradually reduces dependence — while keeping the volume that platforms currently drive. The migration is a 12–18 month operation, not a week-one switch.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Phase 1 — Capture Before You Convert (Weeks 1–4)</div>
+          <p>Start collecting data at every in-venue touchpoint before attempting to pull guests away from platforms. The in-venue guest is already yours. Install QR opt-ins at every table, receipt prompt email capture at POS, and SMS join prompts on all tabletop materials. Goal: capture contact information for 15–25% of in-venue guests per shift, building toward an owned list of 500+ active contacts within 90 days.</p>
+          <div class="sec-head">Phase 2 — Build the Direct Channel (Months 2–4)</div>
+          <p>Deploy a first-party ordering page — not a marketplace listing. Your domain, your menu, your branding. The goal is to have a URL you own that generates orders you can fulfill and guest data you keep. According to Qu's 2025 data, <strong>40% of brands are already moving in this direction</strong> because the first-party channel produces better margin and complete data ownership.<span class="cite"> Qu 2025 State of Digital Report, qubeyond.com</span></p>
+          <div class="sec-head">Phase 3 — Incentivize Migration (Months 6–12)</div>
+          <p>Run a deliberate campaign to shift existing platform customers to your direct channel. The conversion offer must be compelling: "Order direct and get 10% off every order permanently" is a structural incentive that changes the math for guests who use platforms primarily for the ordering convenience, not the platform loyalty. Restaurant Business Online documents that this conversion is hard — <strong>but the operators who run consistent campaigns over 6–12 months report measurable gains.</strong><span class="cite"> Restaurant Business Online, restaurantbusinessonline.com, Nov. 24, 2025</span></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The 90-Day Data Reclaim Plan</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">WEEK 1 — INSTALL QR OPT-INS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Every table, every receipt, every bar menu. Text-to-join and email capture at point of transaction. Cost: near zero. Capture rate: 15–25% per shift.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">WEEK 2–4 — LANDING PAGE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Your own ordering URL. Link from all social profiles, Google Business, email signature, and physical menus. Make it easier to find than the platform listing.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">MONTH 2–4 — FIRST EMAIL CAMPAIGN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Send your first owned-list email. "You're on the inside now — here's what's new and why you should come back." Measure open rate, click rate, and visit attribution.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">MONTH 5-12 — MIGRATION CAMPAIGN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Promote direct channel to platform customers via all available physical touchpoints. Structural incentive: 10% off every direct order, permanently. Track % of orders shifting from platform to direct monthly.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>The target:</strong> 20% of delivery orders through first-party channels within 12 months. At $50 avg order and 300 orders/month, that is 60 orders generating complete guest data and 12–30% better margin. Every percentage point of platform migration is permanent profit recovery.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 10 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;margin-bottom:14px;line-height:1.48;max-width:640px;">The data audit starts with mapping every channel and scoring how much of each guest relationship you actually own. The gap analysis tells you exactly what it's costing you every month.</div>
+
+    <!-- Channel audit -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:14px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">Identify Your Data Ownership — By Channel</div>
+      </div>
+      <div style="padding:12px 18px;">
+        <div style="display:grid;grid-template-columns:130px 1fr 90px 90px 80px;gap:7px;margin-bottom:6px;">
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Channel</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">% Customers Captured?</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Control<br>Score (1–10)</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Using for<br>Marketing?</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Owned<br>%</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:130px 1fr 90px 90px 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#e74c3c;">DoorDash/Uber</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:130px 1fr 90px 90px 80px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#D4AF37;">POS Emails</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:130px 1fr 90px 90px 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#D4AF37;">Reservations</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:130px 1fr 90px 90px 80px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Social / Google</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+            <div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gap analysis + action -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">Gap analysis — Platform-owned % of your total guest base:</div>
+        <div style="font-size:12px;color:#666;margin-bottom:6px;line-height:1.5;">"Platforms own ___% of my data, costing approximately ___ repeat visits per month at $45 avg = $___/month in untrackable retention revenue."</div>
+        <div class="fill-line"></div><div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">My one immediate capture action:</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:rgba(255,255,255,0.7);margin-bottom:8px;line-height:1.5;">"By [date], I will install [QR opt-in / text-to-join / email receipt] at every [table / bar seat / checkout] to start capturing guests I currently have no way to reach."</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">RECLAIM<br>DATA,<br>RECLAIM<br>CONTROL</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Your moat rebuilds here — one opted-in guest at a time. The $81,000 annual LTV premium from owning 500 guests instead of renting them from platforms is achievable within 12 months of consistent capture practice. Every week you wait is another week of compounding disadvantage. Start with one QR code at one table tonight.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BRIDGE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">Customer Data Is the Advantage</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:16px;max-width:620px;">Location used to be the moat. Being on the right corner guaranteed traffic. In the platform era, customer data has replaced location as the primary source of repeat revenue. The operator who owns the relationship doesn't need the foot traffic — they can generate it.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE PLATFORMS OWN YOUR GUESTS — NOT YOU</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Every standard DoorDash marketplace order produces zero customer data for the establishment. DoorDash holds 67% of US delivery market share. The data ownership battle became a legislative fight — but operators cannot wait for legislation. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Restaurant Business Online; Deliverect via CNBC, Feb. 2026</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE RESERVATION WARS HAVE EXTENDED THE CAPTURE TO DINE-IN</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">DoorDash's $1.2B SevenRooms acquisition, Uber Eats + OpenTable partnership, and AmEx's $400M Tock acquisition mean the same platforms that captured delivery data are now capturing reservation data. The data cycle is nearly complete. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: CNBC, Feb. 25, 2026; Ben Leventhal</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">ONE EXTRA VISIT PER GUEST PER YEAR = 5–10% REVENUE GROWTH</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Blaze Pizza CTO Chris Demery, cited in Qu's 2025 State of Digital Report, documents that even one additional annual visit per guest translates to 5–10% revenue growth — achievable only through the owned data that makes re-engagement possible. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Qu 2025 State of Digital Report, qubeyond.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE MIGRATION STARTS WITH ONE QR CODE AND A 90-DAY PLAN</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">First-party ordering, QR opt-ins at tab close, SMS text-to-join, and email receipt capture are all available today. The conversion from platform to direct channel is hard but measurable. The operators who run consistent 12-month campaigns report meaningful percentage shifts. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Qu 2025; Restaurant Business Online, Nov. 2025</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Part III · Chapter 11</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">experience IS THE PRODUCT</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Parts I and II have exposed the hidden leaks in hospitality — from the staff burnout cycle to the platform data crisis. Part III begins to build the modern hospitality operating system. Chapter 11 establishes the central thesis: the guest doesn't remember what they ate. They remember how the experience felt. The experience is the product.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">10 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch10-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch10-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

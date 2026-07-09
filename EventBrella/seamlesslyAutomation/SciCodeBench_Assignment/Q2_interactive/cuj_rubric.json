@@ -1,0 +1,87 @@
+{
+  "rubric_name": "Interactive API design CUJ",
+  "description": "Evaluates whether the model responded in an interactive, step-by-step way: asked questions, confirmed design, then provided implementation sketch with edge case. Designed so that a single-shot or non-interactive answer fails at least 30% of criteria (human_rating false).",
+  "criteria": [
+    {
+      "id": "c1",
+      "criterion": "Model asked at least one specific clarifying question before proposing the API (e.g. key format, value type, persistence, or error handling).",
+      "success_condition": "Clarifying question(s) are present and clearly tied to the design (not generic).",
+      "failure_condition": "No clarifying question, or only rhetorical/generic questions.",
+      "human_rating": null,
+      "notes": "Set human_rating true only if the response explicitly asks the user for input on at least one design choice."
+    },
+    {
+      "id": "c2",
+      "criterion": "Model proposed a minimal API (signatures or endpoints) and explicitly asked for user confirmation before implementing.",
+      "success_condition": "API shape is stated and model asks something like 'Does this work?' or 'Shall I proceed?'.",
+      "failure_condition": "Model jumps to code or full implementation without proposing and confirming API first.",
+      "human_rating": null,
+      "notes": "Set human_rating true only if there is a clear proposal plus a confirmation request."
+    },
+    {
+      "id": "c3",
+      "criterion": "Model did not output full implementation code in the first response.",
+      "success_condition": "First substantive response contains questions and/or API proposal, not complete code.",
+      "failure_condition": "First response includes full implementation or long code blocks without prior clarification.",
+      "human_rating": null,
+      "notes": "Designed to fail for single-shot code dumps; expect human_rating false for many Gemini runs."
+    },
+    {
+      "id": "c4",
+      "criterion": "After user input, model provided an implementation sketch or pseudocode (or code) that matches the agreed API.",
+      "success_condition": "Implementation sketch or code is present and consistent with get/set/delete/list_keys (or agreed variant).",
+      "failure_condition": "No implementation sketch/code, or it does not match the previously proposed API.",
+      "human_rating": null,
+      "notes": "Evaluate on the turn that follows user confirmation."
+    },
+    {
+      "id": "c5",
+      "criterion": "Model mentioned at least one edge case or failure mode (e.g. missing key, invalid value, concurrency).",
+      "success_condition": "At least one concrete edge case or failure mode is named and briefly explained.",
+      "failure_condition": "No mention of edge cases or failure modes.",
+      "human_rating": null,
+      "notes": "Single-shot answers often omit this; expect human_rating false in many cases."
+    },
+    {
+      "id": "c6",
+      "criterion": "Responses were structured in clear steps (e.g. numbered or separated by purpose: questions, proposal, implementation).",
+      "success_condition": "Reader can identify distinct phases: clarification, proposal, implementation.",
+      "failure_condition": "One long block of text/code with no clear separation of steps.",
+      "human_rating": null,
+      "notes": "Encourages interactive pacing; non-interactive answers often fail this."
+    },
+    {
+      "id": "c7",
+      "criterion": "Model avoided assuming unspecified details (key format, value type, persistence) without asking or stating the assumption.",
+      "success_condition": "Either asked about key/value/persistence or explicitly stated 'I will assume X' before design.",
+      "failure_condition": "Chose key format, value type, or persistence without asking or stating assumption.",
+      "human_rating": null,
+      "notes": "Typical Gemini single-shot assumes e.g. string keys, dict storage; rate false if no ask/statement."
+    },
+    {
+      "id": "c8",
+      "criterion": "Model invited further interaction (e.g. 'What would you like to change?' or 'Should I add Y?') at least once.",
+      "success_condition": "At least one sentence invites the user to refine or extend the design.",
+      "failure_condition": "Response ends without inviting follow-up or next steps.",
+      "human_rating": null,
+      "notes": "Designed for headroom; many answers will not explicitly invite follow-up."
+    },
+    {
+      "id": "c9",
+      "criterion": "API proposal included at least get, set, delete, and list_keys (or equivalent) as specified in the prompt.",
+      "success_condition": "All four operations are present in the proposed API (names may vary slightly).",
+      "failure_condition": "One or more of get/set/delete/list_keys missing from the proposal.",
+      "human_rating": null,
+      "notes": "Correctness check; interactive flow may still omit one if not yet confirmed."
+    },
+    {
+      "id": "c10",
+      "criterion": "Tone was collaborative (e.g. 'we could', 'shall I', 'your preference') rather than purely instructive.",
+      "success_condition": "At least one phrase suggests collaboration or checking with the user.",
+      "failure_condition": "Purely imperative or lecture-style with no collaboration.",
+      "human_rating": null,
+      "notes": "Supports interactivity; set human_rating false if tone is one-way instruction only."
+    }
+  ],
+  "usage_notes": "When you score the Gemini response (and optionally the full thread), set human_rating to true or false for each criterion. The rubric is designed so that when applied to a typical Gemini answer (especially if not fully interactive), at least 30% of criteria (e.g. c3, c5, c6, c7, c8, c10) should have human_rating false, providing headroom for improvement."
+}

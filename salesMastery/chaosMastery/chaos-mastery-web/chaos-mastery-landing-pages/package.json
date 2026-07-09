@@ -1,0 +1,6 @@
+{
+  "name": "chaos-mastery-landing-pages",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static book-bonus landings for Chaos Mastery. Deploy this directory to Vercel (Root Directory = chaos-mastery-landing-pages)."
+}

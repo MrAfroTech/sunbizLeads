@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Problem — Seamlessly</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #000000;
+    --black2: #0a0a0a;
+    --gold: #D4AF37;
+    --gold2: #e8c84a;
+    --gold-dim: rgba(212,175,55,0.55);
+    --gold-border: rgba(212,175,55,0.3);
+    --white: #FFFFFF;
+    --dim: rgba(255,255,255,0.6);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; font-family: 'DM Sans', sans-serif; color: var(--white); padding: 40px 20px 80px; }
+
+  .card-wrap {
+    width: 100%; max-width: 740px;
+    margin: 0 auto 28px;
+  }
+
+  .card {
+    background: #000;
+    border: 2px solid var(--gold-border);
+    border-bottom: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-inner { padding: 48px 56px 52px; position: relative; z-index: 1; }
+
+  /* ── eyebrow ── */
+  .eyebrow-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .eyebrow-pill {
+    font-size: 10px; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: #000;
+    background: var(--gold);
+    padding: 5px 14px; border-radius: 2px;
+    white-space: nowrap;
+  }
+  .eyebrow-line { flex: 1; height: 1px; background: var(--gold-border); }
+  .eyebrow-tag {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── headline ── */
+  .card-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 68px; line-height: 1;
+    letter-spacing: 2px; color: var(--gold);
+    margin-bottom: 36px;
+  }
+  .card-headline span { color: var(--white); }
+
+  /* ── impact grid ── */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .impact-card {
+    background: #000;
+    border: 1px solid var(--gold-border);
+    border-top: 3px solid var(--gold);
+    border-radius: 0;
+    padding: 24px 22px;
+    position: relative;
+  }
+
+  .impact-stat {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; line-height: 1;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .impact-label {
+    font-size: 24px; font-weight: 700;
+    color: var(--white); margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .impact-desc {
+    font-size: 20px; color: var(--white);
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  /* ── card footer bar ── */
+  .card-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 56px;
+    background: #000;
+    border: 2px solid var(--gold-border);
+    border-top: 1px solid rgba(212,175,55,0.15);
+    border-bottom: none;
+  }
+  .card-foot-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 2px;
+    color: var(--gold-dim);
+  }
+  .card-foot-url {
+    font-size: 20px; color: rgba(212,175,55,0.35);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── download button ── */
+  .card-dl {
+    display: block; width: 100%;
+    padding: 12px 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 2px;
+    color: #000;
+    background: linear-gradient(135deg, #D4AF37, #e8c84a);
+    border: none; border-radius: 0 0 4px 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(212,175,55,0.28);
+    transition: box-shadow 0.2s;
+  }
+  .card-dl:hover { box-shadow: 0 6px 22px rgba(212,175,55,0.5); }
+  .card-dl:disabled { opacity: 0.55; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function dlCard(id, filename, btn) {
+    if (typeof html2canvas !== 'function') {
+      alert('Image library did not load. Open this page via a local server (not file://) and try again.');
+      return;
+    }
+    var defaultLabel = '↓ \u00a0 Download as PNG';
+    btn.disabled = true;
+    btn.textContent = 'Generating PNG…';
+    html2canvas(document.getElementById(id), {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#000000',
+      logging: false
+    }).then(function (canvas) {
+      return new Promise(function (resolve, reject) {
+        canvas.toBlob(function (blob) {
+          if (!blob) {
+            reject(new Error('Could not create PNG.'));
+            return;
+          }
+          resolve(blob);
+        }, 'image/png');
+      });
+    }).then(function (blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      btn.disabled = false;
+      btn.textContent = defaultLabel;
+    }).catch(function (err) {
+      console.error('PNG download failed:', err);
+      alert('Download failed. If you opened this file directly, run a local server and try again.');
+      btn.disabled = false;
+      btn.textContent = defaultLabel;
+    });
+  }
+</script>
+
+<!-- ════════════════════════════════
+     CARD 1 — THE COST
+════════════════════════════════ -->
+<div class="card-wrap">
+  <div id="card1">
+    <div class="card">
+      <div class="card-inner">
+
+        <div class="eyebrow-row">
+          <div class="eyebrow-pill">The Cost</div>
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-tag">Seamless Operations Intelligence</span>
+        </div>
+
+        <div class="card-headline">What's <span>Eating</span><br>Their Margins</div>
+
+        <div class="impact-grid">
+
+          <div class="impact-card">
+            <div class="impact-stat">Fees</div>
+            <div class="impact-label">Platform &amp; Ticketing Fees</div>
+            <div class="impact-desc">Third-party platforms clip every transaction — then raise rates at renewal. Vendors built the audience; the platform takes the cut.</div>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">8 Min</div>
+            <div class="impact-label">Long Lines Kill the Guest Experience</div>
+            <div class="impact-desc">Guests bail after 8 minutes. Every abandoned line is a permanent revenue loss — back to the seat, not the line.</div>
+          </div>
+
+          <div class="impact-card" style="grid-column: 1 / -1;">
+            <div class="impact-stat">None</div>
+            <div class="impact-label">No Ownership of Customer Data</div>
+            <div class="impact-desc" style="font-size:14px;">Guest behavior, purchase history, and preferences flow to the platform — not to the operator. Without that data, there's no way to market, retain, or re-engage the audience.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-foot">
+      <div class="card-foot-brand">Seamlessly</div>
+      <div class="card-foot-url">seamlessly.us</div>
+    </div>
+  </div>
+  <button class="card-dl" onclick="dlCard('card1','seamlessly-the-cost.png',this)">↓ &nbsp; Download as PNG</button>
+</div>
+
+
+<!-- ════════════════════════════════
+     CARD 2 — THE IMPACT
+════════════════════════════════ -->
+<div class="card-wrap">
+  <div id="card2">
+    <div class="card">
+      <div class="card-inner">
+
+        <div class="eyebrow-row">
+          <div class="eyebrow-pill">The Impact</div>
+         
+        </div>
+
+        <div class="card-headline">When Ops <span>Fail,</span><br>Everything Follows</div>
+
+        <div class="impact-grid">
+
+          <div class="impact-card">
+            <div class="impact-stat">59 Days</div>
+            <div class="impact-label">Staff Turnover Cycle</div>
+            <div class="impact-desc">Average tenure for hourly hospitality staff. Constant rehiring drains ops budget and degrades service quality.</div>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">Blind Spots</div>
+            <div class="impact-label">Inventory Visibility</div>
+            <div class="impact-desc">Without real-time data, stock levels are a guess — leading to overstock waste or mid-event shortfalls.</div>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">1-Star</div>
+            <div class="impact-label">Reputation Risk</div>
+            <div class="impact-desc">Ops failures go straight to reviews. One bad game-day experience can define a venue's reputation online.</div>
+          </div>
+
+          <div class="impact-card">
+            <div class="impact-stat">Pressure</div>
+            <div class="impact-label">Margins Under Attack</div>
+            <div class="impact-desc">Rising labor costs, platform fees, and shrinking per-cap spend compress margins from every direction simultaneously.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-foot">
+      <div class="card-foot-brand">Seamlessly</div>
+      <div class="card-foot-url">seamlessly.us</div>
+    </div>
+  </div>
+  <button class="card-dl" onclick="dlCard('card2','seamlessly-the-impact.png',this)">↓ &nbsp; Download as PNG</button>
+</div>
+
+</body>
+</html>

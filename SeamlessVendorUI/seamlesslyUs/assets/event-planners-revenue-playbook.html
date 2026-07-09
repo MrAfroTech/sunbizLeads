@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The 21st-Century Event Planner Checklist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Include html2canvas and jsPDF libraries for downloading -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #1a1410;
+      line-height: 1.6;
+      background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+    }
+    
+    .page {
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cover {
+      background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+      color: #1a1410;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 50px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1), transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05), transparent 40%);
+      pointer-events: none;
+    }
+    
+    .cover > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .gold-text {
+      color: #1a1410;
+    }
+    
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1a1410;
+    }
+    
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 25px;
+      color: #1a1410;
+    }
+    
+    h3 {
+      font-size: 28px;
+      color: #1a1410;
+      border-bottom: 2px solid #e0b841;
+      padding-bottom: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    
+    .cover-subtitle {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      font-size: 18px;
+      color: rgba(26, 20, 16, 0.85);
+      line-height: 1.8;
+    }
+    
+    .cover-footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: rgba(26, 20, 16, 0.7);
+    }
+    
+    .step {
+      margin-bottom: 50px;
+      page-break-inside: avoid;
+    }
+    
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .step-number {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 24px;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    
+    .step-title {
+      font-size: 22px;
+      color: #1a1410;
+      font-weight: 600;
+    }
+    
+    .step-body {
+      font-size: 16px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+      color: rgba(26, 20, 16, 0.85);
+    }
+    
+    .step-subheading {
+      font-size: 18px;
+      color: #1a1410;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+    
+    ul {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+    
+    li {
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    
+    .insight-callout {
+      background-color: rgba(139, 116, 78, 0.2);
+      border-left: 4px solid #e0b841;
+      border-right: 2px solid #e0b841;
+      padding: 20px;
+      margin: 30px 0;
+      font-style: italic;
+      font-size: 18px;
+      color: #1a1410;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 8px;
+    }
+    
+    .transition-section {
+      background-color: rgba(224, 184, 65, 0.1);
+      border: 2px solid rgba(224, 184, 65, 0.3);
+      padding: 30px;
+      margin: 40px 0;
+      border-radius: 12px;
+    }
+    
+    .transition-section h3 {
+      color: #1a1410;
+      border-bottom: 2px solid #e0b841;
+      margin-top: 0;
+    }
+    
+    .closing-section {
+      background-color: rgba(139, 116, 78, 0.15);
+      border-left: 4px solid #e0b841;
+      padding: 30px;
+      margin: 40px 0;
+      border-radius: 8px;
+    }
+    
+    .closing-section h3 {
+      margin-top: 0;
+      border-bottom: none;
+    }
+    
+    .why-this-works {
+      background-color: rgba(224, 184, 65, 0.15);
+      border-left: 3px solid #e0b841;
+      padding: 15px 20px;
+      margin: 25px 0;
+      border-radius: 6px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(26, 20, 16, 0.9);
+    }
+    
+    .social-proof-badge {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 30px 0;
+      box-shadow: 0 4px 12px rgba(224, 184, 65, 0.3);
+    }
+    
+    .social-proof-tagline {
+      font-size: 14px;
+      color: rgba(26, 20, 16, 0.8);
+      margin-top: 10px;
+      font-weight: 400;
+    }
+    
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 50px;
+      color: rgba(26, 20, 16, 0.7);
+      padding: 20px;
+      border-top: 1px solid rgba(224, 184, 65, 0.15);
+    }
+    
+    .playbook-container {
+      position: relative;
+    }
+    
+    .download-section {
+      margin: 30px 0;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .download-btn {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 10px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .download-btn:hover {
+      background: linear-gradient(135deg, #e5c860, #e0b841);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(224, 184, 65, 0.35);
+    }
+    
+    .download-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .resolution-options {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .resolution-btn {
+      background-color: rgba(139, 116, 78, 0.3);
+      border: 1px solid rgba(139, 116, 78, 0.4);
+      border-radius: 8px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #1a1410;
+      transition: all 0.2s ease;
+    }
+    
+    .resolution-btn:hover {
+      background-color: rgba(139, 116, 78, 0.4);
+    }
+    
+    .resolution-btn.active {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      border-color: #e0b841;
+      font-weight: 600;
+    }
+    
+    .specs {
+      background: rgba(139, 116, 78, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: rgba(26, 20, 16, 0.7);
+      border: 1px solid rgba(139, 116, 78, 0.2);
+    }
+    
+    .status-message {
+      text-align: center;
+      margin: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .status-message.success {
+      background-color: rgba(224, 184, 65, 0.2);
+      color: #1a1410;
+      border: 1px solid rgba(224, 184, 65, 0.4);
+    }
+    
+    .status-message.error {
+      background-color: rgba(139, 116, 78, 0.2);
+      color: #1a1410;
+      border: 1px solid rgba(139, 116, 78, 0.4);
+    }
+    
+    .status-message.loading {
+      background-color: rgba(224, 184, 65, 0.15);
+      color: #1a1410;
+      border: 1px solid rgba(224, 184, 65, 0.3);
+    }
+    
+    @media print {
+      .page {
+        page-break-after: always;
+      }
+      
+      .step {
+        page-break-inside: avoid;
+      }
+      
+      .download-section {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 32px;
+      }
+      
+      h2 {
+        font-size: 20px;
+      }
+      
+      h3 {
+        font-size: 24px;
+      }
+      
+      .step-title {
+        font-size: 18px;
+      }
+      
+      .cover {
+        min-height: 400px;
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="playbook-container" id="playbook-container">
+  <!-- Cover Section -->
+  <div class="cover">
+    <h1>The 21st-Century Event Planner Checklist</h1>
+    <h2>What the Top Planners Are Already Doing to Increase Revenue & Guest Satisfaction</h2>
+    <p class="cover-subtitle">
+      Event planning has evolved. Not because planners failed — but because guest expectations changed.
+    </p>
+    <p class="cover-subtitle">
+      The planners leading the industry didn't wait for permission. They modernized their infrastructure to match how people actually behave today.
+    </p>
+    <p class="cover-subtitle" style="font-weight: 600; margin-top: 20px;">
+      This is the checklist they're using.
+    </p>
+    <p class="cover-footer">Presented by Seamlessly - www.seamlessly.us</p>
+  </div>
+  
+  <!-- Checklist Item 1 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Digital Ticketing as the Foundation of the Experience</div>
+      </div>
+      
+      <p class="step-body">
+        Top planners use digital ticketing as more than admission.
+      </p>
+      
+      <p class="step-subheading">They use it to:</p>
+      
+      <ul>
+        <li>Identify guests across the entire event</li>
+        <li>Connect access levels, upgrades, and perks</li>
+        <li>Power mobile ordering, parking, and vendor interactions</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> When ticketing is connected to the full journey, planners gain visibility and control without adding complexity.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        Tickets become the starting point of the experience — not the end.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Checklist Item 2 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Mobile Ordering as the Primary Guest Interface</div>
+      </div>
+      
+      <p class="step-body">
+        Leading planners design events where guests can order from anywhere.
+      </p>
+      
+      <p class="step-subheading">They enable:</p>
+      
+      <ul>
+        <li>Mobile ordering for food, drinks, and merch</li>
+        <li>Ordering from seats, lawns, VIP areas, and standing zones</li>
+        <li>Short, predictable wait times during peak moments</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> Guests spend more when ordering is effortless and predictable.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        Reducing friction increases both satisfaction and revenue.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Checklist Item 3 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">Digitally Integrated Parking, Arrival, and Entry</div>
+      </div>
+      
+      <p class="step-body">
+        Top planners smooth the experience before guests even arrive.
+      </p>
+      
+      <p class="step-subheading">They:</p>
+      
+      <ul>
+        <li>Tie parking passes directly to digital tickets</li>
+        <li>Provide clear arrival guidance and real-time updates</li>
+        <li>Minimize congestion at gates and entrances</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> A calm arrival sets the tone for the entire event.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        When arrival feels easy, the rest of the event feels premium.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Checklist Item 4 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div class="step-title">All Vendor Information Available in One Place</div>
+      </div>
+      
+      <p class="step-body">
+        The best planners make it easy for guests to discover what's available.
+      </p>
+      
+      <p class="step-subheading">They ensure:</p>
+      
+      <ul>
+        <li>All vendors are visible in a single interface</li>
+        <li>Menus, pricing, and availability are clear</li>
+        <li>Guests can decide quickly and confidently</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> Clarity drives faster decisions — and higher conversion.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        When guests see their options clearly, they buy more often.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Checklist Item 5 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <div class="step-title">Technology That Supports Staff, Not Overwhelms Them</div>
+      </div>
+      
+      <p class="step-body">
+        Leading planners design systems that reduce pressure on staff.
+      </p>
+      
+      <p class="step-subheading">They use:</p>
+      
+      <ul>
+        <li>Mobile ordering to absorb peak demand</li>
+        <li>Unified systems that minimize manual work</li>
+        <li>Clear operational visibility during live events</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> Lower stress environments improve execution and retention.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        Great service comes from well-supported teams.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Checklist Item 6 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">6</div>
+        <div class="step-title">A Unified Platform Instead of Disconnected Tools</div>
+      </div>
+      
+      <p class="step-body">
+        Top planners simplify their operations into a single system.
+      </p>
+      
+      <p class="step-subheading">Rather than juggling:</p>
+      
+      <ul>
+        <li>Separate ticketing platforms</li>
+        <li>Multiple POS systems</li>
+        <li>Standalone parking apps</li>
+        <li>Disconnected vendor tools</li>
+      </ul>
+      
+      <p class="step-subheading">They operate with:</p>
+      
+      <ul>
+        <li>One platform</li>
+        <li>One data layer</li>
+        <li>One real-time operational view</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> Unified systems reduce costs, errors, and decision latency.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        Simplicity scales better than patchwork.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Checklist Item 7 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">7</div>
+        <div class="step-title">Data That Carries Forward From Event to Event</div>
+      </div>
+      
+      <p class="step-body">
+        The planners leading the industry treat each event as a learning engine.
+      </p>
+      
+      <p class="step-subheading">They:</p>
+      
+      <ul>
+        <li>Recognize returning guests</li>
+        <li>Understand purchasing patterns</li>
+        <li>Use past behavior to inform future planning</li>
+      </ul>
+      
+      <div class="why-this-works">
+        <strong>Why this works:</strong> Each event becomes more efficient and more profitable than the last.
+      </div>
+      
+      <p class="step-body" style="margin-top: 15px; font-style: italic;">
+        Momentum comes from systems that remember.
+      </p>
+    </div>
+  </div>
+  
+  <!-- What This Enables Section -->
+  <div class="page">
+    <div class="closing-section">
+      <h3>What This Enables</h3>
+      
+      <p class="step-body">
+        When digital ticketing, mobile ordering, parking, vendor discovery, and data all live on one platform, planners gain:
+      </p>
+      
+      <ul>
+        <li>Higher revenue per attendee</li>
+        <li>Better guest satisfaction</li>
+        <li>Reduced staff strain</li>
+        <li>Cleaner operations</li>
+        <li>Stronger long-term loyalty</li>
+      </ul>
+      
+      <p class="step-body" style="margin-top: 30px; font-size: 18px; font-weight: 600;">
+        This isn't about doing things "better."<br>
+        It's about doing things the way leading planners already are.
+      </p>
+    </div>
+    
+    <!-- Social Proof -->
+    <div class="social-proof-badge">
+      Official App of The Orlando Pirates
+      <div class="social-proof-tagline">
+        Trusted by leading venues and events to deliver seamless guest experiences at scale.
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="page">
+    <div class="footer">
+      <p>© 2025 Seamlessly. All rights reserved.</p>
+      <p>www.seamlessly.us</p>
+    </div>
+  </div>
+  </div>
+
+  <div class="download-section">
+    <h3>Download Your Lead Magnet</h3>
+    <p>Get your high-resolution copy ready for printing or sharing:</p>
+    
+    <div class="resolution-options">
+      <button class="resolution-btn active" data-dpi="300">300 DPI (Standard)</button>
+      <button class="resolution-btn" data-dpi="150">150 DPI (Web)</button>
+    </div>
+    
+    <div id="status-message" class="status-message"></div>
+    
+    <div style="margin: 20px 0;">
+      <button id="download-png" class="download-btn">Download PNG</button>
+      <button id="download-pdf" class="download-btn">Download PDF</button>
+    </div>
+    
+    <div class="specs">
+      <strong>Download Specifications:</strong><br>
+      • 300 DPI: Professional print quality (recommended)<br>
+      • 150 DPI: Web/digital use (faster download)<br>
+      • PNG Format: High-resolution image<br>
+      • PDF Format: Best for professional printing and sharing<br>
+      • Ready to use as a lead magnet for your business
+    </div>
+  </div>
+
+  <script>
+    // Current resolution setting
+    let currentDPI = 300;
+    const statusMessage = document.getElementById('status-message');
+    
+    // Update resolution based on button clicks
+    document.querySelectorAll('.resolution-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        document.querySelectorAll('.resolution-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Set the DPI
+        currentDPI = parseInt(this.getAttribute('data-dpi'));
+        
+        // Show confirmation message
+        showStatus(`Resolution set to ${currentDPI} DPI`, 'success');
+      });
+    });
+    
+    // Download functions for both PNG and PDF
+    document.getElementById('download-png').addEventListener('click', function() {
+      downloadPlaybook(`21stCenturyEventPlannerChecklist_${currentDPI}DPI.png`, 'png');
+    });
+    
+    document.getElementById('download-pdf').addEventListener('click', function() {
+      downloadPlaybook(`21stCenturyEventPlannerChecklist_${currentDPI}DPI.pdf`, 'pdf');
+    });
+    
+    function downloadPlaybook(filename, format) {
+      // Disable buttons during generation
+      const buttons = document.querySelectorAll('.download-btn');
+      buttons.forEach(btn => btn.disabled = true);
+      
+      // Show loading message
+      showStatus(`Generating ${currentDPI} DPI ${format.toUpperCase()}... Please wait.`, 'loading');
+      
+      // Get the container element
+      const container = document.getElementById('playbook-container');
+      if (!container) {
+        showStatus('Error: Container not found.', 'error');
+        buttons.forEach(btn => btn.disabled = false);
+        return;
+      }
+      
+      // Use a more conservative scale factor to avoid memory issues
+      const scaleFactor = currentDPI / 96;
+      
+      // Options for html2canvas
+      const options = {
+        scale: scaleFactor,
+        backgroundColor: '#d4af37',
+        logging: false,
+        useCORS: true,
+        allowTaint: false,
+        width: container.offsetWidth,
+        height: container.scrollHeight,
+        windowWidth: container.offsetWidth,
+        windowHeight: container.scrollHeight
+      };
+      
+      // Generate the canvas
+      html2canvas(container, options).then(function(canvas) {
+        try {
+          if (format === 'png') {
+            // PNG Download
+            canvas.toBlob(function(blob) {
+              const link = document.createElement('a');
+              link.download = filename;
+              link.href = URL.createObjectURL(blob);
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(link.href);
+              
+              showStatus(`✓ Downloaded ${filename}`, 'success');
+              buttons.forEach(btn => btn.disabled = false);
+            }, 'image/png', 0.95);
+            
+          } else if (format === 'pdf') {
+            // PDF Download using jsPDF
+            // Convert canvas to data URL
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            
+            // Calculate PDF dimensions in inches
+            const pdfWidthInches = canvas.width / currentDPI;
+            const pdfHeightInches = canvas.height / currentDPI;
+            
+            // Create PDF with calculated dimensions
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+              orientation: pdfHeightInches > pdfWidthInches ? 'portrait' : 'landscape',
+              unit: 'in',
+              format: [pdfWidthInches, pdfHeightInches],
+              compress: true
+            });
+            
+            // Add the image to PDF
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidthInches, pdfHeightInches, '', 'FAST');
+            
+            // Save the PDF
+            pdf.save(filename);
+            
+            showStatus(`✓ Downloaded ${filename}`, 'success');
+            buttons.forEach(btn => btn.disabled = false);
+          }
+        } catch (error) {
+          console.error('Error generating download:', error);
+          showStatus(`Error: ${error.message}. Try the lower DPI setting.`, 'error');
+          buttons.forEach(btn => btn.disabled = false);
+        }
+      }).catch(function(error) {
+        console.error('Error with html2canvas:', error);
+        showStatus('Error generating image. Try the lower DPI setting or refresh the page.', 'error');
+        buttons.forEach(btn => btn.disabled = false);
+      });
+    }
+    
+    function showStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = 'status-message ' + type;
+      statusMessage.style.display = 'block';
+      
+      // Hide success/error after 5 seconds, keep loading visible
+      if (type !== 'loading') {
+        setTimeout(() => {
+          statusMessage.style.display = 'none';
+        }, 5000);
+      }
+    }
+  </script>
+</body>
+</html>

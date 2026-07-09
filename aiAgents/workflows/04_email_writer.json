@@ -1,0 +1,206 @@
+{
+  "name": "04 - Email Writer",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 12 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 12 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:P",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Qualified"
+            },
+            {
+              "fieldName": "contacted_date",
+              "condition": "equal",
+              "value": ""
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "get-qualified",
+      "name": "Get Qualified Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a B2B email copywriter specializing in hospitality outreach. Write SHORT, personalized emails (60 words max) to venue owners about photo booth rentals for their events. Rules: No emojis. No hype words like 'revolutionary' or 'game-changing'. Conversational, not salesy. Start with one personalized observation about their venue. End with a clear, low-pressure call-to-action. Return JSON with 'subject' and 'body' keys only."
+            },
+            {
+              "role": "user",
+              "content": "=Write an email to:\n\nVenue: {{ $json.business_name }}\nType: {{ $json.category }}\nCity: {{ $json.city }}\nRating: {{ $json.rating }} ({{ $json.review_count }} reviews)\n\nService: Photo booth rentals for events and special occasions."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "write-email",
+      "name": "Write Personalized Email",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let emailData;\ntry {\n  const content = $json.message.content;\n  emailData = JSON.parse(content);\n} catch (e) {\n  // Fallback if JSON parsing fails\n  emailData = {\n    subject: \"Quick question about events at \" + $node[\"Get Qualified Leads\"].json.business_name,\n    body: $json.message.content\n  };\n}\n\nreturn {\n  ...($node[\"Get Qualified Leads\"].json),\n  email_subject: emailData.subject,\n  email_body: emailData.body,\n  status: 'Ready to Send',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "parse-email-json",
+      "name": "Extract Subject and Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email_subject": "={{ $json.email_subject }}",
+            "email_body": "={{ $json.email_body }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "save-email",
+      "name": "Save Email to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 12 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Qualified Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Qualified Leads": {
+      "main": [
+        [
+          {
+            "node": "Write Personalized Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Personalized Email": {
+      "main": [
+        [
+          {
+            "node": "Extract Subject and Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Subject and Body": {
+      "main": [
+        [
+          {
+            "node": "Save Email to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
+
+

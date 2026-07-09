@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScanBand™ for Events — Scan &amp; Scale</title>
+  <meta name="description" content="ScanBand™ for Events — QR-enabled ordering wristbands." />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital,wght@0,1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css" />
+  <link rel="stylesheet" href="/styles/home.css" />
+  <link rel="stylesheet" href="/styles/product-detail.css" />
+</head>
+<body class="has-carousel-layout page-product-detail" data-product-slug="scanband">
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="brand" data-sns-track="nav_brand">
+        SCAN &amp; SCALE
+        <span class="brand-sub">Seamlessly System Storefront</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/" data-sns-track="nav_home">Home</a>
+        <a href="/products" data-sns-track="nav_products">Products</a>
+        <a href="/#get-started" data-sns-track="nav_get_started">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="home-hero home-hero--banner home-hero--detail-banner" aria-hidden="true">
+    <div class="home-hero__slides"></div>
+    <div class="home-hero__overlay"></div>
+  </section>
+
+  <main class="shell product-detail-main">
+    <a href="/products" class="product-detail-back" data-sns-track="detail_back_all_products">← Back to All Products</a>
+    <div id="product-detail-root"></div>
+    <div id="scanband-addon-root"></div>
+  </main>
+
+  <footer class="footer">
+    © <span id="footer-year"></span> Seamlessly · scan-and-scale.seamlessly.us
+  </footer>
+
+  <script src="/js/site-analytics.js" defer></script>
+  <script src="/js/products-data.js" defer></script>
+  <script src="/js/checkout.js" defer></script>
+  <script src="/js/product-detail-page.js" defer></script>
+  <script src="/js/home.js" defer></script>
+  <script>
+    document.getElementById('footer-year').textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

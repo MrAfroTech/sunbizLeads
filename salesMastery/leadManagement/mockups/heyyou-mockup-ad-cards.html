@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeyYou — Mockup Ad Cards (1080×1080)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1a1a;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px;
+      gap: 48px;
+    }
+
+    .preview-label {
+      color: #666;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: -24px;
+    }
+
+    .preview-sublabel {
+      color: #444;
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-top: -20px;
+    }
+
+    .ad-card {
+      width: 1080px;
+      height: 1080px;
+      background: #0a0a0a;
+      display: flex;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .ad-card__copy {
+      width: 540px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 80px;
+      padding-right: 40px;
+    }
+
+    .ad-card__headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 102px;
+      line-height: 0.9;
+      color: #f0f0f0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      max-width: 460px;
+    }
+
+    .ad-card__headline--sm {
+      font-size: 88px;
+    }
+
+    .ad-card__rule {
+      width: 48px;
+      height: 1px;
+      background: #C8A96E;
+      margin: 20px 0;
+    }
+
+    .ad-card__sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #999;
+      max-width: 420px;
+    }
+
+    .ad-card__device-wrap {
+      width: 540px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── STAFF TABLET ── */
+    .tablet {
+      width: 380px;
+      height: 480px;
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+      transform: perspective(1200px) rotateY(-8deg) rotateX(3deg);
+      position: relative;
+    }
+
+    .tablet::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+    }
+
+    .tablet-screen {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'DM Sans', sans-serif;
+      color: #1a1a1a;
+    }
+
+    .tablet-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px 8px;
+      font-size: 11px;
+      color: #999;
+      font-weight: 500;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .tablet-body {
+      flex: 1;
+      padding: 14px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    /* ── GUEST PHONE ── */
+    .phone {
+      width: 260px;
+      height: 520px;
+      background: #1a1a1a;
+      border-radius: 36px;
+      padding: 14px;
+      box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+      transform: perspective(1200px) rotateY(8deg) rotateX(3deg);
+      position: relative;
+    }
+
+    .phone--staff-tilt {
+      transform: perspective(1200px) rotateY(-8deg) rotateX(3deg);
+    }
+
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 28px;
+      background: #0a0a0a;
+      border-radius: 14px;
+      z-index: 2;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'DM Sans', sans-serif;
+      color: #1a1a1a;
+      position: relative;
+    }
+
+    .phone-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 16px 8px;
+      font-size: 11px;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .phone-body {
+      flex: 1;
+      padding: 8px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .notify-pill {
+      border-left: 3px solid #C8A96E;
+      background: rgba(200, 169, 110, 0.08);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 14px;
+    }
+
+    .notify-pill--amber {
+      border-left-color: #d4a017;
+      background: rgba(212, 160, 23, 0.1);
+    }
+
+    .notify-pill--guest {
+      padding: 16px 14px;
+    }
+
+    .notify-pill__label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #C8A96E;
+      margin-bottom: 4px;
+    }
+
+    .notify-pill--amber .notify-pill__label {
+      color: #b8860b;
+    }
+
+    .notify-pill__name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .notify-pill__meta {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    .notify-pill__body {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #333;
+      margin-top: 6px;
+    }
+
+    .ui-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #C8A96E;
+      margin-bottom: 4px;
+    }
+
+    .ui-rule {
+      height: 1px;
+      background: #e8e8e8;
+      margin-bottom: 8px;
+    }
+
+    .ui-text {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .ui-text + .ui-text {
+      margin-top: 3px;
+    }
+
+    .ui-section {
+      margin-top: 2px;
+    }
+
+    .live-badge {
+      margin-top: auto;
+      font-size: 11px;
+      color: #2d8a4e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-top: 6px;
+    }
+
+    .live-badge__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2d8a4e;
+    }
+
+    .table-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .table-meta {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    .risk-row {
+      font-size: 13px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .risk-dot {
+      color: #c0392b;
+      font-size: 10px;
+    }
+
+    .gold-btn {
+      background: #C8A96E;
+      color: #0a0a0a;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .gold-btn--lg {
+      font-size: 13px;
+      padding: 14px 16px;
+      margin-top: 8px;
+    }
+
+    .gold-btn--outline {
+      background: transparent;
+      border: 2px solid #C8A96E;
+      color: #1a1a1a;
+    }
+
+    .session-header {
+      font-size: 11px;
+      color: #999;
+      letter-spacing: 0.5px;
+    }
+
+    .session-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .order-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #333;
+      padding: 4px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .order-line__price {
+      color: #999;
+      font-size: 12px;
+    }
+
+    .toast {
+      position: absolute;
+      bottom: 72px;
+      left: 12px;
+      right: 12px;
+      background: #1a1a1a;
+      color: #f0f0f0;
+      font-size: 11px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .tip-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tip-chip {
+      flex: 1;
+      text-align: center;
+      padding: 8px 4px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      color: #666;
+    }
+
+    .tip-chip--active {
+      border-color: #C8A96E;
+      background: rgba(200, 169, 110, 0.12);
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    .confirm-msg {
+      text-align: center;
+      font-size: 13px;
+      color: #2d8a4e;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .tab-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      padding-top: 8px;
+      margin-top: 4px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    /* ── POS DEVICE ── */
+    .pos {
+      width: 300px;
+      transform: perspective(1200px) rotateY(8deg) rotateX(3deg);
+    }
+
+    .pos-bezel {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .pos-screen {
+      width: 100%;
+      height: 420px;
+      background: #1e2d24;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'DM Sans', sans-serif;
+      color: #c8d9c8;
+    }
+
+    .pos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: #162318;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #8faf8f;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .pos-body {
+      flex: 1;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pos-alert {
+      color: #d4a017;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .pos-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .pos-table-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #e0ede0;
+    }
+
+    .pos-table-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4caf50;
+    }
+
+    .pos-meta {
+      font-size: 12px;
+      color: #7a9a7a;
+      line-height: 1.5;
+    }
+
+    .pos-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #5a7a5a;
+      margin-bottom: 4px;
+    }
+
+    .pos-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .pos-btn {
+      flex: 1;
+      text-align: center;
+      padding: 10px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      color: #c8d9c8;
+    }
+
+    .pos-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 0 4px;
+    }
+
+    .pos-nav__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4a6a4a;
+    }
+
+    .pos-nav__dot--active {
+      background: #8faf8f;
+    }
+
+    .pos-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .pos-physical-btn {
+      width: 72px;
+      height: 28px;
+      background: #111;
+      border-radius: 20px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .export-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .export-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 24px;
+      background: #C8A96E;
+      color: #0a0a0a;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .export-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CARD 1 — Staff: The Arrival (Tablet) -->
+  <div class="export-wrap">
+    <p class="preview-label">Card 1 — Staff · The Arrival</p>
+    <p class="preview-sublabel">Tablet</p>
+    <div class="ad-card" id="card-1">
+      <div class="ad-card__copy">
+        <h1 class="ad-card__headline">Your staff already knew<br>before the door opened.</h1>
+        <div class="ad-card__rule"></div>
+        <p class="ad-card__sub">Their name. Their usual. Their last visit.<br>Already on screen.</p>
+      </div>
+      <div class="ad-card__device-wrap">
+        <div class="tablet">
+          <div class="tablet-screen">
+            <div class="tablet-status">
+              <span>Floor Tablet · 9:14 AM</span>
+              <span>●●● ■</span>
+            </div>
+            <div class="tablet-body">
+              <div class="notify-pill">
+                <div class="notify-pill__label">🔔 ARRIVING NOW</div>
+                <div class="notify-pill__name">Marcus T.</div>
+                <div class="notify-pill__meta">4th visit · Table 7</div>
+              </div>
+              <div class="ui-section">
+                <div class="ui-label">Guest profile</div>
+                <div class="ui-rule"></div>
+                <div class="ui-text">Usually starts with burger &amp; fries</div>
+                <div class="ui-text">Prefers booth by the window</div>
+              </div>
+              <div class="ui-section">
+                <div class="ui-text">Last visit: $87 tab · Stayed 2h 10m</div>
+              </div>
+              <div class="ui-section">
+                <div class="ui-label">Last order</div>
+                <div class="ui-rule"></div>
+                <div class="ui-text">1× Smash burger &amp; fries</div>
+                <div class="ui-text">1× Buffalo wings</div>
+                <div class="ui-text">2× IPA draft</div>
+                <div class="ui-text">1× Tito's soda</div>
+              </div>
+              <div class="live-badge">
+                <span class="live-badge__dot"></span>
+                Live · Floor notified
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="export-btn" type="button" onclick="downloadCard('card-1', 'heyyou-ad-card-1-staff-arrival.png')">Download PNG</button>
+  </div>
+
+  <!-- CARD 2 — Staff: The Silent Round (POS) -->
+  <div class="export-wrap">
+    <p class="preview-label">Card 2 — Staff · The Silent Round</p>
+    <p class="preview-sublabel">POS Handheld</p>
+    <div class="ad-card" id="card-2">
+      <div class="ad-card__copy">
+        <h1 class="ad-card__headline">Table 7 wanted<br>another round.<br>Nobody noticed.</h1>
+        <div class="ad-card__rule"></div>
+        <p class="ad-card__sub">That's not a staffing problem.<br>That's a signal problem.</p>
+      </div>
+      <div class="ad-card__device-wrap">
+        <div class="pos">
+          <div class="pos-bezel">
+            <div class="pos-screen">
+              <div class="pos-header">
+                <span>FLOOR VIEW</span>
+                <span>11:42 PM &nbsp; ⚡</span>
+              </div>
+              <div class="pos-body">
+                <div class="pos-alert">
+                  ⚠ ALERT<br>
+                  Table 7 — 22 min since<br>
+                  last order. No flag raised.
+                </div>
+                <div class="pos-divider"></div>
+                <div>
+                  <div class="pos-table-row">
+                    <span>TABLE 7 &nbsp;&nbsp; OPEN</span>
+                    <span class="pos-table-dot"></span>
+                  </div>
+                  <div class="pos-meta">Seated: 11:18 PM · Party of 3</div>
+                </div>
+                <div>
+                  <div class="pos-label">Last round</div>
+                  <div class="pos-meta">1× Loaded nachos</div>
+                  <div class="pos-meta">2× Buffalo wings</div>
+                  <div class="pos-meta">3× Tito's soda · extra lime</div>
+                </div>
+                <div class="pos-meta" style="font-size:13px;color:#a8c8a8;">Tab so far: $64</div>
+                <div class="pos-actions">
+                  <div class="pos-btn">NOTIFY</div>
+                  <div class="pos-btn">DISMISS</div>
+                </div>
+                <div class="pos-nav">
+                  <span class="pos-nav__dot pos-nav__dot--active"></span>
+                  <span class="pos-nav__dot"></span>
+                  <span class="pos-nav__dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pos-buttons">
+            <div class="pos-physical-btn"></div>
+            <div class="pos-physical-btn"></div>
+            <div class="pos-physical-btn"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="export-btn" type="button" onclick="downloadCard('card-2', 'heyyou-ad-card-2-staff-silent-round.png')">Download PNG</button>
+  </div>
+
+  <!-- CARD 3 — Staff: The Exit (Tablet) -->
+  <div class="export-wrap">
+    <p class="preview-label">Card 3 — Staff · The Exit</p>
+    <p class="preview-sublabel">Tablet</p>
+    <div class="ad-card" id="card-3">
+      <div class="ad-card__copy">
+        <h1 class="ad-card__headline">They had a great night.<br>The check ruined it.</h1>
+        <div class="ad-card__rule"></div>
+        <p class="ad-card__sub">The last 60 seconds decide<br>whether they come back.</p>
+      </div>
+      <div class="ad-card__device-wrap">
+        <div class="tablet">
+          <div class="tablet-screen">
+            <div class="tablet-status">
+              <span>Floor Tablet · 10:58 PM</span>
+              <span>●●● ■</span>
+            </div>
+            <div class="tablet-body">
+              <div class="notify-pill notify-pill--amber">
+                <div class="notify-pill__label">⚠ CHECK REQUESTED</div>
+                <div class="notify-pill__meta">9 min ago · No runner sent</div>
+              </div>
+              <div>
+                <div class="table-title">TABLE 4</div>
+                <div class="table-meta">Party of 2 · Seated 8:44 PM</div>
+              </div>
+              <div class="ui-section">
+                <div class="ui-label">Tab summary</div>
+                <div class="ui-rule"></div>
+                <div class="ui-text">2× Smash burger</div>
+                <div class="ui-text">1× Truffle fries</div>
+                <div class="ui-text">2× Old fashioned</div>
+                <div class="ui-text" style="margin-top:6px;font-weight:600;">Total: $112 · 2h 14m · 3 reorders</div>
+              </div>
+              <div class="ui-section">
+                <div class="ui-label">Guest signal</div>
+                <div class="ui-rule"></div>
+                <div class="risk-row">
+                  Return risk: HIGH <span class="risk-dot">🔴</span>
+                </div>
+                <div class="ui-text">Last visit: 3 weeks ago</div>
+              </div>
+              <div class="gold-btn gold-btn--lg">SEND TO TABLE NOW</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="export-btn" type="button" onclick="downloadCard('card-3', 'heyyou-ad-card-3-staff-exit.png')">Download PNG</button>
+  </div>
+
+  <!-- CARD 4 — Guest: The Arrival (Phone) -->
+  <div class="export-wrap">
+    <p class="preview-label">Card 4 — Guest · The Arrival</p>
+    <p class="preview-sublabel">Phone</p>
+    <div class="ad-card" id="card-4">
+      <div class="ad-card__copy">
+        <h1 class="ad-card__headline ad-card__headline--sm">You just walked into your favorite place.<br>They already know.</h1>
+        <div class="ad-card__rule"></div>
+        <p class="ad-card__sub">We let the team know you're here.</p>
+      </div>
+      <div class="ad-card__device-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-status">
+              <span>●●● 9:14 AM</span>
+              <span>▲ ■</span>
+            </div>
+            <div class="phone-body">
+              <div class="notify-pill notify-pill--guest">
+                <div class="notify-pill__label">WELCOME BACK</div>
+                <div class="notify-pill__name">Marcus</div>
+                <div class="notify-pill__body">
+                  Your usual spot is ready.<br>
+                  We've let the staff know.
+                </div>
+              </div>
+              <div class="session-header">TABLE 7 · YOUR SESSION</div>
+              <div class="ui-section">
+                <div class="ui-label">Your usual</div>
+                <div class="ui-rule"></div>
+                <div class="ui-text">Smash burger &amp; fries</div>
+                <div class="ui-text">Booth by the window</div>
+              </div>
+              <div class="gold-btn gold-btn--lg" style="margin-top:auto;">I'M READY TO ORDER</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="export-btn" type="button" onclick="downloadCard('card-4', 'heyyou-ad-card-4-guest-arrival.png')">Download PNG</button>
+  </div>
+
+  <!-- CARD 5 — Guest: The Reorder (Phone) -->
+  <div class="export-wrap">
+    <p class="preview-label">Card 5 — Guest · The Reorder</p>
+    <p class="preview-sublabel">Phone</p>
+    <div class="ad-card" id="card-5">
+      <div class="ad-card__copy">
+        <h1 class="ad-card__headline ad-card__headline--sm">Ready for another round?<br>One tap. No waving.<br>No waiting.</h1>
+        <div class="ad-card__rule"></div>
+        <p class="ad-card__sub">Your staff gets the signal<br>before you finish asking.</p>
+      </div>
+      <div class="ad-card__device-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-status">
+              <span>●●● 11:42 PM</span>
+              <span>▲ ■</span>
+            </div>
+            <div class="phone-body">
+              <div class="session-header">TABLE 7 · ACTIVE SESSION</div>
+              <div class="session-title">Your table</div>
+              <div class="ui-section">
+                <div class="ui-label">Current order</div>
+                <div class="ui-rule"></div>
+                <div class="order-line">
+                  <span>Loaded nachos</span>
+                  <span class="order-line__price">$14</span>
+                </div>
+                <div class="order-line">
+                  <span>Buffalo wings</span>
+                  <span class="order-line__price">$16</span>
+                </div>
+                <div class="order-line">
+                  <span>3× Tito's soda</span>
+                  <span class="order-line__price">$34</span>
+                </div>
+              </div>
+              <div class="gold-btn gold-btn--lg" style="margin-top:8px;">READY FOR ANOTHER ROUND</div>
+            </div>
+            <div class="toast">Staff notified in 0:08</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="export-btn" type="button" onclick="downloadCard('card-5', 'heyyou-ad-card-5-guest-reorder.png')">Download PNG</button>
+  </div>
+
+  <!-- CARD 6 — Guest: The Exit (Phone) -->
+  <div class="export-wrap">
+    <p class="preview-label">Card 6 — Guest · The Exit</p>
+    <p class="preview-sublabel">Phone</p>
+    <div class="ad-card" id="card-6">
+      <div class="ad-card__copy">
+        <h1 class="ad-card__headline ad-card__headline--sm">Close your tab from here.<br>Walk out when you're ready.</h1>
+        <div class="ad-card__rule"></div>
+        <p class="ad-card__sub">No wait. No awkward wave.<br>Just a clean send-off.</p>
+      </div>
+      <div class="ad-card__device-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-status">
+              <span>●●● 10:58 PM</span>
+              <span>▲ ■</span>
+            </div>
+            <div class="phone-body">
+              <div class="session-header">TABLE 4 · CLOSE TAB</div>
+              <div class="session-title">Your bill</div>
+              <div class="ui-section">
+                <div class="ui-label">Items</div>
+                <div class="ui-rule"></div>
+                <div class="order-line">
+                  <span>2× Smash burger</span>
+                  <span class="order-line__price">$38</span>
+                </div>
+                <div class="order-line">
+                  <span>Truffle fries</span>
+                  <span class="order-line__price">$12</span>
+                </div>
+                <div class="order-line">
+                  <span>2× Old fashioned</span>
+                  <span class="order-line__price">$28</span>
+                </div>
+                <div class="tab-total">
+                  <span>Total</span>
+                  <span>$112</span>
+                </div>
+              </div>
+              <div class="ui-label" style="margin-top:4px;">Add tip</div>
+              <div class="tip-row">
+                <div class="tip-chip">18%</div>
+                <div class="tip-chip tip-chip--active">20%</div>
+                <div class="tip-chip">25%</div>
+              </div>
+              <div class="gold-btn gold-btn--lg">CLOSE MY TAB</div>
+              <div class="confirm-msg">See you next time, Marcus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="export-btn" type="button" onclick="downloadCard('card-6', 'heyyou-ad-card-6-guest-exit.png')">Download PNG</button>
+  </div>
+
+  <script>
+    function downloadCard(elementId, filename) {
+      var el = document.getElementById(elementId);
+      if (!el || typeof html2canvas === 'undefined') return;
+      html2canvas(el, {
+        scale: 1,
+        width: 1080,
+        height: 1080,
+        useCORS: true,
+        backgroundColor: '#0a0a0a',
+      }).then(function (canvas) {
+        var link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>

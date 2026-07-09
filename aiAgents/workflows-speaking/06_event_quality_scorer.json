@@ -1,0 +1,230 @@
+{
+  "name": "06 - Event Quality Scorer",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 12 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 12 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:U",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "contains",
+              "value": "Contact Found"
+            },
+            {
+              "fieldName": "score",
+              "condition": "equal",
+              "value": 0
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "get-opportunities",
+      "name": "Get Opportunities to Score",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const opportunities = $input.all();\n\nconst scored = opportunities.map(item => {\n  const data = item.json;\n  let score = 0;\n  let scoreBreakdown = {};\n  \n  // AUDIENCE SIZE (0-10 points)\n  const attendance = parseInt(data.attendance) || 0;\n  if (attendance >= 1000) {\n    score += 10;\n    scoreBreakdown.audience = '10 (1000+ attendees - Major conference)';\n  } else if (attendance >= 500) {\n    score += 8;\n    scoreBreakdown.audience = '8 (500-999 attendees - Large event)';\n  } else if (attendance >= 200) {\n    score += 5;\n    scoreBreakdown.audience = '5 (200-499 attendees - Mid-size)';\n  } else if (attendance >= 50) {\n    score += 3;\n    scoreBreakdown.audience = '3 (50-199 attendees - Small event)';\n  } else {\n    score += 1;\n    scoreBreakdown.audience = '1 (<50 attendees - Very small)';\n  }\n  \n  // EVENT TYPE (0-5 points)\n  const eventType = data.event_type || '';\n  if (eventType === 'conference') {\n    score += 5;\n    scoreBreakdown.type = '5 (Conference - High prestige)';\n  } else if (eventType === 'association') {\n    score += 4;\n    scoreBreakdown.type = '4 (Association - Industry authority)';\n  } else if (eventType === 'university') {\n    score += 3;\n    scoreBreakdown.type = '3 (University - Thought leadership)';\n  } else if (eventType === 'podcast') {\n    score += 2;\n    scoreBreakdown.type = '2 (Podcast - Content marketing)';\n  }\n  \n  // AUDIENCE FIT (0-5 points)\n  const audienceType = (data.audience_type || '').toLowerCase();\n  let fitScore = 0;\n  if (audienceType.includes('executive') || audienceType.includes('c-suite')) fitScore += 3;\n  if (audienceType.includes('venue') || audienceType.includes('restaurant') || audienceType.includes('hotel')) fitScore += 2;\n  if (audienceType.includes('technology') || audienceType.includes('tech')) fitScore += 1;\n  fitScore = Math.min(fitScore, 5);\n  score += fitScore;\n  scoreBreakdown.fit = `${fitScore} (Audience alignment)`;\n  \n  // PAST SPEAKERS PRESTIGE (0-3 points)\n  const pastSpeakers = data.past_speakers || '';\n  if (pastSpeakers.length > 0) {\n    // Check for recognizable names/companies\n    const prestigious = ['CEO', 'Founder', 'VP', 'Director', 'Harvard', 'MIT', 'Stanford'];\n    const hasPrestige = prestigious.some(term => pastSpeakers.includes(term));\n    if (hasPrestige) {\n      score += 3;\n      scoreBreakdown.prestige = '3 (High-profile past speakers)';\n    } else {\n      score += 1;\n      scoreBreakdown.prestige = '1 (Has past speakers)';\n    }\n  }\n  \n  // CFP DEADLINE URGENCY (0-2 points)\n  const cfpDeadline = data.cfp_deadline || '';\n  if (cfpDeadline.toLowerCase().includes('rolling')) {\n    score += 2;\n    scoreBreakdown.urgency = '2 (Rolling deadline - No pressure)';\n  } else if (cfpDeadline && !cfpDeadline.toLowerCase().includes('closed')) {\n    // Check if deadline is in future\n    const deadlineDate = new Date(cfpDeadline);\n    const now = new Date();\n    const daysUntil = Math.floor((deadlineDate - now) / (1000 * 60 * 60 * 24));\n    if (daysUntil >= 30) {\n      score += 1;\n      scoreBreakdown.urgency = '1 (Deadline >30 days away)';\n    }\n  }\n  \n  // DETERMINE STATUS\n  let status;\n  if (score >= 18) {\n    status = 'High Priority - Pursue Aggressively';\n  } else if (score >= 12) {\n    status = 'Qualified - Standard Outreach';\n  } else if (score >= 8) {\n    status = 'Low Priority - Nurture';\n  } else {\n    status = 'Disqualify - Poor Fit';\n  }\n  \n  return {\n    ...data,\n    score: score,\n    score_breakdown: JSON.stringify(scoreBreakdown),\n    status: status,\n    last_activity: new Date().toISOString()\n  };\n});\n\nreturn scored;"
+      },
+      "id": "score-events",
+      "name": "Calculate Event Scores",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Opportunities",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $json.event_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "update-scores",
+      "name": "Write Scores to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [850, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "high-priority-check",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": 18,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-high-priority",
+      "name": "Check for High Priority",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=🎯 High-Priority Speaking Opportunity: {{ $json.event_name }} (Score: {{ $json.score }})",
+        "emailType": "text",
+        "message": "=High-priority speaking opportunity detected!\n\nEvent: {{ $json.event_name }}\nType: {{ $json.event_type }}\nScore: {{ $json.score }}/25\nAttendance: {{ $json.attendance }}\nAudience: {{ $json.audience_type }}\nOrganizer: {{ $json.organizer_name }}\nEmail: {{ $json.organizer_email }}\n\nPrioritize outreach immediately.",
+        "options": {}
+      },
+      "id": "alert-high-priority",
+      "name": "Alert: High Priority Event",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1250, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 12 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Opportunities to Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Opportunities to Score": {
+      "main": [
+        [
+          {
+            "node": "Calculate Event Scores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Event Scores": {
+      "main": [
+        [
+          {
+            "node": "Write Scores to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Scores to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Check for High Priority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for High Priority": {
+      "main": [
+        [
+          {
+            "node": "Alert: High Priority Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

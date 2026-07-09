@@ -1,0 +1,539 @@
+.vendor-integration-page {
+  min-height: 100vh;
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+}
+
+/* Congratulations Page Styles */
+.congratulations-container {
+  max-width: 1200px;
+  min-height: calc(100vh - 20px);
+  margin: 0 auto;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.congratulations-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+  border-radius: 12px;
+  padding: 15px 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border: 2px solid #d4af37;
+}
+
+.success-icon {
+  font-size: 40px;
+  margin-bottom: 5px;
+  animation: bounce 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.congratulations-content h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 5px;
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.congratulations-content h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ccc;
+  margin-bottom: 8px;
+  font-style: italic;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.welcome-message {
+  max-width: 700px;
+  margin: 0 auto 8px;
+  flex-shrink: 0;
+}
+
+.welcome-message p {
+  font-size: 1rem;
+  color: #ddd;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.powerful-copy {
+  font-size: 1.1rem;
+  color: #ffffff;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.powerful-copy strong {
+  color: #d4af37;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* Email Lookup Section Styles */
+.email-lookup-section {
+  margin: 15px 0;
+  padding: 15px;
+  background: linear-gradient(135deg, #222, #2a2a2a);
+  border-radius: 8px;
+  border: 2px solid #d4af37;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+  flex-shrink: 0;
+}
+
+.email-lookup-section h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.email-lookup-section p {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.email-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.email-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 10px 15px;
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: #2a2a2a;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: #f5d76e;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+  transform: translateY(-1px);
+  background: #333;
+}
+
+.email-input:hover {
+  border-color: #f5d76e;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  background: #333;
+}
+
+.email-input:disabled {
+  background: #1a1a1a;
+  color: #888;
+  cursor: not-allowed;
+  border-color: #444;
+}
+
+.email-input::placeholder {
+  color: #888;
+}
+
+.lookup-button {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+  white-space: nowrap;
+}
+
+.lookup-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(72, 187, 120, 0.5);
+}
+
+.lookup-button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  border: 2px solid #c82333;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+  font-size: 0.85rem;
+}
+
+.vendor-info-display {
+  margin-top: 12px;
+  padding: 12px;
+  background: #2a2a2a;
+  border-radius: 6px;
+  border: 2px solid #d4af37;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.success-badge {
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  color: #0a0a0a;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+.vendor-details h4 {
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.vendor-details p {
+  color: #ddd;
+  margin: 3px 0;
+  font-size: 0.85rem;
+}
+
+.not-you-button {
+  background: linear-gradient(135deg, #e53e3e, #c53030);
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.4);
+}
+
+.not-you-button:hover {
+  background: linear-gradient(135deg, #c53030, #a53030);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.5);
+}
+
+.plan-info {
+  background: linear-gradient(135deg, #222, #2a2a2a);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 5px solid #d4af37;
+  margin: 15px 0;
+}
+
+.plan-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.plan-name {
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.plan-info p {
+  color: #ccc;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.next-steps {
+  margin: 20px 0;
+  text-align: left;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.next-steps h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.next-steps p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.benefits-list li {
+  background: #2a2a2a;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #ddd;
+  border-left: 3px solid #d4af37;
+  transition: transform 0.2s ease;
+}
+
+.benefits-list li:hover {
+  transform: translateX(5px);
+}
+
+.connect-section {
+  margin-top: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #222, #2a2a2a);
+  border-radius: 8px;
+  border: 2px solid #d4af37;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.selected-platform {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.selected-platform .platform-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.selected-platform h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.selected-platform p {
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* POS Configuration Warning */
+.pos-config-warning {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  border: 2px solid #d4af37;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+}
+
+.warning-title {
+  margin: 0 0 6px 0;
+  color: #856404;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.warning-message {
+  margin: 0;
+  color: #856404;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.connect-button {
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  color: #0a0a0a;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+  width: 100%;
+  max-width: 300px;
+  font-family: inherit;
+  margin: 0 auto;
+}
+
+.connect-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, #f5d76e, #d4af37);
+}
+
+.connect-button:active {
+  transform: translateY(0);
+}
+
+/* Fallback Page Styles */
+.integration-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+.integration-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.integration-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.integration-header p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .congratulations-content {
+    padding: 20px 15px;
+  }
+  
+  .congratulations-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .congratulations-content h2 {
+    font-size: 1.1rem;
+  }
+  
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .email-input {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .connect-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .integration-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .email-lookup-section {
+    padding: 12px;
+  }
+  
+  .connect-section {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vendor-integration-page {
+    padding: 5px;
+  }
+  
+  .congratulations-container {
+    padding: 10px 5px;
+  }
+  
+  .congratulations-content {
+    padding: 15px 10px;
+  }
+  
+  .success-icon {
+    font-size: 40px;
+  }
+  
+  .benefits-list li {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .email-lookup-section,
+  .connect-section {
+    padding: 10px 8px;
+  }
+  
+  .email-input {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .connect-button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+} 

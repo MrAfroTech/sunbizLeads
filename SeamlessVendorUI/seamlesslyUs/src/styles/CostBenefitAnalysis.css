@@ -1,0 +1,213 @@
+/* Peak Rush Profit Leak Calculator - uses App/ContentPage design tokens from home */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+
+.peak-rush-calculator-page {
+  padding-top: 160px;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.peak-rush-calculator-page .peak-rush-title {
+  font-family: 'Playfair Display', serif;
+}
+
+.peak-rush-calculator-page .peak-rush-subtitle,
+.peak-rush-calculator-page .peak-rush-input-group label,
+.peak-rush-calculator-page .peak-rush-helper,
+.peak-rush-calculator-page .peak-rush-breakdown-headline,
+.peak-rush-calculator-page .peak-rush-result-row,
+.peak-rush-calculator-page .peak-rush-reassure,
+.peak-rush-calculator-page .peak-rush-yearly-hero-label {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.peak-rush-calculator-page .peak-rush-input-group input {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.peak-rush-calculator-page .peak-rush-yearly-hero-amount,
+.peak-rush-calculator-page .peak-rush-result-row strong {
+  font-family: 'DM Mono', monospace;
+}
+
+.peak-rush-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.peak-rush-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  background: linear-gradient(to right, var(--accent-gold), var(--accent-gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.peak-rush-subtitle {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #1a1410;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.peak-rush-card {
+  background: #252525;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.peak-rush-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.peak-rush-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.peak-rush-input-group label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.peak-rush-helper {
+  font-size: 0.9rem;
+  color: #1a1410;
+  margin-bottom: 0.25rem;
+}
+
+.peak-rush-input-group input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1.1rem;
+  border: 1px solid rgba(26, 20, 16, 0.25);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--text-dark);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.peak-rush-input-group input::placeholder {
+  color: #1a1410;
+}
+
+.peak-rush-input-group input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+.peak-rush-results {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Yearly number = emotional hook — shown first and largest */
+.peak-rush-yearly-hero {
+  text-align: center;
+  margin-bottom: 1.75rem;
+  padding: 1.5rem 1.25rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.08));
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  border-radius: 12px;
+  animation: peak-rush-pulse 2s ease-in-out infinite;
+}
+
+.peak-rush-yearly-hero-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.peak-rush-yearly-hero-amount {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.peak-rush-breakdown-headline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.peak-rush-result-row {
+  font-size: 1.1rem;
+  color: #1a1410;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.peak-rush-result-row strong {
+  color: var(--text-dark);
+}
+
+@keyframes peak-rush-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(212, 175, 55, 0); }
+}
+
+.peak-rush-cta-wrap {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.peak-rush-cta {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.peak-rush-reassure {
+  font-size: 0.95rem;
+  color: #1a1410;
+  font-style: italic;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .peak-rush-calculator-page {
+    padding-top: 140px;
+  }
+
+  .peak-rush-container {
+    padding: 16px 16px 48px;
+  }
+
+  .peak-rush-card {
+    padding: 1.5rem;
+  }
+
+  .peak-rush-title {
+    font-size: 1.75rem;
+  }
+
+  .peak-rush-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .peak-rush-yearly-hero-amount {
+    font-size: 1.75rem;
+  }
+
+  .peak-rush-yearly-hero {
+    padding: 1rem 1rem;
+  }
+}

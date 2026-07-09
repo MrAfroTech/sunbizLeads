@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seamlessly — National Reach</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; margin: 0; padding: 0; }
+
+  #card {
+    background: #000;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .text-block {
+    padding: 52px 72px 40px;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+    text-align: center;
+  }
+
+  .brand {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 90px;
+    letter-spacing: 4px;
+    color: #D4AF37;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .headline {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .subline {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: rgba(212,175,55,0.7);
+    line-height: 1.1;
+  }
+
+  .map-block {
+    width: 100%;
+    height: 400px;
+    border: 2px dashed rgba(212,175,55,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map-label {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(212,175,55,0.3);
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #000;
+    background: #D4AF37;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="card">
+  <div class="text-block">
+    <div class="brand">Seamlessly</div>
+    <div class="headline">Bringing The Hospitality Industry Into The 21st Century</div>
+    <div class="subline">From California To New York &nbsp;·&nbsp; From Florida To Maine</div>
+  </div>
+  <div class="map-block">
+    <div class="map-label">Place Image Here</div>
+  </div>
+</div>
+
+<button id="dlBtn">↓ Download as PNG</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  document.getElementById('dlBtn').addEventListener('click', function() {
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Generating…';
+    document.fonts.ready.then(function() {
+      setTimeout(function() {
+        html2canvas(document.getElementById('card'), {
+          scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#000000', logging: false
+        }).then(function(canvas) {
+          var a = document.createElement('a');
+          a.download = 'seamlessly-national-reach.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+          btn.disabled = false;
+          btn.textContent = '↓ Download as PNG';
+        });
+      }, 500);
+    });
+  });
+</script>
+
+</body>
+</html>

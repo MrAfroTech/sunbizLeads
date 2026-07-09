@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan & Scale — District Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background:#111;
+  font-family:'DM Sans', sans-serif;
+  display:flex;
+  justify-content:center;
+  padding:32px 16px;
+}
+
+.newsletter {
+  width:640px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+}
+
+.nl-header {
+  background:#1A2A44;
+  border-bottom:4px solid #D4AF37;
+  padding:32px 40px 24px;
+}
+
+.nl-eyebrow {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#00D4AA;
+  text-transform:uppercase;
+}
+
+.nl-wordmark {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:42px;
+  color:#fff;
+  letter-spacing:3px;
+  margin-top:8px;
+}
+
+.nl-wordmark span { color:#D4AF37; }
+
+.nl-subtitle {
+  font-size:14px;
+  font-style:italic;
+  color:rgba(255,255,255,0.55);
+  margin-top:6px;
+}
+
+.hero-band {
+  background:#D4AF37;
+  padding:28px 40px;
+}
+
+.hero-kicker {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(26,42,68,0.6);
+}
+
+.hero-headline {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:24px;
+  color:#1A2A44;
+  line-height:1.05;
+  margin-top:6px;
+}
+
+.nl-body {
+  padding:36px 40px;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.opening-quote {
+  border-left:4px solid #D4AF37;
+  padding:16px 20px;
+  background:#FEFCF3;
+  font-family:'DM Serif Display', serif;
+  font-style:italic;
+  font-size:17px;
+  color:#1A2A44;
+}
+
+.insight {
+  font-size:15px;
+  line-height:1.8;
+  color:#1A1A1A;
+}
+
+.insight p { margin-bottom:14px; }
+.insight p:last-child { margin-bottom:0; }
+.insight strong { color:#1A2A44; }
+
+.stat-row {
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  padding:20px 24px;
+  background:#F4F6FA;
+  border-radius:6px;
+  border-left:4px solid #1A2A44;
+}
+
+.stat-item {
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.stat-number {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:30px;
+  color:#D4AF37;
+  letter-spacing:2px;
+  line-height:1;
+}
+
+.stat-label {
+  font-size:13px;
+  color:#1A2A44;
+  line-height:1.5;
+}
+
+.stat-source {
+  font-size:10px;
+  color:rgba(26,42,68,0.4);
+  font-style:italic;
+}
+
+.choice-section {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.choice-label {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(26,42,68,0.5);
+  margin-bottom:4px;
+}
+
+.choice-heading {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:18px;
+  color:#1A2A44;
+  letter-spacing:1.5px;
+  margin-bottom:10px;
+}
+
+.choice-card {
+  display:flex;
+  align-items:stretch;
+  border:1px solid rgba(26,42,68,0.12);
+  border-radius:6px;
+  overflow:hidden;
+  text-decoration:none;
+  transition:box-shadow 0.2s;
+}
+
+.choice-card:hover {
+  box-shadow:0 4px 16px rgba(26,42,68,0.12);
+}
+
+.choice-accent {
+  width:6px;
+  flex-shrink:0;
+  background:#1A2A44;
+}
+
+.choice-card:nth-child(3) .choice-accent { background:#D4AF37; }
+.choice-card:nth-child(4) .choice-accent { background:#00D4AA; }
+
+.choice-content {
+  padding:16px 18px;
+  flex:1;
+  background:#F9FAFB;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.choice-text {
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.choice-title {
+  font-size:13px;
+  font-weight:700;
+  color:#1A2A44;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.choice-subtitle {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:17px;
+  color:#D4AF37;
+  letter-spacing:1.5px;
+  line-height:1.1;
+}
+
+.choice-desc {
+  font-size:12px;
+  color:rgba(26,42,68,0.6);
+  line-height:1.4;
+  margin-top:3px;
+}
+
+.choice-arrow {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:22px;
+  color:#1A2A44;
+  flex-shrink:0;
+}
+
+.choice-footer {
+  font-size:12px;
+  color:rgba(26,42,68,0.45);
+  font-style:italic;
+  text-align:center;
+  margin-top:4px;
+}
+
+.nl-footer {
+  background:#1A2A44;
+  padding:28px 40px;
+  border-top:4px solid #D4AF37;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.social-grid {
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+}
+
+.social-btn {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:12px;
+  letter-spacing:1.5px;
+  padding:10px 12px;
+  border-radius:3px;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  transition:0.2s;
+  text-align:center;
+}
+
+.social-btn:hover { opacity:0.85; }
+
+.social-btn.ig { background:#D4AF37; color:#1A2A44; }
+.social-btn.li { background:#0077B5; color:#fff; }
+.social-btn.web { background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25); }
+.social-btn.talk { background:#00D4AA; color:#1A2A44; }
+
+.footer-bottom {
+  border-top:1px solid rgba(212,175,55,0.2);
+  padding-top:16px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.footer-brand {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:18px;
+  color:#D4AF37;
+  letter-spacing:3px;
+}
+
+.footer-copy {
+  font-size:11px;
+  color:rgba(255,255,255,0.4);
+}
+
+.footer-note {
+  font-size:10.5px;
+  color:rgba(255,255,255,0.35);
+  font-style:italic;
+  text-align:right;
+}
+</style>
+</head>
+<body>
+
+<div class="newsletter">
+
+  <div class="nl-header">
+    <div class="nl-eyebrow">Scan & Scale — Weekly Corridor Intelligence</div>
+    <div class="nl-wordmark">SCAN & <span>SCALE</span></div>
+    <div class="nl-subtitle">Operational insights for food halls, markets, and entertainment districts</div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-kicker">JUNE 2026 — SUMMER FOOT TRAFFIC IS UP. CAPTURE RATE IS NOT.</div>
+    <div class="hero-headline">GUESTS ARE WALKING THROUGH YOUR DISTRICT. MOST LEAVE WITHOUT SPENDING WHAT THEY COULD HAVE.</div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="opening-quote">"The guest who walks in undecided is your highest-value opportunity. Most districts let them walk out the same way."</div>
+
+    <div class="insight"><p>Food halls and entertainment districts run on dwell time. The longer a guest stays, the more they spend — in theory. But dwell time without direction just turns into browsing.</p>
+      <p>Most districts measure foot traffic, not conversion. <strong>That's not a tenant problem. It's a corridor recognition problem.</strong></p></div>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-number">23%</div>
+        <div class="stat-label">Gross sales lift documented when mobile ordering is available across member businesses.</div>
+        <div class="stat-source">District revenue modeling</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-number">59%</div>
+        <div class="stat-label">Of consumers engage more with offers when reached at the physical location — not after.</div>
+        <div class="stat-source">Strategy& / PwC</div>
+      </div></div>
+
+    <div class="insight"><p>Corridor revenue isn't built by one hero tenant. It's built when guests feel guided — the right offer, at the right stop, while they're still deciding. <strong>The district that recognizes guests in the moment captures more per visit across every member business.</strong></p>
+      <p>The ones that feel chaotic send guests home early.</p></div>
+
+    <div class="choice-section">
+      <div class="choice-label">Pick the number that's costing your corridor the most right now</div>
+      <div class="choice-heading">WHERE IS YOUR DISTRICT LEAVING REVENUE BEHIND?</div>
+
+      <a class="choice-card" href="https://www.seamlessly.us/calculator/districts?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}">
+        <div class="choice-accent"></div>
+        <div class="choice-content">
+          <div class="choice-text">
+            <div class="choice-title">Weekend Foot-Traffic Leak</div>
+            <div class="choice-subtitle">VISITORS NOT CONVERTING</div>
+            <div class="choice-desc">See what low capture costs your corridor per weekend — and per year</div>
+          </div>
+          <div class="choice-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="choice-card" href="https://www.seamlessly.us/calculator/districts-2?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}">
+        <div class="choice-accent"></div>
+        <div class="choice-content">
+          <div class="choice-text">
+            <div class="choice-title">Member Business Lift Gap</div>
+            <div class="choice-subtitle">TENANTS UNDERPERFORMING TOGETHER</div>
+            <div class="choice-desc">Model what coordinated ordering lift means across your member roster</div>
+          </div>
+          <div class="choice-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="choice-card" href="https://www.seamlessly.us/calculator/districts-3?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}">
+        <div class="choice-accent"></div>
+        <div class="choice-content">
+          <div class="choice-text">
+            <div class="choice-title">Programming & Event ROI</div>
+            <div class="choice-subtitle">ANCHOR EVENTS NOT PAYING OFF</div>
+            <div class="choice-desc">Price what uneven spend capture costs during your busiest programming</div>
+          </div>
+          <div class="choice-arrow">→</div>
+        </div>
+      </a>
+      <div class="choice-footer">Free. Under 2 minutes. No pitch — just your number.</div>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">Instagram</a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">LinkedIn</a>
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products" target="_blank">Scan & Scale</a>
+      <a class="social-btn talk" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">Let's Talk</a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN & SCALE</div>
+        <div class="footer-copy">A Seamlessly Production · Corridor Intelligence Series · © 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">You're receiving this because you engaged with the Scan & Scale Revenue Audit.</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

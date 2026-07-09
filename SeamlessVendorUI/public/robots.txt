@@ -1,0 +1,40 @@
+User-agent: *
+Allow: /
+Allow: /locations/
+Allow: /demo/
+Allow: /increase-revenue/
+Allow: /reduce-expenses/
+Allow: /download/
+Allow: /cash-finder/
+Allow: /wine-walk/
+Allow: /kids-expo/
+Allow: /signup/
+Allow: /directsignup/
+Allow: /vendor-download/
+Allow: /vendor-integration/
+Allow: /dynamic-pricing/
+Allow: /schedule-chat/
+Allow: /calendar-box/
+Allow: /ezfest/
+
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /temp/
+Disallow: /*?*
+
+# Allow specific location pages
+Allow: /orlando/
+Allow: /tampa/
+Allow: /winter-garden/
+Allow: /clermont/
+Allow: /winter-park/
+Allow: /maitland/
+Allow: /apopka/
+Allow: /mount-dora/
+Allow: /sanford/
+Allow: /lake-county/
+Allow: /polk-county/
+
+# Sitemap location
+Sitemap: https://seamless.com/sitemap.xml

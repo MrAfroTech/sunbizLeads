@@ -1,0 +1,227 @@
+.revenue-fit-page {
+  min-height: 100vh;
+  background: #1a1208;
+  color: #f5ecd7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 48px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.revenue-fit-card {
+  width: 100%;
+  max-width: 520px;
+  background: #f5f0e8;
+  color: #1a2a44;
+  border-top: 4px solid #d4af37;
+  border-radius: 8px;
+  padding: 36px 28px 32px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.revenue-fit-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(26, 42, 68, 0.45);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.revenue-fit-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 8vw, 44px);
+  letter-spacing: 2px;
+  line-height: 1;
+  text-align: center;
+  margin: 0 0 12px;
+  color: #1a2a44;
+}
+
+.revenue-fit-subhead {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.55;
+  text-align: center;
+  color: #444;
+  margin: 0 0 10px;
+}
+
+.revenue-fit-trust {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: #777;
+  margin: 0 0 24px;
+}
+
+.revenue-fit-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.revenue-fit-body ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+
+.revenue-fit-body li {
+  margin-bottom: 8px;
+}
+
+.revenue-fit-divider {
+  border: none;
+  border-top: 1px solid rgba(26, 42, 68, 0.12);
+  margin: 28px 0 24px;
+}
+
+.revenue-fit-scheduler-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  margin: 0 0 8px;
+  color: #1a2a44;
+}
+
+.revenue-fit-scheduler-note {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.revenue-fit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.revenue-fit-field label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(26, 42, 68, 0.65);
+}
+
+.revenue-fit-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgba(26, 42, 68, 0.2);
+  border-radius: 6px;
+  background: #fff;
+  color: #1a2a44;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.revenue-fit-field input:focus {
+  outline: none;
+  border-color: #d4af37;
+}
+
+.revenue-fit-field input:read-only {
+  background: #faf8f4;
+  color: #555;
+}
+
+.revenue-fit-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.revenue-fit-slot {
+  padding: 10px 6px;
+  border: 1px solid rgba(26, 42, 68, 0.2);
+  border-radius: 6px;
+  background: #fff;
+  color: #1a2a44;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.revenue-fit-slot:hover:not(:disabled) {
+  border-color: #d4af37;
+}
+
+.revenue-fit-slot.selected {
+  background: #d4af37;
+  border-color: #d4af37;
+  color: #1a2a44;
+}
+
+.revenue-fit-slot:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.revenue-fit-error {
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 8px 0 0;
+}
+
+.revenue-fit-submit {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px;
+  border: none;
+  border-radius: 3px;
+  background: #d4af37;
+  color: #1a2a44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.revenue-fit-submit:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.revenue-fit-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.revenue-fit-confirmed {
+  text-align: center;
+  padding: 12px 0 4px;
+}
+
+.revenue-fit-confirmed h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1.5px;
+  margin: 0 0 12px;
+  color: #1a2a44;
+}
+
+.revenue-fit-confirmed p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .revenue-fit-slots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .revenue-fit-card {
+    padding: 28px 20px 24px;
+  }
+}

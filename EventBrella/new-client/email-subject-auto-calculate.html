@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Calculated Subject Line</title>
+</head>
+<body>
+    <!-- This HTML is for Brevo's HTML editor -->
+    <!-- The subject line will be calculated and displayed below -->
+    
+    <div id="subjectLine" style="font-family: Arial, sans-serif; font-size: 16px; color: #333; padding: 20px;">
+        <!-- Subject line will appear here -->
+    </div>
+
+    <script>
+        /**
+         * Calculate the next second Sunday of the month
+         * @returns {Date} The date of the next second Sunday
+         */
+        function calculateNextSecondSunday() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
+            
+            // Calculate second Sunday of current month
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+            const dayOfWeek = firstDayOfMonth.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            
+            // Calculate first Sunday
+            const daysUntilFirstSunday = (7 - dayOfWeek) % 7;
+            const firstSunday = 1 + (daysUntilFirstSunday === 0 && dayOfWeek !== 0 ? 7 : daysUntilFirstSunday);
+            
+            // Second Sunday is 7 days later
+            const secondSundayCurrentMonth = firstSunday + 7;
+            const secondSundayDate = new Date(currentYear, currentMonth, secondSundayCurrentMonth);
+            
+            // Check if we should use current month or next month
+            if (currentDay < secondSundayCurrentMonth) {
+                // Today is before the second Sunday of current month
+                return secondSundayDate;
+            } else {
+                // Today is on or after the second Sunday of current month
+                // Calculate second Sunday of next month
+                const nextMonth = currentMonth + 1;
+                const nextYear = nextMonth > 11 ? currentYear + 1 : currentYear;
+                const adjustedNextMonth = nextMonth > 11 ? 0 : nextMonth;
+                
+                const firstDayOfNextMonth = new Date(nextYear, adjustedNextMonth, 1);
+                const nextMonthDayOfWeek = firstDayOfNextMonth.getDay();
+                
+                const daysUntilNextFirstSunday = (7 - nextMonthDayOfWeek) % 7;
+                const nextFirstSunday = 1 + (daysUntilNextFirstSunday === 0 && nextMonthDayOfWeek !== 0 ? 7 : daysUntilNextFirstSunday);
+                
+                const secondSundayNextMonth = nextFirstSunday + 7;
+                return new Date(nextYear, adjustedNextMonth, secondSundayNextMonth);
+            }
+        }
+        
+        /**
+         * Format date as "December 14th" or "January 12th"
+         * @param {Date} date - The date to format
+         * @returns {string} Formatted date string
+         */
+        function formatDateForSubject(date) {
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            
+            // Add ordinal suffix (st, nd, rd, th)
+            let suffix = 'th';
+            if (day === 1 || day === 21 || day === 31) {
+                suffix = 'st';
+            } else if (day === 2 || day === 22) {
+                suffix = 'nd';
+            } else if (day === 3 || day === 23) {
+                suffix = 'rd';
+            }
+            
+            return `${month} ${day}${suffix}`;
+        }
+        
+        /**
+         * Generate the subject line
+         * @returns {string} The formatted subject line
+         */
+        function generateSubjectLine() {
+            const nextSecondSunday = calculateNextSecondSunday();
+            const formattedDate = formatDateForSubject(nextSecondSunday);
+            return `Sunday, ${formattedDate} at 8 AM, we're doing a farm tour.`;
+        }
+        
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const subjectLine = generateSubjectLine();
+            const subjectElement = document.getElementById('subjectLine');
+            if (subjectElement) {
+                subjectElement.textContent = 'Subject: ' + subjectLine;
+            }
+        });
+    </script>
+</body>
+</html>
+

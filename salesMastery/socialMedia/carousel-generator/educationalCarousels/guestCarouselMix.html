@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@mauricethefirst — Guest Carousel A/B Mix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:          #C9A84C;
+      --gold-light:    #E2C97E;
+      --gold-dark:     #9A7828;
+      --silver-light:  #E8E8E8;
+      --silver-mid:    #A8A9AD;
+      --silver-dark:   #6E6E6E;
+      --white-base:    #F8F6F2;
+      --charcoal:      #1C1C1E;
+      --charcoal-soft: #2E2E30;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #111112;
+      padding: 40px 32px 80px;
+      color: #fff;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+
+    .page-header {
+      width: 1080px;
+      margin: 0 auto 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .page-header-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: 0.04em;
+      color: #fff;
+      line-height: 1;
+    }
+    .page-header h1 span { color: var(--gold); }
+    .page-header-sub { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 8px; }
+
+    .day-label {
+      width: 1080px;
+      margin: 48px auto 12px;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .day-label .ab-tag {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+    }
+    .day-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
+    .carousel { width: 1080px; margin: 0 auto 8px; }
+    .carousel-window { width: 1080px; overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.35s ease; }
+
+    /* ── Black / White system (guest.html) ── */
+    .slide {
+      width: 1080px;
+      height: 1080px;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .slide.bw { padding: 72px 140px; }
+    .black { background: #000; color: #fff; }
+    .white { background: #fff; color: #000; }
+    .white .profile-handle { color: rgba(0,0,0,0.5); }
+    .white .name, .white .title { color: #000; }
+    .white .body { color: rgba(0,0,0,0.72); }
+    .white .ghost { color: rgba(0,0,0,0.06); }
+    .black .profile-handle { color: rgba(255,255,255,0.4); }
+    .black .ghost { color: rgba(255,255,255,0.06); }
+
+    .has-bg-image.black { background: #000; }
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .slide-bg img {
+      width: 1080px;
+      height: 1080px;
+      object-fit: fill;
+      display: block;
+      filter: grayscale(100%);
+    }
+    .slide-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.52) 45%, rgba(0,0,0,0.78) 100%);
+      pointer-events: none;
+    }
+    .has-bg-image .profile,
+    .has-bg-image .content { position: relative; z-index: 2; }
+    .has-bg-image .ghost { z-index: 1; }
+    .has-bg-image.metallic::before,
+    .has-bg-image.metallic::after { display: none; }
+    .has-bg-image.metallic.gold-slide,
+    .has-bg-image.metallic.silver-slide,
+    .has-bg-image.metallic.white-slide { background: #000; }
+    .has-bg-image.metallic .slide-accent-bar { z-index: 2; }
+    .has-bg-image.metallic .slide-text,
+    .has-bg-image.metallic .profile-name { color: #fff; }
+    .has-bg-image.metallic .profile-handle { color: rgba(255,255,255,0.55); }
+    .has-bg-image.metallic .ghost { color: rgba(255,255,255,0.08); }
+    .bw .profile { display: flex; align-items: center; gap: 16px; margin-bottom: 80px; }
+    .bw .avatar { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; background: #222; border: 2px solid rgba(255,255,255,0.1); }
+    .bw .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .bw .name { font-size: 22px; font-weight: 700; letter-spacing: 0.02em; }
+    .bw .profile-handle { font-size: 18px; font-weight: 400; }
+    .bw .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .bw .title { font-family: 'DM Serif Display', serif; font-size: 54px; font-weight: 400; line-height: 1.12; letter-spacing: -0.01em; max-width: 760px; white-space: pre-line; }
+    .bw .title .accent { color: #EB5757; }
+    .bw .title .accent-green { color: #27AE60; }
+    .bw .body { margin-top: 24px; font-size: 30px; font-weight: 300; line-height: 1.45; max-width: 760px; opacity: 0.75; }
+    .bw .ghost { font-family: 'DM Serif Display', serif; position: absolute; bottom: 32px; right: 72px; font-size: 280px; font-weight: 400; line-height: 1; letter-spacing: -10px; user-select: none; pointer-events: none; }
+    .bw .avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #1a1a1a; }
+    .bw .avatar-placeholder svg { width: 32px; height: 32px; stroke: rgba(255,255,255,0.2); }
+    .white .avatar-placeholder { background: #eee; }
+    .white .avatar-placeholder svg { stroke: rgba(0,0,0,0.2); }
+
+    /* ── Metallic system (guestMetallic.html) ── */
+    .slide.metallic { padding: 80px 108px 108px; }
+
+    .white-slide { background: var(--white-base); color: var(--charcoal); }
+    .white-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 85%, rgba(168,169,173,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .white-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(105deg, transparent 0px, transparent 2px, rgba(201,168,76,0.012) 2px, rgba(201,168,76,0.012) 3px);
+      pointer-events: none;
+    }
+
+    .silver-slide {
+      background: linear-gradient(135deg, #CECECE 0%, #B8B8B8 30%, #D4D4D4 55%, #ADADAD 80%, #C8C8C8 100%);
+      color: var(--charcoal);
+    }
+    .silver-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.35) 0%, transparent 45%),
+        radial-gradient(ellipse at 30% 80%, rgba(100,100,100,0.15) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, rgba(201,168,76,0.08) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .silver-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(115deg, transparent 0px, transparent 4px, rgba(255,255,255,0.06) 4px, rgba(255,255,255,0.06) 5px);
+      pointer-events: none;
+    }
+
+    .gold-slide {
+      background: linear-gradient(135deg, #C9A84C 0%, #B8962A 30%, #D4B655 55%, #9A7828 80%, #C9A84C 100%);
+      color: var(--charcoal);
+    }
+    .gold-slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 20%, rgba(255,255,255,0.3) 0%, transparent 45%),
+        radial-gradient(ellipse at 20% 75%, rgba(100,70,0,0.18) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .gold-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(120deg, transparent 0px, transparent 3px, rgba(255,255,255,0.045) 3px, rgba(255,255,255,0.045) 4px);
+      pointer-events: none;
+    }
+
+    .metallic .profile { display: flex; align-items: center; gap: 18px; margin-bottom: 80px; position: relative; z-index: 2; }
+    .metallic .avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .white-slide .avatar  { background: rgba(201,168,76,0.12); border: 2px solid rgba(201,168,76,0.45); }
+    .silver-slide .avatar { background: rgba(255,255,255,0.3);  border: 2px solid rgba(255,255,255,0.6); }
+    .gold-slide .avatar   { background: rgba(28,28,30,0.12);    border: 2px solid rgba(28,28,30,0.3); }
+    .metallic .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .metallic .avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .white-slide  .avatar-placeholder svg { stroke: rgba(201,168,76,0.5); }
+    .silver-slide .avatar-placeholder svg { stroke: rgba(28,28,30,0.35); }
+    .gold-slide   .avatar-placeholder svg { stroke: rgba(28,28,30,0.4); }
+    .metallic .avatar-placeholder svg { width: 28px; height: 28px; stroke-width: 1.5; fill: none; }
+
+    .metallic .profile-name   { font-family: 'DM Sans', sans-serif; font-size: 21px; font-weight: 700; line-height: 1.2; color: var(--charcoal); }
+    .metallic .profile-handle { font-size: 17px; font-weight: 300; margin-top: 2px; }
+    .white-slide  .profile-handle { color: rgba(201,168,76,0.75); }
+    .silver-slide .profile-handle { color: rgba(28,28,30,0.5); }
+    .gold-slide   .profile-handle { color: rgba(28,28,30,0.5); }
+
+    .metallic .content { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+
+    .slide-rule { width: 56px; height: 3px; margin-bottom: 32px; flex-shrink: 0; }
+    .white-slide  .slide-rule { background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+    .silver-slide .slide-rule { background: linear-gradient(90deg, var(--charcoal), var(--silver-dark)); }
+    .gold-slide   .slide-rule { background: linear-gradient(90deg, rgba(28,28,30,0.7), rgba(28,28,30,0.3)); }
+
+    .slide-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 54px;
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      max-width: 760px;
+      white-space: pre-line;
+      color: var(--charcoal);
+    }
+    .slide-text-compact {
+      font-size: 40px;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+    }
+    .metallic.compact-slide .profile { margin-bottom: 48px; }
+    .metallic.compact-slide .slide-rule { margin-bottom: 20px; }
+    .slide-text .accent { color: var(--gold-dark); }
+    .slide-text .accent-green { color: #27AE60; }
+
+    .metallic .ghost {
+      position: absolute; bottom: 16px; right: 56px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 300px; line-height: 1; letter-spacing: -12px;
+      user-select: none; pointer-events: none; z-index: 1;
+    }
+    .white-slide  .ghost { color: rgba(201,168,76,0.07); }
+    .silver-slide .ghost { color: rgba(28,28,30,0.06); }
+    .gold-slide   .ghost { color: rgba(28,28,30,0.08); }
+
+    .slide-accent-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
+    .white-slide  .slide-accent-bar { background: linear-gradient(180deg, var(--gold-dark) 0%, var(--gold-light) 50%, var(--silver-mid) 100%); }
+    .silver-slide .slide-accent-bar { background: linear-gradient(180deg, var(--gold) 0%, var(--silver-dark) 100%); }
+    .gold-slide   .slide-accent-bar { background: linear-gradient(180deg, var(--charcoal) 0%, var(--charcoal-soft) 100%); }
+
+    /* ── Shared nav & download ── */
+    .nav { width: 1080px; margin: 12px auto 0; display: flex; justify-content: space-between; align-items: center; }
+    .nav-btn {
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; border: none; background: #fff; color: #000; border-radius: 6px;
+    }
+    .nav-btn.metallic-nav {
+      padding: 10px 24px; letter-spacing: 0.15em;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: transparent; color: var(--gold); border-radius: 3px;
+    }
+    .nav-btn.metallic-nav:hover:not(:disabled) { background: var(--gold); color: #1C1C1E; }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .dots { display: flex; gap: 8px; align-items: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: all 0.3s; }
+    .dot.active { background: #fff; }
+    .dots.metallic-dots .dot { width: 7px; height: 7px; background: rgba(201,168,76,0.2); }
+    .dots.metallic-dots .dot.active { background: var(--gold); width: 20px; border-radius: 4px; }
+
+    .download-btn {
+      display: block; width: 1080px; margin: 10px auto 0;
+      padding: 14px 24px; font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: opacity 0.2s;
+    }
+    .download-btn:hover:not(:disabled) { opacity: 0.85; }
+    .download-btn:disabled { opacity: 0.5; cursor: default; }
+    .download-current-bw { background: #fff; color: #000; border: none; }
+    .download-all-bw { background: rgba(255,255,255,0.12); color: #fff; margin-top: 6px; }
+    .download-current-metallic { background: linear-gradient(135deg, var(--gold-dark), var(--gold-light)); color: #1C1C1E; border: none; border-radius: 3px; font-size: 11px; letter-spacing: 0.15em; }
+    .download-all-metallic { background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); margin-top: 6px; border-radius: 3px; font-size: 11px; letter-spacing: 0.15em; }
+    .download-all-metallic:hover:not(:disabled) { background: rgba(201,168,76,0.08); }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-header-label">@mauricethefirst · Guest Experience Series</div>
+  <h1>CAROUSEL <span>A/B MIX</span></h1>
+  <div class="page-header-sub">7 carousels · First-slide color A/B test · Black/White + Metallic systems</div>
+</div>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="../personalBrandPhotos/profilePic-embed.js"></script>
+
+<script>
+(function () {
+
+  const PHOTO_SRC = window.PROFILE_PIC_DATA_URL || encodeURI('../personalBrandPhotos/profilePic.png');
+
+  const METALLIC_SG = ['silver-slide', 'gold-slide', 'silver-slide', 'gold-slide', 'silver-slide'];
+  const METALLIC_SG_GOLD_START = ['gold-slide', 'silver-slide', 'gold-slide', 'silver-slide', 'gold-slide'];
+
+  function getBwTheme(i, start) {
+    const startBlack = start === 'black';
+    return (startBlack ? i % 2 === 0 : i % 2 === 1) ? 'black' : 'white';
+  }
+
+  function getMetallicThemes(start) {
+    return start === 'gold' ? METALLIC_SG_GOLD_START : METALLIC_SG;
+  }
+
+  const DATA = [
+
+    {
+      day: 'Carousel 1 — The Five Drivers of Repeat Revenue',
+      abTag: 'A/B: Black opener · B/W system',
+      system: 'bw',
+      firstSlide: 'black',
+      hookBackground: 'guest-carousel-bg-profile.png',
+      title: 'Guests don\'t come back because they had a good time\n\nThey come back for one of five reasons\n\nMost operators are only managing one of them',
+      screens: [
+        'Recognition\n\nThey come back because someone remembered them\n\nNot their name on a reservation\n\nThe way the staff already knew what they wanted before they asked',
+        'Consistency\n\nThey come back because they trust what they\'re going to get\n\nNot the same dish every time\n\nThe same feeling every time',
+        'Belonging\n\nThey come back because it feels like their place\n\nThat doesn\'t happen by accident\n\nIt happens because the venue made them feel like they were known there',
+        'Convenience and value close the deal\n\nBut recognition and belonging are what turn a first visit into a habit'
+      ],
+      finalSetup: 'Which of these five is your venue actually delivering on — and which one are you leaving to chance?'
+    },
+
+    {
+      day: 'Carousel 2 — The Waste Problem',
+      abTag: 'A/B: White opener · B/W system',
+      system: 'bw',
+      firstSlide: 'white',
+      title: 'You over-ordered again this week\n\nNot because you weren\'t paying attention\n\nBecause you were guessing',
+      screens: [
+        'You ordered based on last week\n\nWhat the rep suggested\n\nWhat felt right\n\nMeanwhile your actual guest behavior — what they order, when they come in, what they skip — isn\'t informing any of it',
+        'The waste isn\'t showing up as one big number\n\nIt\'s showing up as a little bit every day\n\nPrep that didn\'t move\n\nInventory that turned before it was used\n\nOrders placed for a version of the week that didn\'t happen',
+        'The operators reducing waste right now aren\'t just buying less\n\nThey\'re buying smarter because they know more about who\'s actually coming in and what those guests actually order',
+        'The data is already there\n\nMost venues just aren\'t using it'
+      ],
+      finalSetup: 'How much of what you ordered this week was based on actual guest behavior — and how much was a guess?'
+    },
+
+    {
+      day: 'Carousel 3 — The Staff Retention Problem',
+      abTag: 'A/B: Silver opener · Metallic system',
+      system: 'metallic',
+      firstSlide: 'silver',
+      title: 'Your best server just quit\n\nYou thought it was the money\n\nIt wasn\'t',
+      screens: [
+        'Every shift was a fresh start\n\nStrangers all night\n\nNo context\n\nNo history\n\nJust table after table of people they knew nothing about — and no way to get ahead of any of it',
+        'The shifts that don\'t burn people out are the ones where staff already knows who\'s walking in\n\nWhere the regulars are easy because the staff knows what they want\n\nWhere the floor feels manageable because there\'s information behind it',
+        'Retention isn\'t just a compensation problem\n\nIt\'s a friction problem\n\nAnd the friction starts with what your staff does and doesn\'t know before service begins',
+        'The venues with the lowest turnover aren\'t always paying the most\n\nThey\'re running the smoothest floors'
+      ],
+      finalSetup: 'When did you last ask your staff what makes a shift hard versus a shift they actually want to come back to?'
+    },
+
+    {
+      day: 'Carousel 4 — The Promotion Problem',
+      abTag: 'A/B: Gold opener · Metallic system',
+      system: 'metallic',
+      firstSlide: 'gold',
+      hookBackground: 'guest-carousel-bg.png',
+      title: 'You ran the promotion\n\nRoom was packed for two weeks\n\nThen they were gone',
+      screens: [
+        'A discount gets someone in the door\n\nIt doesn\'t make them come back\n\nWhat makes them come back is walking in the second time and feeling like the place actually remembered them',
+        'The first visit is marketing\n\nThe second visit is hospitality\n\nMost operators spend everything on the first and almost nothing on the second',
+        'The guest who came in for the happy hour special and felt like a stranger left as a stranger\n\nThe guest who came in for the happy hour special and got greeted like a regular — that one came back',
+        'You can\'t discount your way to loyalty\n\nBut you can earn it on the second visit if you\'re paying attention'
+      ],
+      finalSetup: 'What does your venue do differently for a guest on their second visit compared to their first?',
+      finalSlideTheme: 'silver-slide'
+    },
+
+    {
+      day: 'Carousel 5 — The Inventory Story',
+      abTag: 'A/B: Black opener · B/W system',
+      system: 'bw',
+      firstSlide: 'black',
+      hookBackground: 'guest-carousel-bg-2.png',
+      title: 'The same item gets wasted every week\n\nYou know which one\n\nYou order it anyway',
+      screens: [
+        'Not because you\'re not paying attention\n\nBecause the ordering process doesn\'t have a feedback loop\n\nWhat guests actually ordered last week isn\'t connected to what goes on the purchase order this week',
+        'The venues tightening their margins right now aren\'t doing it by cutting portions or raising prices\n\nThey\'re doing it by knowing their guests well enough to order accurately',
+        'When you know which regulars are coming in this week, what they order, and how often — the guesswork comes out of the equation\n\nThat\'s not a purchasing upgrade\n\nThat\'s a guest intelligence upgrade'
+      ],
+      finalSetup: 'What\'s the one item you over-order most consistently — and do you actually know why?'
+    },
+
+    {
+      day: 'Carousel 6 — The Regular Is the Business',
+      abTag: 'A/B: White opener · B/W system',
+      system: 'bw',
+      firstSlide: 'white',
+      title: 'One regular is worth more than ten first-timers\n\nMost operators spend ten times more trying to get the first-timer',
+      screens: [
+        'A regular already trusts you\n\nAlready knows what they want\n\nAlready knows how much they\'re going to spend\n\nThey don\'t need to be convinced\n\nThey just need to feel like you still know them',
+        'The cost of losing a regular is almost never calculated\n\nIt doesn\'t show up as a complaint\n\nIt shows up as a table that used to be booked every Friday that quietly stopped showing up',
+        'The operators building sustainable revenue aren\'t constantly chasing new guests\n\nThey\'re protecting the ones they already have by making sure every visit feels like the venue still knows who they are',
+        'Acquisition gets the credit\n\nRetention does the work'
+      ],
+      finalSetup: 'How many regulars have you lost in the last six months — and do you know why any of them stopped coming back?'
+    },
+
+    {
+      day: 'Carousel 7 — Five Experience Drivers (Wasted Effort)',
+      abTag: 'A/B: Silver opener · Metallic system',
+      system: 'metallic',
+      firstSlide: 'silver',
+      hookBackground: 'guest-carousel-bg-7.png',
+      title: 'You think guests come back because the food is good\n\nThey don\'t\n\nHere are the five things actually driving every repeat visit — and most operators are only managing one of them',
+      screens: [
+        'Welcomed\n\nThey felt it the moment they walked in\n\nA warm greeting\n\nEye contact\n\nSomeone who looked genuinely glad they came\n\nThat first impression sets the tone for everything that follows',
+        'Attentive Without Intrusive\n\nThey felt looked after — not watched\n\nThe water was refilled before they noticed it was low\n\nThe check didn\'t interrupt the conversation\n\nGood service is invisible until you need it',
+        'Seamless\n\nNothing broke the flow\n\nFrom the greeting to the goodbye, the visit moved without friction\n\nNo awkward waits\n\nNo missed moments\n\nNo drag at the end\n\nThey left without a single thing to complain about',
+        'Small Details\n\nIt was the little things they remembered most\n\nThe timing\n\nThe tone\n\nThe way the table was set\n\nSomething small and thoughtful that made the visit feel considered\n\nDetails signal that someone actually cared',
+        'Atmosphere\n\nThey didn\'t want to leave\n\nThe energy in the room, the pacing of the service, the feeling of the space — it all made staying feel easy\n\nDwell time is not accidental\n\nIt is designed'
+      ],
+      finalSetup: '5 experience factors that turn first-time visitors into regulars\n\nWhich one does your venue nail — and which one needs work? 👇',
+      slideTextCompact: [1, 4],
+      slideThemeOverrides: { 5: 'gold-slide', 6: 'silver-slide' }
+    }
+
+  ];
+
+  function makeAvatar() {
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    const img = document.createElement('img');
+    img.src = PHOTO_SRC;
+    img.alt = 'Maurice Sanders';
+    const ph = document.createElement('div');
+    ph.className = 'avatar-placeholder';
+    ph.style.display = 'none';
+    ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+    img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+    avatar.appendChild(img);
+    avatar.appendChild(ph);
+    return avatar;
+  }
+
+  function appendSlideBackground(slide, imageSrc) {
+    slide.classList.add('has-bg-image');
+    const bg = document.createElement('div');
+    bg.className = 'slide-bg';
+    const bgImg = document.createElement('img');
+    bgImg.src = imageSrc;
+    bgImg.alt = '';
+    const overlay = document.createElement('div');
+    overlay.className = 'slide-bg-overlay';
+    bg.appendChild(bgImg);
+    bg.appendChild(overlay);
+    slide.insertBefore(bg, slide.firstChild);
+  }
+
+  function buildBwSlide(text, themeClass, index, options) {
+    options = options || {};
+    const slide = document.createElement('div');
+    slide.className = 'slide bw ' + themeClass;
+
+    if (options.backgroundImage) {
+      appendSlideBackground(slide, options.backgroundImage);
+    }
+
+    const profile = document.createElement('div');
+    profile.className = 'profile';
+    profile.appendChild(makeAvatar());
+    const info = document.createElement('div');
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = 'Maurice Sanders';
+    const handle = document.createElement('div');
+    handle.className = 'profile-handle';
+    handle.textContent = '@maurice.seamlessly';
+    info.appendChild(name);
+    info.appendChild(handle);
+    profile.appendChild(info);
+
+    const content = document.createElement('div');
+    content.className = 'content';
+    const title = document.createElement('div');
+    title.className = 'title';
+    if (text.includes('<')) { title.innerHTML = text; } else { title.textContent = text; }
+    content.appendChild(title);
+
+    const ghost = document.createElement('div');
+    ghost.className = 'ghost';
+    ghost.textContent = index + 1;
+
+    slide.appendChild(profile);
+    slide.appendChild(content);
+    slide.appendChild(ghost);
+    return slide;
+  }
+
+  function buildMetallicSlide(text, themeClass, index, options) {
+    options = options || {};
+    const slide = document.createElement('div');
+    slide.className = 'slide metallic ' + themeClass;
+    if (options.compact) slide.classList.add('compact-slide');
+
+    const bar = document.createElement('div');
+    bar.className = 'slide-accent-bar';
+    slide.appendChild(bar);
+
+    if (options.backgroundImage) {
+      appendSlideBackground(slide, options.backgroundImage);
+    }
+
+    const profile = document.createElement('div');
+    profile.className = 'profile';
+    profile.appendChild(makeAvatar());
+    const info = document.createElement('div');
+    const nameEl = document.createElement('div');
+    nameEl.className = 'profile-name';
+    nameEl.textContent = 'Maurice Sanders';
+    const handleEl = document.createElement('div');
+    handleEl.className = 'profile-handle';
+    handleEl.textContent = '@maurice.seamlessly';
+    info.appendChild(nameEl);
+    info.appendChild(handleEl);
+    profile.appendChild(info);
+    slide.appendChild(profile);
+
+    const content = document.createElement('div');
+    content.className = 'content';
+    const rule = document.createElement('div');
+    rule.className = 'slide-rule';
+    content.appendChild(rule);
+    const textEl = document.createElement('div');
+    textEl.className = 'slide-text' + (options.compact ? ' slide-text-compact' : '');
+    if (text.includes('<')) { textEl.innerHTML = text; } else { textEl.textContent = text; }
+    content.appendChild(textEl);
+    slide.appendChild(content);
+
+    const ghost = document.createElement('div');
+    ghost.className = 'ghost';
+    ghost.textContent = index + 1;
+    slide.appendChild(ghost);
+
+    return slide;
+  }
+
+  function slideBg(s, isMetallic) {
+    if (isMetallic) {
+      if (s.classList.contains('silver-slide')) return '#C8C8C8';
+      if (s.classList.contains('gold-slide')) return '#C9A84C';
+      return '#F8F6F2';
+    }
+    return s.classList.contains('black') ? '#000000' : '#ffffff';
+  }
+
+  function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+
+  function waitImgs(node) {
+    return Promise.all(Array.from(node.querySelectorAll('img')).map(function (img) {
+      if (img.complete && img.naturalWidth) return Promise.resolve();
+      return new Promise(function (res) {
+        img.addEventListener('load', res, { once: true });
+        img.addEventListener('error', res, { once: true });
+      });
+    }));
+  }
+
+  const root = document.getElementById('root');
+
+  DATA.forEach(function (item) {
+    const isMetallic = item.system === 'metallic';
+    const metallicThemes = isMetallic ? getMetallicThemes(item.firstSlide) : null;
+
+    const dayLabel = document.createElement('div');
+    dayLabel.className = 'day-label';
+    const tag = document.createElement('span');
+    tag.className = 'ab-tag';
+    tag.textContent = item.abTag;
+    dayLabel.appendChild(tag);
+    dayLabel.appendChild(document.createTextNode(item.day));
+    root.appendChild(dayLabel);
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+    const win = document.createElement('div');
+    win.className = 'carousel-window';
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+    const slides = [];
+
+    const all = [item.title, ...item.screens, ...(item.finalSetup ? [item.finalSetup] : [])];
+
+    all.forEach(function (text, i) {
+      let slide;
+      const slideOptions = {};
+      if (i === 0 && item.hookBackground) slideOptions.backgroundImage = item.hookBackground;
+      if (item.slideTextCompact && item.slideTextCompact.indexOf(i) !== -1) slideOptions.compact = true;
+      if (isMetallic) {
+        let theme = metallicThemes[i % metallicThemes.length];
+        if (item.slideThemeOverrides && item.slideThemeOverrides[i]) {
+          theme = item.slideThemeOverrides[i];
+        } else if (item.finalSlideTheme && i === all.length - 1) {
+          theme = item.finalSlideTheme;
+        }
+        slide = buildMetallicSlide(text, theme, i, slideOptions);
+      } else {
+        const theme = getBwTheme(i, item.firstSlide);
+        slide = buildBwSlide(text, theme, i, slideOptions);
+      }
+      track.appendChild(slide);
+      slides.push(slide);
+    });
+
+    win.appendChild(track);
+    carousel.appendChild(win);
+    let current = 0;
+
+    const nav = document.createElement('div');
+    nav.className = 'nav';
+    const prev = document.createElement('button');
+    prev.className = 'nav-btn' + (isMetallic ? ' metallic-nav' : '');
+    prev.textContent = isMetallic ? '← Back' : 'Back';
+    const next = document.createElement('button');
+    next.className = 'nav-btn' + (isMetallic ? ' metallic-nav' : '');
+    next.textContent = isMetallic ? 'Next →' : 'Next';
+    const dots = document.createElement('div');
+    dots.className = 'dots' + (isMetallic ? ' metallic-dots' : '');
+    const dotEls = slides.map(function (_, idx) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (idx === 0 ? ' active' : '');
+      dots.appendChild(d);
+      return d;
+    });
+
+    function capture(s, n) {
+      return waitImgs(s).then(function () { return document.fonts.ready; }).then(function () {
+        return html2canvas(s, {
+          scale: 1,
+          useCORS: true,
+          allowTaint: isMetallic || s.classList.contains('has-bg-image'),
+          logging: false,
+          backgroundColor: slideBg(s, isMetallic)
+        });
+      }).then(function (c) {
+        const a = document.createElement('a');
+        a.download = 'guest-carousel-mix-' + slug(item.day) + '-slide-' + n + '.png';
+        a.href = c.toDataURL('image/png');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+    }
+
+    const dlBtn = document.createElement('button');
+    dlBtn.type = 'button';
+    dlBtn.className = 'download-btn ' + (isMetallic ? 'download-current-metallic' : 'download-current-bw');
+    const dlAllBtn = document.createElement('button');
+    dlAllBtn.type = 'button';
+    dlAllBtn.className = 'download-btn ' + (isMetallic ? 'download-all-metallic' : 'download-all-bw');
+    dlAllBtn.textContent = 'Download All Slides';
+
+    function updateLabel() {
+      dlBtn.textContent = 'Download PNG — Slide ' + (current + 1) + ' of ' + slides.length;
+    }
+
+    function update() {
+      track.style.transform = 'translateX(-' + (current * 1080) + 'px)';
+      dotEls.forEach(function (d, idx) {
+        d.className = 'dot' + (idx === current ? ' active' : '');
+      });
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      updateLabel();
+    }
+
+    dlBtn.addEventListener('click', function () {
+      dlBtn.disabled = true;
+      dlBtn.textContent = 'Generating...';
+      const orig = dlBtn.style.display;
+      dlBtn.style.display = 'none';
+      capture(slides[current], current + 1).then(function () {
+        dlBtn.style.display = orig;
+        dlBtn.disabled = false;
+        updateLabel();
+      }).catch(function (e) {
+        dlBtn.style.display = orig;
+        dlBtn.disabled = false;
+        updateLabel();
+        console.error(e);
+      });
+    });
+
+    dlAllBtn.addEventListener('click', function () {
+      const saved = current;
+      dlAllBtn.disabled = true;
+      dlBtn.disabled = true;
+      let chain = Promise.resolve();
+      slides.forEach(function (s, idx) {
+        chain = chain.then(function () {
+          current = idx;
+          update();
+          dlAllBtn.textContent = 'Generating ' + (idx + 1) + ' / ' + slides.length + '…';
+          return capture(s, idx + 1);
+        });
+      });
+      chain.then(function () {
+        current = saved;
+        update();
+        dlAllBtn.disabled = false;
+        dlBtn.disabled = false;
+        dlAllBtn.textContent = 'Download All Slides';
+      }).catch(function (e) {
+        current = saved;
+        update();
+        dlAllBtn.disabled = false;
+        dlBtn.disabled = false;
+        dlAllBtn.textContent = 'Download All Slides';
+        console.error(e);
+      });
+    });
+
+    prev.onclick = function () { if (current > 0) { current--; update(); } };
+    next.onclick = function () { if (current < slides.length - 1) { current++; update(); } };
+
+    nav.appendChild(prev);
+    nav.appendChild(dots);
+    nav.appendChild(next);
+    carousel.appendChild(nav);
+    update();
+
+    root.appendChild(carousel);
+    root.appendChild(dlBtn);
+    root.appendChild(dlAllBtn);
+  });
+
+})();
+</script>
+</body>
+</html>

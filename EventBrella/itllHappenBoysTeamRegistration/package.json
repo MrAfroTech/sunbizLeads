@@ -1,0 +1,27 @@
+{
+  "name": "itll-happen-boys-team-registration",
+  "version": "1.0.0",
+  "description": "It'll Happen Boyz Team Registration - $50 registration ticket only",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"Static site - no build step required\"",
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "deploy": "vercel --prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "1.6.8",
+    "qrcode": "^1.5.4",
+    "stripe": "^14.0.0",
+    "uuid": "^9.0.1"
+  },
+  "keywords": ["eventbrella", "ticketing", "stripe", "team-registration", "itll-happen-boys"],
+  "author": "EventBrella Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.x"
+  }
+}

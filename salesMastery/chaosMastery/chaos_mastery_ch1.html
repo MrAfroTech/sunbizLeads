@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 1: Hospitality Before Hospitality</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:36px 64px 20px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:36px 64px 28px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:6px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:44px; color:#1A2A44; line-height:1; margin-bottom:16px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:16px; color:#1A2A44; line-height:1.65; margin-bottom:22px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:21px; color:#1A2A44; letter-spacing:1px; margin-bottom:8px; margin-top:18px; }
+.body     { font-size:14px; color:#1A1A1A; line-height:1.72; }
+.body p   { margin-bottom:12px; }
+.body strong { color:#1A2A44; font-weight:700; }
+.cite     { font-size:10px; color:#999; font-style:italic; vertical-align:super; }
+.src-note { font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px; margin-top:6px; }
+
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.two-col-eq { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.three-col  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.sidebar    { display:flex; flex-direction:column; gap:14px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:14px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:12px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.4; }
+.stat-sub { font-size:10.5px; color:#666; margin-top:4px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:12px 14px; font-size:13px; color:#1A2A44; line-height:1.6; }
+.callout strong { color:#D4AF37; }
+
+.q-card { padding:18px 20px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.teal { background:#00D4AA; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:40px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; line-height:1.65; margin-bottom:8px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-src  { font-size:10px; font-style:italic; opacity:.65; margin-top:3px; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; } .q-card.navy .q-src { color:rgba(255,255,255,0.55); }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src { color:#1A2A44; }
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text { color:#1A2A44; } .q-card.light .q-attr { color:#666; }
+
+.grid-card { background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.25); padding:18px; border-radius:4px; }
+.grid-card .gc-num { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; }
+.grid-card .gc-lbl { font-size:12px; font-weight:700; margin-top:4px; line-height:1.4; }
+.grid-card .gc-sub { font-size:10.5px; opacity:.65; margin-top:5px; line-height:1.4; }
+.gc-gold .gc-num { color:#D4AF37; } .gc-gold .gc-lbl { color:#fff; }
+.gc-teal .gc-num { color:#00D4AA; } .gc-teal .gc-lbl { color:#fff; }
+.gc-white .gc-num { color:#fff; }   .gc-white .gc-lbl { color:#D4AF37; }
+
+.timeline-row { display:grid; grid-template-columns:100px 24px 1fr; gap:12px; align-items:start; }
+.tl-date { font-family:'Bebas Neue',sans-serif; font-size:18px; line-height:1; text-align:right; }
+.tl-dot  { width:14px; height:14px; border-radius:50%; margin-top:3px; flex-shrink:0; }
+.tl-dot-wrap { display:flex; flex-direction:column; align-items:center; }
+.tl-line { width:2px; flex:1; min-height:20px; margin:2px 0; }
+
+.prog-bar  { height:9px; background:#E8EEF5; border-radius:5px; overflow:hidden; margin-top:5px; }
+.prog-fill { height:100%; border-radius:5px; }
+
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+.chk-row  { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #F0F0F0; }
+.chk-box  { width:16px; height:16px; flex-shrink:0; border:2px solid #1A2A44; border-radius:2px; margin-top:1px; }
+.chk-text { font-size:13px; color:#1A1A1A; line-height:1.5; }
+.chk-text strong { color:#1A2A44; }
+
+.week-block { border-radius:3px; overflow:hidden; }
+.week-head  { padding:8px 14px; display:flex; align-items:center; justify-content:space-between; }
+.week-head span { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; }
+.week-head small { font-size:11px; opacity:.6; }
+.week-body  { border:1.5px solid; border-top:none; padding:10px 14px; border-radius:0 0 3px 3px; }
+
+/* era card */
+.era-card { border-radius:4px; overflow:hidden; }
+.era-head { padding:10px 16px; }
+.era-body { padding:12px 16px; font-size:12.5px; line-height:1.6; }
+
+@media print {
+  @page { size: letter; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body { transform-origin: top left; }
+  .dl-bar { display: none; }
+  .page { margin: 0; page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 1: Hospitality Before Hospitality</div>
+    <div class="dl-bar-sub" id="dlPageCount">Print-ready · 816 × 1056px per page · One ZIP with every page</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 1 — CHAPTER OPENER
+════════════════════════════════════════════════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:52px 80px 40px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part I</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 1</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:80px; color:#fff; line-height:.92; margin-bottom:2px;">THE DAWN</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:80px; color:#D4AF37; line-height:.92; margin-bottom:36px;">OF HOSPITALITY</div>
+        <div style="width:72px; height:4px; background:#00D4AA; margin-bottom:30px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:21px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:560px;">
+          "The history of the tavern is the history of America." — Chuck Bigler, proprietor, Puempel's Olde Tavern, New Glarus, Wisconsin
+          <span style="display:block; font-size:13px; color:rgba(255,255,255,0.45); font-style:normal; margin-top:8px; font-family:'DM Sans',sans-serif;">Source: Janet Fortran, "A Celebration of American Taverns," American Heritage, Vol. 54, Issue 3, June/July 2003</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:26px;"></div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; line-height:1;">1974 BCE</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Babylon issues the first laws governing taverns</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">1634</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Cole's Inn, Boston — first known licensed tavern in America</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#fff; line-height:1;">1 per 100 residents</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Tavern density in early New England towns</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">8 MILES</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Average distance between taverns on American stagecoach routes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 2 — THE ANCIENT FOUNDATION
+════════════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1; align-items:start; gap:24px;">
+      <div>
+        <div class="label">From Babylon to Boston</div>
+        <div class="ch-title">Where It All Started</div>
+        <div class="ch-intro" style="max-width:100%; font-size:15px;">Before there were restaurants, hotels, or venues, there were taverns — and before those, we felt obligated to feed and shelter travelers. Hospitality did not begin with a business model. It began as a moral obligation.</div>
+        <div class="body">
+          <p>The earliest recorded hospitality laws come from Babylon, nearly 4,000 years ago. According to research compiled by Star Tavern, Babylonian law — <strong>ordered the death penalty for vendors who diluted beer</strong>. It was a moral framework: the host's obligation to the guest was sacred, and any violations was treated accordingly.<span class="cite">[1] startavern.net</span></p>
+          <p>In ancient Greece, this concept had a name: <em>xenia</em> — the sacred law of hospitality. Hosts were expected to welcome strangers, offer food and shelter, and refrain from asking where they came from or the purpose of their visit; until after they had been fed. According to HRC International's historical overview of the industry, the Greeks dedicated spaces — the <em>lesche</em>, meaning a place for council or conversation, and the <em>phatnai</em>, which provided spaces for locals, traders, diplomats, and public officials.<span class="cite">[7] hrc-international.com</span></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The Roman twist:</strong> Early Roman taverns had a bad reputation; and prominent men shunned them (in public). This did not stop the upper classes — they entered in disguise. <em>Outcasts and troublemakers often filled these taverns, keeping them alive with chaos. Even in ancient Rome, taverns drew everyone—proving humans have always been drawn to a good meal and lively company</em>
+          </div>
+          </p>        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">Ancient Hospitality Law</div>
+          
+          <div style="font-size:12.5px; color:#fff; line-height:1.6; margin-bottom:8px;">Babylonian law imposed the death penalty on tavern keepers who diluted beer — making good customer service a matter of life and death.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.4); font-style:italic;">Source: Star Tavern — "What is a Tavern?" startavern.net</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">Ancient civilizations with documented hospitality law: Babylon, Greece, Rome</div>
+          <div class="stat-sub">HRC International, "History of the Hospitality Industry," hrc-international.com</div>
+        </div>
+        <div class="q-card light" style="padding:16px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Taverns and drinking establishments are almost as old as civilization itself. Some of the earliest records of tavern keeping involve Babylonian laws from nearly 4000 years ago."</div>
+          <div class="q-attr">Star Tavern</div>
+          <div class="q-src">startavern.net — "What Is a Tavern?"</div>
+        </div>
+        <div class="callout">
+          <strong>Greek hospitality law (xenia):</strong> To refuse shelter to a traveler was a religious offense in ancient Greece. Being hospitable was a non-negotiable — it was divine duty enforced by Zeus himself in the role of Xenios, patron god of guests.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 3 — ANCIENT WORLD TIMELINE (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">4,000 Years of Hospitality</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">Hospitality: A Journey Through Time</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">Babylon to Boston — How the World Built the space</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:22px;"></div>
+
+      <div style="display:flex; flex-direction:column; gap:0; flex:1;">
+
+        <!-- Era 1 -->
+        <div style="display:grid; grid-template-columns:120px 32px 1fr; gap:14px; align-items:stretch; margin-bottom:4px;">
+          <div style="text-align:right; padding-top:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; line-height:1;">~1974 BCE</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Babylon</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:14px; height:14px; background:#D4AF37; border-radius:50%; margin-top:10px; flex-shrink:0;"></div>
+            <div style="width:2px; flex:1; background:rgba(212,175,55,0.3); margin:3px 0;"></div>
+          </div>
+          <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:12px 16px; margin-bottom:4px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#D4AF37; letter-spacing:1px; margin-bottom:4px;">Babylonian Tavern Law</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">The Code of Hammurabi imposed severe penalties — including death — for tavern keepers who diluted beer or overcharged customers. Hospitality was state-regulated commerce. These were the earliest recorded hospitality standards in human history.</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: Star Tavern, startavern.net</div>
+          </div>
+        </div>
+
+        <!-- Era 2 -->
+        <div style="display:grid; grid-template-columns:120px 32px 1fr; gap:14px; align-items:stretch; margin-bottom:4px;">
+          <div style="text-align:right; padding-top:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#00D4AA; line-height:1;">800-1974 BCE</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Ancient Greece</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:14px; height:14px; background:#00D4AA; border-radius:50%; margin-top:10px; flex-shrink:0;"></div>
+            <div style="width:2px; flex:1; background:rgba(0,212,170,0.3); margin:3px 0;"></div>
+          </div>
+          <div style="background:rgba(0,212,170,0.07); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:12px 16px; margin-bottom:4px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#00D4AA; letter-spacing:1px; margin-bottom:4px;">Xenia, Lesches & Phatnai</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Greek culture institutionalized hospitality as sacred law. The <em>lesche</em> — a place for council and conversation — and the <em>phatnai</em> served travelers, traders, and diplomats. Refusing a stranger shelter was a religious offense against Xenios, protector of guests and strangers.</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: HRC International, hrc-international.com; Star Tavern, startavern.net</div>
+          </div>
+        </div>
+
+        <!-- Era 3 -->
+        <div style="display:grid; grid-template-columns:120px 32px 1fr; gap:14px; align-items:stretch; margin-bottom:4px;">
+          <div style="text-align:right; padding-top:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; line-height:1;">200 BCE–400 CE</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Ancient Rome</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:14px; height:14px; background:#fff; border-radius:50%; margin-top:10px; flex-shrink:0;"></div>
+            <div style="width:2px; flex:1; background:rgba(255,255,255,0.2); margin:3px 0;"></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:12px 16px; margin-bottom:4px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#fff; letter-spacing:1px; margin-bottom:4px;">Roman Mansiones & Tabernae</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Rome established <em>mansiones</em> — state-run inns for officials along road networks. Private <em>tabernae</em> served the common traveler. Though considered socially disreputable, Roman taverns attracted every class of society, including senators who attended in disguise.</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: HRC International, hrc-international.com; Star Tavern, startavern.net</div>
+          </div>
+        </div>
+
+        <!-- Era 4 -->
+        <div style="display:grid; grid-template-columns:120px 32px 1fr; gap:14px; align-items:stretch; margin-bottom:4px;">
+          <div style="text-align:right; padding-top:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; line-height:1;">500–1500 CE</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Medieval Europe</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:14px; height:14px; background:#D4AF37; border-radius:50%; margin-top:10px; flex-shrink:0;"></div>
+            <div style="width:2px; flex:1; background:rgba(212,175,55,0.3); margin:3px 0;"></div>
+          </div>
+          <div style="background:rgba(212,175,55,0.07); border:1px solid rgba(212,175,55,0.2); border-radius:4px; padding:12px 16px; margin-bottom:4px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#D4AF37; letter-spacing:1px; margin-bottom:4px;">Monasteries, Guilds & Pilgrim Routes</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Religious institutions became the primary hospitality infrastructure of medieval Europe, housing pilgrims traveling to Canterbury, Rome, and Santiago de Compostela. Guilds then took over regulation of tavern standards, introducing formalized quality controls. English inns sheltered travelers, criminals, and political rebels alike.</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: HRC International, hrc-international.com; Star Tavern, startavern.net</div>
+          </div>
+        </div>
+
+        <!-- Era 5 -->
+        <div style="display:grid; grid-template-columns:120px 32px 1fr; gap:14px; align-items:stretch;">
+          <div style="text-align:right; padding-top:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#00D4AA; line-height:1;">1607–1700s</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px;">Colonial America</div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:14px; height:14px; background:#00D4AA; border-radius:50%; margin-top:10px; flex-shrink:0;"></div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:4px; padding:12px 16px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#00D4AA; letter-spacing:1px; margin-bottom:4px;">The American Ordinary — Hospitality as Infrastructure</div>
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.75); line-height:1.5;">Samuel Cole opened Boston's first licensed tavern on March 4, 1634. Towns were legally required to have a tavern — towns without one faced fines. Taverns were one per 100–130 residents, spaced 8 miles apart on stagecoach routes, serving as bank, court, post office, auction house, and meeting hall simultaneously.</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: Star Tavern, startavern.net; Colonial Williamsburg Foundation; Gettysburg Historical Journal</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin:14px 0;"></div>
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6; text-align:center;">
+        "The first thing ye English do, be it in the most remote part of ye world, is to set up a tavern or drinking house."
+        <span style="display:block; font-family:'DM Sans',sans-serif; font-style:normal; font-size:11px; color:rgba(255,255,255,0.4); margin-top:4px;">— Sir Captain John Walduck, writing to his nephew John Searle, 1708 · Source: Star Tavern, startavern.net</span>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 4 — GREECE, ROME & THE ROAD
+════════════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Ancient World</div>
+    <div class="ch-title">The Road Rules of Greece and Rome</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Hubs for travelers emerged along major roads. Inns combined food, rest, and connection, becoming the pulse of society.</div>
+        <div class="body">
+          <p>Xenia (Ancient Greece) — or “guest friendship,” shaped the relationship between host and strangers. Gathering spaces were used for council and conversation, and the phatnai, which provided hospitality to locals, traders, diplomats, and officials.</p>
+          <div class="sec-head">Rome: The State-Run Model</div>
+          <p>State-run inns — were established along official road networks specifically for government officials. Privately owned places served the general traveler. Rome understood, even in the 2nd century BCE, that a functioning empire required a functioning hospitality network along its arteries.</p>
+          <p>Roman taverns were remarkable for their social mix. Despite a rough reputation, they drew all classes—from outcasts to disguised senators—creating rare spaces where social hierarchies were temporarily set aside.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The modern echo:</strong> Peter Thompson, in his book <em>Rum, Punch, and Revolution</em>, describes early Philadelphian taverns as a melting pot where guests came from "a wide variety of backgrounds" Using the same philosophy as The Roman 1,500 years earlier.
+          </div>
+               </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Ancient Hospitality Chain</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:10px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Greece — Sacred Duty</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Xenia made hospitality a religious obligation. Refusal was an affront to Zeus himself. Lesches and phatnai formalized the space.</div>
+            </div>
+            <div style="text-align:center; font-size:18px; color:#D4AF37; padding:2px 0;">↓</div>
+            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:10px; color:#fff; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Rome — State Infrastructure</div>
+              <div style="font-size:12px; color:rgba(255,255,255,0.75); line-height:1.5;">Mansiones along official roads. Tabernae for common travelers. Hospitality as empire administration.</div>
+            </div>
+            <div style="text-align:center; font-size:18px; color:#D4AF37; padding:2px 0;">↓</div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:10px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Medieval — Religious Duty</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Monasteries replaced the state as primary hospitality provider. Shelter for pilgrims was a Christian obligation.</div>
+            </div>
+            <div style="text-align:center; font-size:18px; color:#D4AF37; padding:2px 0;">↓</div>
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:10px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Colonial America — Civic Infrastructure</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Taverns legally mandated by town charters. Bank, court, post office, and meeting hall in one structure.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Key pattern:</strong> In every era, hospitality's path of progress ran in parallel to that of transportation. Whether it be roads, rail lines, trade routes, pilgrimage paths, stagecoach lines or aviation routes.
+        </div>
+        <div style="font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px;">Sources: HRC International (hrc-international.com); Star Tavern (startavern.net); American Heritage Vol. 54 Issue 3</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 5 — MEDIEVAL EUROPE
+════════════════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">500–1500 CE</div>
+    <div class="ch-title">Hospitality as a Moral Obligation</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">When Rome's logistics network collapsed, hospitality was soon to follow. What filled the gap was not commerce — it was faith. For nearly a thousand years, the Church was the hub of the industry.</div>
+        <div class="body">
+          <p>Medieval monasteries along Europe's great pilgrimage routes — Canterbury, Santiago de Compostela, Rome — provided shelter, food, and medical care. The Rule of Saint Benedict, written in the 6th century, specifically commanded monks to receive every guest as if they were Christ. <strong>Hospitality was not optional. It was sacred.</strong></p>
+          
+          <div class="sec-head">The Rise of Guilds</div>
+          <p>As commerce revived in the 11th and 12th centuries, secular hospitality infrastructure began to re-emerge. Guilds took on the regulatory role that the Church held. Setting standards for food quality, pricing, and service at inns and taverns. This was a  turning point — <strong> from this point forward the industry was regulated to ensure fair commercial trade</strong></p>
+          <p>English inns became the most developed expression of this new commercial hospitality. They served as the early versions of what we now know aas restaurants that served food at low prices, with ale, wine, and tobacco also available for purchase."</strong> By the Middle Ages, English inns had also become political spaces — sheltering not just travelers, but <strong>"criminals and political rebels"</strong> — this would become a common trend crossing the Atlantic to early American colonies.</p>
+          
+          
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#F4F6F9; border:2px solid #1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Medieval Hospitality Chain</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#1A2A44; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37;">1</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">Monastery</div><div style="font-size:11.5px; color:#666; line-height:1.4;">Shelter, food, and medicine as religious duty. No charge. All guest were welcomed.</div></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44;">2</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">Guild-Regulated Inn</div><div style="font-size:11.5px; color:#666; line-height:1.4;">Commercial hospitality with standardized prices and quality controlled by trade guilds.</div></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44;">3</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">English Coaching Inn</div><div style="font-size:11.5px; color:#666; line-height:1.4;">Food, drink, lodging, and stabling. Political gathering point. Prototype for the American colonial tavern.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card navy" style="padding:16px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"In medieval England, inns became a refuge for travelers, criminals, and political rebels — the latter group being a persistent theme throughout the tavern's history."</div>
+          <div class="q-attr">Star Tavern</div>
+          <div class="q-src">startavern.net — "What Is a Tavern?"</div>
+        </div>
+        <div class="callout">
+          <strong>Hospitality as shelter from power:</strong> The tradition of taverns protecting the politically vulnerable — from mid-century England to revolutionary Boston — is 1,000 years old. Your venue was birthed from this philosophy.
+        </div>
+        <div class="src-note">Sources: HRC International (hrc-international.com); Star Tavern (startavern.net); American Heritage Vol. 54 Issue 3, Janet Fortran</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 6 — COLONIAL AMERICA (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">1607–1776</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#fff; line-height:1; margin-bottom:4px;">THE AMERICAN TAVERN — 10 FUNCTIONS IN ONE BUILDING</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">Taverns: Home to A New World</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:20px;"></div>
+
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:18px;">
+        <div class="grid-card gc-gold" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">⚖️</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; letter-spacing:1px;">COURT OF LAW</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Legal proceedings, trials, and magistrate hearings were held in tavern meeting rooms</div>
+        </div>
+        <div class="grid-card gc-teal" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🏦</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#00D4AA; letter-spacing:1px;">BANK</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Tavern keepers acted as intermediaries for loans and the exchange of goods and currency</div>
+        </div>
+        <div class="grid-card gc-white" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">📮</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px;">POST OFFICE</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Mail collection and distribution centered on the tavern — news arrived and departed here first</div>
+        </div>
+        <div class="grid-card gc-gold" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🏛️</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; letter-spacing:1px;">TOWN HALL</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Town meetings, civic debates, and government assemblies were convened in tavern meeting rooms</div>
+        </div>
+        <div class="grid-card gc-teal" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🏥</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#00D4AA; letter-spacing:1px;">HOSPITAL</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Sick and injured travelers received care at taverns — their only refuge in many early settlements</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:20px;">
+        <div class="grid-card" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">📚</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; letter-spacing:1px;">LIBRARY</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Pamphlets, newspapers, and books circulated through the tavern — literacy spread from these tables</div>
+        </div>
+        <div class="grid-card" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🏪</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; letter-spacing:1px;">STORE</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Goods were bought and sold; auctions were held. Tavern keepers were early America's arbitrators.</div>
+        </div>
+        <div class="grid-card" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🪖</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; letter-spacing:1px;">GARRISON</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Military units used taverns as staging points; and organized battle plans there</div>
+        </div>
+        <div class="grid-card" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🏫</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#D4AF37; letter-spacing:1px;">SCHOOL</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">In areas without formal schools, basic instruction and public lectures took place at taverns</div>
+        </div>
+        <div class="grid-card gc-teal" style="text-align:center;">
+          <div style="font-size:28px; margin-bottom:6px;">🍺</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#00D4AA; letter-spacing:1px;">INN + TAVERN</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.65); line-height:1.4; margin-top:5px;">Food, drink, lodging, warmth, and community — the original product that started everything</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:14px;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
+        <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); padding:14px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#D4AF37; line-height:1;">1634</div>
+          <div style="font-size:12px; color:#fff; line-height:1.5; margin-top:4px;">Samuel Cole opens Boston's first licensed tavern, Cole's Inn, on March 4th</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">Source: Star Tavern, startavern.net</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:14px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#00D4AA; line-height:1;">1 per 130</div>
+          <div style="font-size:12px; color:#fff; line-height:1.5; margin-top:4px;">Ratio of taverns to residents;  mandated by law in colonial New England settlements</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">Source: Colonial Williamsburg Foundation; Gettysburg Historical Journal</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); padding:14px; border-radius:4px; text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:36px; color:#fff; line-height:1;">$$$</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.75); line-height:1.5; margin-top:4px;">Towns without a tavern were sanctioned — the tavern was critical to commerce</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:4px; font-style:italic;">Source: Star Tavern, startavern.net</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 7 — THE GREEN DRAGON
+════════════════════════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Hospitality in Politics</div>
+    <div class="ch-title">The Green Dragon & the Birth of a Nation</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">The American Revolution wasn’t born in legislative halls—it took shape in taverns. These spaces didn’t just support the revolution; they made it structurally possible.</div>
+        <div class="body">
+          <p>The Green Dragon Tavern in Boston served as the headquarters of the Sons of Liberty. The Green Dragon was where <strong>Samuel Adams, Paul Revere, John Hancock, and James Otis</strong> gathered to plan boycotts of English goods while planning the Boston Tea Party. "they chose tea because they didn't want to lose the rum."</em><span class="cite">[1] startavern.net</span></p>
+          <div class="sec-head">Why Taverns, Not Halls</div>
+          <p>Early legislature were formal, regulated, and controlled by British-appointed officials. Taverns were none of these things. American Heritage's research describes the dynamic directly: <em>"In colonial America, [taverns] were places where people would go not only to eat and drink and pass the time, but argue the issues of the day — more and more vehemently as the polarizing view of Great Britain widened."</em> <span class="cite">[2] Janet Fortran, American Heritage, Vol. 54 Issue 3</span></p>
+          <p>Literacy rates were mixed. The tavern were an opportunity to rub shoulders with those who could read. Which helped news spread. Soon, the ideas of the founding fathers was disucessed in other colonies, and the revolutionary thinking of Thomas Paine, James Chalmers, and Thomas Jefferson took hold."</em><span class="cite">[1] startavern.net</span></p>
+          <div class="sec-head">The Fraunces Tavern — Where the War Ended</div>
+          <p>The Fraunces Tavern on Pearl Street, New York — still standing today — was where <strong>George Washington made his final address to his troops in 1783</strong>.</p>
+          
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Revolutionary Tavern Network</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:11px; color:#D4AF37; font-weight:700; margin-bottom:3px;">GREEN DRAGON TAVERN, Boston</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Sons of Liberty HQ. Adams, Revere, Hancock, Otis organized the Boston Tea Party there.</div>
+            </div>
+            <div style="text-align:center; font-size:16px; color:#D4AF37; padding:1px 0;">↓</div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:11px; color:#00D4AA; font-weight:700; margin-bottom:3px;">CITY TAVERN, Philadelphia</div>
+              <div style="font-size:12px; color:#fff; line-height:1.5;">Continental Congress delegates met here. Founding Fathers drafted strategy over a good meals and lively drinks.</div>
+            </div>
+            <div style="text-align:center; font-size:16px; color:#D4AF37; padding:1px 0;">↓</div>
+            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:3px; padding:10px 12px;">
+              <div style="font-size:11px; color:#fff; font-weight:700; margin-bottom:3px;">FRAUNCES TAVERN, New York</div>
+              <div style="font-size:12px; color:rgba(255,255,255,0.75); line-height:1.5;">Washington's farewell address to troops, 1783. Later housed The Departments of War and Foreign Affairs.</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:10px; font-style:italic;">Source: Star Tavern, startavern.net</div>
+        </div>
+        <div class="q-card gold" style="padding:16px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Our nation was born in taverns... they wera places where people sought companionship, cemented friendships, made business contacts, and found respite from the demanding world outside of it's doors."</div>
+          <div class="q-attr">Janet Fortran</div>
+          <div class="q-src">American Heritage, Vol. 54 Issue 3, June/July 2003</div>
+        </div>
+        <div class="src-note">Sources: Star Tavern (startavern.net); Janet Fortran, American Heritage Vol. 54 Issue 3</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 8 — FOOD, DRINK & COMMUNITY
+════════════════════════════════════════════════════ -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">What Brought People Together</div>
+    <div class="ch-title">Food, Drink & A Need For Belonging</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:20px; max-width:620px;">Ale, rum punch, and shared tables were on the menu — but a sense of community was the foundation of it all</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px;">
+      <div class="q-card navy" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#D4AF37; letter-spacing:3px; margin-bottom:10px;">ON THE SOCIAL DRIVE</div>
+        <div class="q-text" style="font-size:14px; color:#fff;">"The saloon answers to the demand for indulgence, but it goes beyond this and supplies a more profound and more subtle want. This want is the demand for social expression — a situation in which the social instincts find their natural expression."</div>
+        <div style="border-top:1px solid rgba(212,175,55,0.3); padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#D4AF37;">Raymond Calkins</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.55);">Author, <em>Substitutes for the Tavern</em></div>
+        </div>
+      </div>
+
+      <div class="q-card gold" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#1A2A44; letter-spacing:3px; margin-bottom:10px;">THE MELTING POT</div>
+        <div class="q-text" style="font-size:14px; color:#1A2A44;">"In a city with an ethnically and culturally diverse population, and a relatively flexible social hierarchy, taverns drew together customers from a wide variety of backgrounds."</div>
+        <div style="border-top:1px solid rgba(26,42,68,0.2); padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#1A2A44;">Peter Thompson</div>
+          <div style="font-size:11px; color:rgba(26,42,68,0.7);">Author, <em>Rum, Punch, and Revolution</em></div>
+        </div>
+      </div>
+
+      <div class="q-card light" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#D4AF37; letter-spacing:3px; margin-bottom:10px;">AMBIANCE</div>
+        <div class="q-text" style="font-size:14px;">"I don't think you could recreate this place overnight. It's just got this aura that's 70 years in the making."</div>
+        <div style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#1A2A44;">Gary Vayianos</div>
+          <div style="font-size:11px; color:#666;">Owner, Star Tavern, Orange, NJ — est. 1945</div>
+        </div>
+      </div>
+
+      <div class="q-card teal" style="padding:20px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#1A2A44; letter-spacing:3px; margin-bottom:10px;">THE CHEERS AFFECT</div>
+        <div class="q-text" style="font-size:14px; color:#1A2A44;">"Tavern are more than four walls. They're the heartbeat of the community."</div>
+        <div style="border-top:1px solid rgba(26,42,68,0.2); padding-top:10px; margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:#1A2A44;">T.F. Tuan</div>
+          <div style="font-size:11px; color:rgba(26,42,68,0.7);">Geographer, Author, <em>Space and Place: The Perspective of Experience</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:16px 20px; border-radius:4px; display:flex; gap:18px; align-items:center;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; flex-shrink:0; line-height:1.1;">The<br>Pattern</div>
+      <div style="font-size:13.5px; color:#fff; line-height:1.65;">Across four centuries and four continents, every hospitality operator who has ever reflected on why their venue matters says the same thing in different words: <strong style="color:#00D4AA;">the food and beverage bring them throught the doors. The sense of community is the product.</strong> Ale in 1640s Boston, rum punch at the Green Dragon, a bar pie in New Jersey — they all prommote the same core offering.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 10 — THE 8-MILE SPACING SYSTEM
+════════════════════════════════════════════════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Hospitality Built America's Roads</div>
+    <div class="ch-title">The 8-Mile Rule: How Taverns Created America</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Before the railroad, before the automobile, and before the highway system, America was stitched together by a network of taverns. The space didn't follow the road. The road followed the space.</div>
+        <div class="body">
+          <p>Massachusetts legislators required inns to be placed at intervals <strong>"a day's horseback journey apart"</strong> — roughly every 8 miles — specifically because wayfarers without a tavern were compelled to request shelter from private citizens. As American Heritage notes, <em>"legislators of Puritan times had decidedly mixed feelings about alcohol, [but] they sanctioned taverns in order to provide wayfarers with shelter and sustenance."</em><span class="cite">[2] Janet Fortran, American Heritage, Vol. 54 Issue 3</span></p>
+          <p>The result was a national hospitality network built before the nation itself. Star Tavern's research on the Great Wagon Trail — the trail running from Pennsylvania through the Appalachian Valley to Georgia — describes thousands of families traveling this path in search of opportunity, with <strong>taverns providing the only reliable food and shelter along the way</strong>.<span class="cite">[1] startavern.net</span></p>
+          <div class="sec-head">The Town-Building Formula</div>
+          <p>In new settlements, the sequence of construction plans showed that taverns we're a priority. In 1755, of the seven or eight houses in Salisbury, North Carolina, <strong>four were taverns or inns.</strong> One local clergyman reportedly lamented that the tavern was faring far better than the church in the competition for men's souls.<span class="cite">[2] American Heritage, Vol. 54 Issue 3</span></p>
+          <div class="callout">
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:18px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;">The 8-Mile Rule — Stagecoach Route Logic</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; gap:10px; align-items:center;">
+              <div style="width:36px; height:14px; background:#D4AF37; border-radius:2px; flex-shrink:0;"></div>
+              <div style="font-size:12px; color:#fff;"><strong style="color:#D4AF37;">0 miles</strong> — Town center, starting point</div>
+            </div>
+            <div style="margin-left:17px; width:2px; height:18px; background:rgba(212,175,55,0.3);"></div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <div style="width:36px; height:14px; background:#D4AF37; border-radius:2px; flex-shrink:0;"></div>
+              <div style="font-size:12px; color:#fff;"><strong style="color:#D4AF37;">8 miles</strong> — First tavern. Horses watered, travelers fed, news exchanged.</div>
+            </div>
+            <div style="margin-left:17px; width:2px; height:18px; background:rgba(212,175,55,0.3);"></div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <div style="width:36px; height:14px; background:#00D4AA; border-radius:2px; flex-shrink:0;"></div>
+              <div style="font-size:12px; color:#fff;"><strong style="color:#00D4AA;">16 miles</strong> — Second tavern. Midday stop. Commerce conducted. Letters posted.</div>
+            </div>
+            <div style="margin-left:17px; width:2px; height:18px; background:rgba(0,212,170,0.3);"></div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <div style="width:36px; height:14px; background:#00D4AA; border-radius:2px; flex-shrink:0;"></div>
+              <div style="font-size:12px; color:#fff;"><strong style="color:#00D4AA;">24 miles</strong> — Third tavern. Overnight lodging. One full day's journey completed.</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:10px; font-style:italic;">Source: American Heritage Vol. 54 Issue 3; Star Tavern, startavern.net</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-num">4 of 8</div>
+          <div class="stat-lbl">Buildings in 1755 Salisbury, NC were taverns or inns</div>
+          <div class="stat-sub">American Heritage, Vol. 54 Issue 3 — Janet Fortran</div>
+        </div>
+
+        <div class="stat-box teal">
+          <div class="stat-num">1635</div>
+          <div class="stat-lbl">First commercial brewery licensed in America — driven by tavern demand</div>
+          <div class="stat-sub">Massachusetts Bay Colony licensed Captain Robert Sedgwick as first "common brewer" — American Heritage</div>
+        </div>
+        <div class="src-note">Sources: Janet Fortran, American Heritage Vol. 54 Issue 3; Star Tavern, startavern.net</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 11 — FROM TAVERN TO VENUE (Full bleed navy before/after)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">Then & Now</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE EARLY AMERICAN TAVERN VS THE MODERN VENUE</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:14px; letter-spacing:1.5px; text-transform:uppercase;">The Name Has Evolved — The Premise Has Not</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:18px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 60px 1fr; gap:0; flex:1;">
+        <!-- Colonial column -->
+        <div style="background:rgba(212,175,55,0.07); border:1px solid rgba(212,175,55,0.2); border-radius:4px 0 0 4px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; letter-spacing:2px; margin-bottom:4px;">THE EARLY AMERICAN TAVERN — 1634</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">The HEART OF THE CITY</div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Information hub:</strong> news, pamphlets, and dispatches arrived at the tavern first and spread outward into the community</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Commerce engine:</strong> goods exchanged, auctions conducted, loans arranged, mail collected and distributed</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Political arena:</strong> town governance, revolutionary planning, and civic debates conducted over ale</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Physical shelter:</strong> lodging, warmth, and medical care for travelers in an era with no alternatives</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Social equalizer:</strong> merchants, laborers, rebels, and officials shared the same table</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Community anchor:</strong> first building constructed in new settlements; towns legally required to maintain one</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Immigrant welcome:</strong> first stop for new arrivals — labor connections, community orientation, home away from home</div></div>
+          <div style="margin-top:auto; font-size:10px; color:rgba(255,255,255,0.3); font-style:italic;">Sources: Star Tavern, startavern.net; American Heritage Vol. 54 Issue 3; Colonial Williamsburg Foundation</div>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.03);">
+          <div style="font-size:40px; filter: grayscale(100%) brightness(2.5) opacity(0.8);">
+            ♻️
+          </div>
+        </div>
+
+        <!-- Modern column -->
+        <div style="background:rgba(0,212,170,0.07); border:1px solid rgba(0,212,170,0.25); border-radius:0 4px 4px 0; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#00D4AA; letter-spacing:2px; margin-bottom:4px;">YOUR VENUE — TODAY</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">A PLACE TO RELAX</div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Digital information hub:</strong> social media check-ins, live event coverage, community communication through your venue's channels</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Commerce engine:</strong> POS, ticketing, merchandise, mobile ordering — the transaction layer now digital and frictionless</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Civic gathering:</strong> watch parties, fundraisers, team celebrations, neighborhood events — the political debate replaced by shared experiences</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Delivering experience:</strong> the modern "shelter" — comfort, atmosphere, escape from the demands of daily life</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Social equalizer:</strong> the best venues still dissolve hierarchies — fans, players, executives, and regulars at the same counter</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Community anchor:</strong> the neighborhood's living room — where regulars define the character of the local area</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Tribe builder:</strong> loyalty programs, that turn transactions into a sense of community</div></div>
+          <div style="margin-top:auto; font-size:10px; color:rgba(255,255,255,0.3); font-style:italic;">The name evolved. The purpose did not.</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin:14px 0;"></div>
+      <div style="text-align:center; font-family:'DM Serif Display',serif; font-style:italic; font-size:14px; color:rgba(255,255,255,0.65);">
+        People have cherished face to face interactions since the begining of time, and they will do so unitl the end of time
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page 13 Split — Chaos Mastery Workbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e5e5e5;
+    font-family: 'DM Sans', sans-serif;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    width: 816px;
+    min-height: 1056px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    position: relative;
+  }
+
+  /* ── PAGE HEADER ── */
+  .ph {
+    background: #1A2A44;
+    padding: 10px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .ph-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 3px;
+  }
+  .ph-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+  }
+
+  /* ── PAGE CONTENT ── */
+  .pc {
+    padding: 28px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── PAGE FOOTER ── */
+  .pf {
+    border-top: 1px solid #e0e4eb;
+    padding: 8px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .pf-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: #D4AF37;
+    letter-spacing: 1px;
+  }
+  .pf-title {
+    font-size: 10px;
+    color: #999;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── SHARED LABELS ── */
+  .label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #D4AF37;
+    margin-bottom: 6px;
+  }
+  .ch-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: #1A2A44;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .fill-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1A2A44;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .fill-line {
+    border-bottom: 1px solid #ccc;
+    height: 24px;
+    margin-bottom: 6px;
+  }
+  .fill-line-dark {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    height: 24px;
+    margin-bottom: 6px;
+  }
+
+  /* ── EXERCISE BOX ── */
+  .exercise-box {
+    border: 2px solid #1A2A44;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .exercise-header {
+    background: #1A2A44;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .exercise-num {
+    width: 36px;
+    height: 36px;
+    background: #D4AF37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .exercise-body {
+    padding: 20px 22px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .fill-card {
+    background: #F4F6F9;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  .fill-card-dark {
+    background: #1A2A44;
+    padding: 16px;
+    border-radius: 4px;
+  }
+  .hint {
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .hint-dark {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  /* ── REFLECTION CARD ── */
+  .reflection-card {
+    background: #F4F6F9;
+    padding: 18px 20px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .reflection-card:last-child { margin-bottom: 0; }
+  .reflection-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1A2A44;
+    margin-bottom: 8px;
+  }
+  .reflection-q {
+    font-size: 13px;
+    color: #1A1A1A;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  /* ── KEY INSIGHT BAR ── */
+  .key-insight {
+    background: #1A2A44;
+    padding: 14px 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+  }
+  .key-insight-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: #D4AF37;
+    flex-shrink: 0;
+    line-height: 1.1;
+  }
+  .key-insight-text {
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── INTRO ITALIC ── */
+  .page-intro {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #1A2A44;
+    margin-bottom: 22px;
+    line-height: 1.65;
+    max-width: 640px;
+  }
+
+  /* continuation label */
+  .cont-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 18px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     PAGE 13-A  —  Core Exercise
+════════════════════════════════════════ -->
+<div class="page" id="p13a">
+
+  <div class="ph">
+    <span class="ph-brand">SEAMLESSLY</span>
+    <span class="ph-title">CHAOS MASTERY</span>
+  </div>
+
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 1 Workbook Exercise</div>
+
+    <p class="page-intro">The early American tavern owner didn't ask "what do we serve?" They asked "How do we serve the people?" Answer that question for your venue before you turn the page.</p>
+
+    <!-- Exercise Block -->
+    <div class="exercise-box">
+      <div class="exercise-header">
+        <div class="exercise-num">
+          <span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:18px;">1</span>
+        </div>
+        <div>
+          <div class="label" style="margin-bottom:0; color:#D4AF37;">The Core Exercise</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#fff; letter-spacing:1px;">Define Your Venue's Ambiance</div>
+        </div>
+      </div>
+
+      <div class="exercise-body">
+        <p style="font-size:13.5px; color:#1A1A1A; margin-bottom:18px; line-height:1.7;">In 2–3 sentences, describe the <strong>the moment</strong> at your venue that turns customers into a tribe — not just diners. Be specific: name the moment, name who comes, name what they feel. Then identify one historical parallel from this chapter.</p>
+
+        <div class="grid-2">
+          <div class="fill-card">
+            <div class="fill-label">Your venue's gathering moment:</div>
+            <div class="hint">e.g., "Friday pre-game tailgate for Orlando Magic season ticket holders who have sat in the same section for 3+ years"</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+          <div class="fill-card">
+            <div class="fill-label">Who comes? What brings them back?</div>
+            <div class="hint">e.g., "The same 40 fans, same seats, same rituals — the food is the reason; the sense of community is the product"</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="fill-card-dark">
+            <div class="fill-label" style="color:#D4AF37;">Your historical parallel:</div>
+            <div class="hint-dark">e.g., "The Green Dragon — a fixed location where regulars built identity and action around shared beliefs"</div>
+            <div class="fill-line-dark"></div>
+            <div class="fill-line-dark"></div>
+            <div class="fill-line-dark"></div>
+            <div class="fill-line-dark"></div>
+          </div>
+          <div class="fill-card">
+            <div class="fill-label">What friction prevents this experience from happening consistently?</div>
+            <div class="hint">e.g., "Long concession lines break the ritual — the crew disperses before the second half"</div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+            <div class="fill-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- continued note -->
+    <div style="text-align:right; font-size:11px; color:#999; font-style:italic; margin-top:auto; padding-top:12px;">
+      Continued on next page →
+    </div>
+  </div>
+
+  <div class="pf">
+    <span class="pf-num">1 · 11</span>
+    <span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 13-B  —  Reflections + Key Insight
+════════════════════════════════════════ -->
+<div class="page" id="p13b">
+
+  <div class="ph">
+    <span class="ph-brand">SEAMLESSLY</span>
+    <span class="ph-title">CHAOS MASTERY</span>
+  </div>
+
+  <div class="pc">
+    <div class="cont-label">Chapter 1 Workbook Exercise — Continued</div>
+
+    <!-- Reflection 1 -->
+    <div class="reflection-card" style="border-top: 3px solid #D4AF37;">
+      <div class="reflection-tag">Reflection 1</div>
+      <p class="reflection-q">If your venue closed tomorrow, what specific vibe would your community lose that they couldn't get anywhere else?</p>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+    </div>
+
+    <!-- Reflection 2 -->
+    <div class="reflection-card" style="border-top: 3px solid #00D4AA;">
+      <div class="reflection-tag">Reflection 2</div>
+      <p class="reflection-q">What event or crowd creates loyalty and repeat customers at your venue?</p>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+    </div>
+
+    <!-- Reflection 3 -->
+    <div class="reflection-card" style="border-top: 3px solid #1A2A44;">
+      <div class="reflection-tag">Reflection 3</div>
+      <p class="reflection-q">Is your venue currently designed for transactions or for the experience? What would need to make the shift towards a sense of community?</p>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+      <div class="fill-line"></div>
+    </div>
+
+    <!-- Key Insight -->
+    
+  </div>
+
+  <div class="pf">
+    <span class="pf-num">1 · 12</span>
+    <span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 14 — CHAPTER SUMMARY + BRIDGE
+════════════════════════════════════════════════════ -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">What 4,000 Years Tells Modern Operators</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:22px; max-width:620px;">History not only repeats itself — it compounds. Every insight in this chapter feeds directly into the operating framework you'll build in Part III.</div>
+
+    <!-- 5 takeaways -->
+    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:22px;">
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:28px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">HOSPITALITY WAS A MORAL INSTITUTION; BEFORE IT WAS A COMMERCIAL ONE</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">From Babylonian law to early American town charters, hospitality was a sacred obligation first and a business second. The operators who internalize this today — who design around the guest experience rather than a operatorational focus — outperform those who don't. <span style="font-size:10.5px; color:#888; font-style:italic;"></span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #00D4AA; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#00D4AA; line-height:1; flex-shrink:0; width:28px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">THE SENSE OF COMMUNITY IS THE PRODUCT — FOOD AND BEVERAGE IS THE BASELINE</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">Raymond Calkins identified the distinction in the 19th century; while Jim Taylor confirmed it in the 21st century. Guests become regulars when things run smoothly and are 3× more likely to return. Than exceptional food alone. Your competitive advantage lives in the experience, not the menu. <span style="font-size:10.5px; color:#888; font-style:italic;"></span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #1A2A44; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#1A2A44; line-height:1; flex-shrink:0; width:28px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">ROADS WERE BUILT WITH TAVERNS IN MIND — THE SENSE OF COMMUNITY WAS BUILT AROUND THE TAVERN</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">From ancient Rome to city nightlife districts, hospitality has always moved with people.  Today, your venue's QR code system, SMS notifications, and digital pre-ordering are the modern equivalent — meeting guests where they are, before they reach the counter. <span style="font-size:10.5px; color:#888; font-style:italic;"></span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:28px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">POLITICAL REBELS AND LOYALISTS VISITED THE SAME TAVERN</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">The tavern was a melting pot. Taverns created conditions of "enforced intimacy" (Peter Thompson) that generated ideas, alliances, and revolutions. The modern venue that serves only one demographic is the diconnected venue. <span style="font-size:10.5px; color:#888; font-style:italic;"></span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #00D4AA; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#00D4AA; line-height:1; flex-shrink:0; width:28px;">5</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">THE LONGEST-SURVIVING VENUES HAVE ONE THING IN COMMON</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">The White Horse Tavern (1673), Fraunces Tavern (1762), Star Tavern (1945) — every long-lasting venue was embedded in its community's identity. The venue didn't just serve the community. It was the community within the community. That is achievable today — and it starts with the exercise on Page 13. <span style="font-size:10.5px; color:#888; font-style:italic;"></span></div></div>
+      </div>
+    </div>
+
+    <!-- Bridge to Chapter 2 -->
+    <div style="background:#1A2A44; padding:14px 20px; border-radius:4px; display:flex; align-items:center; gap:16px;">
+      <div style="flex:1;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Next → Chapter 2</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:1px; margin-bottom:4px;">THE BIRTH OF THE MIDDLE CLASS</div>
+        <div style="font-size:12.5px; color:rgba(255,255,255,0.7); line-height:1.5;">How the Industrial Revolution created the first mass market for hospitality — and what today's operators can learn from the moment descritoinary spending became commonplace; as opposed to being exclusive enjoyed by the uber rich.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; flex-shrink:0; line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">1 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+(function () {
+  var countEl = document.getElementById('dlPageCount');
+  var n = document.querySelectorAll('.page').length;
+  if (countEl) {
+    countEl.textContent = n + ' pages · Print-ready · 816 × 1056px per page · One ZIP with every page';
+  }
+})();
+
+function canvasToBlob(canvas) {
+  return new Promise(function (resolve, reject) {
+    canvas.toBlob(function (blob) {
+      if (blob) resolve(blob);
+      else reject(new Error('Could not create image blob'));
+    }, 'image/png');
+  });
+}
+
+async function capturePageElement(el) {
+  el.scrollIntoView({ block: 'center', inline: 'nearest' });
+  await document.fonts.ready;
+  await new Promise(function (r) { setTimeout(r, 120); });
+  return html2canvas(el, {
+    scale: 2,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: '#ffffff',
+    width: 816,
+    height: 1056,
+    scrollX: 0,
+    scrollY: -window.scrollY,
+    logging: false
+  });
+}
+
+async function downloadAllPagesZip() {
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  if (!pages.length || typeof JSZip === 'undefined') {
+    alert('Download could not start. Please refresh and try again.');
+    return;
+  }
+  var zip = new JSZip();
+  var folder = zip.folder('chaos-mastery-ch1');
+  try {
+    for (var i = 0; i < pages.length; i++) {
+      var canvas = await capturePageElement(pages[i]);
+      var blob = await canvasToBlob(canvas);
+      var id = pages[i].id || ('page-' + (i + 1));
+      folder.file('chaos-mastery-ch1-' + id + '.png', blob);
+    }
+    var zipBlob = await zip.generateAsync({
+      type: 'blob',
+      compression: 'DEFLATE',
+      compressionOptions: { level: 6 }
+    });
+    var a = document.createElement('a');
+    var url = URL.createObjectURL(zipBlob);
+    a.href = url;
+    a.download = 'chaos-mastery-ch1-all-pages.zip';
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error(e);
+    alert('Something went wrong while building the download. Try again, or use a desktop browser.');
+  }
+}
+</script>
+</body>
+</html>

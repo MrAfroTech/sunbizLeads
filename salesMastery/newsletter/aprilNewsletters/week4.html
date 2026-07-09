@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery Newsletter — Issue 008: Sustainability in Motion</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #1a1a1a;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  gap: 48px;
+}
+
+/* ── NEWSLETTER WRAPPER ── */
+.newsletter { width: 640px; display: none; flex-direction: column; gap: 0; }
+.newsletter.visible { display: flex; }
+
+/* ── HEADER ── */
+.nl-header {
+  background: #1A2A44;
+  padding: 0;
+  border-bottom: 4px solid #D4AF37;
+  position: relative;
+  overflow: hidden;
+}
+.nl-header-inner {
+  padding: 32px 40px 24px;
+  position: relative;
+  z-index: 2;
+}
+.nl-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 79px,
+    rgba(212,175,55,0.04) 79px,
+    rgba(212,175,55,0.04) 80px
+  ),
+  repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 39px,
+    rgba(212,175,55,0.03) 39px,
+    rgba(212,175,55,0.03) 40px
+  );
+  z-index: 1;
+}
+
+.nl-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #00D4AA;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.nl-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.nl-issue-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.meta-pill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+
+/* ── HERO BAND ── */
+.hero-band {
+  background: #D4AF37;
+  padding: 20px 40px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.hero-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 72px;
+  color: #1A2A44;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.2;
+}
+.hero-text {}
+.hero-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(26,42,68,0.65);
+  margin-bottom: 4px;
+}
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: #1A2A44;
+  letter-spacing: 1px;
+  line-height: 1.05;
+}
+
+/* ── BODY CONTENT ── */
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+/* ── TOP CTAs (below hero band; light background) ── */
+.nl-top-cta {
+  background: #fff;
+  padding: 40px 40px 48px;
+  border-bottom: 1px solid #E8ECF0;
+}
+.nl-top-cta .social-grid {
+  margin-bottom: 0;
+  gap: 20px;
+}
+.nl-top-cta .social-btn.calc,
+.nl-top-cta .social-btn.preview {
+  font-size: 24px;
+  letter-spacing: 3px;
+  padding: 16px 28px;
+  border-radius: 6px;
+  gap: 12px;
+}
+.nl-top-cta .social-btn.calc {
+  background: rgba(212,175,55,0.14);
+  color: #1A2A44;
+  border: 2px solid rgba(212,175,55,0.55);
+}
+.nl-top-cta .social-btn.preview {
+  background: rgba(0,212,170,0.12);
+  color: #1A2A44;
+  border: 2px solid rgba(0,212,170,0.45);
+}
+.nl-cta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  grid-column: span 2;
+}
+.nl-cta-stack .social-btn { width: 100%; box-sizing: border-box; }
+.nl-cta-hint {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26,42,68,0.38);
+  text-align: center;
+  margin: 0;
+}
+
+.opening-quote {
+  border-left: 4px solid #D4AF37;
+  padding: 16px 20px;
+  background: #F4F6F9;
+  border-radius: 0 4px 4px 0;
+}
+.opening-quote p {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #1A2A44;
+  line-height: 1.65;
+}
+
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.75; }
+.body-text p { margin-bottom: 14px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #D4AF37;
+  margin-bottom: 8px;
+}
+.section-head {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: #1A2A44;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+/* ── STAT ROW ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.stat-card {
+  background: #1A2A44;
+  padding: 16px;
+  border-radius: 4px;
+  border-bottom: 3px solid #D4AF37;
+  text-align: center;
+}
+.stat-card.teal { border-color: #00D4AA; }
+.stat-card.white { background: #F4F6F9; border-color: #1A2A44; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: #D4AF37;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-card.teal .stat-num { color: #00D4AA; }
+.stat-card.white .stat-num { color: #1A2A44; }
+.stat-lbl {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.stat-card.white .stat-lbl { color: #666; }
+.stat-src { font-size: 10px; color: rgba(255,255,255,0.35); font-style: italic; margin-top: 5px; }
+.stat-card.white .stat-src { color: #aaa; }
+
+/* ── ACTION TIP BOX ── */
+.action-box {
+  background: #1A2A44;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.action-box-head {
+  background: #D4AF37;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.action-box-head span {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  color: #1A2A44;
+  letter-spacing: 2px;
+}
+.action-box-body {
+  padding: 18px 20px;
+}
+.action-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.action-item:last-child { margin-bottom: 0; }
+.action-dot {
+  width: 8px;
+  height: 8px;
+  background: #00D4AA;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.action-item p {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+.action-item p strong { color: #00D4AA; }
+
+/* ── CHAOS MASTERY TIE-IN ── */
+.book-callout {
+  background: #F4F6F9;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #00D4AA;
+  padding: 16px 20px;
+  border-radius: 0 4px 4px 0;
+}
+.book-callout .book-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #00D4AA;
+  margin-bottom: 6px;
+}
+.book-callout p {
+  font-size: 14px;
+  color: #1A2A44;
+  line-height: 1.65;
+}
+.book-callout p strong { color: #1A2A44; }
+
+/* ── DIVIDER ── */
+.gold-divider {
+  height: 2px;
+  background: linear-gradient(90deg, #D4AF37, #00D4AA, transparent);
+  border: none;
+  margin: 4px 0;
+}
+
+/* ── FOOTER ── */
+.nl-footer {
+  background: #1A2A44;
+  padding: 28px 40px;
+  border-top: 4px solid #D4AF37;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.social-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 8px 14px;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: opacity 0.2s;
+  text-align: center;
+  min-width: 0;
+}
+.social-btn.span-2 { grid-column: span 2; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-btn.calc {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(212,175,55,0.45);
+}
+.social-btn.preview {
+  background: rgba(0,212,170,0.15);
+  color: #00D4AA;
+  border: 1px solid rgba(0,212,170,0.4);
+}
+
+.social-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(212,175,55,0.2);
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: #D4AF37;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+}
+.footer-source {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.35);
+  font-style: italic;
+  text-align: right;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div class="newsletter visible">
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Chaos Mastery Newsletter · April 2026</div>
+      <div class="nl-wordmark">Chaos <span>Mastery</span></div>
+      <div class="nl-subtitle">Seamless Hospitality for the 21st Century</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 008 · April</div>
+        <div class="meta-pill teal">Sustainability</div>
+        <div class="meta-pill outline">5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">04</div>
+    <div class="hero-text">
+      <div class="hero-kicker">Earth Month Special</div>
+      <div class="hero-headline">Sustainability Is<br>Now Cost Control.</div>
+    </div>
+  </div>
+
+  <div class="nl-top-cta">
+    <div class="social-grid">
+      <div class="nl-cta-stack">
+        <p class="nl-cta-hint">Click here</p>
+        <a class="social-btn calc" href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank">
+          Run The Fan Spend Simulator!
+        </a>
+      </div>
+      <div class="nl-cta-stack">
+        <p class="nl-cta-hint">Click here</p>
+        <a class="social-btn preview" href="https://chaosmastery.seamlessly.us/checkout.html#cart" target="_blank">
+          Chaos Mastery Free Preview
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="opening-quote">
+      <p>"Sustainability isn't about slogans anymore. It's about cutting costs, building brand loyalty, and running an operation that actually makes sense long-term."</p>
+    </div>
+
+    <div class="body-text">
+      <p>April is Earth Month. And every year, hospitality brands post something green on social media and move on. But something is different this year.</p>
+      <p>With gas prices surging and supply chain costs climbing, <strong>sustainability has stopped being a feel-good choice and started being a financial strategy.</strong> Operators who source locally, reduce waste, and cut energy costs aren't just doing the right thing — they're running leaner operations and winning over a growing group of guests who actually care.</p>
+      <p>The guests are paying attention. More than half of Americans now say they prefer staying at or eating at places that show clear signs of being sustainable.</p>
+    </div>
+
+    <div>
+      <div class="section-label">What Guests Are Telling Us</div>
+      <div class="section-head">Sustainability Drives Decisions</div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">54%</div>
+          <div class="stat-lbl">Of Americans prefer hotels and restaurants with visible sustainability practices</div>
+          <div class="stat-src">Booking.com Sustainable Travel Report, 2026</div>
+        </div>
+        <div class="stat-card teal">
+          <div class="stat-num">Local</div>
+          <div class="stat-lbl">Supply chains are booming as fuel costs make long-haul sourcing too expensive</div>
+          <div class="stat-src">Market trend, Spring 2026</div>
+        </div>
+        <div class="stat-card white">
+          <div class="stat-num">April</div>
+          <div class="stat-lbl">Earth Month — the best moment all year to tell your sustainability story</div>
+          <div class="stat-src">Marketing timing</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>Here's something that most operators haven't thought about yet: <strong>high gas prices are actually pushing local sourcing forward faster than any trend ever did.</strong> When it costs too much to ship produce across the country, buying from a farm 20 miles away stops being optional and starts being obvious.</p>
+      <p>That's not just good for the environment. It's good for your menu story, your community relationships, and your supply chain reliability. A local farmer isn't going to disappear on you the way a national distributor might.</p>
+      <p>The operators running the tightest ships right now — the ones with the best margins and the most loyal guests — are treating sustainability as a coordination strategy. Less waste means more predictability. More predictability means less chaos.</p>
+    </div>
+
+    <div>
+      <div class="section-label">What You Can Do Right Now</div>
+      <div class="section-head">Small Moves With Big Impact</div>
+      <div class="action-box">
+        <div class="action-box-head">
+          <span>Three Moves For This Month</span>
+        </div>
+        <div class="action-box-body">
+          <div class="action-item">
+            <div class="action-dot"></div>
+            <p><strong>Find one local supplier this month.</strong> Reach out to a farm, a local bakery, or a regional distributor. Even swapping one ingredient to local sourcing gives you a story to tell — and often saves money on shipping too.</p>
+          </div>
+          <div class="action-item">
+            <div class="action-dot"></div>
+            <p><strong>Tell your sustainability story in April.</strong> If you're already doing something green — composting, energy-efficient equipment, cutting single-use plastic — talk about it. Guests want to support businesses that care. They just need to know you do.</p>
+          </div>
+          <div class="action-item">
+            <div class="action-dot"></div>
+            <p><strong>Look at where you're wasting money on waste.</strong> Food waste, energy waste, over-ordering. Every dollar you waste is a dollar you didn't earn. A quick audit of your waste habits is one of the fastest ways to find hidden profit in your operation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-callout">
+      <div class="book-label">From Chaos Mastery</div>
+      <p>In the book, we make the case that <strong>sustainability is a coordination strategy — not a marketing strategy.</strong> Less waste means more predictability. More predictability means better flow. And better flow means your team isn't constantly reacting to problems that a smarter system would have prevented. That's the whole game.</p>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank" aria-label="Instagram">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank" aria-label="LinkedIn">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="social-btn web" href="https://seamlessly.us" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        seamlessly.us
+      </a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Book Me To Speak
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">Chaos Mastery</div>
+        <div class="footer-copy">A newsletter by Maurice Sanders · Seamlessly, Inc.<br>© 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-source">
+        Source: Booking.com Sustainable Travel Report 2026<br>
+        globalnews.booking.com
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showIssue(num) {
+  document.querySelectorAll('.newsletter').forEach(function(n) {
+    n.classList.remove('visible');
+  });
+  document.querySelectorAll('.issue-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  document.getElementById('issue-' + num).classList.add('visible');
+  document.querySelectorAll('.issue-btn')[num - 1].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

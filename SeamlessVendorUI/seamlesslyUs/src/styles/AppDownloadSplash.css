@@ -1,0 +1,467 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+.app-splash-container {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  background: #0a0a0a;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.app-splash-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-splash-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-splash-title {
+  font-size: 48px;
+  margin-bottom: 15px;
+  line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.accent-text {
+  color: #ffffff;
+}
+
+.app-splash-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.app-showcase {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.phone-mockup {
+  flex: 0 0 300px;
+}
+
+.phone-frame {
+  position: relative;
+  width: 280px;
+  height: 550px;
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 10px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.app-screenshot {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.app-features {
+  flex: 1;
+  padding-left: 60px;
+}
+
+.features-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  font-family: 'Playfair Display', serif;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.feature-icon {
+  flex: 0 0 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  color: #d4af37;
+}
+
+.feature-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: currentColor;
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-text h3 {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.feature-text p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.download-section {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border-left: 4px solid #d4af37;
+}
+
+.download-title {
+  font-size: 36px;
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif;
+}
+
+.download-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+}
+
+.app-store-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.store-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.store-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+}
+
+.store-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.testimonial-section {
+  margin: 60px 0;
+}
+
+.testimonial {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.testimonial-content {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+.testimonial-content:before {
+  content: '"';
+  font-size: 60px;
+  color: rgba(212, 175, 55, 0.2);
+  position: absolute;
+  left: 10px;
+  top: -20px;
+  font-family: Georgia, serif;
+}
+
+.testimonial-author {
+  font-weight: 500;
+  font-style: normal;
+  margin-top: 15px;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cta-section {
+  text-align: center;
+  margin: 80px 0 40px;
+}
+
+.cta-title {
+  font-size: 36px;
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+}
+
+.cta-text {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+  color: #1a1a1a;
+  text-decoration: none;
+  text-align: center;
+  padding: 16px 36px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #926f34, #f5d76e, #d4af37);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.cta-button:hover:before {
+  opacity: 1;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(212, 175, 55, 0.4);
+}
+
+.guarantee-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.splash-footer {
+  text-align: center;
+  margin-top: 80px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+}
+
+.footer-tagline {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .app-showcase {
+    flex-direction: column;
+  }
+  
+  .phone-mockup {
+    margin-bottom: 40px;
+  }
+  
+  .app-features {
+    padding-left: 0;
+  }
+  
+  .features-title {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-splash-title {
+    font-size: 36px;
+  }
+  
+  .app-splash-subtitle {
+    font-size: 16px;
+  }
+  
+  .download-title {
+    font-size: 30px;
+  }
+  
+  .feature-item {
+    margin-bottom: 20px;
+  }
+  
+  .app-store-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .store-button {
+    width: 80%;
+  }
+  
+  .cta-title {
+    font-size: 30px;
+  }
+  
+  .cta-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-splash-container {
+    padding: 20px 15px;
+  }
+  
+  .app-splash-title {
+    font-size: 28px;
+  }
+  
+  .phone-frame {
+    width: 240px;
+    height: 480px;
+  }
+  
+  .testimonial-content {
+    font-size: 16px;
+    padding: 20px;
+  }
+  
+  .cta-button {
+    padding: 14px 28px;
+    font-size: 16px;
+    width: 100%;
+  }
+}
+
+/* New styles for the phone mockup */
+.mockup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: #0a0a0a;
+  padding: 20px;
+  text-align: center;
+}
+
+.mockup-logo-container {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.mockup-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mockup-welcome {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.welcome-text {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.drink-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.mockup-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.mockup-button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.yes-button {
+  background: linear-gradient(135deg, #d4af37, #f5d76e, #926f34);
+  color: #0a0a0a;
+}
+
+.browse-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

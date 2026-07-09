@@ -1,0 +1,213 @@
+<script>
+  (function () {
+  
+    var DATA = [
+  
+      {
+        week: 'Week 1 — QR Code Reels',
+        day: 'Week 1 · Reel 1',
+        line1: 'Most businesses use QR codes like digital paper.',
+        line2: 'The scan is supposed to start the experience — not end it.',
+        caption:
+`Printing a menu online and calling it innovation is like buying a smartphone just to use the flashlight.
+
+The real value starts AFTER the scan.
+
+Upsells.
+Loyalty.
+Customer data.
+Faster transactions.
+Repeat purchases.
+
+That’s where modern QR implementation actually wins.`,
+        hashtags: '#QRCodeMarketing #HospitalityOperations #CustomerExperience #DigitalOrdering #Hospitality'
+      },
+  
+      {
+        day: 'Week 1 · Reel 2',
+        line1: 'A QR code should increase revenue.',
+        line2: 'Every scan should create an opportunity.',
+        caption:
+`Using a QR code only for a menu is like owning a drive-thru but only serving one car at a time.
+
+The scan should trigger more than information.
+
+It should increase speed.
+Increase order volume.
+Increase repeat business.
+
+Every scan should have a purpose.`,
+        hashtags: '#QRCodeSystem #HospitalityOperations #RestaurantMarketing #RevenueGrowth #Hospitality'
+      },
+  
+      {
+        day: 'Week 1 · Reel 3',
+        line1: 'Customers already know how to scan.',
+        line2: 'The behavior is already trained.',
+        caption:
+`Ignoring QR behavior today is like a business ignoring credit cards in the early 2000s.
+
+Customers already understand scanning.
+
+That part is over.
+
+Now businesses need systems BEHIND the scan.
+
+That is where the real advantage is.`,
+        hashtags: '#DigitalOrdering #HospitalityOperations #QRCodeMarketing #RestaurantTech #Hospitality'
+      },
+  
+      {
+        day: 'Week 1 · Reel 4',
+        line1: 'Lines kill revenue.',
+        line2: 'Friction silently drains sales.',
+        caption:
+`Long lines are like leaks in a bucket.
+
+You don’t notice how much you’re losing until it’s empty.
+
+The longer people wait...
+the lower spending behavior becomes.
+
+Faster ordering increases throughput.
+
+And throughput increases revenue.`,
+        hashtags: '#HospitalityOperations #RevenueGrowth #GuestExperience #RestaurantOps #Hospitality'
+      },
+  
+      {
+        day: 'Week 1 · Reel 5',
+        line1: 'Most QR menus are wasting traffic.',
+        line2: 'Scans without systems are wasted opportunities.',
+        caption:
+`Getting thousands of scans without collecting data is like owning a packed nightclub and never charging cover.
+
+Traffic alone means nothing.
+
+The value is in what happens AFTER the scan.
+
+Every scan should feed a system.`,
+        hashtags: '#QRCodeMarketing #CustomerData #HospitalityOperations #DigitalExperience #Hospitality'
+      },
+  
+      {
+        day: 'Week 1 · Reel 6',
+        line1: 'The menu is no longer the product.',
+        line2: 'The experience became the product.',
+        caption:
+`Hospitality today is like air travel.
+
+People remember the experience more than the vehicle.
+
+The businesses winning today optimize:
+
+Speed.
+Convenience.
+Personalization.
+
+That’s what modern guests remember.`,
+        hashtags: '#GuestExperience #HospitalityOperations #CustomerExperience #RestaurantTech #Hospitality'
+      },
+  
+      {
+        day: 'Week 1 · Reel 7',
+        line1: 'Hospitality is becoming scan-first.',
+        line2: 'The fastest operators remove friction fastest.',
+        caption:
+`Businesses avoiding digital ordering today are like stores that refused to accept debit cards.
+
+Consumer behavior already changed.
+
+People expect speed.
+Convenience.
+Mobile ordering.
+
+The operators adapting fastest will win fastest.`,
+        hashtags: '#DigitalOrdering #HospitalityOperations #RestaurantTechnology #GuestExperience #Hospitality'
+      }
+  
+    ];
+  
+    var root = document.getElementById('root');
+    var lastWeek = '';
+  
+    DATA.forEach(function (post) {
+  
+      if (post.week && post.week !== lastWeek) {
+        var wl = document.createElement('div');
+        wl.className = 'week-label';
+        wl.style.marginTop = lastWeek ? '64px' : '0';
+        wl.textContent = post.week;
+        root.appendChild(wl);
+        lastWeek = post.week;
+      }
+  
+      var el = document.createElement('div');
+      el.className = 'post';
+  
+      var header = document.createElement('div');
+      header.className = 'post-header';
+  
+      var dayEl = document.createElement('div');
+      dayEl.className = 'post-day';
+      dayEl.textContent = post.day;
+      header.appendChild(dayEl);
+  
+      var l1 = document.createElement('div');
+      l1.className = 'image-line-1';
+      l1.textContent = post.line1;
+      header.appendChild(l1);
+  
+      if (post.line2) {
+        var l2 = document.createElement('div');
+        l2.className = 'image-line-2';
+        l2.textContent = post.line2;
+        header.appendChild(l2);
+      }
+  
+      el.appendChild(header);
+  
+      var cap = document.createElement('div');
+      cap.className = 'caption-block';
+  
+      var label = document.createElement('div');
+      label.className = 'caption-label';
+      label.textContent = 'Caption + Hashtags';
+      cap.appendChild(label);
+  
+      var capText = document.createElement('div');
+      capText.className = 'caption-text';
+      capText.textContent = post.caption;
+      cap.appendChild(capText);
+  
+      var hash = document.createElement('div');
+      hash.className = 'hashtags';
+      hash.textContent = post.hashtags;
+      cap.appendChild(hash);
+  
+      var full = post.caption + '\n\n' + post.hashtags;
+  
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy Caption';
+  
+      btn.addEventListener('click', function () {
+        navigator.clipboard.writeText(full).then(function () {
+          btn.textContent = '✓ Copied';
+          btn.classList.add('copied');
+  
+          setTimeout(function () {
+            btn.textContent = 'Copy Caption';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+  
+      cap.appendChild(btn);
+      el.appendChild(cap);
+      root.appendChild(el);
+  
+    });
+  
+  }());
+</script>

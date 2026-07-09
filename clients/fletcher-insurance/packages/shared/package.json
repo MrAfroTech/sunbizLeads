@@ -1,0 +1,7 @@
+{
+  "name": "@fletcher-inssurance/shared",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js"
+}
+

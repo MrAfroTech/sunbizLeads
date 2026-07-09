@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan & Scale — Hotels Edition Issue 005</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: #111; font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 32px 16px; }
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+.nl-calc-banner { width: 100%; background: #1A2A44; border-bottom: 3px solid #D4AF37; padding: 24px 40px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.nl-calc-banner.bottom { border-bottom: none; border-top: 3px solid #D4AF37; }
+.nl-calc-banner-text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+.nl-calc-banner-text em { font-style: normal; color: #D4AF37; font-weight: 600; }
+.nl-calc-banner-btn { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #1A2A44; background: #D4AF37; padding: 14px 28px; text-decoration: none; border-radius: 4px; transition: opacity 0.2s; }
+.nl-calc-banner-btn:hover { opacity: 0.88; }
+.nl-header { background: #1A2A44; border-bottom: 4px solid #D4AF37; position: relative; overflow: hidden; }
+.nl-header::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.04) 79px, rgba(212,175,55,0.04) 80px), repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px); z-index: 1; }
+.nl-header-inner { padding: 32px 40px 24px; position: relative; z-index: 2; }
+.nl-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #00D4AA; text-transform: uppercase; margin-bottom: 8px; }
+.nl-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; letter-spacing: 3px; line-height: 1; margin-bottom: 2px; }
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.5; }
+.nl-issue-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+.hero-band { background: #D4AF37; padding: 28px 40px; display: flex; gap: 24px; align-items: center; }
+.hero-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: #1A2A44; line-height: 1; flex-shrink: 0; opacity: 0.15; }
+.hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.6); margin-bottom: 6px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #1A2A44; letter-spacing: 1px; line-height: 1.05; }
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+.opening-quote { border-left: 4px solid #D4AF37; padding: 16px 20px; background: #FEFCF3; border-radius: 0 4px 4px 0; }
+.opening-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: #1A2A44; line-height: 1.65; }
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.8; }
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+.section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #D4AF37; margin-bottom: 8px; }
+.section-head { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 14px; line-height: 1; }
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pillar-card { background: #1A2A44; border-radius: 4px; padding: 20px; border-bottom: 3px solid #D4AF37; position: relative; overflow: hidden; }
+.pillar-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: rgba(255,255,255,0.06); position: absolute; top: 8px; right: 12px; line-height: 1; }
+.pillar-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 6px; }
+.pillar-head { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; letter-spacing: 0.5px; margin-bottom: 8px; }
+.pillar-body { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.contrast-block { background: #F4F6F9; border-radius: 4px; padding: 24px; }
+.contrast-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 16px; }
+.contrast-row { display: flex; gap: 16px; margin-bottom: 12px; }
+.contrast-row:last-child { margin-bottom: 0; }
+.contrast-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
+.contrast-tag.tactic { background: rgba(224,82,82,0.12); color: #C03C3C; }
+.contrast-tag.framework { background: rgba(0,212,170,0.12); color: #00A884; }
+.contrast-text { font-size: 13.5px; color: #333; line-height: 1.6; }
+.usecase-strip { display: flex; flex-direction: column; gap: 8px; }
+.usecase-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #F9FAFB; border-left: 3px solid transparent; border-radius: 0 3px 3px 0; }
+.uc-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: #D4AF37; flex-shrink: 0; width: 90px; padding-top: 1px; }
+.uc-body { font-size: 13px; color: #1A2A44; line-height: 1.55; }
+.uc-body strong { font-weight: 700; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-card { background: #1A2A44; border-radius: 4px; padding: 18px 16px; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #D4AF37; line-height: 1; margin-bottom: 6px; }
+.stat-card:nth-child(2) .stat-num { color: #00D4AA; }
+.stat-desc { font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.cta-block { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.cta-hint { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.4); text-align: center; }
+.cta-btn { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; padding: 18px 28px; border-radius: 4px; text-decoration: none; display: block; text-align: center; background: #D4AF37; color: #1A2A44; transition: opacity 0.2s; }
+.cta-btn:hover { opacity: 0.88; }
+.cta-sub { font-size: 12px; color: rgba(26,42,68,0.5); text-align: center; font-style: italic; }
+.nl-footer { background: #1A2A44; padding: 28px 40px; border-top: 4px solid #D4AF37; }
+.social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.social-btn { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; padding: 8px 14px; border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.2s; text-align: center; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-icon { width: 14px; height: 14px; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(212,175,55,0.2); padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #D4AF37; letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.footer-note { font-size: 10.5px; color: rgba(255,255,255,0.35); font-style: italic; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-calc-banner">
+    <span class="nl-calc-banner-text">Hotel guests want to spend on amenities, dining, and extras — if requesting them is easy enough. <em>See what removing friction from your in-stay ordering is worth per guest.</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Scan &amp; Scale — Guest Intelligence Series</div>
+      <div class="nl-wordmark">SCAN &amp; <span>SCALE</span></div>
+      <div class="nl-subtitle">QR intelligence for hotels and hospitality operators</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 005</div>
+        <div class="meta-pill teal">Hotels Edition</div>
+        <div class="meta-pill outline">5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">70</div>
+    <div class="hero-text">
+      <div class="hero-kicker">Mobile Order = Higher Check — The Ancillary Revenue Suppressed by Your Request Flow</div>
+      <div class="hero-headline">YOUR GUESTS WANT TO SPEND MORE DURING THEIR STAY.<br>YOUR SERVICE REQUEST PROCESS IS STOPPING THEM.</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+    <div class="opening-quote"><p>"Hotel guests who can order in-stay services digitally spend more per stay and report higher satisfaction. The mechanism is the same every time: remove the friction from the request and the request happens more often."</p></div>
+
+    <div class="body-text"><p>Hotels have always had an ancillary revenue problem. The room rate is the easy part — guests commit to it at booking. But the restaurant cover, the spa treatment, the in-room dining order, the minibar upgrade, the late checkout — those are all decisions guests make in the moment, under the conditions the hotel creates for them.</p>
+    <p>The research on digital ordering across hospitality consistently shows the same pattern: when guests can make requests digitally — without navigating a phone menu, without waiting on hold, without feeling like they're imposing on someone — <strong>they make those requests more often and they spend more per stay</strong>. The per-transaction lift from digital ordering in F&amp;B settings runs 15 to 29%. In a hotel environment, where the same guest is making multiple ancillary purchase decisions across a multi-day stay, the compounding effect is significant.</p>
+    <p>The 70% of hotel guests who say they prefer app or kiosk interactions for service requests aren't asking for less hospitality. They're asking for easier access to the hospitality you're already offering. That's the gap most properties are sitting in right now — services that exist, revenue that's available, and a request process that's just friction-heavy enough to suppress the ask.</p></div>
+
+    <div>
+      <div class="section-label">WHY DIGITAL IN-STAY ORDERING STRUCTURALLY RAISES REVENUE PER GUEST</div>
+      <div class="section-head">Four Reasons Easier Access to Hotel Services Means More Revenue Per Stay.</div>
+      <div class="pillars">
+        <div class="pillar-card" style="border-bottom-color:#D4AF37"><div class="pillar-num">01</div><div class="pillar-label" style="color:#D4AF37">THE REQUEST RATE</div><div class="pillar-head">Guests Who Can Request Digitally Make More Requests. The Math Is That Simple.</div><div class="pillar-body">A guest who wants room service at 10 PM faces a decision: pick up the phone, navigate a menu system, wait on hold, and hope the process is fast. Or skip it and order delivery. Digital in-room ordering removes that entire cost from the guest's decision. Request rates for in-room dining, housekeeping, and amenity bookings consistently climb when the request path becomes a tap rather than a phone call.</div></div>
+        <div class="pillar-card" style="border-bottom-color:#00D4AA"><div class="pillar-num">02</div><div class="pillar-label" style="color:#00D4AA">THE BROWSE LIFT</div><div class="pillar-head">Digital Menus Surface Options Guests Didn't Know You Had. That Drives Ancillary Spend.</div><div class="pillar-body">A guest who calls room service orders what they already know. A guest who opens a digital in-room menu discovers the late-night special, the curated cocktail menu, the breakfast pre-order option. The same browse effect that drives 15 to 29% higher per-transaction spend in F&amp;B settings applies to hotel ancillary ordering — because the mechanism is identical: remove time pressure and expand the menu a guest actually sees.</div></div>
+        <div class="pillar-card" style="border-bottom-color:#00D4AA"><div class="pillar-num">03</div><div class="pillar-label" style="color:#00D4AA">THE GEN Z SIGNAL</div><div class="pillar-head">82% of Gen Z Hotel Guests Prefer Digital Interactions. They're Also Your Fastest-Growing Segment.</div><div class="pillar-body">Gen Z hotel travelers don't just prefer digital check-in — they prefer the entire hotel service interaction to be available without a phone call. A property that routes in-stay requests, F&amp;B orders, and amenity bookings through a digital interface isn't just satisfying a preference. It's removing the friction that suppresses ancillary spend for your highest-growth guest demographic.</div></div>
+        <div class="pillar-card" style="border-bottom-color:#D4AF37"><div class="pillar-num">04</div><div class="pillar-label" style="color:#D4AF37">THE SATISFACTION LOOP</div><div class="pillar-head">Guests Who Spend More Per Stay on Ancillaries Also Rate Their Stays Higher. Friction Suppresses Both.</div><div class="pillar-body">The correlation between ancillary spend and guest satisfaction isn't accidental. Guests who use the spa, order in-room dining, and book a late checkout have a richer stay experience — and they rate it accordingly. Removing the friction from making those requests doesn't just raise revenue. It raises the review score that determines your booking conversion for the next 12 months.</div></div>
+      </div>
+    </div>
+
+        <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">82%</div><div class="stat-desc">of Gen Z hotel travelers prefer digital interactions for service requests over phone or front desk</div></div>
+      <div class="stat-card"><div class="stat-num">29%</div><div class="stat-desc">maximum per-transaction lift in digital ordering settings — the same mechanism applies to hotel ancillary spend</div></div>
+      <div class="stat-card"><div class="stat-num">70%</div><div class="stat-desc">of all hotel guests say they prefer digital service request options to traditional phone interactions</div></div>
+    </div>
+
+    <div class="body-text"><p>The 70% and 82% figures aren't soft preference data. They represent guests who are actively making ordering and service decisions based on how accessible the digital path is. A guest who would have ordered room service via an easy QR interface but couldn't find it and called it too much effort just sent $45 of ancillary revenue to a delivery app instead. That transaction was already in the room. The friction of the request process is what routed it elsewhere.</p></div>
+
+        <div class="contrast-block">
+      <div class="contrast-title">The difference is whether your in-stay service paths make ancillary spend easy or accidentally make it easier to skip.</div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A guest arrives, settles in, and thinks about ordering dinner from the hotel restaurant. They see the room service menu is a laminated card with a phone number. It's 9 PM. They order delivery instead. Your F&B operation loses a cover that was in the building, wanting to spend.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same guest. QR code on the desk routes to an in-room dining menu with photos, descriptions, and a simple order flow. They browse, find something appealing, and order. The transaction that would have gone to a delivery app stays in your hotel. Staff delivers. Guest is happy. Review reflects a stay that felt complete.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A Gen Z couple checks in for a weekend stay. They'd spend on the spa, on late checkout, on a curated cocktail delivery. But they don't know those options exist in accessible form, and they're not going to call the front desk to find out. Ancillary revenue potential goes unspent.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same couple. A welcome QR code in the room surfaces the spa menu, the in-room cocktail service, and the late checkout request flow. They book the spa on day two. They order cocktails Saturday night. Ancillary spend per stay climbs because the options were findable.</div>
+        </div>
+    </div>
+
+    <div>
+      <div class="section-label">WHERE THE IN-STAY DIGITAL ORDERING LIFT IS SITTING IN YOUR PROPERTY RIGHT NOW</div>
+      <div class="section-head">Four Revenue Moments Suppressed by Friction in the Current Request Flow.</div>
+      <div class="usecase-strip">
+                <div class="usecase-item" style="border-left-color:#D4AF37">
+          <div class="uc-label" style="color:#D4AF37">IN-ROOM DINING</div>
+          <div class="uc-body"><strong>In-room dining is the highest-friction ancillary in most hotels — and therefore the one most suppressed by the phone-call request model.</strong> Digital in-room ordering that mirrors a restaurant-quality menu experience has consistently shown the same browse-and-add behavior that drives 15 to 29% lift in F&amp;B settings. The food hasn't changed. The process of ordering it has.</div>
+        </div>
+                <div class="usecase-item" style="border-left-color:#00D4AA">
+          <div class="uc-label" style="color:#00A884">SPA & AMENITIES</div>
+          <div class="uc-body"><strong>Spa and amenity bookings are almost entirely impulse-driven for most hotel guests.</strong> The guest who decides to book a treatment on Saturday morning is making that decision in a 20-second window. If the booking path is a front-desk call, most of those impulses don't convert. If it's a QR tap from the room, most of them do.</div>
+        </div>
+                <div class="usecase-item" style="border-left-color:#D4AF37">
+          <div class="uc-label" style="color:#D4AF37">F&B UPSELL</div>
+          <div class="uc-body"><strong>Hotel restaurants and bars lose the most ancillary revenue to friction.</strong> A guest who enjoyed dinner last night will return tonight — if returning feels easy. Digital reservations, digital menus, and in-app hotel dining offers convert the guest who would have skipped it because calling felt like too much coordination.</div>
+        </div>
+                <div class="usecase-item" style="border-left-color:#00D4AA">
+          <div class="uc-label" style="color:#00A884">LATE CHECKOUT</div>
+          <div class="uc-body"><strong>Late checkout is one of the most consistently requested ancillary services — and most hotels make it harder than it needs to be to ask for.</strong> A digital request flow that lets guests extend their stay in two taps converts that desire into revenue. A phone-call-required process means most guests pack up and leave because the ask felt like too much work.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text"><p>The revenue from ancillary services in a hotel doesn't come from convincing guests to spend money they weren't planning to spend. It comes from removing the friction between an intention they already have and the act of following through on it. Digital in-stay ordering does exactly that — and the per-stay revenue difference between a property that makes it easy and one that doesn't is measurable, consistent, and compounding.</p>
+    <p>The Scan &amp; Scale audit will show you where your current ancillary request flow is suppressing spend — and what a frictionless digital path would add across your average stay. Free, property-specific, 10 minutes.</p></div>
+
+        <div class="cta-block">
+      <p class="cta-hint">No pressure — just a clearer picture of what you're working with</p>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/calculator/magic-bands?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank">RUN YOUR FREE VENUE REVENUE AUDIT →</a>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/magicBandsImplementationGuide.html?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank" style="background: #1A2A44; color: #D4AF37; border: 2px solid #D4AF37;">GET THE GUEST INTELLIGENCE DEPLOYMENT GUIDE →</a>
+      <p class="cta-sub">Takes about 10 minutes. You'll walk away with a number, not a pitch.</p>
+    </div>
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Scan &amp; Scale</a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Book A Demo</a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN &amp; SCALE</div>
+        <div class="footer-copy">A Seamlessly Production &middot; Guest Intelligence Series &middot; &copy; 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">You're receiving this because you engaged with the Scan &amp; Scale Revenue Audit.</div>
+    </div>
+  </div>
+
+  <div class="nl-calc-banner bottom">
+    <span class="nl-calc-banner-text">Hotel guests want to spend on amenities, dining, and extras — if requesting them is easy enough. <em>See what removing friction from your in-stay ordering is worth per guest.</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+</div>
+</body>
+</html>

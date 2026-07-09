@@ -1,0 +1,179 @@
+.cm-welcome-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(8, 16, 32, 0.82);
+  backdrop-filter: blur(4px);
+}
+
+.cm-welcome-modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 28px 24px;
+  color: #ffffff;
+  background: #1a2a44;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 4px solid #d4af37;
+  border-radius: 14px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.cm-welcome-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  padding: 4px 8px;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cm-welcome-modal__close:hover {
+  color: #ffffff;
+}
+
+.cm-welcome-modal__eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #d4af37;
+}
+
+.cm-welcome-modal__headline {
+  margin: 0 0 12px;
+  font-size: clamp(1.45rem, 4vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.cm-welcome-modal__subheadline {
+  margin: 0 0 22px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.cm-welcome-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cm-welcome-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cm-welcome-modal__field span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.cm-welcome-modal__field span em {
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.cm-welcome-modal__field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.22);
+  color: #ffffff;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.cm-welcome-modal__field input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.cm-welcome-modal__field input:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.65);
+}
+
+.cm-welcome-modal__error {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff8a8a;
+}
+
+.cm-welcome-modal__cta {
+  width: 100%;
+  margin-top: 4px;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #d4af37;
+  color: #1a2a44;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cm-welcome-modal__cta:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.cm-welcome-modal__cta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cm-welcome-modal__fine-print {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.cm-welcome-modal__success {
+  padding: 12px 0 8px;
+  text-align: center;
+}
+
+.cm-welcome-modal__success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: rgba(0, 212, 170, 0.14);
+  color: #00d4aa;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.cm-welcome-modal__success-text {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+}

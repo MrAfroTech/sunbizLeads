@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Book Cover</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#111;display:flex;flex-direction:column;align-items:center;padding:40px 20px;gap:24px;font-family:'DM Sans',sans-serif;}
+.dl-bar{width:400px;background:#1A2A44;border:2px solid #D4AF37;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:15px;letter-spacing:2px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;padding:7px 16px;border:none;border-radius:3px;cursor:pointer;background:#D4AF37;color:#1A2A44;}
+
+/* ── COVER CANVAS: 400 × 600px (standard 2:3 thumbnail) ── */
+.cover{
+  width:400px;
+  height:600px;
+  background:#0D1B2E;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+/* Architectural grid lines — subtle perspective feel */
+.cover::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 49px,
+      rgba(212,175,55,0.06) 49px,
+      rgba(212,175,55,0.06) 50px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 49px,
+      rgba(212,175,55,0.04) 49px,
+      rgba(212,175,55,0.04) 50px
+    );
+  z-index:0;
+}
+
+/* Deep navy gradient floor */
+.cover::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:260px;
+  background:linear-gradient(0deg,#060E18 0%,transparent 100%);
+  z-index:1;
+}
+
+/* ── GEOMETRIC ICON — abstract connected network / venue nodes ── */
+.icon-layer{
+  position:absolute;
+  top:40px;
+  left:0;right:0;
+  display:flex;
+  justify-content:center;
+  z-index:2;
+}
+
+/* ── GOLD RULE TOP ── */
+.rule-top{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:5px;
+  background:linear-gradient(90deg,transparent,#D4AF37 20%,#D4AF37 80%,transparent);
+  z-index:10;
+}
+
+/* ── SEAMLESSLY WORDMARK ── */
+.wordmark{
+  position:absolute;
+  top:16px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;
+  letter-spacing:6px;
+  color:#D4AF37;
+  z-index:10;
+  opacity:0.75;
+}
+
+/* ── CHAOS block ── */
+.title-chaos{
+  position:absolute;
+  top:248px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:106px;
+  line-height:0.88;
+  color:#FFFFFF;
+  letter-spacing:2px;
+  z-index:10;
+}
+
+/* ── MASTERY block ── */
+.title-mastery{
+  position:absolute;
+  top:334px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:106px;
+  line-height:0.88;
+  color:#D4AF37;
+  letter-spacing:2px;
+  z-index:10;
+}
+
+/* ── GOLD DIVIDER ── */
+.divider{
+  position:absolute;
+  top:430px;
+  left:50%;
+  transform:translateX(-50%);
+  width:280px;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#D4AF37,#00D4AA,#D4AF37,transparent);
+  z-index:10;
+}
+
+/* ── SUBTITLE ── */
+.subtitle{
+  position:absolute;
+  top:444px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'DM Sans',sans-serif;
+  font-size:12.5px;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.65);
+  z-index:10;
+  line-height:1.6;
+  padding:0 30px;
+}
+
+/* ── AUTHOR NAME ── */
+.author{
+  position:absolute;
+  bottom:28px;
+  left:0;right:0;
+  text-align:center;
+  font-family:'DM Serif Display',serif;
+  font-style:italic;
+  font-size:15px;
+  color:rgba(212,175,55,0.7);
+  letter-spacing:1px;
+  z-index:10;
+}
+
+/* ── BOTTOM RULE ── */
+.rule-bottom{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:4px;
+  background:linear-gradient(90deg,transparent,#D4AF37 20%,#D4AF37 80%,transparent);
+  z-index:10;
+}
+
+/* ── TEAL ACCENT BAND ── */
+.teal-band{
+  position:absolute;
+  bottom:4px;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#00D4AA 20%,#00D4AA 80%,transparent);
+  z-index:10;
+}
+
+/* ── SIDE EDGE MARKS ── */
+.edge-left,.edge-right{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:3px;
+  height:80px;
+  z-index:10;
+}
+.edge-left{left:0;background:linear-gradient(180deg,transparent,#D4AF37,transparent);}
+.edge-right{right:0;background:linear-gradient(180deg,transparent,#00D4AA,transparent);}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div class="dl-bar-title">Chaos Mastery — Book Cover</div>
+  <div class="dl-btns">
+    <button onclick="downloadCover()">⬇ Download PNG</button>
+  </div>
+</div>
+
+<div class="cover" id="cover">
+
+  <!-- Structure -->
+  <div class="rule-top"></div>
+  <div class="rule-bottom"></div>
+  <div class="teal-band"></div>
+  <div class="edge-left"></div>
+  <div class="edge-right"></div>
+  <div class="wordmark">SEAMLESSLY</div>
+
+  <!-- SVG Geometric Icon — interconnected venue nodes / network -->
+  <div class="icon-layer">
+    <svg width="340" height="210" viewBox="0 0 340 210" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Glow definitions -->
+        <radialGradient id="gn1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gn2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00D4AA" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#00D4AA" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gn3" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Outer glow halos behind nodes -->
+      <circle cx="170" cy="60" r="38" fill="url(#gn1)"/>
+      <circle cx="52"  cy="148" r="28" fill="url(#gn2)"/>
+      <circle cx="288" cy="148" r="28" fill="url(#gn2)"/>
+      <circle cx="110" cy="178" r="22" fill="url(#gn3)"/>
+      <circle cx="230" cy="178" r="22" fill="url(#gn3)"/>
+
+      <!-- Connection lines — drawn first so nodes sit on top -->
+      <!-- Hub to left cluster -->
+      <line x1="170" y1="75"  x2="52"  y2="136" stroke="#D4AF37" stroke-width="1"   stroke-opacity="0.35"/>
+      <line x1="170" y1="75"  x2="110" y2="168" stroke="#D4AF37" stroke-width="0.7" stroke-opacity="0.25"/>
+      <!-- Hub to right cluster -->
+      <line x1="170" y1="75"  x2="288" y2="136" stroke="#D4AF37" stroke-width="1"   stroke-opacity="0.35"/>
+      <line x1="170" y1="75"  x2="230" y2="168" stroke="#D4AF37" stroke-width="0.7" stroke-opacity="0.25"/>
+      <!-- Cross-links left to right -->
+      <line x1="52"  y1="148" x2="110" y2="178" stroke="#00D4AA" stroke-width="0.7" stroke-opacity="0.3"/>
+      <line x1="288" y1="148" x2="230" y2="178" stroke="#00D4AA" stroke-width="0.7" stroke-opacity="0.3"/>
+      <line x1="110" y1="178" x2="230" y2="178" stroke="#00D4AA" stroke-width="0.5" stroke-opacity="0.2"/>
+      <line x1="52"  y1="148" x2="230" y2="178" stroke="#D4AF37" stroke-width="0.4" stroke-opacity="0.15"/>
+      <line x1="288" y1="148" x2="110" y2="178" stroke="#D4AF37" stroke-width="0.4" stroke-opacity="0.15"/>
+
+      <!-- ── CENTRAL HUB NODE ── -->
+      <!-- Outer ring -->
+      <circle cx="170" cy="60" r="28" fill="none" stroke="#D4AF37" stroke-width="1" stroke-opacity="0.4"/>
+      <!-- Mid ring -->
+      <circle cx="170" cy="60" r="20" fill="#D4AF37" fill-opacity="0.08" stroke="#D4AF37" stroke-width="1.5" stroke-opacity="0.7"/>
+      <!-- Inner solid -->
+      <circle cx="170" cy="60" r="11" fill="#D4AF37" fill-opacity="0.9"/>
+      <!-- Centre dot -->
+      <circle cx="170" cy="60" r="4"  fill="#0D1B2E"/>
+
+      <!-- ── LEFT PRIMARY NODE ── -->
+      <circle cx="52"  cy="148" r="18" fill="none" stroke="#00D4AA" stroke-width="1" stroke-opacity="0.35"/>
+      <circle cx="52"  cy="148" r="12" fill="#00D4AA" fill-opacity="0.12" stroke="#00D4AA" stroke-width="1.5" stroke-opacity="0.65"/>
+      <circle cx="52"  cy="148" r="6"  fill="#00D4AA" fill-opacity="0.85"/>
+
+      <!-- ── RIGHT PRIMARY NODE ── -->
+      <circle cx="288" cy="148" r="18" fill="none" stroke="#00D4AA" stroke-width="1" stroke-opacity="0.35"/>
+      <circle cx="288" cy="148" r="12" fill="#00D4AA" fill-opacity="0.12" stroke="#00D4AA" stroke-width="1.5" stroke-opacity="0.65"/>
+      <circle cx="288" cy="148" r="6"  fill="#00D4AA" fill-opacity="0.85"/>
+
+      <!-- ── LEFT SECONDARY NODE ── -->
+      <circle cx="110" cy="178" r="13" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-opacity="0.3"/>
+      <circle cx="110" cy="178" r="8"  fill="#D4AF37" fill-opacity="0.12" stroke="#D4AF37" stroke-width="1" stroke-opacity="0.55"/>
+      <circle cx="110" cy="178" r="4"  fill="#D4AF37" fill-opacity="0.75"/>
+
+      <!-- ── RIGHT SECONDARY NODE ── -->
+      <circle cx="230" cy="178" r="13" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-opacity="0.3"/>
+      <circle cx="230" cy="178" r="8"  fill="#D4AF37" fill-opacity="0.12" stroke="#D4AF37" stroke-width="1" stroke-opacity="0.55"/>
+      <circle cx="230" cy="178" r="4"  fill="#D4AF37" fill-opacity="0.75"/>
+
+      <!-- Tick marks around hub — compass feel -->
+      <g stroke="#D4AF37" stroke-width="0.8" stroke-opacity="0.45" stroke-linecap="round">
+        <line x1="170" y1="28"  x2="170" y2="24"/>
+        <line x1="170" y1="92"  x2="170" y2="96"/>
+        <line x1="138" y1="60"  x2="134" y2="60"/>
+        <line x1="202" y1="60"  x2="206" y2="60"/>
+        <line x1="148" y1="38"  x2="145" y2="35"/>
+        <line x1="192" y1="82"  x2="195" y2="85"/>
+        <line x1="192" y1="38"  x2="195" y2="35"/>
+        <line x1="148" y1="82"  x2="145" y2="85"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Typography -->
+  <div class="title-chaos">CHAOS</div>
+  <div class="title-mastery">MASTERY</div>
+
+  <div class="divider"></div>
+
+  <div class="subtitle">
+    Seamless Hospitality<br>For The 21st Century
+  </div>
+
+  <div class="author">Maurice Sanders</div>
+
+</div>
+
+<script>
+async function downloadCover(){
+  const cover = document.getElementById('cover');
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 600));
+  const canvas = await html2canvas(cover,{
+    scale:3,
+    useCORS:true,
+    backgroundColor:'#0D1B2E',
+    width:400,
+    height:600
+  });
+  const a = document.createElement('a');
+  a.download = 'chaos-mastery-cover.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+
+</body>
+</html>

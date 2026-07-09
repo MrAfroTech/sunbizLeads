@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventBrella - Data Ownership Pricing</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .container { max-width: 100%; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        /* Hero Section */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Competitor Comparison Section */
+        .competitor-comparison {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .competitor-comparison h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        .competitor-list {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+        
+        .competitor-list p {
+            margin: 8px 0;
+        }
+        
+        .separator {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #999;
+            margin: 20px 0;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+            font-size: 1.2rem;
+        }
+        
+        .value-proposition {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .value-proposition strong {
+            color: #155724;
+            font-size: 1.2rem;
+        }
+        
+        /* Pricing Table Section */
+        .pricing-table-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .pricing-table-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #2D5016;
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        th.popular {
+            background: #DAA520;
+            position: relative;
+        }
+        
+        th.popular::before {
+            content: "⭐ MOST POPULAR ⭐";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6b35;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tr.data-ownership-row {
+            background: #d4edda;
+            font-weight: 700;
+        }
+        
+        /* CTA Buttons */
+        .cta-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+        
+        .cta-button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button.starter {
+            background: #2D5016;
+        }
+        
+        .cta-button.professional {
+            background: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .cta-button.enterprise {
+            background: #333;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Savings Comparison Section */
+        .savings-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .savings-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        .savings-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .savings-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 3px solid transparent;
+        }
+        
+        .savings-card.competitor-cost {
+            border-color: #ff4444;
+            background: #fff3f3;
+        }
+        
+        .savings-card.eventbrella-starter {
+            border-color: #2D5016;
+        }
+        
+        .savings-card.eventbrella-pro {
+            border-color: #DAA520;
+        }
+        
+        .savings-card.eventbrella-enterprise {
+            border-color: #333;
+        }
+        
+        .savings-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .cost-breakdown {
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .cost-breakdown strong {
+            font-size: 1.3rem;
+            color: #2D5016;
+        }
+        
+        .savings-amount {
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .savings-amount.premium {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+        }
+        
+        .benefit-note {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #2D5016;
+            font-weight: 600;
+        }
+        
+        .premium-note {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .savings-arrow {
+            font-size: 2rem;
+            color: #DAA520;
+            text-align: center;
+            align-self: center;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .footer strong {
+            color: #2D5016;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .savings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .savings-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-button.professional {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn no-print" onclick="window.print()">📄 Download PDF</button>
+    
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>EVENTBRELLA: YOU OWN YOUR DATA. YOU OWN YOUR BUSINESS.</h1>
+            <p class="page-subtitle">Stop building someone else's database. Build yours.</p>
+        </div>
+        
+        <!-- Competitor Comparison Section -->
+        <div class="competitor-comparison">
+            <h2>IF YOU BOUGHT THESE SEPARATELY FROM COMPETITORS:</h2>
+            <div class="competitor-list">
+                <p>• Mindbody/Vagaro (Massage Booking): $100/month</p>
+                <p>• Libsyn/Podbean (Podcast Hosting): $30/month</p>
+                <p>• Calendly/Acuity (Scheduling): $35/month</p>
+                <p>• Square/Clover (POS System): $60/month</p>
+                <p>• Toast/ChowNow (Mobile Ordering for Cafe): $125/month</p>
+                <p>• Beaconstac/QR Code Generator (QR Codes + Maintenance): $50/month</p>
+                <p>• Eventbrite/Ticketmaster (Event Ticketing & Space Rental): $65/month</p>
+                
+                <div class="separator">────────────────────────────────────</div>
+                
+                <p><strong>TOTAL: $465/month across 7 different platforms</strong></p>
+                
+                <div class="highlight-box">
+                    <p><strong>THE REAL COST: Your data is their asset, not yours</strong></p>
+                    <p>• They own your customer relationships</p>
+                    <p>• You can't connect the dots between services</p>
+                    <p>• Zero insight into customer behavior across touchpoints</p>
+                    <p>• You're building THEIR database, not yours</p>
+                </div>
+                
+                <div class="separator">────────────────────────────────────</div>
+                
+                <div class="value-proposition">
+                    <p><strong>EVENTBRELLA: YOU OWN YOUR DATA. YOU OWN YOUR BUSINESS.</strong></p>
+                    <p><strong>Starting at $149.99/month</strong></p>
+                    <p>See which massage clients also buy cafe items. Know which podcast listeners book your space.</p>
+                    <p>Build YOUR customer database. Make smarter decisions. Grow YOUR business.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pricing Tiers Table -->
+        <div class="pricing-table-section">
+            <h2>PRICING TIERS TABLE</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter - $149.99/month</th>
+                        <th class="popular">Professional - $349.99/month</th>
+                        <th>Enterprise - $699/month</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="data-ownership-row">
+                        <td><strong>YOU OWN YOUR DATA</strong></td>
+                        <td><strong>✓</strong></td>
+                        <td><strong>✓</strong></td>
+                        <td><strong>✓</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unified Customer Profiles</strong></td>
+                        <td><strong>✓</strong></td>
+                        <td><strong>✓</strong></td>
+                        <td><strong>✓ + Behavior Analytics</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cross-Service Insights</strong></td>
+                        <td><strong>✓ Basic</strong></td>
+                        <td><strong>✓ Advanced</strong></td>
+                        <td><strong>✓ Predictive AI</strong></td>
+                    </tr>
+                    <tr>
+                        <td>QR Codes (Generated & Maintained)</td>
+                        <td>5 QR codes</td>
+                        <td>12 QR codes</td>
+                        <td>35 QR codes</td>
+                    </tr>
+                    <tr>
+                        <td>Staff Accounts</td>
+                        <td>2</td>
+                        <td>10</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Appointments</td>
+                        <td>1,000</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Booking System</td>
+                        <td>Basic</td>
+                        <td>Full Featured</td>
+                        <td>Full Featured</td>
+                    </tr>
+                    <tr>
+                        <td>POS System</td>
+                        <td>Square Integration</td>
+                        <td>Square + Advanced Reporting</td>
+                        <td>Square + Advanced Reporting</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile Ordering (Cafe)</td>
+                        <td>Basic</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Storage (Podcasts)</td>
+                        <td>5GB</td>
+                        <td>50GB</td>
+                        <td>200GB</td>
+                    </tr>
+                    <tr>
+                        <td>Event Ticketing & Space Rental</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Integrations</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Brand Customization</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Data Export Anytime</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓ Priority Format</td>
+                    </tr>
+                    <tr>
+                        <td>Account Manager</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>Dedicated</td>
+                    </tr>
+                    <tr>
+                        <td>Support Response</td>
+                        <td>Email (48hrs)</td>
+                        <td>Priority (24hrs)</td>
+                        <td>Priority (2hrs)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- CTA Buttons -->
+            <div class="cta-buttons">
+                <div class="cta-button starter">Get Started - $149.99/mo</div>
+                <div class="cta-button professional">Get Started - $349.99/mo</div>
+                <div class="cta-button enterprise">Get Started - $699/mo</div>
+            </div>
+        </div>
+        
+        <!-- Savings Comparison Section -->
+        <div class="savings-section">
+            <h2>THE BOTTOM LINE: YOUR SAVINGS</h2>
+            <div class="savings-grid">
+                <div class="savings-card competitor-cost">
+                    <h3>Buying Separately from Competitors</h3>
+                    <div class="cost-breakdown">
+                        <p>Monthly Platform Costs: $465/mo</p>
+                        <p>Annual Cost: <strong>$5,580/year</strong></p>
+                        <p style="margin-top: 15px; font-size: 0.9rem; color: #ff4444; font-weight: 600;">Plus you don't own your data</p>
+                    </div>
+                </div>
+                
+                <div class="savings-arrow">→</div>
+                
+                <div class="savings-card eventbrella-starter">
+                    <h3>EventBrella Starter</h3>
+                    <div class="cost-breakdown">
+                        <p>Monthly: $149.99/mo</p>
+                        <p>Includes: 5 QR codes</p>
+                        <p>Annual Cost: <strong>$1,799.88/year</strong></p>
+                        <div class="savings-amount">
+                            <strong>YOU SAVE: $3,780.12/year</strong>
+                        </div>
+                        <p class="benefit-note">✓ YOU OWN YOUR DATA</p>
+                    </div>
+                </div>
+                
+                <div class="savings-card eventbrella-pro">
+                    <h3>EventBrella Professional</h3>
+                    <div class="cost-breakdown">
+                        <p>Monthly: $349.99/mo</p>
+                        <p>Includes: 12 QR codes</p>
+                        <p>Annual Cost: <strong>$4,199.88/year</strong></p>
+                        <div class="savings-amount">
+                            <strong>YOU SAVE: $1,380.12/year</strong>
+                        </div>
+                        <p class="benefit-note">✓ YOU OWN YOUR DATA + Advanced Analytics</p>
+                    </div>
+                </div>
+                
+                <div class="savings-card eventbrella-enterprise">
+                    <h3>EventBrella Enterprise</h3>
+                    <div class="cost-breakdown">
+                        <p>Monthly: $699.00/mo</p>
+                        <p>Includes: 35 QR codes</p>
+                        <p>Annual Cost: <strong>$8,388/year</strong></p>
+                        <div class="savings-amount premium">
+                            <strong>Investment: +$2,808/year</strong>
+                        </div>
+                        <p class="benefit-note">✓ YOU OWN YOUR DATA + Predictive AI + Dedicated Support</p>
+                        <p class="premium-note">But you get what competitors can't provide: Complete data ownership, predictive insights, and unlimited growth</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>EventBrella</strong> - You Own Your Data. You Own Your Business.</p>
+            <p>Contact: info@eventbrella.com</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+/* Sales Mastery Tracker – styling aligned with SeamlessVendorUI (black & gold) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Color palette – match SeamlessVendorUI ContentPage / home */
+  --primary-dark: #0a0a0a;
+  --page-bg: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+  --primary-light: #f9f9f9;
+  --accent-gold: #d4af37;
+  --accent-gold-light: #f8e8a0;
+  --accent-gold-dark: #b8860b;
+  --gradient-start: #d4af37;
+  --gradient-middle: #f5d76e;
+  --gradient-end: #926f34;
+  --text-dark: #1a1410;
+  --text-light: #1a1410;
+  --text-gray: #5D4A1F;
+
+  /* Section / card (match ContentPage .grid-item, .content-section) */
+  --section-bg: rgba(0, 0, 0, 0.25);
+  --section-border: rgba(255, 255, 255, 0.2);
+  --section-radius: 12px;
+
+  /* Inputs – readable on dark cards */
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --input-border: rgba(255, 255, 255, 0.2);
+  --input-focus-border: #e0b841;
+  --input-focus-shadow: 0 0 0 2px rgba(224, 184, 65, 0.2);
+  --readonly-bg: rgba(255, 255, 255, 0.08);
+  --readonly-border: rgba(255, 255, 255, 0.15);
+
+  /* Select (nav) */
+  --select-bg: rgba(255, 255, 255, 0.15);
+  --select-border: rgba(255, 255, 255, 0.2);
+  --select-color: #1a1410;
+
+  /* Button – primary (gold) */
+  --btn-primary-bg: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  --btn-primary-color: var(--text-dark);
+  --btn-primary-radius: 10px;
+  --btn-primary-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+
+  /* Fonts */
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Playfair Display', serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-light);
+  background: var(--page-bg);
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 30px 0;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  font-family: var(--font-primary);
+  color: var(--text-light);
+}
+
+h1 { font-size: 3.5rem; font-weight: 700; }
+h2 { font-size: 2rem; font-weight: 600; }
+h3 { font-size: 1.5rem; font-weight: 600; }
+h4 { font-size: 1.25rem; font-weight: 600; }
+h5 { font-size: 1.1rem; font-weight: 600; }
+h6 { font-size: 1rem; font-weight: 600; }
+
+p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+/* Global form elements – match SeamlessVendorUI */
+input,
+select,
+textarea {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  color: var(--text-light);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(26, 20, 16, 0.5);
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-primary);
+  border: none;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.25rem; }
+}

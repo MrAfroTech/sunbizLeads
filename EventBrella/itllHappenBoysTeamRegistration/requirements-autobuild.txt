@@ -1,0 +1,4 @@
+# For digitalTicketingAutoBuild.py
+# Install: pip install -r requirements-autobuild.txt
+# Then: playwright install chromium
+playwright>=1.40.0

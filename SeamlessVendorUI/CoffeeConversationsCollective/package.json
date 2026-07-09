@@ -1,0 +1,48 @@
+{
+  "name": "coffee-conversations-collective-booking",
+  "version": "1.0.0",
+  "description": "Comprehensive booking and loyalty rewards system for Coffee & Conversations Collective",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "deploy": "vercel --prod",
+    "deploy:staging": "vercel"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "1.6.8",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1",
+    "react-scripts": "^5.0.1",
+    "stripe": "^14.0.0",
+    "uuid": "^9.0.1"
+  },
+  "keywords": [
+    "booking",
+    "appointments",
+    "loyalty",
+    "rewards",
+    "spa",
+    "cafe",
+    "eventspace",
+    "podcast"
+  ],
+  "author": "Coffee & Conversations Collective",
+  "license": "PROPRIETARY",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,271 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup-container {
+    background: #0a0a0a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(212, 175, 55, 0.15);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 40px 30px;
+  }
+  
+  .popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .popup-close:hover {
+    color: var(--text-light);
+  }
+  
+  .popup-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .popup-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .popup-subtitle {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+  
+  .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1a1810;
+    border-radius: 10px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .benefit-item:hover {
+    background: #252218;
+    transform: translateX(5px);
+  }
+  
+  .benefit-icon {
+    font-size: 22px;
+    min-width: 24px;
+    text-align: center;
+  }
+  
+  .benefit-text {
+    font-size: 16px;
+    color: var(--text-light);
+    flex: 1;
+  }
+  
+  .popup-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-step {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    background: #252525;
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  }
+
+  /* Gold calendar and clock icons for date/time inputs (calculator sports booking modal) */
+  .popup-form input[type="date"]::-webkit-calendar-picker-indicator,
+  .popup-form input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(0.6) saturate(4) hue-rotate(10deg);
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  /* Time slot buttons (10:00 AM – 12:30 PM, 30-min blocks) */
+  .booking-slots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .booking-slot {
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: var(--font-primary);
+    color: #ffffff;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .booking-slot:hover:not(:disabled) {
+    background: #252525;
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+  .booking-slot.selected {
+    background: #2a2618;
+    border-color: rgba(212, 175, 55, 0.6);
+    color: var(--text-light);
+  }
+  .booking-slot:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    padding-right: 40px;
+  }
+  
+  .form-error {
+    color: rgba(255, 87, 87, 1);
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .form-disclaimer {
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .next-button,
+  .submit-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .text-button {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .text-button:hover {
+    color: var(--text-light);
+  }
+  
+  .back-button {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Thank you message styling */
+  .thank-you-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .thank-you-message h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-light);
+  }
+  
+  .thank-you-message p {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  
+  @media screen and (max-width: 576px) {
+    .popup-container {
+      padding: 30px 20px;
+    }
+    
+    .popup-title {
+      font-size: 22px;
+    }
+    
+    .popup-subtitle {
+      font-size: 16px;
+    }
+  }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your District Retention Gap — Results</title>
+  <link rel="stylesheet" href="/mainStreet/css/watch-vs-order.css" />
+  <link rel="stylesheet" href="/mainStreet/css/sports-lead-modal.css" />
+</head>
+<body class="watch-vs-order-page" data-ms-schedule-modal="true">
+  <div class="watch-vs-order-container">
+    <section class="watch-vs-order-hero" style="margin-top:40px">
+      <div class="watch-vs-order-eyebrow">Your Results</div>
+      <h1 class="watch-vs-order-title">
+        Your District Has a Memory Problem.<br /><em>Here's What It's Costing You.</em>
+      </h1>
+      <p class="watch-vs-order-hero-sub">
+        Visitors aren't leaving because they didn't enjoy themselves. They're leaving because nobody remembered them — and nothing invited them back.
+      </p>
+    </section>
+
+    <div class="watch-vs-order-calc-wrapper">
+      <div class="watch-vs-order-calc-card">
+        <div class="watch-vs-order-calc-header">
+          <h2>Your district's numbers</h2>
+        </div>
+        <div class="watch-vs-order-calc-body">
+          <div class="watch-vs-order-result-block">
+            <div class="watch-vs-order-result-sub">That's real spend walking away — and repeat visits your merchants never see.</div>
+            <div class="watch-vs-order-breakdown" style="margin-top:16px">
+              <div class="watch-vs-order-breakdown-item">
+                <div class="watch-vs-order-breakdown-val" id="visitorsLost">—</div>
+                <div class="watch-vs-order-breakdown-label">visitors lost to one-and-done this month</div>
+              </div>
+              <div class="watch-vs-order-breakdown-item">
+                <div class="watch-vs-order-breakdown-val" id="monthlyGap">—</div>
+                <div class="watch-vs-order-breakdown-label">revenue walking out the door monthly</div>
+              </div>
+              <div class="watch-vs-order-breakdown-item">
+                <div class="watch-vs-order-breakdown-val" id="annualGap">—</div>
+                <div class="watch-vs-order-breakdown-label">annual revenue gap across your district</div>
+              </div>
+            </div>
+            <p class="watch-vs-order-result-sub" style="margin-top:16px">
+              If you converted just 10% more first-timers to regulars: <strong id="uplift10" style="color:#E8C97A">—</strong> annually.
+            </p>
+            <p class="watch-vs-order-result-sub" style="margin-top:12px">
+              <strong style="color:#E8C97A">What that means for your program:</strong> More merchant buy-in. More city budget justification. More proof your work matters.
+            </p>
+          </div>
+
+          <hr class="watch-vs-order-divider" />
+
+          <h3 class="watch-vs-order-result-sub" style="font-weight:700;font-size:1.5rem;color:#E8C97A;margin-bottom:16px">Two ways to close the gap</h3>
+          <div class="ms-offer-grid">
+            <article class="ms-offer-card">
+              <p class="ms-offer-label">THE PLAYBOOK — $17</p>
+              <p class="ms-offer-sub">The exact framework for turning foot traffic into loyal regulars.</p>
+              <p class="ms-offer-body">
+                A step-by-step system built specifically for Main Street districts. How to capture visitor data without friction. How to build a return loop across every merchant on your corridor. How to show your city council the numbers that justify your budget — in a branded PDF you own.
+              </p>
+              <button type="button" class="watch-vs-order-cta-btn" id="playbookCheckoutBtn">Get The Playbook — $17</button>
+            </article>
+            <article class="ms-offer-card">
+              <p class="ms-offer-label">STRATEGY SESSION — FREE</p>
+              <p class="ms-offer-sub">30 minutes. Your district's specific numbers. A clear next step.</p>
+              <p class="ms-offer-body">
+                We'll walk through what your calculator just showed us, identify the two or three highest-leverage changes your district can make right now, and show you exactly how customer intelligence works at the corridor level. No pitch. No pressure.
+              </p>
+              <a
+                class="watch-vs-order-cta-btn"
+                href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="display:inline-block;text-decoration:none;text-align:center"
+              >Book My Free Session</a>
+            </article>
+          </div>
+
+          <p style="margin-top:28px;text-align:center">
+            <a href="/mainStreet/calculator/" class="watch-vs-order-cta-btn" style="display:inline-block;text-decoration:none;background:transparent;border:2px solid #C8A44A;color:#C8A44A;box-shadow:none">← Back to calculator</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ms-lead-modal-overlay" class="sports-lead-modal-overlay" hidden>
+    <div class="sports-lead-modal" role="dialog" aria-labelledby="ms-lead-modal-headline">
+      <button type="button" class="sports-lead-modal-close" id="ms-lead-modal-close" aria-label="Close">&times;</button>
+      <div class="sports-lead-modal-body">
+        <h2 id="ms-lead-modal-headline" class="sports-lead-modal-headline">Your district has a retention gap.</h2>
+        <p id="ms-lead-modal-text-1" class="sports-lead-modal-text"></p>
+        <p id="ms-lead-modal-text-2" class="sports-lead-modal-text"></p>
+        <form id="ms-lead-form" class="sports-lead-modal-form" novalidate>
+          <p class="sports-lead-modal-form-error" id="ms-lead-form-error" hidden></p>
+          <label class="sports-lead-modal-field"><span>Full Name</span><input id="ms-lead-name" type="text" autocomplete="name" required /></label>
+          <label class="sports-lead-modal-field"><span>Email</span><input id="ms-lead-email" type="email" autocomplete="email" required /></label>
+          <label class="sports-lead-modal-field"><span>Phone <span class="sports-lead-modal-required">*</span></span><input id="ms-lead-phone" type="tel" autocomplete="tel" required /></label>
+          <label class="sports-lead-modal-field"><span>Program / City</span><input id="ms-lead-program" type="text" autocomplete="organization" required /></label>
+          <button type="submit" class="sports-lead-modal-cta" id="ms-lead-submit">Send Me The Starter Kit</button>
+        </form>
+        <button type="button" class="sports-lead-modal-opt-out" id="ms-lead-modal-dismiss">I'll figure it out myself</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/mainStreet/js/paths.js"></script>
+  <script src="/mainStreet/js/calculator-logic.js"></script>
+  <script src="/mainStreet/js/contact-capture.js"></script>
+  <script src="/mainStreet/js/log-lead.js"></script>
+  <script src="/mainStreet/js/checkout.js"></script>
+  <script src="/mainStreet/js/lead-modal.js"></script>
+  <script src="/mainStreet/js/results-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "identity": {
+    "CLIENT_NAME": "It'll Happen Boyz",
+    "CLIENT_ORGANIZER_NAME": "It'll Happen Boyz Summer Showcase",
+    "CLIENT_EVENT_NAME": "Summer Showcase 2026",
+    "CLIENT_EVENT_DATE": "2026-06-26",
+    "CLIENT_EVENT_START_TIME": "8:00 AM",
+    "CLIENT_EVENT_END_TIME": "6:00 PM",
+    "CLIENT_EVENT_DESCRIPTION": "Where Champions Are Made.\n\n3 days. Full regulation games. MVP winners every single game.\n\nThis isn't practice. This is where your athlete proves they belong.\n\n5U-14U athletes. Full regulation games. Professional coaching from Coach Kei and Coach Lee. Every player gets real game time. Every game crowns an MVP.\n\nYour kid doesn't need more participation trophies. They need reps against real competition.\n\nJune 26-28. Central Florida. 2 games guaranteed. Call-out games welcome.\n\nWhat makes this different: Real games. Real competition. Real coaches who've been there. We don't do fluff - just football and results. Your athlete plays, competes, and improves. Period."
+  },
+  "venue": {
+    "CLIENT_VENUE_NAME": "TBA",
+    "CLIENT_ADDRESS_LINE1": "Location To Be Announced",
+    "CLIENT_ADDRESS_LINE2": "Central Florida, FL TBD",
+    "CLIENT_PHONE": "321-477-9140"
+  },
+  "contact": {
+    "CLIENT_WEBSITE_URL": "",
+    "CLIENT_CONTACT_EMAIL": "info@itllhappenboyz.com",
+    "contacts": [
+      { "name": "Coach Kei", "email": "info@itllhappenboyz.com", "phone": "321-477-9140", "role": "Head Coach" },
+      { "name": "Coach Lee", "email": "info@itllhappenboyz.com", "phone": "407-760-7136", "role": "Assistant Coach" }
+    ]
+  },
+  "tiers": [
+    { "name": "Day Pass", "id": "day-pass", "price": "20", "capacity": "200", "description": "Single day access. Full regulation games. MVP opportunities." },
+    { "name": "Weekend Pass", "id": "weekend-pass", "price": "52", "capacity": "150", "description": "All 3 days. More games, more competition, more growth. Save $8." },
+    { "name": "VIP Day Pass", "id": "vip-day-pass", "price": "60", "capacity": "50", "description": "Reserved seating. Watch your athlete dominate in comfort. Premium viewing guaranteed." },
+    { "name": "VIP Weekend Pass", "id": "vip-weekend-pass", "price": "152", "capacity": "40", "description": "Reserved seats all weekend. The best view for the best parents. Premium everything." }
+  ],
+  "additional_copy": {
+    "hero_headline": "Where Champions Are Made",
+    "subheadline": "3 days. Full regulation games. MVP winners every single game.",
+    "what_to_bring": "Cleats and mouthguard, Water bottle, Game-ready attitude, Parent ID for check-in",
+    "parking_info": "Free parking on-site. Arrive 30 minutes early for registration.",
+    "scarcity_headline": "LIMITED SPOTS. 5U-14U ONLY.",
+    "social_proof": "Best showcase in Central Florida. My son played 4 games and came back a different player. - Parent, 2025 Showcase",
+    "urgency_trigger": "$50 to lock in. Price goes up June 1st. Don't wait.",
+    "brand_colors": {
+      "primary": "#FF4433",
+      "secondary": "#000000",
+      "accent": "#FFD700",
+      "text_on_dark": "#FFFFFF"
+    },
+    "faq": [
+      { "q": "What age groups can participate?", "a": "5U through 14U. If your kid can play, they're in." },
+      { "q": "How many games are guaranteed?", "a": "Minimum 2 games. Most athletes play 3-4 depending on bracket size." },
+      { "q": "What if my athlete wants more competition?", "a": "Call-out games are welcome. Bring it." },
+      { "q": "Do we get an MVP every game?", "a": "Yes. Every single game has an MVP. Your athlete can earn it." },
+      { "q": "What's included in VIP?", "a": "Reserved seating with the best views. Skip the bleacher scramble." }
+    ]
+  },
+  "output_prompt_filename": "itll-happen-boyz-showcase-cursor-prompt.txt"
+}

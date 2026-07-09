@@ -1,0 +1,18 @@
+{
+  "epic": {
+    "summary": "Sales Prospecting",
+    "description": "Epic for sales prospecting initiatives and engaged leads."
+  },
+  "stories": [
+    {
+      "summary": "Semi Pro Engaged Leads",
+      "description": "Track and manage semi-pro engaged leads.",
+      "tasks": [
+        { "summary": "M Woods", "description": "Lead: M Woods" },
+        { "summary": "Darren Newsome", "description": "Lead: Darren Newsome" },
+        { "summary": "Jeff Jarnigan", "description": "Lead: Jeff Jarnigan" },
+        { "summary": "Ted Tornow", "description": "Lead: Ted Tornow" }
+      ]
+    }
+  ]
+}

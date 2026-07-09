@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Showcase 2026 - Team Registration | It'll Happen Boyz</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        /* Hero section with images on sides */
+        .hero-section {
+            grid-template-columns: 1fr 1.5fr 1fr;
+            min-height: 320px;
+            background-image: url('/vertical-garden-farming-iron-rack-260nw-1938275770.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-section .hero-info,
+        .hero-section .hero-image {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-section .hero-image img {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .hero-section .hero-image {
+                max-height: 180px;
+                overflow: hidden;
+                padding: 15px !important;
+            }
+            .hero-section .hero-image img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        
+        .event-details-badges {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 10px 10px;
+        }
+        
+        .detail-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            flex: 0 1 auto;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+        
+        .detail-badge:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .detail-badge span:first-child {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .detail-badge span:last-child {
+            color: #ffffff;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .events-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .events-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .events-header h1 {
+            color: #E63946;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .events-header p {
+            color: var(--text-light, #666);
+            font-size: 1.1rem;
+        }
+        /* Single centered ticket card - no grid */
+        .registration-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px 60px;
+        }
+        .registration-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            width: 100%;
+        }
+        .event-card.registration-card {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 3px solid #E63946;
+            border-radius: 16px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(230, 57, 70, 0.2), 0 4px 16px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .event-card.registration-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(230, 57, 70, 0.25), 0 6px 20px rgba(0,0,0,0.1);
+            border-color: #C5192D;
+        }
+        .event-card .event-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .event-card .event-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #E63946;
+            margin: 16px 0;
+            padding-top: 16px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .event-card .registration-description {
+            text-align: left;
+            list-style: none;
+            margin: 16px 0;
+            padding: 0;
+            color: #444;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .event-card .registration-description li {
+            padding: 6px 0 6px 28px;
+            position: relative;
+        }
+        .event-card .registration-description li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #E63946;
+            font-weight: bold;
+        }
+        .select-event-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background: #E63946;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        .select-event-btn:hover {
+            background: #C5192D;
+        }
+        .select-event-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #monthlyDateSelect {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color, #ddd);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        #monthlyDateSelect:focus {
+            outline: none;
+            border-color: #E63946;
+        }
+        @media (max-width: 768px) {
+            .events-header h2 {
+                font-size: 1.75rem;
+            }
+            .event-card.registration-card {
+                max-width: 100%;
+                padding: 24px 20px;
+            }
+            .event-details-badges {
+                gap: 8px;
+                padding: 15px 5px;
+                flex-wrap: wrap;
+            }
+            .detail-badge {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+                flex: 1 1 auto;
+                min-width: 120px;
+            }
+            .detail-badge span:first-child {
+                font-size: 0.9rem;
+            }
+            .hero-info h1 {
+                font-size: 2rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <!-- Left Image -->
+            <div class="hero-image" style="display: flex; align-items: center; justify-content: center; padding: 20px; height: 100%;">
+                <img src="" alt="It'll Happen Boyz Summer Showcase" style="border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+            </div>
+            
+            <!-- Center Content -->
+            <div class="hero-info" style="text-align: center; padding: 30px 30px;">
+                <h1 style="text-align: center; margin-bottom: 8px; font-size: 2.5rem; line-height: 1.2;">Summer Showcase 2026</h1>
+                <p class="hero-subheading" style="text-align: center; font-size: 1.35rem; font-weight: 600; margin-bottom: 20px; letter-spacing: 0.02em;">Team Registration</p>
+                <div class="hero-meta" style="text-align: center; margin-bottom: 25px; align-items: center; gap: 8px;">
+                    <div class="hero-meta-item" style="justify-content: center;">January 26–28, 2026 · Central Florida</div>
+                </div>
+                
+                <!-- Event Details Badges -->
+                <div class="event-details-badges" style="margin-top: 20px; padding: 15px 0;">
+                    <div class="detail-badge">
+                        <span style="font-size: 1rem;">🏀</span>
+                        <span>Full 3-Day Event</span>
+                    </div>
+                    <div class="detail-badge">
+                        <span style="font-size: 1rem;">✓</span>
+                        <span>2 Games Guaranteed</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Image -->
+            <div class="hero-image" style="display: flex; align-items: center; justify-content: center; padding: 20px; height: 100%;">
+                <img src="" alt="It'll Happen Boyz Summer Showcase" style="border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+            </div>
+        </div>
+
+        <!-- Single Ticket Section -->
+        <div class="events-container registration-section">
+            <div class="events-header">
+                <h2 style="color: #E63946; font-size: 2rem; margin-bottom: 10px;">Register Your Team</h2>
+            </div>
+
+            <div class="events-grid registration-grid" id="eventsGrid">
+                <!-- Single $50 Team Registration card rendered by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="event-details">Event Details</div>
+
+        <div class="details-content">
+            <p class="details-text">Location To Be Announced, Central Florida.</p>
+            
+            <p class="details-text" style="margin-top: 20px;">Summer Showcase 2026. January 26-28. Full regulation games. MVP every game.</p>
+            
+            <p class="details-text" style="margin-top: 20px;">5U-14U. Professional coaching from Coach Kei and Coach Lee.</p>
+            
+            <p class="details-text" style="margin-top: 30px;"><strong>For more information:</strong><br>
+            <a href="mailto:info@itllhappenboyz.com" style="color: #E63946;">info@itllhappenboyz.com</a><br>
+            321-477-9140</p>
+        </div>
+
+        <!-- Venue Section -->
+        <div class="venue-section">
+            <h2 class="section-title">Venue Information</h2>
+            <div class="venue-info">
+                <div class="venue-name">TBA</div>
+                <div class="venue-address">
+                    Location To Be Announced<br>
+                    Central Florida, FL TBD<br>
+                    321-477-9140
+                </div>
+            </div>
+
+            <div class="map-buttons">
+                <button class="map-btn map-btn-scroll" type="button">View Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Location+To+Be+Announced,+Central+Florida,+FL+TBD" target="_blank" class="map-btn">Get Directions</a>
+            </div>
+
+            <div class="map-container" id="map-frame">
+                <iframe src="https://www.google.com/maps?q=Location%20To%20Be%20Announced%2C%20Central%20Florida%2C%20FL%20TBD&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <!-- Organizer Section -->
+            <h2 class="section-title" id="organizer">Organizer Information</h2>
+            <div class="organizer-content">
+                <div class="organizer-details">
+                    <h3>It'll Happen Boyz Summer Showcase</h3>
+                    <p>Location To Be Announced</p>
+                    <p>Central Florida, FL TBD</p>
+                    <p>321-477-9140</p>
+                    <button class="more-events-btn" type="button">More Events</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-contact">For questions, contact It'll Happen Boyz Summer Showcase — info@itllhappenboyz.com | 321-477-9140</p>
+            <p class="footer-terms"><a href="#terms">Terms and Conditions</a></p>
+        </div>
+    </footer>
+
+    <script src="/js/team-registration.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
+

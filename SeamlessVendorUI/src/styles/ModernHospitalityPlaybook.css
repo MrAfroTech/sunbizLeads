@@ -1,0 +1,92 @@
+.playbook-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playbook-header {
+  background: linear-gradient(135deg, #22074e 0%, #3b0d63 100%);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.playbook-header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.playbook-header h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.playbook-subtitle {
+  font-size: 24px;
+  opacity: 0.95;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.playbook-description {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 40px;
+  line-height: 1.8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.download-button {
+  background: linear-gradient(135deg, #d4af37 0%, #f2c94c 100%);
+  color: #22074e;
+  border: none;
+  padding: 18px 50px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.download-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.download-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .playbook-header {
+    padding: 40px 20px;
+  }
+
+  .playbook-header h1 {
+    font-size: 32px;
+  }
+
+  .playbook-subtitle {
+    font-size: 20px;
+  }
+
+  .playbook-description {
+    font-size: 16px;
+  }
+
+  .download-button {
+    padding: 15px 40px;
+    font-size: 18px;
+  }
+}

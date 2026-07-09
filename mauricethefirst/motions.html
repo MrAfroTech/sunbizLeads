@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Motion – Sanders v. Williams</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    background: #e8e8e8;
+    padding: 30px 20px;
+  }
+  #toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #1a2744;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 999;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  #toolbar span { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; margin-right: 8px; }
+  #toolbar button {
+    background: #2e4a8a; color: white; border: none;
+    padding: 6px 14px; border-radius: 4px; cursor: pointer;
+    font-size: 12px; font-family: Arial, sans-serif;
+  }
+  #toolbar button:hover { background: #3d60b0; }
+  #toolbar button.print-btn { background: #1a6b3a; }
+  #toolbar button.print-btn:hover { background: #228b4e; }
+  #page {
+    max-width: 850px;
+    margin: 60px auto 40px;
+    background: white;
+    padding: 96px 96px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    min-height: 1100px;
+  }
+  [contenteditable="true"] { outline: none; border-radius: 2px; transition: background 0.15s; }
+  [contenteditable="true"]:focus { background: #fffbea; outline: 1px dashed #c8a000; }
+  .center { text-align: center; }
+  .bold { font-weight: bold; }
+  .case-header { text-align: center; font-weight: bold; margin-bottom: 4px; }
+  .divider { border-bottom: 1px solid black; margin: 10px 0 16px; }
+  .motion-title { text-align: center; font-weight: bold; font-size: 13pt; margin: 16px 0 20px; }
+  p.para { margin-bottom: 10px; text-align: justify; }
+  .section-head { font-weight: bold; text-decoration: underline; margin: 20px 0 8px; }
+  .numbered-item { display: flex; gap: 8px; margin-bottom: 8px; text-align: justify; }
+  .num { min-width: 28px; flex-shrink: 0; }
+  .indent-list { margin-left: 60px; margin-bottom: 8px; }
+  .cert-divider { border-top: 1px solid black; margin: 40px 0 16px; }
+  @media print {
+    body { background: white; padding: 0; }
+    #toolbar { display: none; }
+    #page { margin: 0; padding: 1in; box-shadow: none; max-width: 100%; }
+    [contenteditable] { border: none !important; background: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <span>📄 Emergency Motion — Click any text to edit</span>
+  <button onclick="document.execCommand('bold')">Bold</button>
+  <button onclick="document.execCommand('italic')">Italic</button>
+  <button onclick="document.execCommand('underline')">Underline</button>
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<div id="page">
+
+  <div class="case-header" contenteditable="true">IN THE CIRCUIT COURT OF THE FIFTH JUDICIAL CIRCUIT,</div>
+  <div class="case-header" contenteditable="true">IN AND FOR LAKE COUNTY, FLORIDA</div>
+  <br>
+  <div class="case-header" contenteditable="true">IN RE: THE MATTER OF</div>
+  <br>
+  <div class="case-header" contenteditable="true">MAURICE SANDERS,</div>
+  <div class="center" contenteditable="true">Petitioner,</div>
+  <br>
+  <div style="display:flex; justify-content:space-between;" contenteditable="true">
+    <span>and</span><span>CASE NO.: 2021-DR-147</span>
+  </div>
+  <div style="text-align:right;" contenteditable="true">DIVISION: CLWH</div>
+  <br>
+  <div class="case-header" contenteditable="true">VERUSHKA WILLIAMS,</div>
+  <div class="center" contenteditable="true">Respondent.</div>
+  <div class="divider"></div>
+
+  <div class="motion-title" contenteditable="true">PETITIONER'S EMERGENCY MOTION FOR TEMPORARY CHILD SUPPORT<br>AND NOTICE OF CHILD'S EDUCATIONAL HARM</div>
+
+  <p class="para" contenteditable="true">COMES NOW, Petitioner, MAURICE SANDERS, pro se, and respectfully moves this Court for Emergency Temporary Child Support, and in support thereof states:</p>
+
+  <div class="section-head" contenteditable="true">BACKGROUND</div>
+
+  <div class="numbered-item"><span class="num">1.</span>
+    <span contenteditable="true">Petitioner is the primary caregiver of the minor child, A.K.S., born August 13, 2016, and has been the sole consistent primary caregiver for approximately five (5) years.</span>
+  </div>
+  <div class="numbered-item"><span class="num">2.</span>
+    <span contenteditable="true">No child support order currently exists between the parties.</span>
+  </div>
+  <div class="numbered-item"><span class="num">3.</span>
+    <span contenteditable="true">Respondent, VERUSHKA WILLIAMS, currently resides in the State of Texas while the minor child resides with Petitioner at 21725 CR-33, Lot 16, Groveland, FL 34736.</span>
+  </div>
+  <div class="numbered-item"><span class="num">4.</span>
+    <span contenteditable="true">Paternity was legally established by Final Judgment of Paternity entered February 18, 2021.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">PETITIONER'S DEMONSTRATED COMMITMENT TO THE CHILD'S STABILITY</div>
+
+  <div class="numbered-item"><span class="num">5.</span>
+    <span contenteditable="true">When Respondent relinquished physical custody of the minor child to Petitioner in or around November 2020, Petitioner was experiencing a period of housing instability. Despite this challenge, Petitioner accepted full parental responsibility for the child without hesitation and immediately provided for the child's daily needs.</span>
+  </div>
+  <div class="numbered-item"><span class="num">6.</span>
+    <span contenteditable="true">When this Court granted Petitioner primary parenting time in February 2021, Petitioner was similarly navigating a period of housing instability. Notwithstanding these circumstances, this Court found Petitioner fit and appropriate to serve as the child's primary custodial parent — a determination Petitioner has honored without interruption for five (5) years.</span>
+  </div>
+  <div class="numbered-item"><span class="num">7.</span>
+    <span contenteditable="true">In the five (5) years since, Petitioner has provided the minor child with consistent, stable, and nurturing care and has served as the child's sole source of daily support, guidance, and stability. Petitioner's history reflects not instability, but extraordinary resilience and an unwavering commitment to this child under difficult circumstances.</span>
+  </div>
+  <div class="numbered-item"><span class="num">8.</span>
+    <span contenteditable="true">Respondent was fully aware of Petitioner's circumstances at the time she voluntarily relinquished custody in November 2020 and at the time this Court awarded primary parenting time in February 2021. Respondent cannot now invoke Petitioner's financial hardship as a basis for custody modification when she had full knowledge of these circumstances at the outset and this Court has already adjudicated Petitioner's fitness as primary custodial parent.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">RESPONDENT'S INCONSISTENT AND INSUFFICIENT FINANCIAL CONTRIBUTION</div>
+
+  <div class="numbered-item"><span class="num">9.</span>
+    <span contenteditable="true">Over the course of the five (5) years Petitioner has served as primary caregiver, Respondent's financial contributions to the minor child's daily needs have been sporadic, inconsistent, and wholly insufficient to meet the child's ongoing and recurring needs. Respondent has contributed on her own terms and timeline rather than in any reliable or consistent manner.</span>
+  </div>
+  <div class="numbered-item"><span class="num">10.</span>
+    <span contenteditable="true">Respondent has made clear through her written communications, verbal statements, and conduct that she will only provide consistent financial support if and when ordered to do so by this Court. (See Exhibit A.) The minor child should not be made to suffer the consequences of Respondent's unwillingness to voluntarily fulfill her parental financial obligations.</span>
+  </div>
+  <div class="numbered-item"><span class="num">11.</span>
+    <span contenteditable="true">Petitioner has made multiple written requests to Respondent for financial assistance toward the minor child's day-to-day needs, including but not limited to transportation to school, before and after school childcare, food, clothing, and other daily living expenses. Copies of these written communications are attached hereto as Exhibit A.</span>
+  </div>
+  <div class="numbered-item"><span class="num">12.</span>
+    <span contenteditable="true">Respondent has refused to consistently contribute to before and after school childcare expenses, thereby placing the recurring financial burden of the child's daily care on Petitioner alone.</span>
+  </div>
+  <div class="numbered-item"><span class="num">13.</span>
+    <span contenteditable="true">In lieu of contributing to the child's ongoing daily needs, Respondent indicated she would "cross-reference" the one-time cost of back-to-school clothing she purchased as a financial offset. A single, one-time clothing purchase does not address or substitute for the child's recurring daily transportation, childcare, and living expenses.</span>
+  </div>
+  <div class="numbered-item"><span class="num">14.</span>
+    <span contenteditable="true">In response to Petitioner's requests for financial assistance, Respondent stated in writing: "Just like I have to go through the courts to request any modifications to the parenting plan due to your continued violations of the order, I suggest you do the same. The current order remains in effect unless and until the court modifies it, and any substantial changes must be addressed through the proper legal process." (See Exhibit A.) While Petitioner fully respects the legal process and files this Motion accordingly, Respondent's written response confirms her awareness of Petitioner's financial hardship and documents her deliberate choice to withhold consistent financial support absent a court order compelling her to provide it.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">IMPACT ON PETITIONER'S EMPLOYMENT AND EARNING CAPACITY</div>
+
+  <div class="numbered-item"><span class="num">15.</span>
+    <span contenteditable="true">Respondent's failure to consistently contribute to before and after school childcare has directly and materially impacted Petitioner's ability to maintain stable employment and earn consistent income.</span>
+  </div>
+  <div class="numbered-item"><span class="num">16.</span>
+    <span contenteditable="true">Due to the absence of reliable before and after school childcare — a direct consequence of Respondent's inconsistent financial contributions — Petitioner is currently limited to accepting employment only during school hours. This restriction significantly constrains Petitioner's earning capacity and his ability to provide for the minor child's daily needs.</span>
+  </div>
+  <div class="numbered-item"><span class="num">17.</span>
+    <span contenteditable="true">Respondent's refusal to consistently fund childcare according to the child's actual care schedule — rather than on Respondent's own preferred payment schedule — has created unreliable childcare arrangements that have directly interfered with Petitioner's work obligations and resulted in lost wages and reduced working hours.</span>
+  </div>
+  <div class="numbered-item"><span class="num">18.</span>
+    <span contenteditable="true">This financial cascade — from inconsistent childcare contributions, to disrupted childcare arrangements, to lost employment hours, to reduced income — traces directly to Respondent's conduct and has materially diminished Petitioner's ability to meet the minor child's daily needs, including transportation to school. Respondent cannot simultaneously cause this chain of financial harm and invoke it as evidence of Petitioner's unfitness.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">TRAVEL OBLIGATIONS, FINANCIAL HARDSHIP, AND RESPONDENT'S PATTERN OF CONDUCT</div>
+
+  <div class="numbered-item"><span class="num">19.</span>
+    <span contenteditable="true">Petitioner acknowledges that pursuant to the existing parenting plan, Petitioner bears responsibility for the cost of transporting the minor child to Texas for Respondent's designated parenting time.</span>
+  </div>
+  <div class="numbered-item"><span class="num">20.</span>
+    <span contenteditable="true">Petitioner was unable to fulfill this travel obligation during the winter break parenting period due to a brief incarceration of forty-three (43) days — a circumstance beyond Petitioner's control and not a willful violation of the parenting plan.</span>
+  </div>
+  <div class="numbered-item"><span class="num">21.</span>
+    <span contenteditable="true">Regarding the upcoming spring break parenting time, Petitioner requested that Respondent offset the cost of travel against the substantial day-to-day expenses for the child's food, transportation, childcare, and daily living needs that Respondent has declined to consistently contribute toward. This was a reasonable and good-faith proposal to equitably address both parties' financial obligations to the child.</span>
+  </div>
+  <div class="numbered-item"><span class="num">22.</span>
+    <span contenteditable="true">Rather than engaging with Petitioner's proposed offset or agreeing to contribute to the child's daily expenses, Respondent subsequently offered to travel to Florida to retrieve the child herself — an offer made only after Petitioner raised the question of financial offset, and one that conveniently avoids any financial transfer to Petitioner or acknowledgment of the day-to-day expenses Petitioner has borne alone.</span>
+  </div>
+  <div class="numbered-item"><span class="num">23.</span>
+    <span contenteditable="true">Respondent has not yet executed this offer or provided any financial contribution toward the child's daily needs. This pattern — refusing consistent financial support while simultaneously citing the parenting plan to assert violations — reflects a deliberate and inequitable course of conduct that this Court should consider in any determination regarding support and custody.</span>
+  </div>
+  <div class="numbered-item"><span class="num">24.</span>
+    <span contenteditable="true">Petitioner respectfully requests that this Court address the equitable allocation of travel costs and the outstanding day-to-day expenses as part of any temporary or permanent support order entered herein.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">IMMEDIATE EDUCATIONAL HARM TO THE MINOR CHILD</div>
+
+  <div class="numbered-item"><span class="num">25.</span>
+    <span contenteditable="true">As a direct result of the financial hardship caused in material part by Respondent's inconsistent and insufficient financial contributions, the minor child A.K.S. has been unable to attend school on the following seven (7) dates due to lack of transportation funding:</span>
+  </div>
+
+  <div class="indent-list" contenteditable="true">
+    February 18, 2026<br>
+    February 19, 2026<br>
+    February 20, 2026<br>
+    February 23, 2026<br>
+    February 24, 2026<br>
+    February 25, 2026<br>
+    March 4, 2026
+  </div>
+
+  <div class="numbered-item"><span class="num">26.</span>
+    <span contenteditable="true">Petitioner has actively gathered all missed schoolwork corresponding to each absence and is diligently completing it with the child to minimize any academic setback.</span>
+  </div>
+  <div class="numbered-item"><span class="num">27.</span>
+    <span contenteditable="true">Petitioner contacted Families in Transition (FIT) on March 4, 2026 to seek transportation assistance and to prevent further absences. Petitioner is actively pursuing all available community and governmental resources to address this need.</span>
+  </div>
+  <div class="numbered-item"><span class="num">28.</span>
+    <span contenteditable="true">The child's educational stability is being actively and irreparably harmed by the ongoing financial hardship — harm that a temporary child support order could immediately remedy.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">CONTINUITY OF CARE — RESPONSE TO RESPONDENT'S CLAIMS</div>
+
+  <div class="numbered-item"><span class="num">29.</span>
+    <span contenteditable="true">Petitioner acknowledges a brief incarceration of forty-three (43) days. During this entire period, stable alternative care was arranged for the minor child and ZERO school days were missed. The child's continuity of care, routine, and education were fully maintained throughout Petitioner's absence.</span>
+  </div>
+  <div class="numbered-item"><span class="num">30.</span>
+    <span contenteditable="true">The only documented disruption to the child's education has occurred as a direct result of the current financial hardship — not Petitioner's prior and fully resolved incarceration.</span>
+  </div>
+  <div class="numbered-item"><span class="num">31.</span>
+    <span contenteditable="true">Petitioner has been the child's sole consistent caregiver, financial provider, and educational advocate for five (5) continuous years and continues to demonstrate active, responsible, and devoted parenting under challenging financial circumstances.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">RESPONDENT'S OBSTRUCTION OF CHILD SUPPORT ENFORCEMENT</div>
+
+  <div class="numbered-item"><span class="num">33.</span>
+    <span contenteditable="true">Petitioner previously sought assistance from the Florida Department of Revenue (DOR) to establish child support. Respondent actively obstructed this process by refusing to disclose her residential address and refusing to provide her place of employment to the DOR or to Petitioner.</span>
+  </div>
+  <div class="numbered-item"><span class="num">34.</span>
+    <span contenteditable="true">As a direct result of Respondent's refusal to disclose her location and employment information, the DOR was unable to locate Respondent and ultimately closed the case without establishing a support order.</span>
+  </div>
+  <div class="numbered-item"><span class="num">35.</span>
+    <span contenteditable="true">Petitioner was compelled to independently locate Respondent's place of employment through a LinkedIn profile search, as Respondent had refused to provide this information through proper channels. By the time Petitioner identified her employer, Respondent's employment had changed and the DOR case had already been closed.</span>
+  </div>
+  <div class="numbered-item"><span class="num">36.</span>
+    <span contenteditable="true">Respondent's deliberate obstruction of the DOR process is consistent with her broader pattern of conduct — avoiding financial accountability for the minor child while simultaneously declining to contribute consistently to the child's daily needs. This Court should consider this pattern of obstruction in any determination regarding support and custody.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">PRIOR HEARING ATTENDANCE</div>
+
+  <div class="numbered-item"><span class="num">37.</span>
+    <span contenteditable="true">Petitioner attended the CMC hearing on November 4, 2025 via Zoom as directed and was never admitted to the session despite waiting approximately ninety (90) minutes. Petitioner has documentation of his connection and attendance available for the Court's review.</span>
+  </div>
+
+  <div class="section-head" contenteditable="true">RELIEF REQUESTED</div>
+
+  <p class="para" contenteditable="true">WHEREFORE, Petitioner respectfully requests this Court:</p>
+
+  <div class="numbered-item"><span class="num">1.</span>
+    <span contenteditable="true">Enter an Emergency Order for Temporary Child Support effective immediately;</span>
+  </div>
+  <div class="numbered-item"><span class="num">2.</span>
+    <span contenteditable="true">Order Respondent to contribute consistently and reliably to the minor child's daily transportation, educational, childcare, and living expenses;</span>
+  </div>
+  <div class="numbered-item"><span class="num">3.</span>
+    <span contenteditable="true">Order Respondent to contribute to before and after school childcare expenses on a schedule consistent with the child's actual care needs rather than Respondent's preferred payment schedule;</span>
+  </div>
+  <div class="numbered-item"><span class="num">4.</span>
+    <span contenteditable="true">Address the equitable allocation of travel costs for Respondent's designated parenting time in light of the documented financial hardship and Respondent's refusal to contribute to the child's ongoing daily expenses;</span>
+  </div>
+  <div class="numbered-item"><span class="num">5.</span>
+    <span contenteditable="true">Consider Respondent's pattern of inconsistent financial contribution, her awareness of Petitioner's financial hardship, her conduct's direct impact on Petitioner's employment and earning capacity, and the resulting educational harm to the child in any custody determination;</span>
+  </div>
+  <div class="numbered-item"><span class="num">6.</span>
+    <span contenteditable="true">Award such other and further relief as this Court deems just and proper.</span>
+  </div>
+
+  <div style="margin-top:40px; text-align:right;" contenteditable="true">
+    Respectfully submitted,
+    <br><br><br>
+    ________________________________<br>
+    <strong>MAURICE SANDERS, Pro Se</strong><br>
+    21725 CR-33, Lot 16<br>
+    Groveland, FL 34736<br>
+    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f8f4e0e7fcf6f0e6f4fbf1f0e7e6e1fdf0f3fce7e6e1d5f2f8f4fcf9bbf6faf8">[email&#160;protected]</a><br>
+    Phone: ______________________<br>
+    Date: March ___, 2026
+  </div>
+
+  <div class="cert-divider"></div>
+  <div class="center bold" contenteditable="true">CERTIFICATE OF SERVICE</div>
+  <br>
+  <p class="para" contenteditable="true">I HEREBY CERTIFY that a true and correct copy of the foregoing has been served upon Respondent, VERUSHKA WILLIAMS, via electronic mail at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a1d030606030b0719441c0f181f1902010b2a130b02050544090507">[email&#160;prote

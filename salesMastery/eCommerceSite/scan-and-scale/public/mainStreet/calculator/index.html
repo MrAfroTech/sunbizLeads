@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District Retention Gap Calculator — Main Street</title>
+  <meta name="description" content="See what your visitor-to-regular gap is costing your Main Street district and your merchants." />
+  <link rel="stylesheet" href="/mainStreet/css/watch-vs-order.css" />
+  <link rel="stylesheet" href="/mainStreet/css/sports-lead-modal.css" />
+  <link rel="stylesheet" href="/mainStreet/css/hero-slider.css" />
+</head>
+<body class="watch-vs-order-page watch-vs-order-page--hero-slider">
+  <div class="ms-hero-bg" aria-hidden="true">
+    <div class="ms-hero-bg__slides"></div>
+    <div class="ms-hero-bg__overlay"></div>
+  </div>
+  <div class="watch-vs-order-container">
+    <section class="watch-vs-order-hero">
+      <div class="watch-vs-order-eyebrow">District Customer Intelligence</div>
+      <h1 class="watch-vs-order-title">
+        Your Merchants Work Hard to Get Visitors In The Door.<br /><em>What Happens After They Leave?</em>
+      </h1>
+      <p class="watch-vs-order-hero-sub">
+        Most Main Street districts have no system for turning first-time visitors into regulars. This calculator shows you exactly what that's costing.
+      </p>
+      <div class="watch-vs-order-stat-strip">
+        <div class="watch-vs-order-stat-item">
+          <div class="watch-vs-order-stat-num">65%</div>
+          <div class="watch-vs-order-stat-label">of corridor visitors are often first-timers</div>
+        </div>
+        <div class="watch-vs-order-stat-item">
+          <div class="watch-vs-order-stat-num">1-in-4</div>
+          <div class="watch-vs-order-stat-label">typical 90-day return rate without a district memory system</div>
+        </div>
+        <div class="watch-vs-order-stat-item">
+          <div class="watch-vs-order-stat-num">$0</div>
+          <div class="watch-vs-order-stat-label">repeat spend captured when nobody invites them back</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="watch-vs-order-calc-wrapper">
+      <div class="watch-vs-order-calc-card" id="calculator-card">
+        <div class="watch-vs-order-calc-header">
+          <h2>The District Retention Gap Calculator</h2>
+          <p>Run your corridor's numbers — takes 90 seconds.</p>
+        </div>
+        <div class="watch-vs-order-calc-body">
+          <div class="watch-vs-order-field-group">
+            <div class="watch-vs-order-field-label">How many people visit your district per month?</div>
+            <p class="watch-vs-order-field-desc">Estimated monthly foot traffic across your corridor.</p>
+            <input class="watch-vs-order-field-input" id="footTraffic" type="number" min="0" step="1" placeholder="e.g. 25000" />
+          </div>
+          <div class="watch-vs-order-field-group">
+            <div class="watch-vs-order-field-label">What % are visiting for the first time?</div>
+            <p class="watch-vs-order-field-desc">Industry average is often 60–70%. Use your best estimate.</p>
+            <input class="watch-vs-order-field-input" id="firstTimePct" type="number" min="0" max="100" step="1" placeholder="e.g. 65" />
+          </div>
+          <div class="watch-vs-order-field-group">
+            <div class="watch-vs-order-field-label">Average $ spent per visitor</div>
+            <p class="watch-vs-order-field-desc">Typical spend per visit across merchants on the corridor.</p>
+            <input class="watch-vs-order-field-input" id="avgSpend" type="number" min="0" step="0.01" placeholder="e.g. 42" />
+          </div>
+          <div class="watch-vs-order-field-group">
+            <div class="watch-vs-order-field-label">What % come back within 3 months?</div>
+            <p class="watch-vs-order-field-desc">The gut-check number — your honest estimate is fine.</p>
+            <input class="watch-vs-order-field-input" id="returnPct" type="number" min="0" max="100" step="1" placeholder="e.g. 25" />
+          </div>
+
+          <button type="button" class="watch-vs-order-cta-btn" id="calcBtn" style="width:100%;max-width:none">Calculate My District's Gap</button>
+
+          <div id="inlineResults" hidden>
+            <hr class="watch-vs-order-divider" />
+            <div class="watch-vs-order-result-block">
+              <div class="watch-vs-order-result-sub">Here's what one-and-done visitors are costing your merchants — and your program's story with city leadership.</div>
+              <div class="watch-vs-order-breakdown" style="margin-top:16px">
+                <div class="watch-vs-order-breakdown-item">
+                  <div class="watch-vs-order-breakdown-val" id="outVisitorsLost">—</div>
+                  <div class="watch-vs-order-breakdown-label">visitors lost to one-and-done this month</div>
+                </div>
+                <div class="watch-vs-order-breakdown-item">
+                  <div class="watch-vs-order-breakdown-val" id="outMonthlyGap">—</div>
+                  <div class="watch-vs-order-breakdown-label">revenue walking out monthly</div>
+                </div>
+                <div class="watch-vs-order-breakdown-item">
+                  <div class="watch-vs-order-breakdown-val" id="outAnnualGap">—</div>
+                  <div class="watch-vs-order-breakdown-label">annual revenue gap</div>
+                </div>
+              </div>
+              <p class="watch-vs-order-result-sub" style="margin-top:16px">
+                <strong style="color:#E8C97A">Program impact:</strong> More merchant buy-in. More city budget justification. More proof your work matters.
+              </p>
+              <p class="watch-vs-order-result-sub" style="margin-top:8px">
+                If you converted just 10% more first-timers to regulars: <strong id="outUplift10" style="color:#E8C97A">—</strong> annually.
+              </p>
+              <a class="watch-vs-order-cta-btn" id="viewResultsLink" href="/mainStreet/calculator/results" style="display:inline-block;margin-top:16px;text-decoration:none">View full results page →</a>
+            </div>
+
+            <div class="watch-vs-order-result-block" style="margin-top:24px">
+              <div class="watch-vs-order-result-sub" style="font-weight:700;font-size:1.35rem;color:#F5ECD7;margin-bottom:8px">Turn These Numbers Into a Fix</div>
+              <p class="watch-vs-order-result-sub" style="margin-bottom:20px">The District Retention Playbook — built for Main Street corridors — $17</p>
+              <button type="button" class="watch-vs-order-cta-btn" id="inlineGuideBtn" style="width:100%;max-width:320px">Get The Playbook — $17</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="watch-vs-order-cta-block">
+          <div class="watch-vs-order-cta-headline">
+            What would you do with an extra <span id="ctaHeadlineAmount">—</span> across your district each year?
+          </div>
+          <button type="button" class="watch-vs-order-cta-btn" id="scheduleDemoBtn">Book My Free Strategy Session</button>
+          <div class="watch-vs-order-cta-proof">Built for <strong>Main Street America</strong> programs, BIDs, and corridor managers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ms-lead-modal-overlay" class="sports-lead-modal-overlay" hidden>
+    <div class="sports-lead-modal" role="dialog" aria-labelledby="ms-lead-modal-headline">
+      <button type="button" class="sports-lead-modal-close" id="ms-lead-modal-close" aria-label="Close">&times;</button>
+      <div class="sports-lead-modal-body">
+        <h2 id="ms-lead-modal-headline" class="sports-lead-modal-headline">Your district has a retention gap.</h2>
+        <p id="ms-lead-modal-text-1" class="sports-lead-modal-text"></p>
+        <p id="ms-lead-modal-text-2" class="sports-lead-modal-text"></p>
+        <form id="ms-lead-form" class="sports-lead-modal-form" novalidate>
+          <p class="sports-lead-modal-form-error" id="ms-lead-form-error" hidden></p>
+          <label class="sports-lead-modal-field"><span>Full Name</span><input id="ms-lead-name" type="text" autocomplete="name" required /></label>
+          <label class="sports-lead-modal-field"><span>Email</span><input id="ms-lead-email" type="email" autocomplete="email" required /></label>
+          <label class="sports-lead-modal-field"><span>Phone <span class="sports-lead-modal-required">*</span></span><input id="ms-lead-phone" type="tel" autocomplete="tel" required /></label>
+          <label class="sports-lead-modal-field"><span>Program / City</span><input id="ms-lead-program" type="text" autocomplete="organization" required /></label>
+          <button type="submit" class="sports-lead-modal-cta" id="ms-lead-submit">Send Me The Starter Kit</button>
+        </form>
+        <button type="button" class="sports-lead-modal-opt-out" id="ms-lead-modal-dismiss">I'll figure it out myself</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/mainStreet/js/hero-slider.js"></script>
+  <script src="/mainStreet/js/paths.js"></script>
+  <script src="/mainStreet/js/calculator-logic.js"></script>
+  <script src="/mainStreet/js/contact-capture.js"></script>
+  <script src="/mainStreet/js/log-lead.js"></script>
+  <script src="/mainStreet/js/checkout.js"></script>
+  <script src="/mainStreet/js/lead-modal.js"></script>
+  <script src="/mainStreet/js/calculator-page.js"></script>
+</body>
+</html>

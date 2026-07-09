@@ -1,0 +1,363 @@
+{
+  "name": "05 - Email Sender (Tiered Strategy)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 14 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 2 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:V",
+          "useFirstRowAsHeaders": true,
+          "returnAll": false,
+          "limit": 5
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Ready to Send - Hot"
+            }
+          ]
+        }
+      },
+      "id": "get-hot",
+      "name": "Get Hot Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:V",
+          "useFirstRowAsHeaders": true,
+          "returnAll": false,
+          "limit": 10
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Ready to Send - Qualified"
+            }
+          ]
+        }
+      },
+      "id": "get-qualified",
+      "name": "Get Qualified Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const hotLeads = $node[\"Get Hot Leads\"].json ? \n  ($node[\"Get Hot Leads\"].json.length ? $node[\"Get Hot Leads\"].json : [$node[\"Get Hot Leads\"].json]) : [];\nconst qualifiedLeads = $node[\"Get Qualified Leads\"].json ? \n  ($node[\"Get Qualified Leads\"].json.length ? $node[\"Get Qualified Leads\"].json : [$node[\"Get Qualified Leads\"].json]) : [];\n\n// Hot leads first, then qualified\nconst allLeads = [...hotLeads, ...qualifiedLeads];\n\n// Check today's send count\nconst today = new Date().toISOString().split('T')[0];\nconst sentToday = allLeads.filter(lead => {\n  return (lead.contacted_date || '').startsWith(today);\n}).length;\n\nconst maxDaily = 15;\nconst remaining = Math.max(0, maxDaily - sentToday);\n\nif (remaining === 0) {\n  throw new Error('Daily send limit reached (15/day)');\n}\n\nreturn allLeads.slice(0, remaining);"
+      },
+      "id": "combine-tiers",
+      "name": "Combine Lead Tiers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Random delay between 2-8 minutes per email\nconst delayMs = Math.floor(Math.random() * 360000) + 120000;\nawait new Promise(resolve => setTimeout(resolve, delayMs));\n\nreturn $input.all();"
+      },
+      "id": "stagger-sends",
+      "name": "Stagger Sends",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.email }}",
+        "subject": "={{ $json.email_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.email_body }}",
+        "options": {
+          "replyTo": "your-email@domain.com",
+          "bcc": "your-email@domain.com"
+        }
+      },
+      "id": "send-email",
+      "name": "Send Outreach Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1050, 300],
+      "credentials": {
+        "gmailOAuth2Api": {
+          "id": "gmail-cred",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leadData = $input.first().json;\n\nreturn {\n  ...leadData,\n  status: 'Contacted',\n  contacted_date: new Date().toISOString(),\n  last_activity: new Date().toISOString(),\n  engagement_level: 'sent_initial'\n};"
+      },
+      "id": "log-send",
+      "name": "Create Send Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "engagement_level": "={{ $json.engagement_level }}"
+          }
+        }
+      },
+      "id": "mark-contacted",
+      "name": "Mark as Contacted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Send Failed"
+          }
+        }
+      },
+      "id": "log-failure",
+      "name": "Log Send Failure",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 450],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=Email Send Failed: {{ $json.business_name }}",
+        "emailType": "text",
+        "message": "=Failed to send email to {{ $json.business_name }}\n\nEmail: {{ $json.email }}\nError: {{ $json.error }}\n\nReview and retry manually.",
+        "options": {}
+      },
+      "id": "alert-failure",
+      "name": "Alert on Failure",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1250, 450],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 2 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Hot Leads",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Qualified Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Hot Leads": {
+      "main": [
+        [
+          {
+            "node": "Combine Lead Tiers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Qualified Leads": {
+      "main": [
+        [
+          {
+            "node": "Combine Lead Tiers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Lead Tiers": {
+      "main": [
+        [
+          {
+            "node": "Stagger Sends",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stagger Sends": {
+      "main": [
+        [
+          {
+            "node": "Send Outreach Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Outreach Email": {
+      "main": [
+        [
+          {
+            "node": "Create Send Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ],
+      "error": [
+        [
+          {
+            "node": "Log Send Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Send Record": {
+      "main": [
+        [
+          {
+            "node": "Mark as Contacted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Send Failure": {
+      "main": [
+        [
+          {
+            "node": "Alert on Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

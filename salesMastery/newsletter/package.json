@@ -1,0 +1,8 @@
+{
+  "name": "newsletter",
+  "private": true,
+  "dependencies": {
+    "stripe": "^17.4.0",
+    "uuid": "^9.0.1"
+  }
+}

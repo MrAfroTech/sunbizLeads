@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 19: The Seamless Night Out</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:22px 64px 14px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:22px 64px 18px 80px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:12px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+/* Chapter 19 page-fit overrides (margin-safe, no copy edits) */
+#p2 .two-col,#p4 .two-col,#p6 .two-col,#p7 .two-col,#p9 .two-col,#p11 .two-col,#p12 .two-col{gap:14px!important;}
+#p2 .sidebar,#p4 .sidebar,#p6 .sidebar,#p7 .sidebar,#p9 .sidebar,#p11 .sidebar,#p12 .sidebar{gap:6px!important;}
+#p2 .ch-title,#p4 .ch-title,#p6 .ch-title,#p7 .ch-title,#p9 .ch-title,#p11 .ch-title,#p12 .ch-title{font-size:32px!important;line-height:.96!important;margin-bottom:4px!important;}
+#p2 .ch-intro,#p4 .ch-intro,#p6 .ch-intro,#p7 .ch-intro,#p9 .ch-intro,#p11 .ch-intro,#p12 .ch-intro{font-size:11.75px!important;line-height:1.4!important;margin-bottom:3px!important;}
+#p2 .body,#p4 .body,#p6 .body,#p7 .body,#p9 .body,#p11 .body,#p12 .body{font-size:12px!important;line-height:1.44!important;}
+#p2 .body p,#p4 .body p,#p6 .body p,#p7 .body p,#p9 .body p,#p11 .body p,#p12 .body p{margin-bottom:3px!important;}
+#p2 .sec-head,#p4 .sec-head,#p6 .sec-head,#p7 .sec-head,#p9 .sec-head,#p11 .sec-head,#p12 .sec-head{font-size:15px!important;margin-top:5px!important;margin-bottom:3px!important;letter-spacing:.5px!important;}
+#p2 .callout,#p4 .callout,#p6 .callout,#p7 .callout,#p9 .callout,#p11 .callout,#p12 .callout{padding:7px 9px!important;font-size:10.5px!important;line-height:1.42!important;margin-top:5px!important;}
+#p2 .stat-box,#p4 .stat-box,#p6 .stat-box,#p7 .stat-box,#p9 .stat-box,#p11 .stat-box,#p12 .stat-box{padding:7px 9px!important;}
+#p2 .stat-num,#p4 .stat-num,#p6 .stat-num,#p7 .stat-num,#p9 .stat-num,#p11 .stat-num,#p12 .stat-num{font-size:34px!important;}
+#p2 .stat-lbl,#p4 .stat-lbl,#p6 .stat-lbl,#p7 .stat-lbl,#p9 .stat-lbl,#p11 .stat-lbl,#p12 .stat-lbl{font-size:10.25px!important;line-height:1.3!important;}
+#p2 .stat-sub,#p4 .stat-sub,#p6 .stat-sub,#p7 .stat-sub,#p9 .stat-sub,#p11 .stat-sub,#p12 .stat-sub{font-size:9px!important;margin-top:2px!important;}
+#p2 .sidebar>div[style*="padding:16px"],#p4 .sidebar>div[style*="padding:16px"],#p6 .sidebar>div[style*="padding:16px"],#p7 .sidebar>div[style*="padding:16px"],#p9 .sidebar>div[style*="padding:16px"],#p11 .sidebar>div[style*="padding:16px"],#p12 .sidebar>div[style*="padding:16px"]{padding:9px 10px!important;}
+#p2 .sidebar [style*="padding:10px 12px"],#p4 .sidebar [style*="padding:10px 12px"],#p6 .sidebar [style*="padding:10px 12px"],#p7 .sidebar [style*="padding:10px 12px"],#p9 .sidebar [style*="padding:10px 12px"],#p11 .sidebar [style*="padding:10px 12px"],#p12 .sidebar [style*="padding:10px 12px"]{padding:6px 8px!important;}
+#p3 .navy-bg,#p5 .navy-bg,#p8 .navy-bg,#p10 .navy-bg{padding:18px 64px 14px 80px!important;}
+#p3 .navy-bg [style*="font-size:38px"],#p5 .navy-bg [style*="font-size:38px"],#p8 .navy-bg [style*="font-size:38px"],#p10 .navy-bg [style*="font-size:38px"]{font-size:32px!important;}
+#p3 .navy-bg [style*="margin-bottom:14px"],#p5 .navy-bg [style*="margin-bottom:14px"],#p8 .navy-bg [style*="margin-bottom:14px"],#p10 .navy-bg [style*="margin-bottom:14px"]{margin-bottom:8px!important;}
+#p3 .navy-bg [style*="margin-bottom:18px"],#p5 .navy-bg [style*="margin-bottom:18px"],#p8 .navy-bg [style*="margin-bottom:18px"],#p10 .navy-bg [style*="margin-bottom:18px"]{margin-bottom:10px!important;}
+#p3 .navy-bg [style*="padding:14px"],#p5 .navy-bg [style*="padding:14px"],#p8 .navy-bg [style*="padding:14px"],#p10 .navy-bg [style*="padding:14px"]{padding:10px!important;}
+#p3 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p5 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p8 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"],#p10 .navy-bg [style*="font-size:13px;color:rgba(255,255,255,0.8)"]{font-size:11px!important;line-height:1.45!important;}
+#p13 .pc,#p14 .pc{padding:20px 64px 12px 80px!important;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 19: The Seamless Night Out</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part IV — The Networked Future</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 19</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:#fff;line-height:.92;margin-bottom:2px;">THE SEAMLESS</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:#D4AF37;line-height:.92;margin-bottom:34px;">NIGHT OUT</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "The best hospitality isn't what happens inside your walls — it's the invisible thread that gets them there and keeps them spending."
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Will Guidara, Unreasonable Hospitality</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">28%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">of guests lost mid-journey when experiences are disconnected — the drop happens at the handoff between transit and door, not inside the venue</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">+40%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">spend increase when the guest journey is integrated end to end — frictionless upsells land because the guest is already inside the ecosystem, not deciding whether to enter it</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">37 min</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">of friction eliminated across a single evening when home-to-venue-to-afterparty flows through one ecosystem — the 90-minute pain becomes a 53-minute pleasure</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">+40%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">LTV improvement when single transactions become recurring revenue loops — the guest doesn't just visit your venue, they belong to your ecosystem</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE VISION -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The Holy Grail</div>
+        <div class="ch-title" style="font-size:30px !important;line-height:1 !important;">Seamless Technology In Their Hand</div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Every chapter of Chaos Mastery has been building toward this moment. The frictionless venue. The intelligent data layer. The unified platform. The networked operator. They are all infrastructure for a single outcome: the night out where the guest never has to think about logistics — only about the experience they came for.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">What "Seamless" Actually Means</div>
+          <p>Seamless does not mean invisible technology. It means technology so well-placed that the guest's attention never has to leave the experience to manage the logistics around it. The current night out requires the guest to manage six brain shifts: where to go, how to get there, where to park, how to get in, how to order, and how to leave. Each shift is a friction point. Each friction point is a moment where the guest's attention leaves the experience. Each moment of lost attention is a moment when the spend decision goes unmade, the upsell goes unheard, and the satisfaction score drops one tick.</p>
+          <p><strong>The seamless night out collapses all six shifts into one.</strong> The AI suggests the venue based on preferences, auto-books the table, pairs the rideshare, validates the parking, fast-tracks the entry, surfaces the QR menu with known preferences loaded, and queues the departure rideshare before the check arrives. The guest's mind never leaves the dinner table — or the concert, or the festival, or the hotel check-in. That undivided attention is what hospitality operators are actually selling. Every friction point they eliminate is a larger share of that attention they get to keep.</p>
+          <div class="sec-head">The 28% Drop-Off Problem</div>
+          <p>The 28% of guest loss mid-journey is not a venue quality problem. It is a handoff problem. The gap between "I want to go out tonight" and "I am having a great time" is paved with micro-frustrations — the parking app that doesn't work in this lot, the rideshare surge that made the couple hesitate, the entry line that ate 20 minutes before being seated. Each one chips away at the energy the guest brought from home. By the time they reach the venue, they have already spent emotional capital that was supposed to go toward enjoying it. Operators who solve the handoff own the whole night.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The handoff leads to the drop off</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">TRANSIT TO DOOR — 28% drop</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Parking confusion, rideshare surge, wrong entrance, no pre-booked spot. The guest arrives already frustrated before the experience begins.</div>
+            </div>
+            <div style="background:rgba(255,165,0,0.1);border-left:3px solid #FFA500;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#FFA500;margin-bottom:2px;">ENTRY TO FIRST ORDER — 12% friction loss</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Entry line, ID check bottleneck, finding a server, decoding an unfamiliar menu. Every minute before the first order is a minute of budget anxiety instead of experience enjoyment.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">DEPARTURE — 15% spend cap</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Check split chaos, Uber surge anxiety, no idea where to go next. The guest who was willing to spend more orders the check instead — because departure logistics are already dominating their mental bandwidth.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">BUDGET — 20% HOLDBACK</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Uncertain totals, split confusion, and unpredictable add-ons. The guest who planned to spend more pulls back early-not because they’re done, but because they don’t trust where the number lands. And for the guests who overspend, the feeling flips-what started as a great night ends with regret, and that overage gets tied to your venue.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">28%</div>
+          <div class="stat-lbl">of guests lost mid-journey from disconnected logistics — not from bad food, bad service, or bad venue design, but from friction between the stops</div>
+          <div class="stat-sub">Brief; integrated guest journey research; hospitality experience continuity benchmarks</div>
+        </div>
+        <div class="q-card light" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"The best hospitality isn't what happens inside your walls — it's the invisible thread that gets them there and keeps them spending."</div>
+          <div class="q-attr">Will Guidara</div>
+          <div class="q-src">Unreasonable Hospitality</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE FOUR SCENARIOS (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Four Archetypes</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE FOUR SCENARIOS WHERE SEAMLESS CHANGES EVERYTHING</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">The Same Principle, Four Different Experiences</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;">
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;letter-spacing:1px;">DATE NIGHT</div>
+            <div style="background:rgba(0,212,170,0.2);border-radius:3px;padding:3px 9px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;">+35% spend</div>
+          </div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Friction: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Booking chaos — three apps to find a venue, two more to get there, a fourth to manage the reservation. By the time they leave the house, the spontaneity is already dead. Plus most people don't have the desire or connections to plan a memorable evening. Which kills the spark. </span></div>
+          <div><span style="font-size:10px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Seamless Fix: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">AI planner surfaces Italian, under $100, near home — with a table already pre-booked and a rideshare queued for departure time. One prompt, one tap, the whole night planned. The couple arrives relaxed, engaged, and already predisposed to spend more because the logistics stress never happened.</span></div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;letter-spacing:1px;">SPORTS EVENT</div>
+            <div style="background:rgba(212,175,55,0.2);border-radius:3px;padding:3px 9px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;">+25% spend</div>
+          </div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Friction: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Parking hell — 30 minutes circling, $40 cash-only lot three blocks from the stadium. The fan is stressed, late, and has already mentally exhausted the F&B budget to compensate for parking overspend.</span></div>
+          <div><span style="font-size:10px;color:#00D4AA;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Seamless Fix: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Ticket auto-pairs a parking pass at purchase. Entry is fast-tracked via QR scan. AR overlays player stats on seat view. Concession pre-order fires at half-time based on past purchase history. The fan's mental bandwidth never leaves the game — which is why they stay for the full show and spend at every touchpoint on the way out.</span></div>
+        </div>
+        <div style="background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;letter-spacing:1px;">FESTIVAL</div>
+            <div style="background:rgba(0,212,170,0.2);border-radius:3px;padding:3px 9px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;">+45% spend</div>
+          </div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Friction: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Line fatigue — cash-only vendors, 20-minute queues for a $12 beer, no GPS signal to find the next stage, post-show Uber surge that turns the exit into a 45-minute nightmare in a parking field.</span></div>
+          <div><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Seamless Fix: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Wristband holds cashless credits — tap and go at every vendor, no cash, no card fumble. Geo-nudges guide to the next stage based on dwell-time patterns. Pre-booked rideshare activates at show end through geo-fence trigger, staging the exit before the crowd forms. The festival attendee spends 45% more because the friction of spending was removed, not because they had more money.</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;">TOURISM</div>
+            <div style="background:rgba(212,175,55,0.2);border-radius:3px;padding:3px 9px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;">+30% spend</div>
+          </div>
+          <div style="margin-bottom:8px;"><span style="font-size:10px;color:#e74c3c;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Friction: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Discovery gaps — the visitor who doesn't know the city stands at the hotel lobby with seven open tabs, no reservation, and a vague sense of wanting "something authentic nearby." Two hours of research produces a mediocre result.</span></div>
+          <div><span style="font-size:10px;color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Seamless Fix: </span><span style="font-size:12px;color:rgba(255,255,255,0.75);">Unified city app bundles hotel check-in, top local eats filtered by preference, landmarks with real-time wait times, and transit directions. One interface owns the full stay — no research, no disappointment, no choosing between six mediocre Yelp options when the best places are the ones the app surfaces based on their actual profile.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE DATE NIGHT DEEP DIVE -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Scenario 1 Deep Dive</div>
+    <div class="ch-title">Date Night — AI Itinerary to +35% Spend</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The date night is hospitality's highest-stakes guest type. The couple is there to impress each other. Every logistics failure embarrasses both parties. Every smooth transition adds to the sense that the night is going well. The operator who owns the logistics owns the emotional state — and emotional state is the biggest predictor of how much a table will spend.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Planning Friction</div>
+          <p>The average date night couple in 2026 spends 22 minutes on planning before they leave the house. That 22 minutes is not anticipation — it is decision fatigue. Three apps to find a venue, two more to check reviews, a reservation system that requires creating yet another account, a separate rideshare calculation that changes the budget calculus, and a parking lookup that turns a 7pm reservation into a 7:18pm arrival with a bad first impression already set. The operator who eliminates that 22 minutes does not just save the couple time. They receive a couple who arrives with 22 minutes more of emotional energy available for the experience they came for.</p>
+          <div class="sec-head">The AI Itinerary Solution</div>
+          <p>The AI planner that knows the couple's preferences — Italian, under $100, within 15 minutes of home, good wine list, not too loud on a Thursday — collapses the 22-minute decision spiral into one confirmation tap. The table is pre-booked. The rideshare is queued for a departure window that accounts for the reservation time and their known traffic patterns. The restaurant has received the reservation with the guest profile attached — dietary notes, the last visit history, the anniversary flag. By the time the couple walks through the door, the experience has already started. <strong>That is what +35% in spend looks like</strong> — not an upsell that persuades, but a guest who never had a reason to close their wallet.</p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The Guidara principle in action:</strong> Will Guidara's "Unreasonable Hospitality" philosophy is that the gesture that matters most to a guest is rarely inside the dining room — it is the detail that shows you knew who they were before they sat down. The seamless itinerary is that detail at scale. The guest who arrives knowing the restaurant already has their reservation, their preference notes, and their usual drink order loaded has already experienced hospitality before a single staff member has spoken to them.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">From Friction To Flow</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;">
+                <div><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">Manual planning</div><div style="font-size:11px;color:rgba(255,255,255,0.65);">3 apps, 6 tabs, 22 minutes</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;text-align:right;">−22 min</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;">
+                <div><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">AI suggests + confirms</div><div style="font-size:11px;color:rgba(255,255,255,0.65);">One prompt, one tap</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;text-align:right;">1 min</div>
+              </div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;">
+                <div><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">Rideshare hunt + surge check</div><div style="font-size:11px;color:rgba(255,255,255,0.65);">App switch, price anxiety</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;text-align:right;">−8 min</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;">
+                <div><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">Auto-queued rideshare</div><div style="font-size:11px;color:rgba(255,255,255,0.65);">Timed to reservation, no surge</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;text-align:right;">0 min</div>
+              </div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;">
+                <div><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">Arrival → seated wait</div><div style="font-size:11px;color:rgba(255,255,255,0.65);">Table not quite ready, hold at bar</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;text-align:right;">−10 min</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;">
+                <div><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">Priority seating + preference loaded</div><div style="font-size:11px;color:rgba(255,255,255,0.65);">Server greets by name at table</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;text-align:right;">0 min</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Brief; integrated guest journey research</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+35%</div>
+          <div class="stat-lbl">spend lift on date night when AI itinerary eliminates planning friction — guest arrives emotionally invested in the experience, not depleted by logistics</div>
+          <div class="stat-sub">Brief; integrated experience spend research; hospitality guest journey benchmarks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — SPORTS + FESTIVAL (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Scenarios 2 & 3 Deep Dive</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">HOW SEAMLESS OPERATIONS ARE THE GAME CHANGER</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Bundled Passes, Wristband Credits, and the Exit That Makes Them Want to Come Back</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Sports — The Bundled Pass Model</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">The sports event's biggest unsolved friction problem has never been inside the stadium. It has always been the 90 minutes before the game starts — the parking search, the entry line, and the moment the fan realizes they're in Section 312 but their parking spot is near Gate A and they don't know which direction that is. Every minute of that pre-game friction is a minute of F&B budget that gets mentally reassigned to "we'll eat before next game instead." <strong style="color:#D4AF37;">The bundled pass model eliminates the pre-game friction entirely.</strong></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">TICKET + PARKING BUNDLE AT PURCHASE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Parking spot confirmed at checkout. Location assigned based on section proximity. GPS-guided from home. Fan arrives knowing exactly where to go — the pre-game anxiety of "where do I park" never materializes.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">FAST-TRACK ENTRY</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">One QR scan validates ticket, parking pass, and F&B credit simultaneously. Fan bypasses the general admission line. Time from car door to seat: under 8 minutes. Versus the industry average of 22 minutes for non-integrated entry.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">AR SEAT OVERLAYS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Augmented reality overlays player stats, live odds, and concession wait times directly on the stadium app view. The fan who would have left their seat to grab a beer during a time out, half-time or intermission now pre-orders to seat from the same AR interface — no line, no miss, no wasted walk.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#e74c3c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Festival — The Wristband Economics</div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;">The festival's economics are brutally dependent on F&B throughput — and F&B throughput is brutally dependent on line speed. A 20-minute concession queue is not just slow service. It is 20 minutes that the attendee spent not watching the performance they paid for, 20 minutes of anxiety about missing a set, and 20 minutes at the end of which they get a $12 beer they're no longer sure was worth it. <strong style="color:#e74c3c;">Wristband cashless credits eliminate the friction of the transaction entirely</strong> — tap, go, done in under 5 seconds, no price anxiety because the credits were pre-loaded, no card fumble because the wristband is already on their wrist.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; festival F&B throughput research; Coachella operational model (Chapter 14)</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">GEO-NUDGE TO NEXT STAGE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">App knows where the attendee is, where they've been, and which sets they've seen. Geo-nudge: "Your artist is on Stage C in 12 minutes — here's the fastest route from your current location, and there's a food vendor with no line on the way." That nudge is worth $8 in F&B spend per triggered recommendation.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">THE SEAMLESS UBER EXIT</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Pre-booked rideshare activates via geo-fence at show end — same model as Chapter 14's staggered exit. The festival attendee who knows their ride is already staged is the attendee who stays for the encore instead of leaving 20 minutes early to beat the crush. That encore is worth 20 more minutes of F&B spend.</div>
+            </div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:2px;margin-bottom:4px;">FESTIVAL SPEND LIFT</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#D4AF37;line-height:1;margin-bottom:3px;">+45%</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.7);">when wristband credits + geo-nudges + seamless exit replace cash lots, long lines, and post-show surge</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — TOURISM + THE CITY APP -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Scenario 4 Deep Dive</div>
+    <div class="ch-title">Tourism — When the City App Becomes the Hotel Concierge</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The tourist is the most valuable and most underserved guest in hospitality. They have a high discretionary budget, zero local knowledge, and a seven-tab problem that turns every meal, activity, and transit decision into a research project. The operator who solves the city navigation problem owns the tourist's entire stay.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Discovery Gap</div>
+          <p>The tourist's default experience in an unfamiliar city is anxiety masquerading as excitement. They know they want "something authentic" but they have no framework for identifying authentic versus tourist trap. Every Yelp search returns the same three chain-adjacent recommendations. Every hotel concierge recommendation carries the scent of commission. Every "hidden gem" article was written by someone who last visited three years ago. The tourist who arrives with $400 in discretionary dining budget often spends $180 of it and goes home disappointed — not because the city didn't have what they wanted, but because no one helped them find it.</p>
+          <div class="sec-head">The Unified City App Solution</div>
+          <p>The unified city app model — pioneered by destination operators like MGM Resorts — solves the tourist's problem at every level simultaneously. Hotel check-in through the app eliminates the front desk queue. Restaurant recommendations filtered by the guest's stated preferences (price range, cuisine type, vibe preference, dietary requirements) surface the three best options rather than the three most-reviewed options. Real-time wait times at landmarks replace the "I drove across town and waited 45 minutes" failure. Transit directions with walking-time-to-destination pull the whole itinerary into one navigable flow. <strong>The tourist who uses the unified city app spends 30% more</strong> because they discover experiences they would never have found independently and because the friction between decisions never accumulates into the decision fatigue that caps spending.</p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The MGM benchmark:</strong> MGM Resorts' app ecosystem — where the MGM app syncs hotel stays, dining reservations, show tickets, rideshare, and loyalty points across every MGM property — is the most mature implementation of the unified city app model in the US hospitality market. A guest who checks in on the MGM app at the Bellagio can book a dinner at Aria, purchase show tickets at T-Mobile Arena, and request a rideshare to a downtown bar without leaving the app. Every transaction deepens the guest's profile and every deepened profile improves the next recommendation.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Unified City App</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">HOTEL CHECK-IN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Mobile key delivered before arrival. Room preference applied from profile. No front desk line. The guest's experience starts in the car ride to the hotel, not after a 20-minute lobby wait.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">TOP EATS — PREFERENCE FILTERED</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Not the most-reviewed. The most relevant — filtered by price, cuisine, vibe, dietary needs, and current wait time. Three recommendations, all bookable inside the app, all with the guest profile pre-loaded.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">LANDMARKS + REAL-TIME WAIT TIMES</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Live queue data for every major attraction. "Skip the morning rush — head to X first, the line is 8 minutes right now." The tourist who uses live data visits more and waits less — spending the saved time on F&B instead.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">TRANSIT + LOYALTY</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Every transaction earns loyalty points. Every point is redeemable across every property in the network. The tourist who used the app for dining gets the hotel upgrade on their next stay. That upgrade is the reason they come back.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+30%</div>
+          <div class="stat-lbl">tourist spend when unified city app replaces the seven-tab problem — the guest who can discover and book everything in one place spends more and stays longer</div>
+          <div class="stat-sub">Brief; tourism spend research; MGM Resorts app ecosystem model</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — THE WORKING MODEL: VEGAS -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Working Model</div>
+    <div class="ch-title">Vegas — The Most Advanced Guest Ecosystem in America</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Las Vegas did not become the world's highest-grossing hospitality destination by accident. It became the benchmark because its operators understood, earlier than anyone else, that the guest experience does not start at the casino floor — it starts at the moment the guest books the flight. The MGM app ecosystem is the most complete expression of the seamless guest journey in American hospitality.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The MGM App Ecosystem</div>
+          <p>MGM Resorts' digital ecosystem connects rides, dining, shows, hotel, and casino across every MGM property in Las Vegas — Bellagio, Aria, MGM Grand, Vdara, Park MGM, and more. A guest checking into Bellagio can use the same app to book a dinner reservation at Aria's restaurant, purchase show tickets at T-Mobile Arena, request a rideshare to Fremont Street, and cash out their M life Rewards points from every transaction — without switching apps, without re-entering payment information, and without starting their guest profile over at each property. Every transaction deepens the same profile. Every deepened profile improves the next recommendation. <strong>That is the network effect from Chapter 16, applied to the seamless night out.</strong></p>
+          <div class="sec-head">What Makes Vegas Work That Every Operator Can Learn From</div>
+          <p>The Vegas model succeeds for three reasons that are available to every operator at every scale. First: <strong>a single loyalty currency that spans every venue type</strong> — dining, shows, hotel, transit, retail. Points earned at dinner are redeemable at the show. The guest has a reason to stay in the ecosystem rather than going to a competitor for the next purchase. Second: <strong>integrated pre-arrival communication</strong> — the guest knows before they land that their room is ready, their dinner is confirmed, and their rideshare pickup is scheduled. Third: <strong>frictionless in-venue transactions</strong> — the same credential that checked them in also buys the cocktail, books the massage, and tips the server. One payment method, every touchpoint. Third-party friction never enters the experience.</p>
+          <div class="sec-head">The Anti-Model: "Figure It Out" Vibes</div>
+          <p>"Figure it out" vibes — the hospitality experience where the guest is left to navigate logistics independently at every handoff — cost 28% of them mid-journey. The guest who parks at the wrong lot, misses the entrance, waits 25 minutes to be seated, and then discovers the check splitting requires a different app than the one they used to book — that guest does not come back. Not because the food was bad. Because the experience around the food was exhausting.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">MGM Vegas vs. "Figure It Out" — The Gap</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">✓ MGM — UNIFIED ECOSYSTEM</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">One app: hotel, dining, shows, rides, loyalty. Every transaction on the same profile. Every point redeemable everywhere. Every recommendation personalized to visit history. Guest never leaves the ecosystem voluntarily.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">✗ "FIGURE IT OUT" — SEPARATE EVERYTHING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Hotel app, OpenTable, Uber, Ticketmaster, Venmo for the split, Yelp for the afterparty. Six apps, six accounts, six opportunities for the guest to get frustrated and go home early. 28% do exactly that.</div>
+            </div>
+          </div>
+          <div style="height:1px;background:rgba(212,175,55,0.3);margin:10px 0;"></div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">The Three Principles Vegas Gets Right</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 10px;font-size:12px;color:rgba(255,255,255,0.8);line-height:1.4;"><strong style="color:#D4AF37;">1.</strong> Single loyalty currency across every venue type</div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 10px;font-size:12px;color:rgba(255,255,255,0.8);line-height:1.4;"><strong style="color:#D4AF37;">2.</strong> Integrated pre-arrival communication — room, dinner, and transit confirmed before the plane lands</div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 10px;font-size:12px;color:rgba(255,255,255,0.8);line-height:1.4;"><strong style="color:#D4AF37;">3.</strong> Frictionless in-venue transaction — one credential, every spend point</div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">28%</div>
+          <div class="stat-lbl">guest drop-off from transit to door alone — "figure it out" logistics cost nearly a third of the audience before the experience even starts</div>
+          <div class="stat-sub">Brief; integrated guest journey drop-off research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — THE DOOR-TO-DOOR CONCEPT (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Core Concept</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">ONE SYSTEM OWNS THE ENTIRE JOURNEY</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">How A Single Transactions Become Recurring Revenue Loops</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">From Single Transaction to Revenue Loop</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.15);border:1px solid rgba(212,175,55,0.4);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:4px;">TOUCHPOINT 1 — DISCOVERY TO ARRIVAL</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Single transaction model:</strong> Guest searches, finds a venue, books a table, then switches to a separate rideshare app with a separate payment and surge pricing decision, creating friction and budget anxiety before arrival. One interaction, no profile, no re-marketing possible. <strong style="color:#00D4AA;">Ecosystem model:</strong> AI surfaces the venue based on preferences, history, and real-time availability, then auto-queues a rideshare timed to the reservation. Preference profile captured. Surge suppressed by pre-commitment. Guest arrives relaxed and on schedule. All future recommendations improve from this interaction.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:4px;">TOUCHPOINT 2 — ARRIVAL</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Single transaction:</strong> Parking search, entry line, account-creation at host stand. 22 minutes of logistics before being seated. <strong style="color:#00D4AA;">Ecosystem:</strong> Priority lane. Pre-reserved spot confirmed. Server knows the name. Table ready. 0 minutes of logistics from car door to menu.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:4px;">TOUCHPOINT 3 — IN-VENUE</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;"><strong style="color:#D4AF37;">Single transaction:</strong> Generic menu, staff who don't know the table, separate loyalty card. <strong style="color:#00D4AA;">Ecosystem:</strong> QR loads preferences from profile. Server sees loyalty status. AI upsell nudges the right item at the right moment. Average check 40% higher.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:4px;">TOUCHPOINT 4 — DEPARTURE</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.5;">
+                <strong style="color:#D4AF37;">Single transaction:</strong> Splitting the check becomes chaotic, rideshare pricing spikes at the worst moment, and there’s no clear suggestion for what to do next. 
+                <strong style="color:#00D4AA;">Ecosystem:</strong> The check is handled, a ride share is ordered, and the guest is given suggeststions on what to do next.” 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">The Revenue Loop Mechanic</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">The difference between a single transaction and a recurring revenue loop is not only the quality of the experience — it is the power of the data underneath it. The guest who had a great night at a single-transaction venue might come back. The guest who had a great night inside an ecosystem <em>will</em> come back — because the ecosystem recommends the next suggestion before they've finished their coffee, because their profile is better than the last visit, and because the loyalty currency they earned tonight is redeemable on something they're already planning. <strong style="color:#D4AF37;">That is the LTV difference: 40%.</strong></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">THE NEXT-STOP NUDGE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">At departure, the ecosystem suggests the next venue based on the guest's average time at a establishment, spend pattern, and the guest's historical "what's next" behavior. That suggestion guides them to the next venue — increasing network revenue; while extending the guest's night in the ecosystem. Creating a lastig memory and lasting memories create repeat business.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">THE RE-ENGAGEMENT LOOP</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">After the visit, the ecosystem sends a personalized re-engagement: "You haven't been back in 22 days — here's what's new." Not a generic newsletter. A message that references the specific visit, the specific table, and the specific item the guest ordered last time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — THE TECHNOLOGY STACK -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Technology Stack</div>
+    <div class="ch-title">The Infrastructure Underneath the Experience</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The seamless guest journey is not magic. It's Chapter 10's controlling the data feeding Chapter 17's unified platform feeding Chapter 18's predictive intelligence feeding the guest-facing experience. The invisible thread Will Guidara describes is stitched from systems the operator built deliberately — every one of which has been covered in this book.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Layer 1 — The Guest Profile (Chapter 10)</div>
+          <p>The seamless night out requires knowing who the guest is before they arrive. That knowledge lives in the first-party data the operator built through QR opt-ins, loyalty enrollment, and direct booking — not the platform data that Eventbrite or DoorDash owns and will never share. The guest profile is the foundation. Without it, the AI planner has no preferences to act on. The AI itinerary suggestion is generic. The personalized greeting does not happen. <strong>Every investment in data ownership from Chapter 10 pays its dividend here</strong> — at the moment the guest arrives expecting to be recognized.</p>
+          <div class="sec-head">Layer 2 — The Unified Platform (Chapter 17)</div>
+          <p>The platform that connects the reservation, the POS, the loyalty system, and the rideshare integration is what makes the seamless journey operationally possible. When the table reservation in SevenRooms automatically updates the POS floor map, and the POS transaction automatically posts loyalty points, and the loyalty profile triggers the auto-split capability at checkout — the guest experiences one seamless flow because the platform built it as one seamless flow. <strong>Fragmented stacks cannot produce seamless journeys.</strong> The unified platform is not a nice-to-have for the seamless guest experience. It is the prerequisite.</p>
+          <div class="sec-head">Layer 3 — The Intelligence Layer (Chapter 18)</div>
+          <p>The AI that reads tonight's guest profile, cross-references it with the demand forecast, and surfaces the right upsell at the right moment — "based on your last visit, we'd recommend the seafood special tonight" — is the intelligence layer on top of the unified platform. Without the unified data, the AI is blind. With it, every guest interaction carries the full weight of every previous interaction as context. That is what the +40% spend lift from seamless integration actually measures.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Seamless Stack — Chapter References</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">FOUNDATION — DATA OWNERSHIP (Ch. 8)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">First-party guest profile: name, preferences, order history, visit frequency. Without this, the AI planner has nothing to personalize. Every data capture investment is a seamless journey investment.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">PLATFORM — UNIFIED STACK (Ch. 15)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Reservations + POS + loyalty + rideshare integration in one system. The data flows automatically between every touchpoint. The guest experiences one journey because the technology is one system.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">INTELLIGENCE — PREDICTIVE AI (Ch. 16)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Demand forecasting + personalization engine + upsell prompts. The AI reads the unified data and acts on it in real time — surfacing the right suggestion before the guest has to ask for it.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">NETWORK — PARTNER ROUTING (Ch. 14)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The "next stop" recommendation is a network routing event. The partner venue that receives the guest earns the traffic. The ecosystem operator earns the network value. Both benefit from the connection the guest would never have made independently.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>The integration proof:</strong> The seamless night out is not a new idea. It is the culmination of every idea in this book, assembled in the right order. Data ownership → unified platform → intelligent analytics → networked routing → the invisible thread the guest experiences as the best night they've had in a long time.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE SPEND MATH -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Revenue Math</div>
+    <div class="ch-title">The Value Of The Seamless Night — Per Guest, Per Year</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The 40% spend lift from an integrated guest journey is not a marketing metric. It is an operational metric with a specific dollar value per guest. When you know how much your average guest spends tonight and how often they visit per year, the LTV math of building the seamless ecosystem writes itself.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Per-Guest LTV Calculation</div>
+          <p>Take a restaurant with an average table spend of $85 and an average guest who visits 3.5 times per year. Current LTV: $297.50. Add the seamless ecosystem: +40% spend lift per visit brings the average table to $119. The guest who was a $297.50 annual customer becomes a $416.50 annual customer — a $119 LTV improvement from one ecosystem investment. <strong>Multiply by 500 active guest profiles and that is $59,500 in additional annual revenue</strong> that did not require a single new guest acquisition, a price increase, or a marketing spend increase. But it did require building the invisible thread.</p>
+          <div class="sec-head">The Repeat Visit Compound</div>
+          <p>The seamless experience also increases visit frequency — because the friction that limited it has been removed. The guest who used to visit 3.5 times per year visits 4.2 times per year after the ecosystem removes the logistics planning effort that was the primary barrier to a more spontaneous visit. At $119 average spend, 4.2 visits per year is $499.80 — a $202.30 LTV improvement from the same guest, the same venue, the same menu, and the same kitchen. The only thing that changed was how easy it became to come back.</p>
+          <div class="sec-head">The Upsell Intelligence Layer</div>
+          <p>The AI-driven upsell at the right moment — "the seasonal cocktail pairs well with what you ordered last time" — converts at a measurably higher rate than the generic upsell from a server who has never met the table before. At a $12 upsell item with a 35% conversion rate among guests with purchase history (vs. 18% for cold upsell), the data-driven upsell adds $4.20 per visit to the average check without adding any labor cost. Over 4.2 annual visits, that is $17.64 per guest per year — pure margin, recovered from data the venue was already generating and not using.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The LTV Math — Seamless vs. Single Transaction</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:700;color:#e74c3c;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Single Transaction Model</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Avg table spend</span><span style="font-weight:700;">$85</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Visits per year</span><span style="font-weight:700;">3.5×</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#e74c3c;padding:4px 0;margin-top:2px;">
+                  <span>Annual LTV</span><span>$297.50</span>
+                </div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Seamless Ecosystem Model</div>
+              <div style="display:flex;flex-direction:column;gap:3px;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Avg table spend (+40%)</span><span style="font-weight:700;">$119</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.8);padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <span>Visits per year (+20%)</span><span style="font-weight:700;">4.2×</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#00D4AA;padding:4px 0;margin-top:2px;">
+                  <span>Annual LTV</span><span>$499.80</span>
+                </div>
+              </div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;text-align:center;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;line-height:1;margin-bottom:4px;">+$202.30 PER GUEST PER YEAR</div>
+              <div style="font-size:11.5px;color:#fff;">× 500 active profiles = <strong style="color:#D4AF37;">$101,150 additional annual revenue</strong> from zero new customer acquisition</div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Brief; integrated experience spend and frequency benchmarks</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+40%</div>
+          <div class="stat-lbl">guest lifetime value improvement when single transactions become recurring ecosystem revenue loops — spend up, visits up, acquisition cost unchanged</div>
+          <div class="stat-sub">Brief; seamless journey LTV research; integrated hospitality experience benchmarks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE IMPLEMENTAPPROACH (Full bleed navy) -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Build Approach</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">DON'T BUILD THE WHOLE SYSTEM AT ONCE</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Tier 1 - Uber + Table Bundle — Start With One Handoff and Measure Everything</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Why One Handoff First</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">The MGM ecosystem did not launch as an ecosystem. It launched as a hotel app, then added dining, then added shows, then added rides. Every operator who has built a seamless guest journey built it one handoff at a time — because each handoff is a self-contained test with measurable outcomes, and each successful test makes the business case for the next handoff undeniable. The operator who tries to build the whole ecosystem at once builds nothing. The operator who eliminates the single worst handoff this month builds something they can point to next quarter.</div>
+          </div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">The "Uber + Table Bundle" </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">WEEK 1 — IDENTIFY THE HIGHEST-FRICTION HANDOFF</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Map the guest journey for your top guest type. Time each transition. Find the one handoff where guests are most likely to disengage. For most restaurants, it is transit to door — the parking/rideshare gap. That is the target.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">WEEK 2 — BUILD THE BUNDLE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Create a "Dinner + Rideshare" offer: reservation includes a $15 Uber credit applied at booking. Guest clicks one link, enters one payment, receives one confirmation. The bundled experience starts at the moment of booking, not the moment of arrival.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">WEEK 3–4 — LAUNCH AND MEASURE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Track: on-time arrival rate, no-show rate, table spend, and post-visit return rate vs. unbundled reservations. The completion rate is the primary metric — if more guests who book the bundle actually show up, the implementis working. If they also spend more, it is working well.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="font-size:10px;color:#e74c3c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">What to Track — The ImplementMetrics</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(0,212,170,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Completion rate (showed up vs. booked)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;text-align:right;">Target: 90%+</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(212,175,55,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">Average spend vs. unbundled control</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;text-align:right;">Target: +15%+</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(255,255,255,0.07);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">No-show rate (bundled vs. non-bundled)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;text-align:right;">Target: −30%</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;align-items:center;background:rgba(0,212,170,0.1);border-radius:3px;padding:7px 10px;">
+              <div style="font-size:12px;color:#fff;">30-day return rate (bundled guests)</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;text-align:right;">Target: +20%</div>
+            </div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">The Case for the Next Prototype</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;">If the "Uber + Table Bundle" shows a 15% spend lift and a 30% no-show reduction, the business case for adding a parking bundle, a post-dinner bar suggestion, and a 48-hour re-engagement email writes itself. Each implementthat succeeds becomes the proof of concept for the next handoff. That is how the ecosystem gets built — one measurable win at a time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MEASUREMENT FRAMEWORK -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Measurement Standard</div>
+    <div class="ch-title">How to Measure Journey Integration</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The seamless guest journey is only as good as the metrics proving it is seamless. Each handoff that is integrated should be measurably faster, measurably higher-converting, and measurably better for guest retention. These five KPIs make those improvements visible — and the compounding investment case undeniable.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">KPI 1 — Journey Completion Rate</div>
+          <p>The percentage of guests who complete the full intended journey — from booking through departure — without dropping off at any handoff. Target: 90%+. Below 75% indicates a specific handoff is causing abandonment. The drop-off point is always the highest-priority integration target. Find it by timing each stage and looking for the gap where guest count decreases between stages.</p>
+          <div class="sec-head">KPI 2 — Average Spend per Guest (Integrated vs. Non-Integrated)</div>
+          <p>Track average spend for guests who came through the integrated ecosystem (bundled booking, pre-loaded preferences, auto-split checkout) vs. guests who did not. The +40% spend lift from seamless integration should be measurable within 30 days of launching the first prototype. If the delta is under 10%, the integration is not reaching the guest's emotional state before the spend decision — usually because a key handoff is still broken.</p>
+          <div class="sec-head">KPI 3 — Handoff Time by Stage</div>
+          <p>Time the average duration of each transition: home-to-transit confirmation, transit-to-seated, seated-to-first-order, last-order-to-check, check-to-departure rideshare staged. The 37-minute friction target from the workbook exercise is the aggregate of these five timings. Any stage above 3 minutes is a redesign opportunity. Any stage that consistently takes more than 5 minutes is costing both revenue and NPS.</p>
+          <div class="sec-head">KPIs 4 and 5 — No-Show Rate and 30-Day Return Rate</div>
+          <p>No-show rate tracks pre-commitment quality — the bundled experience that pre-pays parking and rideshare creates a commitment that a standard reservation does not. Target: under 8% for bundled bookings vs. the industry average of 15–20% for unbundled. Thirty-day return rate tracks the ecosystem's stickiness — guests who experienced the seamless journey and came back within 30 days. Target: 25%+ for bundled guests vs. the average venue's 12–15%.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Journey KPI Dashboard</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.05);border:1px solid rgba(212,175,55,0.15);border-radius:3px;padding:6px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;">
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-transform:uppercase;">KPI</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Target</div>
+                <div style="font-size:9.5px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;">Yours</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Journey completion rate</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">90%+</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(212,175,55,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Spend lift (integrated vs. not)</div>
+                <div style="font-size:11px;color:#D4AF37;font-weight:700;text-align:center;">+40%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">+___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">Max handoff time per stage</div>
+                <div style="font-size:11px;color:#fff;font-weight:700;text-align:center;">&lt;3 min</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___ min</div>
+              </div>
+            </div>
+            <div style="background:rgba(231,76,60,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">No-show rate (bundled)</div>
+                <div style="font-size:11px;color:#e74c3c;font-weight:700;text-align:center;">&lt;8%</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,212,170,0.08);border-radius:3px;padding:7px 8px;">
+              <div style="display:grid;grid-template-columns:1fr 65px 55px;gap:5px;align-items:center;">
+                <div style="font-size:12px;color:#fff;">30-day return rate</div>
+                <div style="font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">25%+</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;">___%</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11.5px;color:#fff;line-height:1.5;"><strong style="color:#D4AF37;">One prototype, one month.</strong> Track all five KPIs before and after. The metrics make the next investment decision obvious.</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+40%</div>
+          <div class="stat-lbl">spend per guest when every handoff is integrated — the ecosystem investment that pays for itself before the end of the first full quarter</div>
+          <div class="stat-sub">Brief; integrated guest journey spend research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 19 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">Design the ideal journey for your top guest type. Time every handoff. Find the one stage that exceeds three minutes. Focus on the fix next month. Track completion rates.</div>
+
+    <!-- Journey map table -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">Design Your Ideal Guest Journey — Map a Full Night</div>
+      </div>
+      <div style="padding:10px 18px;">
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;margin-bottom:5px;">
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Stage</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Current Experience</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Seamless Version</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Time Saved</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#D4AF37;">Home</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#e74c3c;">Transit</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Arrival</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Venue</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#00D4AA;">Departure</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:80px 1fr 1fr 80px;gap:7px;background:#1A2A44;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1px;">TOTAL</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);font-style:italic;">Current friction (min)</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);font-style:italic;">Seamless version (min)</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;text-align:center;">___ min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">The single highest-friction handoff in my current journey:</div>
+        <div class="fill-line"></div>
+        <div class="fill-label" style="margin-top:6px;">My integration for next month (e.g., "Uber + table bundle"):</div>
+        <div class="fill-line"></div><div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">What I'm measuring (pre-launch baseline):</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,0.7);margin-bottom:6px;font-style:italic;line-height:1.5;">Completion rate: ___% · Avg spend: $___ · No-show rate: ___% · 30-day return: ___%</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">MASTER<br>THIS.<br>GUESTS<br>BELONG.</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Master the seamless journey and guests don't visit — they belong to your ecosystem. The $101,150 annual revenue uplift from 500 engaged guests is not a projection. It is the compounded result of eliminating 37 minutes of friction that was quietly capping every guest's spend every night. Will Guidara's invisible thread is built one handoff at a time. Implement one this month. Measure it. Then build the next one.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BOOK CLOSE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & The Operator's Mandate</div>
+    <div class="ch-title">Once The Thread Is Built. Push It Through Every Handoff.</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">The seamless night out is not a vision. It is a destination the best operators in hospitality are already building toward — one handoff at a time. The 28% drop-off is preventable. The 40% spend lift is achievable. The $101,150 additional annual revenue from 500 engaged guests is within reach of any operator who is willing to implementthe first bundle next month and measure what changes.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:18px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">28% OF GUESTS DROP OFF MID-JOURNEY — THE PROBLEM IS THE HANDOFF, NOT THE VENUE</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">The transit-to-door gap, the parking chaos, the entry line, the check-split friction — none of these are inside the venue, but all of them determine whether the guest arrives with emotional energy or without it. The operator who solves the handoff owns the whole night.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">+40% SPEND COMES FROM ELIMINATING FRICTION, NOT ADDING UPSELLS</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">The date night couple who never had to think about logistics arrives ready to spend. The festival attendee whose wristband removes the friction of spending, spends 45% more. Frictionless transactions convert at higher rates because the guest's mental bandwidth is on the experience, not the mechanics of paying for it.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE SEAMLESS ECOSYSTEM IS BUILT ONE HANDOFF AT A TIME</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">MGM did not launch as MGM. Coachella's Uber bundle started as a partnership conversation. The "Uber + Table Bundle" implementyou build next month is your first handoff — the proof of concept that makes every subsequent handoff obvious. Measure completion rate, spend, no-shows, and 30-day return. The numbers will tell you what to build next.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">WHEN GUESTS BELONG TO YOUR ECOSYSTEM, THEY STOP BEING TRANSACTIONS</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">The guest who used the unified city app, pre-booked parking, fast-tracked entry, and got the next-stop recommendation on departure is not a customer. They are a member. And members come back — not just because the food was great, but because the whole night was great. That is what Will Guidara's invisible thread looks like when it is pulled all the way through.</div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Final Section — The Operator Playbook</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">30-DAY · 90-DAY · 1-YEAR ACTION PLANS</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">4,000 years of hospitality leadership. Seventeen chapters of operational framework. Now the frameworks become action plans — specific, timed, and measured. The Operator Playbook that follows is the checklist that turns every insight in this book into an operational reality at your venue, starting the week you finish reading it.</div>
+      </div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:32px;color:#D4AF37;flex-shrink:0;line-height:1;text-align:center;">✦</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">19 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch17-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch17-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

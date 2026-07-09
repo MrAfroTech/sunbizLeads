@@ -1,0 +1,15 @@
+{
+  "name": "carousel-generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static carousel / Instagram card HTML — run npm start to serve over HTTP",
+  "scripts": {
+    "start": "serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}

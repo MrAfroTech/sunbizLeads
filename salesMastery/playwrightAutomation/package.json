@@ -1,0 +1,20 @@
+{
+  "name": "playwright-automation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local Playwright automation + selector debugger for staff pages.",
+  "scripts": {
+    "install:browsers": "playwright install --with-deps chromium",
+    "dev": "node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "lint:noop": "node -e \"console.log('no lint configured')\""
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "playwright": "^1.54.0"
+  }
+}
+

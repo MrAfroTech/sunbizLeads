@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District Retention Playbook — $17</title>
+  <link rel="stylesheet" href="/mainStreet/css/watch-vs-order.css" />
+</head>
+<body class="watch-vs-order-page watch-vs-order-page--clear-navbar">
+  <div class="watch-vs-order-container">
+    <div class="watch-vs-order-calc-wrapper" style="padding-top:48px">
+      <div class="watch-vs-order-calc-card">
+        <div class="watch-vs-order-calc-header">
+          <h2>THE PLAYBOOK — $17</h2>
+          <p>District Retention Playbook for Main Street programs</p>
+        </div>
+        <div class="watch-vs-order-calc-body">
+          <p class="watch-vs-order-hero-sub" style="max-width:none;margin:0 0 20px;text-align:left">
+            The exact framework for turning foot traffic into loyal regulars — built for corridors, BIDs, and city programs.
+          </p>
+          <ul style="margin:0 0 24px 20px;color:var(--muted);line-height:1.6">
+            <li>Capture visitor data without friction</li>
+            <li>Build a return loop across every merchant on your corridor</li>
+            <li>Report numbers that justify your program budget</li>
+          </ul>
+          <button type="button" class="watch-vs-order-cta-btn" id="playbook-checkout" style="width:100%;max-width:360px">Get The Playbook — $17</button>
+          <p style="margin-top:24px">
+            <a href="/mainStreet/calculator/results" style="color:#C8A44A;font-weight:600">← Back to results</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/mainStreet/js/checkout.js"></script>
+  <script>
+    document.getElementById('playbook-checkout').addEventListener('click', function () {
+      msStartCheckout('district-retention-playbook', this);
+    });
+  </script>
+</body>
+</html>

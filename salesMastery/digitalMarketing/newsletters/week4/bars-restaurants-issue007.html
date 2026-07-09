@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan & Scale — Bars & Restaurants Edition Issue 007</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: #111; font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 32px 16px; }
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+.nl-calc-banner { width: 100%; background: #1A2A44; border-bottom: 3px solid #D4AF37; padding: 24px 40px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.nl-calc-banner.bottom { border-bottom: none; border-top: 3px solid #D4AF37; }
+.nl-calc-banner-text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+.nl-calc-banner-text em { font-style: normal; color: #D4AF37; font-weight: 600; }
+.nl-calc-banner-btn { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #1A2A44; background: #D4AF37; padding: 14px 28px; text-decoration: none; border-radius: 4px; transition: opacity 0.2s; }
+.nl-calc-banner-btn:hover { opacity: 0.88; }
+.nl-header { background: #1A2A44; border-bottom: 4px solid #D4AF37; position: relative; overflow: hidden; }
+.nl-header::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.04) 79px, rgba(212,175,55,0.04) 80px), repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px); z-index: 1; }
+.nl-header-inner { padding: 32px 40px 24px; position: relative; z-index: 2; }
+.nl-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #00D4AA; text-transform: uppercase; margin-bottom: 8px; }
+.nl-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; letter-spacing: 3px; line-height: 1; margin-bottom: 2px; }
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.5; }
+.nl-issue-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+.hero-band { background: #D4AF37; padding: 28px 40px; display: flex; gap: 24px; align-items: center; }
+.hero-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: #1A2A44; line-height: 1; flex-shrink: 0; opacity: 0.15; }
+.hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.6); margin-bottom: 6px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #1A2A44; letter-spacing: 1px; line-height: 1.05; }
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+.opening-quote { border-left: 4px solid #D4AF37; padding: 16px 20px; background: #FEFCF3; border-radius: 0 4px 4px 0; }
+.opening-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: #1A2A44; line-height: 1.65; }
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.8; }
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+.section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #D4AF37; margin-bottom: 8px; }
+.section-head { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 14px; line-height: 1; }
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pillar-card { background: #1A2A44; border-radius: 4px; padding: 20px; border-bottom: 3px solid #D4AF37; position: relative; overflow: hidden; }
+.pillar-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: rgba(255,255,255,0.06); position: absolute; top: 8px; right: 12px; line-height: 1; }
+.pillar-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 6px; }
+.pillar-head { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; letter-spacing: 0.5px; margin-bottom: 8px; }
+.pillar-body { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.contrast-block { background: #F4F6F9; border-radius: 4px; padding: 24px; }
+.contrast-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 16px; }
+.contrast-row { display: flex; gap: 16px; margin-bottom: 12px; }
+.contrast-row:last-child { margin-bottom: 0; }
+.contrast-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
+.contrast-tag.tactic { background: rgba(224,82,82,0.12); color: #C03C3C; }
+.contrast-tag.framework { background: rgba(0,212,170,0.12); color: #00A884; }
+.contrast-text { font-size: 13.5px; color: #333; line-height: 1.6; }
+.usecase-strip { display: flex; flex-direction: column; gap: 8px; }
+.usecase-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: #F9FAFB; border-left: 3px solid transparent; border-radius: 0 3px 3px 0; }
+.uc-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: #D4AF37; flex-shrink: 0; width: 90px; padding-top: 1px; }
+.uc-body { font-size: 13px; color: #1A2A44; line-height: 1.55; }
+.uc-body strong { font-weight: 700; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-card { background: #1A2A44; border-radius: 4px; padding: 18px 16px; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #D4AF37; line-height: 1; margin-bottom: 6px; }
+.stat-card:nth-child(2) .stat-num { color: #00D4AA; }
+.stat-desc { font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.cta-block { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.cta-hint { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.4); text-align: center; }
+.cta-btn { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; padding: 18px 28px; border-radius: 4px; text-decoration: none; display: block; text-align: center; background: #D4AF37; color: #1A2A44; transition: opacity 0.2s; }
+.cta-btn:hover { opacity: 0.88; }
+.cta-sub { font-size: 12px; color: rgba(26,42,68,0.5); text-align: center; font-style: italic; }
+.nl-footer { background: #1A2A44; padding: 28px 40px; border-top: 4px solid #D4AF37; }
+.social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.social-btn { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; padding: 8px 14px; border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.2s; text-align: center; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-icon { width: 14px; height: 14px; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(212,175,55,0.2); padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #D4AF37; letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.footer-note { font-size: 10.5px; color: rgba(255,255,255,0.35); font-style: italic; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-calc-banner">
+    <span class="nl-calc-banner-text">The guests who become regulars are the ones who felt in control of their experience. Friction-heavy service models create one-time visitors. <em>See where your current service model is building loyalty and where it's quietly losing repeat visits.</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Scan &amp; Scale — Guest Intelligence Series</div>
+      <div class="nl-wordmark">SCAN &amp; <span>SCALE</span></div>
+      <div class="nl-subtitle">QR intelligence for bars, restaurants, cafes, and clubs</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 007</div>
+        <div class="meta-pill teal">F&amp;B Edition</div>
+        <div class="meta-pill outline">5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">70%</div>
+    <div class="hero-text">
+      <div class="hero-kicker">Guests Want Control, Not Chaos — Building the F&amp;B Experience That Creates Regulars</div>
+      <div class="hero-headline">YOUR REGULARS DIDN'T JUST LIKE YOUR BAR.<br>THEY LIKED HOW EASY IT WAS TO BE IN IT.</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+    <div class="opening-quote"><p>"The guests who become regulars aren't the ones who tolerated your service model. They're the ones whose experience felt effortless — like the venue understood how they wanted to spend their time."</p></div>
+
+    <div class="body-text"><p>The hospitality industry has spent decades optimizing for a service model where the guest's comfort depends almost entirely on the speed and attention of staff. That model works — until the moment it doesn't. A slow night with attentive service is a great guest experience. A busy night where staff are stretched is a frustrating one. The variability is structural: guest satisfaction fluctuates with operational load rather than quality.</p>
+    <p>The shift that's been building across hospitality — and that's now measurable in guest preference data — is a growing desire for predictability and control over the service experience. Guests don't want to be managed. They want to be able to manage themselves. <strong>70% of hotel guests prefer app or kiosk interactions for service requests. 82% of Gen Z guests prefer digital check-in.</strong> In food and beverage settings, guests who order digitally spend more — not because they're more enthusiastic about the brand, but because the experience gave them the control to make decisions without external pressure.</p>
+    <p>Self-service isn't a downgrade from hospitality. Done right, it's what hospitality looks like when it's built around the guest's pace rather than the operation's convenience. The venues that understand that distinction are the ones building loyalty with the guests who've been quietly frustrated by the alternative.</p></div>
+
+    <div>
+      <div class="section-label">WHY GUEST CONTROL IS THE HIGHEST-RETURN EXPERIENCE VARIABLE IN 2026</div>
+      <div class="section-head">Four Reasons Giving Guests More Control Raises Both Satisfaction and Revenue.</div>
+      <div class="pillars">
+        <div class="pillar-card" style="border-bottom-color:#D4AF37">
+          <div class="pillar-num">01</div>
+          <div class="pillar-label" style="color:#D4AF37">THE PREFERENCE SHIFT</div>
+          <div class="pillar-head">Guests Who Can Manage Their Own Pace Spend More and Stay Longer.</div>
+          <div class="pillar-body">The dynamic is consistent across F&amp;B research: guests who feel in control of the tempo of their visit — who can order when they want, add on when the mood strikes, and not feel rushed or waiting — make more purchases and extend their stay. Control over experience pace is directly correlated with spending behavior. It's not a preference statement — it's a revenue variable.</div>
+        </div>        <div class="pillar-card" style="border-bottom-color:#00D4AA">
+          <div class="pillar-num">02</div>
+          <div class="pillar-label" style="color:#00D4AA">THE CONTROL PREMIUM</div>
+          <div class="pillar-head">70% of Guests Prefer Self-Service Options for Routine Interactions. They're Not Avoiding Your Staff.</div>
+          <div class="pillar-body">The preference for digital ordering, QR menus, and self-service paths isn't about guests not wanting service — it's about them wanting service on their terms. A guest who orders from a QR menu is still in your venue, still spending, still rating their experience. They're just doing it without the friction of navigating a busy bar when they weren't ready for the interaction. That's the distinction most operators miss.</div>
+        </div>        <div class="pillar-card" style="border-bottom-color:#00D4AA">
+          <div class="pillar-num">03</div>
+          <div class="pillar-label" style="color:#00D4AA">THE SATISFACTION LINK</div>
+          <div class="pillar-head">Guests Who Feel in Control of Their Experience Rate It Higher — Even for the Same Service Quality.</div>
+          <div class="pillar-body">Guest satisfaction research consistently finds that perceived control is a major driver of experience ratings — sometimes independent of actual service speed or quality. A guest who was able to order when they wanted, adjust their visit at their own pace, and leave when they chose rates the experience higher than a guest who was equally well-served but felt at the mercy of staff availability. Control creates the feeling of a great experience even in imperfect conditions.</div>
+        </div>        <div class="pillar-card" style="border-bottom-color:#D4AF37">
+          <div class="pillar-num">04</div>
+          <div class="pillar-label" style="color:#D4AF37">THE STAFF EQUATION</div>
+          <div class="pillar-head">Self-Service Frees Staff for the Interactions That Actually Build the Relationship.</div>
+          <div class="pillar-body">Bar staff are at their best during the interactions that can't be scripted: the recommendation, the conversation, the moment that makes a guest feel like a regular. Those interactions don't happen when staff are processing counter orders as fast as possible. When routine ordering is handled digitally, staff have the bandwidth to do the hospitality work that earns loyalty — not just the transactional work that earns a transaction.</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="stat-row">
+      <div class="stat-card"><div class="stat-num">70%</div><div class="stat-desc">of guests prefer digital or self-service options for routine service interactions — they want control, not less service</div></div>
+      <div class="stat-card"><div class="stat-num">82%</div><div class="stat-desc">of Gen Z guests specifically prefer digital interactions — your fastest-growing demographic has the clearest preference</div></div>
+      <div class="stat-card"><div class="stat-num">23%</div><div class="stat-desc">gross sales lift when digital ordering is available — control over the ordering experience raises total spend</div></div>
+    </div>
+
+        <div class="contrast-block">
+      <div class="contrast-title">The difference is whether your service model gives guests control over their visit or makes every interaction dependent on bar staff availability.</div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A couple comes in for a quiet Wednesday night. They sit, wait to get attention, order, wait for service, consider a second round but don't want to wait again so they settle up and leave. Experience: fine. Duration: 45 minutes. Check: $38. They come back occasionally — when nothing else comes to mind.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same couple. QR at the table. They order when they feel like it, add a food item they wouldn't have flagged down a server for, extend the visit because ordering another round felt effortless. Duration: 90 minutes. Check: $61. Experience: 'that place just feels easy.' They become regulars.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A Gen Z group comes in on a Friday. Bar is packed. They order one round, feel the friction of the second, and decide to go somewhere that seems less of a production. You captured their first round. A competitor captured the rest of their night — not because your bar is worse, but because it felt harder to spend money there.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same group. QR ordering at the high tops. They order whenever they feel like it without coordinating a bar trip. They stay two hours. They order food they found while browsing the menu during a lull. Per-cover for the night is nearly double the group who left after one round. The experience of being in control of their own night made your venue the right choice to stay in.</div>
+        </div>
+    </div>
+
+    <div>
+      <div class="section-label">WHERE GUEST CONTROL DELIVERS THE HIGHEST RETURN IN YOUR OPERATION</div>
+      <div class="section-head">Four Experience Moments Where Predictability and Self-Service Raise Satisfaction and Spend.</div>
+      <div class="usecase-strip">
+        <div class="usecase-item" style="border-left-color:#D4AF37">
+          <div class="uc-label" style="color:#D4AF37">TABLE ORDERING</div>
+          <div class="uc-body"><strong>Table QR ordering is the highest-control experience in an F&amp;B setting — and the one that most directly increases dwell time and per-cover spend.</strong> Guests at tables who can order independently, without coordinating with bar staff, stay longer and order more. The control isn't just a convenience — it's the mechanism that turns a one-round visit into a two-hour spend relationship.</div>
+        </div>        <div class="usecase-item" style="border-left-color:#00D4AA">
+          <div class="uc-label" style="color:#00A884">MENU BROWSING</div>
+          <div class="uc-body"><strong>A digital menu that guests can browse at their own pace is one of the most underestimated revenue tools in F&amp;B.</strong> Guests who read the full menu — who discover the specials, who see the premium options described properly, who have time to consider add-ons — spend more per visit. The browse experience is only possible when the guest is in control of the menu interaction. A counter order doesn't offer it. A QR menu does.</div>
+        </div>        <div class="usecase-item" style="border-left-color:#D4AF37">
+          <div class="uc-label" style="color:#D4AF37">REORDER PATH</div>
+          <div class="uc-body"><strong>The reorder is where the most per-visit spend is lost in F&amp;B settings — because the path to a second round requires effort that many guests decide isn't worth it.</strong> A simple, visible reorder path — a QR code that stays accessible throughout the visit — converts the intention to reorder into an actual order before the moment passes. That conversion is the difference between a one-round visit and a two-round one.</div>
+        </div>        <div class="usecase-item" style="border-left-color:#00D4AA">
+          <div class="uc-label" style="color:#00A884">REGULAR CONVERSION</div>
+          <div class="uc-body"><strong>Guests who feel in control of their experience at your venue are significantly more likely to return than guests who felt managed by it.</strong> The regulars in any bar or restaurant are the guests for whom the venue felt easy — where they knew how to navigate it, where they felt comfortable making decisions at their own pace, and where the experience was consistently predictable. Building control into the guest experience is the fastest path to the repeat visit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text"><p>The guests who become your regulars aren't the ones who had a merely good experience. They're the ones who felt like your venue was designed around how they want to spend time — where ordering was easy, the pace was theirs, and the experience was consistently predictable. Building control into your service model isn't a technology choice. It's a hospitality philosophy that happens to have very measurable revenue implications. The Scan &amp; Scale audit will show you where your current operation is delivering that experience — and where friction is costing you the repeat visit. Free, venue-specific, 10 minutes.</p></div>
+
+        <div class="cta-block">
+      <p class="cta-hint">No pressure — just a clearer picture of what you're working with</p>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/calculator/magic-bands?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank">RUN YOUR FREE VENUE REVENUE AUDIT →</a>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/magicBandsImplementationGuide.html?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank" style="background: #1A2A44; color: #D4AF37; border: 2px solid #D4AF37;">GET THE GUEST INTELLIGENCE DEPLOYMENT GUIDE →</a>
+      <p class="cta-sub">Takes about 10 minutes. You'll walk away with a number, not a pitch.</p>
+    </div>
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Scan &amp; Scale</a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank"><svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Book A Demo</a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN &amp; SCALE</div>
+        <div class="footer-copy">A Seamlessly Production &middot; Guest Intelligence Series &middot; &copy; 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">You're receiving this because you engaged with the Scan &amp; Scale Revenue Audit.</div>
+    </div>
+  </div>
+
+  <div class="nl-calc-banner bottom">
+    <span class="nl-calc-banner-text">The guests who become regulars are the ones who felt in control of their experience. Friction-heavy service models create one-time visitors. <em>See where your current service model is building loyalty and where it's quietly losing repeat visits.</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+</div>
+</body>
+</html>

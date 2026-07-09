@@ -1,0 +1,481 @@
+/* DirectSignup Styles - Updated to match site's black and gold theme */
+.direct-signup-container {
+  min-height: 100vh;
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+}
+
+.direct-signup-inner {
+  max-width: 1400px;
+  height: calc(100vh - 20px);
+  margin: 0 auto;
+  background: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 2px solid #d4af37;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pricing Tiers Container - Side by Side Layout */
+.pricing-tiers-container {
+  background: #222;
+  padding: 20px 25px;
+  border-bottom: 2px solid #d4af37;
+  flex-shrink: 0;
+}
+
+.pricing-title {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.pricing-title h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.pricing-title p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Horizontal Pricing Tiers */
+.pricing-tiers-horizontal {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.pricing-tier {
+  background: #2a2a2a;
+  border: 2px solid #444;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+}
+
+.pricing-tier:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.3);
+  border-color: #d4af37;
+  background: #333;
+}
+
+.pricing-tier.selected {
+  border-color: #d4af37;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+  background: #333;
+}
+
+.pricing-tier.featured {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+  background: #2a2a2a;
+}
+
+.tier-badge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3b82f6;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.tier-header h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.tier-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #d4af37;
+  margin-bottom: 5px;
+}
+
+.tier-period {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.tier-features li {
+  padding: 4px 0;
+  color: #ddd;
+  font-size: 0.9rem;
+  position: relative;
+  padding-left: 18px;
+}
+
+.tier-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.pricing-info {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.pricing-info p {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Registration Form Container - Beneath Tiers */
+.registration-form-container {
+  background: #1a1a1a;
+  padding: 20px 25px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.direct-signup-form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.direct-signup-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.direct-signup-title h3 {
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.direct-signup-title p {
+  color: #ccc;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Environment Badge */
+.environment-badge {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  border: 2px solid #d4af37;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #856404;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3);
+}
+
+/* Registration Form */
+.registration-form {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.hidden {
+  display: none;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #444;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: #2a2a2a;
+  color: #ffffff;
+  font-family: inherit;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  transform: translateY(-1px);
+  background: #333;
+}
+
+.form-input:hover {
+  border-color: #d4af37;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.2);
+  background: #333;
+}
+
+.form-input::placeholder {
+  color: #888;
+}
+
+/* Credit Card Section */
+.credit-card-section {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.15));
+  border-radius: 8px;
+  border: 2px solid rgba(40, 167, 69, 0.4);
+  display: none;
+}
+
+.credit-card-section h4 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #28a745;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.stripe-element-container {
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid #444;
+  background: #2a2a2a;
+  transition: all 0.3s ease;
+}
+
+.stripe-element-container:focus-within {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* POS Error Message */
+.pos-error-message {
+  margin-top: 8px;
+  padding: 10px;
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border-radius: 6px;
+  border: 2px solid #c82333;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Submit Section */
+.submit-section {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  color: #0a0a0a;
+  border: none;
+  padding: 12px 35px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+  transition: all 0.3s ease;
+  font-family: inherit;
+  min-width: 170px;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, #f5d76e, #d4af37);
+}
+
+.submit-button:active {
+  transform: translateY(0) scale(1);
+}
+
+.submit-button:disabled {
+  background: #d4af37;
+  color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Form Footer */
+.form-footer {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.form-footer p {
+  margin: 3px 0;
+  color: #ccc;
+}
+
+/* Error and Success Messages */
+.error-message {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  text-align: center;
+  border: 2px solid #c82333;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+}
+
+.success-message {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  text-align: center;
+  border: 2px solid #20c997;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+}
+
+/* Hide Navbar */
+.direct-signup-container .navbar,
+.direct-signup-container nav {
+  display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .pricing-tiers-horizontal {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pricing-tier {
+    max-width: 320px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .direct-signup-container {
+    padding: 8px;
+  }
+  
+  .pricing-tiers-container,
+  .registration-form-container {
+    padding: 15px 20px;
+  }
+  
+  .pricing-tiers-horizontal {
+    gap: 12px;
+  }
+  
+  .pricing-tier {
+    padding: 15px;
+    min-width: 200px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .credit-card-section {
+    padding: 12px;
+  }
+  
+  .submit-button {
+    padding: 10px 25px;
+    font-size: 14px;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .direct-signup-container {
+    padding: 5px;
+  }
+  
+  .pricing-tiers-container,
+  .registration-form-container {
+    padding: 12px 15px;
+  }
+  
+  .pricing-title h2 {
+    font-size: 1.3rem;
+  }
+  
+  .direct-signup-title h3 {
+    font-size: 1.4rem;
+  }
+  
+  .form-input {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  
+  .submit-button {
+    padding: 8px 20px;
+    font-size: 13px;
+    min-width: 130px;
+  }
+} 

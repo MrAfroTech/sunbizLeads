@@ -1,0 +1,48 @@
+/* Rotating venue photography — shared by link hub + results */
+body.links-hub-page {
+  background: var(--navy);
+}
+
+.links-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.links-bg__slides {
+  position: absolute;
+  inset: 0;
+}
+
+.links-bg__layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.links-bg__layer.is-visible {
+  opacity: 1;
+}
+
+.links-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 42, 68, 0.72) 0%,
+    rgba(42, 42, 42, 0.82) 50%,
+    rgba(26, 26, 26, 0.9) 100%
+  );
+}
+
+.links-page,
+.results-page {
+  position: relative;
+  z-index: 1;
+}

@@ -5,26 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maurice Sanders — Keynote Speaker | Seamlessly</title>
 <link rel="icon" href="data:,">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
+/* Tokens from seamlessly.us main.*.css (:root, buttons, splash) */
 :root {
-  --navy: #1A2A44;
-  --gold: #D4AF37;
-  --teal: #00D4AA;
-  --body-text: #1A1A1A;
-  --muted: #666;
-  --surface: #F4F6F9;
-  --page-bg: #2a2a2a;
+  --primary-dark: #0a0a0a;
+  --primary-light: #f9f9f9;
+  --accent-gold: #d4af37;
+  --accent-gold-light: #f8e8a0;
+  --accent-gold-dark: #b8860b;
+  --gradient-start: #d4af37;
+  --gradient-middle: #f5d76e;
+  --gradient-end: #926f34;
+  --text-dark: #1a1a1a;
+  --text-light: #fff;
+  --text-gray: #8a8a8a;
+  --body-text: #1a1a1a;
+  --muted: #8a8a8a;
+  --surface: #f9f9f9;
+  --page-bg: #0a0a0a;
+  --font-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-primary);
   background: var(--page-bg);
-  color: var(--body-text);
-  line-height: 1.65;
+  color: var(--text-dark);
+  line-height: 1.6;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .speaker-site {
@@ -32,78 +45,111 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   background: #fff;
-  box-shadow: 0 0 40px rgba(0,0,0,0.2);
+  box-shadow: 0 0 60px rgba(0,0,0,0.45);
 }
 
-/* ── HEADER (matches .ph pattern) ── */
+/* ── HEADER ── */
 .ph {
   width: 100%;
   min-height: 48px;
-  background: var(--navy);
+  background: var(--primary-dark);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px 16px;
   padding: 12px 24px;
-  border-bottom: 4px solid var(--gold);
+  border-bottom: 4px solid var(--accent-gold);
 }
-.ph-brand { font-family: 'Bebas Neue', sans-serif; color: var(--gold); font-size: 20px; letter-spacing: 3px; }
-.ph-title { font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 15px; letter-spacing: 2px; }
+.ph-brand {
+  font-family: var(--font-primary);
+  color: var(--accent-gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+.ph-title {
+  font-family: var(--font-primary);
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
 
-/* ── TYPE (matches chaos chapter) ── */
+/* ── TYPE ── */
 .label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-primary);
   font-size: 10px;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--accent-gold);
   text-transform: uppercase;
   letter-spacing: 3px;
   margin-bottom: 8px;
 }
-.label.on-dark { color: var(--gold); }
+.label.on-dark { color: var(--accent-gold-light); }
 .sec-head {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 24px;
-  color: var(--navy);
-  letter-spacing: 1px;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  color: var(--text-dark);
+  letter-spacing: 0.5px;
   margin-bottom: 10px;
-  line-height: 1.15;
+  line-height: 1.2;
 }
-.sec-head.light { color: #fff; }
-.sec-head.gold { color: var(--gold); }
+.sec-head.light { color: var(--text-light); }
+.sec-head.gold { color: var(--accent-gold); }
 .ch-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 6vw, 56px);
-  color: #fff;
-  line-height: 1.02;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: var(--text-light);
+  line-height: 1.15;
   margin-bottom: 16px;
 }
-.ch-title .accent { color: var(--gold); display: block; }
+.ch-title .accent {
+  display: block;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.booking-inner .ch-title .accent,
+.hero-lede-text .accent {
+  display: inline;
+}
 .ch-intro, .intro-serif {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-size: clamp(16px, 2.2vw, 19px);
-  color: rgba(255,255,255,0.88);
+  font-family: var(--font-primary);
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.72);
   line-height: 1.65;
   max-width: 640px;
 }
-.body { font-size: 15px; color: var(--body-text); line-height: 1.72; }
-.body p { margin-bottom: 14px; }
-.body strong { color: var(--navy); font-weight: 700; }
-.body.on-dark { color: rgba(255,255,255,0.9); }
-.body.on-dark strong { color: var(--gold); }
+.body { font-size: 16px; color: var(--body-text); line-height: 1.6; }
+.body p { margin-bottom: 1.25rem; }
+.body strong { color: var(--text-dark); font-weight: 700; }
+.body.on-dark { color: rgba(255,255,255,0.85); }
+.body.on-dark strong { color: var(--accent-gold-light); }
 
 /* ── HERO ── */
 .hero {
-  background: var(--navy);
+  background: var(--primary-dark);
   padding: 48px 24px 56px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 36px;
   align-items: center;
 }
-.hero-copy .rule { width: 72px; height: 4px; background: var(--teal); margin: 24px 0 20px; }
+.hero-copy .rule {
+  width: 72px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  margin: 24px 0 20px;
+}
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .hero-photo {
   justify-self: center;
@@ -114,46 +160,116 @@ body {
   width: 100%;
   max-width: 420px;
   height: auto;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid rgba(212,175,55,0.35);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
 }
 
-/* ── BUTTONS (matches .dl-btns) ── */
+/* Hero headline cards (seamlessly.us–style: dark tiles + gold border) */
+.hero-title-block {
+  margin: 0 0 16px;
+  font-weight: 400;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 1.35;
+}
+.hero-punch-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.hero-punch-card {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 1.9vw, 1.1rem);
+  font-weight: 600;
+  color: var(--text-light);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(212,175,55,0.28);
+  border-radius: 12px;
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+.hero-punch-card:hover {
+  border-color: rgba(212,175,55,0.48);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  transform: translateY(-2px);
+}
+.hero-lede-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.22);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+}
+.hero-lede-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.14rem, 2.84vw, 1.85rem);
+  font-weight: 700;
+  color: var(--text-light);
+  line-height: 1.35;
+  display: block;
+}
+.hero-lede-text .accent {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── BUTTONS (seamlessly.us .primary-button / .secondary-button) ── */
 .btn {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-primary);
   font-size: 15px;
-  letter-spacing: 1px;
-  padding: 12px 22px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 12px 28px;
   border: none;
-  border-radius: 3px;
+  border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  transition: opacity 0.2s, transform 0.15s;
+  transition: box-shadow 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
 }
-.btn:hover { opacity: 0.92; transform: translateY(-1px); }
-.btn-primary { background: var(--teal); color: var(--navy); }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  color: var(--text-dark);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+}
+.btn-primary:hover { box-shadow: 0 7px 20px rgba(212, 175, 55, 0.45); }
 .btn-secondary {
-  background: var(--gold);
-  color: var(--navy);
-  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--text-light);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  font-weight: 600;
 }
+.btn-secondary:hover { border-color: var(--accent-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.section:not(.navy) .btn-secondary {
+  color: var(--text-dark);
+  border-color: rgba(212, 175, 55, 0.55);
+}
+.section:not(.navy) .btn-secondary:hover { border-color: var(--accent-gold); }
 .btn-outline {
   background: transparent;
-  color: var(--gold);
-  border: 2px solid var(--gold);
+  color: var(--text-light);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  font-weight: 600;
 }
-.btn-outline:hover { background: rgba(212,175,55,0.12); }
+.btn-outline:hover { border-color: var(--accent-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
 /* ── SECTION SHELL ── */
 .section { padding: 48px 24px; }
 .section.tight-top { padding-top: 32px; }
 .section.surface { background: var(--surface); }
-.section.navy { background: var(--navy); color: #fff; }
+.section.navy { background: var(--primary-dark); color: var(--text-light); }
 
 /* ── CREDIBILITY BAR ── */
 .cred-label { text-align: center; max-width: 720px; margin: 0 auto 8px; }
@@ -161,7 +277,7 @@ body {
   text-align: center;
   font-size: 13px;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--text-dark);
   letter-spacing: 0.5px;
   margin-bottom: 28px;
 }
@@ -181,7 +297,7 @@ body {
   opacity: 0.95;
 }
 
-/* ── TOPIC CARDS (grid-card + light variant) ── */
+/* ── TOPIC CARDS ── */
 .topic-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -190,41 +306,51 @@ body {
 }
 .topic-card {
   background: #fff;
-  border: 1px solid rgba(26,42,68,0.12);
-  border-left: 4px solid var(--navy);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 4px solid var(--accent-gold);
   padding: 22px 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-height: 100%;
 }
 .topic-card .topic-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  color: var(--navy);
-  letter-spacing: 0.5px;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .topic-card .topic-body {
   font-size: 14px;
   color: var(--body-text);
-  line-height: 1.68;
+  line-height: 1.65;
 }
 
 /* ── SIGNATURE / CALLOUT ── */
 .callout {
-  background: var(--surface);
-  border-left: 4px solid var(--gold);
+  background: rgba(255,255,255,0.05);
+  border-left: 4px solid var(--accent-gold);
   padding: 22px 24px;
-  font-size: 15px;
-  color: var(--navy);
-  line-height: 1.7;
+  font-size: 16px;
+  color: var(--text-dark);
+  line-height: 1.65;
   margin-top: 16px;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 12px 12px 0;
 }
-.callout strong { color: var(--gold); }
+.section.surface .callout {
+  background: rgba(10,10,10,0.04);
+}
+.callout strong {
+  color: var(--accent-gold-dark);
+}
 .sig-actions { margin-top: 20px; }
 
 /* ── VIDEO ── */
@@ -236,9 +362,9 @@ body {
 }
 .video-slot {
   position: relative;
-  background: #e8ecf2;
-  border: 1px solid rgba(26,42,68,0.12);
-  border-radius: 4px;
+  background: #111;
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
 }
@@ -264,13 +390,18 @@ body {
   align-items: start;
   margin-top: 12px;
 }
+.bio-photo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 .bio-photo img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 4px;
-  border: 1px solid rgba(26,42,68,0.12);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(212,175,55,0.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
 .bio-callouts {
   display: flex;
@@ -281,21 +412,62 @@ body {
 .pill {
   display: inline-flex;
   align-items: center;
-  background: var(--navy);
-  color: #fff;
+  background: var(--primary-dark);
+  color: var(--text-light);
+  font-family: var(--font-primary);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  padding: 6px 14px;
-  border-radius: 20px;
+  padding: 8px 16px;
+  border-radius: 30px;
 }
-.pill.gold { background: var(--gold); color: var(--navy); }
+.pill.gold {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  color: var(--text-dark);
+}
+
+/* ── BOOK (align copy column to cover height; description bottoms-out with image) ── */
+.book-section .bio-grid {
+  align-items: stretch;
+  margin-top: 0;
+}
+.book-section .bio-photo {
+  display: flex;
+  align-items: flex-start;
+}
+.book-section .bio-photo img {
+  align-self: stretch;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
+}
+.book-section .bio-text {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.book-section .book-release-line {
+  margin-bottom: 1rem;
+}
+.book-section .book-description {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+.book-section .book-description p {
+  margin-bottom: 0;
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+}
 
 /* ── BOOKING ── */
 .booking-inner { max-width: 920px; margin: 0 auto; text-align: center; }
 .booking-inner .ch-title { margin-bottom: 28px; }
-.booking-inner .ch-title .accent { display: inline; color: var(--gold); }
 .cta-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -309,10 +481,11 @@ body {
 .booking-types {
   margin-top: 28px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
+  font-family: var(--font-primary);
 }
 
 .section-heading-center {
@@ -327,6 +500,8 @@ body {
   .hero-copy .intro-serif { margin-left: auto; margin-right: auto; }
   .hero-cta { justify-content: center; }
   .hero-photo { order: -1; }
+  .hero-punch-cards { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .hero-lede-card { text-align: left; max-width: 560px; margin-left: auto; margin-right: auto; }
   .topic-grid { grid-template-columns: repeat(2, 1fr); }
   .cta-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -335,8 +510,15 @@ body {
   .topic-grid { grid-template-columns: 1fr; }
   .video-grid { grid-template-columns: 1fr; }
   .bio-grid { grid-template-columns: 1fr; }
+  .book-section .book-description {
+    flex: none;
+    justify-content: flex-start;
+  }
+  .book-section .book-description p {
+    text-align: left;
+  }
   .cta-grid { grid-template-columns: 1fr; }
-  .ph-brand { font-size: 17px; }
+  .ph-brand { font-size: 11px; letter-spacing: 2px; }
   .hero-cta { flex-direction: column; }
   .hero-cta .btn { width: 100%; }
 }
@@ -354,7 +536,16 @@ body {
   <section class="hero" aria-label="Hero">
     <div class="hero-copy">
       <div class="label on-dark">Keynote speaker</div>
-      <h1 class="ch-title">The Hospitality Industry Has a Flow Problem. <span class="accent">Maurice Sanders Fixes It.</span></h1>
+      <h1 class="hero-title-block">
+        <div class="hero-punch-cards" role="group" aria-label="Problems addressed">
+          <span class="hero-punch-card">Long lines.</span>
+          <span class="hero-punch-card">Fragmented tech.</span>
+          <span class="hero-punch-card">Invisible data.</span>
+        </div>
+        <div class="hero-lede-card">
+          <span class="hero-lede-text">Maurice Sanders has spent years diagnosing where hospitality revenue disappears — and <span class="accent">built the solution by hand.</span></span>
+        </div>
+      </h1>
       <p class="intro-serif">Keynote speaker on AI automation, mobile ordering, and consolidating hospitality tech stacks — from venues and stadiums to festivals and resorts.</p>
       <div class="rule" aria-hidden="true"></div>
       <div class="hero-cta">
@@ -363,8 +554,7 @@ body {
       </div>
     </div>
     <div class="hero-photo">
-      <!-- Add headshot here -->
-      <img src="/assets/speaker/headshots/maurice-headshot-hero.jpg" alt="Maurice Sanders" />
+      <img src="/mauriceProfile.png" alt="Maurice Sanders" />
     </div>
   </section>
 
@@ -373,14 +563,9 @@ body {
     <p class="label cred-label">Topics that move rooms in these industries:</p>
     <p class="cred-industries">Hospitality Tech · Sports &amp; Entertainment · F&amp;B Operations · SaaS &amp; Startups</p>
     <div class="logo-row">
-      <!-- Add Seamlessly logo -->
-      <img src="/assets/speaker/logos/seamlessly-logo.svg" alt="Seamlessly" />
-      <!-- Add One Million Cups logo -->
-      <img src="/assets/speaker/logos/one-million-cups.png" alt="One Million Cups" />
-      <!-- Add logo -->
-      <img src="/assets/speaker/logos/logo-placeholder-3.svg" alt="" />
-      <!-- Add logo -->
-      <img src="/assets/speaker/logos/logo-placeholder-4.svg" alt="" />
+      <img src="/seamlesslyLogo2.png" alt="Seamlessly" />
+      <img src="/oneMillionCupsThumbnail.png" alt="One Million Cups" />
+      <img src="/toastmasters.jpeg" alt="Toastmasters" />
     </div>
   </section>
 
@@ -424,34 +609,50 @@ body {
   <section class="section">
     <div class="section-heading-center">
       <p class="label">Clips &amp; stages</p>
-      <h2 class="sec-head">See Maurice in Action</h2>
+      <h2 class="sec-head">Portfolio</h2>
     </div>
     <div class="video-grid">
       <div class="video-slot">
-        <!-- Embed video URL here (replace about:blank) -->
-        <iframe src="about:blank" title="Maurice Sanders — Speaking Reel 1" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/TWaCVoXoZH4" title="Maurice Sanders — Speaking Reel 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       <div class="video-slot">
-        <!-- Embed video URL here (replace about:blank) -->
-        <iframe src="about:blank" title="Maurice Sanders — Speaking Reel 2" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/XpeYCHa__tU" title="Maurice Sanders — Speaking Reel 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
     <p class="video-footnote section-heading-center">More footage available upon request.</p>
   </section>
 
-  <!-- 6. BIO -->
+  <!-- 6. BOOK -->
+  <section class="section surface book-section" aria-label="Book">
+    <div class="bio-grid">
+      <div class="bio-photo">
+        <img src="/chaos-mastery-cover.png" alt="Chaos Mastery: Seamless Hospitality For The 21st Century book cover" />
+      </div>
+      <div class="bio-text">
+        <p class="body book-release-line"><strong>Release Date:</strong> May 3, 2026</p>
+        <div class="body book-description">
+          <p><strong>Chaos Mastery</strong> is written for <strong>hospitality operators</strong> — restaurant owners, bar managers, venue directors, hotel operators, and event producers. The operators who thrive are not the ones who <em>react quickly to chaos</em> — they are the ones who <strong>build systems that prevent chaos from happening in the first place</strong>. The book spans <strong>4,000 years</strong> of hospitality history, from <em>ancient Rome</em> to <em>AI-powered intelligent venues of 2026</em>, documenting how every era's top operators mastered their moment by treating their venue as a <em>living system</em> rather than <em>a series of daily emergencies</em>. It also addresses the <strong>modern operational pain points</strong> that drain revenue and staff — <em>long wait times, disjointed tech stacks, and overworked teams</em> — showing how <strong>smart systems</strong> can reduce stress, streamline operations, and make running a venue far more <strong>predictable and profitable</strong>. Readers will learn how to <strong>optimize workflows</strong>, design environments that <em>guide guest behavior naturally</em>, leverage technology <em>without creating chaos</em>, and ultimately create venues that function efficiently even under pressure, turning <em>unpredictable days</em> into <strong>manageable, repeatable successes</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. BIO -->
   <section class="section surface">
     <div class="section-heading-center">
       <h2 class="sec-head">About Maurice</h2>
     </div>
     <div class="bio-grid">
-      <div class="bio-photo">
-        <!-- Add bio headshot -->
-        <img src="/assets/speaker/headshots/maurice-headshot-bio.jpg" alt="Maurice Sanders" />
+      <div class="bio-photo-stack">
+        
+        <div class="bio-photo">
+          <img src="/profilePhotoSecond.jpeg" alt="Maurice Sanders" />
+        </div>
       </div>
       <div class="bio-text">
         <div class="body">
-          <!-- Insert bio here -->
+          <p>A serial entrepreneur with <strong>27 years</strong> of experience across <strong>sales, logistics, publishing, and technology</strong>, he has spent his career <em>identifying inefficiencies and building systems that work</em>. As a guest, he&rsquo;s seen <strong>firsthand</strong> the <em>frustrations and bottlenecks in hospitality</em> — <em>long lines, inconsistent service, and disjointed operations</em> — and has made it his life&rsquo;s mission to <strong>optimize leisure time</strong> while creating better work environments for those who serve.</p>
+          <p><strong>Driven by this mission</strong>, he has conducted extensive research into the history of hospitality, tracing <strong>4,000 years</strong> of evolution from the <em>bustling taverns of ancient Rome</em> to the <em>AI-powered intelligent venues of today</em>. His research reveals how top operators across eras mastered their venues by treating them as <strong>living systems</strong> rather than <em>reacting to daily emergencies</em>. By studying these historical insights, he highlights <strong>timeless principles</strong> of <em>operational design, guest experience, and staff management</em> that continue to shape how hospitality functions in <em>modern times</em>.</p>
         </div>
         <div class="bio-callouts">
           <span class="pill">Founder &amp; CEO, Seamlessly</span>
@@ -461,7 +662,7 @@ body {
     </div>
   </section>
 
-  <!-- 7. BOOKING -->
+  <!-- 8. BOOKING -->
   <section class="section navy booking">
     <div class="booking-inner">
       <p class="label on-dark">Booking</p>

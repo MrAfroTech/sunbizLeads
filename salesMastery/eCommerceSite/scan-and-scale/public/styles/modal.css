@@ -1,0 +1,243 @@
+.sns-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.sns-modal-overlay[hidden] {
+  display: none;
+}
+
+.sns-modal {
+  background: #1A2A44;
+  border-radius: 6px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  padding: 36px 32px 28px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+}
+
+.sns-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.sns-modal-close:hover {
+  color: #fff;
+}
+
+.sns-modal-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #00D4AA;
+  margin-bottom: 8px;
+}
+
+.sns-modal-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #D4AF37;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.sns-modal-text {
+  font-size: 17px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+
+.sns-modal-list {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sns-modal-list li {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.45;
+}
+
+.sns-modal-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: #00D4AA;
+  border-radius: 50%;
+}
+
+.sns-modal-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.sns-modal-cta {
+  display: block;
+  background: #D4AF37;
+  color: #1A2A44;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  padding: 14px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  margin-bottom: 12px;
+  transition: opacity 0.2s;
+}
+
+.sns-modal-cta:hover {
+  opacity: 0.85;
+}
+
+.sns-modal-dismiss {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.35);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px;
+  transition: color 0.2s;
+}
+
+.sns-modal-dismiss:hover {
+  color: rgba(255,255,255,0.6);
+}
+
+.sns-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sns-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sns-modal-field > span:first-child {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sns-modal-required {
+  color: #e85c5c;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.sns-modal-field-hint {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+}
+
+.sns-modal-field--phone {
+  gap: 6px;
+}
+
+.sns-modal-form-note {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.sns-modal-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.sns-modal-field input:focus {
+  outline: none;
+  border-color: #00D4AA;
+}
+
+.sns-modal-form-error {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff8a8a;
+  margin: 0;
+}
+
+.sns-modal-form .sns-modal-cta {
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.sns-modal-opt-out {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+
+.sns-modal-opt-out:hover {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sns-modal-form .sns-modal-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,31 @@
+{
+  "name": "lightspeed-integration-lambda",
+  "version": "1.0.0",
+  "description": "AWS Lambda function for Lightspeed POS integration",
+  "main": "lightspeed-lambda-handler.js",
+  "scripts": {
+    "test": "node test-local.js",
+    "deploy": "./deploy.sh",
+    "create-tables": "node create-tables.js"
+  },
+  "keywords": [
+    "lightspeed",
+    "pos",
+    "oauth",
+    "aws",
+    "lambda",
+    "dynamodb"
+  ],
+  "author": "Seamless Marketplace",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1000.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

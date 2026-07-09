@@ -1,0 +1,218 @@
+.sports-lead-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.sports-lead-modal-overlay[hidden] {
+  display: none;
+}
+
+.sports-lead-modal {
+  background: #2e2210;
+  border: 1px solid rgba(200, 164, 74, 0.25);
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  padding: 36px 32px 24px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.sports-lead-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(245, 236, 215, 0.5);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.sports-lead-modal-close:hover {
+  color: #f5ecd7;
+}
+
+.sports-lead-modal-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #e8c97a;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+
+.sports-lead-modal-headline strong {
+  color: #f5ecd7;
+  font-weight: 700;
+}
+
+.sports-lead-modal-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(245, 236, 215, 0.9);
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.sports-lead-modal-text strong {
+  color: #e8c97a;
+  font-weight: 700;
+}
+
+.sports-lead-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.sports-lead-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sports-lead-modal-field > span:first-child {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #c8a44a;
+}
+
+.sports-lead-modal-required {
+  color: #e05c3a;
+}
+
+.sports-lead-modal-field-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #9a8060;
+  line-height: 1.4;
+}
+
+.sports-lead-modal-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgba(200, 164, 74, 0.25);
+  border-radius: 10px;
+  background: #212121;
+  color: #f5ecd7;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.sports-lead-modal-field input:focus {
+  outline: none;
+  border-color: #c8a44a;
+}
+
+.sports-lead-modal-form-error {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff8a8a;
+  margin: 0;
+}
+
+.sports-lead-modal-cta {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #c8a44a, #e8c97a);
+  color: #1a1208;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.sports-lead-modal-cta:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sports-lead-modal-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sports-lead-modal-opt-out {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #9a8060;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px;
+  text-decoration: underline;
+}
+
+.ms-offer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.ms-offer-card {
+  background: #212121;
+  border: 1px solid rgba(200, 164, 74, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+}
+
+.ms-offer-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c8a44a;
+  margin-bottom: 8px;
+}
+
+.ms-offer-sub {
+  font-weight: 700;
+  color: #f5ecd7;
+  margin-bottom: 10px;
+}
+
+.ms-offer-body {
+  font-size: 0.9rem;
+  color: #9a8060;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.ms-offer-card .watch-vs-order-cta-btn {
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 640px) {
+  .ms-offer-grid {
+    grid-template-columns: 1fr;
+  }
+  .watch-vs-order-stat-strip {
+    flex-direction: column;
+  }
+  .watch-vs-order-stat-item:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid rgba(200, 164, 74, 0.15);
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "name": "10 - Post-Speaking Leverage",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Speaking Event Completed",
+        "formDescription": "Enter details from your recent speaking engagement to trigger thank-you emails, LinkedIn recap, and content repurposing.",
+        "formFields": {
+          "values": [
+            {"fieldType": "text", "fieldLabel": "Event Name", "placeholder": "e.g. Hospitality Tech Summit 2026", "requiredField": true, "fieldName": "event_name"},
+            {"fieldType": "date", "fieldLabel": "Event Date", "requiredField": true, "fieldName": "event_date"},
+            {"fieldType": "text", "fieldLabel": "Organizer Name", "placeholder": "e.g. Jane Smith", "requiredField": true, "fieldName": "organizer_name"},
+            {"fieldType": "email", "fieldLabel": "Organizer Email", "placeholder": "organizer@example.com", "requiredField": true, "fieldName": "organizer_email"},
+            {"fieldType": "number", "fieldLabel": "Audience Size", "placeholder": "e.g. 150", "requiredField": false, "defaultValue": "0", "fieldName": "audience_size"},
+            {"fieldType": "textarea", "fieldLabel": "Key Topics Covered", "placeholder": "Mobile ordering, unified tech stacks...", "requiredField": false, "fieldName": "key_topics"},
+            {"fieldType": "textarea", "fieldLabel": "Notable Audience Reactions", "placeholder": "Great questions about ROI...", "requiredField": false, "fieldName": "notable_reactions"},
+            {"fieldType": "text", "fieldLabel": "Talk Recording URL", "placeholder": "https://...", "requiredField": false, "fieldName": "talk_recording_url"},
+            {"fieldType": "checkbox", "fieldLabel": "I have attendee list for follow-up", "requiredField": false, "fieldName": "attendee_list_available", "fieldOptions": {"values": [{"option": "Yes"}]}}
+          ]
+        }
+      },
+      "id": "form-trigger",
+      "name": "Speaking Event Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize form data for downstream nodes (form field names may vary by n8n version)\nconst data = $input.first().json;\nconst body = data.body || data;\nreturn [{\n  json: {\n    event_name: body.event_name || body.eventName || '',\n    event_date: body.event_date || body.eventDate || '',\n    organizer_name: body.organizer_name || body.organizerName || '',\n    organizer_email: body.organizer_email || body.organizerEmail || '',\n    audience_size: parseInt(body.audience_size || body.audienceSize || 0) || 0,\n    key_topics: body.key_topics || body.keyTopics || '',\n    notable_reactions: body.notable_reactions || body.notableReactions || '',\n    talk_recording_url: body.talk_recording_url || body.talkRecordingUrl || '',\n    attendee_list_available: !!body.attendee_list_available || !!body.attendeeListAvailable\n  }\n}];"
+      },
+      "id": "normalize-form",
+      "name": "Normalize Form Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {"role": "system", "content": "Write a warm thank you email to event organizer after speaking. Express gratitude, share positive feedback you received, ask for testimonial, and request referrals to other events. 100-150 words. Professional but personal."},
+            {"role": "user", "content": "=Write thank you email for:\n\nEvent: {{ $json.event_name }}\nDate: {{ $json.event_date }}\nOrganizer: {{ $json.organizer_name }} ({{ $json.organizer_email }})\nKey topics: {{ $json.key_topics }}\nNotable reactions: {{ $json.notable_reactions }}\n\nTemplate structure:\n1. Thank them for opportunity\n2. Share 1-2 positive attendee comments (use notable_reactions if provided)\n3. Ask: \"Would you be willing to provide a short testimonial?\"\n4. Ask: \"Know of other events that might benefit from this content?\"\n5. Offer to stay connected\n\nTone: Grateful, professional, not pushy."}
+          ]
+        },
+        "options": {"temperature": 0.7}
+      },
+      "id": "write-thankyou",
+      "name": "Write Organizer Thank You",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 250],
+      "credentials": {"openAiApi": {"id": "openai-cred", "name": "OpenAI account"}}
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $('Normalize Form Data').item.json.organizer_email }}",
+        "subject": "=Thank you for {{ $('Normalize Form Data').item.json.event_name }}!",
+        "emailType": "text",
+        "message": "={{ $json.message.content }}"
+      },
+      "id": "send-thankyou",
+      "name": "Send to Organizer",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [850, 250],
+      "credentials": {"gmailOAuth2Api": {"id": "gmail-cred", "name": "Gmail account"}}
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Opportunities", "mode": "name"},
+        "columnToMatchOn": "event_name",
+        "valueToMatchOn": "={{ $('Normalize Form Data').item.json.event_name }}",
+        "values": {"mappingMode": "defineBelow", "value": {"status": "Completed - Follow-Up Sent", "response": "Thank you sent", "last_activity": "={{ $now }}"}}
+      },
+      "id": "mark-complete",
+      "name": "Mark Event Complete",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 250],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {
+        "conditions": {"options": {"caseSensitive": true}, "conditions": [{"id": "attendee-check", "leftValue": "={{ $('Normalize Form Data').item.json.attendee_list_available }}", "rightValue": true, "operator": {"type": "boolean", "operation": "true"}}], "combinator": "and"},
+        "options": {}
+      },
+      "id": "check-attendees",
+      "name": "Check Attendee Access",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [650, 400]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {"values": [{"role": "system", "content": "Write follow-up email to speaking event attendees. Thank them, offer free resource, invite to connect. 80-100 words. Value-focused."}, {"role": "user", "content": "=Event: {{ $('Normalize Form Data').item.json.event_name }}\nTopics: {{ $('Normalize Form Data').item.json.key_topics }}\n\nWrite email offering: Slide deck download, Free \"Hospitality Tech Stack Audit Checklist\", 15-min consult invite, LinkedIn connection. CTA: Click here to download."}]},
+        "options": {"temperature": 0.7}
+      },
+      "id": "write-attendee",
+      "name": "Write Attendee Email",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 400],
+      "credentials": {"openAiApi": {"id": "openai-cred", "name": "OpenAI account"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const attendeeEmail = $json.message?.content || '';\nconst eventName = $('Normalize Form Data').item.json.event_name;\nreturn [{ json: { campaign_name: `${eventName} - Follow-Up`, subject: `Great connecting at ${eventName}`, body: attendeeEmail, segment: 'speaking_attendees', notes: 'Attendees from speaking gig' } }];"
+      },
+      "id": "format-campaign",
+      "name": "Format for Email Tool",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 400]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o-mini",
+        "messages": {"values": [{"role": "system", "content": "Write LinkedIn post recapping speaking event. 150-200 words. Engaging, humble-brag acceptable, educational tone."}, {"role": "user", "content": "=Event: {{ $('Normalize Form Data').item.json.event_name }}\nAttendees: {{ $('Normalize Form Data').item.json.audience_size }}\nTopics: {{ $('Normalize Form Data').item.json.key_topics }}\nVideo: {{ $('Normalize Form Data').item.json.talk_recording_url }}\n\nWrite LinkedIn post: Hook, Event details, Thank organizers, Key takeaway, CTA. Hashtags: #hospitalitytech #guestexperience"}]},
+        "options": {"temperature": 0.7}
+      },
+      "id": "write-linkedin",
+      "name": "Write Speaking Recap Post",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 550],
+      "credentials": {"openAiApi": {"id": "openai-cred", "name": "OpenAI account"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const linkedinPost = $json.message?.content || '';\nconst eventName = $('Normalize Form Data').item.json.event_name;\nconst talkUrl = $('Normalize Form Data').item.json.talk_recording_url || '';\nreturn [{ json: { event: eventName, linkedin_post: linkedinPost, newsletter_content: 'Key takeaway from talk', video_link: talkUrl } }];"
+      },
+      "id": "store-content",
+      "name": "Store Repurposing Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 550]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {"__rl": true, "value": "={{ $credentials.googleSheets.sheetId }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "Speaking Assets", "mode": "name"},
+        "columns": {"mappingMode": "defineBelow", "value": {"topic_title": "={{ $json.event }}", "one_liner": "={{ $json.linkedin_post }}", "target_audience": "Event Attendees", "key_takeaways": "={{ $json.newsletter_content }}", "talk_length": "Full Talk", "past_delivery": "={{ $json.event }}", "video_link": "={{ $json.video_link }}", "created_date": "={{ $now }}"}}
+      },
+      "id": "schedule-content",
+      "name": "Schedule Content Repurposing",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 550],
+      "credentials": {"googleSheetsOAuth2Api": {"id": "google-sheets-cred", "name": "Google Sheets account"}}
+    },
+    {
+      "parameters": {"amount": 7, "unit": "days"},
+      "id": "wait-testimonial",
+      "name": "Wait 7 Days for Testimonial",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1250, 250]
+    },
+    {
+      "parameters": {"fromEmail": "your-email@domain.com", "toEmail": "your-email@domain.com", "subject": "=Follow up on {{ $('Normalize Form Data').item.json.event_name }} testimonial", "emailType": "text", "message": "=It's been 7 days since you spoke at {{ $('Normalize Form Data').item.json.event_name }}.\n\nAction items:\n- [ ] Did organizer send testimonial?\n- [ ] Any referrals to other events?\n- [ ] LinkedIn post published?\n- [ ] Attendees added to nurture sequence?\n- [ ] Video clip created?\n\nIf no testimonial, send gentle reminder.", "options": {}},
+      "id": "check-testimonial",
+      "name": "Check for Testimonial",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1450, 250],
+      "credentials": {"smtp": {"id": "smtp-cred", "name": "SMTP account"}}
+    }
+  ],
+  "connections": {
+    "Speaking Event Form": {"main": [[{"node": "Normalize Form Data", "type": "main", "index": 0}]]},
+    "Normalize Form Data": {"main": [[{"node": "Write Organizer Thank You", "type": "main", "index": 0}, {"node": "Check Attendee Access", "type": "main", "index": 0}, {"node": "Write Speaking Recap Post", "type": "main", "index": 0}]]},
+    "Write Organizer Thank You": {"main": [[{"node": "Send to Organizer", "type": "main", "index": 0}]]},
+    "Send to Organizer": {"main": [[{"node": "Mark Event Complete", "type": "main", "index": 0}]]},
+    "Mark Event Complete": {"main": [[{"node": "Wait 7 Days for Testimonial", "type": "main", "index": 0}]]},
+    "Wait 7 Days for Testimonial": {"main": [[{"node": "Check for Testimonial", "type": "main", "index": 0}]]},
+    "Check Attendee Access": {"main": [[{"node": "Write Attendee Email", "type": "main", "index": 0}]]},
+    "Write Attendee Email": {"main": [[{"node": "Format for Email Tool", "type": "main", "index": 0}]]},
+    "Write Speaking Recap Post": {"main": [[{"node": "Store Repurposing Content", "type": "main", "index": 0}]]},
+    "Store Repurposing Content": {"main": [[{"node": "Schedule Content Repurposing", "type": "main", "index": 0}]]}
+  },
+  "pinData": {},
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-15T00:00:00.000Z",
+  "versionId": "2"
+}

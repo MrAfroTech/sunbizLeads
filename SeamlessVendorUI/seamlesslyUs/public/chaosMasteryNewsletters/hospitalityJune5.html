@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan &amp; Scale — Graduation Season: Sports Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #111;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+}
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+
+.nl-calc-banner {
+  width: 100%;
+  background: #1A2A44;
+  border-bottom: 3px solid #D4AF37;
+  padding: 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.nl-calc-banner.bottom {
+  border-bottom: none;
+  border-top: 3px solid #D4AF37;
+}
+.nl-calc-banner-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+.nl-calc-banner-text em {
+  font-style: normal;
+  color: #D4AF37;
+  font-weight: 600;
+}
+.nl-calc-banner-btn {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #1A2A44;
+  background: #D4AF37;
+  padding: 14px 28px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: opacity 0.2s;
+}
+.nl-calc-banner-btn:hover { opacity: 0.88; }
+
+.nl-header { background: #1A2A44; border-bottom: 4px solid #D4AF37; position: relative; overflow: hidden; }
+.nl-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.04) 79px, rgba(212,175,55,0.04) 80px),
+    repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px);
+  z-index: 1;
+}
+.nl-header-inner { padding: 32px 40px 24px; position: relative; z-index: 2; }
+.nl-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #00D4AA; text-transform: uppercase; margin-bottom: 8px; }
+.nl-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; letter-spacing: 3px; line-height: 1; margin-bottom: 2px; }
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.5; }
+.nl-issue-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+
+.hero-band {
+  background: #D4AF37;
+  padding: 28px 40px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.hero-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: #1A2A44; line-height: 1; flex-shrink: 0; opacity: 0.15; }
+.hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.6); margin-bottom: 6px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #1A2A44; letter-spacing: 1px; line-height: 1.05; }
+
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+.opening-quote { border-left: 4px solid #D4AF37; padding: 16px 20px; background: #FEFCF3; border-radius: 0 4px 4px 0; }
+.opening-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: #1A2A44; line-height: 1.65; }
+
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.8; }
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+
+.section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #D4AF37; margin-bottom: 8px; }
+.section-head { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 14px; line-height: 1; }
+
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pillar-card {
+  background: #1A2A44;
+  border-radius: 4px;
+  padding: 20px;
+  border-bottom: 3px solid #D4AF37;
+  position: relative;
+  overflow: hidden;
+}
+.pillar-card:nth-child(2) { border-color: #00D4AA; }
+.pillar-card:nth-child(3) { border-color: #00D4AA; }
+.pillar-card:nth-child(4) { border-color: #D4AF37; }
+.pillar-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: rgba(255,255,255,0.06);
+  position: absolute;
+  top: 8px; right: 12px;
+  line-height: 1;
+}
+.pillar-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 6px; }
+.pillar-card:nth-child(2) .pillar-label,
+.pillar-card:nth-child(3) .pillar-label { color: #00D4AA; }
+.pillar-head { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; letter-spacing: 0.5px; margin-bottom: 8px; }
+.pillar-body { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+.contrast-block { background: #F4F6F9; border-radius: 4px; padding: 24px; }
+.contrast-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 16px; }
+.contrast-row { display: flex; gap: 16px; margin-bottom: 12px; }
+.contrast-row:last-child { margin-bottom: 0; }
+.contrast-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.contrast-tag.tactic { background: rgba(224,82,82,0.12); color: #C03C3C; }
+.contrast-tag.framework { background: rgba(0,212,170,0.12); color: #00A884; }
+.contrast-text { font-size: 13.5px; color: #333; line-height: 1.6; }
+
+.usecase-strip { display: flex; flex-direction: column; gap: 8px; }
+.usecase-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #F9FAFB;
+  border-left: 3px solid transparent;
+  border-radius: 0 3px 3px 0;
+}
+.usecase-item:nth-child(odd) { border-color: #D4AF37; }
+.usecase-item:nth-child(even) { border-color: #00D4AA; }
+.uc-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: #D4AF37; flex-shrink: 0; width: 90px; padding-top: 1px; }
+.usecase-item:nth-child(even) .uc-label { color: #00A884; }
+.uc-body { font-size: 13px; color: #1A2A44; line-height: 1.55; }
+.uc-body strong { font-weight: 700; }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-card { background: #1A2A44; border-radius: 4px; padding: 18px 16px; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #D4AF37; line-height: 1; margin-bottom: 6px; }
+.stat-card:nth-child(2) .stat-num { color: #00D4AA; }
+.stat-desc { font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+.cta-block { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.cta-hint { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.4); text-align: center; }
+.cta-btn { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; padding: 18px 28px; border-radius: 4px; text-decoration: none; display: block; text-align: center; background: #D4AF37; color: #1A2A44; transition: opacity 0.2s; }
+.cta-btn:hover { opacity: 0.88; }
+.cta-sub { font-size: 12px; color: rgba(26,42,68,0.5); text-align: center; font-style: italic; }
+
+.nl-footer { background: #1A2A44; padding: 28px 40px; border-top: 4px solid #D4AF37; }
+.social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.social-btn { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; padding: 8px 14px; border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.2s; text-align: center; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-icon { width: 14px; height: 14px; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(212,175,55,0.2); padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #D4AF37; letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.footer-note { font-size: 10.5px; color: rgba(255,255,255,0.35); font-style: italic; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-calc-banner">
+    <span class="nl-calc-banner-text">Prom and graduation season means packed stands, group ticket surges, and fans you'll never see again — unless you have a system. <em>Curious what that window is worth to your venue?</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Scan &amp; Scale — Fan Intelligence Series</div>
+      <div class="nl-wordmark">SCAN &amp; <span>SCALE</span></div>
+      <div class="nl-subtitle">QR intelligence for sports teams, stadiums, and live event venues</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 003</div>
+        <div class="meta-pill teal">Sports Edition</div>
+        <div class="meta-pill outline">5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">74</div>
+    <div class="hero-text">
+      <div class="hero-kicker">Prom & Graduation Season — The Fan Acquisition Window</div>
+      <div class="hero-headline">THOUSANDS OF NEW FANS IN YOUR MARKET RIGHT NOW.<br>MOST TEAMS WON'T CAPTURE ONE.</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="opening-quote">
+      <p>"Prom and graduation season is the biggest new-fan acquisition window of the year. Most teams let it close without capturing a single contact."</p>
+    </div>
+
+    <div class="body-text">
+      <p>Graduation season runs roughly six weeks. In that window, families are celebrating, students are transitioning, and a group of people who might not have thought about your team in months are suddenly in a mood to spend money on experiences.</p>
+      <p>That attention doesn't stick on its own. Gen Z fans — who index highest during preseason at 74% tune-in — are the most front-loaded audience in sports. They're paying attention early. If you don't capture them now, you're trying to win them back mid-season when the noise is louder and the competition for their time is steeper.</p>
+      <p>The question isn't whether graduation season is a good moment. It clearly is. The question is whether you have anything set up to turn that moment into a repeat fan.</p>
+    </div>
+
+    <div>
+      <div class="section-label">WHY THIS WINDOW IS DIFFERENT FROM ANY OTHER</div>
+      <div class="section-head">Families Are Already in a Celebration Mindset. That Changes Everything.</div>
+      <div class="pillars">
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <div class="pillar-label">THE AUDIENCE SHIFT</div>
+          <div class="pillar-head">Gen Z Tunes In Early — Then Drifts If You Don't Hold Them.</div>
+          <div class="pillar-body">74% of Gen Z fans are most engaged during preseason. Their attention is front-loaded. Graduation season lands right in that window. If your only touchpoint is game-day content, you're missing the period when this audience is most open to becoming a fan.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <div class="pillar-label">THE FAMILY ANGLE</div>
+          <div class="pillar-head">Graduation Brings Families Who Don't Usually Show Up Together.</div>
+          <div class="pillar-body">Graduation weekends pull extended families into the same city, often looking for something to do together beyond the ceremony dinner. A family that attends one game during graduation weekend isn't just one ticket — it's a group experience that, with the right follow-up, can become a recurring one.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <div class="pillar-label">THE CREATOR FACTOR</div>
+          <div class="pillar-head">Gen Z Fans Are Shaped By Authenticity, Not Ads.</div>
+          <div class="pillar-body">Sports fandom for younger audiences is increasingly built around behind-the-scenes content, player personality, and short-form video — not broadcast. Graduation season is a natural hook for that kind of content. A team celebrating its own graduating student-athletes, for example, lands differently than a generic promotional post.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">04</div>
+          <div class="pillar-label">THE STORYLINE</div>
+          <div class="pillar-head">NCAA Division I Student-Athletes Are Graduating at a Record 91%.</div>
+          <div class="pillar-body">That's not just a stat — it's a content angle. Celebrating your athletes as people who finished something difficult resonates with families in a graduation mindset. It's the kind of authentic storyline that performs on social without feeling like a campaign.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">THE NUMBERS BEHIND THE WINDOW</div>
+      <div class="section-head">This Is What the Graduation Audience Looks Like.</div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">74%</div>
+          <div class="stat-desc">of Gen Z sports fans are most engaged during preseason — the highest of any generation</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">91%</div>
+          <div class="stat-desc">NCAA Division I graduation success rate — a record high and a ready-made content storyline</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6 wks</div>
+          <div class="stat-desc">the approximate window graduation demand is concentrated — after that, the moment compresses fast</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>Older fans are different. Their engagement builds toward playoffs and finals. So the messaging that works for a longtime season ticket holder isn't the same as what pulls in a recent grad or a family attending their first game together. Those are two separate conversations, and most teams send one.</p>
+    </div>
+
+    <div>
+      <div class="section-label">WHAT THE GAP LOOKS LIKE IN PRACTICE</div>
+      <div class="section-head">Same Graduation Window. Two Different Outcomes.</div>
+      <div class="contrast-block">
+        <div class="contrast-title">The difference is whether you have a system to capture the moment or just experience it.</div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">A family comes to a game during graduation weekend. Great night. They leave. You don't know who they were. Graduation season ends and you're back to your baseline audience with nothing added.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Same family comes in. Their interaction is captured. You know they were a graduation-weekend group. Next season, you have a reason to reach out with a family package before the first home game. That's a repeat fan, not a one-time visit.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">Gen Z fans engage with your social content during preseason, click once, then drift when the next thing comes along. No capture, no follow-up, no conversion.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">That same fan scans something — at the venue, at a pop-up, through a low-friction entry point — and you have a way to reach them again when the season actually starts. Early attention becomes a trackable relationship.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">WHERE THE OPPORTUNITY IS SITTING RIGHT NOW</div>
+      <div class="section-head">Four Graduation-Season Moments Teams Are Leaving Uncaptured.</div>
+      <div class="usecase-strip">
+        <div class="usecase-item">
+          <div class="uc-label">FAMILY GROUPS</div>
+          <div class="uc-body"><strong>Graduation weekends bring extended families looking for group experiences.</strong> A team that offers a family package — easy to find, easy to book, frictionless entry — is positioned to capture a group that came for the graduation and stayed for the game. The hard part isn't selling the ticket. It's making sure you have a way to reach them again afterward.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">GEN Z FANS</div>
+          <div class="uc-body"><strong>74% of Gen Z fans are most engaged right now, before the season peaks.</strong> That engagement is real, but it's short. Behind-the-scenes content, student-athlete stories, and social-first moments are what hold attention in this window. The teams that convert Gen Z fans are the ones treating early engagement as a capture opportunity, not just a view count.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">STUDENT-ATHLETE STORIES</div>
+          <div class="uc-body"><strong>Division I athletes are graduating at 91% — a record.</strong> That's not a press release stat. It's a human story that resonates with families in a graduation mindset. A post about a player who just finished their degree, told honestly, performs differently than a highlight reel. It also reaches people who aren't yet your fans.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">LOW-FRICTION ENTRY</div>
+          <div class="uc-body"><strong>New families and younger fans need a simple first step.</strong> A group ticket offer, a scan-to-enter promotion, a social post with a clear and easy next action — whatever removes the friction between "I'm interested" and "I'm in." The teams converting graduation-season attention are the ones making that first step obvious and uncomplicated.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>Graduation season isn't a marketing campaign. It's a six-week window where a specific type of fan — families, students, Gen Z — is already in a spending and celebrating mindset. The teams that build something lasting from it are the ones who treat attendance as the beginning of a relationship, not the end of a transaction.</p>
+      <p>If you're curious what your current setup looks like for capturing and following up with new fans — the Scan &amp; Scale audit walks through exactly that. Free, specific to your venue, and gives you a clear picture of where the gap is.</p>
+    </div>
+
+    <div class="cta-block">
+      <p class="cta-hint">No pressure — just a clearer picture of what you're working with</p>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/calculator/magic-bands?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank">
+        RUN YOUR FREE VENUE REVENUE AUDIT →
+      </a>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/magicBandsImplementationGuide.html?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank" style="background: #1A2A44; color: #D4AF37; border: 2px solid #D4AF37;">
+        GET THE FAN INTELLIGENCE DEPLOYMENT GUIDE →
+      </a>
+      <p class="cta-sub">Takes about 10 minutes. You'll walk away with a number, not a pitch.</p>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Scan &amp; Scale
+      </a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Book A Demo
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN &amp; SCALE</div>
+        <div class="footer-copy">A Seamlessly Production · Fan Intelligence Series · © 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">
+        You're receiving this because you engaged with the Scan &amp; Scale Revenue Audit.
+      </div>
+    </div>
+  </div>
+
+  <div class="nl-calc-banner bottom">
+    <span class="nl-calc-banner-text">Prom and graduation season means packed stands, group ticket surges, and fans you'll never see again — unless you have a system. <em>Curious what that window is worth to your venue?</em></span>
+    <a href="https://www.seamlessly.us/calculator/sports?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" class="nl-calc-banner-btn" target="_blank">Click Here To Run The Fan Spend Simulator!</a>
+  </div>
+
+</div>
+</body>
+</html>

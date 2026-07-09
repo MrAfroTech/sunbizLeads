@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carousel Generator | Script Boxes — Version C</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Italiana', serif;
+  background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+  min-height: 100vh;
+  color: #1a1410;
+  line-height: 1.3;
+  padding: 24px;
+}
+
+.carousel-box {
+  width: 1080px;
+  height: 1080px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  background: #e0b841;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+
+.carousel-box-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.carousel-box-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5D4A1F;
+  margin-bottom: 32px;
+}
+
+.carousel-box-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.carousel-box-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.carousel-box-text p {
+  font-weight: 700;
+  color: #1a1410;
+  margin-bottom: 0.5em;
+  font-size: 96px;
+  line-height: 1.2;
+}
+
+.script-divider {
+  width: 100%;
+  max-width: 1080px;
+  margin: 48px 0 24px;
+  padding: 16px 24px;
+  background: rgba(26, 20, 16, 0.9);
+  color: #e0b841;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 8px;
+  border-left: 4px solid #e0b841;
+}
+
+.download-btn {
+  display: block;
+  width: 1080px;
+  margin: 0 auto 48px;
+  padding: 16px;
+  font-weight: 700;
+  font-size: 18px;
+  background: linear-gradient(135deg, #e0b841, #d4af37);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+(function() {
+  const scripts = [
+    {
+      title: 'Carousel 1 — The Scale of the Problem',
+      boxes: [
+        "Hospitality has 2.3 million open positions worldwide.",
+        "In developed markets, 1 in 5 hospitality positions sits unfilled.",
+        "The jobs exist. The industry just can't hold people long enough to fill them.",
+        "Every open role puts more pressure on the people still there.",
+        "This isn't a hiring crisis. It's a retention crisis wearing a hiring mask."
+      ]
+    },
+    {
+      title: 'Carousel 2 — What 73% Actually Means',
+      boxes: [
+        "Global hospitality turnover is 73% annually.",
+        "That means nearly 3 in 4 employees leave within the year.",
+        "In quick-service restaurants, that number climbs to 130%.",
+        "Your entire team — replaced. Twice. In twelve months.",
+        "When turnover becomes expected, fixing it stops feeling urgent. That's the trap."
+      ]
+    },
+    {
+      title: 'Carousel 3 — Hotels Specifically',
+      boxes: [
+        "Hotels aren't immune. Annual staff turnover sits around 70%.",
+        "Seven out of ten people you hire today will be gone by this time next year.",
+        "Every exit takes institutional knowledge, guest relationships, and trained judgment with it.",
+        "The next hire starts from zero. And the cycle resets.",
+        "Turnover isn't a line item. It's a drain on everything — service, culture, revenue."
+      ]
+    },
+    {
+      title: 'Carousel 4 — The Dollar Figure Per Exit',
+      boxes: [
+        "Replacing one hospitality employee costs more than $5,000.",
+        "Recruiting, onboarding, lost productivity, and the training hours no one tracks.",
+        "At 70% turnover, that number compounds fast across even a small team.",
+        "A 20-person property cycling at 70% is spending $70,000+ a year just to stay staffed.",
+        "Retention isn't an HR cost. It's the investment that makes every other investment work."
+      ]
+    },
+    {
+      title: 'Carousel 5 — Where the Gaps Are Showing Up',
+      boxes: [
+        "65% of hotels are currently reporting active staffing shortages.",
+        "Housekeeping alone accounts for 38% of those shortages.",
+        "Understaffed housekeeping means slower turns, missed details, and weaker reviews.",
+        "But housekeeping is the symptom. Retention failure is the root cause across every role.",
+        "The shortage isn't a forecast. It's already in your TripAdvisor score."
+      ]
+    },
+    {
+      title: 'Carousel 6 — What Owners Are Already Trying',
+      boxes: [
+        "By March 2026, 70% of hotel owners were offering higher wages to retain staff.",
+        "Pay increases do move the needle — especially at the entry level.",
+        "But operators who raised wages without changing the work environment saw minimal improvement.",
+        "People stay when they feel supported, scheduled fairly, and like their effort matters.",
+        "The raise gets them in the door. The environment decides if they stay."
+      ]
+    },
+    {
+      title: 'Carousel 7 — The Risk That Defines 2026',
+      boxes: [
+        "31% of hospitality HR leaders say employee retention is their #1 workforce risk in 2026.",
+        "Not labor law. Not recruitment. Not AI disruption. Retention.",
+        "Because every role that churns pulls three others toward burnout trying to cover the gap.",
+        "The operators who address this now — with systems, not just wages — create a durable advantage.",
+        "In a market where everyone is short-staffed, stability is the product."
+      ]
+    }
+  ];
+
+  const iconSvgs = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2 12 12 2 22 12"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="20" x2="20" y2="20"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>'
+  ];
+
+  const root = document.getElementById('root');
+
+  scripts.forEach((script, i) => {
+    const divider = document.createElement('div');
+    divider.className = 'script-divider';
+    divider.textContent = script.title;
+    root.appendChild(divider);
+
+    script.boxes.forEach((text, j) => {
+      const box = document.createElement('div');
+      box.className = 'carousel-box';
+
+      const inner = document.createElement('div');
+      inner.className = 'carousel-box-inner';
+
+      const icon = document.createElement('div');
+      icon.className = 'carousel-box-icon';
+      icon.innerHTML = iconSvgs[i];
+
+      const textWrap = document.createElement('div');
+      textWrap.className = 'carousel-box-text';
+
+      const lines = text.split(' / ');
+      const textAreaHeight = 1080 - 160 - 120;
+      const fontSize = Math.min(140, Math.max(60, Math.floor(textAreaHeight / (lines.length * 1.1))));
+      textWrap.style.fontSize = fontSize + 'px';
+
+      lines.forEach(line => {
+        const p = document.createElement('p');
+        p.textContent = line;
+        textWrap.appendChild(p);
+      });
+
+      inner.appendChild(icon);
+      inner.appendChild(textWrap);
+      box.appendChild(inner);
+
+      const btn = document.createElement('button');
+      btn.className = 'download-btn';
+      btn.textContent = 'Download PNG';
+
+      btn.onclick = () => {
+        html2canvas(box, { backgroundColor: '#e0b841' }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = `v-c-carousel-${i+1}-${j+1}.png`;
+          link.href = canvas.toDataURL();
+          link.click();
+        });
+      };
+
+      root.appendChild(box);
+      root.appendChild(btn);
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

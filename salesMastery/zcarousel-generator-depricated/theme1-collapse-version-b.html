@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Generator — Theme 1: Collapse (Charcoal + Orange)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal:     #2C3E50;
+      --orange:       #F28C38;
+      --orange-light: #f5a05a;
+      --white:        #FFFFFF;
+      --stat:         #00D4AA;
+      --image-pct:    58%;
+      --text-pct:     42%;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #161616;
+      min-height: 100vh;
+      color: var(--white);
+      padding: 24px;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 24px;
+      color: var(--orange); text-align: center; margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center; color: rgba(255,255,255,0.38);
+      font-size: 13px; margin-bottom: 40px;
+    }
+
+    .carousel-label {
+      width: 100%; max-width: 1080px;
+      margin: 48px auto 8px auto;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); border-left: 3px solid var(--orange); padding-left: 10px;
+    }
+
+    .carousel-label:first-of-type { margin-top: 0; }
+
+    .slide-label {
+      width: 100%; max-width: 1080px;
+      margin: 0 auto 8px auto;
+      font-family: 'DM Sans', sans-serif; font-size: 11px;
+      color: rgba(255,255,255,0.28); padding-left: 2px;
+    }
+
+    .section { margin-bottom: 8px; }
+
+    .box-wrapper { display: inline-block; margin-bottom: 16px; }
+
+    .carousel-card {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      background: var(--charcoal);
+    }
+
+    .card-left {
+      width: var(--image-pct);
+      flex-shrink: 0; height: 100%;
+      position: relative; overflow: hidden;
+    }
+
+    .card-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-left-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(270deg, rgba(44,62,80,0.82) 0%, rgba(44,62,80,0.04) 45%, transparent 100%);
+      pointer-events: none; z-index: 1;
+    }
+
+    .card-left-corner {
+      position: absolute; top: 0; left: 0;
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, rgba(242,140,56,0.28) 0%, transparent 60%);
+      pointer-events: none; z-index: 2;
+    }
+
+    .img-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1e2d3d 0%, #111 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+    }
+
+    .img-placeholder svg { width: 56px; height: 56px; stroke: rgba(242,140,56,0.35); }
+    .img-placeholder p {
+      font-family: 'DM Sans', sans-serif; font-size: 20px;
+      color: rgba(242,140,56,0.35); text-align: center; padding: 0 32px; line-height: 1.5;
+    }
+
+    .card-right {
+      width: var(--text-pct);
+      flex-shrink: 0; height: 100%;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 64px 52px 60px 48px;
+      background: var(--charcoal); position: relative; overflow: hidden;
+    }
+
+    .card-right::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(242,140,56,0.1) 1px, transparent 1px);
+      background-size: 26px 26px; pointer-events: none; z-index: 0;
+    }
+
+    .card-right::after {
+      content: ''; position: absolute;
+      right: 0; top: 0; bottom: 0; width: 6px;
+      background: linear-gradient(180deg, var(--orange) 0%, rgba(242,140,56,0.08) 100%);
+      z-index: 2;
+    }
+
+    .card-right > * { position: relative; z-index: 1; }
+
+    .card-top-row { display: flex; flex-direction: column; gap: 14px; }
+
+    .card-topic-tag {
+      font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600;
+      color: var(--orange); letter-spacing: 2px; text-transform: uppercase; line-height: 1.3;
+    }
+
+    .card-rule { width: 48px; height: 4px; background: var(--orange); border-radius: 2px; }
+
+    .card-logo {
+      font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 20px;
+      color: rgba(255,255,255,0.12); letter-spacing: 0.5px;
+    }
+
+    .card-body {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; padding: 40px 0; gap: 28px;
+    }
+
+    .card-headline {
+      font-family: 'Poppins', sans-serif; font-weight: 900;
+      color: var(--white); line-height: 1.13;
+    }
+
+    .stat-pill {
+      display: flex; flex-direction: column; gap: 8px;
+      background: rgba(242,140,56,0.08);
+      border: 2px solid rgba(242,140,56,0.3);
+      border-radius: 14px; padding: 20px 26px;
+      box-shadow: 0 4px 20px rgba(242,140,56,0.08);
+    }
+
+    .stat-number {
+      font-family: 'Poppins', sans-serif; font-weight: 900;
+      color: var(--stat); line-height: 1; display: block; font-size: 70px;
+    }
+
+    .stat-label {
+      display: block; font-family: 'DM Sans', sans-serif; font-size: 18px;
+      color: rgba(255,255,255,0.48); line-height: 1.4;
+    }
+
+    .card-body-text {
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      color: rgba(255,255,255,0.72); line-height: 1.65; font-size: 22px;
+    }
+
+    .card-bottom-row { display: flex; flex-direction: column; gap: 12px; }
+
+    .card-slide-indicator {
+      font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 600;
+      color: rgba(242,140,56,0.4); letter-spacing: 1px;
+    }
+
+    .card-cta {
+      font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .download-btn {
+      display: block;
+      width: 1080px;
+      margin: 0 auto 32px auto;
+      padding: 14px 24px;
+      font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: #111;
+      background: linear-gradient(135deg, var(--orange), var(--orange-light));
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(242,140,56,0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(242,140,56,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Theme 1 — The Collapse of the Old Hospitality Model</h1>
+  <p class="subtitle">Charcoal + Orange · 7 Carousels × 5 Slides</p>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+  (function () {
+
+    function inlineImgSrcDataUrls(root) {
+      var reverts = [];
+      var list = root.querySelectorAll('img');
+      return Array.prototype.reduce.call(list, function (seq, im) {
+        var attr = im.getAttribute('src');
+        if (!attr || attr.indexOf('data:') === 0) return seq;
+        var url = new URL(attr, document.baseURI).href;
+        return seq.then(function () {
+          return fetch(url).then(function (r) {
+            if (!r.ok) throw new Error('fetch failed');
+            return r.blob();
+          }).then(function (blob) {
+            return new Promise(function (resolve, reject) {
+              var fr = new FileReader();
+              fr.onload = function () {
+                reverts.push({ im: im, src: attr });
+                im.onload = resolve;
+                im.onerror = reject;
+                im.src = fr.result;
+                if (im.complete && im.naturalWidth) resolve();
+              };
+              fr.onerror = reject;
+              fr.readAsDataURL(blob);
+            });
+          });
+        });
+      }, Promise.resolve()).then(function () {
+        return reverts;
+      }, function (err) {
+        reverts.forEach(function (x) { x.im.src = x.src; });
+        return Promise.reject(err);
+      });
+    }
+
+    var IMGS = [
+      'frustratedstaffphotos/download.jpeg',
+      'frustratedstaffphotos/download (1).jpeg',
+      'frustratedstaffphotos/download (3).jpeg',
+      'frustratedstaffphotos/Employee-angry-shopper-closeup-1280x720.jpg',
+      'frustratedstaffphotos/images.jpeg',
+      'frustratedstaffphotos/images (1).jpeg',
+      'frustratedstaffphotos/images (2).jpeg'
+    ];
+
+    var IMG_SETS = [
+      [0,1,2,3,4],
+      [1,2,3,4,5],
+      [2,3,4,5,6],
+      [3,4,5,6,0],
+      [4,5,6,0,1],
+      [5,6,0,1,2],
+      [6,0,1,2,3]
+    ];
+
+    var CAROUSELS = [
+      {
+        title: 'Carousel 1 — The Illusion of Permanence',
+        slides: [
+          { headline: 'Big brands look invincible.', body: 'Scale creates confidence. And confidence creates blind spots.', stat: null },
+          { headline: 'Scale creates confidence.', body: 'The bigger the operation, the harder it is to see what\'s quietly breaking inside it.', stat: null },
+          { headline: 'Confidence creates blind spots.', body: 'When everything looks like it\'s working, nobody asks the hard questions.', stat: null },
+          { headline: 'Blind spots become friction.', body: 'Drift happens slowly — in systems, in standards, in the guest experience.', stat: null },
+          { headline: 'Friction becomes decline.', body: 'No brand collapses overnight. It erodes — one ignored signal at a time. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 2 — How Giants Collapse in Stages',
+        slides: [
+          { headline: 'First, the concept drifts.', body: 'What made the brand great stops being what the brand delivers.', stat: null },
+          { headline: 'Then, the customer changes.', body: 'Tastes shift. Expectations rise. The market moves — and the brand doesn\'t.', stat: null },
+          { headline: 'Then, the system strains.', body: 'Operations built for yesterday can\'t support the demands of today.', stat: null },
+          { headline: 'Then, trust weakens.', body: 'Guests notice before leadership does. Inconsistency is felt before it\'s measured.', stat: null },
+          { headline: 'Then, revenue drops.', body: 'By the time the numbers confirm the problem, the window to fix it has usually closed. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 3 — Howard Johnson\'s Rise and Fall',
+        slides: [
+          { headline: 'More than 1,000 locations at its peak.', body: 'Howard Johnson\'s was the largest restaurant chain in America before McDonald\'s existed.', stat: { n: '1,000+', l: 'locations at Howard Johnson\'s peak' } },
+          { headline: 'A roadside empire built on convenience.', body: 'They owned the American highway experience for decades. Then the highway changed.', stat: null },
+          { headline: 'Then competition changed the road.', body: 'Fast food chains offered cheaper, faster, and more consistent. The positioning evaporated.', stat: null },
+          { headline: 'Then quality and relevance faded.', body: 'Franchisee inconsistency eroded the brand promise that had built the empire in the first place.', stat: null },
+          { headline: 'Then the brand disappeared.', body: 'The last U.S. Howard Johnson\'s restaurant closed. A 1,000-location empire gone. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 4 — Chi-Chi\'s and the Cost of Lost Trust',
+        slides: [
+          { headline: '149 U.S. locations in 2002.', body: 'Chi-Chi\'s was a major casual dining chain. Two years later, it was gone from the U.S. entirely.', stat: { n: '149', l: 'U.S. locations in 2002 — zero by 2004' } },
+          { headline: 'Bankruptcy in 2003.', body: 'The brand filed for Chapter 11. Debt, declining traffic, and operational drag compounded fast.', stat: null },
+          { headline: 'Full shutdown in 2004.', body: 'All U.S. restaurants closed. A two-year collapse of a chain that had operated for decades.', stat: null },
+          { headline: 'Sales had already fallen hard.', body: 'The financial filing was not the beginning. It was the confirmation of a problem that started long before.', stat: null },
+          { headline: 'Trust broke when the brand broke.', body: 'Once guests stopped believing the experience would be consistent, the recovery window closed. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 5 — Revel: The Billion-Dollar Warning',
+        slides: [
+          { headline: 'Opened for $2.4 billion.', body: 'Revel Systems launched as one of the most expensive casino openings in history.', stat: { n: '$2.4B', l: 'cost to open Revel in Atlantic City' } },
+          { headline: 'Lost about $260 million in two years.', body: 'Demand did not meet projections. The model was built for a market that did not exist at that scale.', stat: { n: '$260M', l: 'lost in two years of operation' } },
+          { headline: 'Filed for bankruptcy twice.', body: 'The second filing came within months of reopening under new ownership. The structure could not hold.', stat: null },
+          { headline: 'Debt outpaced demand.', body: 'No amount of premium positioning can overcome a cost structure that outpaces what guests will pay.', stat: null },
+          { headline: 'Scale could not save the model.', body: 'Revel ended in bankruptcy and liquidation. The lesson: big bets require solid operational foundations. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 6 — When Partnerships Break, Brands Break',
+        slides: [
+          { headline: 'Sonder looked scaled.', body: 'Hundreds of properties. A tech-forward model. A high-profile Marriott partnership that seemed to validate everything.', stat: null },
+          { headline: 'Marriott pulled away.', body: 'The partnership that was supposed to anchor Sonder\'s growth ended. The scaffolding came with it.', stat: null },
+          { headline: 'The structure collapsed fast.', body: 'Without the partnership, the growth narrative unwound. Investors and guests reassessed quickly.', stat: null },
+          { headline: 'Guests were left stranded.', body: 'Operational instability is not a back-office problem. Guests feel it in real time, at check-in, at the property level.', stat: null },
+          { headline: 'Weak systems do not survive shocks.', body: 'When the external support disappears, only the internal infrastructure remains. Make sure it can stand alone. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 7 — Collapse Is Usually a Systems Problem',
+        slides: [
+          { headline: 'It is rarely one event.', body: 'Brand failures almost never have a single cause. They have a sequence — and each step makes the next more likely.', stat: null },
+          { headline: 'It is usually many failures.', body: 'Concept drift. Operational lag. Inconsistent standards. Data blind spots. They compound in silence.', stat: null },
+          { headline: 'The guest feels the drift first.', body: 'Before the numbers move, the guest experience has already degraded. Signals arrive early — if you\'re watching.', stat: null },
+          { headline: 'The balance sheet feels it later.', body: 'Financial metrics lag behind operational reality by months or quarters. Revenue confirms what the guest already knew.', stat: null },
+          { headline: 'By then, it is too late.', body: 'The operators who survive are the ones who catch the signal before it becomes a trend. Chaos Mastery is the discipline of seeing early. / ➜ Follow for more.', stat: null }
+        ]
+      }
+    ];
+
+    var root = document.getElementById('root');
+
+    CAROUSELS.forEach(function (carousel, cIdx) {
+
+      var clabel = document.createElement('div');
+      clabel.className = 'carousel-label';
+      clabel.textContent = carousel.title;
+      root.appendChild(clabel);
+
+      carousel.slides.forEach(function (slide, sIdx) {
+
+        var slabel = document.createElement('div');
+        slabel.className = 'slide-label';
+        slabel.textContent = 'Slide ' + (sIdx + 1) + ' of 5';
+        root.appendChild(slabel);
+
+        var section = document.createElement('div');
+        section.className = 'section';
+
+        var boxWrapper = document.createElement('div');
+        boxWrapper.className = 'box-wrapper';
+
+        var card = document.createElement('div');
+        card.className = 'carousel-card';
+
+        var imgSrc = IMGS[IMG_SETS[cIdx][sIdx]];
+
+        var left = document.createElement('div');
+        left.className = 'card-left';
+
+        var corner = document.createElement('div');
+        corner.className = 'card-left-corner';
+        left.appendChild(corner);
+
+        var img = document.createElement('img');
+        img.className = 'card-image';
+        img.src = imgSrc; img.alt = '';
+
+        var ph = document.createElement('div');
+        ph.className = 'img-placeholder';
+        ph.style.display = 'none';
+        ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><p>' + imgSrc + '</p>';
+        img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+        left.appendChild(img);
+        left.appendChild(ph);
+
+        var fade = document.createElement('div');
+        fade.className = 'card-left-fade';
+        left.appendChild(fade);
+
+        card.appendChild(left);
+
+        var right = document.createElement('div');
+        right.className = 'card-right';
+
+        var topRow = document.createElement('div');
+        topRow.className = 'card-top-row';
+        var tag = document.createElement('div'); tag.className = 'card-topic-tag'; tag.textContent = 'Chaos Mastery'; topRow.appendChild(tag);
+        var rule = document.createElement('div'); rule.className = 'card-rule'; topRow.appendChild(rule);
+        var logo = document.createElement('div'); logo.className = 'card-logo'; logo.textContent = 'Seamlessly'; topRow.appendChild(logo);
+        right.appendChild(topRow);
+
+        var body = document.createElement('div');
+        body.className = 'card-body';
+
+        var hlLen = slide.headline.length;
+        var hlSize = hlLen < 30 ? 54 : hlLen < 50 ? 44 : hlLen < 70 ? 36 : 29;
+        var hl = document.createElement('div');
+        hl.className = 'card-headline';
+        hl.style.fontSize = hlSize + 'px';
+        hl.textContent = slide.headline;
+        body.appendChild(hl);
+
+        if (slide.stat) {
+          var pill = document.createElement('div');
+          pill.className = 'stat-pill';
+          var sn = document.createElement('span'); sn.className = 'stat-number'; sn.textContent = slide.stat.n; pill.appendChild(sn);
+          var sl = document.createElement('span'); sl.className = 'stat-label'; sl.textContent = slide.stat.l; pill.appendChild(sl);
+          body.appendChild(pill);
+        }
+
+        slide.body.split(' / ').forEach(function (line) {
+          var p = document.createElement('div'); p.className = 'card-body-text'; p.textContent = line.trim(); body.appendChild(p);
+        });
+
+        right.appendChild(body);
+
+        var bottomRow = document.createElement('div');
+        bottomRow.className = 'card-bottom-row';
+        var ind = document.createElement('div'); ind.className = 'card-slide-indicator'; ind.textContent = (sIdx + 1) + ' / 5'; bottomRow.appendChild(ind);
+        var cta = document.createElement('div'); cta.className = 'card-cta'; cta.textContent = 'seamlessly.us'; bottomRow.appendChild(cta);
+        right.appendChild(bottomRow);
+
+        card.appendChild(right);
+        boxWrapper.appendChild(card);
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'download-btn';
+        var defaultBtnText = 'Download PNG  —  C' + (cIdx + 1) + ' · Slide ' + (sIdx + 1);
+        btn.textContent = defaultBtnText;
+
+        btn.addEventListener('click', function () {
+          btn.disabled = true;
+          btn.textContent = 'Generating PNG...';
+          var btnOriginalDisplay = btn.style.display;
+          btn.style.display = 'none';
+
+          var reverts = [];
+          inlineImgSrcDataUrls(card)
+            .then(function (r) {
+              reverts = r;
+              return html2canvas(card, {
+                scale: 1,
+                useCORS: false,
+                allowTaint: false,
+                logging: false,
+                backgroundColor: '#2C3E50',
+                onclone: function (clonedDoc, clonedNode) {
+                  var style = clonedNode.style;
+                  if (style) {
+                    style.background = '#2C3E50';
+                    style.backgroundColor = '#2C3E50';
+                  }
+                }
+              });
+            })
+            .then(function (canvas) {
+              reverts.forEach(function (x) { x.im.src = x.src; });
+              btn.style.display = btnOriginalDisplay;
+              btn.disabled = false;
+              btn.textContent = defaultBtnText;
+              var link = document.createElement('a');
+              link.download = 't1-b-c' + (cIdx + 1) + '-s' + (sIdx + 1) + '.png';
+              link.href = canvas.toDataURL('image/png');
+              link.click();
+            })
+            .catch(function (err) {
+              reverts.forEach(function (x) { x.im.src = x.src; });
+              btn.style.display = btnOriginalDisplay;
+              btn.disabled = false;
+              btn.textContent = defaultBtnText;
+              console.error('PNG generation failed:', err);
+            });
+        });
+
+        section.appendChild(boxWrapper);
+        section.appendChild(btn);
+        root.appendChild(section);
+      });
+    });
+
+  }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Orlando Pirates",
+    "slug": "orlando-pirates-fan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0A1E3D",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.orlandopirates.fanapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0A1E3D"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.orlandopirates.fanapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "name": "Orlando Pirates",
+      "shortName": "Orlando Pirates",
+      "lang": "en",
+      "scope": "/",
+      "themeColor": "#0A1E3D",
+      "backgroundColor": "#0A1E3D",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "description": "Orlando Pirates Fan Experience App"
+    }
+  }
+}

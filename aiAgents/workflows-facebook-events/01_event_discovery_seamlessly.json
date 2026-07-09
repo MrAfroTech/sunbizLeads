@@ -1,0 +1,349 @@
+{
+  "name": "01 - Event Discovery (Seamlessly Integration)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 9 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.seamlessly.com/v1/events/upcoming",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "days_ahead",
+              "value": "30"
+            },
+            {
+              "name": "status",
+              "value": "confirmed"
+            },
+            {
+              "name": "has_ticketing",
+              "value": "true"
+            },
+            {
+              "name": "needs_promotion",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "fullResponse": false
+            }
+          }
+        }
+      },
+      "id": "fetch-seamlessly-events",
+      "name": "Get Upcoming Events from Seamlessly",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst events = response.events || [];\n\nconst processedEvents = events.map(event => {\n  // Parse event data from Seamlessly API\n  const eventDate = new Date(event.start_datetime);\n  const postDate = new Date(eventDate.getTime() - (14 * 24 * 60 * 60 * 1000)); // 2 weeks before\n  const now = new Date();\n  \n  // Only include events that should be posted now or soon\n  const shouldPost = postDate <= now && !event.facebook_posted;\n  \n  return {\n    event_id: event.id,\n    venue_name: event.venue.name,\n    venue_facebook_page_id: event.venue.facebook_page_id || '',\n    event_name: event.name,\n    event_date: eventDate.toISOString().split('T')[0],\n    event_time: eventDate.toTimeString().split(' ')[0].slice(0,5), // HH:MM\n    event_category: event.category || 'other',\n    description: event.description || '',\n    ticket_link: event.ticketing_url || '',\n    ticket_price: event.ticket_price || 'Free',\n    location: event.venue.address || '',\n    venue_phone: event.venue.phone || '',\n    image_url: event.cover_image_url || '',\n    facebook_event_id: '',\n    facebook_post_id: '',\n    posted_date: '',\n    rsvp_count: 0,\n    ticket_sales: 0,\n    status: shouldPost ? 'Ready to Post' : 'Scheduled',\n    post_date: postDate.toISOString(),\n    should_post_now: shouldPost,\n    notes: `Pulled from Seamlessly on ${now.toISOString()}`\n  };\n});\n\nreturn processedEvents;"
+      },
+      "id": "parse-event-data",
+      "name": "Extract Event Details",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "should-post",
+              "leftValue": "={{ $json.should_post_now }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            },
+            {
+              "id": "has-facebook-page",
+              "leftValue": "={{ $json.venue_facebook_page_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-posting-schedule",
+      "name": "Check Posting Schedule",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_id": "={{ $json.event_id }}",
+            "venue_name": "={{ $json.venue_name }}",
+            "event_name": "={{ $json.event_name }}",
+            "event_date": "={{ $json.event_date }}",
+            "event_time": "={{ $json.event_time }}",
+            "description": "={{ $json.description }}",
+            "ticket_link": "={{ $json.ticket_link }}",
+            "facebook_event_id": "={{ $json.facebook_event_id }}",
+            "facebook_post_id": "={{ $json.facebook_post_id }}",
+            "posted_date": "={{ $json.posted_date }}",
+            "rsvp_count": "={{ $json.rsvp_count }}",
+            "ticket_sales": "={{ $json.ticket_sales }}",
+            "status": "={{ $json.status }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "add-to-pipeline",
+      "name": "Add to Facebook Events Pipeline",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "event_id": "={{ $json.event_id }}",
+            "venue_name": "={{ $json.venue_name }}",
+            "event_name": "={{ $json.event_name }}",
+            "event_date": "={{ $json.event_date }}",
+            "event_time": "={{ $json.event_time }}",
+            "description": "={{ $json.description }}",
+            "ticket_link": "={{ $json.ticket_link }}",
+            "facebook_event_id": "={{ $json.facebook_event_id }}",
+            "facebook_post_id": "={{ $json.facebook_post_id }}",
+            "posted_date": "={{ $json.posted_date }}",
+            "rsvp_count": "={{ $json.rsvp_count }}",
+            "ticket_sales": "={{ $json.ticket_sales }}",
+            "status": "Scheduled for Future",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "queue-future-events",
+      "name": "Queue Future Events",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "missing-page-id",
+              "leftValue": "={{ $json.venue_facebook_page_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-venue-facebook",
+      "name": "Check Venue Facebook Setup",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "Facebook Setup Missing: {{ $json.venue_name }}",
+        "text": "Event cannot be posted to Facebook - venue page not connected.\n\nVenue: {{ $json.venue_name }}\nEvent: {{ $json.event_name }}\nDate: {{ $json.event_date }}\n\nAction needed: Connect {{ $json.venue_name }}'s Facebook Page to Seamlessly\n\nVenue contact: {{ $json.venue_phone }}",
+        "options": {}
+      },
+      "id": "notify-missing-page",
+      "name": "Notify Missing Facebook Page",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1450, 350],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 9 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Upcoming Events from Seamlessly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Upcoming Events from Seamlessly": {
+      "main": [
+        [
+          {
+            "node": "Extract Event Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Event Details": {
+      "main": [
+        [
+          {
+            "node": "Check Posting Schedule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Posting Schedule": {
+      "main": [
+        [
+          {
+            "node": "Add to Facebook Events Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Queue Future Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Facebook Events Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Check Venue Facebook Setup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Venue Facebook Setup": {
+      "main": [
+        [
+          {
+            "node": "Notify Missing Facebook Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

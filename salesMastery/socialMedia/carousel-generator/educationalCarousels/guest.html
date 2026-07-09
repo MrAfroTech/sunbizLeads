@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@mauricethefirst — Guest Experience Series</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #111; padding: 32px; color: #fff; }
+    h1 { text-align: center; font-size: 13px; letter-spacing: 3px; color: rgba(255,255,255,0.3); margin-bottom: 6px; text-transform: uppercase; }
+    .subtitle { text-align: center; font-size: 11px; color: rgba(255,255,255,0.2); margin-bottom: 40px; }
+    .day-label { width: 1080px; margin: 40px auto 10px auto; font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,0.25); text-transform: uppercase; }
+    .carousel { width: 1080px; margin: 0 auto 60px auto; }
+    .carousel-window { width: 1080px; overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.35s ease; }
+    .slide { width: 1080px; height: 1080px; flex-shrink: 0; position: relative; padding: 72px 140px; display: flex; flex-direction: column; }
+    .black { background: #000; color: #fff; }
+    .white { background: #fff; color: #000; }
+    .white .profile-handle { color: rgba(0,0,0,0.5); }
+    .white .name, .white .title { color: #000; }
+    .white .body { color: rgba(0,0,0,0.72); }
+    .white .ghost { color: rgba(0,0,0,0.06); }
+    .black .profile-handle { color: rgba(255,255,255,0.4); }
+    .black .ghost { color: rgba(255,255,255,0.06); }
+    .profile { display: flex; align-items: center; gap: 16px; margin-bottom: 80px; }
+    .avatar { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; background: #222; border: 2px solid rgba(255,255,255,0.1); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .name { font-size: 22px; font-weight: 700; letter-spacing: 0.02em; }
+    .profile-handle { font-size: 18px; font-weight: 400; }
+    .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .title { font-family: 'DM Serif Display', serif; font-size: 54px; font-weight: 400; line-height: 1.12; letter-spacing: -0.01em; max-width: 760px; white-space: pre-line; }
+    .title .accent { color: #EB5757; }
+    .title .accent-green { color: #27AE60; }
+    .body { margin-top: 24px; font-size: 30px; font-weight: 300; line-height: 1.45; max-width: 760px; opacity: 0.75; }
+    .ghost { font-family: 'DM Serif Display', serif; position: absolute; bottom: 32px; right: 72px; font-size: 280px; font-weight: 400; line-height: 1; letter-spacing: -10px; user-select: none; pointer-events: none; }
+    .nav { width: 1080px; margin: 10px auto 40px auto; display: flex; justify-content: space-between; align-items: center; }
+    button { padding: 10px 20px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border: none; background: #fff; color: #000; border-radius: 6px; }
+    button:disabled { opacity: 0.3; }
+    .dots { display: flex; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .dot.active { background: #fff; }
+    .download-btn { display: block; width: 1080px; margin: 12px auto 0 auto; padding: 14px 24px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #000; background: #fff; border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.2s; }
+    .download-btn:hover { opacity: 0.85; }
+    .download-btn:disabled { opacity: 0.5; cursor: default; }
+    .download-all-btn { margin-top: 8px; background: rgba(255,255,255,0.12); color: #fff; }
+    .download-all-btn:hover { opacity: 0.9; }
+    .avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #1a1a1a; }
+    .avatar-placeholder svg { width: 32px; height: 32px; stroke: rgba(255,255,255,0.2); }
+    .white .avatar-placeholder { background: #eee; }
+    .white .avatar-placeholder svg { stroke: rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body>
+
+<h1>@mauricethefirst</h1>
+<p class="subtitle">Carousels — Wasted Effort Series · 9 Operator Pain Carousels</p>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="../personalBrandPhotos/profilePic-embed.js"></script>
+
+<script>
+(function () {
+
+  const PHOTO_SRC = window.PROFILE_PIC_DATA_URL || encodeURI('../personalBrandPhotos/profilePic.png');
+
+  const DATA = [
+
+    {
+      day: 'Reel 1 — The Tablet Problem',
+      title: 'You bought the tablet.\nYou set up the QR code.\nYour regulars still feel like strangers.',
+      screens: [
+        'Not because the technology failed. Because it was solving the wrong problem.',
+        'You sped up the order. You sped up the payment. Nobody sped up knowing who the guest actually was.',
+        'The guest who has been there six times sat down tonight and got treated like a first-timer.',
+        'Technology that moves transactions faster is not the same as technology that makes guests feel known.',
+        'The operators winning right now are not using tech to replace service. They are using it to make service accurate.'
+      ],
+      finalSetup: 'What technology have you added to your venue — and did it make guests feel faster or more known?'
+    },
+
+    {
+      day: 'Reel 2 — The Credit Problem',
+      title: 'The guest raved about how great your staff was.\n\nThe right technology can make your crew even better.',
+      screens: [
+        'The system works behind the curtain.',
+        'While server remembered the order, their preferences, and their name.',
+        'They had context. They had history. They had information that most staff never get.',
+        'The best hospitality give guests an unforgettable feeling.',
+        'When your staff looks like veterans on day one, that\'s talent combined with the right information at the right time.'
+      ],
+      finalSetup: 'Think about a time a staff member made you feel like a regular. What do you think they actually knew about you before you sat down?'
+    },
+
+    {
+      day: 'Reel 3 — The Speed Problem',
+      title: 'Speed without a purpose is just efficient neglect.',
+      screens: [
+        'Efficiency is not the same as intelligence.',
+        'You can have the fastest checkout in the city and still have guests who leave feeling like nobody cared.',        
+        'The guest does not remember how fast the check came. They remember whether the experience felt personal.',
+        'The operators who have figured this out are not moving faster. They are moving with more information.'
+      ],
+      finalSetup: 'What is the one thing your venue has gotten faster at — and did it make the guest experience better or just quicker?'
+    },
+
+    {
+      day: 'Reel 4 — The People Problem',
+      title: 'You mentored the whole team.\nComplaints didn\'t stop.\n\nYou hired more people.\nComplaints didn\'t stop.\n\nThe problem was never the people.',
+      screens: [
+        'Most operators go to the people first. More training. Better hiring. Tighter management.',
+        'And the problem persists. Because it was never the people.',
+        'It was the moments between people that nobody was managing.',
+        'The wait before the greeting landed. The gap where a reorder should have happened. The drag at checkout that ruined an otherwise great night.',
+        'Those moments do not show up on a staffing report. But they show up on your revenue, your reviews, and your return rate.'
+      ],
+      finalSetup: 'What operational problem have you tried to solve by changing your staff — that the staff change did not actually fix?'
+    },
+
+    {
+      day: 'Reel 5 — The Full House Problem',
+      title: 'You packed the house every weekend.\n\nBut you\'re you\'ve lost countless regulars.\n\nA full room isn\'t the same as a loyal one.',
+      screens: [
+        'Covers are not customers. A full house on Saturday does not mean you are building anything.',
+        'The venues that look the most successful from the outside are sometimes the worst at retention.',
+        'If you cannot name your top ten regulars, you do not have regulars. You have repeat strangers.',
+        'Loyalty is not built on volume. It is built on whether the guest feels like the venue actually knows them.',
+        'The operators building real loyalty are not necessarily the busiest. They are the most accurate.'
+      ],
+      finalSetup: 'How many of last Saturday\'s guests will you recognize when they walk in next weekend?'
+    },
+
+    {
+      day: 'Reel 6 — The AI Fear Problem',
+      title: 'Your staff isn\'t being replaced by AI.\n\nThey\'re being outworked by operators whose staff walks into every shift more prepared.',
+      screens: [
+        'The conversation about AI in hospitality is almost always about replacement. It is the wrong conversation.',
+        'Nobody is replacing the server. Nobody is replacing the bartender who makes a guest feel at home.',
+        'What is changing is what those people know before the first interaction starts.',
+        'One operator\'s staff walks in knowing nothing about tonight\'s guests. Another\'s walks in knowing their names, their orders, their preferences.',
+        'That is not AI replacing people. That is information making people better at their jobs.'
+      ],
+      finalSetup: 'What do you think AI actually should and should not do in a hospitality setting?'
+    },
+
+    {
+      day: 'Reel 7 — The Competition Problem',
+      title: 'The venue down the street isn\'t bigger than you.\n\nDoesn\'t have better food.\n\nTheir guests never feel like first-timers.',
+      screens: [
+        'You have looked at that venue and tried to figure out what they are doing differently.',
+        'The menu is comparable. The price point is similar. The location is not better.',
+        'But their guests come back at a different rate. But you can\'t figure out why.',
+        'The difference isn\'t price. It\'s whether the guest feels like the venue remembers them.',
+        'That is not a hospitality gift. It is an operational decision. And it is one that is available to every venue.'
+      ],
+      finalSetup: 'Is there a venue in your market that you can\'t figure out why guests keep going back to?'
+    },
+
+    {
+      day: 'Reel 8',
+      title: 'Every menu option you add makes every decision harder.',
+      screens: [
+        'Why? \n \n Decision fatigue.',
+        'Every additional item asks guests to make an extra decision.',
+        'Most people struggle when there are too many choices.',
+        'More items hide your the items that have the highest ROI',
+        'Which menu items are making you money... and which ones are just taking up space?'
+      ]
+    },
+
+    {
+      day: 'Reel 9',
+      title: 'What guests say about what gets them to come back to an establishment  ➡️',
+      screens: [
+        'Recognition — "They know me" ',
+        'Consistency — "I know what I\'ll get" ',
+        'Belonging — "This feels like my place" ',
+        ' Convenience — "It\'s easy to choose"',
+        ' Value — "It\'s worth coming back"'
+      ]
+    }
+
+  ];
+
+  const root = document.getElementById('root');
+
+  DATA.forEach((item, index) => {
+
+    const dayLabel = document.createElement('div');
+    dayLabel.className = 'day-label';
+    dayLabel.textContent = item.day;
+    root.appendChild(dayLabel);
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+    const win = document.createElement('div');
+    win.className = 'carousel-window';
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+    const slides = [];
+
+    const all = [item.title, ...item.screens, ...(item.finalSetup ? [item.finalSetup] : [])];
+
+    all.forEach((text, i) => {
+      const slide = document.createElement('div');
+      const isBlack = i % 2 === 0;
+      slide.className = 'slide ' + (isBlack ? 'black' : 'white');
+
+      const profile = document.createElement('div');
+      profile.className = 'profile';
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      const img = document.createElement('img');
+      img.src = PHOTO_SRC;
+      img.alt = 'Maurice Sanders';
+      const ph = document.createElement('div');
+      ph.className = 'avatar-placeholder';
+      ph.style.display = 'none';
+      ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+      img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+      avatar.appendChild(img); avatar.appendChild(ph);
+      const info = document.createElement('div');
+      const name = document.createElement('div');
+      name.className = 'name'; name.textContent = 'Maurice Sanders';
+      const handle = document.createElement('div');
+      handle.className = 'profile-handle'; handle.textContent = '@maurice.seamlessly';
+      info.appendChild(name); info.appendChild(handle);
+      profile.appendChild(avatar); profile.appendChild(info);
+
+      const content = document.createElement('div');
+      content.className = 'content';
+      const title = document.createElement('div');
+      title.className = 'title';
+      if (text.includes('<')) { title.innerHTML = text; } else { title.textContent = text; }
+      content.appendChild(title);
+
+      const ghost = document.createElement('div');
+      ghost.className = 'ghost';
+      ghost.textContent = i + 1;
+
+      slide.appendChild(profile); slide.appendChild(content); slide.appendChild(ghost);
+      track.appendChild(slide); slides.push(slide);
+    });
+
+    win.appendChild(track); carousel.appendChild(win);
+    let current = 0;
+
+    const nav = document.createElement('div'); nav.className = 'nav';
+    const prev = document.createElement('button'); prev.textContent = 'Back';
+    const next = document.createElement('button'); next.textContent = 'Next';
+    const dots = document.createElement('div'); dots.className = 'dots';
+    const dotEls = slides.map((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      dots.appendChild(d); return d;
+    });
+
+    function slideBg(s) { return s.classList.contains('black') ? '#000000' : '#ffffff'; }
+    function slug(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+    function waitImgs(node) {
+      return Promise.all(Array.from(node.querySelectorAll('img')).map(img => {
+        if (img.complete && img.naturalWidth) return Promise.resolve();
+        return new Promise(res => { img.addEventListener('load', res, {once:true}); img.addEventListener('error', res, {once:true}); });
+      }));
+    }
+    function capture(s, n) {
+      return waitImgs(s).then(() => document.fonts.ready).then(() =>
+        html2canvas(s, { scale:1, useCORS:true, allowTaint:false, logging:false, backgroundColor:slideBg(s) })
+      ).then(c => {
+        const a = document.createElement('a');
+        a.download = 'wasted-effort-' + slug(item.day) + '-slide-' + n + '.png';
+        a.href = c.toDataURL('image/png');
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      });
+    }
+
+    const dlBtn = document.createElement('button'); dlBtn.type = 'button'; dlBtn.className = 'download-btn';
+    const dlAllBtn = document.createElement('button'); dlAllBtn.type = 'button'; dlAllBtn.className = 'download-btn download-all-btn'; dlAllBtn.textContent = 'Download All Slides';
+
+    function updateLabel() { dlBtn.textContent = 'Download PNG — Slide ' + (current+1) + ' of ' + slides.length; }
+    function update() {
+      track.style.transform = 'translateX(-' + (current*1080) + 'px)';
+      dotEls.forEach((d,i) => { d.className = 'dot' + (i===current?' active':''); });
+      prev.disabled = current===0; next.disabled = current===slides.length-1; updateLabel();
+    }
+
+    dlBtn.addEventListener('click', () => {
+      const def = dlBtn.textContent; dlBtn.disabled=true; dlBtn.textContent='Generating...';
+      const orig = dlBtn.style.display; dlBtn.style.display='none';
+      capture(slides[current], current+1).then(()=>{dlBtn.style.display=orig;dlBtn.disabled=false;updateLabel();}).catch(e=>{dlBtn.style.display=orig;dlBtn.disabled=false;updateLabel();console.error(e);});
+    });
+
+    dlAllBtn.addEventListener('click', () => {
+      const def = dlAllBtn.textContent; const saved = current;
+      dlAllBtn.disabled=true; dlBtn.disabled=true;
+      let chain = Promise.resolve();
+      slides.forEach((s,i) => { chain = chain.then(()=>{ current=i; update(); dlAllBtn.textContent='Generating '+(i+1)+' / '+slides.length+'…'; return capture(s,i+1); }); });
+      chain.then(()=>{current=saved;update();dlAllBtn.disabled=false;dlBtn.disabled=false;dlAllBtn.textContent=def;}).catch(e=>{current=saved;update();dlAllBtn.disabled=false;dlBtn.disabled=false;dlAllBtn.textContent=def;console.error(e);});
+    });
+
+    prev.onclick = () => { if(current>0){current--;update();} };
+    next.onclick = () => { if(current<slides.length-1){current++;update();} };
+    nav.appendChild(prev); nav.appendChild(dots); nav.appendChild(next);
+    carousel.appendChild(nav); update();
+    root.appendChild(carousel); root.appendChild(dlBtn); root.appendChild(dlAllBtn);
+  });
+
+})();
+</script>
+</body>
+</html>

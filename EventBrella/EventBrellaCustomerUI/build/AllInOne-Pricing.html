@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventBrella - All-In-One Business Platform Pricing</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        /* Hero Section */
+        .pricing-hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Competitor Comparison Section */
+        .competitor-comparison {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .competitor-comparison h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        .competitor-list {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+        
+        .separator {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #999;
+            margin: 20px 0;
+        }
+        
+        .total-box, .eventbrella-box, .savings-box {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .total-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        
+        .eventbrella-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .savings-box {
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+        }
+        
+        /* Pricing Tiers Table */
+        .pricing-table-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .pricing-table-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #2D5016;
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        th.popular {
+            background: #DAA520;
+            position: relative;
+        }
+        
+        th.popular::before {
+            content: "⭐ MOST POPULAR ⭐";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6b35;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tr:hover {
+            background: #f0f8f0;
+        }
+        
+        /* CTA Buttons */
+        .cta-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .cta-button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button.starter {
+            background: #2D5016;
+        }
+        
+        .cta-button.professional {
+            background: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .cta-button.enterprise {
+            background: #333;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .footer strong {
+            color: #2D5016;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-button.professional {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn no-print" onclick="window.print()">📄 Download PDF</button>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="pricing-hero">
+            <h1 class="hero-title">All-In-One Business Platform</h1>
+            <p class="hero-subtitle">
+                Stop paying for 7 different apps. Get everything you need in one platform—with all your data in one secure place.
+            </p>
+        </div>
+        
+        <!-- Competitor Comparison Section -->
+        <div class="competitor-comparison">
+            <h2>IF YOU BOUGHT THESE SEPARATELY FROM COMPETITORS:</h2>
+            <div class="competitor-list">
+                <p>• Mindbody/Vagaro (Massage Booking): $100/month</p>
+                <p>• Libsyn/Podbean (Podcast Hosting): $30/month</p>
+                <p>• Calendly/Acuity (Scheduling): $35/month</p>
+                <p>• Square/Clover (POS System): $60/month</p>
+                <p>• Toast/ChowNow (Mobile Ordering for Cafe): $125/month</p>
+                <p>• Beaconstac/QR Code Generator (QR Codes): $20/month</p>
+                <p>• Eventbrite/Ticketmaster (Event Ticketing & Space Rental): $65/month</p>
+            </div>
+            
+            <div class="separator">────────────────────────────────────</div>
+            
+            <div class="total-box">
+                <strong>TOTAL IF BOUGHT SEPARATELY: $435/month</strong>
+            </div>
+            
+            <div class="eventbrella-box">
+                <strong>EVENTBRELLA ALL-IN-ONE PRICE: Starting at $149.99/month</strong>
+            </div>
+            
+            <div class="savings-box">
+                <strong>YOU SAVE: Up to $285/month ($3,420/year)</strong>
+            </div>
+        </div>
+        
+        <!-- Pricing Tiers Table -->
+        <div class="pricing-table-section">
+            <h2>PRICING TIERS</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Starter<br>$149.99/month</th>
+                        <th class="popular">Professional<br>$349.99/month</th>
+                        <th>Enterprise<br>$699/month</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Staff Accounts</strong></td>
+                        <td>2</td>
+                        <td>10</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monthly Appointments</strong></td>
+                        <td>1,000</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Booking System</strong></td>
+                        <td>Basic</td>
+                        <td>Full Featured</td>
+                        <td>Full Featured</td>
+                    </tr>
+                    <tr>
+                        <td><strong>POS System</strong></td>
+                        <td>Square Integration</td>
+                        <td>Square + Advanced Reporting</td>
+                        <td>Square + Advanced Reporting</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Ordering (Cafe)</strong></td>
+                        <td>Basic</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage (Podcasts)</strong></td>
+                        <td>5GB</td>
+                        <td>50GB</td>
+                        <td>200GB</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QR Codes</strong></td>
+                        <td>100</td>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Event Ticketing & Space Rental</strong></td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Integrations</strong></td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Brand Customization</strong></td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Account Manager</strong></td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>Dedicated</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support Response</strong></td>
+                        <td>Email (48hrs)</td>
+                        <td>Priority (24hrs)</td>
+                        <td>Priority (2hrs)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 style="margin-bottom: 30px; color: #2D5016;">Ready to Simplify Your Business?</h2>
+            <div class="cta-buttons">
+                <a href="https://ticketseam-customer-ui.vercel.app/data-ownership" class="cta-button starter">
+                    Get Started<br>$149.99/mo
+                </a>
+                <a href="https://ticketseam-customer-ui.vercel.app/data-ownership" class="cta-button professional">
+                    Most Popular<br>$349.99/mo
+                </a>
+                <a href="https://ticketseam-customer-ui.vercel.app/data-ownership" class="cta-button enterprise">
+                    Enterprise<br>$699/mo
+                </a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>EventBrella</strong> - All-In-One Business Platform</p>
+            <p>Massage Booking • Podcast Hosting • Scheduling • POS • Mobile Ordering • QR Codes • Event Ticketing</p>
+            <p style="margin-top: 20px;">Visit: <strong>https://ticketseam-customer-ui.vercel.app/data-ownership</strong></p>
+            <p>Contact: info@eventbrella.com</p>
+        </div>
+    </div>
+</body>
+</html>
+
+

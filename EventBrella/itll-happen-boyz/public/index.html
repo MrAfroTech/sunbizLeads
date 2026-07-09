@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Showcase 2026 - Event Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/" async></script>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Hero Section: full-width black, image box left, text right -->
+        <section class="hero-section">
+            <div class="hero-image-box" aria-hidden="true"></div>
+            <div class="hero-content">
+                <div class="hero-info">
+                    <h1>Summer Showcase 2026</h1>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item">Sunday, January 26 – Tuesday, January 28, 2026, 8:00 AM - 6:00 PM</div>
+                        <div class="hero-meta-item location">TBA</div>
+                        <div class="hero-meta-item location">
+                            <a href="#organizer" class="organizer-link">It'll Happen Boyz Summer Showcase</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ticket Section -->
+        <div class="ticket-section">
+            <div class="ticket-content ticket-tiers-grid">
+                <div class="ticket-tier">
+                    <div class="ticket-price">$20</div>
+                    <div class="ticket-tier-name">Day Pass</div>
+                    <p class="ticket-tier-desc">Single day access. Full regulation games. MVP opportunities.</p>
+                    <button class="get-tickets-btn btn-select" data-tier="day-pass">Get Tickets</button>
+                </div>
+                <div class="ticket-tier">
+                    <div class="ticket-price">$52</div>
+                    <div class="ticket-tier-name">Weekend Pass</div>
+                    <p class="ticket-tier-desc">All 3 days. More games, more competition, more growth. Save $8.</p>
+                    <button class="get-tickets-btn btn-select" data-tier="weekend-pass">Get Tickets</button>
+                </div>
+                <div class="ticket-tier">
+                    <div class="ticket-price">$60</div>
+                    <div class="ticket-tier-name">VIP Day Pass</div>
+                    <p class="ticket-tier-desc">Reserved seating. Watch your athlete dominate in comfort.</p>
+                    <button class="get-tickets-btn btn-select" data-tier="vip-day-pass">Get Tickets</button>
+                </div>
+                <div class="ticket-tier">
+                    <div class="ticket-price">$152</div>
+                    <div class="ticket-tier-name">VIP Weekend Pass</div>
+                    <p class="ticket-tier-desc">Reserved seats all weekend. Premium everything.</p>
+                    <button class="get-tickets-btn btn-select" data-tier="vip-weekend-pass">Get Tickets</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="event-details">Event Details</div>
+
+        <div class="details-content">
+            <p class="details-text">Where Champions Are Made.</p>
+            <p class="details-text">3 days. Full regulation games. MVP winners every single game.</p>
+            <p class="details-text">This isn't practice. This is where your athlete proves they belong.</p>
+            <p class="details-text">5U-14U athletes. Full regulation games. Professional coaching from Coach Kei and Coach Lee. Every player gets real game time. Every game crowns an MVP.</p>
+            <p class="details-text">Your kid doesn't need more participation trophies. They need reps against real competition.</p>
+            <p class="details-text">January 26-28. Central Florida. 2 games guaranteed. Call-out games welcome.</p>
+            <p class="details-text">What makes this different: Real games. Real competition. Real coaches who've been there. We don't do fluff - just football and results. Your athlete plays, competes, and improves. Period.</p>
+        </div>
+
+        <!-- Venue Section -->
+        <div class="venue-section">
+            <h2 class="section-title">Venue Information</h2>
+            <div class="venue-info">
+                <div class="venue-name">TBA</div>
+                <div class="venue-address">
+                    Location To Be Announced<br>
+                    Central Florida, FL TBD<br>
+                    321-477-9140
+                </div>
+            </div>
+
+            <div class="map-buttons">
+                <button class="map-btn map-btn-scroll" type="button">View Map</button>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Location+To+Be+Announced,+Central+Florida,+FL+TBD" target="_blank" class="map-btn">Get Directions</a>
+            </div>
+
+            <div class="map-container" id="map-frame">
+                <iframe src="https://www.google.com/maps?q=Location%20To%20Be%20Announced%2C%20Central%20Florida%2C%20FL%20TBD&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <!-- Organizer Section -->
+            <h2 class="section-title" id="organizer">Organizer & Contact</h2>
+            <div class="organizer-content">
+                <div class="organizer-details">
+                    <h3>It'll Happen Boyz Summer Showcase</h3>
+                    <p><strong>Coach Kei</strong> | Head Coach | info@itllhappenboyz.com | 321-477-9140</p>
+                    <p><strong>Coach Lee</strong> | Assistant Coach | info@itllhappenboyz.com | 407-760-7136</p>
+                    <p>Location To Be Announced</p>
+                    <p>Central Florida, FL TBD</p>
+                    <button class="more-events-btn" type="button" onclick="window.location.href='/summer-showcase.html'">More Events</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modalTitle">Purchase Tickets</h2>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="customerName">Full Name *</label>
+                    <input type="text" id="customerName" name="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Email *</label>
+                    <input type="email" id="customerEmail" name="customerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Phone (Optional)</label>
+                    <input type="tel" id="customerPhone" name="customerPhone">
+                </div>
+                <div class="form-group">
+                    <label>Event</label>
+                    <div class="event-date-pill" id="eventDate">
+                        <span class="event-date-pill-icon">📅</span>
+                        <span>Sunday, January 26 – Tuesday, January 28, 2026 • 8:00 AM - 6:00 PM</span>
+                    </div>
+                    <small style="color: var(--text-light); font-size: 0.9rem; display: block; margin-top: 5px;">
+                        Summer Showcase 2026. Central Florida.
+                    </small>
+                </div>
+                <div class="form-group" id="ticketCountGroup">
+                    <label for="ticketCount" id="ticketCountLabel">Number of Tickets *</label>
+                    <input type="number" id="ticketCount" name="ticketCount" min="1" max="10" value="1" required>
+                </div>
+                <div class="form-group" id="teamMemberGroup" style="display: none;">
+                    <label for="teamMemberName">Team Member Name *</label>
+                    <input type="text" id="teamMemberName" name="teamMemberName" placeholder="Enter your teammate's full name">
+                </div>
+                <div class="form-summary">
+                    <div class="summary-row">
+                        <span>Ticket Price:</span>
+                        <span id="ticketPrice">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Quantity:</span>
+                        <span id="ticketQuantity">1</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="totalAmount">$0.00</span>
+                    </div>
+                </div>
+                <div id="cardElement" class="stripe-card">
+                    <!-- Stripe Elements will create form elements here -->
+                </div>
+                <div id="cardErrors" role="alert"></div>
+                <div id="testModeNotice" style="display: none; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; margin: 15px 0; color: #856404;">
+                    <strong>🧪 TEST MODE ACTIVE</strong><br>
+                    No real payment will be processed. This is a simulation for testing purposes.
+                </div>
+                <button type="submit" class="btn-purchase" id="submitButton">
+                    <span id="buttonText">Purchase Tickets</span>
+                    <span id="spinner" class="spinner hidden"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success">
+            <h2>🎉 Purchase Successful!</h2>
+            <p>Your tickets have been purchased and confirmation email with QR codes has been sent to your email.</p>
+            <p><strong>Transaction ID:</strong> <span id="successTransactionId"></span></p>
+            <button class="btn-close" onclick="closeSuccessModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-contact">For questions, contact It'll Happen Boyz Summer Showcase — info@itllhappenboyz.com | 321-477-9140</p>
+            <p class="footer-terms"><a href="#terms">Terms and Conditions</a></p>
+        </div>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

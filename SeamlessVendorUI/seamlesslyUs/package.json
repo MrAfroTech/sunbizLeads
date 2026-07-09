@@ -1,0 +1,58 @@
+{
+  "name": "@seamless/coffee-conversations-collective",
+  "version": "1.0.0",
+  "description": "Shared booking and loyalty system for Coffee & Conversations Collective",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "prestart": "node scripts/sync-chaos-mastery-newsletters.js",
+    "prebuild": "node scripts/sync-chaos-mastery-newsletters.js",
+    "sync-newsletters": "node scripts/sync-chaos-mastery-newsletters.js",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "vercel --prod",
+    "deploy:lead-functions": "bash ../../salesMastery/supabase/deploy-lead-engine-functions.sh",
+    "deploy:abandon-functions": "bash -c 'cd ../../salesMastery/supabase && supabase functions deploy send-calculator-abandon-emails'"
+  },
+  "dependencies": {
+    "@stripe/react-stripe-js": "^5.4.1",
+    "@stripe/stripe-js": "^8.6.4",
+    "@supabase/supabase-js": "^2.78.0",
+    "aws-sdk": "^2.1693.0",
+    "jspdf": "^3.0.4",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "^5.0.1",
+    "stripe": "^14.25.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0"
+  },
+  "keywords": [
+    "booking",
+    "loyalty",
+    "appointments",
+    "rewards"
+  ],
+  "author": "SeamlessMarketplace",
+  "license": "PROPRIETARY",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "pdfkit": "^0.17.2"
+  }
+}

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 13: Designing the Frictionless Venue</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{
+  --page-gutter-out:64px;
+  --page-gutter-in:80px;
+  --page-content-top:22px;
+  --page-content-bottom:14px;
+  --page-content-bottom-navy:18px;
+  width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;
+}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 var(--page-gutter-out) 0 var(--page-gutter-in);border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 var(--page-gutter-out) 0 var(--page-gutter-in);flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:var(--page-content-top) var(--page-gutter-out) var(--page-content-bottom) var(--page-gutter-in);display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:var(--page-content-top) var(--page-gutter-out) var(--page-content-bottom-navy) var(--page-gutter-in);display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:11.5px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.src-note{font-size:10px;color:#888;font-style:italic;line-height:1.5;border-top:1px solid #eee;padding-top:7px;margin-top:6px;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:11px 13px;font-size:13px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:16px 18px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.gold{background:#D4AF37;}.q-card.teal{background:#00D4AA;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src{color:#1A2A44;}
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src{color:#1A2A44;}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 13: Designing the Frictionless Venue</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px var(--page-gutter-out) 40px var(--page-gutter-in);display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part III — The Modern Hospitality Operating System</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 13</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:#fff;line-height:.92;margin-bottom:2px;">DESIGNING THE</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:#D4AF37;line-height:.92;margin-bottom:34px;">FRICTIONLESS VENUE</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "Eveyone talks about ambiance when it comes to design. But designing the guest experience will produce a ROI beyond your wildest dreams"
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Maurice Sanders, Founder Seamlessly</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">20–30%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">friction added to every guest journey by poor venue design — visible in abandoned orders, missed turns, and lower satisfaction scores</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">77%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">of guests prefer automated messaging for quick communication — technology that removes friction is now a baseline expectation, not a luxury</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">90 sec</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">maximum guest tolerance for finding the "obvious next step" before they abandon — in ordering, waiting, or navigation</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">22%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">higher RevPAR at frictionless venues — design and AI together are driving measurable revenue advantage, not just satisfaction scores</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE PREMISE: VENUES AS FLOW MACHINES -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The New Design Paradigm</div>
+        <div class="ch-title">Friction Is Now Taboo</div>
+        <div class="ch-intro" style="max-width:100%;">The guest doesn't care about your architectural intent. They care about one thing: how hard it was to get what they came for. Poor design adds friction. Friction kills throughput. Dead throughput kills revenue. The hospitality design conversation has shifted from aesthetics to movement science — and AI has made it measurable for the first time.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Design Imperative for 2026</div>
+          <p>DLR Group's design leaders — Principal and Hospitality Design Leader Brian Murch, AIA, and Principal and Hospitality Interior Design Leader Valentina Castellon — document the direction in their 2026 hospitality design trends analysis: <strong>"Whether guests are drawn to immersive outdoor escapes, bold and expressive design, or thoughtfully curated private spaces, the common thread is a desire for experiences that feel intentional, surprising, and uniquely their own."</strong> Intentionality in design is not a style question. It is a flow question: every space decision either guides the guest efficiently or creates hesitation.<span class="cite"> Ed Wilms, Brian Murch, Valentina Castellon, DLR Group, "What's Shaping Hospitality Design Trends in 2026," dlrgroup.com, Dec. 18, 2025</span></p>
+          <p>Canary Technologies' 2026 hospitality technology report — drawing from Skift and Oracle's 2025 hospitality data — establishes the technology expectation: <strong>"Modern travelers expect an 'invisible,' digital-first journey where technology works in the background to ensure everything is frictionless."</strong> Seventy-seven percent of guests prefer automated messaging for quick communication. The guest is not waiting to be delighted. They are looking for the fastest path to a great experience, and any obstacle on that path is a friction cost.<span class="cite"> Canary Technologies, "11 Hospitality Technology Trends for 2026," canarytechnologies.com, citing Skift/Oracle 2025 report</span></p>
+          <div class="sec-head">The AI Acceleration</div>
+          <p>EHL Hospitality Business School's Hospitality Insights Outlook Report 2026 — authored by Bianca Lüthy and updated March 2026 — establishes AI as the primary force reshaping how venues operate: <strong>"The hospitality industry is increasingly adopting Artificial Intelligence to deliver personalized services, reduce costs, optimize pricing, and improve operational processes and employee well-being."</strong><span class="cite"> Bianca Lüthy, EHL Hospitality Business School, "Hospitality Industry Trends for 2026," hospitalityinsights.ehl.edu, updated March 13, 2026</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The 2026 threshold:</strong> Hotel Online's analysis of AI in hospitality puts the transition directly: "If 2024 was the year hotels experimented with AI, and 2025 was the year they adopted it, then 2026 is the year AI runs the show quietly, invisibly, efficiently." The frictionless venue is not a design choice — it is a competitive requirement. The operators building for it now are building structural margin advantages that compound over the next three years.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Hotel Online, "What AI Will Really Do for Hotels in 2026," hotel-online.com, Oct. 29, 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Friction Is A Thief In the Night</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">THROUGHPUT LOSS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Poor design reduces throughput 15% — fewer covers per shift, longer turn times, lower revenue per available seat.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">ABANDONED DECISIONS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Cluttered menus and buried ordering paths cause 1 in 5 sales to be abandoned before completion — decision overload is a design failure.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">SATISFACTION DRAIN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Friction in the guest journey reads as poor service — even when staff are excellent. Physical design creates the emotional experience before a human interaction happens.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">STAFF EFFICIENCY LOSS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Cross-traffic paths, misplaced stations, and navigation dead-ends burn 30% of staff movement into wasted steps that never reach a guest.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+25%</div>
+          <div class="stat-lbl">table turns achievable through seamless layout design — same staff, same space, measurably more revenue per shift</div>
+          <div class="stat-sub">Hospitality design research; EHL Hospitality Business School, hospitalityinsights.ehl.edu, 2026</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">+40%</div>
+          <div class="stat-lbl">satisfaction score improvement at venues that remove navigation friction and optimize for guest movement speed</div>
+          <div class="stat-sub">Industry design-to-satisfaction benchmarks; DLR Group design leaders, dlrgroup.com, Dec. 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE AI PERSONALIZATION DESIGN LAYER (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Design × AI Intersection</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">HOW TO TURN SPACES INTO MONEY PRINTING MACHINES</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">DLR Group, EHL, and Hotel Online on the Emerging Standard for Hospitality Design in 2026</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The DLR Group Insight — Design as AI Infrastructure</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:12px;">
+            <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#fff;line-height:1.65;margin-bottom:8px;">Valentina Castellon described personalization no longer as a perk: "With predictive AI, personalization is no longer a perk or moment of surprise; it is becoming a fundamental expectation. But technology alone doesn't make this feel seamless — design does. The way we plan rooms, integrate sensors, organize storage, select materials, and choreograph arrival sequences all determines whether personalization feels intuitive or intrusive."</div>
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;">Valentina Castellon, Principal, Hospitality Interior Design, DLR Group</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:2px;">DLR Group, "What's Shaping Hospitality Design Trends in 2026," dlrgroup.com, Dec. 18, 2025</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">SENSOR-INTEGRATED SPACES</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Rooms pre-calibrated to temperature, scent, music, and lighting preferences before guest arrival — driven by data, executed through design infrastructure built for it.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">FLEXIBLE SPACE REINTERPRETATION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Lounges that shift from morning wellness to evening socializing. Spaces designed with built-in adaptability — not fixed programming — allow AI to orchestrate the moment.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">MID-STAY PERSONALIZATION</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">"Even small touches can create loyalty and delight, particularly when they are unexpected." — Valentina Castellon, DLR Group. Spaces designed with niches for customized amenity delivery enable the AI-triggered gesture without operational friction.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Hotel Online — The AI Agent Era</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:6px;"><strong style="color:#D4AF37;">Hotel Online's 2026 framework:</strong> "2026 will be the year AI runs the show quietly, invisibly, efficiently. It arrives as an ecosystem of intelligence — invisible collaborators that think, predict, and act faster than any human team could." The venues built to receive this AI layer will extract maximum value from it. The venues still operating on static layouts and fixed staffing patterns will not.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotel Online, hotel-online.com, Oct. 29, 2025</div>
+          </div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:12px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;margin-bottom:5px;">THE DATA FRAGMENTATION WARNING</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:5px;">Hotel Online's analysis identifies the core failure mode that undermines AI in physical spaces: "PMS knows the reservation. CRM knows the email. RMS knows the rate. Marketing knows the click. And no one knows the person." Design alone doesn't solve this. The frictionless venue requires unified data AND physical infrastructure designed for it.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotel Online, hotel-online.com, Oct. 2025</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:1px;margin-bottom:5px;">THE NETSUIT / ORACLE BENCHMARK</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">According to NetSuite's technology analysis, 78% of hotel chains are already using AI to some degree, and 89% will expand AI use cases in the next 2–3 years. Analysts project hospitality AI investment will grow 60% year-over-year through 2033. The design infrastructure to receive this investment is the prerequisite, not the afterthought.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">NetSuite, "The Future of the Hospitality Industry," netsuite.com, Nov. 2025; Oracle/Skift data</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        "Design creates the framework that allows hyper-tailored moments to unfold without friction." — Valentina Castellon, DLR Group (dlrgroup.com, Dec. 2025)
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE FOUR FRICTION ZONES -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Friction Map</div>
+    <div class="ch-title">THE FOUR REVENUE LEAKS</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">Every venue has four zones where design either guides the guest forward efficiently or creates hesitation that translates directly into lost revenue. They are not abstract concepts. They are measurable in time-per-transaction, staff movement efficiency, satisfaction scores, and throughput per hour.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Zone 1 — The Menu / Decision Interface</div>
+          <p>The most expensive friction in hospitality is the one that happens before the first dollar is spent. Cluttered menus, overlapping options, and buried ordering paths trigger what behavioral economists call <strong>decision overload</strong> — the point at which too many choices results in no choice at all. Narrow menus cut order time 35%. Digital menus with AI-driven personalization cut the decision surface further by surfacing the most relevant options first. <strong>Decision overload kills 1 in 5 sales</strong> that were already in the building.<span class="cite"> Brief; Canary Technologies, canarytechnologies.com; hospitality behavioral design research</span></p>
+          <div class="sec-head">Zone 2 — The Ordering Interface</div>
+          <p>The line at the ordering point — physical or digital — is where 40% of peak-period abandonment occurs. QR ordering, kiosk deployment, and mobile pre-ordering reduce wait time at the ordering interface by 50% under peak load. The design requirement is not just the technology; it is the <strong>spatial flow that directs guests to the ordering interface without congestion, cross-traffic, or confusion about the process.</strong><span class="cite"> Brief; Canary Technologies, canarytechnologies.com; ScanQueue wait time research</span></p>
+          <div class="sec-head">Zone 3 — The Wait/Pickup Zone</div>
+          <p>The gap between order and delivery is the most emotionally vulnerable moment in the guest experience. Guests without a clear understanding of wait time, queue position, or pickup location experience the wait as longer than it is. <strong>Predictive staggering of order preparation — driven by AI kitchen management — reduces cold food complaints by 20%.</strong> Dedicated pickup zones near exits reduce the collision cross-traffic that degrades the experience for both waiting guests and departing ones.<span class="cite"> Brief; hospitality operations research</span></p>
+          <div class="sec-head">Zone 4 — The Staff Path</div>
+          <p>Staff movement efficiency is invisible to guests but fully visible in per-cover economics. Heatmap analysis of staff paths in high-friction venues consistently shows that <strong>30% of movement is cross-traffic</strong> — staff moving against guest flow rather than through it. One-way service lanes, strategically positioned stations, and AI-assisted dynamic positioning cut labor waste by 18% without reducing headcount.<span class="cite"> Brief; hospitality operations and design research</span></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <!-- The 4-zone matrix -->
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Friction Cost by Zone</div>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="background:rgba(212,175,55,0.15);">
+              <th style="font-size:9.5px;color:#D4AF37;text-align:left;padding:5px 7px;letter-spacing:1px;">Zone</th>
+              <th style="font-size:9.5px;color:#D4AF37;text-align:center;padding:5px 7px;letter-spacing:1px;">Friction Cost</th>
+              <th style="font-size:9.5px;color:#D4AF37;text-align:center;padding:5px 7px;letter-spacing:1px;">AI Fix</th>
+              <th style="font-size:9.5px;color:#D4AF37;text-align:center;padding:5px 7px;letter-spacing:1px;">Gain</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:7px 7px;font-size:11.5px;font-weight:700;color:#fff;">Menus</td><td style="padding:7px 7px;font-size:11px;color:#e74c3c;text-align:center;">25% order delay</td><td style="padding:7px 7px;font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">AI dynamic (weather/inventory)</td><td style="padding:7px 7px;font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">+30% upsell</td></tr>
+              <tr style="background:rgba(255,255,255,0.04);"><td style="padding:7px 7px;font-size:11.5px;font-weight:700;color:#fff;">Ordering</td><td style="padding:7px 7px;font-size:11px;color:#e74c3c;text-align:center;">40% line abandonment</td><td style="padding:7px 7px;font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">Voice/QR agents</td><td style="padding:7px 7px;font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">−50% wait</td></tr>
+              <tr><td style="padding:7px 7px;font-size:11.5px;font-weight:700;color:#fff;">Pickup</td><td style="padding:7px 7px;font-size:11px;color:#e74c3c;text-align:center;">15% cold food</td><td style="padding:7px 7px;font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">Predictive staggering</td><td style="padding:7px 7px;font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">+20% satisfaction</td></tr>
+              <tr style="background:rgba(255,255,255,0.04);"><td style="padding:7px 7px;font-size:11.5px;font-weight:700;color:#fff;">Staff</td><td style="padding:7px 7px;font-size:11px;color:#e74c3c;text-align:center;">30% idle/wrong spot</td><td style="padding:7px 7px;font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">Heatmap routing</td><td style="padding:7px 7px;font-size:11px;color:#00D4AA;font-weight:700;text-align:center;">−18% labor waste</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Source: Brief synthesis; supported by Canary Technologies (canarytechnologies.com); EHL hospitality operations research (hospitalityinsights.ehl.edu)</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"AI won't replace hospitality professionals. It'll replace the friction that burns them out."</div>
+          <div class="q-attr">Toast Executive, 2026 Report</div>
+          <div class="q-src">Cited in brief; consistent with Canary Technologies AI-augmented operations research, 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — THE AI AUGMENTATION LAYER (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The AI Intelligence Layer</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE SUPERPOWER OF AI: THE 5  GAME CHNGERS</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">How The Personalization of AI Layer Onto Physical Design to Multiply Results</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;">
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#00D4AA;letter-spacing:1px;margin-bottom:6px;"># 1 — PREDICTIVE RUSH FORECASTING (92% accuracy)</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:6px;">AI revenue forecasting models update as booking behavior shifts — cancellations, pickup speed, pricing changes reflected in near real time. Hotels using predictive scheduling can staff 18% more efficiently, positioning the right number of people at each venue zone at each hour of peak demand. Canary Technologies documents that AI-optimized operations cut no-shows 37% and lift direct bookings 45%.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Canary Technologies, canarytechnologies.com; RaftLabs AI in Travel/Hospitality Guide, raftlabs.com, Feb. 2026</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#D4AF37;letter-spacing:1px;margin-bottom:6px;"># 2 — DYNAMIC STAFF ROUTING (−18% labor waste)</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:6px;">Heatmap-driven dynamic positioning moves staff to where demand is building before it peaks. Instead of static station assignments, AI reads real-time flow data — POS transaction velocity, table turn signals, wait time indicators — and routes staff accordingly. The labor cost reduction is 18% without headcount reduction.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; supported by EHL Hospitality Business School, hospitalityinsights.ehl.edu, 2026</div>
+          </div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#e74c3c;letter-spacing:1px;margin-bottom:6px;"># 3 — PERSONALIZation  ("YOUR TABLE'S READY")</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:6px;">Hotel Technology News documents how AI generates detailed guest profiles from historical booking data, loyalty preferences, and visit behavior — pre-selecting rooms, adjusting temperature/lighting, flagging VIP guests for proactive upgrades. In F&B: "Your usual table's ready" is not a luxury message — it is an AI-triggered retention moment that builds the relationship the platform would otherwise intercept.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Hotel Technology News, "How AI is Transforming Guest Experiences in Luxury Hospitality," hoteltechnologynews.com, May 2025</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;letter-spacing:1px;margin-bottom:6px;"># 4 — DYNAMIC MENUs  (+30% upsell)</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:6px;">AI-driven dynamic menus surface different items based on weather, time of day, inventory levels, and guest history. On a cold Tuesday night, the braised short rib surfaces before the salad. For the guest who always orders the lobster bisque, it's the first item on their digital menu. The upsell increase is 30% because the suggestion arrives at exactly the right moment with exactly the right item.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Brief; AI personalization engine research; RaftLabs, raftlabs.com</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;letter-spacing:1px;margin-bottom:6px;"># 5 — ROUTINE QUERY HANDLING (60% by 2027)</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;margin-bottom:6px;">Canary Technologies documents that voice AI has crossed from novelty to necessity: "Every unanswered call represents a lost direct booking, a lost upsell, or a frustrated guest who books elsewhere." AI handles reservations, modifications, amenity questions, and rate explanations without hold times. By 2027, AI agents are projected to handle 60% of routine guest queries — freeing human staff for the high-value relationship moments that technology cannot replace.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Canary Technologies, canarytechnologies.com; Paige Lopez, "AI in Hospitality: The 2025 Reality and the 2026 Horizon," hospitalitynet.org</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;letter-spacing:2px;margin-bottom:6px;">THE INDUSTRY INVESTMENT SIGNAL</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;">78%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);line-height:1.4;">of hotel chains already using AI to some degree</div></div>
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;">89%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);line-height:1.4;">will expand AI use cases within 2–3 years</div></div>
+              <div><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;">60%</div><div style="font-size:10.5px;color:rgba(255,255,255,0.65);line-height:1.4;">YoY AI investment growth through 2033</div></div>
+            </div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">NetSuite, netsuite.com, Nov. 2025; Oracle/Skift 2025 hospitality report</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — DESIGN PRINCIPLES -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Design Principles</div>
+    <div class="ch-title">Five Principles of the Frictionless Venue</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The frictionless venue is not an aesthetic achievement. It is a set of operational decisions encoded in physical space. These five principles are the framework — each one measurable, each one directly connected to revenue and satisfaction outcomes.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Principle 1 — Guide, Don't Suggest</div>
+          <p>Every design element either guides a guest forward or creates a hesitation point. Clear entry signage, visible ordering queues, and obvious pickup zones eliminate the micro-decisions that accumulate into a frustrating experience. <strong>The 90-second rule applies:</strong> if a guest cannot identify the obvious next step within 90 seconds of arrival or transition, the design has failed — and 1 in 5 transactions will be abandoned as a result.</p>
+          <div class="sec-head">Principle 2 — Narrow the Menu, Widen the Margin</div>
+          <p>Behavioral hospitality design research consistently shows that narrower menus produce higher per-guest revenue. The cognitive load of choosing from 47 items prevents confident ordering. Narrow menus cut order time 35%, reduce kitchen error rates, and enable staff to build expertise in a smaller set of items. The AI layer adds dynamic personalization on top of the narrow foundation — not instead of it.</p>
+          <div class="sec-head">Principle 3 — Separate the Flows</div>
+          <p>Incoming guests, waiting guests, and departing guests should never share the same path. Order pickup zones near exits eliminate the cross-traffic that generates both collision and the perception of chaos. Staff paths should run parallel to, not across, guest paths. <strong>Collision-free environments reduce stress for guests and staff simultaneously</strong> — a design decision that pays in both satisfaction scores and staff retention.</p>
+          <div class="sec-head">Principle 4 — Build for the Peak, Not the Average</div>
+          <p>Design decisions made for average demand fail under peak load — which is precisely when the revenue stakes are highest. Chick-fil-A's <strong>zoned drive-thru model</strong> consistently delivers sub-4-minute service times under peak pressure by designing for the peak traffic pattern. Sweetgreen's linear ordering lines eliminate the queue confusion that degrades high-traffic service windows. The benchmark is not "this works on Tuesday afternoon." It is "this works during Friday dinner."</p>
+          <div class="sec-head">Principle 5 — Design for the AI Layer</div>
+          <p>Sensor integration, flexible space reinterpretation, and unified data infrastructure are design requirements in 2026, not future-state ambitions. <strong>DLR Group's Valentina Castellon is explicit: the way spaces integrate sensors and choreograph arrival sequences determines whether personalization feels intuitive or intrusive.</strong> The frictionless venue is built for the AI layer from the first architectural decision.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Working Models — Venues That Got It Right</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">CHICK-FIL-A — ZONED DRIVE-THRU</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Consistent sub-4-minute service times under peak load through zoned ordering lanes with face-to-face staff during high demand. Designed for peak throughput, not average efficiency. The result: highest sales per unit in QSR consistently.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">SWEETGREEN — LINEAR LINE DESIGN</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Single-file linear ordering eliminates queue confusion and cross-traffic. Customers move forward continuously — no uncertainty about position, progress, or expected wait time. Throughput under peak load exceeds traditional counter formats by 20–30%.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;">THE ANTI-MODEL: CLUTTERED COUNTERS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Multi-register counters with no defined queue, unclear ordering zones, and combined pickup/order areas generate the highest abandonment rates in the industry. Decision overload at the counter is responsible for 1 in 5 lost sales.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">90 sec</div>
+          <div class="stat-lbl">maximum tolerance before a guest abandons their next step — applies to ordering, navigation, and wait queue identification</div>
+          <div class="stat-sub">Behavioral hospitality design research; consistent with Canary Technologies/Skift guest experience data, 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — DESIGN MEETS DIGITAL EXPECTATION -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Digital-Physical Integration</div>
+    <div class="ch-title">When Physical Design Must Meet Digital Expectation</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The guest who booked on a mobile app, confirmed via AI chatbot, and navigated to your venue via Google Maps is now standing at your entrance. The physical experience they encounter is either consistent with the digital promise they were made — or it isn't. The gap between those two experiences is where hospitality brands win or lose.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Omnichannel Design Imperative</div>
+          <p>G&Co.'s analysis of hospitality customer experience in 2026 puts the standard directly: <strong>"The distinction between online and offline guest experiences is disappearing, with guests demanding consistency across mobile, web, and physical properties."</strong> Physical spaces must be designed to reflect digital expectations — guests seeking immersive, tech-enabled experiences that are consistent with the pre-arrival journey they had online.<span class="cite"> G&Co., "Hospitality Customer Experience in 2026," g-co.agency</span></p>
+          <p>Canary Technologies extends this to the operational level: the venue that can't bridge its digital pre-arrival experience to its physical service delivery will generate guest satisfaction gaps that no amount of staff friendliness can close. <strong>77% of guests prefer automated messaging for quick communication</strong> — which means the design environment must support the technology those guests expect to use inside the venue.<span class="cite"> Canary Technologies, canarytechnologies.com, Jan. 2026; citing Skift/Oracle 2025 report</span></p>
+          <div class="sec-head">Virtual Wayfinding as Friction Reduction</div>
+          <p>Canary Technologies' 2026 technology trends analysis identifies virtual maps as a tool that combines guest wayfinding with revenue generation: <strong>"Virtual maps can help travelers with wayfinding and offer upsells in the process."</strong> The physical space that has been mapped digitally — with interactive wayfinding accessible via the guest's phone — reduces the navigation friction that would otherwise require staff intervention or generate abandonment.<span class="cite"> Canary Technologies, canarytechnologies.com, Jan. 2026</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The EHL 2026 outlook:</strong> Bianca Lüthy's Hospitality Insights Outlook Report 2026 documents that AI adoption is transforming hospitality marketing as more travelers turn to LLMs like ChatGPT and Copilot to plan their trips — "the AI-designed guest journey begins before arrival." The venue that has not built a physical environment consistent with the AI-assembled expectation will produce a gap experience. Every design decision is now a pre-arrival promise.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Bianca Lüthy, EHL Hospitality Business School, "Hospitality Industry Trends for 2026," hospitalityinsights.ehl.edu, updated March 13, 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Where Physical Meets Digital</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.25);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">ARRIVAL EXPERIENCE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Digital: AI confirms reservation and shares arrival instructions. Physical: Clear entry signage, contactless check-in kiosk or mobile key. Gap = frustration. Alignment = delight.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.25);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">ORDERING EXPERIENCE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Digital: Guest browses menu and pre-orders via app. Physical: QR codes at every seat link to the same menu, same personalization engine, same order queue. Continuity = satisfaction.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">WAIT EXPERIENCE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Digital: Real-time queue position and estimated wait delivered via SMS. Physical: Clear visual queue marker, comfortable staging area near pickup. Visibility = perceived shorter wait.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">DEPARTURE EXPERIENCE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Digital: Loyalty points updated, next visit offer sent post-transaction. Physical: Receipt opt-in prompt at checkout, QR for next visit discount. Last physical touch = first CRM touch.</div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card light" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Physical spaces must be designed to reflect digital expectations, with guests seeking immersive, tech-enabled experiences that are consistent with their pre-arrival digital journey."</div>
+          <div class="q-attr">G&Co. — Hospitality Customer Experience 2026</div>
+          <div class="q-src">g-co.agency · Hospitality Customer Experience in 2026</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">77%</div>
+          <div class="stat-lbl">of guests prefer automated messaging for quick communication — physical design must support the technology they expect to use</div>
+          <div class="stat-sub">Skift/Oracle 2025 hospitality report, cited in Canary Technologies, canarytechnologies.com, Jan. 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — THE REVENUE DESIGN MATH (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Revenue Math</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">WHAT THE FRICTIONLESS VENUE IS WORTH </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Measuring the Revenue Impact of Frictionless Design Across Hospitality Segments</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Hotel Revenue Equation</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;margin-bottom:5px;">+22% RevPAR</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">Frictionless venues — those that have deployed integrated technology, seamless physical design, and AI-augmented operations — show 22% higher revenue per available room compared to peers operating on traditional service models. The design investment is a revenue investment.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Hospitality design research; EHL Hospitality Business School, hospitalityinsights.ehl.edu; industry RevPAR benchmarks</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;margin-bottom:5px;">−37% No-Shows</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">AI-optimized reservation management — predictive confirmation, automated reminders, and dynamic waitlist management — cuts no-show rates 37% and lifts direct bookings 45%. Each recovered no-show is a full-cover revenue recovery.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Canary Technologies, canarytechnologies.com</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;margin-bottom:5px;">+45% Direct Bookings</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">AI-optimized direct booking channels — combined with frictionless checkout and personalized offer delivery — lift direct booking rates 45%. Each direct booking is a commission saved and a guest data record captured.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Canary Technologies, canarytechnologies.com</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Restaurant Revenue Equation</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;margin-bottom:5px;">+25% Table Turns</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">Seamless layout design — guided guest flow, separated ordering and pickup zones, efficient staff routing — increases table turns 25% in the same physical space. Same square footage, 25% more revenue per service window.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Hospitality design research; industry turn-time benchmarks</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#e74c3c;line-height:1;margin-bottom:5px;">−50% Line Wait</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">QR ordering and voice AI agents reduce peak-period line wait time by 50%. For venues where the line is the primary abandonment point — QSR, stadium F&B, festival food courts — this is a direct throughput recovery, not a satisfaction metric.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">Brief; ScanQueue wait time research; Canary Technologies, canarytechnologies.com</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;margin-bottom:5px;">+15–20% Revenue Uplift</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;">RaftLabs' AI in Travel and Hospitality Guide documents that industry leaders using AI for revenue optimization are reporting revenue uplifts of up to 15% and sales ROI increases reaching 20% — through AI-driven pricing, personalization, and operational efficiency.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:4px;">RaftLabs, "AI in Travel and Hospitality: Complete 2026 Guide," raftlabs.com, Feb. 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">
+        "If 2025 was the year hotels leaned into technology, 2026 is the year they put the pedal to the metal. Tech will take a front seat in driving revenue, retention, and guest satisfaction." — Canary Technologies (canarytechnologies.com, Jan. 2026)
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — THE FUTURE STATE -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Where This Is Going</div>
+    <div class="ch-title">The 2027 Venue </div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The frictionless venue of 2026 is a fixed architectural investment layered with AI technology. The venue of 2027 will be architecturally dynamic — spaces that physically adapt to demand patterns in real time, directed by sensor networks and AI agents that respond faster than any human floor manager could.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Dynamic Layouts via Sensor Networks</div>
+          <p>The 2026 horizon for hospitality design already points toward sensor-directed spatial adaptation: furniture configurations that shift for peak vs. off-peak periods, acoustic panels that adjust noise levels based on occupancy, and lighting systems that change ambiance by hour and guest density. <strong>By 2027, AI-directed sensors will widen queue paths during peak periods, trigger staff repositioning before demand spikes, and personalize the micro-environment of individual tables</strong> — temperature, lighting, and audio — based on guest history. DLR Group's framework anticipates this: "spaces are flexible enough to be reinterpreted and refreshed mid-visit."<span class="cite"> Valentina Castellon, DLR Group, dlrgroup.com, Dec. 2025</span></p>
+          <div class="sec-head">Agent-to-Agent Booking</div>
+          <p>Paige Lopez's analysis in Hospitality Net documents the next evolution of the direct channel: <strong>"The next evolution will not be human-to-hotel. It will be agent-to-agent. Guest-side AI agents will negotiate booking details with hotel-side AI systems directly."</strong> This requires machine-readable inventory, availability, offers, policies, and upsells. The physical venue that has not built its technology infrastructure to speak this language will be invisible to the systems making the booking decisions.<span class="cite"> Paige Lopez, "AI in Hospitality: The 2025 Reality and the 2026 Horizon," hospitalitynet.org</span></p>
+          <div class="sec-head">The Compounding Advantage</div>
+          <p>Hotel Online's synthesis captures the competitive reality: "2026 won't reward the biggest brands. It will reward the most adaptive systems, the most data-cohesive operators, and the most human-centered innovators." The frictionless venue is not a technology project. It is an organizational commitment to making the guest experience the primary design variable — and building both the physical space and the technology infrastructure to deliver it consistently at scale.<span class="cite"> Hotel Online, hotel-online.com, Oct. 29, 2025</span></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The 2027 Venue Timeline</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">NOW (2026) — AI RUNS QUIETLY</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Predictive rush forecasting, dynamic menus, personalized messaging, QR ordering, voice AI for reservations and queries. Infrastructure built; operators deploying.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">MID-2026 — AI HANDLES 60% ROUTINE QUERIES</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">AI agents resolve reservations, modifications, FAQs, and upsell presentations. Human staff deployed exclusively to high-value relationship moments. Voice AI becomes standard, not premium.</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Canary Technologies; Paige Lopez, hospitalitynet.org</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">2027 — AGENT-TO-AGENT BOOKING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Guest-side AI agents negotiate with venue-side AI systems directly. Machine-readable inventory, dynamic pricing, and policy APIs become the distribution layer. Human-to-venue booking a secondary channel.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">THE OPERATOR WHO WAITS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Operators who delay building the AI and design infrastructure will be invisible to agent-driven booking systems by 2027 — the same way operators who ignored mobile booking were invisible on OTAs in 2015.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">60%</div>
+          <div class="stat-lbl">of routine guest queries handled by AI agents by 2027 — freeing human staff for the high-value moments that build loyalty</div>
+          <div class="stat-sub">Canary Technologies, canarytechnologies.com; Paige Lopez, "AI in Hospitality: The 2025 Reality and the 2026 Horizon," hospitalitynet.org</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — WHAT'S WORKING VS. NOT WORKING -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Evidence</div>
+    <div class="ch-title">WHEN DESIGN MEETS AI</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The frictionless venue is not theoretical. It is observable in the venues that have built for flow, measured the results, and documented what happens to throughput, satisfaction, and revenue when design and AI work together — and what happens when they don't.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">What's Working — The Integrated Stack</div>
+          <p>Canary Technologies' 2026 technology analysis documents the trajectory: <strong>"If 2025 was the year hotels leaned into technology, 2026 is the year they put the pedal to the metal."</strong> The properties extracting maximum value from the integrated design + AI stack share three characteristics: unified guest data architecture that connects all touchpoints, physical design that supports the AI layer (sensor integration, flexible space, clear guest routing), and a culture that uses AI to amplify human service rather than replace it.<span class="cite"> Canary Technologies, canarytechnologies.com, Jan. 30, 2026</span></p>
+          <p>RaftLabs' 2026 AI in Travel and Hospitality guide documents the performance gap between early adopters and late movers: <strong>industry leaders using AI are reporting revenue uplifts of up to 15% and sales ROI increases reaching 20%.</strong> The gap between adopters and non-adopters is compounding — early AI investment generates data that improves model accuracy, which generates better outcomes, which generates more competitive advantage. Delayed entry means starting further behind on a compounding curve.<span class="cite"> RaftLabs, "AI in Travel and Hospitality: Complete 2026 Guide," raftlabs.com</span></p>
+          <div class="sec-head">What's Failing — The Technology-Without-Design </div>
+          <p>The failure mode documented across multiple industry sources is the same: technology deployed without the physical design infrastructure to support it produces the worst outcome — the appearance of innovation without the delivery of frictionless experience. QR codes that don't work because the WiFi is poor.. AI chatbots that handle pre-arrival inquiries but can't reduce the physical queue at the front desk on arrival.</p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>Hotel Online's diagnostic question:</strong> "Most hotels are still optimizing for a world that's already disappearing. They're polishing booking engines while guests are talking to AI agents. They're analyzing past reviews while algorithms are shaping future reputations." The frictionless venue requires both the physical infrastructure and the data infrastructure. One without the other is an incomplete investment.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Hotel Online, hotel-online.com, Oct. 29, 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Working vs. Not Working — By Element</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">✓ WORKING — Chick-fil-A Zoned Drive-Thru</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Sub-4-minute peak service. Designed for the rush, not the average. Face-to-face ordering during peak periods. Staff positioned where demand is, not where the station is.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">✓ WORKING — Sweetgreen Linear Line</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">No queue ambiguity. Continuous forward movement. No decision about where to stand, who's next, or how long the wait is. All cognitive load removed from the physical queue.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">✓ WORKING — QR Ordering (Peak Load)</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">QR ordering reduces ordering interface wait time 50% under peak load. No human bottleneck at the counter. Order starts as soon as the guest is seated.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">✗ NOT WORKING — Cluttered Counters</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Multi-register counters with no defined queue, unclear ordering flow, combined order + pickup zones. Highest abandonment rate in hospitality design. Decision overload kills 1 in 5 sales.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">✗ NOT WORKING — 47-Item Menus</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">More options → more decision time → more abandonment → lower per-cover average. The confidence of a 5-item focused menu outperforms the apparent comprehensiveness of a 47-item menu on every revenue metric.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">+40%</div>
+          <div class="stat-lbl">satisfaction score improvement when navigation friction is removed from the guest journey — design change, not service change</div>
+          <div class="stat-sub">Hospitality design-to-satisfaction benchmarks; DLR Group design research, dlrgroup.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE HUMAN MOMENT (Full bleed navy) -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Human Layer</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">AI REMOVES THE FRICTION. HUMANS DELIVER THE MAGIC.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">The SEAMLESS Venue DOESNT REPLACE PEOPLE; It ALLOWS PEOPLE TO BE BETER WITH People</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Toast Framework — AI Replaces Friction, Not People</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:16px;margin-bottom:12px;">
+            <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;color:#fff;line-height:1.65;margin-bottom:8px;">"AI won't replace hospitality professionals. It'll replace the friction that burns them out."</div>
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;">Toast Executive</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:2px;">2026 industry report, cited in brief</div>
+          </div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;margin-bottom:12px;">The friction that burns staff out is not guest interaction. It is the administrative burden of managing disconnected systems, answering the same routine questions 40 times per shift, chasing orders across fragmented communication channels, and reconciling data that should flow automatically. <strong style="color:#D4AF37;">When AI absorbs that friction, humans are freed for the moments that technology cannot deliver.</strong></div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">WHAT AI HANDLES IN THE FRICTIONLESS VENUE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Reservation confirmations, routine queries, order routing, queue management, personalized nudges, demand forecasting, staff positioning signals, post-visit follow-up. Routine, repeatable, data-driven.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">WHAT HUMANS HANDLE IN THE FRICTIONLESS VENUE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The birthday dinner that needs a personal touch. The guest who is visibly frustrated and needs empathy, not an automated response. The regulars who come for the conversation as much as the food. The unexpected moments that require judgment, warmth, and human presence. Irreplaceable, relationship-building, revenue-compounding.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">The Luxury Signal — EHL on the Human Premium</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;margin-bottom:8px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">EHL's Hospitality Insights Outlook 2026 documents the market stratification: luxury hotels showed significant growth in 2025 while economy hotels declined. The luxury segment's advantage is not facilities — it is the human experience that premium guests pay to access. <strong style="color:#D4AF37;">Frictionless technology in luxury hospitality creates the space for human moments to be even more extraordinary</strong> — because staff are not managing friction, they are orchestrating experience.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:5px;">Bianca Lüthy, EHL Hospitality Business School, hospitalityinsights.ehl.edu, March 2026</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Hotel Technology News — Luxury AI Case Study</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.65;">Hotel Technology News documents the hotel AI personalization model: <em>"AI generates detailed guest profiles from historical booking data, loyalty preferences, and social media signals — pre-selecting rooms, adjusting temperature and lighting, flagging VIP guests for proactive upgrades. Guests feel known, not managed. And for properties focused on lifetime value, that emotional connection is hard to beat."</em></div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:5px;">Hotel Technology News, "How AI is Transforming Guest Experiences in Luxury Hospitality," hoteltechnologynews.com, May 2025</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:12px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#00D4AA;letter-spacing:1px;margin-bottom:5px;">THE FORMULA</div>
+            <div style="font-size:13px;color:#fff;line-height:1.6;"><strong style="color:#D4AF37;">AI eliminates friction</strong> + <strong style="color:#00D4AA;">Design guides flow</strong> + <strong style="color:#fff;">Humans deliver magic</strong><br><span style="font-size:11.5px;color:rgba(255,255,255,0.6);margin-top:4px;display:block;">= The SEAMLESS venue that builds the guest relationship no platform can intercept</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MEASUREMENT TOOLKIT -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Measurement Standard</div>
+    <div class="ch-title">How to Measure Flow — The Metrics That Matter</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;">The frictionless venue is measurable. Every friction point has a corresponding metric — time, conversion rate, throughput, satisfaction score, or labor efficiency ratio. The operators who build flow-optimized venues do so with data, not intuition. The exercise that follows provides the framework. This page provides the measurement vocabulary.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Core Flow Metrics</div>
+          <p><strong>Time-to-order:</strong> From arrival or seating to first order submitted. Benchmark: under 3 minutes for in-venue QR ordering, under 90 seconds for counter service. Anything above benchmark indicates menu friction, interface friction, or physical navigation confusion.</p>
+          <p><strong>Table turn time:</strong> From guest seated to table reset for next party. Benchmark varies by segment — QSR target 4–6 minutes, casual dining 45–55 minutes, fine dining 90–120 minutes. Turns above benchmark indicate service flow bottlenecks, payment friction, or kitchen timing gaps.</p>
+          <p><strong>Peak abandonment rate:</strong> Guests who enter the venue during peak hours but leave without buying. Benchmark: under 5% in well-designed venues; above 20% indicates critical ordering or wait friction. Track by shift and hour.</p>
+          <p><strong>Staff path efficiency:</strong> Steps per cover served, or cross-traffic incidents per shift. Tracked via wearable step counter or floor management observation. Benchmark: under 15% of total staff movement as cross-traffic. Above benchmark indicates layout correction opportunity.</p>
+          <p><strong>AI uptake rate:</strong> Percentage of guest interactions handled by AI channels (QR ordering, chatbot, automated messaging) vs. staff. Benchmark moving from 30–40% in 2025 to 60%+ by 2027. Low AI uptake indicates interface friction — guests cannot find or use the AI channel, falling back to human intervention.</p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The pre-/post measurement discipline:</strong> Every design change and every AI deployment should be accompanied by a pre-implementation baseline on the relevant metric, a 30-day post-implementation measurement, and a 90-day trend review. "Test one redesign next shift — track turns pre/post" is not just a workbook prompt. It is a professional discipline. Flow improvements compound when measured.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Flow Metrics Dashboard</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;">Time-to-Order</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:8px;position:relative;"><div style="width:45%;height:100%;background:#00D4AA;border-radius:2px;"></div><div style="position:absolute;right:0;top:-14px;font-size:9px;color:rgba(255,255,255,0.4);">Benchmark: &lt;3 min</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;">Table Turn Time</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:8px;position:relative;"><div style="width:60%;height:100%;background:#D4AF37;border-radius:2px;"></div><div style="position:absolute;right:0;top:-14px;font-size:9px;color:rgba(255,255,255,0.4);">Segment-specific</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;">Peak Abandonment</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:8px;position:relative;"><div style="width:25%;height:100%;background:#e74c3c;border-radius:2px;"></div><div style="position:absolute;right:0;top:-14px;font-size:9px;color:rgba(255,255,255,0.4);">Target: &lt;5%</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;background:rgba(255,255,255,0.05);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;">Staff Cross-Traffic</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:8px;position:relative;"><div style="width:30%;height:100%;background:#fff;border-radius:2px;"></div><div style="position:absolute;right:0;top:-14px;font-size:9px;color:rgba(255,255,255,0.4);">Target: &lt;15%</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;">AI Uptake Rate</div>
+              <div style="background:rgba(255,255,255,0.1);border-radius:2px;height:8px;position:relative;"><div style="width:60%;height:100%;background:#00D4AA;border-radius:2px;"></div><div style="position:absolute;right:0;top:-14px;font-size:9px;color:rgba(255,255,255,0.4);">Target: 60%+ by 2027</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Track turns pre/post every design change.</strong> One measured shift change repeated 10 times with consistent results = a proven layout improvement. One untested assumption repeated 10 times = 10 compounded errors.
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+15%</div>
+          <div class="stat-lbl">revenue uplift from AI-driven pricing and operations — documented across industry leaders using integrated AI systems in 2025–2026</div>
+          <div class="stat-sub">RaftLabs, "AI in Travel and Hospitality: Complete 2026 Guide," raftlabs.com, Feb. 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 13 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">Map your venue top-down. Time a party of four through every zone. Flag friction. Layer the AI opportunity. Commit to one change tonight and track the result.</div>
+
+    <!-- Zone audit table -->
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">Redesign for Flow + AI — Map Every Zone</div>
+      </div>
+      <div style="padding:10px 18px;">
+        <div style="display:grid;grid-template-columns:90px 80px 70px 1fr 1fr;gap:7px;margin-bottom:5px;">
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Zone</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Current Flow Time</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Friction (1–10)</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Redesign Move</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">AI Boost</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:90px 80px 70px 1fr 1fr;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#D4AF37;">Arrival</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 80px 70px 1fr 1fr;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#e74c3c;">Order</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 80px 70px 1fr 1fr;gap:7px;background:#F4F6F9;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Wait/Pickup</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 80px 70px 1fr 1fr;gap:7px;padding:7px 8px;border-radius:3px;border:1px solid #eee;align-items:center;">
+            <div style="font-size:12px;font-weight:700;color:#1A2A44;">Staff Path</div>
+            <div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:90px 80px 70px 1fr 1fr;gap:7px;background:#1A2A44;padding:7px 8px;border-radius:3px;align-items:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;color:#D4AF37;letter-spacing:1px;">TOTAL</div>
+            <div class="fill-line" style="margin:0;height:20px;border-color:rgba(255,255,255,0.3);"></div>
+            <div style="font-size:11px;color:#D4AF37;font-weight:700;text-align:center;">Avg: ___/10</div>
+            <div class="fill-line" style="margin:0;height:20px;border-color:rgba(255,255,255,0.3);"></div>
+            <div class="fill-line" style="margin:0;height:20px;border-color:rgba(255,255,255,0.3);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commit section -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">Highest friction zone (score closest to 10):</div>
+        <div class="fill-line"></div>
+        <div class="fill-label" style="margin-top:6px;">Current cost (time/abandonment/labor waste):</div>
+        <div class="fill-line"></div>
+      </div>
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #00D4AA;">
+        <div class="fill-label" style="color:#00695c;">AI prompt for your venue:</div>
+        <div style="font-size:11.5px;color:#1A2A44;margin-bottom:6px;font-style:italic;line-height:1.5;">"Optimize [venue name] for peak flow: cut hesitation points by 50% across [your top friction zone]."</div>
+        <div class="fill-line"></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">FLOW<br>WINS<br>WARS</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">Test one redesign next shift. Track turns pre/post. Every measured improvement you make tonight compresses your complexity tax and builds the flow advantage that no platform can replicate — because it lives inside your four walls. Danny Meyer's insight applies here exactly: design is not decoration. It is the invisible hand guiding every guest dollar. Now you're pointing that hand deliberately.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BRIDGE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">Venues can print money; when Optimized Accordingly</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">Poor design adds 20–30% friction to every guest journey. Seamless design adds 22% to RevPAR, 25% to table turns, and 40% to satisfaction scores. The AI layer supercharges every physical improvement. The combination — design + data + AI — is the modern hospitality operating system in physical form.</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">DESIGN IS OPERATIONAL, NOT DECORATIVE</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Every spatial decision either guides a guest forward or creates a hesitation point. Cluttered counters, buried menus, and cross-traffic paths are not aesthetic failures — they are throughput failures. One in five sales is abandoned due to decision overload created by poor design. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: DLR Group (dlrgroup.com); behavioral hospitality design research</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">AI HANDLES THE FRICTION; DESIGN ENABLES THE AI</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">78% of hotel chains are already using AI; 89% will expand use cases within 3 years. AI invested in a venue without the physical infrastructure to support it produces the worst outcome: apparent innovation without frictionless delivery. Build the physical layer first, then the AI layer on top. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: NetSuite (netsuite.com, Nov. 2025); Canary Technologies (canarytechnologies.com); DLR Group</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">2026 IS THE YEAR AI RUNS THE SHOW — QUIETLY AND INVISIBLY</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">By 2027, AI agents will handle 60% of routine queries, dynamic layouts will shift via sensors, and agent-to-agent booking will make machine-readable venue infrastructure a baseline requirement. The operators building now are building a compounding advantage. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Canary Technologies; Paige Lopez, hospitalitynet.org; Hotel Online (hotel-online.com)</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">MEASURE FIRST, ITERATE ALWAYS</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Every design change and every AI deployment requires a pre-implementation baseline, a 30-day post-measurement, and a 90-day trend review. Flow improvements compound when measured and iterated. Track turns pre/post every change. The operators who measure win systematically. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Brief; RaftLabs (raftlabs.com); industry design benchmarks</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Chapter 14</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">STAFF LONGEVITY SYSTEMS</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Chapter 13 built the frictionless physical environment. Chapter 14 builds the human operating system inside it. Staff longevity is not a benefits question — it is an operations question. The venues with the lowest staff turnover. Run on systems that reduce daily friction for employees the same way Chapters 11–13 reduced friction for guests.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">13 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch11-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch11-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

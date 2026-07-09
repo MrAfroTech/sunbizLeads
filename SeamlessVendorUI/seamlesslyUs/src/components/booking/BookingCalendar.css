@@ -1,0 +1,261 @@
+/* Coffee & Conversations Collective - Booking Calendar Styles */
+
+.booking-calendar {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.calendar-view-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 15px;
+}
+
+.calendar-view-toggle button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #666;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.calendar-view-toggle button.active {
+  background: #2D5016;
+  color: white;
+  font-weight: 600;
+}
+
+.calendar-view-toggle button:hover:not(.active) {
+  background: #f5f5f5;
+}
+
+.calendar-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.calendar-section {
+  min-width: 0;
+}
+
+.time-slots-section {
+  min-width: 0;
+}
+
+/* Calendar Month View */
+.calendar-month {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+  font-size: 20px;
+  color: #2D5016;
+  margin: 0;
+}
+
+.nav-button {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.nav-button:hover {
+  background: #2D5016;
+  color: white;
+  border-color: #2D5016;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: #666;
+  padding: 10px 0;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.calendar-day:hover:not(.disabled):not(.empty) {
+  border-color: #DAA520;
+  background: #fffbf0;
+}
+
+.calendar-day.selected {
+  background: #2D5016;
+  color: white;
+  font-weight: 700;
+}
+
+.calendar-day.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  background: #f5f5f5;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  cursor: default;
+}
+
+/* Time Slots */
+.time-slots-container {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.time-slots-container h4 {
+  font-size: 18px;
+  color: #2D5016;
+  margin-bottom: 20px;
+}
+
+.time-slot-group {
+  margin-bottom: 25px;
+}
+
+.time-slot-group h5 {
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.time-slot {
+  background: white;
+  border: 2px solid #e0e0e0;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.time-slot:hover {
+  border-color: #DAA520;
+  background: #fffbf0;
+}
+
+.time-slot.selected {
+  background: #DAA520;
+  border-color: #DAA520;
+  color: white;
+}
+
+.duration-note {
+  margin-top: 20px;
+  padding: 12px;
+  background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  border-radius: 4px;
+}
+
+.duration-note p {
+  margin: 0;
+  font-size: 14px;
+  color: #2e7d32;
+}
+
+.time-slots-placeholder,
+.time-slots-loading,
+.time-slots-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.time-slots-empty .suggestion {
+  font-size: 13px;
+  margin-top: 8px;
+  color: #666;
+}
+
+/* Scrollbar Styling */
+.time-slots-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.time-slots-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb {
+  background: #DAA520;
+  border-radius: 10px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb:hover {
+  background: #b8860b;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .calendar-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .time-slots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .calendar-grid {
+    gap: 4px;
+  }
+  
+  .calendar-day {
+    font-size: 12px;
+  }
+}
+

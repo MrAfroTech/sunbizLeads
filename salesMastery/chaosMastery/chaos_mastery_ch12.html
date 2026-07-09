@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 12: THE SCIENCE OF WAITING</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#2a2a2a; font-family:'DM Sans',sans-serif;
+  display:flex; flex-direction:column; align-items:center;
+  padding:32px 16px; gap:0;
+}
+
+/* ── DOWNLOAD BAR ── */
+.dl-bar {
+  width:816px; background:#1A2A44; border:2px solid #D4AF37;
+  padding:12px 24px; display:flex; align-items:center;
+  justify-content:space-between; margin-bottom:24px; border-radius:3px;
+}
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub   { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+.dl-btns { display:flex; gap:10px; }
+.dl-btns button {
+  font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px;
+  padding:8px 18px; border:none; border-radius:3px; cursor:pointer;
+}
+.btn-single { background:#00D4AA; color:#1A2A44; }
+.btn-all    { background:#D4AF37; color:#1A2A44; }
+
+/* ── PAGE ── */
+.page {
+  width:816px; height:1056px; background:#fff;
+  position:relative; display:flex; flex-direction:column;
+  overflow:hidden; margin-bottom:2px; flex-shrink:0;
+}
+
+/* ── HEADER ── */
+.ph {
+  width:100%; height:48px; background:#1A2A44;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0;
+}
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+
+/* ── FOOTER ── */
+.pf {
+  width:100%; height:28px; border-top:1px solid #D4AF37;
+  display:flex; align-items:center; padding:0 80px; flex-shrink:0;
+}
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+/* ── CONTENT ── */
+.pc      { flex:1; padding:22px 64px 14px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:22px 64px 18px 80px; display:flex; flex-direction:column; }
+
+/* ── TYPE ── */
+.label   { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:6px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:36px; color:#1A2A44; line-height:1; margin-bottom:8px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:12.5px; color:#1A2A44; line-height:1.48; margin-bottom:8px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:17px; color:#1A2A44; letter-spacing:1px; margin-bottom:5px; margin-top:9px; }
+.body     { font-size:11.5px; color:#1A1A1A; line-height:1.52; }
+.body p   { margin-bottom:6px; }
+.body strong { color:#1A2A44; font-weight:700; }
+
+/* ── GRID ── */
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.two-col-eq { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.four-col   { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.sidebar    { display:flex; flex-direction:column; gap:14px; }
+
+/* ── STAT BOX ── */
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:14px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:12px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.4; }
+.stat-sub { font-size:10.5px; color:#666; margin-top:4px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+
+/* ── CALLOUT ── */
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:12px 14px; font-size:13px; color:#1A2A44; line-height:1.6; }
+.callout strong { color:#D4AF37; }
+
+/* ── QUOTE CARD ── */
+.q-card { padding:18px 20px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.teal { background:#00D4AA; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:42px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; line-height:1.65; margin-bottom:10px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr { color:#1A2A44; }
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text { color:#1A2A44; } .q-card.light .q-attr { color:#666; }
+
+/* ── PILL ── */
+.pill { display:inline-flex; align-items:center; background:#1A2A44; color:#fff; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; padding:5px 14px; border-radius:20px; }
+.pill.gold { background:#D4AF37; color:#1A2A44; }
+.pill.teal { background:#00D4AA; color:#1A2A44; }
+
+/* ── FLOW ── */
+.flow-box { border:1.5px solid #1A2A44; padding:10px 14px; background:#fff; font-size:13px; color:#1A1A1A; line-height:1.5; border-radius:3px; }
+.flow-connector { display:flex; flex-direction:column; align-items:center; }
+.flow-line  { width:1.5px; height:16px; background:#1A2A44; }
+.flow-arrow { width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:7px solid #1A2A44; }
+
+/* ── GRID CARD (navy) ── */
+.grid-card { background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.25); padding:18px; border-radius:4px; }
+.grid-card .gc-num { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; }
+.grid-card .gc-lbl { font-size:12px; font-weight:700; margin-top:4px; line-height:1.4; }
+.grid-card .gc-sub { font-size:10.5px; opacity:.65; margin-top:5px; line-height:1.4; }
+.gc-gold .gc-num { color:#D4AF37; } .gc-gold .gc-lbl { color:#fff; }
+.gc-teal .gc-num { color:#00D4AA; } .gc-teal .gc-lbl { color:#fff; }
+.gc-white .gc-num { color:#fff; }   .gc-white .gc-lbl { color:#D4AF37; }
+
+/* ── PROGRESS ── */
+.prog-bar  { height:9px; background:#E8EEF5; border-radius:5px; overflow:hidden; margin-top:5px; }
+.prog-fill { height:100%; border-radius:5px; }
+.prog-bar.dark { background:rgba(255,255,255,0.1); }
+
+/* ── TABLE ── */
+.ltable { width:100%; border-collapse:collapse; }
+.ltable th { background:#1A2A44; color:#D4AF37; font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:1.5px; text-align:left; padding:9px 11px; }
+.ltable td { padding:9px 11px; font-size:12px; color:#1A1A1A; border-bottom:1px solid #eee; vertical-align:top; line-height:1.5; }
+.ltable tr:nth-child(even) td { background:#F4F6F9; }
+.ltable td:first-child { font-weight:700; color:#1A2A44; }
+
+/* ── FILL LINES ── */
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+/* ── CHECKBOX ── */
+.chk-row  { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #F0F0F0; }
+.chk-box  { width:16px; height:16px; flex-shrink:0; border:2px solid #1A2A44; border-radius:2px; margin-top:1px; }
+.chk-text { font-size:13px; color:#1A1A1A; line-height:1.5; }
+.chk-text strong { color:#1A2A44; }
+
+/* ── WEEK BLOCK ── */
+.week-block { border-radius:3px; overflow:hidden; }
+.week-head  { padding:8px 14px; display:flex; align-items:center; justify-content:space-between; }
+.week-head span { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; }
+.week-head small { font-size:11px; opacity:.6; }
+.week-body  { border:1.5px solid; border-top:none; padding:10px 14px; border-radius:0 0 3px 3px; }
+
+/* ── QUADRANT CARD ── */
+.quad-card { background:rgba(255,255,255,0.06); border:1px solid rgba(212,175,55,0.2); padding:20px; border-radius:4px; display:flex; flex-direction:column; gap:8px; }
+.quad-num  { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; }
+.quad-tag  { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:2px; }
+.quad-head { font-family:'Bebas Neue',sans-serif; font-size:20px; line-height:1.1; color:#fff; }
+.quad-body { font-size:12px; line-height:1.55; opacity:.75; color:#cdd5e0; }
+</style>
+</head>
+<body>
+
+<!-- DOWNLOAD BAR -->
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 12: THE SCIENCE OF WAITING</div>
+    <div class="dl-bar-sub">13 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all"    onclick="downloadAll()">⬇ Download All 13 Pages</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 1 — CHAPTER OPENER
+══════════════════════════════════════════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:52px 80px 40px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part III — The Modern Hospitality Operating System</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 12</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:96px; color:#fff; line-height:.92; margin-bottom:2px;">THE SCIENCE</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:96px; color:#D4AF37; line-height:.92; margin-bottom:36px;">OF WAITING</div>
+        <div style="width:72px; height:4px; background:#00D4AA; margin-bottom:30px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:21px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:560px;">
+          "Six minutes is not an arbitrary goal. It is the threshold at which guests stop feeling noticed and start feeling ignored. Every second past it is revenue walking out the door."
+        </div>
+      </div>
+      <div>
+        <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:26px;"></div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#00D4AA; line-height:1;">6 MIN</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">When guest satisfaction drops 47% — the true abandonment point</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1;">62%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Perceived wait reduction with QR/mobile ordering</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#fff; line-height:1;">3.8 MIN</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Perceived service time when guests self-order via mobile</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1;">73%</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Of QSR orders now digital — guests are already bypassing the line</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2 — THE THRESHOLD DEFINED
+══════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1; align-items:start; gap:24px;">
+      <div>
+        <div class="label">The Science of Impatience</div>
+        <div class="ch-title">Why 6 Minutes Is the Number</div>
+        <div class="ch-intro" style="max-width:100%; font-size:15px;">Guest tolerance for waiting has always been finite. But for the first time in hospitality history, we have precise data on exactly where that tolerance breaks.</div>
+        <div class="body">
+          <p>Research on wait time psychology consistently shows that the relationship between waiting and satisfaction is not linear — it's a cliff. Guests tolerate moderate waits with relatively little satisfaction loss, but cross a threshold and the drop is sudden and severe. For the U.S. hospitality market, that threshold sits at <strong>approximately 5 minutes</strong> — where a 47% satisfaction drop kicks in and abandonment behavior begins.</p>
+          <p>This makes the sub-6-minute window the critical operating target for any venue that depends on repeat visits and word-of-mouth. Venues that consistently hit sub-6 outperform those that don't on every measurable guest loyalty metric.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The perception gap:</strong> Actual wait time and perceived wait time are not the same number. Guests who are engaged — ordered via mobile, received a pickup notification, can see their order status — perceive waits as 40–62% shorter than they actually are. This is the operating lever most venues ignore. People don’t experience waiting objectively — they experience it emotionally, so the real challenge isn't just reducing minutes, but reducing anxiety, boredom, and uncertainty. Which are three emotions no one wants tied to their establighment. Remember, people buy emotionally and justify logically.
+          </div>
+          <div class="sec-head">The Line Abandonment Math</div>
+          <p>Research from Waitwhile's 2024 consumer survey found that <strong>nearly 40% of guests who encounter a line will go to a competitor or abandon their purchase entirely.</strong> They don't complain. They don't wait. They leave — and 40% of those who leave do not return. The revenue impact of a 3-person line during a peak window is not theoretical. It is measurable, and it is recurring.</p>
+          <p>Among QSR customers specifically, 1 in 5 guests walk away after seeing just a 3-person line. At a venue running 200 covers during a 90-minute peak window, that's 40 guests — and their spend — disappearing every rush.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box">
+          <div class="stat-num">47%</div>
+          <div class="stat-lbl">Guest satisfaction drop when wait exceeds 5 minutes</div>
+          <div class="stat-sub">Leverege / Stayntouch wait time research</div>
+          <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:47%; background:#D4AF37;"></div></div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">40%</div>
+          <div class="stat-lbl">Of guests who encounter a line will go to a competitor or abandon entirely</div>
+          <div class="stat-sub">Waitwhile Consumer Survey, 2024</div>
+          <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:40%; background:#00D4AA;"></div></div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">1 in 5</div>
+          <div class="stat-lbl">QSR guests walk away after seeing just a 3-person line at the counter</div>
+          <div class="stat-sub">MOBI operations research</div>
+        </div>
+        <div style="background:#1A2A44; padding:14px 15px; border-radius:3px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Operator Equation</div>
+          <div style="font-size:12.5px; color:#fff; line-height:1.6;">Every minute past 5 is a conversion killer. The goal isn't fast service — it's <em style="color:#00D4AA;">perceived</em> fast service. Those are solvable by different tools.</div>
+        </div>
+        <div class="callout">
+          <strong>Key distinction:</strong> You cannot speed up your kitchen. You can make guests feel noticed before the kitchen is done.
+        </div>
+        <div style="background:#1A2A44; padding:14px 15px; border-radius:3px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">Waiting Isn't Limited To Physical Lines</div>
+          <div style="font-size:12.5px; color:#fff; line-height:1.6;">
+            ‘Lines’ aren’t always visible — it’s that moment guests think someone got served quicker or <em style="color:#00D4AA;">just skip it entirely to avoid the hassle.</em>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 3 — WAIT TOLERANCE INFOGRAPHIC (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="margin-bottom:3px; color:#D4AF37;">Guest Psychology</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE WAIT TOLERANCE CURVE</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">How Guest Behavior Changes Minute by Minute</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:22px;"></div>
+
+      <!-- Timeline bar chart -->
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:22px;">
+        <!-- Headers -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase;">TIME</div>
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase;">GUEST STATE</div>
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-align:right;">SATISFACTION</div>
+        </div>
+        <!-- Row 1 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#00D4AA; line-height:1;">0–2 MIN</div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:3px;">Engaged &amp; Patient</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.6); line-height:1.4;">Guest is browsing menu, settling in, still positively anticipating. No behavioral change. This window is your gold zone.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#00D4AA; font-weight:700; text-align:right; margin-bottom:4px;">95% SATISFIED</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:8px; overflow:hidden;"><div style="width:95%; height:100%; background:#00D4AA; border-radius:3px;"></div></div>
+          </div>
+        </div>
+        <!-- Row 2 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1;">2–4 MIN</div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:3px;">Aware &amp; Watching</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.6); line-height:1.4;">Guest is now actively monitoring the line. They're comparing their position to others. Anxiety begins to form. Service signals become critical here.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#D4AF37; font-weight:700; text-align:right; margin-bottom:4px;">78% SATISFIED</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:8px; overflow:hidden;"><div style="width:78%; height:100%; background:#D4AF37; border-radius:3px;"></div></div>
+          </div>
+        </div>
+        <!-- Row 3 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(255,165,0,0.07); border:1px solid rgba(255,165,0,0.25); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#FFA500; line-height:1;">4–6 MIN</div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:3px;">⚠ Threshold Zone — Critical Window</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.6); line-height:1.4;">This is the make-or-break range. Guests still present but evaluating alternatives. A progress signal — notification, eye contact, order confirmation — resets the clock.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#FFA500; font-weight:700; text-align:right; margin-bottom:4px;">53% SATISFIED</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:8px; overflow:hidden;"><div style="width:53%; height:100%; background:#FFA500; border-radius:3px;"></div></div>
+          </div>
+        </div>
+        <!-- Row 4 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(255,107,107,0.08); border:1px solid rgba(255,107,107,0.25); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff6b6b; line-height:1;">6–10 MIN</div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:3px;">Frustrated &amp; Deciding</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.6); line-height:1.4;">Satisfaction has cliff-dropped 47%+. Guest is actively considering leaving. 1 in 5 already gone. Those who stay will leave a review that reflects the wait, not the food.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#ff6b6b; font-weight:700; text-align:right; margin-bottom:4px;">48% SATISFIED</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:8px; overflow:hidden;"><div style="width:48%; height:100%; background:#ff6b6b; border-radius:3px;"></div></div>
+          </div>
+        </div>
+        <!-- Row 5 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(255,50,50,0.08); border:1px solid rgba(255,50,50,0.3); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff4444; line-height:1;">10+ MIN</div>
+          <div>
+            <div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:3px;">Gone or Permanently Damaged</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.6); line-height:1.4;">45% of guests who waited 15+ minutes without updates abandoned in Q1 2024. Those who stay are unlikely to return. The wait is the meal, regardless of food quality.</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:#ff4444; font-weight:700; text-align:right; margin-bottom:4px;">21% SATISFIED</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:8px; overflow:hidden;"><div style="width:21%; height:100%; background:#ff4444; border-radius:3px;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:16px;"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
+        <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The Reset Lever</div>
+          <div style="font-size:13px; color:#fff; line-height:1.6;">Any sign of progress — SMS, screen confirmation — resets the guest's psychological timer. A 7-minute actual wait feels like 4 minutes with a notification at minute 3. The same logic of a server checking in on thier table.</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Perceived vs Actual</div>
+          <div style="font-size:13px; color:#fff; line-height:1.6;">QR/mobile ordering compresses perceived wait from 9.2 minutes to 3.8 minutes — a 62% reduction — without changing kitchen speed at all. Perception is the product.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#fff; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The 6-Minute Target</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.6;">Sub-6-minute perceived service is achievable in any venue. It requires removing friction from the ordering step — not speeding up the kitchen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 4 — INDUSTRY BENCHMARKS
+══════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Industry Benchmarks</div>
+    <div class="ch-title">HOW THE BEST STAY ON TOP</div>
+    <div class="ch-intro" style="font-size:14.5px; margin-bottom:18px;">These aren't theoretical targets. They're live numbers from chains spending millions to shave seconds. Your venue can hit the same standard — with systems, not headcount.</div>
+
+    <div class="two-col-eq" style="margin-bottom:18px;">
+      <div style="background:#1A2A44; padding:22px; border-radius:4px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;">QSR Industry Average — Drive-Thru</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:60px; color:#D4AF37; line-height:1;">5:29</div>
+        <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-top:7px;">Average total drive-thru time in 2024, down 13 seconds from 2023. The industry is getting faster — venues not moving with it fall behind on satisfaction scores.</div>
+        <div style="margin-top:10px; font-size:10.5px; color:#D4AF37; font-style:italic;">Source: Intouch Insight QSR Drive-Thru Study, 2024</div>
+      </div>
+      <div style="background:#F4F6F9; padding:22px; border-radius:4px; border:2px solid #1A2A44;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;">Taco Bell — Fastest QSR Chain</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:60px; color:#1A2A44; line-height:1;">4:18</div>
+        <div style="font-size:12.5px; color:#333; line-height:1.5; margin-top:7px;">Taco Bell's average total time — the fastest of all major QSR brands in 2024. Speed at this level requires process architecture, not just fast staff.</div>
+        <div style="margin-top:10px; font-size:10.5px; color:#666; font-style:italic;">Source: QSR Magazine Drive-Thru Report, 2024</div>
+      </div>
+    </div>
+
+    <div class="two-col-eq" style="margin-bottom:18px;">
+      <div style="background:#00D4AA; padding:18px; border-radius:4px;">
+        <div style="font-size:10px; color:#1A2A44; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;">Mobile/QR Ordering — Perceived Service Time</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:52px; color:#1A2A44; line-height:1;">3.8 MIN</div>
+        <div style="font-size:12.5px; color:#1A2A44; line-height:1.5; margin-top:7px;">Guests using QR/mobile ordering perceive their service time as 3.8 minutes vs 9.2 minutes at the counter — a 62% reduction without touching kitchen speed.</div>
+        <div style="margin-top:10px; font-size:10.5px; color:rgba(0,0,0,0.5); font-style:italic;">Source: Stayntouch guest experience data</div>
+      </div>
+      <div style="background:#1A2A44; padding:18px; border-radius:4px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;">Mobile POS Impact — Order Time</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:52px; color:#fff; line-height:1;">−30%</div>
+        <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-top:7px;">Reduction in order time when staff use mobile POS tableside instead of fixed terminals. Staff take payments at the guest, not the guest at the machine.</div>
+        <div style="margin-top:10px; font-size:10.5px; color:#D4AF37; font-style:italic;">Source: Epson mPOS research</div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+      <div class="body">
+        <div class="sec-head" style="margin-top:0;">What These Numbers Tell Operators</div>
+        <p style="font-size:13px;">The gap between Taco Bell's 4:18 and the industry average of 5:29 is 71 seconds. That gap costs the slower chain 10–15% more abandonment per peak window. <strong>At scale, that's millions in annual revenue.</strong> At your venue, it's the Friday-night table that didn't come back.</p>
+      </div>
+      <div class="body">
+        <div class="sec-head" style="margin-top:0;">The Perception Arbitrage</div>
+        <p style="font-size:13px;">The most striking number isn't the drive-thru speed — it's the 3.8 vs 9.2 minute perceived wait comparison. <strong>The same kitchen, same ticket time, same food</strong> — but the guest experience of waiting is 62% better. This is the perception arbitrage that mobile ordering creates.</p>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;margin-top:auto;">
+      <div style="flex:1;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;letter-spacing:1px;margin-bottom:3px;">WHAT WE LEARNED FROM THE DRIVE THRU</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">The drive-thru wasn&rsquo;t just about speed &mdash; it was about removing friction from the moment a guest decides to order. That model has driven billions in revenue for decades. QR codes are doing the same thing for dine-in, stadiums, and event floors. Same psychology. Same result. Just a different entry point.</div>
+        <div style="border-top:1px solid rgba(212,175,55,0.3); padding-top:8px; margin-top:10px;">
+          <div style="font-size:11px; font-weight:700; color:#D4AF37;">Maurice Sanders</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.45);">Founder, Seamlessly, Inc.</div>
+        </div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+
+  </div>
+  <div class="pf"><span class="pf-num">12 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 5 — HOW CUSTOMERS DECIDE (Flow diagram)
+══════════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Guest Decision Architecture</div>
+    <div class="ch-title">How a Guest Decides to Stay or Leave</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:16px; max-width:600px;">Everything we do is rooted in how things make us feel. No one needs to walk into your establishment. Which means the wait, the order, the upsell, the review — all of it is emotional. It's to about eliminating the wait. The goal is to re-engineer how it feels.</div>
+    <div style="display:flex; flex-direction:column; gap:0;">
+      <!-- Flow -->
+      <div style="display:flex; flex-direction:column; gap:0;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px;">
+          <div style="width:30px; height:30px; background:#1A2A44; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:15px;">1</span></div>
+          <div class="pill">GUEST ARRIVES AT VENUE</div>
+        </div>
+        <div class="flow-box" style="padding:8px 12px; font-size:12.5px; line-height:1.45;">Guest enters and immediately scans the room for a queue signal: How long is the line? Is there a line? Can I see any ordering option without waiting?</div>
+        <div class="flow-connector" style="margin:0 auto;"><div class="flow-line"></div><div class="flow-arrow"></div></div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px; margin-top:4px;">
+          <div style="width:30px; height:30px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:15px;">2</span></div>
+          <div class="pill gold">LINE ASSESSMENT (0–15 SECONDS)</div>
+        </div>
+        <div class="flow-box" style="padding:8px 12px; font-size:12.5px; line-height:1.45;">In 15 seconds the guest estimates total wait time. If they see 3+ people at the counter, their mental model says "7–10 minute wait." This estimation is almost always an overestimate — and it drives the abandonment decision.</div>
+        <div class="flow-connector" style="margin:0 auto;"><div class="flow-line"></div><div class="flow-arrow"></div></div>
+
+        <!-- Decision fork -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:5px; margin-top:4px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px;">
+              <div class="pill" style="font-size:10px;">PATH A: NO ALTERNATIVE</div>
+            </div>
+            <div class="flow-box" style="border-color:#ff6b6b; padding:8px 12px; font-size:12.5px; line-height:1.45;">
+              Guest joins the queue. Anxiety clock starts. Every 60 seconds without progress signal increases abandonment probability by ~12%. Satisfaction is already falling.
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px;">
+              <div class="pill teal" style="font-size:10px;">PATH B: MOBILE / QR OPTION</div>
+            </div>
+            <div class="flow-box" style="border-color:#00D4AA; padding:8px 12px; font-size:12.5px; line-height:1.45;">
+              Guest sees QR code or mobile option. Scans immediately. Perception of wait resets — they are "ordering" not "waiting." Psychological clock stops. Satisfaction maintained.
+            </div>
+          </div>
+        </div>
+        <div class="flow-connector" style="margin:0 auto;"><div class="flow-line"></div><div class="flow-arrow"></div></div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px; margin-top:4px;">
+          <div style="width:30px; height:30px; background:#1A2A44; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:15px;">4</span></div>
+          <div class="pill">ORDER CONFIRMATION MOMENT</div>
+        </div>
+        <div class="flow-box" style="padding:8px 12px; font-size:12.5px; line-height:1.45;">Order placed and confirmed — regardless of method. This is the highest-satisfaction moment in the service sequence. Guest transitions from "waiting" to "expecting." The psychological shift is measurable.</div>
+        <div class="flow-connector" style="margin:0 auto;"><div class="flow-line"></div><div class="flow-arrow"></div></div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px; margin-top:4px;">
+          <div style="width:30px; height:30px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:15px;">5</span></div>
+          <div class="pill teal">PICKUP SIGNAL — CRITICAL RESET</div>
+        </div>
+        <div class="flow-box" style="border-color:#00D4AA; padding:8px 12px; font-size:12.5px; line-height:1.45;">SMS, app notification, or digital display signals order ready. This second progress signal compresses perceived wait by 40%. Guest arrives at pickup with positive anticipation — not frustration from standing in a line.
+        </div>
+      </div>
+<br>
+      <div class="q-card navy" style="padding:16px; margin-top:auto; margin-bottom:8px;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:10px; color:#D4AF37; letter-spacing:3px; margin-bottom:8px;">WHAT BMW FIGURED OUT ABOUT WAITING</div>
+        <div class="q-text" style="font-size:13.5px;">&ldquo;Walk into a BMW dealership and you&rsquo;re still waiting — just like every other service lane in America. But somewhere between the quiet lounge, the soft lighting, and the chef making you a curated sandwich, three hours stops feeling like three hours. They re-engineered how the wait feels. And it&rsquo;s exactly what the best hospitality operators are finally starting to apply to their own floors.&rdquo;</div>
+        <div style="border-top:1px solid rgba(212,175,55,0.3); padding-top:8px; margin-top:8px;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 6 — 4 WAYS TO HIT SUB-6 (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Framework</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">4 WAYS TO HIT THE 6-MINUTE STANDARD</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">Each targets a different stage of the guest's service experience</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:22px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; flex:1;">
+        <!-- Card 1 -->
+        <div class="quad-card">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+            <div style="width:36px; height:36px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:18px;">1</span></div>
+            <div class="quad-tag" style="color:#D4AF37;">Fix #1 — Order Entry</div>
+          </div>
+          <div class="quad-head">MOBILE POS — TABLESIDE ORDERING</div>
+          <div class="quad-num" style="color:#D4AF37;">−30%</div>
+          <div class="quad-body">Staff equipped with mobile POS devices take payments and orders at the table — eliminating the round trip to a fixed terminal. Epson mPOS research shows 30% order time reduction during peak rush. The friction isn't in the kitchen — it's in the walk back to the register.</div>
+          <div style="background:rgba(212,175,55,0.15); border:1px solid rgba(212,175,55,0.3); padding:8px 12px; border-radius:3px; font-size:11.5px; color:#D4AF37; line-height:1.4;">Best for: Full-service restaurants, bars, high-volume table service</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="quad-card">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+            <div style="width:36px; height:36px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:18px;">2</span></div>
+            <div class="quad-tag" style="color:#00D4AA;">Fix #2 — Pre-Order Flow</div>
+          </div>
+          <div class="quad-head">PRE-ORDERING — ELIMINATE THE LINE AT SOURCE</div>
+          <div class="quad-num" style="color:#00D4AA;">−50%</div>
+          <div class="quad-body">Pre-ordering eliminates 50% of front-counter backups according to MOBI operations research. When orders are placed before arrival — via app, web, or advance QR — the counter queue thins. Fulfillment can begin before the guest walks in. The counter handles pickups, not order intake.</div>
+          <div style="background:rgba(0,212,170,0.12); border:1px solid rgba(0,212,170,0.3); padding:8px 12px; border-radius:3px; font-size:11.5px; color:#00D4AA; line-height:1.4;">Best for: QSR, fast casual, stadium concessions, event venues</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="quad-card">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+            <div style="width:36px; height:36px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:18px;">3</span></div>
+            <div class="quad-tag" style="color:#fff;">Fix #3 — Perceived Wait</div>
+          </div>
+          <div class="quad-head">QR / MOBILE ORDERING — ENTIRELY CHANGES THE PERCEPTION</div>
+          <div class="quad-num" style="color:#fff;">−62%</div>
+          <div class="quad-body">QR and mobile ordering reduce the perceived wait by 62% — whether it's 9.2 minutes felt at a counter to 3.8 minutes felt at a table. The kitchen dynamic doesn't change. The guest's relationship to the wait does. Guests who ordered themselves feel noticed the moment they tap "submit."</div>
+          <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); padding:8px 12px; border-radius:3px; font-size:11.5px; color:rgba(255,255,255,0.7); line-height:1.4;">Best for: All venue types — the highest ROI per implementation cost</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="quad-card">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+            <div style="width:36px; height:36px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:18px;">4</span></div>
+            <div class="quad-tag" style="color:#D4AF37;">Fix #4 — Fulfillment</div>
+          </div>
+          <div class="quad-head">PICKUP OPTIMIZATION — LAST-MILE FRICTION</div>
+          <div class="quad-num" style="color:#D4AF37;">−40%</div>
+          <div class="quad-body">Whether its a pickup shelf or getting the bill -- pairing the process with an alert cuts fulfillment errors 25% and perceived wait time 40% according to Robyn Pratt's Six Sigma work at Starwood. The guest's final impression of wait time is formed at pickup, not at ordering. A disorganized pickup counter destroys every gain made upstream.</div>
+          <div style="background:rgba(212,175,55,0.15); border:1px solid rgba(212,175,55,0.3); padding:8px 12px; border-radius:3px; font-size:11.5px; color:#D4AF37; line-height:1.4;">Best for: QSR, coffee shops, concessions, mobile-order pickups</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 7 — FIX #1: MOBILE POS
+══════════════════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Fix #1 of 4 — Order Entry</div>
+    <div class="ch-title">Mobile POS: The Tableside Advantage</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">The fixed terminal is one of hospitality's most expensive friction points. A staff member walking to a machine instead of staying with the guest is a friction point — rememer each friction point ultimately leads to lost revenue.</div>
+        <div class="body">
+          <p>Mobile POS devices — handheld tablets or smartphones running POS software — allow staff to take orders and process payments at the table, at the bar, or anywhere in the venue. The operational impact is direct: Epson's research on mPOS deployment shows a consistent <strong>30% reduction in order time</strong> during peak service windows. Staff no longer lose the table between order-taking and payment.</p>
+          <div class="sec-head">The Round-Trip Tax</div>
+          <p>Every time a server walks to a fixed terminal to input an order, they are paying a "round-trip tax" — time away from the table, away from upsell opportunities, and away from the guest experience they're supposed to be creating. Across a 3-hour dinner rush with 20 tables, that's potentially <strong>60–80 round trips</strong>. Each takes 45–90 seconds.</p>
+          <p>Mobile POS eliminates this friction point entirely. The order is entered at the table, confirmed at the table, and the guest's receipt is sent digitally — without a single walk to a machine.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>Upsell benefit:</strong> Staff with mobile POS in hand are 34% more likely to successfully upsell — because they're present for the natural moment of menu curiosity, not returning to the table after the moment has passed.
+          </div>
+          <div class="sec-head">Integration with the 6-Minute Standard</div>
+          <p>Mobile POS addresses <strong>chokepoint #1</strong> in the service chain — order entry is responsible for 42% of all service delays. Fix this one step and you recover more time than any other other step</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Fixed vs Mobile POS — Time Comparison</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.6); margin-bottom:5px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Fixed Terminal Flow</div>
+              <div style="display:flex; flex-direction:column; gap:4px;">
+                <div class="flow-box" style="background:rgba(255,107,107,0.1); border-color:rgba(255,107,107,0.4); color:#fff; font-size:11.5px;">Take order verbally → Walk to terminal → Input order → Walk back → Present check → Walk to terminal → Process payment</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#ff6b6b; margin-top:6px;">~4:30 total</div>
+            </div>
+            <div style="height:1px; background:rgba(212,175,55,0.3);"></div>
+            <div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.6); margin-bottom:5px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Mobile POS Flow</div>
+              <div class="flow-box" style="background:rgba(0,212,170,0.1); border-color:rgba(0,212,170,0.4); color:#fff; font-size:11.5px;">Input order tableside → Confirm → Process payment tableside → Digital receipt sent</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#00D4AA; margin-top:6px;">~3:00 total</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">30%</div>
+          <div class="stat-lbl">Reduction in order time with mobile POS during peak rush</div>
+          <div class="stat-sub">Epson mPOS deployment research</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">42%</div>
+          <div class="stat-lbl">Of all service delays originate at the order entry step</div>
+          <div class="stat-sub">The single highest-impact intervention point</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 8 — FIX #2: PRE-ORDERING
+══════════════════════════════════════════════ -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Fix #2 of 4 — Pre-Order Flow</div>
+    <div class="ch-title">Changing Perceived Wait Times One Customer At A Time</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">The most effective way to reduce front-counter congestion is to stop sending guests to the front counter to begin with.</div>
+        <div class="body">
+          <p>Pre-ordering — whether via mobile app, web platform, or advance QR scan — allows guests to submit their order before they arrive or before they join a queue. The counter then handles <strong>fulfillment only</strong>. According to MOBI's operations research, this single shift eliminates 50% of front-counter backups during peak windows.</p>
+          <div class="sec-head">Why It Works at a Systems Level</div>
+          <p>The biggest bottleneck is the time required to communicate an order between a guest and a staff member.</p>
+          <p>This is precisely how Starbucks Mobile Order & Pay re-enginerred  the customer experience — not by making baristas faster, but by fine-tuning the order process. <strong>73% of QSR orders are now digital specifically because this model works.</strong></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>Stadium & event application:</strong> Pre-ordering is the most transformative tool for high-volume concession venues. When 40,000 fans place orders from their seats before halftime ends, the concession staff can manage the total guest experience better.
+          </div>
+          <div class="sec-head">The Counter as Fulfillment Station</div>
+          <p>Venues that fully adopt pre-ordering restructure the front counter's function: <strong>from order intake to order fulfillment.</strong> Staff roles shift from being purely transactional. Every metric improves — speed, accuracy, staff stress, and guest satisfaction.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Pre-Order: Counter Transformation</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div class="flow-box" style="background:rgba(255,107,107,0.1); border-color:rgba(255,107,107,0.4); color:#fff; font-size:12px;">
+              <strong style="color:#ff6b6b;">BEFORE:</strong> With a line of 8 guests waiting to order. Staff spends 90% of time taking an order while the kitchen waits; but that wait later turns into overwhelm as there is now a rush of orders.
+            </div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#D4AF37;"></div><div class="flow-arrow" style="border-top-color:#D4AF37;"></div></div>
+            <div class="flow-box" style="background:rgba(212,175,55,0.1); border-color:rgba(212,175,55,0.4); color:#fff; font-size:12px;">
+              <strong style="color:#D4AF37;">SHIFT:</strong> Pre-orders placed via app/QR. Orders routed directly to Kitchen Display System. Kitchen begins immediately.
+            </div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#00D4AA;"></div><div class="flow-arrow" style="border-top-color:#00D4AA;"></div></div>
+            <div class="flow-box" style="background:rgba(0,212,170,0.1); border-color:#00D4AA; color:#fff; font-size:12px;">
+              <strong style="color:#00D4AA;">AFTER:</strong> Counter handles pickup only. 50% fewer people waiting. Staff role becomes experience-focused.
+            </div>
+          </div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">50%</div>
+          <div class="stat-lbl">Reduction in front-counter backups with pre-ordering deployed</div>
+          <div class="stat-sub">MOBI operations guide — rush hour management</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">73%</div>
+          <div class="stat-lbl">Of QSR orders are now digital — bypassing the physical line entirely</div>
+          <div class="stat-sub">Consumer behavior shift accelerating annually</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;margin-top:18px;">
+      <div style="flex:1;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;letter-spacing:1px;margin-bottom:3px;">WHAT WE LEARNED FROM THE PROGRESS BAR</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;"><strong style="color:rgba(255,255,255,0.9); font-weight:600;">Order confirmed. Shipped. Out for delivery. Two stops away.</strong><br><br>Amazon didn&rsquo;t build that bar for logistics. They built it for your brain. Each update is a dopamine hit &mdash; proof that something is moving, that you&rsquo;re not forgotten, that the end is closer than it was. QR ordering works on the same wiring. A guest who can track their order isn&rsquo;t waiting &mdash; they&rsquo;re anticipating. And an anticipating guest spends more, complains less, and comes back.</div>
+        <div style="border-top:1px solid rgba(212,175,55,0.3); padding-top:8px; margin-top:10px;">
+          <div style="font-size:11px; font-weight:700; color:#D4AF37;">Maurice Sanders</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.45);">Founder, Seamlessly, Inc.</div>
+        </div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 9 — THE 4-CHOKEPOINT FRAMEWORK (Full bleed navy)
+══════════════════════════════════════════════ -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg" style="min-height:0;">
+      <div class="label" style="color:#D4AF37; margin-bottom:2px;">The Diagnosis Framework</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:34px; color:#fff; line-height:1; margin-bottom:2px;">WHERE YOUR SERVICE DELAY IS ACTUALLY HIDING</div>
+      <div style="font-size:10.5px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">The 4-Chokepoint Breakdown — Data from Restaurant Operations Research</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:10px;"></div>
+
+      <!-- 4 chokepoints with bar chart -->
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px; flex:1; min-height:0;">
+        <!-- Chokepoint 1 -->
+        <div style="display:grid; grid-template-columns:176px 1fr 140px; gap:10px; align-items:center; background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:10px 12px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">42%</div>
+            <div style="font-size:9px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-top:1px;">of all service delays</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#D4AF37; letter-spacing:1px; margin-bottom:3px;">CHOKEPOINT 1 — ORDER ENTRY</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.7); line-height:1.42;">Manual POS input during peaks. Staff inputting orders at fixed terminals while guests wait at the table or counter. This is the single largest time-waster in front-of-house operations.</div>
+            <div style="margin-top:4px; font-size:10.5px; color:#D4AF37; font-style:italic;">Fix: Mobile POS tableside or QR self-ordering removes this step entirely</div>
+          </div>
+          <div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:4px; height:56px; overflow:hidden; display:flex; align-items:flex-end;">
+              <div style="width:100%; height:42%; background:#D4AF37; border-radius:4px 4px 0 0;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chokepoint 2 -->
+        <div style="display:grid; grid-template-columns:176px 1fr 140px; gap:10px; align-items:center; background:rgba(0,212,170,0.07); border:1px solid rgba(0,212,170,0.2); border-radius:4px; padding:10px 12px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; line-height:1;">31%</div>
+            <div style="font-size:9px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-top:1px;">of all service delays</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#D4AF37; letter-spacing:1px; margin-bottom:3px;">CHOKEPOINT 2 — PAYMENT PROCESSING</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.7); line-height:1.42;">Cash and card friction at the counter. Chip card delays, incorrect change, split bills manually calculated — each adds 60–90 seconds per transaction during the rush.</div>
+            <div style="margin-top:4px; font-size:10.5px; color:#00D4AA; font-style:italic;">Fix: Mobile pay integration — Apple Pay, Google Pay, or card-on-file via app</div>
+          </div>
+          <div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:4px; height:56px; overflow:hidden; display:flex; align-items:flex-end;">
+              <div style="width:100%; height:31%; background:#00D4AA; border-radius:4px 4px 0 0;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chokepoint 3 -->
+        <div style="display:grid; grid-template-columns:176px 1fr 140px; gap:10px; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:10px 12px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#fff; line-height:1;">19%</div>
+            <div style="font-size:9px; color:rgba(255,255,255,0.5); font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-top:1px;">of all service delays</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#D4AF37; letter-spacing:1px; margin-bottom:3px;">CHOKEPOINT 3 — KITCHEN HAND-OFF</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.7); line-height:1.42;">Cut bottlenecks at the start. Orders ready in the kitchen but stacking because no one is in position to call, check, and plate for outbound. A staffing and choreography issue at the service window.</div>
+            <div style="margin-top:4px; font-size:10.5px; color:rgba(255,255,255,0.5); font-style:italic;">Fix: Dedicated expo role during rush windows; Kitchen Display System with visible order priority</div>
+          </div>
+          <div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:4px; height:56px; overflow:hidden; display:flex; align-items:flex-end;">
+              <div style="width:100%; height:19%; background:rgba(255,255,255,0.6); border-radius:4px 4px 0 0;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chokepoint 4 -->
+        <div style="display:grid; grid-template-columns:176px 1fr 140px; gap:10px; align-items:center; background:rgba(212,175,55,0.05); border:1px solid rgba(212,175,55,0.15); border-radius:4px; padding:10px 12px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:rgba(212,175,55,0.7); line-height:1;">8%</div>
+            <div style="font-size:9px; color:rgba(212,175,55,0.6); font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-top:1px;">of all service delays</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#D4AF37; letter-spacing:1px; margin-bottom:3px;">CHOKEPOINT 4 — PICKUP NOTIFICATION</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.7); line-height:1.42;">Unclear pickup timing — guests don't know when or where their order is ready. Causes counter crowding, staff interruptions, and unnecessary second waits after the food is already done.</div>
+            <div style="margin-top:4px; font-size:10.5px; color:rgba(212,175,55,0.6); font-style:italic;">Fix: SMS/app notification triggered on order completion; labeled pickup shelf</div>
+          </div>
+          <div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:4px; height:56px; overflow:hidden; display:flex; align-items:flex-end;">
+              <div style="width:100%; height:8%; background:rgba(212,175,55,0.7); border-radius:4px 4px 0 0;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:8px; flex-shrink:0;"></div>
+      <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:10px 12px; border-radius:4px; flex-shrink:0;">
+        <div style="font-size:9.5px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">The Single-Step Dividend</div>
+        <div style="font-size:11.5px; color:#fff; line-height:1.48;">Chains that fix just <em>one</em> chokepoint — most commonly mobile pay at Chokepoint 2 — consistently see 22% throughput gains and hit the sub-6-minute standard. You don't need to fix all four at once. Fix the one that's costing you the most.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 10 — THE SEAMLESSLY 90-SECOND STANDARD
+══════════════════════════════════════════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">From Concept to Platform</div>
+    <div class="ch-title">The Seamlessly 90-Second Ordering Standard</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">THE 6 minute standard doesn't require a new kitchen, new staff, or new venue design. It requires reducing the ordering step from the counter — and Seamlessly's QR platform does it in 90 seconds.</div>
+        <div class="body">
+          <p>The Seamlessly QR ordering system targets Chokepoints 1 and 2 simultaneously — the 73% of all service delays that originate at order entry and payment processing. When a guest scans the QR code, selects their items, and completes payment, the entire transaction happens <strong>in under 90 seconds</strong> with zero staff interaction required for the intake step.</p>
+          <div class="sec-head">What 90 Seconds Buys the Operator</div>
+          <p>At a venue running 150 orders during a 90-minute peak window, moving order intake from the counter to QR scanning frees <strong>approximately 3.75 staff-hours</strong> of labor during that window. Not as a cost cut. As a quality reinvestment.</p>
+          <p>The data from Seamlessly's recent deployments shows the real-world impact: visible wait times at concession points dropped during peak periods, staff were removed from intake pressure, and operators gained live order volume data to manage the rush against actual demand — not end-of-night reports.</p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The perception double benefit:</strong> Seamlessly QR ordering doesn't just speed up service. It compresses perceived wait by 62% at the same time. The guest who scans and orders is not "waiting" — they are "noticed." That's the experience difference that drives return visits.
+          </div>
+          <div class="sec-head">Chokepoints 1 + 2 — Solved Together</div>
+          <p>When QR ordering includes integrated payment — which Seamlessly does — operators eliminate both the order entry bottleneck (42% of delays) and the payment processing bottleneck (31% of delays) in a single implementation. That's <strong>73% of the average venue's service delay</strong>, addressed without hiring, retraining, or redesigning the physical space.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;">The Seamlessly Flow — 90 Seconds</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44;">1</div>
+              <div class="flow-box" style="flex:1; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#fff; font-size:12px;"><strong style="color:#D4AF37;">SCAN</strong> — Guest scans QR at seat or concession point. ~5 seconds.</div>
+            </div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#D4AF37;"></div><div class="flow-arrow" style="border-top-color:#D4AF37;"></div></div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44;">2</div>
+              <div class="flow-box" style="flex:1; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#fff; font-size:12px;"><strong style="color:#D4AF37;">ORDER</strong> — Digital menu loads. Guest selects and customizes. ~50 seconds.</div>
+            </div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#D4AF37;"></div><div class="flow-arrow" style="border-top-color:#D4AF37;"></div></div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44;">3</div>
+              <div class="flow-box" style="flex:1; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#fff; font-size:12px;"><strong style="color:#D4AF37;">PAY</strong> — Payment processed in-app. No card machine. ~20 seconds.</div>
+            </div>
+            <div class="flow-connector" style="margin:0 auto;"><div class="flow-line" style="background:#00D4AA;"></div><div class="flow-arrow" style="border-top-color:#00D4AA;"></div></div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:28px; height:28px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44;">4</div>
+              <div class="flow-box" style="flex:1; background:rgba(0,212,170,0.1); border-color:#00D4AA; color:#fff; font-size:12px;"><strong style="color:#00D4AA;">CONFIRMED</strong> — Order routes to Kitchen Display System. Guest feels noticed. Perceived wait clock stops.</div>
+            </div>
+          </div>
+          <div style="margin-top:10px; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37;">TOTAL: ~90 SECONDS</div>
+        </div>
+        <div style="background:#D4AF37; padding:16px; border-radius:4px; text-align:center;">
+          <div style="font-size:10px; color:#1A2A44; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Chokepoints Solved</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#1A2A44; line-height:1;">73%</div>
+          <div style="font-size:12.5px; color:#1A2A44; line-height:1.5; margin-top:4px;">Of average service delay addressed in one implementation — Chokepoints 1 &amp; 2 combined</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 11 — WORKBOOK EXERCISES
+══════════════════════════════════════════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc" style="min-height:0;">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 12 Workbook Exercises</div>
+    <div class="ch-intro" style="margin-bottom:8px;">Three exercises. One session. Walk out knowing exactly which step is slowing your service down — and what to do about it.</div>
+
+    <!-- Exercise 1 -->
+    <div style="margin-bottom:12px;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <div style="width:28px; height:28px; background:#1A2A44; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:15px;">1</span></div>
+        <div><div class="label" style="margin-bottom:0;">Exercise One</div><div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#1A2A44; letter-spacing:1px;">Measure Your Current Service Time</div></div>
+      </div>
+      <div class="body" style="margin-bottom:6px;"><p style="margin-bottom:0;">Time your actual service sequence during your next peak window. Start at the moment a guest enters or approaches — stop when they receive their order. Be honest.</p></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:6px; margin-bottom:6px;">
+        <div style="background:#F4F6F9; padding:7px 8px; border-radius:3px; border:1px solid #ddd;"><div class="fill-label">Avg wait to order:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:7px 8px; border-radius:3px; border:1px solid #ddd;"><div class="fill-label">Order to confirm:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:7px 8px; border-radius:3px; border:1px solid #ddd;"><div class="fill-label">Confirm to ready:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:7px 8px; border-radius:3px; border:1px solid #ddd;"><div class="fill-label">Total time:</div><div class="fill-line"></div></div>
+      </div>
+      <div class="fill-label">Where do guests visibly lose patience? (describe the moment):</div>
+      <div class="fill-line"></div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div style="margin-bottom:12px;">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:15px;">2</span></div>
+        <div><div class="label" style="margin-bottom:0;">Exercise Two</div><div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#1A2A44; letter-spacing:1px;">Identify Your Primary Chokepoint</div></div>
+      </div>
+      <div class="body" style="margin-bottom:6px;"><p style="margin-bottom:0;">Review the 4-chokepoint framework from Page 9. Check the one that best describes where your service time is actually lost:</p></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px;">
+        <div style="border:1.5px solid #1A2A44; padding:7px 9px; border-radius:3px; font-size:11px; color:#1A2A44; line-height:1.42;">☐ <strong>Chokepoint 1 (42%)</strong> — Order entry at terminal or counter verbally</div>
+        <div style="border:1.5px solid #1A2A44; padding:7px 9px; border-radius:3px; font-size:11px; color:#1A2A44; line-height:1.42;">☐ <strong>Chokepoint 2 (31%)</strong> — Payment processing friction (cash, chip delay)</div>
+        <div style="border:1.5px solid #1A2A44; padding:7px 9px; border-radius:3px; font-size:11px; color:#1A2A44; line-height:1.42;">☐ <strong>Chokepoint 3 (19%)</strong> — Kitchen expo bottleneck at the pass</div>
+        <div style="border:1.5px solid #1A2A44; padding:7px 9px; border-radius:3px; font-size:11px; color:#1A2A44; line-height:1.42;">☐ <strong>Chokepoint 4 (8%)</strong> — Pickup confusion, no notification system</div>
+      </div>
+      <div class="fill-label">What specifically happens at this chokepoint in your venue?</div>
+      <div class="fill-line"></div><div class="fill-line"></div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <div style="width:28px; height:28px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:15px;">3</span></div>
+        <div><div class="label" style="margin-bottom:0;">Exercise Three</div><div style="font-family:'Bebas Neue',sans-serif; font-size:17px; color:#1A2A44; letter-spacing:1px;">Design Your 6-Minute Path</div></div>
+      </div>
+      <div class="body" style="margin-bottom:6px;"><p style="margin-bottom:0;">Based on your chokepoint and current time, identify the single intervention that would get your service to sub-6 minutes. Be specific about the tool, the step, and the expected impact.</p></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px;">
+        <div style="background:#F4F6F9; padding:8px 10px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">The intervention I'll test:</div>
+          <div class="fill-line"></div><div class="fill-line"></div>
+          <div style="font-size:10px; color:#666; margin-top:3px;">e.g., QR ordering, mobile pay, pickup shelf</div>
+        </div>
+        <div style="background:#F4F6F9; padding:8px 10px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">The step it eliminates:</div>
+          <div class="fill-line"></div><div class="fill-line"></div>
+          <div style="font-size:10px; color:#666; margin-top:3px;">e.g., verbal order intake, cash handling</div>
+        </div>
+        <div style="background:#F4F6F9; padding:8px 10px; border-radius:4px; border:1px solid #ddd;">
+          <div class="fill-label">Expected time saved:</div>
+          <div class="fill-line"></div><div class="fill-line"></div>
+          <div style="font-size:10px; color:#666; margin-top:3px;">Be specific — in minutes and seconds</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 12 — 30-DAY CHECKLIST
+══════════════════════════════════════════════ -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Implementation</div>
+    <div class="ch-title">Your 30-Day Path to the 6-Minute Standard</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; margin-bottom:18px; line-height:1.6;">Sequenced for maximum impact. Start with diagnosis, move to your primary chokepoint, and build from there.</div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; flex:1;">
+      <div class="week-block">
+        <div class="week-head" style="background:#1A2A44;"><span style="color:#D4AF37;">WEEK 1 — BASELINE</span><small style="color:rgba(255,255,255,0.45);">Days 1–7</small></div>
+        <div class="week-body" style="border-color:#1A2A44;">
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Time your peak service sequence</strong> — order to receipt, during your busiest 90-minute window</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Identify your primary chokepoint</strong> using the 4-chokepoint framework</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Count walkaway events</strong> — post an observer to count guests who arrive and leave without ordering</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Survey 10 recent guests:</strong> What was their perceived wait? Did they feel noticed quickly?</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box"></div><div class="chk-text"><strong>Calculate your peak-hour throughput:</strong> orders per hour during your top-3 rush windows</div></div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head" style="background:#D4AF37;"><span style="color:#1A2A44;">WEEK 2 — QUICK INTERVENTION</span><small style="color:rgba(26,42,68,0.55);">Days 8–14</small></div>
+        <div class="week-body" style="border-color:#D4AF37;">
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Deploy QR codes at every table/ordering point</strong> — even if only for menu viewing initially</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Enable mobile payment</strong> at your primary chokepoint — Apple Pay, Google Pay, or card-on-file</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Set up a labeled pickup shelf</strong> if you run any mobile or pre-orders — even a $30 labeled rack</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Re-time your peak sequence</strong> after changes — what moved?</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box" style="border-color:#D4AF37;"></div><div class="chk-text"><strong>Brief staff on the 6-minute standard</strong> — make it a team metric, not just a manager concern</div></div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head" style="background:#00D4AA;"><span style="color:#1A2A44;">WEEK 3 — SYSTEMS BUILD</span><small style="color:rgba(26,42,68,0.55);">Days 15–21</small></div>
+        <div class="week-body" style="border-color:#00D4AA;">
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Activate full QR ordering</strong> — menu, order, and payment in a single scan-to-pay flow</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Set up SMS pickup notifications</strong> — automated trigger on order completion in Kitchen Display System</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Assign a dedicated expo role</strong> during your top rush window to clear Chokepoint 3</div></div>
+          <div class="chk-row"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Review order accuracy rate</strong> — has QR/mobile ordering reduced errors vs counter ordering?</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box" style="border-color:#00D4AA;"></div><div class="chk-text"><strong>Check average order value</strong> — have QR orders shown a higher per-cover spend?</div></div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head" style="background:#F4F6F9; border:1.5px solid #1A2A44; border-bottom:none;"><span style="color:#1A2A44;">WEEK 4 — MEASURE & REFINE</span><small style="color:#999;">Days 22–30</small></div>
+        <div class="week-body" style="border-color:#1A2A44;">
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Re-time full service sequence</strong> — are you hitting sub-6 minutes on perceived wait?</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Count walkaways again</strong> — has line abandonment visibly decreased during peak?</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Review guest feedback</strong> for mentions of speed, wait, and ordering experience</div></div>
+          <div class="chk-row"><div class="chk-box"></div><div class="chk-text"><strong>Identify your next chokepoint</strong> — what's the remaining friction after fixing the primary one?</div></div>
+          <div class="chk-row" style="border:none;"><div class="chk-box"></div><div class="chk-text"><strong>Read Chapter 13: Designing the Frictionless Venue</strong> — physical layout as the next layer</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:12px 18px; border-radius:4px; margin-top:16px; display:flex; align-items:center; gap:14px;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:24px; color:#D4AF37; flex-shrink:0;">KEY PRINCIPLE</div>
+      <div style="font-size:13px; color:#fff; line-height:1.5;">The 6-minute standard is not a speed target — it's a perception target. Guests don't measure minutes. They measure how quickly they felt acknowledged, engaged, and noticed. Fix the friction in that feeling, and the clock takes care of itself.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 13 — CHAPTER SUMMARY + NEXT
+══════════════════════════════════════════════ -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary &amp; What Comes Next</div>
+    <div class="ch-title">THE SCIENCE OF WAITING</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:14px;max-width:620px;">Part III continues with the speed layer: a sub-6-minute operating window where guests still feel noticed — not ignored — backed by chokepoint math, digital intake, and a sequenced 30-day rollout.</div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">SATISFACTION CLIFF — NOT A GENTLE SLOPE</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Wait psychology is nonlinear: near roughly <strong>5 minutes</strong>, satisfaction drops sharply and abandonment begins. Treat sub-6 as a <strong>structural target</strong>, not a nice-to-have slogan.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">LINES STEAL COVERS — AND FUTURE VISITS</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Visible and invisible lines drives walkaways and competitor switching; many guests <strong>do not complain — they leave</strong>. Count abandonments during rush and attach a revenue estimate so the cost of “doing nothing” is explicit.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">FOUR CHOKEPOINTS OWN MOST DELAY</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Order entry, payment friction, expo pass, and pickup confusion dominate service time. <strong>Diagnose one primary chokepoint</strong> per rush window before layering more tools — fix the biggest leak first.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">DIGITAL INTAKE SHRINKS <em>PERCEIVED</em> TIME</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">QR and mobile ordering plus status signals routinely cut <strong>perceived</strong> waits by a large amount — engagement compresses the perceived clock even when the kitchen clock is unchanged.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">5</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">RUN THE 30-DAY PATH AS ONE SYSTEM</div><div style="font-size:11.5px;color:#1A1A1A;line-height:1.52;">Baseline timing and walkaways, deploy QR/mobile pay and pickup clarity, then full scan-to-pay and SMS — <strong>re-time after each wave</strong>. The standard is how fast guests <em>felt</em> acknowledged and noticed, not raw stopwatch bragging rights.</div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Part III · Chapter 13</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">DESIGNING THE FRICTIONLESS VENUE</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">You have tightened the service clock and digital intake path. Chapter 13 moves outward into physical layout — sightlines, queues, pickup zones, and floor design as the next layer of frictionless flow.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">12 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId() {
+  const pages = document.querySelectorAll('.page');
+  let closest = pages[0], closestDist = Infinity;
+  const center = window.scrollY + window.innerHeight / 2;
+  pages.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pc = window.scrollY + rect.top + rect.height / 2;
+    const d = Math.abs(center - pc);
+    if (d < closestDist) { closestDist = d; closest = p; }
+  });
+  return closest.id;
+}
+
+async function capturePage(pageId) {
+  const page = document.getElementById(pageId);
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
+  return await html2canvas(page, {
+    scale: 2, useCORS: true, backgroundColor: '#ffffff',
+    width: 816, height: 1056, scrollX: 0, scrollY: -window.scrollY
+  });
+}
+
+async function downloadVisible() {
+  const id = getVisiblePageId();
+  const num = id.replace('p', '');
+  const canvas = await capturePage(id);
+  const link = document.createElement('a');
+  link.download = `chaos-mastery-ch12-p${num.padStart(2,'0')}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+async function downloadAll() {
+  const btn = document.querySelector('.btn-all');
+  btn.disabled = true;
+  for (let i = 1; i <= 15; i++) {
+    btn.textContent = `Downloading ${i}/15...`;
+    const canvas = await capturePage('p' + i);
+    const link = document.createElement('a');
+    link.download = `chaos-mastery-ch12-p${String(i).padStart(2,'0')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  btn.textContent = '⬇ Download All 13 Pages';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

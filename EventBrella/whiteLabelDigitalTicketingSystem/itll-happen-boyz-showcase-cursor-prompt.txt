@@ -1,0 +1,343 @@
+# White-Label Ticketing Client Setup: It'll Happen Boyz
+
+## Overview
+Clone the white-label template directory and customize it for this client by replacing all placeholder values.
+
+---
+
+## STEP 1: Create New Client Directory
+
+### Action Required
+1. **Identify current template directory** (the directory you're currently in with this prompt)
+2. **Create new client directory**: `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/`
+   - Client directory name: `itll-happen-boyz` (lowercase, hyphens for spaces)
+3. **Copy entire template directory** into the new client directory
+   - Include all files and subdirectories
+   - Preserve file structure exactly as-is
+   - The template remains unchanged for future clients
+
+**Full path for new client:** `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/`
+
+---
+
+## STEP 1.5: Verify package.json Configuration
+
+After copying the template directory, verify that `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/package.json` contains:
+- "build" script (even if it just echoes)
+- "dev", "start", "deploy" scripts
+- "stripe" dependency
+
+The package.json "name" field should have CLIENT_NAME placeholder - it will be replaced in the next step.
+
+---
+
+## STEP 2: Find and Replace All Placeholders
+
+In `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/`, perform these replacements across ALL files:
+
+### Identity & Branding
+- Replace `CLIENT_APP_NAME` with: "It'll Happen Boyz Summer Showcase"
+- Replace `CLIENT_ORGANIZER_NAME` with: "It'll Happen Boyz Summer Showcase"
+- Replace `CLIENT_NAME` with: "It'll Happen Boyz"
+
+- Replace `CLIENT_TAGLINE` with: ""
+- Replace `CLIENT_EVENT_TYPE_LABEL` with: "Summer Showcase 2026"
+- Replace `CLIENT_EVENT_TYPE_LABEL_2` with: ""
+
+### Venue & Location
+- Replace `CLIENT_VENUE_NAME` with: "TBA"
+- Replace `CLIENT_ADDRESS_LINE1` with: "Location To Be Announced"
+- Replace `CLIENT_ADDRESS_LINE2` with: "Central Florida, FL TBD"
+- Replace `CLIENT_PHONE` with: "321-477-9140"
+- Replace `CLIENT_GOOGLE_MAPS_DESTINATION` with: "Location+To+Be+Announced,+Central+Florida,+FL+TBD"
+- Replace `CLIENT_GOOGLE_MAPS_EMBED_URL` with: "https://www.google.com/maps?q=Location%20To%20Be%20Announced%2C%20Central%20Florida%2C%20FL%20TBD&output=embed"
+
+### Contact & Web
+- Replace `CLIENT_WEBSITE_URL` with: ""
+- Replace `CLIENT_CONTACT_EMAIL` with: "info@itllhappenboyz.com"
+
+### Points of contact (additional clients/contacts for this event)
+Add these to the client site (e.g. contact section, footer, or config) as needed:
+```
+1. Coach Kei | info@itllhappenboyz.com | 321-477-9140 | Head Coach
+2. Coach Lee | info@itllhappenboyz.com | 407-760-7136 | Assistant Coach
+```
+
+### Images (by UI location; use uploaded filename or URL)
+- Replace `CLIENT_ORGANIZER_IMAGE_URL` / organizer-image src (Venue section) with: ""
+- Replace `/images/CLIENT_HERO_IMAGE_LEFT.png` and any left-panel hero image (e.g. farmer-banks-field.png, Banks-overalls...) with: ""
+- Replace `/images/CLIENT_HERO_IMAGE_RIGHT.png` and any right-panel hero image (e.g. Banks-with-a-shovel, farmer-banks-greenhouse) with: ""
+- Replace `CLIENT_EVENT_POSTER_IMAGE_URL` and event-poster src (index.html hero) with: ""
+- Replace `CLIENT_HERO_BACKGROUND_IMAGE` and hero background image: ""
+- In `public/styles/main.css` and any `background-image: url('/vertical-garden-farming-iron-rack-260nw-1938275770.webp')`, replace with the client's hero background path (e.g. `url('/images/hero-bg.webp')` or the uploaded filename in `/images/`)
+
+### Copy & Descriptions
+- Replace `CLIENT_VENUE_DESCRIPTION` with: ""
+- Replace `CLIENT_ABOUT_PARAGRAPH_1` with: ""
+- Replace `CLIENT_ABOUT_PARAGRAPH_2` with: ""
+- Replace `CLIENT_EVENTS_INTRO_LINE_1` with: ""
+- Replace `CLIENT_EVENTS_INTRO_LINE_2` with: ""
+- Replace `CLIENT_WHAT_TO_EXPECT_2` with: ""
+- Replace `CLIENT_WHAT_TO_EXPECT_3` with: ""
+- Replace `CLIENT_WHAT_TO_EXPECT_4` with: ""
+- Replace `CLIENT_FARM_TOURS_DESCRIPTION` with: ""
+- Replace `CLIENT_HARVEST_DESCRIPTION` with: ""
+- Replace `CLIENT_MONTHLY_EVENT_DESCRIPTION` with: ""
+- Replace `CLIENT_MONTHLY_EVENT_NAME` with: ""
+- Replace `CLIENT_SPECIAL_EVENT_DESCRIPTION` with: ""
+- Replace `CLIENT_SPECIAL_EVENT_DESCRIPTION_2` with: ""
+- Replace `CLIENT_SPECIAL_EVENT_NAME_1` with: ""
+- Replace `CLIENT_SPECIAL_EVENT_NAME_2` with: ""
+- Replace `CLIENT_EVENT_NAME` with: "Summer Showcase 2026"
+- Replace `CLIENT_EVENT_DATE_TIME` with: "Friday, June 26, 2026, 8:00 AM - 6:00 PM"
+- Replace `CLIENT_EVENT_DESCRIPTION_1` with: ""
+- Replace `CLIENT_EVENT_DESCRIPTION_2` with: ""
+- Replace `CLIENT_EVENT_DESCRIPTION_3` with: ""
+- Replace `CLIENT_EVENT_DESCRIPTION` with: "Where Champions Are Made.
+
+3 days. Full regulation games. MVP winners every single game.
+
+This isn't practice. This is where your athlete proves they belong.
+
+5U-14U athletes. Full regulation games. Professional coaching from Coach Kei and Coach Lee. Every player gets real game time. Every game crowns an MVP.
+
+Your kid doesn't need more participation trophies. They need reps against real competition.
+
+June 26-28. Central Florida. 2 games guaranteed. Call-out games welcome.
+
+What makes this different: Real games. Real competition. Real coaches who've been there. We don't do fluff - just football and results. Your athlete plays, competes, and improves. Period."
+- Replace `CLIENT_EVENT_TIME` with: "8:00 AM - 6:00 PM"
+
+### Event Slugs & IDs
+- Replace `CLIENT_EVENT_SLUG_FIRST` with: ""
+- Replace `CLIENT_EVENT_SLUG_SECOND` with: ""
+- Replace `CLIENT_EVENT_SLUG` with: ""
+- Replace `CLIENT_DEFAULT_EVENT_NAME` with: "Summer Showcase 2026"
+
+---
+
+## STEP 3: Update Ticketing Tiers Configuration
+
+In /Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/config/ticketing-tiers.json (or equivalent config file), update the ticketing structure:
+
+```json
+[
+  {
+    "name": "Day Pass",
+    "id": "day-pass",
+    "price": "20",
+    "capacity": "200",
+    "description": "Single day access. Full regulation games. MVP opportunities."
+  },
+  {
+    "name": "Weekend Pass",
+    "id": "weekend-pass",
+    "price": "52",
+    "capacity": "150",
+    "description": "All 3 days. More games, more competition, more growth. Save $8."
+  },
+  {
+    "name": "VIP Day Pass",
+    "id": "vip-day-pass",
+    "price": "60",
+    "capacity": "50",
+    "description": "Reserved seating. Watch your athlete dominate in comfort. Premium viewing guaranteed."
+  },
+  {
+    "name": "VIP Weekend Pass",
+    "id": "vip-weekend-pass",
+    "price": "152",
+    "capacity": "40",
+    "description": "Reserved seats all weekend. The best view for the best parents. Premium everything."
+  }
+]
+```
+
+Also update any hardcoded tier references in:
+- app.js (TICKET_PRICES constant)
+- allevents.js (SPECIAL_EVENTS prices)
+- Any other files with pricing logic
+
+---
+
+## STEP 4: Handle Client Images (by UI location)
+
+### Organizer / host photo
+- No image provided
+
+### Hero section — full-width background
+- No hero background image provided.
+
+### Homepage — main event poster
+- Not provided.
+
+### About / Events page — left photo
+- Not provided.
+
+### About / Events page — right photo
+- Not provided.
+
+**Note:** Uploaded files go in `public/images/`. If a URL was entered instead, reference it directly in the client code.
+
+---
+
+## STEP 5: Configure Environment Variables
+
+Create/update `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/config/config.env` with:
+
+```env
+# Client Identity
+ORGANIZER_NAME=It'll Happen Boyz Summer Showcase
+CLIENT_NAME=It'll Happen Boyz
+
+# Deployment
+BASE_URL=https://itll-happen-boyz.eventbrella.us
+
+# Venue
+CLIENT_VENUE_NAME=TBA
+CLIENT_ADDRESS_LINE1=Location To Be Announced
+CLIENT_ADDRESS_LINE2=Central Florida, FL TBD
+
+# Events
+CLIENT_EVENT_SLUG=
+CLIENT_DEFAULT_EVENT_NAME=Summer Showcase 2026
+
+# Payment: copy STRIPE_* from FarmerBanks except webhook secret (created in STEP 5.5)
+STRIPE_TEST_SECRET_KEY=<copy from FarmerBanks>
+STRIPE_LIVE_SECRET_KEY=<copy from FarmerBanks>
+STRIPE_PUBLISHABLE_KEY=<copy from FarmerBanks>
+TEST_MODE=<copy from FarmerBanks>
+STRIPE_WEBHOOK_TEST_SECRET=<from scripts/create-stripe-webhook.sh output>
+STRIPE_WEBHOOK_LIVE_SECRET=<from scripts/create-stripe-webhook.sh --live output>
+
+# Cloudflare Turnstile (checkout bot protection; copy from FarmerBanks — same keys)
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
+
+# Email (to be configured by client)
+KLAVIYO_API_KEY=
+SENDGRID_API_KEY=
+```
+
+### Vercel Environment Variables
+- **Stripe, TEST_MODE, Turnstile:** Added automatically by `scripts/setup-vercel-stripe-env.sh` (STEP 5.5) — script copies from FarmerBanks .env and adds via Vercel CLI. The form does not transfer these. Checkout Turnstile steps: see `CLOUDFLARE_TURNSTILE_INTEGRATION.md` (and `../farmerBanks/CLOUDFLARE_TURNSTILE_INTEGRATION.md`).
+- **Other vars** (set in Vercel dashboard or CLI as needed): `ORGANIZER_NAME`, `BASE_URL` (https://itll-happen-boyz.eventbrella.us), `CLIENT_VENUE_NAME`, `CLIENT_ADDRESS_LINE1`, `CLIENT_ADDRESS_LINE2`, `CLIENT_EVENT_SLUG`, `CLIENT_DEFAULT_EVENT_NAME`, and email (Klaviyo/SendGrid) keys.
+
+---
+
+## STEP 5.5: Stripe + Vercel Env (Copy from FarmerBanks, Add via CLI)
+
+**The form does not transfer env vars.** As soon as the new client codebase exists, run the template script so Stripe variables are copied from FarmerBanks' `.env` and added to this client's Vercel project via the Vercel CLI.
+
+1. **Ensure FarmerBanks .env exists** at `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/../farmerBanks/.env` (STRIPE_* and TEST_MODE).
+2. **From the new client directory**, run (Vercel CLI and Stripe CLI must be installed):
+   ```bash
+   cd /Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/
+   chmod +x scripts/setup-vercel-stripe-env.sh
+   ./scripts/setup-vercel-stripe-env.sh https://itll-happen-boyz.eventbrella.us
+   ```
+   This script:
+   - Reads `STRIPE_TEST_SECRET_KEY`, `STRIPE_LIVE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY` (or `STRIPE_LIVE_PUBLISHABLE_KEY`) from FarmerBanks `.env`
+   - Creates the Stripe webhook for this client (test mode), gets the new `whsec_...` secret
+   - Sets `TEST_MODE=true` for the new client
+   - Adds all of the above plus `STRIPE_WEBHOOK_TEST_SECRET` and `TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` to the Vercel project via `vercel env add` (production + preview)
+3. **Optional:** For live mode, create the live webhook and add `STRIPE_WEBHOOK_LIVE_SECRET` manually or extend the script. Do not create new Stripe API keys; they are client-agnostic and copied from FarmerBanks.
+
+---
+
+## STEP 6: Update Email Templates
+
+In `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/emails/`, update these files with client-specific placeholders:
+- ticket-confirmation.html
+- order-receipt.html
+- Any newsletter templates
+
+All `CLIENT_*` placeholders should be replaced in these templates.
+
+---
+
+## STEP 7: Verify All Replacements
+
+### Verification Checklist
+
+1. **Search for remaining placeholders:**
+   - Search entire `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/` directory for "CLIENT_"
+   - List any remaining placeholders that weren't replaced
+
+2. **Count replacements made:**
+   - Total number of files modified
+   - Total number of placeholder replacements
+
+3. **Critical files check:**
+   - [ ] package.json - "name" field uses client name (not CLIENT_NAME)
+   - [ ] package.json - All scripts present (dev, build, deploy)
+   - [ ] index.html - Main event page customized
+   - [ ] allevents.js - Event data updated
+   - [ ] app.js - No CLIENT_ placeholders remain
+   - [ ] config.json - Client configuration set
+   - [ ] vercel.json - Deployment config present
+
+---
+
+## STEP 8: Generate Deployment Summary
+
+**Client System Ready: It'll Happen Boyz**
+
+**Directory:** `/Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/`
+
+**Next Steps for Developer:**
+1. Add client images to `/public/images/` (see STEP 4 for each UI location):
+   - Organizer/host photo
+   - Hero background
+   - Event poster (homepage)
+   - About/Events left photo
+   - About/Events right photo
+
+2. Test package.json scripts:
+   ```bash
+   cd /Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/
+   npm install
+   npm run build  # Should echo "Static site - no build step required"
+   npm run dev    # Should start Vercel dev server
+   ```
+
+3. Configure Stripe and Vercel env (run once from new client dir; form does not transfer vars):
+   - **Run** `./scripts/setup-vercel-stripe-env.sh https://itll-happen-boyz.eventbrella.us`
+   - Script reads FarmerBanks `.env`, creates webhook, and adds Stripe + Turnstile vars + `TEST_MODE=true` to Vercel via CLI
+
+4. Configure Email Service:
+   - Set up Klaviyo or SendGrid account
+   - Add API keys to Vercel environment variables
+
+5. Deploy to Vercel:
+   ```bash
+   cd /Users/missioncontrol/SeamlessMarketplace/EventBrella/itll-happen-boyz/
+   vercel --prod
+   ```
+
+6. Test complete workflow:
+   - [ ] Event pages load correctly
+   - [ ] Checkout process works
+   - [ ] Stripe payment processes
+   - [ ] Confirmation emails send
+   - [ ] Tickets display with QR codes
+
+**Production URL:** `https://itll-happen-boyz.eventbrella.us`
+
+---
+
+## Execution Checklist
+
+- [ ] Step 1: (if not already created) New client directory created at /Users/missioncontrol/SeamlessMarketplace/EventBrella/itllhappenboyssummershowcase
+- [ ] Step 1.5: package.json verified
+- [ ] Step 2: All placeholders replaced with actual values
+- [ ] Step 3: Ticketing tiers configured (if applicable)
+- [ ] Step 4: Image instructions provided
+- [ ] Step 5: Environment variables documented
+- [ ] Step 5.5: `scripts/setup-vercel-stripe-env.sh` run from new client dir — copies FarmerBanks .env (Stripe + Turnstile) and adds to Vercel via CLI; creates webhook and sets TEST_MODE=true
+- [ ] Step 6: Email templates updated
+- [ ] Step 7: Verification complete - no CLIENT_* placeholders remain
+- [ ] Step 8: Deployment summary generated
+- [ ] Template directory unchanged
+
+**Begin execution. Report progress and any issues encountered.**

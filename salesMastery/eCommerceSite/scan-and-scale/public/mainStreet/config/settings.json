@@ -1,0 +1,12 @@
+{
+  "owner_notification_email": "team@seamlessly.us",
+  "funnel_name": "main_street",
+  "funnel_slug": "main_street",
+  "display_name": "Main Street District Retention",
+  "email_sequence_days": [0, 2, 4, 6],
+  "campaign_calculator": "main-street-retention-001",
+  "campaign_starter_kit": "main-street-starter-kit",
+  "calculator_booking_url": "https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone",
+  "product_guide_path": "/mainStreet/districtRetentionPlaybook.html",
+  "stripe_product_key": "district-retention-playbook"
+}

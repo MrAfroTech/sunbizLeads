@@ -1,0 +1,226 @@
+tier,league,team_name,website
+Triple-A,International League,Buffalo Bisons,https://www.milb.com/buffalo
+Triple-A,International League,Charlotte Knights,https://www.milb.com/charlotte
+Triple-A,International League,Columbus Clippers,https://www.milb.com/columbus
+Triple-A,International League,Durham Bulls,https://www.milb.com/durham
+Triple-A,International League,Gwinnett Stripers,https://www.milb.com/gwinnett
+Triple-A,International League,Indianapolis Indians,https://www.milb.com/indianapolis
+Triple-A,International League,Iowa Cubs,https://www.milb.com/iowa
+Triple-A,International League,Jacksonville Jumbo Shrimp,https://www.milb.com/jacksonville
+Triple-A,International League,Lehigh Valley IronPigs,https://www.milb.com/lehigh-valley
+Triple-A,International League,Louisville Bats,https://www.milb.com/louisville
+Triple-A,International League,Memphis Redbirds,https://www.milb.com/memphis
+Triple-A,International League,Nashville Sounds,https://www.milb.com/nashville
+Triple-A,International League,Norfolk Tides,https://www.milb.com/norfolk
+Triple-A,International League,Omaha Storm Chasers,https://www.milb.com/omaha
+Triple-A,International League,Rochester Red Wings,https://www.milb.com/rochester
+Triple-A,International League,Scranton/WB RailRiders,https://www.milb.com/scranton-wb
+Triple-A,International League,St. Paul Saints,https://www.milb.com/st-paul
+Triple-A,International League,Syracuse Mets,https://www.milb.com/syracuse
+Triple-A,International League,Toledo Mud Hens,https://www.milb.com/toledo
+Triple-A,International League,Worcester Red Sox,https://www.milb.com/worcester
+Triple-A,Pacific Coast League,Albuquerque Isotopes,https://www.milb.com/albuquerque
+Triple-A,Pacific Coast League,El Paso Chihuahuas,https://www.milb.com/el-paso
+Triple-A,Pacific Coast League,Las Vegas Aviators,https://www.milb.com/las-vegas
+Triple-A,Pacific Coast League,Oklahoma City Baseball Club,https://www.milb.com/oklahoma-city
+Triple-A,Pacific Coast League,Reno Aces,https://www.milb.com/reno
+Triple-A,Pacific Coast League,Round Rock Express,https://www.milb.com/round-rock
+Triple-A,Pacific Coast League,Sacramento River Cats,https://www.milb.com/sacramento
+Triple-A,Pacific Coast League,Salt Lake Bees,https://www.milb.com/salt-lake
+Triple-A,Pacific Coast League,Sugar Land Space Cowboys,https://www.milb.com/sugar-land
+Triple-A,Pacific Coast League,Tacoma Rainiers,https://www.milb.com/tacoma
+Double-A,Eastern League,Akron RubberDucks,https://www.milb.com/akron
+Double-A,Eastern League,Altoona Curve,https://www.milb.com/altoona
+Double-A,Eastern League,Binghamton Rumble Ponies,https://www.milb.com/binghamton
+Double-A,Eastern League,Erie SeaWolves,https://www.milb.com/erie
+Double-A,Eastern League,Harrisburg Senators,https://www.milb.com/harrisburg
+Double-A,Eastern League,Hartford Yard Goats,https://www.milb.com/hartford
+Double-A,Eastern League,New Hampshire Fisher Cats,https://www.milb.com/new-hampshire
+Double-A,Eastern League,Portland Sea Dogs,https://www.milb.com/portland
+Double-A,Eastern League,Reading Fightin Phils,https://www.milb.com/reading
+Double-A,Eastern League,Richmond Flying Squirrels,https://www.milb.com/richmond
+Double-A,Eastern League,Somerset Patriots,https://www.milb.com/somerset
+Double-A,Eastern League,Trenton Thunder,https://www.milb.com/trenton
+Double-A,Southern League,Birmingham Barons,https://www.milb.com/birmingham
+Double-A,Southern League,Biloxi Shuckers,https://www.milb.com/biloxi
+Double-A,Southern League,Chattanooga Lookouts,https://www.milb.com/chattanooga
+Double-A,Southern League,Mississippi Braves,https://www.milb.com/mississippi
+Double-A,Southern League,Montgomery Biscuits,https://www.milb.com/montgomery
+Double-A,Southern League,Pensacola Blue Wahoos,https://www.milb.com/pensacola
+Double-A,Southern League,Rocket City Trash Pandas,https://www.milb.com/rocket-city
+Double-A,Southern League,Tennessee Smokies,https://www.milb.com/tennessee
+Double-A,Texas League,Amarillo Sod Poodles,https://www.milb.com/amarillo
+Double-A,Texas League,Arkansas Travelers,https://www.milb.com/arkansas
+Double-A,Texas League,Corpus Christi Hooks,https://www.milb.com/corpus-christi
+Double-A,Texas League,Frisco RoughRiders,https://www.milb.com/frisco
+Double-A,Texas League,Midland RockHounds,https://www.milb.com/midland
+Double-A,Texas League,Northwest Arkansas Naturals,https://www.milb.com/northwest-arkansas
+Double-A,Texas League,San Antonio Missions,https://www.milb.com/san-antonio
+Double-A,Texas League,Springfield Cardinals,https://www.milb.com/springfield
+Double-A,Texas League,Tulsa Drillers,https://www.milb.com/tulsa
+Double-A,Texas League,Wichita Wind Surge,https://www.milb.com/wichita
+High-A,South Atlantic League,Aberdeen IronBirds,https://www.milb.com/aberdeen
+High-A,South Atlantic League,Brooklyn Cyclones,https://www.milb.com/brooklyn
+High-A,South Atlantic League,Bowling Green Hot Rods,https://www.milb.com/bowling-green
+High-A,South Atlantic League,Greenville Drive,https://www.milb.com/greenville
+High-A,South Atlantic League,Hudson Valley Renegades,https://www.milb.com/hudson-valley
+High-A,South Atlantic League,Jersey Shore BlueClaws,https://www.milb.com/jersey-shore
+High-A,South Atlantic League,Rome Braves,https://www.milb.com/rome
+High-A,South Atlantic League,Salem Red Sox,https://www.milb.com/salem
+High-A,South Atlantic League,Wilmington Blue Rocks,https://www.milb.com/wilmington
+High-A,South Atlantic League,Winston-Salem Dash,https://www.milb.com/winston-salem
+High-A,South Atlantic League,Asheville Tourists,https://www.milb.com/asheville
+High-A,South Atlantic League,Greensboro Grasshoppers,https://www.milb.com/greensboro
+High-A,Midwest League,Cedar Rapids Kernels,https://www.milb.com/cedar-rapids
+High-A,Midwest League,Dayton Dragons,https://www.milb.com/dayton
+High-A,Midwest League,Fort Wayne TinCaps,https://www.milb.com/fort-wayne
+High-A,Midwest League,Great Lakes Loons,https://www.milb.com/great-lakes
+High-A,Midwest League,Kane County Cougars,https://www.milb.com/kane-county
+High-A,Midwest League,Lake County Captains,https://www.milb.com/lake-county
+High-A,Midwest League,Lansing Lugnuts,https://www.milb.com/lansing
+High-A,Midwest League,Peoria Chiefs,https://www.milb.com/peoria
+High-A,Midwest League,Quad Cities River Bandits,https://www.milb.com/quad-cities
+High-A,Midwest League,South Bend Cubs,https://www.milb.com/south-bend
+High-A,Midwest League,West Michigan Whitecaps,https://www.milb.com/west-michigan
+High-A,Midwest League,Wisconsin Timber Rattlers,https://www.milb.com/wisconsin
+High-A,Northwest League,Eugene Emeralds,https://www.milb.com/eugene
+High-A,Northwest League,Everett AquaSox,https://www.milb.com/everett
+High-A,Northwest League,Hillsboro Hops,https://www.milb.com/hillsboro
+High-A,Northwest League,Spokane Indians,https://www.milb.com/spokane
+High-A,Northwest League,Tri-City Dust Devils,https://www.milb.com/tri-city
+High-A,Northwest League,Vancouver Canadians,https://www.milb.com/vancouver
+Single-A,Carolina League,Augusta GreenJackets,https://www.milb.com/augusta
+Single-A,Carolina League,Charleston RiverDogs,https://www.milb.com/charleston
+Single-A,Carolina League,Columbia Fireflies,https://www.milb.com/columbia
+Single-A,Carolina League,Delmarva Shorebirds,https://www.milb.com/delmarva
+Single-A,Carolina League,Down East Wood Ducks,https://www.milb.com/down-east
+Single-A,Carolina League,Fayetteville Woodpeckers,https://www.milb.com/fayetteville
+Single-A,Carolina League,Fredericksburg Nationals,https://www.milb.com/fredericksburg
+Single-A,Carolina League,Hickory Crawdads,https://www.milb.com/hickory
+Single-A,Carolina League,Kannapolis Cannon Ballers,https://www.milb.com/kannapolis
+Single-A,Carolina League,Lynchburg Hillcats,https://www.milb.com/lynchburg
+Single-A,Carolina League,Myrtle Beach Pelicans,https://www.milb.com/myrtle-beach
+Single-A,Carolina League,Carolina Mudcats,https://www.milb.com/carolina
+Single-A,Florida State League,Bradenton Marauders,https://www.milb.com/bradenton
+Single-A,Florida State League,Clearwater Threshers,https://www.milb.com/clearwater
+Single-A,Florida State League,Daytona Tortugas,https://www.milb.com/daytona
+Single-A,Florida State League,Dunedin Blue Jays,https://www.milb.com/dunedin
+Single-A,Florida State League,Fort Myers Mighty Mussels,https://www.milb.com/fort-myers
+Single-A,Florida State League,Jupiter Hammerheads,https://www.milb.com/jupiter
+Single-A,Florida State League,Lakeland Flying Tigers,https://www.milb.com/lakeland
+Single-A,Florida State League,Palm Beach Cardinals,https://www.milb.com/palm-beach
+Single-A,Florida State League,St. Lucie Mets,https://www.milb.com/st-lucie
+Single-A,Florida State League,Tampa Tarpons,https://www.milb.com/tampa
+Single-A,California League,Fresno Grizzlies,https://www.milb.com/fresno
+Single-A,California League,Inland Empire 66ers,https://www.milb.com/inland-empire
+Single-A,California League,Lake Elsinore Storm,https://www.milb.com/lake-elsinore
+Single-A,California League,Modesto Nuts,https://www.milb.com/modesto
+Single-A,California League,Rancho Cucamonga Quakes,https://www.milb.com/rancho-cucamonga
+Single-A,California League,San Jose Giants,https://www.milb.com/san-jose
+Single-A,California League,Stockton Ports,https://www.milb.com/stockton
+Single-A,California League,Visalia Rawhide,https://www.milb.com/visalia
+MLB Partner,Frontier League,Brockton Rox,https://www.brocktonrox.com
+MLB Partner,Frontier League,Down East Bird Dawgs,https://www.milb.com/down-east
+MLB Partner,Frontier League,Evansville Otters,https://www.evansvilleotters.com
+MLB Partner,Frontier League,Florence Y'alls,https://www.florenceyalls.com
+MLB Partner,Frontier League,Gateway Grizzlies,https://www.gatewaygrizzlies.com
+MLB Partner,Frontier League,Joliet Slammers,https://www.jolietslammers.com
+MLB Partner,Frontier League,Lake Erie Crushers,https://www.lakecrushers.com
+MLB Partner,Frontier League,Mississippi Mud Monsters,https://www.mudmonsters.com
+MLB Partner,Frontier League,New Jersey Jackals,https://www.jackals.com
+MLB Partner,Frontier League,New York Boulders,https://www.nyboulders.com
+MLB Partner,Frontier League,Ottawa Titans,https://www.ottawatitans.com
+MLB Partner,Frontier League,Quebec Capitales,https://www.capitalesdequebec.com
+MLB Partner,Frontier League,Schaumburg Boomers,https://www.boomersbaseball.com
+MLB Partner,Frontier League,Sussex County Miners,https://www.scminers.com
+MLB Partner,Frontier League,Tri-City ValleyCats,https://www.tcvalleycats.com
+MLB Partner,Frontier League,Trois-Rivieres Aigles,https://www.lesaigles.com
+MLB Partner,Frontier League,Washington Wild Things,https://www.washingtonwildthings.com
+MLB Partner,Frontier League,Windy City ThunderBolts,https://www.wcthunderbolts.com
+MLB Partner,Atlantic League,Charleston Dirty Birds,https://www.charlestonwvbaseball.com
+MLB Partner,Atlantic League,Gastonia Ghost Peppers,https://www.ghostpeppersbaseball.com
+MLB Partner,Atlantic League,Hagerstown Flying Boxcars,https://www.flyingboxcars.com
+MLB Partner,Atlantic League,High Point Rockers,https://www.highpointrockers.com
+MLB Partner,Atlantic League,Lancaster Stormers,https://www.lancasterstormers.com
+MLB Partner,Atlantic League,Lexington Legends,https://www.lexingtonlegends.com
+MLB Partner,Atlantic League,Long Island Ducks,https://www.liducks.com
+MLB Partner,Atlantic League,Southern Maryland Blue Crabs,https://www.somdbluecrabs.com
+MLB Partner,Atlantic League,Staten Island Ferry Hawks,https://www.ferryhawks.com
+MLB Partner,Atlantic League,York Revolution,https://www.yorkrevolution.com
+MLB Partner,American Association,Chicago Dogs,https://www.thechicagodogs.com
+MLB Partner,American Association,Cleburne Railroaders,https://www.railroaders.net
+MLB Partner,American Association,Fargo-Moorhead RedHawks,https://www.fmredhawks.com
+MLB Partner,American Association,Gary SouthShore RailCats,https://www.railcatsbaseball.com
+MLB Partner,American Association,Kane County Cougars,https://www.kccougars.com
+MLB Partner,American Association,Kansas City Monarchs,https://www.monarchsbaseball.com
+MLB Partner,American Association,Lake Country DockHounds,https://www.dockhoundsbaseball.com
+MLB Partner,American Association,Lincoln Saltdogs,https://www.saltdogs.com
+MLB Partner,American Association,Milwaukee Milkmen,https://www.milwaukeemilkmen.com
+MLB Partner,American Association,Sioux City Explorers,https://www.xsbaseball.com
+MLB Partner,American Association,Sioux Falls Canaries,https://www.sfcanaries.com
+MLB Partner,American Association,Winnipeg Goldeyes,https://www.goldeyes.com
+MLB Partner,Pioneer League,Billings Mustangs,https://www.billingsmustangs.com
+MLB Partner,Pioneer League,Boise Hawks,https://www.boisehawks.com
+MLB Partner,Pioneer League,Colorado Springs Sky Sox,https://www.skysox.com
+MLB Partner,Pioneer League,Grand Junction Jackalopes,https://www.gjjackalopes.com
+MLB Partner,Pioneer League,Great Falls Voyagers,https://www.gfvoyagers.com
+MLB Partner,Pioneer League,Idaho Falls Chukars,https://www.ifchukars.com
+MLB Partner,Pioneer League,Missoula PaddleHeads,https://www.gopaddleheads.com
+MLB Partner,Pioneer League,Northern Colorado Owlz,https://www.ncowlz.com
+MLB Partner,Pioneer League,Ogden Raptors,https://www.ogdenraptors.com
+MLB Partner,Pioneer League,Rocky Mountain Vibes,https://www.vibesbaseball.com
+MLB Partner,Pioneer League,Glacier Range Riders,https://www.glacierrangeriders.com
+Independent,Pecos League,Alpine Cowboys,https://www.alpinecowboys.com
+Independent,Pecos League,Bakersfield Train Robbers,https://www.pecosleague.com
+Independent,Pecos League,Blackwell FlyCatchers,https://www.pecosleague.com
+Independent,Pecos League,Dublin Leprechauns,https://www.pecosleague.com
+Independent,Pecos League,Garden City Wind,https://www.pecosleague.com
+Independent,Pecos League,Kansas City Hormigas,https://www.pecosleague.com
+Independent,Pecos League,Martinez Sturgeon,https://www.pecosleague.com
+Independent,Pecos League,Monterey Amberjacks,https://www.pecosleague.com
+Independent,Pecos League,North Platte 80s,https://www.pecosleague.com
+Independent,Pecos League,Pecos Bills,https://www.pecosleague.com
+Independent,Pecos League,Roswell Invaders,https://www.roswellinvaders.com
+Independent,Pecos League,San Rafael Pacifics,https://www.pecosleague.com
+Independent,Pecos League,Santa Fe Fuego,https://www.santafefuego.com
+Independent,Pecos League,Santa Rosa Scuba Divers,https://www.pecosleague.com
+Independent,Pecos League,Trinidad Triggers,https://www.pecosleague.com
+Independent,Pecos League,Tucson Saguaros,https://www.tucsonsaguaros.com
+Independent,Empire League,Elmira Pioneers,http://empireproleague.com
+Independent,Empire League,Oneonta Outlaws,http://empireproleague.com
+Independent,Empire League,Utica Blue Sox,http://empireproleague.com
+Independent,Empire League,Watertown Bucks,http://empireproleague.com
+Independent,USPBL,Birmingham Bloomfield Beavers,https://www.uspbl.com/beavers
+Independent,USPBL,Eastside Diamond Hoppers,https://www.uspbl.com/hoppers
+Independent,USPBL,Utica Unicorns,https://www.uspbl.com/unicorns
+Independent,USPBL,Westside Woolly Mammoths,https://www.uspbl.com/mammoths
+MLB,American League,Baltimore Orioles,https://www.mlb.com/orioles
+MLB,American League,Boston Red Sox,https://www.mlb.com/redsox
+MLB,American League,New York Yankees,https://www.mlb.com/yankees
+MLB,American League,Tampa Bay Rays,https://www.mlb.com/rays
+MLB,American League,Toronto Blue Jays,https://www.mlb.com/bluejays
+MLB,American League,Chicago White Sox,https://www.mlb.com/whitesox
+MLB,American League,Cleveland Guardians,https://www.mlb.com/guardians
+MLB,American League,Detroit Tigers,https://www.mlb.com/tigers
+MLB,American League,Kansas City Royals,https://www.mlb.com/royals
+MLB,American League,Minnesota Twins,https://www.mlb.com/twins
+MLB,American League,Houston Astros,https://www.mlb.com/astros
+MLB,American League,Los Angeles Angels,https://www.mlb.com/angels
+MLB,American League,Oakland Athletics,https://www.mlb.com/athletics
+MLB,American League,Seattle Mariners,https://www.mlb.com/mariners
+MLB,American League,Texas Rangers,https://www.mlb.com/rangers
+MLB,National League,Atlanta Braves,https://www.mlb.com/braves
+MLB,National League,Miami Marlins,https://www.mlb.com/marlins
+MLB,National League,New York Mets,https://www.mlb.com/mets
+MLB,National League,Philadelphia Phillies,https://www.mlb.com/phillies
+MLB,National League,Washington Nationals,https://www.mlb.com/nationals
+MLB,National League,Chicago Cubs,https://www.mlb.com/cubs
+MLB,National League,Cincinnati Reds,https://www.mlb.com/reds
+MLB,National League,Milwaukee Brewers,https://www.mlb.com/brewers
+MLB,National League,Pittsburgh Pirates,https://www.mlb.com/pirates
+MLB,National League,St. Louis Cardinals,https://www.mlb.com/cardinals
+MLB,National League,Arizona Diamondbacks,https://www.mlb.com/dbacks
+MLB,National League,Colorado Rockies,https://www.mlb.com/rockies
+MLB,National League,Los Angeles Dodgers,https://www.mlb.com/dodgers
+MLB,National League,San Diego Padres,https://www.mlb.com/padres
+MLB,National League,San Francisco Giants,https://www.mlb.com/giants

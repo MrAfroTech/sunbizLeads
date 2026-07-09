@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Generator — Version A (Navy + Gold)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #1A2A44;
+      --gold:       #D4AF37;
+      --gold-light: #e8c84a;
+      --white:      #FFFFFF;
+      --stat:       #131414;
+      --image-pct:  58%;
+      --text-pct:   42%;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d1b2a;
+      min-height: 100vh;
+      color: var(--white);
+      padding: 24px;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 24px;
+      color: var(--gold); text-align: center; margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center; color: rgba(255,255,255,0.4);
+      font-size: 13px; margin-bottom: 40px;
+    }
+
+    .carousel-label {
+      width: 100%; max-width: 1080px;
+      margin: 48px auto 8px auto;
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); border-left: 3px solid var(--gold); padding-left: 10px;
+    }
+
+    .carousel-label:first-of-type { margin-top: 0; }
+
+    .slide-label {
+      width: 100%; max-width: 1080px;
+      margin: 0 auto 8px auto;
+      font-family: 'Inter', sans-serif; font-size: 11px;
+      color: rgba(255,255,255,0.28); padding-left: 2px;
+    }
+
+    .section { margin-bottom: 8px; }
+
+    /* box-wrapper matches original — inline-block so card sits at natural 1080px width */
+    .box-wrapper { display: inline-block; margin-bottom: 16px; }
+
+    /* ── THE 1080×1080 CARD ── */
+    .carousel-card {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      background: var(--navy);
+    }
+
+    /* LEFT: image */
+    .card-left {
+      width: var(--image-pct);
+      flex-shrink: 0; height: 100%;
+      position: relative; overflow: hidden;
+    }
+
+    .card-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-left-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(270deg, rgba(26,42,68,0.80) 0%, rgba(26,42,68,0.04) 45%, transparent 100%);
+      pointer-events: none; z-index: 1;
+    }
+
+    .card-left-corner {
+      position: absolute; top: 0; left: 0;
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.28) 0%, transparent 60%);
+      pointer-events: none; z-index: 2;
+    }
+
+    .img-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+    }
+
+    .img-placeholder svg { width: 56px; height: 56px; stroke: rgba(212,175,55,0.35); }
+    .img-placeholder p {
+      font-family: 'Inter', sans-serif; font-size: 20px;
+      color: rgba(212,175,55,0.35); text-align: center; padding: 0 32px; line-height: 1.5;
+    }
+
+    /* RIGHT: text */
+    .card-right {
+      width: var(--text-pct);
+      flex-shrink: 0; height: 100%;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 64px 52px 60px 48px;
+      background: var(--navy); position: relative;
+    }
+
+    .card-right::after {
+      content: ''; position: absolute;
+      right: 0; top: 0; bottom: 0; width: 6px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.08) 100%);
+    }
+
+    .card-top-row { display: flex; flex-direction: column; gap: 14px; }
+
+    .card-topic-tag {
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; line-height: 1.3;
+    }
+
+    .card-rule { width: 48px; height: 4px; background: var(--gold); border-radius: 2px; }
+
+    .card-logo {
+      font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px;
+      color: rgba(255,255,255,0.14); letter-spacing: 1px;
+    }
+
+    .card-body {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; padding: 40px 0; gap: 28px;
+    }
+
+    .card-headline {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      color: var(--white); line-height: 1.13;
+    }
+
+    .stat-box {
+      display: block;
+      background: rgba(212,175,55,0.1);
+      border: 2px solid rgba(212,175,55,0.32);
+      border-radius: 12px; padding: 20px 26px;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.1);
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      color: var(--stat); line-height: 1; display: block; font-size: 72px;
+    }
+
+    .stat-label {
+      display: block; font-family: 'Inter', sans-serif; font-size: 18px;
+      color: rgba(255,255,255,0.48); margin-top: 8px; line-height: 1.4;
+    }
+
+    .card-body-text {
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      color: rgba(255,255,255,0.72); line-height: 1.65; font-size: 22px;
+    }
+
+    .card-bottom-row { display: flex; flex-direction: column; gap: 12px; }
+
+    .card-slide-indicator {
+      font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 600;
+      color: rgba(212,175,55,0.4); letter-spacing: 1px;
+    }
+
+    .card-cta {
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      color: rgba(212,175,55,0.48);
+    }
+
+    /* Download button — matches original pattern exactly */
+    .download-btn {
+      display: block;
+      width: 1080px;
+      margin: 0 auto 32px auto;
+      padding: 14px 24px;
+      font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212,175,55,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Carousel Generator — Version A</h1>
+  <p class="subtitle">Navy + Gold · From Chaos to Clarity · 7 Carousels × 5 Slides</p>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+  (function () {
+
+    var IMGS = [
+      'dataPhotos/download.jpeg',
+      'dataPhotos/download (1).jpeg',
+      'dataPhotos/download (2).jpeg',
+      'dataPhotos/images.jpeg',
+      'dataPhotos/images (1).jpeg',
+      'dataPhotos/images (2).jpeg',
+      'dataPhotos/images (3).jpeg'
+    ];
+
+    var IMG_SETS = [
+      [0,1,2,3,4],
+      [1,2,3,4,5],
+      [2,3,4,5,6],
+      [3,4,5,6,0],
+      [4,5,6,0,1],
+      [5,6,0,1,2],
+      [6,0,1,2,3]
+    ];
+
+    var CAROUSELS = [
+      {
+        title: 'Carousel 1 — The Data Access Problem',
+        slides: [
+          { headline: 'Your data isn\'t missing.', body: 'It\'s trapped in systems that don\'t talk to each other.', stat: null },
+          { headline: 'Nearly 50% of operators can\'t access the data they need.', body: 'Not because it doesn\'t exist. Because it\'s scattered with no single source of truth.', stat: { n: '50%', l: 'of operators lack access to critical revenue data' } },
+          { headline: 'Disconnected systems are the #1 obstacle.', body: '40% of operators cite fragmented tools as their biggest blocker. No unified profiles. No real-time insight.', stat: { n: '40%', l: 'cite fragmented systems as their biggest blocker' } },
+          { headline: 'You can\'t make decisions on data you can\'t see.', body: 'Scattered systems block revenue and loyalty initiatives before they start.', stat: null },
+          { headline: 'One source of truth changes everything.', body: 'Centralized data powers revenue, loyalty, automation, and AI personalization. Fragmentation blocks all four. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 2 — The Invisible Guest Problem',
+        slides: [
+          { headline: 'You\'re invisible to 20% of your own guests.', body: 'Data silos mean those people never enter a loyalty loop, never get an upsell, never come back.', stat: null },
+          { headline: 'You can\'t retain a guest you can\'t see.', body: 'Some operations are missing up to 20% of guests from their systems entirely.', stat: { n: '20%', l: 'of guests missing from systems due to data silos' } },
+          { headline: 'Every invisible guest is a missed revenue cycle.', body: 'No personalization. No upsell. No loyalty trigger. They churn silently and you never know why.', stat: null },
+          { headline: 'Unified profiles end the blind spot.', body: 'When guest data flows into a single system, every touchpoint becomes visible — and actionable.', stat: null },
+          { headline: 'Hotels with unified guest data drove $17B in direct revenue.', body: 'Across 12,500+ properties. The guests were always there. The data just needed to connect. / ➜ Follow for more.', stat: { n: '$17B', l: 'driven from unified guest profiles · 12,500+ properties' } }
+        ]
+      },
+      {
+        title: 'Carousel 3 — The Personalization Gap',
+        slides: [
+          { headline: 'Personalization isn\'t failing. Data is.', body: 'Nearly 20% of operators say poor data quality is the direct reason they can\'t deliver tailored guest experiences.', stat: null },
+          { headline: 'Every missed personalization is a missed upsell.', body: 'And every missed upsell is lost margin. The math compounds fast at scale.', stat: { n: '~20%', l: 'say data quality directly blocks personalization' } },
+          { headline: 'Fragmentation kills the guest loyalty loop.', body: 'Without clean unified data you can\'t trigger the right offer at the right moment for the right guest.', stat: null },
+          { headline: 'Incomplete data means inconsistent guest experiences.', body: 'Two guests, same tier, different systems — one gets the upsell, one doesn\'t. That inconsistency erodes trust.', stat: null },
+          { headline: 'AI personalization only works with clean data underneath.', body: 'The tech isn\'t the bottleneck. Fragmented ownership and inconsistent definitions are. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 4 — The Service Delay Problem',
+        slides: [
+          { headline: 'Guests feel your data problems in real time.', body: '19% of operators cite data fragmentation as a direct cause of communication delays and service friction.', stat: null },
+          { headline: 'It\'s not a backend issue.', body: 'Data silos show up as slower service, missed requests, and staff who can\'t answer basic guest questions.', stat: { n: '19%', l: 'say data issues cause delays guests directly notice' } },
+          { headline: 'Communication lag is a data problem wearing a service mask.', body: 'When departments don\'t share data, coordination breaks down. Guests experience the gap.', stat: null },
+          { headline: 'Every service delay is a review risk.', body: 'The guest sees slowness. The root cause is almost always a data or systems failure upstream.', stat: null },
+          { headline: 'Centralized near real-time data closes the gap.', body: 'Connecting data across departments improves efficiency and guest satisfaction simultaneously. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 5 — The Revenue Leak',
+        slides: [
+          { headline: 'Fragmented data isn\'t just inconvenient. It\'s expensive.', body: 'Revenue, loyalty, automation, and AI all depend on precise data. Fragmentation limits all of them.', stat: null },
+          { headline: 'You\'re not losing revenue to competitors. You\'re losing it to your own systems.', body: 'Disconnected tools create gaps between what guests want and what you can deliver.', stat: null },
+          { headline: 'Poor data blocks your highest-margin initiatives.', body: 'Upsells, loyalty triggers, personalized offers — none fire reliably when data lives in silos.', stat: { n: '40%', l: 'say disconnected systems block key revenue initiatives' } },
+          { headline: 'The operators winning on revenue have one thing in common.', body: 'Unified guest data. Not better pricing. Not bigger budgets. Just data that works together.', stat: null },
+          { headline: '$17 billion. 12,500 properties. One common thread.', body: 'Centralized guest data turned into direct revenue. The infrastructure was the unlock. / ➜ Follow for more.', stat: { n: '$17B', l: 'in direct revenue from unified guest data' } }
+        ]
+      },
+      {
+        title: 'Carousel 6 — The Modernization Blocker',
+        slides: [
+          { headline: 'You can\'t modernize on top of fragmented data.', body: 'Isolated systems and unclear data standards slow every tech initiative before it starts.', stat: null },
+          { headline: 'Inconsistent data definitions kill reporting accuracy.', body: 'When every system defines a "guest" differently, your dashboards lie — and your decisions follow.', stat: null },
+          { headline: 'Fragmentation is the hidden ceiling on growth.', body: 'Nearly 50% of operators struggle to access data for basic decisions. That\'s a foundation problem.', stat: { n: '50%', l: 'of operators can\'t access data for basic decisions' } },
+          { headline: 'Every new tool you add to a fragmented stack makes it worse.', body: 'More data sources. More silos. More inconsistency. The problem compounds with every integration.', stat: null },
+          { headline: 'Integration isn\'t a nice-to-have. It\'s the prerequisite.', body: 'Streamlined operations, lower errors, and better productivity all start with connected data. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 7 — The Unified Data Payoff',
+        slides: [
+          { headline: 'What does it look like when data actually works?', body: 'Operational efficiency and guest satisfaction improve simultaneously — driven by the same unified source.', stat: null },
+          { headline: 'Unified data isn\'t a tech project. It\'s a revenue strategy.', body: 'The operators who centralized guest data didn\'t just get cleaner reports. They unlocked new revenue streams.', stat: null },
+          { headline: 'One platform. Every guest. Zero blind spots.', body: 'When all departments draw from the same data, every interaction is informed, consistent, and actionable.', stat: { n: '$17B', l: 'driven from unified guest data · 12,500+ properties' } },
+          { headline: 'The gap between you and your best competitor may just be a data gap.', body: 'Not budget. Not team size. Just whether guest data flows freely or sits trapped in silos.', stat: null },
+          { headline: 'The data was always there.', body: 'The only thing that changed was being able to use it. That\'s the entire game. / ➜ Follow for more.', stat: null }
+        ]
+      }
+    ];
+
+    var root = document.getElementById('root');
+
+    CAROUSELS.forEach(function (carousel, cIdx) {
+
+      var clabel = document.createElement('div');
+      clabel.className = 'carousel-label';
+      clabel.textContent = carousel.title;
+      root.appendChild(clabel);
+
+      carousel.slides.forEach(function (slide, sIdx) {
+
+        var slabel = document.createElement('div');
+        slabel.className = 'slide-label';
+        slabel.textContent = 'Slide ' + (sIdx + 1) + ' of 5';
+        root.appendChild(slabel);
+
+        var section = document.createElement('div');
+        section.className = 'section';
+
+        var boxWrapper = document.createElement('div');
+        boxWrapper.className = 'box-wrapper';
+
+        /* ── CARD ── */
+        var card = document.createElement('div');
+        card.className = 'carousel-card';
+
+        var imgSrc = IMGS[IMG_SETS[cIdx][sIdx]];
+
+        /* LEFT */
+        var left = document.createElement('div');
+        left.className = 'card-left';
+
+        var corner = document.createElement('div');
+        corner.className = 'card-left-corner';
+        left.appendChild(corner);
+
+        var img = document.createElement('img');
+        img.className = 'card-image';
+        img.src = imgSrc; img.alt = '';
+
+        var ph = document.createElement('div');
+        ph.className = 'img-placeholder';
+        ph.style.display = 'none';
+        ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><p>' + imgSrc + '</p>';
+        img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+        left.appendChild(img);
+        left.appendChild(ph);
+
+        var fade = document.createElement('div');
+        fade.className = 'card-left-fade';
+        left.appendChild(fade);
+
+        card.appendChild(left);
+
+        /* RIGHT */
+        var right = document.createElement('div');
+        right.className = 'card-right';
+
+        var topRow = document.createElement('div');
+        topRow.className = 'card-top-row';
+        var tag = document.createElement('div'); tag.className = 'card-topic-tag'; tag.textContent = 'From Chaos to Clarity'; topRow.appendChild(tag);
+        var rule = document.createElement('div'); rule.className = 'card-rule'; topRow.appendChild(rule);
+        var logo = document.createElement('div'); logo.className = 'card-logo'; logo.textContent = 'Seamlessly'; topRow.appendChild(logo);
+        right.appendChild(topRow);
+
+        var body = document.createElement('div');
+        body.className = 'card-body';
+
+        var hlLen = slide.headline.length;
+        var hlSize = hlLen < 30 ? 56 : hlLen < 50 ? 46 : hlLen < 70 ? 37 : 30;
+        var hl = document.createElement('div');
+        hl.className = 'card-headline';
+        hl.style.fontSize = hlSize + 'px';
+        hl.textContent = slide.headline;
+        body.appendChild(hl);
+
+        if (slide.stat) {
+          var box = document.createElement('div');
+          box.className = 'stat-box';
+          var sn = document.createElement('span'); sn.className = 'stat-number'; sn.textContent = slide.stat.n; box.appendChild(sn);
+          var sl = document.createElement('span'); sl.className = 'stat-label'; sl.textContent = slide.stat.l; box.appendChild(sl);
+          body.appendChild(box);
+        }
+
+        slide.body.split(' / ').forEach(function (line) {
+          var p = document.createElement('div'); p.className = 'card-body-text'; p.textContent = line.trim(); body.appendChild(p);
+        });
+
+        right.appendChild(body);
+
+        var bottomRow = document.createElement('div');
+        bottomRow.className = 'card-bottom-row';
+        var ind = document.createElement('div'); ind.className = 'card-slide-indicator'; ind.textContent = (sIdx + 1) + ' / 5'; bottomRow.appendChild(ind);
+        var cta = document.createElement('div'); cta.className = 'card-cta'; cta.textContent = 'seamlessly.us'; bottomRow.appendChild(cta);
+        right.appendChild(bottomRow);
+
+        card.appendChild(right);
+        boxWrapper.appendChild(card);
+
+        /* BUTTON — exact original pattern */
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'download-btn';
+        var defaultBtnText = 'Download PNG  —  C' + (cIdx + 1) + ' · Slide ' + (sIdx + 1);
+        btn.textContent = defaultBtnText;
+
+        btn.addEventListener('click', function () {
+          btn.disabled = true;
+          btn.textContent = 'Generating PNG...';
+          var btnOriginalDisplay = btn.style.display;
+          btn.style.display = 'none';
+
+          html2canvas(card, {
+            scale: 1,
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            backgroundColor: '#1A2A44',
+            onclone: function (clonedDoc, clonedNode) {
+              var style = clonedNode.style;
+              if (style) {
+                style.background = '#1A2A44';
+                style.backgroundColor = '#1A2A44';
+              }
+            }
+          }).then(function (canvas) {
+            btn.style.display = btnOriginalDisplay;
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            var imgData = canvas.toDataURL('image/png');
+            var link = document.createElement('a');
+            link.download = 'v-a-c' + (cIdx + 1) + '-s' + (sIdx + 1) + '.png';
+            link.href = imgData;
+            link.click();
+          }).catch(function (err) {
+            btn.style.display = btnOriginalDisplay;
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            console.error('PNG generation failed:', err);
+          });
+        });
+
+        section.appendChild(boxWrapper);
+        section.appendChild(btn);
+        root.appendChild(section);
+      });
+    });
+
+  }());
+  </script>
+</body>
+</html>

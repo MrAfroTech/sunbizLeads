@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — The Operator Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:28px 60px 16px 76px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:30px 60px 22px 76px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:5px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:42px;color:#1A2A44;line-height:1;margin-bottom:12px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#1A2A44;letter-spacing:1px;margin-bottom:6px;margin-top:12px;}
+.body{font-size:13px;color:#1A1A1A;line-height:1.68;}
+.body p{margin-bottom:9px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.sidebar{display:flex;flex-direction:column;gap:11px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:11px 13px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:42px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:9.5px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:10px 12px;font-size:12.5px;color:#1A2A44;line-height:1.6;}
+.callout strong{color:#D4AF37;}
+.check-item{display:flex;gap:10px;align-items:flex-start;padding:6px 10px;border-radius:3px;margin-bottom:4px;}
+.check-box{width:16px;height:16px;border:2px solid #D4AF37;border-radius:2px;flex-shrink:0;margin-top:2px;}
+.check-text{font-size:12.5px;color:#1A1A1A;line-height:1.5;}
+.check-text strong{color:#1A2A44;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — The Operator Playbook</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:46px 76px 36px 76px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;">Final Section</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#fff;line-height:.92;margin-bottom:2px;">THE OPERATOR</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#D4AF37;line-height:.92;margin-bottom:28px;">PLAYBOOK</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:22px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">No more theory. Just wins. This section arms you with plug-and-play checklists to execute immediately — a 30-Day Fix for quick revenue lifts, a 90-Day Transformation for systems, and a 1-Year Operating System for dominance. Print it. Pin it. Work it every day until the margins reflect it.</div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:22px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.35);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#D4AF37;line-height:1;margin-bottom:6px;">30 DAYS</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">10 immediate tweaks that cut friction and boost cash flow 15–25% in one month. Do all 10. Track daily. No platform purchase required.</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.35);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#00D4AA;line-height:1;margin-bottom:6px;">90 DAYS</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">Rewire core workflows for 30–50% efficiency. Weekly milestones across flow, data, staff, and network — with pre/post NPS and revenue per cover tracking.</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;margin-bottom:6px;">1 YEAR</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.5;">Full modernization: frictionless venue, intelligent operations, network moat. Four phases. Year-end KPIs that prove +50% margin lift and 12-month staff tenure.</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:12px 16px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">The Four Execution Rules</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
+            <div style="font-size:12px;color:#fff;line-height:1.4;"><strong style="color:#D4AF37;">1.</strong> Weekly 15-minute reviews — non-negotiable, every Monday before prep</div>
+            <div style="font-size:12px;color:#fff;line-height:1.4;"><strong style="color:#D4AF37;">2.</strong> Assign an owner to every milestone — no owner, no deadline, no result</div>
+            <div style="font-size:12px;color:#fff;line-height:1.4;"><strong style="color:#D4AF37;">3.</strong> Baseline everything now — improvement is invisible without a before</div>
+            <div style="font-size:12px;color:#fff;line-height:1.4;"><strong style="color:#D4AF37;">4.</strong> Adjust quarterly — the plan serves the operation, not the other way around</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — 30-DAY: DAYS 1–7 SEAMLESS AUDIT -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">30-Day Fix — Week 1</div>
+    <div class="ch-title">Days 1–7: The Seamless Audit</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;line-height:1.6;margin-bottom:14px;max-width:640px;">Before you fix anything, you have to see everything. Week 1 is pure observation — timing the guest journey from door to departure, identifying the single worst handoff, and making the one physical change that removes the most friction fastest.</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">The 50 Guest Journey Audit</div>
+        <div class="body">
+          <p>Pick two shifts — one weekday dinner, one weekend peak. For each shift, time 25 guest journeys from the moment a guest enters the physical or digital venue entry point through to departure. Record six transition times: entry-to-greeted, greeted-to-seated, seated-to-first-order, order-to-first-delivery, check-request-to-paid, paid-to-departed. The 50 journeys will produce an average for each transition. The transition with the longest average is the single highest-priority fix in the entire 30-day plan.</p>
+          <p>Do not fix multiple things simultaneously in Week 1. The operator who redesigns three stages at once cannot tell which change produced which result. Pick the worst one. Fix it. Measure the improvement. That measured improvement is the proof of concept that makes every subsequent fix easier to prioritize and easier to resource.</p>
+        </div>
+        <div class="sec-head">Cut Top Friction 20% — The One Physical Change</div>
+        <div class="body">
+          <p>Whatever the audit reveals as the worst transition, the 20% reduction target is achievable with one physical change in Week 1. The entry line that takes 4 minutes on average can be cut to 3 minutes by pre-staging a greeter at the door rather than behind the host stand. The seated-to-first-order time that runs 6 minutes can be cut to 4 minutes by placing a QR menu insert on every table before the service period so guests can browse before a server arrives. The check-request-to-paid window that runs 8 minutes can be cut to 5 minutes by enabling tableside payment on handhelds. None of these require a platform purchase. They require a change in where something is positioned or how a process is sequenced.</p>
+        </div>
+        <div class="sec-head">Add Bar Diversion for Waitlists</div>
+        <div class="body">
+          <p>The guest who is told their table will be ready in 15 minutes and offered a seat at the bar for a complimentary welcome drink does not experience 15 minutes of waiting. They experience 15 minutes of the venue. The bar diversion converts wait time from a cost to a revenue event — the welcome drink is often the trigger for a second round before the table is called. Track bar revenue per diverted guest weekly. This single tactic reliably produces measurable revenue lift within the first week of implementation.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Days 1–7 Checklist</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div class="check-item" style="background:rgba(212,175,55,0.08);">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#D4AF37;">Day 1–2:</strong> Identify the two audit shifts. Assign a timekeeper for each.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#D4AF37;">Day 3–4:</strong> Run the 50 guest journey audits. Record all 6 transition times per journey.</div>
+            </div>
+            <div class="check-item" style="background:rgba(212,175,55,0.08);">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#D4AF37;">Day 5:</strong> Calculate averages. Identify the single worst transition. Name the specific fix.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#D4AF37;">Day 6:</strong> Implement the one physical change targeting the worst transition. Brief the team.</div>
+            </div>
+            <div class="check-item" style="background:rgba(212,175,55,0.08);">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#D4AF37;">Day 7:</strong> Add bar diversion protocol for waitlists. Train front-of-house on the offer language.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#D4AF37;">End of Week 1:</strong> Re-time 10 journeys through the changed stage. Record the before/after delta.</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">WEEK 1 TARGET</div>
+            <div style="font-size:11.5px;color:#fff;line-height:1.4;">Single worst transition time reduced 20%. Bar diversion live. 50 journeys timed and documented. Baseline established.</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">50</div>
+          <div class="stat-lbl">guest journeys timed door-to-door in Week 1 — the audit that makes every subsequent decision data-driven rather than instinct-driven</div>
+          <div class="stat-sub">Chaos Mastery 30-Day Fix framework</div>
+        </div>
+        <div class="callout">
+          <strong>The audit rule:</strong> Do not brief the team on what you are looking for before the audit. You need to see natural behavior, not performance. Announce the timing exercise after you have the baseline — never before.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — 30-DAY: DAYS 8–14 DATA QUICK WINS -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">30-Day Fix — Week 2</div>
+    <div class="ch-title">Days 8–14: Data Quick-Wins</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;line-height:1.6;margin-bottom:14px;max-width:640px;">The data that changes the operation is already being generated. Week 2 is about reading it consistently for the first time — five numbers every morning, three manual tasks killed, one phone alert that fires before the damage is done.</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">Track 5 KPIs Starting Day 8</div>
+        <div class="body">
+          <p>The five KPIs from Chapter 18 — guest count by daypart, sales mix by menu item, labor cost as a percentage of sales, inventory spoilage rate, and repeat visit rate — should be visible on a single dashboard or a single sheet by Day 8. If the POS and scheduling systems are not yet unified (Chapter 17's Q3 milestone), a simple shared spreadsheet updated nightly is sufficient. The discipline of reading five numbers every morning before the prep meeting is more valuable than the sophistication of the tool used to display them. Start reading. Refine the tool later.</p>
+          <p>The first week of daily KPI review will surface at least one number that is not what the manager thought it was. That surprise — whether it is the spoilage rate running 6% when the target is 2%, or the labor cost on Thursday evenings running 4 points over target, or the repeat visit rate sitting at 18% when the industry benchmark is 35% — is the first operational win of the data week. You cannot fix what you cannot see. Week 2 is the week you first see it clearly.</p>
+        </div>
+        <div class="sec-head">Kill 3 Manual Tasks</div>
+        <div class="body">
+          <p>Identify the three most time-consuming manual processes the team performs every shift that a system, a template, or a simple automation could handle. The most common candidates: manual inventory count sheets transcribed into a spreadsheet (replace with a daily POS-generated depletion report), manual shift reminder texts sent by the manager on Sunday afternoons (replace with an automated scheduling app notification), and manual tip calculation at close (replace with POS auto-calculation already available in most systems). Each killed manual task recovers 45–90 minutes of manager time per week — time that goes directly into guest-facing coaching and floor presence.</p>
+        </div>
+        <div class="sec-head">Set Phone Alerts for Peaks</div>
+        <div class="body">
+          <p>The alert that fires at 5pm when the labor cost percentage crosses 32% allows a cut decision before the damage compounds through a full service. The alert that fires when the top-selling protein drops below 20 portions remaining prevents the 7:30pm 86 that ruins two tables' experiences. Set both alerts in Week 2. The goal is not to monitor obsessively — it is to build a trigger that converts a reactive decision into a proactive one.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Days 8–14 Checklist</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div class="check-item" style="background:rgba(0,212,170,0.08);">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#00D4AA;">Day 8:</strong> Pull 30-day baseline for all 5 KPIs. Write the numbers down. This is the before.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#00D4AA;">Day 9:</strong> Build or designate the daily dashboard — one page, five numbers, visible before first prep.</div>
+            </div>
+            <div class="check-item" style="background:rgba(0,212,170,0.08);">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#00D4AA;">Day 10:</strong> List every manual task performed weekly. Circle the 3 most time-consuming. Name the replacement for each.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#00D4AA;">Day 11–12:</strong> Implement the 3 manual task replacements. Brief the team. Confirm each replacement is running correctly.</div>
+            </div>
+            <div class="check-item" style="background:rgba(0,212,170,0.08);">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#00D4AA;">Day 13:</strong> Set labor cost alert at 32% threshold. Set low-stock alert on top 3 selling items.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box"></div>
+              <div class="check-text"><strong style="color:#00D4AA;">Day 14:</strong> First weekly KPI review. Compare Day 8 baseline to Day 14 actuals. Identify the first anomaly.</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">WEEK 2 TARGET</div>
+            <div style="font-size:11.5px;color:#fff;line-height:1.4;">5 KPIs tracked daily. 3 manual tasks replaced. 2 operational alerts active. First week of data-driven management complete.</div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">3</div>
+          <div class="stat-lbl">manual tasks killed in Week 2 — each one recovering 45–90 minutes of manager time per week that goes directly back to the floor</div>
+          <div class="stat-sub">Chaos Mastery 30-Day Fix; Chapter 15 admin automation research</div>
+        </div>
+        <div style="background:#F4F6F9;border-left:4px solid #00D4AA;padding:10px 12px;font-size:12.5px;color:#1A2A44;line-height:1.6;">
+          <strong style="color:#00D4AA;">The first anomaly rule:</strong> When the Week 2 KPI review reveals a number that surprises you, that number is Week 3's highest priority — not an additional item on a growing to-do list. One fix at a time.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — 30-DAY: DAYS 15–21 STAFF PULSE -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">30-Day Fix — Week 3</div>
+    <div class="ch-title">Days 15–21: Staff Pulse</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;line-height:1.6;margin-bottom:14px;max-width:640px;">The team running the operation is either the operation's biggest asset or its most expensive recurring cost — depending entirely on how much the operator invests in keeping them. Week 3 surfaces the stress, addresses it, and installs the two daily habits that start turning the churn cycle into a retention system.</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">The Anonymous Survey — 3 Questions</div>
+        <div class="body">
+          <p>Day 15: send a three-question anonymous survey to every team member. The three questions are the same regardless of venue type. One: what is the single thing about this job that causes you the most stress on a typical shift? Two: what is the one thing management could change in the next 30 days that would make your job meaningfully better? Three: on a scale of 1–10, how likely are you to still be working here in six months? The answers to these three questions will tell the operator more about what is actually damaging retention than any amount of exit interview data — because this survey is taken by the people who have not left yet.</p>
+          <p>Read the results before the end of Day 16. The stress point that appears in more than 40% of responses is the single highest-priority action from the entire survey. In most hospitality operations, it will be one of three things: unpredictable scheduling, insufficient communication between management and floor staff, or lack of visibility into what advancement looks like. All three are fixable in 30 days or less without budget.</p>
+        </div>
+        <div class="sec-head">Automate Shift Texts + Add 15-Minute Daily Huddles</div>
+        <div class="body">
+          <p>The shift reminder text sent manually by the manager at random times on Sunday is replaced by an automated scheduling system notification sent consistently 72 hours before each shift. The team member who knows their Thursday shift was confirmed Tuesday has eliminated one source of Sunday anxiety and one reason to mentally check out of the weekend. Automate this in Week 3. The 15-minute daily huddle — standing, before each service period — gives every team member the same information the manager used to make today's decisions: expected cover count, key tables to flag, two menu focuses, and one operational priority. Five minutes of this time is always devoted to a team member calling out something that worked well the previous shift.</p>
+        </div>
+        <div class="sec-head">Test One Comp Policy for Walk-Ins</div>
+        <div class="body">
+          <p>A simple walk-in comp policy — a welcome drink, a complimentary amuse-bouche, or a dessert on the house for a party who waited more than 20 minutes — costs less than the replacement cost of the guest who left because the wait was frustrating. Test one version this week. Track redemption rate and table spend for comped walk-ins vs. non-comped walk-ins. The data will tell you whether the comp converts to higher spend (it almost always does) and what the right threshold is for your specific operation.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#e74c3c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Days 15–21 Checklist</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div class="check-item" style="background:rgba(231,76,60,0.08);">
+              <div class="check-box" style="border-color:#e74c3c;"></div>
+              <div class="check-text"><strong style="color:#e74c3c;">Day 15:</strong> Send 3-question anonymous survey to all team members. Confirm anonymous delivery method.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box" style="border-color:#e74c3c;"></div>
+              <div class="check-text"><strong style="color:#e74c3c;">Day 16:</strong> Read all survey responses. Identify the stress point appearing in 40%+ of responses. Name the fix.</div>
+            </div>
+            <div class="check-item" style="background:rgba(231,76,60,0.08);">
+              <div class="check-box" style="border-color:#e74c3c;"></div>
+              <div class="check-text"><strong style="color:#e74c3c;">Day 17:</strong> Brief management team on survey results. Assign one owner to the top stress point. Set a 2-week resolution deadline.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box" style="border-color:#e74c3c;"></div>
+              <div class="check-text"><strong style="color:#e74c3c;">Day 18:</strong> Activate automated shift notification for all upcoming shifts. Remove the manual Sunday text from the manager's routine.</div>
+            </div>
+            <div class="check-item" style="background:rgba(231,76,60,0.08);">
+              <div class="check-box" style="border-color:#e74c3c;"></div>
+              <div class="check-text"><strong style="color:#e74c3c;">Day 19:</strong> Launch 15-minute daily pre-service huddle. Brief format: covers, flags, menu focus, 1 priority, 1 win from prior shift.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box" style="border-color:#e74c3c;"></div>
+              <div class="check-text"><strong style="color:#e74c3c;">Day 20–21:</strong> Define and brief the walk-in comp policy. Track table spend and time-to-seat for first 20 comped parties.</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">WEEK 3 TARGET</div>
+            <div style="font-size:11.5px;color:#fff;line-height:1.4;">Top team stress point identified and assigned. Automated shift notifications active. Daily huddle running. Walk-in comp policy live.</div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">15 min</div>
+          <div class="stat-lbl">daily pre-service huddle that gives every team member the same information management uses — the single highest-leverage retention habit in the playbook</div>
+          <div class="stat-sub">Chapter 15; 7shifts; HC Resource/Gallup retention research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — 30-DAY: DAYS 22–30 NETWORK KICKOFF -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">30-Day Fix — Week 4</div>
+    <div class="ch-title">Days 22–30: Network Kickoff</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;line-height:1.6;margin-bottom:14px;max-width:640px;">The network that produces 25% cross-traffic starts with five names on a list and one phone call on Monday. Week 4 is not about launching the full partner ecosystem from Chapter 16 — it is about starting it. List, pitch, bundle. That is the whole Week 4 agenda.</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">List 5 Partners</div>
+        <div class="body">
+          <p>Day 22: list every complementary business within practical proximity — the brewery, the live music venue, the hotel three blocks over, the parking operator who owns the lot the venue's guests use, the coffee shop that opens at 7am when the restaurant opens at 11am. Score each one on audience overlap (1–10) and ease of a first conversation (1–10). The two businesses with the highest combined score are the Week 4 partner calls. The other three go on the Q2 list for when the first two partnerships are operational.</p>
+          <p>The partner list exercise almost always reveals one obvious partnership the operator has been ignoring because it never felt urgent. The bar across the street that has a long happy hour but no kitchen. The hotel that sends guests looking for dinner recommendations and gets a generic TripAdvisor answer instead of a warm referral from a venue that has been expecting them. The comedy club that fills on Friday and Saturday but has no traffic source for its Tuesday and Thursday shows. These are not competitor venues. They are complementary ones — and the relationship the operator builds with each of them is the beginning of a network.</p>
+        </div>
+        <div class="sec-head">Pitch Mutual Overflow</div>
+        <div class="body">
+          <p>Day 24–25: make the two partner calls. The pitch takes six minutes. "When we're full on a Friday, we have guests who want somewhere to go. When you're full, you probably have the same situation. What if we agreed to route to each other when that happens, and put together one joint promotion we could both market to our email lists?" This is not a legal agreement. It is a handshake that gets tested at the next Friday overflow event. If the referral converts and the partner reciprocates, the relationship deepens naturally into something more formal by Week 8 of the 90-day plan.</p>
+        </div>
+        <div class="sec-head">Bundle One Rideshare Credit</div>
+        <div class="body">
+          <p>Day 28–30: build the first version of Chapter 19's seamless night out prototype — the rideshare bundle. A $15 Uber credit attached to a reservation confirmation email. One link, one click, the guest has transportation arranged before they leave the house. Track on-time arrival rate, no-show rate, and average table spend for bundled reservations vs. standard. These three numbers tell you everything you need to know about whether to expand the bundle to 90-day priority status.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#fff;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Days 22–30 Checklist</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div class="check-item" style="background:rgba(255,255,255,0.05);">
+              <div class="check-box" style="border-color:#fff;"></div>
+              <div class="check-text"><strong>Day 22:</strong> List 5 potential partners. Score audience overlap and ease of first conversation. Identify the top 2.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box" style="border-color:#fff;"></div>
+              <div class="check-text"><strong>Day 23:</strong> Draft the 6-minute partner pitch. Practice it once out loud before making the call. Keep it to mutual overflow + one joint promo.</div>
+            </div>
+            <div class="check-item" style="background:rgba(255,255,255,0.05);">
+              <div class="check-box" style="border-color:#fff;"></div>
+              <div class="check-text"><strong>Day 24:</strong> Call Partner 1. Confirm the overflow agreement in writing (even a text thread counts).</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box" style="border-color:#fff;"></div>
+              <div class="check-text"><strong>Day 25:</strong> Call Partner 2. Same pitch. Agree on a first joint promo concept — a co-branded email blast or a shared social post is sufficient for Week 4.</div>
+            </div>
+            <div class="check-item" style="background:rgba(255,255,255,0.05);">
+              <div class="check-box" style="border-color:#fff;"></div>
+              <div class="check-text"><strong>Day 26–27:</strong> Route the first real overflow event through the new partner. Track the guest and confirm they visited. That confirmation is the first data point in the network.</div>
+            </div>
+            <div class="check-item">
+              <div class="check-box" style="border-color:#fff;"></div>
+              <div class="check-text"><strong>Day 28–30:</strong> Build and test the rideshare bundle on 5 reservations. Track arrival rate, no-show rate, and table spend vs. unbundled control.</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">WEEK 4 TARGET</div>
+            <div style="font-size:11.5px;color:#fff;line-height:1.4;">2 partner overflow agreements active. First joint promo drafted. Rideshare bundle tested on 5 reservations with pre/post data collected.</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+10%</div>
+          <div class="stat-lbl">table turns, −15% waste, and +5% staff retention signals — the combined 30-day targets when all 10 fixes run simultaneously across four weeks</div>
+          <div class="stat-sub">Chaos Mastery 30-Day Fix framework targets</div>
+        </div>
+        <div class="callout">
+          <strong>End-of-30-days review:</strong> Compare every baseline metric to Day 30 actuals. Document what moved, what didn't, and which single fix produced the most impact. That fix becomes Q1's highest-priority scale item in the 90-day plan.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — 90-DAY: WEEKS 1–4 (Full bleed navy) -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">90-Day Transformation — Weeks 1–4</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;">WEEKS 1–4: LINEAR ORDER FLOWS, POS + CRM SYNC, FORECAST SCHEDULING, 2 SIGNED PARTNERS</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;letter-spacing:1.5px;text-transform:uppercase;">The first 30 days of the 90-day plan build on the fixes already running — going deeper on each dimension</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:16px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;flex:1;">
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:13px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:8px;">FLOW — LINEAR ORDER/PICKUP ZONES</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">Separate digital order pickup from counter order delivery physically. The guest who ordered on the app picks up from a dedicated zone — not from the same counter where walk-up orders are assembled. Chapter 13's research confirms this single separation eliminates the cross-traffic collision that degrades both order types simultaneously. Map the separation before implementing. Brief kitchen and front-of-house together — both teams need to understand the new routing before the first service.</div>
+          <div style="background:rgba(212,175,55,0.15);border-radius:3px;padding:6px 8px;">
+            <div style="font-size:10px;font-weight:700;color:#D4AF37;margin-bottom:2px;">WEEKS 1–4 MILESTONE</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.7);">Separate order/pickup zones operational. On-time completion rate tracked weekly.</div>
+          </div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:13px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:8px;">DATA — POS + CRM SYNC</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">Connect the POS transaction record to the guest CRM profile — manually or through an existing integration depending on current platforms. The goal is a single guest record that knows both what was ordered and how often this guest visits. Once these two data streams share the same profile, the personalization capability from Chapter 18 becomes available without a new platform purchase. Even a simple CRM note attached to a reservation record ("always orders the halibut, prefers a corner table, birthday in March") is a version of this sync.</div>
+          <div style="background:rgba(0,212,170,0.15);border-radius:3px;padding:6px 8px;">
+            <div style="font-size:10px;font-weight:700;color:#00D4AA;margin-bottom:2px;">WEEKS 1–4 MILESTONE</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.7);">Guest profile exists in shared system. At least 20% of regulars have POS history attached to CRM record.</div>
+          </div>
+        </div>
+        <div style="background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:13px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;margin-bottom:8px;">STAFF — FORECAST SCHEDULING</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">Build the first schedule from a forecast rather than memory. Use the 4-week historical average cover count by day of week and daypart as the baseline. Layer in the upcoming reservation count and any known local events. The resulting staffing model will not be perfect in Week 1 — but it will be more accurate than the intuition-only approach, and the variance tracking from Week 2 of the 30-day plan will show exactly where it needs calibration. By the end of Week 4, the scheduling model should be generating fewer staffing surprises than the manual approach produced in any comparable 4-week window.</div>
+          <div style="background:rgba(231,76,60,0.15);border-radius:3px;padding:6px 8px;">
+            <div style="font-size:10px;font-weight:700;color:#e74c3c;margin-bottom:2px;">WEEKS 1–4 MILESTONE</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.7);">Schedules built 2 weeks in advance from forecast model. Labor cost variance tracking started.</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:13px;display:flex;flex-direction:column;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;letter-spacing:1px;margin-bottom:8px;">NETWORK — 2 SIGNED PARTNERS</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;flex:1;margin-bottom:8px;">Convert the Week 4 partner conversations from the 30-day plan into written agreements — even simple ones. A one-page overflow agreement: "When either venue is at capacity, we will refer guests to the other by name and phone number. We will track all referrals for 90 days and review the results together." This is not a legal contract. It is a commitment that makes the next referral feel obligated rather than optional — and obligated referrals convert at three times the rate of casual ones.</div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:3px;padding:6px 8px;">
+            <div style="font-size:10px;font-weight:700;color:#fff;margin-bottom:2px;">WEEKS 1–4 MILESTONE</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.7);">2 partner overflow agreements in writing. First referral traffic tracked and logged.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.2);margin:12px 0;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:9px 12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;line-height:1;margin-bottom:3px;">Pre/Post NPS</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Baseline guest NPS this week. Re-measure at day 30. The delta is the operations improvement made visible to guests.</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.1);border-radius:3px;padding:9px 12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;line-height:1;margin-bottom:3px;">Revenue Per Cover</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Track revenue per cover weekly — not total revenue. This number captures the average spend improvement independent of cover count changes.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:3px;padding:9px 12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;line-height:1;margin-bottom:3px;">Monthly Check-In</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">End of Weeks 4, 8, and 12: 30-minute team review of all four metrics tracks. What improved. What stalled. What changes next month.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — 90-DAY: WEEKS 5–8 AND 9–12 -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">90-Day Transformation — Weeks 5–12</div>
+    <div class="ch-title">Weeks 5–8: Scale the Wins. Weeks 9–12: Connect the Systems.</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">Weeks 5–8 — QR Menus, 75% Forecast Accuracy, Cross-Promo Tests</div>
+        <div class="body">
+          <p><strong>Flow:</strong> Deploy QR menus of 5–7 items — not the full menu. The abbreviated QR menu is not a convenience play; it is a decision simplification tool. The guest who sees 7 curated items makes a faster decision, with higher confidence, than the guest who scrolls 40 items looking for the thing that sounds right. The 5–7 item QR menu is updated weekly to reflect current inventory and highest-margin items — which means it also functions as a real-time promotional tool that requires no reprint and no menu redesign.</p>
+          <p><strong>Data:</strong> The demand accuracy target at Week 8 is 75% — not yet the 85%+ ceiling from Chapter 18, but measurably better than the gut-feel baseline. Pull the 8-week cover count forecast vs. actual results. The weeks where the forecast missed by more than 20% will share a pattern — a local event, a weather shift, or a competing venue's promotion that the model did not see. Each missed week is a data point that improves the next 8 weeks' model. Accuracy compounds with every cycle.</p>
+          <p><strong>Staff:</strong> Automate the inventory reorder function — the weekly purchase order that was generated from a manual count sheet is now generated from the POS depletion model. This single automation is often worth 3–5 hours per week of kitchen manager time, and it eliminates the ordering variance that produces the spoilage spikes visible in the Week 2 KPI baseline.</p>
+          <p><strong>Network:</strong> Launch the first cross-promo test with both signed partners — a co-branded email to both venues' email lists, a shared social post, or a joint "dinner + next stop" offer. Track new guest introductions: how many guests at your venue mentioned the partner? How many guests at the partner mentioned your venue? These two numbers are the beginning of the cross-traffic data that proves the network's value.</p>
+        </div>
+        <div class="sec-head">Weeks 9–12 — Unified Waitlists, Personalize 10%, Event Bundle</div>
+        <div class="body">
+          <p><strong>Flow:</strong> Unified waitlist texts — when a guest joins the waitlist, an automated text updates them with estimated wait time and moves them to the bar diversion protocol from Week 1. The guest who receives a text saying "your table is almost ready — grab a drink at the bar on us" converts their wait into a positive experience and arrives at the table in better spirits and more willing to spend.</p>
+          <p><strong>Data + Staff:</strong> Personalize 10% of guests using the CRM data now connected to POS records from Weeks 1–4. The 10% target is achievable without a new platform — it means the server who seats a recognized regular sees a profile note before they walk to the table. Build huddle feedback loops by dedicating 5 minutes of each daily huddle to one team member sharing an insight from the previous shift's data dashboard. This habit connects the data the manager reads to the team that executes against it.</p>
+          <p><strong>Network:</strong> Launch the first event bundle — a co-branded experience with the music venue partner. Pre-sell 20 seats to a "dinner + show" package. Track sellthrough, average spend for bundle guests vs. non-bundle, and post-event return rate. The bundle sellthrough number is the business case for Q3's event marketplace activation in the 1-year plan.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">90-Day Milestone Summary</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;margin-bottom:3px;">Weeks 1–4</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.4;">Linear zones · POS+CRM sync · Forecast scheduling · 2 signed partners</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;margin-bottom:3px;">Weeks 5–8</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.4;">QR menus · 75% forecast accuracy · Inventory automation · Cross-promo launch</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-radius:3px;padding:8px 10px;">
+              <div style="font-size:10px;font-weight:700;color:#e74c3c;text-transform:uppercase;margin-bottom:3px;">Weeks 9–12</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.4;">Unified waitlist texts · Personalize 10% guests · Huddle feedback loops · Event bundle launch</div>
+            </div>
+          </div>
+          <div style="height:1px;background:rgba(212,175,55,0.3);margin:10px 0;"></div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Day 90 Targets</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#fff;padding:4px 6px;background:rgba(255,255,255,0.05);border-radius:2px;">
+              <span>Journey time reduction</span><span style="color:#00D4AA;font-weight:700;">−25%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#fff;padding:4px 6px;background:rgba(255,255,255,0.05);border-radius:2px;">
+              <span>Labor cost % of sales</span><span style="color:#D4AF37;font-weight:700;">&lt;30%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#fff;padding:4px 6px;background:rgba(255,255,255,0.05);border-radius:2px;">
+              <span>Active partnerships</span><span style="color:#e74c3c;font-weight:700;">3+</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#fff;padding:4px 6px;background:rgba(255,255,255,0.05);border-radius:2px;">
+              <span>Demand forecast accuracy</span><span style="color:#00D4AA;font-weight:700;">75%+</span>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">30–50%</div>
+          <div class="stat-lbl">efficiency improvement across core workflows by Day 90 — the compound of 12 weeks of deliberate changes to flow, data, staff, and network</div>
+          <div class="stat-sub">Chaos Mastery 90-Day Transformation framework</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — 1-YEAR Q1 + Q2 (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">1-Year Operating System — Q1 & Q2</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;">Q1: STABILIZE THE BASE. Q2: DIGITIZE EVERYTHING.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;letter-spacing:1.5px;text-transform:uppercase;">Full Modernization Begins Here — Frictionless Venue + Intelligent Ops + Network Moat</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:16px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;">
+        <!-- Q1 -->
+        <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;letter-spacing:1px;margin-bottom:10px;border-bottom:1px solid rgba(212,175,55,0.3);padding-bottom:6px;">Q1 — STABILIZE</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Flow — Layout Redesign</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">Complete the full floor map redesign based on the 50-guest audit data from Day 1. Separate guest, staff, and service paths. Eliminate all cross-path intersections. The redesigned layout should achieve the 40% friction reduction target from Chapter 13 — measured against the pre-audit journey time averages.</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Data — 5 Daily KPIs Established</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">The 5-KPI dashboard from Week 2 of the 30-day plan is now the team's primary operational tool — not a side process. Every manager reviews it before the shift. Every team huddle references at least two metrics. The discipline of daily data reading is the Q1 data milestone.</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Staff — Automate 60% of Admin Grind</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">Build on the 3 tasks killed in Week 2. Identify every remaining manual admin task. Automate the ones that represent 60% of total admin time. By end of Q1, the manager's admin burden should be under 20% of working hours — freeing the remaining 80% for floor presence, coaching, and system building.</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Network — 5 Active Partners</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">Scale the 2 Week 4 partnerships to 5 total by end of Q1. Add the hotel, the parking operator, and the event venue. Five partnerships with mutual overflow agreements and at least one co-marketing touchpoint each.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Q2 -->
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:4px;padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#00D4AA;letter-spacing:1px;margin-bottom:10px;border-bottom:1px solid rgba(0,212,170,0.3);padding-bottom:6px;">Q2 — DIGITIZE</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Flow — Unified Platform</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">Chapter 17's platform migration begins in Q2 — starting with the reservation system as the operational spine. Reservations first, then POS integration, then scheduling sync. Each module migrated is measured on its specific KPI before the next module begins. No simultaneous migrations.</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Data — 85% Forecasting Accuracy</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">The 75% accuracy from Week 8 of the 90-day plan reaches 85% in Q2 by adding two external data inputs to the model: local event calendar and weather API. Each input should be evaluated on its contribution to forecast accuracy individually before both are added simultaneously.</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Staff — 6-Month Tenure Average</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">The Q2 staff milestone is average tenure reaching 6 months across all front-of-house roles. The automated scheduling, daily huddles, and anonymous survey response from the 30-day plan are now 3–4 months old. Their combined effect on the team's job satisfaction and stability should be visible in the tenure data by mid-Q2.</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:#00D4AA;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Network — Join a Marketplace</div>
+              <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.55;">Activate on Fever, Resy, or the equivalent event/reservation marketplace for the operation's venue type. The marketplace provides pooled demand — marketing reach the individual venue cannot match independently at comparable cost. Track the fill rate improvement from marketplace-sourced bookings vs. direct-only from the 90-day baseline.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — 1-YEAR Q3 + Q4 -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">1-Year Operating System — Q3 & Q4</div>
+    <div class="ch-title">Q3: Predict Everything. Q4: Scale the Whole System.</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">Q3 — Predict</div>
+        <div class="body">
+          <p><strong>Flow — AI Routing:</strong> The unified platform from Q2 now carries enough transaction data to activate AI routing — the system that reads real-time demand across the operation and routes guests, upsells, and staff assignments to where they are most needed in real time. A reservation at 7pm with a guest profile that shows a preference for corner tables and a history of ordering wine with dinner gets routed to the optimal table assignment automatically. The server who picks up that table sees the profile note on their handheld before they walk over. This is not a new technology decision. It is the activation of what the Q2 platform already enabled.</p>
+          <p><strong>Data — Personalize 30% of Guests:</strong> Triple the Q2 personalization rate from 10% to 30%. The guest profiles that have been enriched across two quarters of POS+CRM integration now support meaningful personalization — preference notes, loyalty milestone flags, and AI-suggested upsells at the right moment. The 30% target covers every recognizable regular, every loyalty program member, and every guest whose reservation was booked through the owned channel rather than a third-party platform.</p>
+          <p><strong>Staff — Longevity Bonuses:</strong> Q3 introduces the first structured longevity incentive: a 6-month retention bonus, a pathway-to-promotion review at month 9, and a public recognition moment at the daily huddle for team members reaching service milestones. These are not large line items. At $500 per 6-month bonus for a team of 12, the annual cost is $6,000 — against the $56,400 in annual replacement costs that 12 annual terminations produce at $4,700 per hire (Chapter 15).</p>
+          <p><strong>Network — Co-Branded Events:</strong> Scale the Week 9–12 event bundle from the 90-day plan into a recurring co-branded event series. One monthly "dinner + show" or "brunch + gallery walk" or "game day + tailgate" bundle that markets to both venues' combined audiences, fills tables on slower days, and generates the cross-venue data that proves the network's financial contribution.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Q4 — Scale</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(212,175,55,0.1);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">FLOW — DOOR-TO-DOOR APP</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Chapter 19's seamless night out prototype becomes the default experience. The AI planner, auto-queued rideshare, priority entry, and departure next-stop recommendation all run through the unified platform built in Q2 and Q3. One experience, no app switches, no handoff friction.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">DATA — FULL DASHBOARD</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">All 5 core KPIs visible in real time alongside the three operating metrics: revenue per cover, labor cost variance, and network cross-traffic. The Q4 dashboard requires zero manual assembly — every number updates automatically from the unified platform built in Q2.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">STAFF — CROSS-VENUE TEAMS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The 5+ network partners from Q1 now share staff cross-training events — a server who picks up shifts at two network venues brings both audiences' knowledge to both locations. Cross-venue training deepens the relationships between operations and makes the overflow routing feel organic to the team executing it.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-radius:3px;padding:9px 11px;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">NETWORK — REVENUE SHARE DEALS</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">The 5 overflow partnerships from Q1 are formalized into revenue share agreements by Q4 — a percentage of referred table spend returned to the routing venue. This converts the network from a marketing investment into a revenue-generating asset that compounds with every referral made and received.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">+50%</div>
+          <div class="stat-lbl">margin lift target at the end of Year 1 — the compounded result of four systems built and connected across four quarters</div>
+          <div class="stat-sub">Chaos Mastery 1-Year Operating System year-end KPI targets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — YEAR-END KPI SCORECARD (Full bleed navy) -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Year-End KPI Scorecard</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;margin-bottom:4px;">THE FIVE METRICS THAT PROVE THE 1-YEAR OPERATING SYSTEM WORKED</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Baseline Everything Now. These Are the Before and After Numbers That Tell the Whole Story.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;flex:1;justify-content:center;">
+        <!-- header -->
+        <div style="display:grid;grid-template-columns:180px 1fr 120px 120px 120px;gap:8px;padding:6px 12px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">Metric</div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">What It Measures</div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1.5px;">Baseline</div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1.5px;">Year-End Target</div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1.5px;">Your Result</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:180px 1fr 120px 120px 120px;gap:8px;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);border-radius:4px;padding:14px 12px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;">TABLE TURNS</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">How many times each table is used per service period. The flow redesign and unified platform together drive this number by reducing transition time at every stage of the guest journey.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;font-style:italic;">Current rate</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;text-align:center;">+40%</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;font-style:italic;">___ %</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:180px 1fr 120px 120px 120px;gap:8px;background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:14px 12px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00D4AA;">WASTE %</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">Food cost wasted as a percentage of total food purchased. Predictive inventory from Q2 and demand forecasting from Q3 eliminate the over-ordering and under-selling that produce spoilage. This number drops steadily with every forecasting cycle.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;font-style:italic;">Current %</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#00D4AA;text-align:center;">−30%</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;font-style:italic;">___ %</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:180px 1fr 120px 120px 120px;gap:8px;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.25);border-radius:4px;padding:14px 12px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#e74c3c;">STAFF TENURE</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">Average months a front-of-house team member stays. The industry baseline is 59 days. The automated scheduling, predictable shifts, career pathway visibility, and longevity bonuses from Q3 drive this to 12 months — cutting replacement cost 50% and improving every other operational metric simultaneously.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;text-align:center;">59 days</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#e74c3c;text-align:center;">12+ mo</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;font-style:italic;">___ mo</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:180px 1fr 120px 120px 120px;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px 12px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;">REPEAT RATE</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">Percentage of guests who return within 90 days of their first visit. Personalization from Q3, the network routing that suggests the next stop, and the re-engagement email sequence all drive this metric. At +35%, the repeat rate improvement produces LTV gains that far exceed the investment in achieving it.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;font-style:italic;">Current %</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;text-align:center;">+35%</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;font-style:italic;">___ %</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:180px 1fr 120px 120px 120px;gap:8px;background:rgba(212,175,55,0.15);border:2px solid rgba(212,175,55,0.5);border-radius:4px;padding:14px 12px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;">MARGIN LIFT</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">The compound of all four systems expressed as a single profit number. This is not any one system's contribution — it is the reinforcement of four systems running simultaneously for 12 months. Table turns + waste reduction + tenure savings + repeat rate lift + network cross-traffic = the total margin improvement from this playbook.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);text-align:center;font-style:italic;">Current margin</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;text-align:center;">+50%</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.3);text-align:center;font-style:italic;">___ %</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE EXECUTION RULES -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Execution Rules</div>
+    <div class="ch-title">Four Rules That Separate Operators Who Execute From Operators Who Plan</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="sec-head" style="margin-top:0;">Rule 1 — Weekly 15-Minute Reviews</div>
+        <div class="body">
+          <p>Every Monday before the prep meeting: 15 minutes, four questions. What improved vs. last week's KPIs? What missed? What is the single operational change for this week based on that data? Who owns it and by when? This review is not a team meeting — it is a manager discipline. The review happens every week without exception, regardless of how busy the week ahead looks. The weeks where the review gets skipped are the weeks where the problem that causes the following week's crisis goes undetected. The review is the system's immune response. Skip it and the system gets sick.</p>
+          <div class="sec-head">Rule 2 — Assign an Owner to Every Milestone</div>
+          <p>Every item in every phase of the playbook has one name next to it. Not "the team" — one person. The manager who owns the Q1 layout redesign drives it to completion regardless of what else is happening. The server who owns the daily huddle agenda for the week prepares it the night before. Ownership without accountability is intention. Intention without execution is noise. One name, one deadline, one metric. That is the structure that converts the playbook into operational reality.</p>
+          <div class="sec-head">Rule 3 — Baseline Everything Now</div>
+          <p>The improvement that cannot be measured against a baseline does not exist for operational purposes. Before the 30-day plan begins: pull the 30-day KPI averages. Before the 90-day plan begins: document the pre-plan NPS and revenue per cover. Before the 1-year plan begins: record every year-end scorecard metric as it stands today. These numbers are the "before" photographs that make the "after" visible — to the operator, to the team, to the investors, and to the partner venues whose participation in the network becomes easier to secure when the data shows the operation improving quarter over quarter.</p>
+          <div class="sec-head">Rule 4 — Adjust Quarterly</div>
+          <p>The plan is a starting point, not a contract. Every quarter-end review asks the same two questions: which milestones were achieved and which were not? For the ones that were not, what changed in the operating environment that the plan did not anticipate? Every Q that ends with an honest answer to these questions produces a better Q that follows. The Seamless Operator who adjusts quarterly based on real data consistently outperforms the operator who executes a fixed plan regardless of what the data shows. Commit to the direction. Adjust the route.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The 4 Execution Rules — Quick Reference</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#D4AF37;margin-bottom:4px;">RULE 1 — WEEKLY 15-MINUTE REVIEWS</div>
+              <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">Every Monday. Four questions. One decision. Non-negotiable regardless of the week ahead. The review is the system's immune response — skip it and the system gets sick.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#00D4AA;margin-bottom:4px;">RULE 2 — ASSIGN OWNERS</div>
+              <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">Every item has one name. One person, one deadline, one metric. "The team" is responsible for nothing. One person is responsible for everything assigned to them.</div>
+            </div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#e74c3c;margin-bottom:4px;">RULE 3 — BASELINE EVERYTHING</div>
+              <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">Pull every KPI before each phase begins. The improvement that has no baseline does not exist for operational purposes — and cannot be used to make the case for the next investment.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:10px 12px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;margin-bottom:4px;">RULE 4 — ADJUST QUARTERLY</div>
+              <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">What missed and why? The honest answer to this question at quarter-end is worth more than any additional planning. Commit to the direction. Adjust the route.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>The minimum viable execution:</strong> If only one rule can be adopted immediately, it is Rule 1. The operator who reviews five KPIs every Monday morning for 52 consecutive weeks without skipping once will outperform every plan that was built and abandoned after the first difficult quarter.
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">15 min</div>
+          <div class="stat-lbl">Monday morning review — the single most important recurring habit in the entire playbook, non-negotiable across all 52 weeks of the operating year</div>
+          <div class="stat-sub">Chaos Mastery Operator Playbook execution framework</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE FULL REFERENCE GRID -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Full Reference — Print and Pin</div>
+    <div class="ch-title">The Complete Operator Playbook on One Page</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12px;color:#1A2A44;margin-bottom:10px;line-height:1.5;">This is the page to print, laminate, and put on the wall of the manager's office. Every action item, every target, every timeline — compressed into one view.</div>
+
+    <!-- Full reference table -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+
+      <!-- 30 day -->
+      <div style="border:2px solid #1A2A44;border-radius:3px;overflow:hidden;">
+        <div style="background:#1A2A44;padding:6px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#D4AF37;letter-spacing:1px;">30-DAY FIX</div>
+          <div style="font-size:9.5px;font-weight:700;color:#D4AF37;text-transform:uppercase;text-align:center;letter-spacing:1px;">Week 1 — Audit</div>
+          <div style="font-size:9.5px;font-weight:700;color:#D4AF37;text-transform:uppercase;text-align:center;letter-spacing:1px;">Week 2 — Data</div>
+          <div style="font-size:9.5px;font-weight:700;color:#D4AF37;text-transform:uppercase;text-align:center;letter-spacing:1px;">Week 3 — Staff</div>
+          <div style="font-size:9.5px;font-weight:700;color:#D4AF37;text-transform:uppercase;text-align:center;letter-spacing:1px;">Week 4 — Network</div>
+        </div>
+        <div style="padding:7px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;">
+          <div style="font-size:10.5px;color:#666;font-weight:700;">Actions</div>
+          <div style="font-size:11px;color:#1A1A1A;line-height:1.4;">Time 50 journeys · Cut friction 20% · Bar diversion</div>
+          <div style="font-size:11px;color:#1A1A1A;line-height:1.4;">5 KPIs daily · Kill 3 manual tasks · Set 2 alerts</div>
+          <div style="font-size:11px;color:#1A1A1A;line-height:1.4;">Anonymous survey · Shift texts + huddles · Comp policy</div>
+          <div style="font-size:11px;color:#1A1A1A;line-height:1.4;">List 5 partners · Pitch overflow · Rideshare bundle</div>
+        </div>
+        <div style="background:#F4F6F9;padding:5px 14px;display:grid;grid-template-columns:90px 1fr;gap:8px;">
+          <div style="font-size:10px;color:#666;font-weight:700;">Targets</div>
+          <div style="font-size:11px;color:#1A2A44;font-weight:700;">+10% table turns · −15% waste · +5% staff retention signals</div>
+        </div>
+      </div>
+
+      <!-- 90 day -->
+      <div style="border:2px solid #00D4AA;border-radius:3px;overflow:hidden;">
+        <div style="background:#00D4AA;padding:6px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr;gap:8px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#1A2A44;letter-spacing:1px;">90-DAY PLAN</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Weeks 1–4</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Weeks 5–8</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Weeks 9–12</div>
+        </div>
+        <div style="padding:7px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr;gap:8px;">
+          <div style="font-size:10.5px;color:#00D4AA;font-weight:700;">Flow</div>
+          <div style="font-size:11px;color:#1A1A1A;">Linear order/pickup zones</div>
+          <div style="font-size:11px;color:#1A1A1A;">QR menus (5–7 items)</div>
+          <div style="font-size:11px;color:#1A1A1A;">Unified waitlist texts</div>
+        </div>
+        <div style="padding:4px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr;gap:8px;background:rgba(0,212,170,0.05);">
+          <div style="font-size:10.5px;color:#00D4AA;font-weight:700;">Data</div>
+          <div style="font-size:11px;color:#1A1A1A;">POS + CRM sync</div>
+          <div style="font-size:11px;color:#1A1A1A;">Demand accuracy 75%</div>
+          <div style="font-size:11px;color:#1A1A1A;">Personalize 10% guests</div>
+        </div>
+        <div style="padding:4px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr;gap:8px;">
+          <div style="font-size:10.5px;color:#00D4AA;font-weight:700;">Staff</div>
+          <div style="font-size:11px;color:#1A1A1A;">Forecast scheduling</div>
+          <div style="font-size:11px;color:#1A1A1A;">Automate inventory</div>
+          <div style="font-size:11px;color:#1A1A1A;">Huddle feedback loops</div>
+        </div>
+        <div style="padding:4px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr;gap:8px;background:rgba(0,212,170,0.05);">
+          <div style="font-size:10.5px;color:#00D4AA;font-weight:700;">Network</div>
+          <div style="font-size:11px;color:#1A1A1A;">2 signed partners</div>
+          <div style="font-size:11px;color:#1A1A1A;">Cross-promo tests</div>
+          <div style="font-size:11px;color:#1A1A1A;">Event bundle launch</div>
+        </div>
+        <div style="background:#00D4AA;padding:5px 14px;display:grid;grid-template-columns:90px 1fr;gap:8px;">
+          <div style="font-size:10px;color:#1A2A44;font-weight:700;">Day 90 Targets</div>
+          <div style="font-size:11px;color:#1A2A44;font-weight:700;">−25% journey time · Labor &lt;30% sales · 3+ active partners</div>
+        </div>
+      </div>
+
+      <!-- 1 year -->
+      <div style="border:2px solid #D4AF37;border-radius:3px;overflow:hidden;">
+        <div style="background:#D4AF37;padding:6px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#1A2A44;letter-spacing:1px;">1-YEAR OS</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Q1 Stabilize</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Q2 Digitize</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Q3 Predict</div>
+          <div style="font-size:9.5px;font-weight:700;color:#1A2A44;text-transform:uppercase;text-align:center;letter-spacing:1px;">Q4 Scale</div>
+        </div>
+        <div style="padding:5px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;">
+          <div style="font-size:10.5px;color:#D4AF37;font-weight:700;">Flow</div>
+          <div style="font-size:11px;color:#1A1A1A;">Layout redesign</div>
+          <div style="font-size:11px;color:#1A1A1A;">Unified platform</div>
+          <div style="font-size:11px;color:#1A1A1A;">AI routing</div>
+          <div style="font-size:11px;color:#1A1A1A;">Door-to-door app</div>
+        </div>
+        <div style="padding:5px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;background:rgba(212,175,55,0.05);">
+          <div style="font-size:10.5px;color:#D4AF37;font-weight:700;">Data</div>
+          <div style="font-size:11px;color:#1A1A1A;">5 daily KPIs</div>
+          <div style="font-size:11px;color:#1A1A1A;">85% forecasting</div>
+          <div style="font-size:11px;color:#1A1A1A;">Personalize 30%</div>
+          <div style="font-size:11px;color:#1A1A1A;">Full dashboard</div>
+        </div>
+        <div style="padding:5px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;">
+          <div style="font-size:10.5px;color:#D4AF37;font-weight:700;">Staff</div>
+          <div style="font-size:11px;color:#1A1A1A;">Automate 60% grind</div>
+          <div style="font-size:11px;color:#1A1A1A;">6-mo tenure avg</div>
+          <div style="font-size:11px;color:#1A1A1A;">Longevity bonuses</div>
+          <div style="font-size:11px;color:#1A1A1A;">Cross-venue teams</div>
+        </div>
+        <div style="padding:5px 14px;display:grid;grid-template-columns:90px 1fr 1fr 1fr 1fr;gap:8px;background:rgba(212,175,55,0.05);">
+          <div style="font-size:10.5px;color:#D4AF37;font-weight:700;">Network</div>
+          <div style="font-size:11px;color:#1A1A1A;">5 partners</div>
+          <div style="font-size:11px;color:#1A1A1A;">Marketplace join</div>
+          <div style="font-size:11px;color:#1A1A1A;">Co-branded events</div>
+          <div style="font-size:11px;color:#1A1A1A;">Revenue share deals</div>
+        </div>
+        <div style="background:#D4AF37;padding:5px 14px;display:grid;grid-template-columns:90px 1fr;gap:8px;">
+          <div style="font-size:10px;color:#1A2A44;font-weight:700;">Year-End KPIs</div>
+          <div style="font-size:11px;color:#1A2A44;font-weight:700;">+40% turns · −30% waste · 12-mo tenure · +35% repeats · +50% margins</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — DAY 1 COMMITMENT -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Day 1 — Right Now</div>
+    <div class="ch-title">What Is Your Day 1 Priority?</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;line-height:1.6;margin-bottom:14px;max-width:640px;">The playbook turns 4,000 years of wisdom into executable power. But the only wisdom that produces results is the wisdom that gets acted on. This page is the act. Fill it in before you close the book. Pin it where you will see it Monday morning.</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;flex:1;">
+      <!-- Priority block -->
+      <div style="border:2px solid #D4AF37;border-radius:4px;overflow:hidden;">
+        <div style="background:#D4AF37;padding:8px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;color:#1A2A44;letter-spacing:1px;">MY DAY 1 PRIORITY — ONE OF THE FOUR TRAITS</div>
+        <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;">
+          <div style="background:#F4F6F9;border-radius:3px;padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;margin-bottom:6px;">FLOW</div>
+            <div style="width:24px;height:24px;border:2px solid #D4AF37;border-radius:50%;margin:0 auto;"></div>
+          </div>
+          <div style="background:#F4F6F9;border-radius:3px;padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;margin-bottom:6px;">DATA</div>
+            <div style="width:24px;height:24px;border:2px solid #00D4AA;border-radius:50%;margin:0 auto;"></div>
+          </div>
+          <div style="background:#F4F6F9;border-radius:3px;padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;margin-bottom:6px;">LONGEVITY</div>
+            <div style="width:24px;height:24px;border:2px solid #e74c3c;border-radius:50%;margin:0 auto;"></div>
+          </div>
+          <div style="background:#F4F6F9;border-radius:3px;padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#1A2A44;margin-bottom:6px;">NETWORK</div>
+            <div style="width:24px;height:24px;border:2px solid #1A2A44;border-radius:50%;margin:0 auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three commitments -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="background:#1A2A44;border-radius:4px;padding:12px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:8px;">MY Q1 MILESTONE</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-bottom:6px;font-style:italic;">The specific, measurable thing I commit to achieving by Day 90:</div>
+          <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:24px;margin-bottom:5px;"></div>
+          <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:24px;margin-bottom:5px;"></div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;margin-top:5px;">OWNER:</div>
+          <div style="border-bottom:1px solid rgba(255,255,255,0.2);height:22px;"></div>
+        </div>
+        <div style="background:#F4F6F9;border-radius:4px;padding:12px;border:2px solid #00D4AA;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#00D4AA;letter-spacing:1px;margin-bottom:8px;">MY MONDAY CALL</div>
+          <div style="font-size:11px;color:#666;margin-bottom:6px;font-style:italic;">The partner I am calling before lunch on Monday:</div>
+          <div style="border-bottom:1px solid #CCC;height:24px;margin-bottom:5px;"></div>
+          <div style="font-size:10px;color:#1A2A44;font-weight:700;margin-top:5px;">THEIR BUSINESS:</div>
+          <div style="border-bottom:1px solid #CCC;height:22px;margin-bottom:5px;"></div>
+          <div style="font-size:10px;color:#1A2A44;font-weight:700;margin-top:5px;">THE ASK:</div>
+          <div style="border-bottom:1px solid #CCC;height:22px;"></div>
+        </div>
+        <div style="background:#F4F6F9;border-radius:4px;padding:12px;border:2px solid #e74c3c;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#e74c3c;letter-spacing:1px;margin-bottom:8px;">MY BASELINE (TODAY)</div>
+          <div style="font-size:10.5px;color:#666;margin-bottom:5px;">Pull these before this week ends:</div>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:11px;color:#1A2A44;"><strong>Table turns/service:</strong> ___</div>
+            <div style="font-size:11px;color:#1A2A44;"><strong>Labor cost %:</strong> ___%</div>
+            <div style="font-size:11px;color:#1A2A44;"><strong>Spoilage rate:</strong> ___%</div>
+            <div style="font-size:11px;color:#1A2A44;"><strong>Repeat visit rate:</strong> ___%</div>
+            <div style="font-size:11px;color:#1A2A44;"><strong>Staff avg tenure:</strong> ___ mo</div>
+            <div style="font-size:11px;color:#1A2A44;"><strong>Active partners:</strong> ___</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly review commitment -->
+      <div style="background:#1A2A44;padding:12px 16px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+        <div style="width:40px;height:40px;background:rgba(212,175,55,0.2);border:2px solid #D4AF37;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;text-align:center;line-height:1.1;">MON<br>15</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;margin-bottom:3px;">MY WEEKLY REVIEW COMMITMENT</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.5;">Every Monday before the prep meeting. 15 minutes. Four questions: what improved? what missed? what changes this week? who owns it? I commit to not skipping this review for the next 12 months. The review is the system's immune response. Skip it and the system gets sick.</div>
+        </div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;flex-shrink:0;white-space:nowrap;border-left:1px solid rgba(212,175,55,0.3);padding-left:12px;">SIGNED: ________________<br><br>DATE: ________________</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — THE FINAL WORD -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:46px 76px 36px 76px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Chaos Mastery — 4,000 Years of Hospitality Leadership</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#fff;line-height:.9;margin-bottom:4px;">PRINT IT.</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#D4AF37;line-height:.9;margin-bottom:4px;">PIN IT.</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#00D4AA;line-height:.9;margin-bottom:32px;">PROFIT.</div>
+        <div style="width:72px;height:4px;background:#D4AF37;margin-bottom:28px;"></div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.75;max-width:600px;">
+          This playbook represents 4,000 years of hospitality leadership compressed into executable action. Every framework, every system, every checklist in these pages was built from the operators who mastered the chaos of their era — from the tavern keepers of colonial America who served as the infrastructure of a new nation, to the AI-powered Seamless Operators who are building the guest ecosystems that will define the next 25 years of the industry.
+          <br><br>
+          The wisdom in this book does not expire. The technology that implements it will change every decade. But the philosophy — build the system, measure the outcome, retain the team, connect the network, and never stop adjusting — is permanent. It is what every great operator in every era of hospitality has done, with whatever tools their moment in history made available.
+          <br><br>
+          Your tools are better than any operator who came before you has ever had. Your data is richer, your platforms are smarter, your networks are more connectable, and your guests are more willing to belong to a well-designed ecosystem than any guest in the 4,000-year history of American hospitality.
+          <br><br>
+          The only question left is whether you will use those tools deliberately — or whether you will leave the playbook on the shelf and manage Monday by memory.
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:20px;"></div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;letter-spacing:2px;">SEAMLESSLY</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);letter-spacing:1px;">seamlessly.us · The Hospitality Operating System</div>
+          </div>
+          <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:48px;color:#D4AF37;opacity:.6;line-height:1;">✦</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">PB · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-playbook-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-playbook-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

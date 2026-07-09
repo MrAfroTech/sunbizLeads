@@ -1,0 +1,9 @@
+# Placeholder — replace via `supabase link` or paste your Dashboard project ref.
+
+project_id = "YOUR_PROJECT_REF"
+
+[functions.on-new-click-event]
+verify_jwt = false
+
+[functions.send-followup-emails]
+verify_jwt = false

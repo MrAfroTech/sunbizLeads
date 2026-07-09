@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 21: Fallen Giants &amp; Conclusion</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; min-width:860px; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; flex-shrink:0; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:22px 64px 14px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:22px 64px 18px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:6px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:36px; color:#1A2A44; line-height:1; margin-bottom:8px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:12.5px; color:#1A2A44; line-height:1.48; margin-bottom:8px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:17px; color:#1A2A44; letter-spacing:1px; margin-bottom:5px; margin-top:9px; }
+.body     { font-size:12px; color:#1A1A1A; line-height:1.52; }
+.body p   { margin-bottom:6px; }
+.body strong { color:#1A2A44; font-weight:700; }
+
+.two-col { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.sidebar { display:flex; flex-direction:column; gap:12px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:12px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.4; }
+.stat-sub { font-size:10.5px; color:#666; margin-top:4px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+.stat-box.red  { border-color:#B03A2E; } .stat-box.red .stat-num { color:#B03A2E; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:11px 13px; font-size:13px; color:#1A2A44; line-height:1.58; }
+.callout strong { color:#D4AF37; }
+.callout.danger { border-left-color:#B03A2E; background:#FDF0EF; }
+.callout.danger strong { color:#B03A2E; }
+
+.q-card { padding:16px 18px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-card.danger { background:#FDF0EF; border:1px solid rgba(176,58,46,0.25); }
+.q-mark { font-family:'DM Serif Display',serif; font-size:36px; line-height:1; opacity:.3; margin-bottom:3px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; line-height:1.62; margin-bottom:7px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text,.q-card.light .q-attr { color:#1A2A44; }
+.q-card.danger .q-mark,.q-card.danger .q-text { color:#B03A2E; } .q-card.danger .q-attr { color:#888; }
+
+/* collapse timeline row */
+.collapse-row { display:grid; grid-template-columns:110px 1fr; gap:16px; align-items:start; padding-bottom:12px; border-bottom:1px solid #eee; margin-bottom:12px; }
+.collapse-row:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.collapse-brand { font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; line-height:1.2; }
+.collapse-scale { font-size:10px; font-weight:700; color:#B03A2E; text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
+.collapse-copy { font-size:12.5px; color:#1A1A1A; line-height:1.58; }
+.collapse-stat { font-family:'Bebas Neue',sans-serif; font-size:13px; color:#B03A2E; margin-top:3px; }
+
+/* fatal flaw card */
+.flaw-card { display:flex; gap:14px; align-items:flex-start; padding:13px 16px; border-radius:4px; margin-bottom:8px; }
+.flaw-card:last-child { margin-bottom:0; }
+.flaw-card.f1 { background:#FDF0EF; border-left:4px solid #B03A2E; }
+.flaw-card.f2 { background:#FEF9EC; border-left:4px solid #D4AF37; }
+.flaw-card.f3 { background:#F0FDF8; border-left:4px solid #00D4AA; }
+.flaw-card.f4 { background:#EDF2F7; border-left:4px solid #1A2A44; }
+.flaw-card.f5 { background:#FDF0EF; border-left:4px solid #B03A2E; }
+.flaw-num { font-family:'Bebas Neue',sans-serif; font-size:38px; line-height:1; flex-shrink:0; width:32px; }
+.flaw-card.f1 .flaw-num,.flaw-card.f5 .flaw-num { color:#B03A2E; }
+.flaw-card.f2 .flaw-num { color:#D4AF37; }
+.flaw-card.f3 .flaw-num { color:#00D4AA; }
+.flaw-card.f4 .flaw-num { color:#1A2A44; }
+.flaw-title { font-family:'Bebas Neue',sans-serif; font-size:17px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px; line-height:1; }
+.flaw-copy { font-size:12.5px; color:#1A1A1A; line-height:1.55; }
+.flaw-mirror { font-size:11px; font-style:italic; color:#666; margin-top:4px; line-height:1.4; }
+.flaw-mirror strong { color:#1A2A44; font-style:normal; }
+/* Chapter 21 page-fit overrides (margin-safe, no copy edits) */
+#fg2 .two-col,#fg4 .two-col,#fg6 .two-col,#fg7 .two-col,#fg11 .two-col,#fg12 .two-col{gap:14px!important;}
+#fg2 .sidebar,#fg4 .sidebar,#fg6 .sidebar,#fg7 .sidebar,#fg11 .sidebar,#fg12 .sidebar{gap:6px!important;}
+#fg2 .ch-title,#fg4 .ch-title,#fg6 .ch-title,#fg7 .ch-title,#fg11 .ch-title,#fg12 .ch-title{font-size:32px!important;line-height:.96!important;margin-bottom:4px!important;}
+#fg2 .ch-intro,#fg4 .ch-intro,#fg6 .ch-intro,#fg7 .ch-intro,#fg11 .ch-intro,#fg12 .ch-intro{font-size:11.75px!important;line-height:1.4!important;margin-bottom:3px!important;}
+#fg2 .body,#fg4 .body,#fg6 .body,#fg7 .body,#fg11 .body,#fg12 .body{font-size:12px!important;line-height:1.44!important;}
+#fg2 .body p,#fg4 .body p,#fg6 .body p,#fg7 .body p,#fg11 .body p,#fg12 .body p{margin-bottom:3px!important;}
+#fg2 .sec-head,#fg4 .sec-head,#fg6 .sec-head,#fg7 .sec-head,#fg11 .sec-head,#fg12 .sec-head{font-size:15px!important;margin-top:5px!important;margin-bottom:3px!important;letter-spacing:.5px!important;}
+#fg2 .callout,#fg4 .callout,#fg6 .callout,#fg7 .callout,#fg11 .callout,#fg12 .callout{padding:7px 9px!important;font-size:10.5px!important;line-height:1.42!important;margin-top:5px!important;}
+#fg2 .stat-box,#fg4 .stat-box,#fg6 .stat-box,#fg7 .stat-box,#fg11 .stat-box,#fg12 .stat-box{padding:7px 9px!important;}
+#fg2 .stat-num,#fg4 .stat-num,#fg6 .stat-num,#fg7 .stat-num,#fg11 .stat-num,#fg12 .stat-num{font-size:34px!important;}
+#fg2 .stat-lbl,#fg4 .stat-lbl,#fg6 .stat-lbl,#fg7 .stat-lbl,#fg11 .stat-lbl,#fg12 .stat-lbl{font-size:10.25px!important;line-height:1.3!important;}
+#fg2 .stat-sub,#fg4 .stat-sub,#fg6 .stat-sub,#fg7 .stat-sub,#fg11 .stat-sub,#fg12 .stat-sub{font-size:9px!important;margin-top:2px!important;}
+#fg3 .navy-bg,#fg5 .navy-bg{padding:18px 64px 14px 80px!important;}
+#fg3 .navy-bg [style*="font-size:38px"],#fg5 .navy-bg [style*="font-size:38px"]{font-size:32px!important;}
+#fg3 .navy-bg [style*="margin-bottom:14px"],#fg5 .navy-bg [style*="margin-bottom:14px"]{margin-bottom:8px!important;}
+#fg3 .navy-bg [style*="margin-bottom:18px"],#fg5 .navy-bg [style*="margin-bottom:18px"]{margin-bottom:10px!important;}
+#fg3 .navy-bg [style*="padding:14px"],#fg5 .navy-bg [style*="padding:14px"]{padding:10px!important;}
+
+@media print {
+  @page { size: letter; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  .dl-bar { display: none; }
+  .page { margin: 0; page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 21: Fallen Giants &amp; Conclusion</div>
+    <div class="dl-bar-sub" id="dlPageCount">Print-ready · 816 × 1056px per page</div>
+  </div>
+  <button onclick="downloadAllPagesZip()" style="background:#D4AF37;border:none;color:#1A2A44;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;padding:8px 20px;border-radius:3px;cursor:pointer;">Download ZIP</button>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE 1 — CHAPTER OPENER
+════════════════════════════════════════ -->
+<div class="page" id="fg1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:48px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#B03A2E;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">A Warning Chapter</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 21</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:76px;color:#fff;line-height:.88;margin-bottom:6px;">THEY DIDN'T</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:76px;color:#D4AF37;line-height:.88;margin-bottom:6px;">SEE IT</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:76px;color:rgba(176,58,46,0.85);line-height:.88;margin-bottom:32px;">COMING.</div>
+        <div style="width:72px;height:4px;background:#B03A2E;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:540px;">
+          "In hospitality, dominance is rented — not owned. Every giant that fell was convinced, right up until the end, that their scale was their safety."
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#B03A2E;line-height:1;">1,000 → 0</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Howard Johnson's locations — from the largest restaurant chain in America to complete erasure</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#D4AF37;line-height:1;">$2.4B → $82M</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Revel Casino — opened at $2.4 billion, sold in liquidation for $82 million two years later</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#00D4AA;line-height:1;">181</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Guests sickened in the Chi-Chi's hepatitis outbreak — a brand already dying, finished in one event</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 1</span><span class="pf-title">Chaos Mastery — Chapter 21: Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 2 — THE ILLUSION OF PERMANENCE
+════════════════════════════════════════ -->
+<div class="page" id="fg2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:24px;">
+      <div>
+        <div class="label">The Warning You Were Never Given</div>
+        <div class="ch-title" style="font-size:34px;">They Looked Untouchable.<br>Right Before They Weren't.</div>
+        <div class="ch-intro">This chapter is not about hindsight. It is not a history lesson. It is a pattern recognition exercise — and the pattern it describes is happening right now, in venues exactly like yours.</div>
+        <div class="body">
+          <p>The biggest mistake any hospitality operator can make is assuming that because you are open today, you will be open tomorrow. Scale does not protect you. History does not protect you. A loyal customer base does not protect you — not if the systems underneath stop working.</p>
+          <p>Howard Johnson's was not a small operation when it started declining. It was the largest restaurant chain in America — <strong>more than 1,000 locations</strong> serving more travelers than McDonald's and Burger King combined at its peak. Chi-Chi's was not a fringe concept — it was a national brand with 149 locations and decades of momentum. Revel was not a budget venture — it opened with <strong>$2.4 billion in investment</strong> and the confidence of a city behind it.</p>
+          <div class="sec-head">The Collapse Nobody Announced</div>
+          <p>None of these operations failed overnight. They failed gradually — through small decisions that compounded, through warning signs that were rationalized, through systems that quietly stopped serving the people they were built for. And then, at the end, came a trigger event that made the failure impossible to ignore.</p>
+          <p>For Howard Johnson's, it was irrelevance — a brand so far behind the culture it served that customers simply stopped thinking of it. For Chi-Chi's, it was a hepatitis A outbreak tied to green onions — <strong>181 people sickened, 13 employees infected</strong>, and a brand already in freefall given the final push into bankruptcy. For Revel, it was debt — $260 million lost in two years, $22 million gone in a single quarter.</p>
+          <div class="callout danger"><strong>The question isn't whether you recognize these companies.</strong> The question is whether you recognize the patterns in your own operation — before someone else recognizes them for you.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:14px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">This applies to you</div>
+          <div style="font-size:12px;color:#fff;line-height:1.6;">You don't need 1,000 locations for these patterns to destroy your business. Every one of these flaws operates at the same scale as your venue — whether you serve 80 covers a night or 80,000 fans a weekend.</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">48%</div>
+          <div class="stat-lbl">Howard Johnson's food cost as a percentage of gross revenue — before they cut quality chasing margin</div>
+          <div class="stat-sub">American Business History — Howard Johnson's analysis</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">50%</div>
+          <div class="stat-lbl">Chi-Chi's sales decline from 1990 peak to 2000 — a decade of slow hemorrhage before collapse</div>
+          <div class="stat-sub">Chowhound / The Takeout — industry retrospective</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">$40M</div>
+          <div class="stat-lbl">What Chi-Chi's real estate sold for after shutdown — a chain that once commanded national premiums</div>
+          <div class="stat-sub">Chowhound — Chi-Chi's closure records</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 2</span><span class="pf-title">Chaos Mastery — Chapter 21: Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 3 — THE THREE AUTOPSIES
+════════════════════════════════════════ -->
+<div class="page" id="fg3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Three Autopsies</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;">What the Numbers Say When You Look Closely</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:12px;letter-spacing:1.5px;text-transform:uppercase;">Each of these brands died differently. But the cause of death was the same.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#B03A2E,#D4AF37,transparent);margin-bottom:16px;"></div>
+
+      <div style="display:flex;flex-direction:column;gap:0;flex:1;">
+
+        <!-- Howard Johnson's -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:0;margin-bottom:0;">
+          <div style="padding-right:20px;padding-top:4px;border-right:2px solid rgba(212,175,55,0.3);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;line-height:1;margin-bottom:3px;">Howard Johnson's</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">1925 — 2022</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#B03A2E;line-height:1;">1,000 → 0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;line-height:1.4;">U.S. restaurant locations lost over four decades of decline</div>
+          </div>
+          <div style="padding:4px 0 18px 22px;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;letter-spacing:1px;margin-bottom:5px;">The Operator Who Forgot Who They Were Serving</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.62;">At its peak, Howard Johnson's served more Americans than the U.S. Army fed soldiers — a staggering claim that shows how embedded the brand was in daily life. Then it started optimizing. Food costs were pushed toward 48% of gross revenue, then quality cuts followed. Menu stagnation set in. Infrastructure aged without reinvestment. By the 1990s, the chain had collapsed to 84 restaurants. By 2022, the last U.S. location had closed. <strong style="color:#D4AF37;">The brand didn't lose customers. It stopped deserving them.</strong></div>
+          </div>
+        </div>
+
+        <!-- Chi-Chi's -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:0;margin-bottom:0;">
+          <div style="padding-right:20px;padding-top:16px;border-right:2px solid rgba(212,175,55,0.3);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;line-height:1;margin-bottom:3px;">Chi-Chi's</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">1975 — 2004</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#B03A2E;line-height:1;">149 → 0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;line-height:1.4;">Locations lost — bankruptcy 2003, full U.S. shutdown 2004</div>
+          </div>
+          <div style="padding:16px 0 18px 22px;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;letter-spacing:1px;margin-bottom:5px;">The Brand That Lost Relevance, Then Lost Everything Else</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.62;">Chi-Chi's sales were cut in half between 1990 and 2000 — a decade of slow strangulation by competition and irrelevance. The chain was already in bankruptcy when the hepatitis A outbreak hit in 2003, sickening at least 181 people and killing 4. The outbreak didn't cause the collapse — it just made the ending impossible to avoid. The real cause was a decade of operating a concept that had stopped evolving. When trust finally broke, there was nothing underneath it left to save. The real estate sold for $40 million. <strong style="color:#D4AF37;">A national brand reduced to a line in a liquidation filing.</strong></div>
+          </div>
+        </div>
+
+        <!-- Revel -->
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:0;">
+          <div style="padding-right:20px;padding-top:16px;border-right:2px solid rgba(212,175,55,0.3);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;line-height:1;margin-bottom:3px;">Revel Casino</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">2012 — 2014</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#B03A2E;line-height:1;">$2.4B → $82M</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;line-height:1.4;">Investment vs. liquidation sale — two years apart</div>
+          </div>
+          <div style="padding:16px 0 10px 22px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;letter-spacing:1px;margin-bottom:5px;">The Monument Built on Assumptions</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.62;">Revel opened in Atlantic City in 2012 at a cost of $2.4 billion — a bet that a spectacular property could reverse an entire city's declining fortunes. It couldn't. The property lost $260 million in its first two years and $22 million in a single quarter of 2014 alone. It filed for bankruptcy in 2013, returned to bankruptcy in 2014, and was ultimately sold for $82 million — 3.4 cents on every dollar invested. <strong style="color:#D4AF37;">Revel didn't fail because it was bad. It failed because the assumptions underneath the business were wrong — and $2.4 billion couldn't fix a broken premise.</strong></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:12px 0;"></div>
+      <div style="text-align:center;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);">Three different categories. Three different scales. One identical arc: dominance → strain → trigger → collapse.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 3</span><span class="pf-title">Chaos Mastery — Chapter 21: Fallen Giants</span></div>
+</div>
+
+
+
+<!-- ════════════════════════════════════════
+     PAGE 4 — CASUAL DINING + FAST GROWTH
+════════════════════════════════════════ -->
+<div class="page" id="fg4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Collapse Pattern II — Casual Dining &amp; Fast Growth</div>
+    <div class="ch-title" style="font-size:32px;margin-bottom:8px;">They Grew Fast & Then They Lost Their Edge</div>
+    <div class="ch-intro" style="font-size:13px;margin-bottom:12px;">Rapid expansion doesn't build resilience — it reveals the absence of it. These brands scaled to national prominence and then watched the market move on without them. The collapse sounds like bad luck. It never was.</div>
+
+    <div style="display:flex;flex-direction:column;gap:0;flex:1;">
+      <div class="collapse-row">
+        <div>
+          <div class="collapse-brand">Steak and Ale</div>
+          <div class="collapse-scale">600+ Locations · Closed 2008</div>
+        </div>
+        <div>
+          <div class="collapse-copy">Norman Brinker invented casual dining with Steak and Ale in 1966 — salad bars, dim lighting, affordable steaks, the template every casual chain copied for three decades. By 2008 the parent company filed for bankruptcy with no warning, and every corporate Steak and Ale location closed the same day. Not slowly. Overnight. Thousands of employees showed up for shifts and found locked doors. <strong>The concept that invented casual dining couldn't survive the category it created</strong> — crushed by competitors who took everything it built and executed it better and cheaper.</div>
+          <div class="collapse-stat">"Inventing a category does not mean you own it forever."</div>
+        </div>
+      </div>
+
+      <div class="collapse-row">
+        <div>
+          <div class="collapse-brand">Kenny Rogers Roasters</div>
+          <div class="collapse-scale">400+ Locations · Collapsed mid-1990s</div>
+        </div>
+        <div>
+          <div class="collapse-copy">Kenny Rogers Roasters opened in 1991 backed by celebrity branding and a rotisserie chicken concept that felt genuinely differentiated. It expanded to over 400 locations. Then Boston Market — better funded, better operated, better positioned — entered the same space and systematically took the market. Kenny Rogers Roasters had the concept first. It lost anyway, because <strong>a concept without an operational moat is just a head start toward irrelevance</strong>. The U.S. locations collapsed. International franchises limped on. The brand was eventually sold and survived only in the Philippines.</div>
+          <div class="collapse-stat">"First mover advantage is worthless without systems that protect it."</div>
+        </div>
+      </div>
+
+      <div class="collapse-row">
+        <div>
+          <div class="collapse-brand">Boston Market</div>
+          <div class="collapse-scale">~1,200 Locations · Collapsed 2020s</div>
+        </div>
+        <div>
+          <div class="collapse-copy">Boston Market entered the 1990s rotisserie space better-funded and better-operated than Kenny Rogers Roasters. It won. By the mid-90s it had over 1,200 locations and a category-defining position in fast casual. Then it filed bankruptcy in 1998 — overexpanded, underleveraged on profit. McDonald's bought it in 2000. Sold it in 2007. Private equity ran it into the ground. By 2020 it had roughly 300 locations left and a new owner named Jay Pandya, who stopped paying suppliers, employees, and landlords almost immediately. Over 150 lawsuits followed. States shut down locations over unpaid wages. Vendors cut off food delivery. By end of 2023 it was down to 27 locations. By end of 2024 — 16. The brand that outlasted Kenny Rogers Roasters didn't lose to a competitor. It lost to its own owner.</div>
+          <div class="collapse-stat">"Winning the category doesn't protect you from what happens inside the building."</div>
+        </div>
+      </div>
+
+      <div class="collapse-row" style="border-bottom:none;padding-bottom:0;margin-bottom:0;">
+        <div>
+          <div class="collapse-brand">Burger Chef</div>
+          <div class="collapse-scale">1,200+ Locations · Absorbed 1982</div>
+        </div>
+        <div>
+          <div class="collapse-copy">Burger Chef was once the second-largest burger chain in America — behind only McDonald's — with over 1,200 locations and genuine national scale. It pioneered the value meal concept and the children's fun meal before McDonald's made both famous. Then the parent company, General Foods, ran it without restaurant industry expertise and let operations decay. McDonald's and Burger King invested in consistency. Burger Chef didn't. Hardee's acquired the chain in 1982 and converted nearly every location. <strong>Scale without operational discipline is just infrastructure waiting to be absorbed by someone who knows how to run it.</strong></div>
+          <div class="collapse-stat">"You can be second-largest in America and still disappear completely."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 4</span><span class="pf-title">Chaos Mastery — Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 5 — NIGHTLIFE: STUDIO 54 + LIMELIGHT
+════════════════════════════════════════ -->
+<div class="page" id="fg5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Collapse Pattern III — Nightlife</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;">Hype Is Not a Business Model.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:10px;letter-spacing:1.5px;text-transform:uppercase;">The moment you confuse the two, you are already declining.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#B03A2E,#D4AF37,transparent);margin-bottom:14px;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;">
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:14px 16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#D4AF37;letter-spacing:1px;margin-bottom:2px;">Studio 54</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">New York · 1977 – 1980 · Then gone.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.62;margin-bottom:8px;">Studio 54 was the most culturally dominant nightlife venue in American history. Andy Warhol. Mick Jagger. Bianca Jagger on a white horse. The velvet rope wasn't a door policy — it was the product. Being chosen to enter was the experience. At its peak, the owners were reportedly netting over $7 million a year in revenue.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.62;margin-bottom:8px;">Then the IRS arrived. Owners Steve Rubell and Ian Schrager were convicted of skimming $2.5 million in cash from the business and sentenced to federal prison in 1980. The venue was sold. Without Rubell and Schrager — who were the operating system — <strong style="color:#D4AF37;">Studio 54 became a venue. Just a venue. And a venue without a soul is just a room.</strong></div>
+            <div style="background:rgba(176,58,46,0.15);border-left:3px solid #B03A2E;padding:8px 10px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);font-style:italic;">The mirror: If you were removed from your operation tomorrow, what would be left? Is the experience in the systems — or only in you?</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:14px 16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:2px;">The Limelight</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">New York · 1983 – 2007 · Raided. Closed. Reopened. Closed again.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.62;margin-bottom:8px;">The Limelight — a nightclub built inside a deconsecrated Episcopal church in Chelsea — was for a decade the center of New York's underground nightlife. Owner Peter Gatien built an empire: Limelight, Tunnel, Club USA, Palladium. At one point he controlled more nightlife square footage in Manhattan than any single operator in history.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.62;margin-bottom:8px;">A 1996 drug sweep — part of Mayor Giuliani's crackdown on New York nightlife — resulted in arrests, a murder prosecution connected to the venue, and years of legal battles. Gatien was acquitted but financially destroyed by the legal costs. The Limelight closed, reopened as a shopping mall, and then closed again. <strong style="color:#fff;">The brand survived the raids. It couldn't survive the legal costs, the blow to their reputation, and a city that had moved on.</strong></div>
+            <div style="background:rgba(176,58,46,0.15);border-left:3px solid #B03A2E;padding:8px 10px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);font-style:italic;">The mirror: What in your operation depends entirely on hype, energy, or a single personality — and what happens when that element is gone?</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:12px 0;"></div>
+      <div style="text-align:center;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);">Nightlife brands are the most extreme case of a universal truth: the experience must be embedded in the system — not just in the moment, the person, or the era.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 5</span><span class="pf-title">Chaos Mastery — Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 6 — CASINOS: TRUMP TAJ + REVEL
+════════════════════════════════════════ -->
+<div class="page" id="fg6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Collapse Pattern IV — Casinos</div>
+    <div class="ch-title" style="font-size:32px;margin-bottom:8px;">When the Building. Becomes The Strategy.</div>
+    <div class="ch-intro" style="font-size:13px;margin-bottom:14px;">Casino hospitality is the most capital-intensive form of venue operation in existence. When the experience doesn't justify the debt used to build it, the math turns against you—fast.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;align-items:start;">
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="border:2px solid rgba(176,58,46,0.4);border-radius:4px;overflow:hidden;">
+          <div style="background:rgba(176,58,46,0.12);padding:12px 14px;border-bottom:1px solid rgba(176,58,46,0.2);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#B03A2E;letter-spacing:1px;">Trump Taj Mahal</div>
+            <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;">Atlantic City · 1990 – 2016 · Five Bankruptcies</div>
+          </div>
+          <div style="padding:12px 14px;">
+            <div class="body" style="font-size:12.5px;">
+              <p>The Trump Taj Mahal opened in April 1990 as the largest casino in the world — 120,000 square feet of gaming floor, 1,250 hotel rooms, and a price tag of $1.1 billion. Trump called it the Eighth Wonder of the World. It filed for bankruptcy Chapter 11 just one year later, in 1991, carrying $3 billion in debt.</p>
+              <p>The Taj Mahal went through five separate bankruptcy filings over its lifetime. It closed permanently in October 2016 after a union strike exposed what the financials had been saying for years: the building was spectacular, the business was broken. <strong>The problem was never the property — it was the assumption that a spectacular property could substitute for a sustainable operation.</strong> It reopened as Hard Rock Atlantic City in 2018 under entirely new ownership with a rebuilt operating model.</p>
+            </div>
+            <div class="collapse-stat" style="margin-top:6px;">$1.1B built · Filed bankruptcy within 12 months · Closed after 26 years</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="border:2px solid rgba(176,58,46,0.4);border-radius:4px;overflow:hidden;">
+          <div style="background:rgba(176,58,46,0.12);padding:12px 14px;border-bottom:1px solid rgba(176,58,46,0.2);">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#B03A2E;letter-spacing:1px;">Revel Casino</div>
+            <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;">Atlantic City · 2012 – 2014 · Two Bankruptcies</div>
+          </div>
+          <div style="padding:12px 14px;">
+            <div class="body" style="font-size:12.5px;">
+              <p>Revel opened in 2012 at a cost of $2.4 billion — the most expensive casino ever built in New Jersey at that time. It was designed to attract a different kind of gambler: younger, non-smoking, lifestyle-oriented. It banned smoking entirely — a bold bet that alienated Atlantic City's core casino demographic before they ever walked in the door.</p>
+              <p>Revel lost $260 million in its first two years and $22 million in a single quarter of 2014. It filed for bankruptcy in 2013, emerged, filed again in 2014, and was sold at auction for $82 million — 3.4 cents on the dollar. The property sat dark for two years before reopening as Ocean Casino in 2018. <strong>Revel didn't fail because it was poorly built. It failed because the assumptions underneath the business were wrong — and $2.4 billion cannot fix a broken premise.</strong></p>
+            </div>
+            <div class="collapse-stat" style="margin-top:6px;">$2.4B built · Sold for $82M · Two bankruptcies in two years</div>
+          </div>
+        </div>
+
+        <div class="callout danger" style="font-size:12px;">
+          <strong>The pattern across both:</strong> Magnificent buildings. Insufficient demand. Too much debt to absorb the gap. When fixed costs are enormous, every slow week is an emergency — and there are always slow weeks.
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 6</span><span class="pf-title">Chaos Mastery — Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 7 — HORSE RACING: THE EXPERIENCE COLLAPSE
+════════════════════════════════════════ -->
+<div class="page" id="fg7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Collapse Pattern V — The Category That Forgot the Guest</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;margin-bottom:4px;">The Sport of Kings Was Abandoned by Its People.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:10px;letter-spacing:1.5px;text-transform:uppercase;">Horse racing didn’t lose to rivals. It lost touch with its audience.</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,rgba(212,175,55,0.2),transparent);margin-bottom:14px;"></div>
+
+      <div class="two-col" style="gap:22px;flex:1;align-items:start;">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;letter-spacing:1px;margin-bottom:8px;">What It Once Was</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.65;margin-bottom:12px;">At its peak — through the mid-20th century — a day at the races was one of the great American social events. Churchill Downs on Derby Day. Saratoga in August. Belmont in June. These were not just sporting events. They were full-day hospitality experiences: the hats, the mint juleps, the paddock walk, the pageantry of the post parade, the roar of the crowd as the gates broke open.</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.65;margin-bottom:12px;">The sport drew tens of millions of annual attendees at its height. It was the largest spectator sport in America for much of the early 20th century — bigger than baseball, bigger than boxing, bigger than anything that required a television to appreciate. You went to the track the way you went to a great restaurant: for the full experience of being there.</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;letter-spacing:1px;margin-bottom:8px;">What Went Wrong</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.65;margin-bottom:10px;">Horse racing had a monopoly on legal gambling in America for decades. Then state lotteries arrived. Then off-track betting. Then casinos. Then sports betting. Each new gambling format peeled away a layer of the racing audience — and racing responded almost exclusively by trying to protect the gambling, not the experience.</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.78);line-height:1.65;">Tracks aged. Concessions decayed. The general admission experience — once a vibrant, affordable, communal day out — became an afterthought while the sport focused resources on simulcasting and wagering technology. <strong style="color:#D4AF37;">They optimized for the bet. They abandoned the day.</strong> And the people who came for the day stopped coming.</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">The Decline by Numbers</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;">
+                <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Peak U.S. racetrack attendance</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;">75M+/yr</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;">
+                <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Current annual attendance</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#B03A2E;">&lt;25M/yr</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:6px;">
+                <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">U.S. racetracks operating (1970)</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;">150+</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="font-size:11.5px;color:rgba(255,255,255,0.7);">U.S. racetracks operating (today)</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#B03A2E;">~40</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:14px;">
+            <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">What This Means for Every Venue</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.72);line-height:1.62;">Horse racing is the cautionary tale of what happens when an entire industry stops asking why people showed up in the first place. People didn't come to the track only to gamble. They came for the spectacle, the atmosphere, the shared ritual of a beautiful animal doing something extraordinary in front of 30,000 people.<br><br>When the experience decayed, the gambling moved online. But the experience — the thing that can't be replicated on a screen — never adjusted. It was left to rot while the industry argued over simulcast rights.<br><br><strong style="color:#D4AF37;">The lesson isn't about horse racing. It's about every venue that confuses its product with its revenue mechanism.</strong></div>
+          </div>
+
+          <div style="background:rgba(176,58,46,0.12);border-left:3px solid #B03A2E;padding:10px 12px;border-radius:0 3px 3px 0;">
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.75);font-style:italic;line-height:1.5;">The mirror: What is the real reason people come to your venue — and are you protecting that, or optimizing around it?</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:10px 0;"></div>
+      <div style="text-align:center;font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);">"A category can collapse even when the venues are still open, the horses are still running, and the gates still break. The collapse is complete when people stop caring enough to show up."</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 7</span><span class="pf-title">Chaos Mastery — Fallen Giants</span></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     PAGE 4 — THE FIVE FATAL FLAWS (1–3)
+════════════════════════════════════════ -->
+<div class="page" id="fg4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Five Fatal Flaws</div>
+    <div class="ch-title" style="font-size:34px;margin-bottom:5px;">Every Collapse Shares These Five Flaws.</div>
+    <div class="ch-intro" style="margin-bottom:10px;font-size:12.5px;line-height:1.5;">This is the part you need to sit with. Not because these companies are interesting—but because at least one of these is already present in your venue. The question is whether you catch it before it becomes irreversible.</div>
+
+    <div class="flaw-card f1" style="margin-bottom:7px;padding:10px 12px;">
+      <div class="flaw-num" style="font-size:24px;">1.</div>
+      <div>
+        <div class="flaw-title" style="font-size:15px;margin-bottom:2px;">They Optimized Cost Instead of Experience</div>
+        <div class="flaw-copy" style="font-size:11.5px;line-height:1.45;">Howard Johnson’s food cost hit 48% of revenue, so they cut quality. Every cut felt rational in the quarter it was made. Cumulatively, it hollowed out why people came. When you optimize margin over experience, you are not saving the business—you are funding its funeral one decision at a time.</div>
+        <div class="flaw-mirror" style="font-size:11px;line-height:1.4;"><strong>The mirror question:</strong> Where are you cutting something the guest notices—and telling yourself they won’t?</div>
+      </div>
+    </div>
+
+    <div class="flaw-card f2" style="margin-bottom:7px;padding:10px 12px;">
+      <div class="flaw-num" style="font-size:24px;">2.</div>
+      <div>
+        <div class="flaw-title" style="font-size:15px;margin-bottom:2px;">They Confused Scale With Resilience</div>
+        <div class="flaw-copy" style="font-size:11.5px;line-height:1.45;">More locations didn’t make Howard Johnson’s safer—it made failure faster. More debt didn’t make Revel stronger—it made every bad week existential. Scale amplifies what already exists. Inconsistent at 10 locations becomes catastrophic at 100. Size is not a moat—systems are.</div>
+        <div class="flaw-mirror" style="font-size:11px;line-height:1.4;"><strong>The mirror question:</strong> If your busiest night doubled tomorrow, would your systems hold—or break?</div>
+      </div>
+    </div>
+
+    <div class="flaw-card f3" style="margin-bottom:7px;padding:10px 12px;">
+      <div class="flaw-num" style="font-size:24px;">3.</div>
+      <div>
+        <div class="flaw-title" style="font-size:15px;margin-bottom:2px;">They Stopped Evolving While the Market Moved</div>
+        <div class="flaw-copy" style="font-size:11.5px;line-height:1.45;">Chi-Chi’s wasn’t killed by competition—it was killed by inertia. Sales fell 50% over a decade because the experience stopped matching what guests wanted. The menu and positioning stagnated while the market kept moving. By the time it mattered, there was nothing left to fix.</div>
+        <div class="flaw-mirror" style="font-size:11px;line-height:1.4;"><strong>The mirror question:</strong> When did you last change the guest experience because the guest asked for it?</div>
+      </div>
+    </div>
+
+    <div class="flaw-card f4" style="margin-bottom:7px;padding:10px 12px;">
+      <div class="flaw-num" style="font-size:24px;">4.</div>
+      <div>
+        <div class="flaw-title" style="font-size:15px;margin-bottom:2px;">They Had No System for When Things Went Wrong</div>
+        <div class="flaw-copy" style="font-size:11.5px;line-height:1.45;">The Chi-Chi’s hepatitis outbreak didn’t create the collapse—it exposed it. A resilient brand can survive a crisis. Chi-Chi’s had no remaining trust or operational buffer left. The lesson is simple: if one event can end you, you were already ending.</div>
+        <div class="flaw-mirror" style="font-size:11px;line-height:1.4;"><strong>The mirror question:</strong> If your worst failure happened this weekend, what would guests believe about you?</div>
+      </div>
+    </div>
+
+    <div class="flaw-card f5" style="margin-bottom:8px;padding:10px 12px;">
+      <div class="flaw-num" style="font-size:24px;">5.</div>
+      <div>
+        <div class="flaw-title" style="font-size:15px;margin-bottom:2px;">They Built on Assumptions Instead of Evidence</div>
+        <div class="flaw-copy" style="font-size:11.5px;line-height:1.45;">Revel assumed better buildings would fix demand. It didn’t. The market had already moved. Hospitality runs on assumptions about guests, behavior, and loyalty. The operators who survive constantly test them. The ones who don’t build monuments to ideas that stopped being true.</div>
+        <div class="flaw-mirror" style="font-size:11px;line-height:1.4;"><strong>The mirror question:</strong> What belief about your guests have you never actually verified?</div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:10px 12px;border-radius:4px;display:flex;gap:10px;align-items:flex-start;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#B03A2E;flex-shrink:0;line-height:1.05;width:48px;">The<br>Point</div>
+      <div>
+        <div style="font-size:11.5px;color:#fff;line-height:1.5;margin-bottom:6px;">These were not bad operators. They simply stopped paying attention to the right signals—and by the time the numbers proved it, it was already too late.</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#D4AF37;line-height:1.5;">They didn’t lose customers. They lost the ability to serve them at scale—and didn’t notice until the customers were gone.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 8</span><span class="pf-title">Chaos Mastery — Chapter 21: Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 6 — CHAPTER SUMMARY + NEXT
+════════════════════════════════════════ -->
+<div class="page" id="fg6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary</div>
+    <div class="ch-title" style="font-size:34px;margin-bottom:8px;">The Pattern Is Always the Same.<br>The Timeline Is the Only Variable.</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13.5px;color:#1A2A44;line-height:1.55;margin-bottom:18px;max-width:620px;">The five fatal flaws are not historical curiosities. They are operational diagnoses. Read them as a checklist — then be honest about how many apply to your business right now.</div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#FDF0EF;border-left:4px solid #B03A2E;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#B03A2E;line-height:1;flex-shrink:0;width:22px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">OPTIMIZING COST INSTEAD OF EXPERIENCE</div><div style="font-size:12px;color:#1A1A1A;line-height:1.5;">Every margin decision that degrades the guest experience is a withdrawal from an account you didn't know had a limit — until it's empty.</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#FEF9EC;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#D4AF37;line-height:1;flex-shrink:0;width:22px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">CONFUSING SCALE WITH RESILIENCE</div><div style="font-size:12px;color:#1A1A1A;line-height:1.5;">Bigger doesn't mean safer. It means more surface area to fail. The only real protection is operational systems that work at scale — not size itself.</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#F0FDF8;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#00D4AA;line-height:1;flex-shrink:0;width:22px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">STOPPING EVOLUTION WHILE THE MARKET DIDN'T</div><div style="font-size:12px;color:#1A1A1A;line-height:1.5;">Your guests are not the same people they were five years ago. Your venue needs to reflect who they are now — not who they were when you designed it.</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#EDF2F7;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#1A2A44;line-height:1;flex-shrink:0;width:22px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">NO SYSTEM FOR WHEN THINGS GO WRONG</div><div style="font-size:12px;color:#1A1A1A;line-height:1.5;">A crisis doesn't create collapse. It reveals the collapse that was already happening. Build trust before you need it — because when you need it, there's no time to build it.</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:11px 15px;background:#FDF0EF;border-left:4px solid #B03A2E;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#B03A2E;line-height:1;flex-shrink:0;width:22px;">5</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#1A2A44;letter-spacing:1px;margin-bottom:2px;">BUILDING ON ASSUMPTIONS INSTEAD OF EVIDENCE</div><div style="font-size:12px;color:#1A1A1A;line-height:1.5;">What you believe about your guests is not the same as what is true about them. The gap between those two things is where revenue disappears — and businesses die.</div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44;padding:13px 18px;border-radius:4px;display:flex;align-items:center;gap:16px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#B03A2E;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">The Opportunity in the Wreckage</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:4px;">WHEN GIANTS FALL, THEY LEAVE DEMAND BEHIND</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.55;">Every collapsed brand left behind customers who still wanted what it promised. The operators who move fastest to build the systems those giants couldn't are the ones who inherit that demand. The next chapter is about exactly that — building the systems that decide how the next era of hospitality operates.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">21 · 10</span><span class="pf-title">Chaos Mastery — Chapter 21: Fallen Giants</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 11 — WORKBOOK A
+════════════════════════════════════════ -->
+<div class="page" id="fg11">
+  <div style="width:100%;height:40px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:3px solid #D4AF37;flex-shrink:0;">
+    <span style="font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:14px;letter-spacing:3px;">SEAMLESSLY</span>
+    <span style="font-family:'Bebas Neue',sans-serif;color:#fff;font-size:13px;letter-spacing:2px;">CHAOS MASTERY</span>
+  </div>
+  <div style="flex:1;padding:16px 28px 10px 28px;display:flex;flex-direction:column;overflow:hidden;">
+    <div style="font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:4px;">Apply It Now</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;letter-spacing:1.5px;line-height:1;margin-bottom:6px;">Chapter 21 Workbook Exercise</div>
+    <p style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;margin-bottom:12px;line-height:1.55;">Every brand in this chapter was certain their position was secure. The Five Fatal Flaws didn't announce themselves — they accumulated quietly, over years, until a trigger event made the damage undeniable. Use this exercise to find where they're accumulating in your operation right now.</p>
+
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:#1A2A44;padding:9px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;">
+        <div style="width:28px;height:28px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif;color:#1A2A44;font-size:15px;line-height:1;">1</span></div>
+        <div>
+          <div style="font-size:9px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:2px;margin-bottom:1px;">The Core Exercise</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;letter-spacing:1px;line-height:1;">Score Your Five Fatal Flaws</div>
+        </div>
+      </div>
+      <div style="padding:10px 14px;">
+        <p style="font-size:11px;color:#1A1A1A;margin-bottom:8px;line-height:1.5;">Rate each flaw in your operation from 1 (this is us right now) to 5 (we have this locked). Then identify the single highest-risk flaw — the one that, if it became a trigger event tomorrow, would cause the most damage.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;">
+          <div style="background:#FDF0EF;padding:7px 10px;border-radius:4px;border-left:3px solid #B03A2E;">
+            <div style="font-size:10px;font-weight:700;color:#B03A2E;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Flaw 1 — Cost over Experience &nbsp; Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">Where are you cutting something guests notice?</div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;"></div>
+          </div>
+          <div style="background:#FEF9EC;padding:7px 10px;border-radius:4px;border-left:3px solid #D4AF37;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Flaw 2 — Scale vs. Resilience &nbsp; Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">Would your systems hold if demand doubled tomorrow?</div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;">
+          <div style="background:#F0FDF8;padding:7px 10px;border-radius:4px;border-left:3px solid #00D4AA;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Flaw 3 — Stopped Evolving &nbsp; Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">When did you last change something because guests asked?</div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;"></div>
+          </div>
+          <div style="background:#EDF2F7;padding:7px 10px;border-radius:4px;border-left:3px solid #1A2A44;">
+            <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Flaw 4 — No Crisis System &nbsp; Score: ___</div>
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">If your worst event happened this weekend, what would guests believe?</div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div>
+            <div style="border-bottom:1px solid #ddd;height:18px;"></div>
+          </div>
+        </div>
+        <div style="background:#FDF0EF;padding:7px 10px;border-radius:4px;border-left:3px solid #B03A2E;">
+          <div style="font-size:10px;font-weight:700;color:#B03A2E;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;line-height:1.3;">Flaw 5 — Assumptions Instead of Evidence &nbsp; Score: ___</div>
+          <div style="font-size:9.5px;color:#888;font-style:italic;margin-bottom:4px;line-height:1.3;">What do you believe about your guests that you have never actually verified?</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
+            <div><div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div><div style="border-bottom:1px solid #ddd;height:18px;"></div></div>
+            <div><div style="border-bottom:1px solid #ddd;height:18px;margin-bottom:3px;"></div><div style="border-bottom:1px solid #ddd;height:18px;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#F4F6F9;padding:12px 16px;border-radius:4px;border-top:3px solid #D4AF37;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1A2A44;margin-bottom:5px;">Reflection 1 — The Trigger Test</div>
+      <p style="font-size:12px;color:#1A1A1A;line-height:1.5;margin-bottom:8px;">Chi-Chi's didn't fail because of a hepatitis outbreak. It failed because the outbreak found a brand with nothing left underneath it. Name the one event — a bad review that goes viral, a staff walkout on a sold-out night, a health inspection — that would expose what's already weak in your operation.</p>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;"></div>
+    </div>
+
+    <div style="background:#F4F6F9;padding:12px 16px;border-radius:4px;border-top:3px solid #00D4AA;margin-top:10px;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1A2A44;margin-bottom:6px;">Reflection 2 &mdash; The Horse Racing Question</div>
+      <p style="font-size:12px;color:#1A1A1A;line-height:1.5;margin-bottom:8px;">Horse racing didn't lose because gambling moved online. It lost because it stopped protecting the experience of a day at the races and focused entirely on protecting the wagering mechanism. What is the real reason people come to your venue &mdash; the thing that can't be replicated at home &mdash; and are you actively protecting it, or quietly letting it erode?</p>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;"></div>
+    </div>
+
+    <div style="text-align:right;font-size:9.5px;color:#999;font-style:italic;margin-top:auto;padding-top:5px;">Continued on next page &rarr;</div>
+  </div>
+  <div style="width:100%;height:24px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 28px;flex-shrink:0;">
+    <span style="font-size:11px;color:#1A2A44;font-weight:700;">21 &middot; 11</span>
+    <span style="font-size:11px;color:#999;margin-left:auto;font-style:italic;">Chaos Mastery &mdash; Fallen Giants</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 12 — WORKBOOK B
+════════════════════════════════════════ -->
+<div class="page" id="fg12">
+  <div style="width:100%;height:40px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:3px solid #D4AF37;flex-shrink:0;">
+    <span style="font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:14px;letter-spacing:3px;">SEAMLESSLY</span>
+    <span style="font-family:'Bebas Neue',sans-serif;color:#fff;font-size:13px;letter-spacing:2px;">CHAOS MASTERY</span>
+  </div>
+  <div style="flex:1;padding:16px 28px 10px 28px;display:flex;flex-direction:column;overflow:hidden;">
+    <div style="font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;">Chapter 21 Workbook Exercise &mdash; Continued</div>
+
+    <div style="background:#F4F6F9;padding:14px 16px;border-radius:4px;border-top:3px solid #1A2A44;margin-bottom:10px;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1A2A44;margin-bottom:6px;">Reflection 3 &mdash; The Studio 54 Question</div>
+      <p style="font-size:12.5px;color:#1A1A1A;line-height:1.55;margin-bottom:10px;">When Steve Rubell went to prison, Studio 54 became just a room. The experience lived in the person, not the system. If you were removed from your operation tomorrow &mdash; illness, travel, or something worse &mdash; what would your guests experience? Would the standard hold, or would the cracks immediately show?</p>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;"></div>
+    </div>
+
+    <div style="background:#F4F6F9;padding:14px 16px;border-radius:4px;border-top:3px solid #B03A2E;margin-bottom:14px;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1A2A44;margin-bottom:6px;">Reflection 4 &mdash; Your 90-Day Flaw Fix</div>
+      <p style="font-size:12.5px;color:#1A1A1A;line-height:1.55;margin-bottom:10px;">Looking at your five scores from the previous page &mdash; which single flaw, if left unaddressed for another 90 days, has the highest probability of becoming your trigger event? Name it, name the specific action you are taking to address it, and name how you will know it's working.</p>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;margin-bottom:4px;"></div>
+      <div style="border-bottom:1px solid #ccc;height:20px;"></div>
+    </div>
+
+    <div style="background:#1A2A44;padding:14px 18px;border-radius:4px;display:flex;align-items:center;gap:16px;margin-top:auto;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#B03A2E;flex-shrink:0;line-height:1.1;">KEY<br>INSIGHT</div>
+      <div style="font-size:13px;color:#fff;line-height:1.6;">Every giant in this chapter had time to see what was coming. The numbers were there. The warning signs were there. The guests were already leaving before the collapse was declared. The operators who survive are not the ones who avoid problems &mdash; they are the ones who <strong style="color:#D4AF37;">see problems while they are still small enough to fix.</strong> That is what this workbook is for.</div>
+    </div>
+  </div>
+  <div style="width:100%;height:24px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 28px;flex-shrink:0;">
+    <span style="font-size:11px;color:#1A2A44;font-weight:700;">21 &middot; 12</span>
+    <span style="font-size:11px;color:#999;margin-left:auto;font-style:italic;">Chaos Mastery &mdash; Fallen Giants</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 13 — CONCLUSION
+════════════════════════════════════════ -->
+<div class="page" id="fg13-conclusion">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+
+  <div class="pc-full" style="flex-direction:row;min-height:0;">
+    <div style="flex:1;background:#1A2A44;padding:26px 28px 22px 28px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;border-right:1px solid rgba(212,175,55,0.25);overflow:visible;">
+      <div style="flex:1;display:flex;flex-direction:column;min-height:0;overflow:visible;">
+        <div class="label" style="letter-spacing:2px;line-height:1.35;">CHAOS MASTERY · SEAMLESS HOSPITALITY FOR THE 21ST CENTURY</div>
+        <div class="ch-title" style="color:#fff;font-size:40px;margin-bottom:14px;line-height:0.95;">Conclusion</div>
+        <div style="font-size:11.75px;color:rgba(255,255,255,0.88);line-height:1.55;">
+          <p style="margin-bottom:10px;">The job was never complicated.</p>
+          <p style="margin-bottom:10px;">It was always the same: make people feel like they belong somewhere, give them what they need before they have to ask for it, and build an operation clean enough that your team can actually do that consistently.</p>
+          <p style="margin-bottom:10px;">The chaos isn't random. It has a source. And once you find it, most of it is fixable.</p>
+          <p style="margin-bottom:10px;">The operators who built lasting venues didn't have better technology than you. They had clarity. They knew what the job was and they built everything around it. That clarity is still available. It doesn't require a budget or a rebuild. It requires a decision.</p>
+          <p style="margin-bottom:10px;">Start with one chapter. Pick the one that hit closest to home. Work through the exercises with your actual operation in mind — not a hypothetical. Your venue. Your staff. Your guests.</p>
+          <p style="margin-bottom:12px;">That's where it starts. Everything else follows.</p>
+        </div>
+        <div style="margin-top:14px;margin-bottom:12px;">
+          <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.92);line-height:1.6;">
+            <div>Yours,</div>
+            <div style="font-weight:700;font-style:normal;margin-top:4px;color:#fff;">Maurice Sanders</div>
+            <div style="font-size:11.5px;color:rgba(255,255,255,0.7);margin-top:4px;font-style:normal;font-family:'DM Sans',sans-serif;">Founder &amp; CEO, Seamlessly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:1;background:#fff;padding:26px 28px 22px 28px;display:flex;flex-direction:column;min-width:0;overflow:hidden;">
+      <div style="text-align:center;margin-bottom:12px;">
+        <img src="qr-conclusion.png" width="180" height="180" alt="QR Code" style="display:inline-block;" />
+      </div>
+      <div style="font-size:11px;font-weight:700;color:#1A2A44;text-align:center;margin-bottom:6px;">Scan the QR code or visit:</div>
+      <div style="text-align:center;margin-bottom:14px;">
+        <a href="https://chaosmasterybook.seamlessly.us" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:#1A2A44;font-weight:700;">chaosmasterybook.seamlessly.us</a>
+      </div>
+      <div style="height:1px;background:#E0E4EB;margin:6px 0 14px;"></div>
+      <div class="sec-head" style="font-size:18px;margin-bottom:10px;">Chaos Mastery Resources</div>
+      <div class="body" style="flex:1;min-height:0;">
+        <p>The interactive workbook for every chapter in this book lives at the link above.</p>
+        <p>Scan the code or visit the site and you'll find the digital version of every exercise — fill in your answers, save your progress, and come back whenever you need to.</p>
+        <p>You'll also find operator tools and a direct line to the Seamlessly team if you want help applying any of this to your venue.</p>
+        <p style="margin-bottom:0;">We're here to help.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf"><span class="pf-num">Conclusion</span><span class="pf-title">Chaos Mastery — Seamless Hospitality for the 21st Century</span></div>
+</div>
+
+<script>
+(function(){
+  var n = document.querySelectorAll('.page').length;
+  var el = document.getElementById('dlPageCount');
+  if(el) el.textContent = n + ' pages · Print-ready · 816 × 1056px · Download ZIP for all pages';
+})();
+
+function canvasToBlob(c){
+  return new Promise(function(res,rej){
+    c.toBlob(function(b){ if(b) res(b); else rej(new Error('blob failed')); },'image/png');
+  });
+}
+async function capturePageElement(el){
+  el.scrollIntoView({block:'center'});
+  await document.fonts.ready;
+  await new Promise(function(r){setTimeout(r,120);});
+  return html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:null,width:816,height:1056,scrollX:0,scrollY:-window.scrollY,logging:false});
+}
+async function downloadAllPagesZip(){
+  var pages=Array.prototype.slice.call(document.querySelectorAll('.page'));
+  if(!pages.length||typeof JSZip==='undefined'){alert('Refresh and try again.');return;}
+  var zip=new JSZip();
+  var folder=zip.folder('chaos-mastery-fallen-giants');
+  try{
+    for(var i=0;i<pages.length;i++){
+      var canvas=await capturePageElement(pages[i]);
+      var blob=await canvasToBlob(canvas);
+      var id=pages[i].id||('page-'+(i+1));
+      folder.file('fallen-giants-'+id+'.png',blob);
+    }
+    var zipBlob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}});
+    var a=document.createElement('a');
+    var url=URL.createObjectURL(zipBlob);
+    a.href=url; a.download='chaos-mastery-fallen-giants.zip'; a.click();
+    URL.revokeObjectURL(url);
+  }catch(e){console.error(e);alert('Something went wrong. Try a desktop browser.');}
+}
+</script>
+</body>
+</html>

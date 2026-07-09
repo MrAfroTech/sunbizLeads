@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamlessly — $5K+ Per Month in Festival App and Scheduling Chaos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #1A2A44;
+      --navy-deep:  #0d1b2a;
+      --navy-mid:   #1e3a5f;
+      --gold:       #D4AF37;
+      --gold-light: #e8c84a;
+      --gold-dim:   rgba(212,175,55,0.12);
+      --gold-border:rgba(212,175,55,0.28);
+      --stat:       #00D4AA;
+      --white:      #FFFFFF;
+      --text-body:  rgba(255,255,255,0.72);
+      --text-dim:   rgba(255,255,255,0.40);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy-deep);
+      color: var(--white);
+      padding: 40px 20px 80px;
+      min-height: 100vh;
+    }
+
+    /* ── OUTER SHELL ── */
+    .newsletter {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── HEADER ── */
+    .nl-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 52px 52px 48px;
+      background: var(--navy);
+      border-top: 6px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nl-header::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle at top right, rgba(212,175,55,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .nl-header-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .nl-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 34px;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .nl-logo span {
+      color: var(--gold);
+    }
+
+    .nl-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      margin-bottom: 36px;
+    }
+
+    .nl-issue-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-top: 1px solid rgba(212,175,55,0.18);
+      padding-top: 24px;
+      width: 100%;
+    }
+
+    .nl-issue-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(212,175,55,0.5);
+    }
+
+    .nl-rule-h { flex: 1; height: 1px; background: rgba(212,175,55,0.14); }
+
+    .nl-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ── HERO TITLE BLOCK ── */
+    .nl-title-block {
+      background: var(--navy);
+      padding: 52px 52px 48px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .nl-topic-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .nl-topic-tag::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .nl-main-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 38px;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .nl-hero-deck {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px; font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.65;
+      border-left: 3px solid var(--gold);
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    /* ── HERO IMAGE ── */
+    .nl-hero-image {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nl-hero-img-placeholder {
+      width: 100%;
+      height: 380px;
+      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+    }
+
+    .nl-hero-img-placeholder svg { width: 40px; height: 40px; stroke: rgba(212,175,55,0.3); }
+    .nl-hero-img-placeholder p { font-size: 13px; color: rgba(212,175,55,0.3); }
+
+    /* ── BODY WRAPPER ── */
+    .nl-body {
+      background: var(--navy);
+      padding: 0 52px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── SECTION BLOCK ── */
+    .nl-section {
+      padding: 44px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nl-section:last-child { border-bottom: none; }
+
+    .nl-section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .nl-section-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .nl-section-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px; font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .nl-section-body:last-child { margin-bottom: 0; }
+
+    /* ── STAT BOX ── */
+    .nl-stat-box {
+      background: var(--gold-dim);
+      border: 2px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 28px 0;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.08);
+    }
+
+    .nl-stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 64px;
+      color: var(--stat);
+      line-height: 1;
+      display: block;
+    }
+
+    .nl-stat-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: rgba(255,255,255,0.50);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ── BULLET LIST ── */
+    .nl-bullet-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+      margin: 16px 0;
+    }
+
+    .nl-bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .nl-bullet-list li::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    /* ── INLINE IMAGE (mid-article) ── */
+    .nl-inline-image-wrap {
+      width: calc(100% + 104px);
+      margin-left: -52px;
+      margin-right: -52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nl-inline-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nl-inline-image-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 14px 24px;
+      background: linear-gradient(0deg, rgba(13,27,42,0.85) 0%, transparent 100%);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.5px;
+    }
+
+    .nl-inline-img-placeholder {
+      width: 100%; height: 280px;
+      background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 10px;
+    }
+
+    .nl-inline-img-placeholder svg { width: 36px; height: 36px; stroke: rgba(212,175,55,0.3); }
+    .nl-inline-img-placeholder p { font-size: 12px; color: rgba(212,175,55,0.3); }
+
+    /* ── CALLOUT BLOCK ── */
+    .nl-callout {
+      background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(0,212,170,0.06) 100%);
+      border: 2px solid rgba(212,175,55,0.20);
+      border-radius: 14px;
+      padding: 30px 32px;
+      margin: 28px 0;
+    }
+
+    .nl-callout-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--white);
+      line-height: 1.4;
+    }
+
+    .nl-callout-text em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* ── TWO-COL STAT ROW ── */
+    .nl-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .nl-stat-mini {
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 20px 20px;
+    }
+
+    .nl-stat-mini-number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: var(--stat);
+      line-height: 1;
+      display: block;
+    }
+
+    .nl-stat-mini-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.48);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* ── TAKEAWAY RULE ── */
+    .nl-rule { width: 100%; height: 1px; background: rgba(212,175,55,0.14); margin: 8px 0; }
+
+    /* ── CTA FOOTER ── */
+    .nl-cta-block {
+      background: var(--navy);
+      padding: 52px 52px 56px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nl-cta-block::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle at bottom right, rgba(212,175,55,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .nl-cta-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .nl-cta-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 26px;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .nl-cta-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 500;
+      color: var(--text-body);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .nl-cta-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .nl-cta-link-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nl-cta-link-icon {
+      width: 36px; height: 36px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nl-cta-link-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; }
+
+    .nl-cta-link-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .nl-cta-link-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--gold);
+    }
+
+    .nl-cta-link-value a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nl-cta-link-value a:hover {
+      color: var(--gold-light);
+    }
+
+    /* ── FOOTER ── */
+    .nl-footer {
+      background: var(--navy-deep);
+      padding: 28px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 6px solid rgba(212,175,55,0.16);
+    }
+
+    .nl-footer-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 1px;
+    }
+
+    .nl-footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* ── SIDE ACCENT BAR (right edge of body) ── */
+    .nl-body { position: relative; }
+    .nl-body::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--gold) 0%, rgba(212,175,55,0.04) 100%);
+      pointer-events: none;
+    }
+
+    /* Download button */
+    .download-btn {
+      display: block;
+      width: 100%;
+      max-width: 720px;
+      margin: 24px auto 0;
+      padding: 16px 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212,175,55,0.4);
+    }
+
+    .nl-calc-banner {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(212,175,55,0.14) 0%, rgba(212,175,55,0.06) 100%);
+      border: 1px solid rgba(212,175,55,0.28);
+      padding: 28px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .nl-calc-banner-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+
+    .nl-calc-banner-text em {
+      font-style: normal;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .nl-calc-banner-btn {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #1A2A44;
+      background: linear-gradient(135deg, #D4AF37, #e8c84a);
+      padding: 14px 32px;
+      text-decoration: none;
+      border-radius: 4px;
+      box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .nl-calc-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(212,175,55,0.45);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="newsletter" id="newsletter">
+
+    <!-- ══ HEADER ══ -->
+    <div class="nl-calc-banner">
+      <span class="nl-calc-banner-text">Every timeout. Every rush. Every abandoned line. <em>Curious what faster lines are worth?</em></span>
+      <a href="https://www.seamlessly.us/calculator/events?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" class="nl-calc-banner-btn">Click Here To Run The Fan Spend Simulator!</a>
+    </div>
+    <header class="nl-header">
+      <div class="nl-header-eyebrow">Revenue Intelligence · Issue 011</div>
+      <div class="nl-logo">Seamlessly<span>.</span></div>
+      <div class="nl-tagline">Insights for venue and hospitality operators</div>
+      <div class="nl-issue-bar">
+        <span class="nl-issue-label">Vol. 11</span>
+        <div class="nl-rule-h"></div>
+        <span class="nl-date">2026</span>
+      </div>
+    </header>
+
+    <!-- ══ TITLE BLOCK ══ -->
+    <div class="nl-title-block">
+      <div class="nl-topic-tag">Technology &amp; Operations</div>
+      <h1 class="nl-main-headline">$5K+ Per Month in Festival App and Scheduling Chaos</h1>
+      <p class="nl-hero-deck">Fragmented apps cost festivals time, money, and guest experience. Here's what the numbers show across multi-vendor event tech stacks.</p>
+    </div>
+
+    <!-- ══ HERO IMAGE ══ -->
+    <div>
+      <img
+        class="nl-hero-image"
+        src="https://hostedassets.seamlessly.us/festivalPhotos/photo1.jpeg"
+        alt="Festival tech and vendor management operations"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      >
+      <div class="nl-hero-img-placeholder" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p>festivalPhotos/photo1.jpeg</p>
+      </div>
+    </div>
+
+    <!-- ══ BODY ══ -->
+    <div class="nl-body">
+
+      <!-- Section 1 -->
+      <div class="nl-section">
+        <div class="nl-section-label">The Scale of the Problem</div>
+        <h2 class="nl-section-headline">$5,000+ Per Month Before Scheduling and Integration Costs</h2>
+        <p class="nl-section-body">Festival tech stacks add up fast. App costs run $1,000–$20,000 per season for ticketing and navigation alone. Vendor POS across 30 stands at $60 each adds $1,800 per month. The total stack exceeds $5,000 per month before scheduling tools, integration fees, or custom development costs.</p>
+        <div class="nl-stat-box">
+          <span class="nl-stat-number">$5K+</span>
+          <span class="nl-stat-label">per month in festival tech stack costs — before scheduling, integration, and custom development fees</span>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="nl-section">
+        <div class="nl-section-label">The Fragmentation Problem</div>
+        <h2 class="nl-section-headline">Separate Apps Mean a Poor Guest Experience Across the Entire Event</h2>
+        <p class="nl-section-body">When ticketing, navigation, F&B ordering, and vendor management run on separate platforms, the guest experience suffers across every touchpoint. There's no unified view of the event for attendees — and no unified operational picture for organizers.</p>
+
+        <div class="nl-callout">
+          <div class="nl-callout-text">Separate apps don't just cost money. <em>They create friction at every guest interaction across the entire festival footprint.</em></div>
+        </div>
+
+        <ul class="nl-bullet-list">
+          <li>Festival apps operating independently from vendor POS systems</li>
+          <li>No real-time inventory sync across 50+ vendor locations</li>
+          <li>Manual scheduling across vendors creating coordination failures</li>
+          <li>Stock-outs and lost sales from disconnected inventory management</li>
+        </ul>
+      </div>
+
+      <!-- Inline image -->
+      <div class="nl-inline-image-wrap">
+        <img
+          class="nl-inline-image"
+          src="https://hostedassets.seamlessly.us/festivalPhotos/photo3.jpeg"
+          alt="Festival vendor tech"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        >
+        <div class="nl-inline-img-placeholder" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <p>festivalPhotos/photo3.jpeg</p>
+        </div>
+        <div class="nl-inline-image-caption">50+ vendor locations with no real-time inventory sync means stock-outs are inevitable</div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="nl-section">
+        <div class="nl-section-label">The Scheduling Problem</div>
+        <h2 class="nl-section-headline">Manual Scheduling Across 50+ Vendors Is Operational Chaos</h2>
+        <p class="nl-section-body">Coordinating schedules, inventory, and staffing across 50 or more vendor locations without a unified system creates compounding coordination failures. Every manual touchpoint is a potential error. Every error creates a guest-facing failure.</p>
+
+        <div class="nl-stat-row">
+          <div class="nl-stat-mini">
+            <span class="nl-stat-mini-number">50+</span>
+            <span class="nl-stat-mini-label">vendor locations the average large festival must coordinate without real-time data sync</span>
+          </div>
+          <div class="nl-stat-mini">
+            <span class="nl-stat-mini-number">$20K</span>
+            <span class="nl-stat-mini-label">maximum per-season festival app cost before any POS, scheduling, or integration fees</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="nl-section">
+        <div class="nl-section-label">The Consolidation Opportunity</div>
+        <h2 class="nl-section-headline">Real-Time Sync Changes Everything Across the Festival Footprint</h2>
+        <p class="nl-section-body">When apps are unified and inventory syncs in real time, stock-outs become visible before they happen, scheduling becomes manageable at scale, and the guest experience becomes consistent across every vendor location.</p>
+
+        <!-- Inline image 2 -->
+        <div class="nl-inline-image-wrap" style="margin: 28px -52px;">
+          <img
+            class="nl-inline-image"
+            src="https://hostedassets.seamlessly.us/festivalPhotos/photo5.jpeg"
+            alt="Festival unified platform"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <div class="nl-inline-img-placeholder" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <p>festivalPhotos/photo5.jpeg</p>
+          </div>
+          <div class="nl-inline-image-caption">Real-time inventory sync across all vendor locations eliminates the stock-out failures that drive guest frustration</div>
+        </div>
+
+        <div class="nl-callout">
+          <div class="nl-callout-text">Consolidation and real-time sync <em>reduce errors, recover lost sales, and improve the guest experience across every vendor location simultaneously.</em></div>
+        </div>
+      </div>
+
+      <!-- Section 5: Takeaway -->
+      <div class="nl-section">
+        <div class="nl-section-label">The Takeaway</div>
+        <h2 class="nl-section-headline">Fragmented festival tech doesn't just cost money. It creates failures at scale.</h2>
+        <p class="nl-section-body">The $5,000 monthly fee is visible. The operational cost of running 50+ vendors without real-time data, unified scheduling, or integrated inventory management is harder to quantify — and significantly larger.</p>
+
+        <div class="nl-callout">
+          <div class="nl-callout-text">The festivals running the smoothest operations aren't using the most apps. <em>They're using the fewest, most connected ones.</em></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /nl-body -->
+
+    <!-- ══ CTA ══ -->
+    <div class="nl-cta-block">
+      <div class="nl-cta-eyebrow">Get in Touch</div>
+      <h2 class="nl-cta-headline">Want to see what your festival tech consolidation opportunity looks like?</h2>
+      <p class="nl-cta-sub">We work with festival and multi-vendor event operators to map current tech costs and identify where consolidation creates the most leverage. No pitch — just a conversation grounded in your operation.</p>
+
+      <div class="nl-cta-links">
+        <div class="nl-cta-link-item">
+          <div class="nl-cta-link-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <span class="nl-cta-link-label">Email</span>
+            <div class="nl-cta-link-value"><a href="mailto:maurice.sanders&#64;seamlessly.us">maurice.sanders&#64;seamlessly.us</a></div>
+          </div>
+        </div>
+
+        <div class="nl-cta-link-item">
+          <div class="nl-cta-link-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 012 2.18 2 2 0 014 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <span class="nl-cta-link-label">Phone</span>
+            <div class="nl-cta-link-value"><a href="tel:3054340738">305-434-0738</a></div>
+          </div>
+        </div>
+
+        <div class="nl-cta-link-item">
+          <div class="nl-cta-link-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <span class="nl-cta-link-label">Website</span>
+            <div class="nl-cta-link-value"><a href="https://seamlessly.us" target="_blank">seamlessly.us</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="nl-footer">
+      <div class="nl-footer-logo">Seamlessly</div>
+      <div class="nl-footer-copy">© 2026 Seamlessly · seamlessly.us</div>
+    </footer>
+
+    <!-- ══ UNSUBSCRIBE ══ -->
+    <div style="background: var(--navy-deep); padding: 16px 52px 32px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+      <p style="font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.20); line-height: 1.6;">
+        You're receiving this because you're connected with Seamlessly. No hard feelings if it's not for you —
+        <a href="mailto:maurice.sanders&#64;seamlessly.us?subject=Unsubscribe" style="color: rgba(212,175,55,0.45); text-decoration: underline; text-underline-offset: 3px;">unsubscribe here</a>.
+      </p>
+    </div>
+
+    <div class="nl-calc-banner">
+      <span class="nl-calc-banner-text">Every timeout. Every rush. Every abandoned line. <em>Curious what faster lines are worth?</em></span>
+      <a href="https://www.seamlessly.us/calculator/events?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" class="nl-calc-banner-btn">Click Here To Run The Fan Spend Simulator!</a>
+    </div>
+
+  </div><!-- /newsletter -->
+
+  <button class="download-btn" id="downloadBtn" type="button">
+    ↓ &nbsp; Download Newsletter as PNG
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      var btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Generating PNG…';
+
+      html2canvas(document.getElementById('newsletter'), {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        backgroundColor: '#1A2A44'
+      }).then(function (canvas) {
+        var link = document.createElement('a');
+        link.download = 'seamlessly-newsletter-011.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.disabled = false;
+        btn.textContent = '↓   Download Newsletter as PNG';
+      }).catch(function (err) {
+        console.error(err);
+        btn.disabled = false;
+        btn.textContent = '↓   Download Newsletter as PNG';
+      });
+    });
+  </script>
+</body>
+</html>

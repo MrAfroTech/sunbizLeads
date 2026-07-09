@@ -1,0 +1,174 @@
+{
+  "name": "01 - Lead Discovery",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start-trigger",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "city",
+              "value": "Orlando"
+            },
+            {
+              "name": "venue_type",
+              "value": "bar"
+            },
+            {
+              "name": "google_maps_api_key",
+              "value": "={{ $credentials.googleMapsApi.apiKey }}"
+            }
+          ],
+          "number": [
+            {
+              "name": "max_results",
+              "value": 20
+            }
+          ]
+        }
+      },
+      "id": "set-inputs",
+      "name": "Set Inputs",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://maps.googleapis.com/maps/api/place/textsearch/json?query={{ $json.venue_type }}+in+{{ $json.city }}&key={{ $json.google_maps_api_key }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "search-maps",
+      "name": "Search Google Maps",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.all()[0].json;\nconst places = inputData.results || [];\nconst city = $node[\"Set Inputs\"].json.city;\n\nconst results = places.slice(0, 20).map(place => ({\n  business_name: place.name,\n  category: place.types?.[0] || 'unknown',\n  city: city,\n  address: place.formatted_address || '',\n  website: place.website || '',\n  rating: place.rating || 0,\n  review_count: place.user_ratings_total || 0,\n  phone: place.formatted_phone_number || '',\n  place_id: place.place_id,\n  status: 'New',\n  score: 0,\n  email: '',\n  contacted_date: '',\n  last_activity: new Date().toISOString()\n}));\n\nreturn results;"
+      },
+      "id": "parse-venues",
+      "name": "Parse Venues",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "business_name": "={{ $json.business_name }}",
+            "category": "={{ $json.category }}",
+            "city": "={{ $json.city }}",
+            "address": "={{ $json.address }}",
+            "website": "={{ $json.website }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "rating": "={{ $json.rating }}",
+            "review_count": "={{ $json.review_count }}",
+            "score": "={{ $json.score }}",
+            "status": "={{ $json.status }}",
+            "contacted_date": "={{ $json.contacted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "place_id": "={{ $json.place_id }}"
+          }
+        }
+      },
+      "id": "write-sheet",
+      "name": "Write to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Set Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Inputs": {
+      "main": [
+        [
+          {
+            "node": "Search Google Maps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Google Maps": {
+      "main": [
+        [
+          {
+            "node": "Parse Venues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Venues": {
+      "main": [
+        [
+          {
+            "node": "Write to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
+
+

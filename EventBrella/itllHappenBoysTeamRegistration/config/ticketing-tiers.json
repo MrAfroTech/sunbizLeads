@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Day Pass",
+    "id": "day-pass",
+    "price": "20",
+    "capacity": "200",
+    "description": "Single day access. Full regulation games. MVP opportunities."
+  },
+  {
+    "name": "Weekend Pass",
+    "id": "weekend-pass",
+    "price": "52",
+    "capacity": "150",
+    "description": "All 3 days. More games, more competition, more growth. Save $8."
+  },
+  {
+    "name": "VIP Day Pass",
+    "id": "vip-day-pass",
+    "price": "60",
+    "capacity": "50",
+    "description": "Reserved seating. Watch your athlete dominate in comfort. Premium viewing guaranteed."
+  },
+  {
+    "name": "VIP Weekend Pass",
+    "id": "vip-weekend-pass",
+    "price": "152",
+    "capacity": "40",
+    "description": "Reserved seats all weekend. The best view for the best parents. Premium everything."
+  }
+]

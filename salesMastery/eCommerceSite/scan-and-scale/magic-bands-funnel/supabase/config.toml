@@ -1,0 +1,9 @@
+# Linked project: https://supabase.com/dashboard/project/abcdefghijklmnop
+
+project_id = "abcdefghijklmnop"
+
+[functions.on-new-click-event]
+verify_jwt = false
+
+[functions.send-followup-emails]
+verify_jwt = false

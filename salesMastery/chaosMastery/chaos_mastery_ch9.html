@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 9: The Tech Stack Trap</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#2a2a2a;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 16px;gap:0;}
+.dl-bar{width:816px;background:#1A2A44;border:2px solid #D4AF37;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;border-radius:3px;}
+.dl-bar-title{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:18px;letter-spacing:2px;}
+.dl-bar-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;}
+.dl-btns{display:flex;gap:10px;}
+.dl-btns button{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;}
+.btn-single{background:#00D4AA;color:#1A2A44;}
+.btn-all{background:#D4AF37;color:#1A2A44;}
+.page{width:816px;height:1056px;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;margin-bottom:2px;flex-shrink:0;}
+.ph{width:100%;height:48px;background:#1A2A44;display:flex;align-items:center;justify-content:space-between;padding:0 64px;border-bottom:4px solid #D4AF37;flex-shrink:0;}
+.ph-brand{font-family:'Bebas Neue',sans-serif;color:#D4AF37;font-size:20px;letter-spacing:3px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:15px;letter-spacing:2px;}
+.pf{width:100%;height:28px;border-top:1px solid #D4AF37;display:flex;align-items:center;padding:0 80px;flex-shrink:0;}
+.pf-num{font-size:11px;color:#1A2A44;font-weight:700;}
+.pf-title{font-size:11px;color:#999;margin-left:auto;font-style:italic;}
+.pc{flex:1;padding:22px 64px 14px 80px;display:flex;flex-direction:column;overflow:hidden;}
+.pc-full{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.navy-bg{flex:1;background:#1A2A44;padding:22px 64px 18px 80px;display:flex;flex-direction:column;}
+.label{font-size:10px;font-weight:700;color:#D4AF37;text-transform:uppercase;letter-spacing:3px;margin-bottom:4px;}
+.ch-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1A2A44;line-height:1;margin-bottom:8px;}
+.ch-intro{font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:#1A2A44;line-height:1.48;margin-bottom:8px;}
+.sec-head{font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;letter-spacing:1px;margin-bottom:5px;margin-top:9px;}
+.body{font-size:11.5px;color:#1A1A1A;line-height:1.52;}
+.body p{margin-bottom:6px;}
+.body strong{color:#1A2A44;font-weight:700;}
+.cite{font-size:9.5px;color:#999;font-style:italic;vertical-align:super;}
+.src-note{font-size:10px;color:#888;font-style:italic;line-height:1.5;border-top:1px solid #eee;padding-top:7px;margin-top:6px;}
+.two-col{display:grid;grid-template-columns:55% 42%;gap:3%;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.sidebar{display:flex;flex-direction:column;gap:12px;}
+.stat-box{background:#fff;border-left:4px solid #1A2A44;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;line-height:1;}
+.stat-lbl{font-size:11.5px;color:#1A2A44;font-weight:700;margin-top:2px;line-height:1.4;}
+.stat-sub{font-size:10px;color:#666;margin-top:3px;}
+.stat-box.teal{border-color:#00D4AA;}.stat-box.teal .stat-num{color:#00D4AA;}
+.stat-box.red{border-color:#e74c3c;}.stat-box.red .stat-num{color:#e74c3c;}
+.callout{background:#F4F6F9;border-left:4px solid #D4AF37;padding:9px 12px;font-size:12px;color:#1A2A44;line-height:1.52;}
+.callout strong{color:#D4AF37;}
+.q-card{padding:14px 16px;border-radius:4px;}
+.q-card.navy{background:#1A2A44;}.q-card.gold{background:#D4AF37;}.q-card.teal{background:#00D4AA;}.q-card.light{background:#F4F6F9;border:1px solid #e0e0e0;}
+.q-mark{font-family:'DM Serif Display',serif;font-size:34px;line-height:1;opacity:.3;margin-bottom:3px;}
+.q-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;line-height:1.65;margin-bottom:7px;}
+.q-attr{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.q-src{font-size:9.5px;font-style:italic;opacity:.65;margin-top:2px;}
+.q-card.navy .q-mark,.q-card.navy .q-text{color:#fff;}.q-card.navy .q-attr{color:#D4AF37;}.q-card.navy .q-src{color:rgba(255,255,255,0.5);}
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src{color:#1A2A44;}
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src{color:#1A2A44;}
+.q-card.light .q-mark,.q-card.light .q-text{color:#1A2A44;}.q-card.light .q-attr{color:#666;}
+.fill-line{border-bottom:1px solid #CCC;height:28px;margin-bottom:5px;}
+.fill-label{font-size:11px;color:#1A2A44;font-weight:700;margin-bottom:4px;letter-spacing:.5px;}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 9: The Tech Stack Trap</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all" onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- PAGE 1 — OPENER -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44;flex:1;padding:50px 80px 40px 80px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;">Part II — The Hidden Leaks in Hospitality</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.35);font-family:'Bebas Neue',sans-serif;letter-spacing:3px;margin-bottom:10px;">Chapter 9</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;line-height:.92;margin-bottom:2px;">THE TECH</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#D4AF37;line-height:.92;margin-bottom:34px;">STACK TRAP</div>
+        <div style="width:72px;height:4px;background:#00D4AA;margin-bottom:28px;"></div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,0.85);line-height:1.65;max-width:560px;">
+          "Maintaining outdated tech gets costly — paying for overlapping tools like multiple messaging apps, and letting unused licenses drain budgets before anyone notices."
+          <span style="display:block;font-size:12.5px;color:rgba(255,255,255,0.45);font-style:normal;margin-top:8px;font-family:'DM Sans',sans-serif;">— Canary Technologies, "Reducing Hotel Operating Costs with Integrated Technology" · canarytechnologies.com</span>
+        </div>
+      </div>
+      <div>
+        <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#e74c3c;line-height:1;">8–15</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">Tech tools the average hospitality operator manages — POS, reservations, payroll, delivery, CRM, scheduling, and loyalty programs</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#D4AF37;line-height:1;">$6.54B</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">hospitality management software market in 2025 — growing to $13B by 2030 at 14.74% CAGR</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#00D4AA;line-height:1;">52%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">of SaaS licenses go unused — paying for software nobody logs into, every single month</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;">5–7%</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.65);font-weight:600;line-height:1.4;">of revenue consumed by the complexity tax — waste, errors, admin drag, and integration failures</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 2 — THE TRAP DEFINED -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="label">The Hidden Revenue Drain</div>
+        <div class="ch-title">Technology Was Supposed to Help. Instead It Became the Problem.</div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The tech stack trap starts with good intentions: find the best tool for each job. It ends with 12 monthly subscriptions, 4 staff training manuals, 3 systems that don't share data, and a complexity tax that quietly eats 5–7% of your revenue every year.</div>
+        <div class="body">
+          <p>The HOSPITALITY MANAGEMENT software market hit <strong>$6.54 billion in 2025</strong> and is projected to reach $13.01 billion by 2030, advancing at a 14.74% CAGR, according to Mordor Intelligence's market analysis. That number tells you how aggressively vendors are selling. It does not tell you how much of that investment is actually productive.<span class="cite"> Mordor Intelligence, "HOSPITALITY MANAGEMENT Software Market Size & Share Analysis," mordorintelligence.com, 2025</span></p>
+          <p>The problem is not that operators are buying bad tools. The problem is that they are buying <strong>too many tools that don't communicate with each other</strong>. Canary Technologies' report on hotel operating costs identifies the exact failure mode: <em>"Maintaining outdated tech gets costly — paying for overlapping tools like multiple messaging apps, and letting unused licenses drain budgets before anyone notices."</em><span class="cite"> Canary Technologies, "Reducing Hotel Operating Costs with Integrated Technology," canarytechnologies.com</span></p>
+          <div class="sec-head">The $6.6B Market That Operators Are Getting Wrong</div>
+          <p>The average casual dining operator runs 8–15 tech tools simultaneously — POS, reservations, delivery integrations, CRM, scheduling, payroll, loyalty, analytics — with monthly costs ranging from $400 to $2,000+. But <strong>52% of SaaS licenses go unused</strong>, according to industry license utilization data. The waste is structural: tools are purchased at the peak of a sales demo, adopted partially, and then maintained indefinitely because nobody owns the audit process.<span class="cite"> Brief, citing Gartner SaaS license waste data; Canary Technologies, canarytechnologies.com</span></p>
+          <div class="callout" style="margin-top:13px;">
+            <strong>The sticker shock moment:</strong> When operators complete the exercise at the end of this chapter — listing every SaaS subscription, every per-user fee, every trial that became permanent — the number is almost always higher than anyone in the building expected. The average 200-cover operator spends $735/month ($8,800/year) on software alone, before calculating the hidden waste from unused features, duplicate tools, and the staff time lost to manual workarounds.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#c0392b;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#f9d71c;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Technology Trap in Numbers</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;">$6.54B</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">restaurant software market in 2025 — growing at 14.74% CAGR to $13B by 2030</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Mordor Intelligence, mordorintelligence.com, 2025</div>
+            </div>
+            <div style="border-bottom:1px solid rgba(255,255,255,0.2);padding-bottom:10px;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#f9d71c;line-height:1;">52%</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">of SaaS licenses go unused — money spent on ghost seats every month</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Industry SaaS utilization benchmarks</div>
+            </div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;">5–7%</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;">of lost revenue by the complexity tax through waste, errors, and admin drag</div>
+              <div style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-top:3px;font-style:italic;">Brief estimate; Logically, "Hidden Costs of IT Complexity," logically.com</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">8–15</div>
+          <div class="stat-lbl">Tech tools running simultaneously at the average mid-sized hospitality operation</div>
+          <div class="stat-sub">Industry operator surveys; Canary Technologies, canarytechnologies.com</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">$4,800 - $24,000</div>
+          <div class="stat-lbl">monthly software spend for a mid-sized venue — $4,800–$24,000 annually before hidden waste</div>
+          <div class="stat-sub">Abbacus Technologies, "HOSPITALITY MANAGEMENT Software Costs," abbacustechnologies.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 3 — THE MARKET EXPLOSION (Full bleed navy) -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Market Context</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">THE $6.54B MARKET OPERATORS ARE BEING SOLD ON</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">HOSPITALITY Software — Market Size, Growth & What It Means for Every Operator</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Market Trajectory — 2025–2030</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);text-align:right;width:40px;flex-shrink:0;">2025</div>
+              <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:18px;overflow:hidden;"><div style="width:50%;height:100%;background:#D4AF37;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">$6.54B</span></div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);text-align:right;width:40px;flex-shrink:0;">2027</div>
+              <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:18px;overflow:hidden;"><div style="width:68%;height:100%;background:#FFA500;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">~$8.6B (est.)</span></div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);text-align:right;width:40px;flex-shrink:0;">2030</div>
+              <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:3px;height:18px;overflow:hidden;"><div style="width:100%;height:100%;background:#00D4AA;border-radius:3px;display:flex;align-items:center;padding-left:8px;"><span style="font-size:11px;font-weight:700;color:#1A2A44;">$13.01B · 14.74% CAGR</span></div></div>
+            </div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);font-style:italic;margin-bottom:12px;">Source: Mordor Intelligence, "HOSPITALITY MANAGEMENT Software Market Size & Share Analysis," mordorintelligence.com, 2025</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;">Mordor Intelligence notes that <strong style="color:#D4AF37;">vendors are broadening front-end and back-office functionality through open-API ecosystems</strong>, allowing operators to compose tailored tech stacks without large upfront investments. The appeal is real — but so is the risk. Every additional API connection is another potential failure point, another integration to maintain, and another monthly subscription to justify.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">What the Market Growth Means for Operators</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">MORE TOOLS = MORE SALES PRESSURE</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">A $13B market by 2030 means thousands of vendors competing for your wallet. Each one has a demo that solves your problem. None of them tells you about the integration burden they'll create.</div>
+            </div>
+            <div style="background:rgba(0,212,170,0.1);border-left:3px solid #00D4AA;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">ANALYTICS BECAME NON-OPTIONAL</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Mordor Intelligence documents that analytics modules moved from optional add-ons to core purchase criteria as restaurants seek predictive insights in a cost-inflation environment. The data is right — but only if it's unified.</div>
+            </div>
+            <div style="background:rgba(255,107,107,0.1);border-left:3px solid #ff6b6b;padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#ff6b6b;margin-bottom:3px;">THE CONSOLIDATION PRESSURE IS REAL</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">As the market grows, the operators who consolidate to fewer, better-integrated platforms will have a structural cost advantage over those who keep adding point solutions. The $13B market is telling you which way the wind blows.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.3);padding:10px 12px;border-radius:0 3px 3px 0;">
+              <div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;">COST AS % OF REVENUE IS RISING</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Hotel operating costs rose 5% YoY in 2024, with IT and SaaS among the top cost drivers alongside siloed systems. The complexity tax compounds annually — and the longer an operator waits to audit, the larger the bill. Source: Canary Technologies, canarytechnologies.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:12px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;margin-bottom:4px;">14.74%</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">CAGR for hospitality software market 2025–2030</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">Mordor Intelligence, mordorintelligence.com</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#00D4AA;line-height:1;margin-bottom:4px;">5% YoY</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">rise in hotel operating costs in 2024 — IT and SaaS among top drivers</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">Canary Technologies, canarytechnologies.com</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;margin-bottom:4px;">75%</div>
+          <div style="font-size:11.5px;color:rgba(255,255,255,0.75);line-height:1.4;">of organizations believe their IT environments are too complex — leading to security risk and inefficiency</div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:3px;font-style:italic;">PwC via Logically, logically.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 4 — THE COST BREAKDOWN TABLE -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Real Cost Model</div>
+    <div class="ch-title">What the Average Tech Stack Costs</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The visible cost is the monthly subscription line. The invisible cost is everything it doesn't do — the features nobody trained on, the integrations that never quite work, the duplicate entry that costs 20 minutes of labor every shift, and the data that lives in the wrong system.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Visible Stack — What's on the Invoice</div>
+          <p>According to Abbacus Technologies' comprehensive guide to HOSPITALITY MANAGEMENT software costs — covering mid-sized casual dining — the core stack for a 200-cover operation runs:<span class="cite"> Abbacus Technologies, "How Much Does HOSPITALITY MANAGEMENT Software Cost?" abbacustechnologies.com</span></p>
+        </div>
+        <table style="width:100%;border-collapse:collapse;margin:10px 0;">
+          <thead>
+            <tr style="background:#1A2A44;">
+              <th style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1.5px;text-align:left;padding:8px 10px;">Tool Category</th>
+              <th style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1.5px;text-align:center;padding:8px 10px;">Monthly Cost</th>
+              <th style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:#D4AF37;letter-spacing:1.5px;text-align:center;padding:8px 10px;">Hidden Annual Waste</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:8px 10px;font-size:12.5px;color:#1A2A44;border-bottom:1px solid #eee;">POS / Core RMS</td><td style="padding:8px 10px;font-size:12.5px;color:#1A1A1A;border-bottom:1px solid #eee;text-align:center;">$100–400</td><td style="padding:8px 10px;font-size:12.5px;color:#e74c3c;border-bottom:1px solid #eee;text-align:center;">~$1,000 (unused features)</td></tr>
+            <tr style="background:#F4F6F9;"><td style="padding:8px 10px;font-size:12.5px;color:#1A2A44;border-bottom:1px solid #eee;">Delivery / Online Ordering</td><td style="padding:8px 10px;font-size:12.5px;color:#1A1A1A;border-bottom:1px solid #eee;text-align:center;">$50–200</td><td style="padding:8px 10px;font-size:12.5px;color:#e74c3c;border-bottom:1px solid #eee;text-align:center;">~$2,000 (double-entry errors)</td></tr>
+            <tr><td style="padding:8px 10px;font-size:12.5px;color:#1A2A44;border-bottom:1px solid #eee;">Reservations / CRM</td><td style="padding:8px 10px;font-size:12.5px;color:#1A1A1A;border-bottom:1px solid #eee;text-align:center;">$50–150</td><td style="padding:8px 10px;font-size:12.5px;color:#e74c3c;border-bottom:1px solid #eee;text-align:center;">~$1,500 (no integration)</td></tr>
+            <tr style="background:#F4F6F9;"><td style="padding:8px 10px;font-size:12.5px;color:#1A2A44;border-bottom:1px solid #eee;">Scheduling / Payroll</td><td style="padding:8px 10px;font-size:12.5px;color:#1A1A1A;border-bottom:1px solid #eee;text-align:center;">$50–100</td><td style="padding:8px 10px;font-size:12.5px;color:#e74c3c;border-bottom:1px solid #eee;text-align:center;">~$800 (manual overrides)</td></tr>
+            <tr><td style="padding:8px 10px;font-size:12.5px;color:#1A2A44;border-bottom:1px solid #eee;">Add-ons (loyalty, analytics)</td><td style="padding:8px 10px;font-size:12.5px;color:#1A1A1A;border-bottom:1px solid #eee;text-align:center;">$100–300</td><td style="padding:8px 10px;font-size:12.5px;color:#e74c3c;border-bottom:1px solid #eee;text-align:center;">~$3,000 (overlap/duplicate tools)</td></tr>
+            <tr style="background:#1A2A44;"><td style="padding:9px 10px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#D4AF37;letter-spacing:1px;">TOTAL</td><td style="padding:9px 10px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#fff;text-align:center;letter-spacing:1px;">$400–1,500/mo</td><td style="padding:9px 10px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#ff6b6b;text-align:center;letter-spacing:1px;">$8,300+ annual waste</td></tr>
+          </tbody>
+        </table>
+        <div class="body">
+          <div class="src-note">Source: Abbacus Technologies, "How Much Does HOSPITALITY MANAGEMENT Software Cost?" abbacustechnologies.com; hidden waste estimates from industry operator practice models and Logically, "Hidden Costs of IT Complexity," logically.com</div>
+          <div class="callout" style="margin-top:10px;">
+            <strong>The 4% test:</strong> At $2M annual revenue, $8,800/year in software is 0.44% of revenue. But the hidden waste from unused features, duplicate tools, manual workarounds, and integration failures adds up to the 5–7% complexity tax documented in the brief. Most operators think they have a software cost problem. They actually have a software value problem.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The 200-Cover Sample Stack</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:3px;"><div style="font-size:12px;color:#fff;">Toast POS</div><div style="font-size:12px;color:#D4AF37;font-weight:700;">$250/mo</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:3px;"><div style="font-size:12px;color:#fff;">OpenTable</div><div style="font-size:12px;color:#D4AF37;font-weight:700;">$150/mo</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:3px;"><div style="font-size:12px;color:#fff;">7Shifts (scheduling)</div><div style="font-size:12px;color:#D4AF37;font-weight:700;">$100/mo</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:3px;"><div style="font-size:12px;color:#fff;">DoorDash / Uber (fees)</div><div style="font-size:12px;color:#D4AF37;font-weight:700;">$120/mo</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:3px;"><div style="font-size:12px;color:#fff;">QuickBooks</div><div style="font-size:12px;color:#D4AF37;font-weight:700;">$40/mo</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:3px;"><div style="font-size:12px;color:#fff;">Loyalty app</div><div style="font-size:12px;color:#D4AF37;font-weight:700;">$75/mo</div></div>
+            <div style="height:1px;background:rgba(212,175,55,0.3);"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#D4AF37;letter-spacing:1px;">TOTAL</div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;">$735/mo · $8,820/yr</div></div>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:8px;line-height:1.5;">That's 0.44% of $2M revenue in visible cost. Before calculating the hidden waste from unused features, duplicate data, and workaround labor.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">20%</div>
+          <div class="stat-lbl">efficiency loss from fragmented stack — redundant processes, data re-entry, and reconciliation drag</div>
+          <div class="stat-sub">Logically, "Hidden Costs of IT Complexity in Retail and Hospitality" · logically.com · citing PwC data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 5 — THE COMPLEXITY TAX CONCEPT (Full bleed navy) -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Core Concept</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">THE COMPLEXITY TAX</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Disconnected Tool Extracts a 5–7% Revenue Tax Through Four Hidden Cost Channels</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;flex:1;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;letter-spacing:2px;margin-bottom:8px;">CHANNEL 1 — UNUSED LICENSES</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#e74c3c;line-height:1;margin-bottom:6px;">52%</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:8px;">of SaaS licenses go unused industry-wide. The tool was purchased at the peak of the sales demo, partially deployed, and then maintained indefinitely because nobody owns the audit process. At $100–400/month per tool, ghost licenses compound quarterly.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Industry SaaS utilization benchmarks; Canary Technologies, canarytechnologies.com</div>
+          </div>
+          <div style="background:rgba(255,165,0,0.08);border:1px solid rgba(255,165,0,0.25);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#FFA500;letter-spacing:2px;margin-bottom:8px;">CHANNEL 2 — INTEGRATION FAILURES</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#FFA500;line-height:1;margin-bottom:6px;">$500–2K</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:8px;">one-time integration cost per connection — plus ongoing maintenance as vendors update APIs unilaterally. Logically's research on IT complexity in retail and hospitality identifies integration failure as the primary driver of redundant processes and data errors in multi-system environments.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Logically, "Hidden Costs of IT Complexity in Retail and Hospitality," logically.com</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#D4AF37;letter-spacing:2px;margin-bottom:8px;">CHANNEL 3 — STAFF TIME ON IT FRICTION</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#D4AF37;line-height:1;margin-bottom:6px;">+20%</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:8px;">increase in IT maintenance costs when running fragmented systems. Staff time spent on manual reconciliation, data re-entry, and system workarounds is the most insidious cost — it shows up in the labor line, not the software line, making it invisible in traditional cost reviews.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Logically, logically.com; Workday Blog, blog.workday.com</div>
+          </div>
+          <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.25);border-radius:4px;padding:16px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;letter-spacing:2px;margin-bottom:8px;">CHANNEL 4 — DECISION PARALYSIS</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#00D4AA;line-height:1;margin-bottom:6px;">47%</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;margin-bottom:8px;">of hospitality leaders can't unify insights across disconnected tools. The Workday Blog documents this as the primary driver of reactive decision-making across staffing, inventory, and guest management. When the data exists but can't be accessed, leaders fly blind — which is its own revenue cost.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Blaise Radley, Workday Blog, blog.workday.com</div>
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:12px;"></div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:12px 16px;">
+        <div style="font-size:13px;color:#fff;line-height:1.6;"><strong style="color:#D4AF37;">The complexity tax formula:</strong> (Unused licenses × monthly rate) + (integration failure rate × avg fix cost) + (manual reconciliation hours × $20/hr) + (decisions delayed due to data unavailability × revenue at risk) = <strong style="color:#00D4AA;">your actual technology cost, not the software invoice.</strong> Most operators have never calculated this number. The chapter-end exercise does it for you in 20 minutes.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 6 — DISCONNECTED PAIN -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">What Fragmentation Actually Produces</div>
+    <div class="ch-title">How Technology Fails Operators Every Day</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Fragmented systems don't just cost money. They generate specific, recurring failure modes that operators experience as operational friction — but the root cause is tech decisions made years earlier when each tool was purchased independently.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Logically Report: What IT Complexity Costs in Retail and Hospitality</div>
+          <p>Logically's research on IT complexity in retail and hospitality identifies the three primary failure modes of fragmented stacks — all of which produce direct revenue impact:<span class="cite"> Logically, "The Hidden Costs of IT Complexity in Retail and Hospitality," logically.com</span></p>
+          <p><strong>Fragmented data:</strong> Customer, inventory, and sales systems that cannot share data result in <strong>service delays, inaccurate reporting, and poor decision-making</strong>. The guest who has visited 40 times is still a stranger to the loyalty program. The inventory system doesn't know what the POS sold last Tuesday. Reports require manual assembly from three separate exports.</p>
+          <p><strong>Redundant processes:</strong> Employees must manually transfer data between disconnected platforms, <strong>increasing the risk of errors and wasting valuable time.</strong> Every manual transfer is a potential error. Every error is either a guest experience failure, a financial discrepancy, or both.</p>
+          <p><strong>Difficulty scaling:</strong> Adding new locations requires reconfiguring multiple systems across every vendor relationship, <strong>which delays expansion plans and slows ROI.</strong> The franchise model built on a fragmented stack is a franchise model that takes three times as long and twice as much budget to scale.<span class="cite"> Logically, logically.com; citing PwC research</span></p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The PwC finding:</strong> Logically cites PwC research establishing that 75% of organizations believe their IT environments are too complex, leading to security and privacy concerns and operational inefficiencies. This is not a hospitality-specific problem — but hospitality's guest-facing nature makes the operational inefficiency unusually visible and unusually expensive. A manufacturing plant's IT complexity shows up in internal reports. A restaurant's IT complexity shows up at the table.
+            <div style="font-size:9.5px;color:#888;font-style:italic;margin-top:3px;">Source: Logically, logically.com, citing PwC Global Digital Trust Insights</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Fragmentation Failure Cascade</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;"><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">POS + Delivery Platform = Separate</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Staff manually enter delivery orders into POS. Error rate spikes. Kitchen gets duplicate or incorrect tickets during peak service.</div></div>
+            <div style="text-align:center;font-size:12px;color:rgba(212,175,55,0.4);">↓ cascades to</div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;"><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">CRM + Reservations = Separate</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Booking history lives in one system, guest preferences in another. The returning guest gets the same experience as a first-timer. Loyalty is structurally impossible.</div></div>
+            <div style="text-align:center;font-size:12px;color:rgba(212,175,55,0.4);">↓ cascades to</div>
+            <div style="background:rgba(231,76,60,0.1);border-left:3px solid #e74c3c;padding:9px 11px;border-radius:0 3px 3px 0;"><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:2px;">Scheduling + Labor Cost = Separate</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Manager can't see labor cost in real time against sales forecast. Overstaffing and understaffing run simultaneously. Labor variances discovered after close, not during service.</div></div>
+            <div style="text-align:center;font-size:12px;color:rgba(212,175,55,0.4);">↓ result</div>
+            <div style="background:rgba(212,175,55,0.1);border-left:3px solid #D4AF37;padding:9px 11px;border-radius:0 3px 3px 0;"><div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:2px;">47% Can't See the Full Picture</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Leadership makes reactive decisions on staffing, inventory, and guest management because the data is siloed. The complexity tax compounds daily.</div></div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: Logically (logically.com); Workday Blog (blog.workday.com)</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Fragmented stacks turn data into noise — when you can't unify insights, you can't gain actionable intelligence and can't provide a smooth experience for guests or employees."</div>
+          <div class="q-attr">Blaise Radley, Workday</div>
+          <div class="q-src">"The Future of Hospitality: 5 Trends Changing the Industry" · blog.workday.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 7 — WHAT'S WORKING / NOT WORKING -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Diverging Paths</div>
+    <div class="ch-title">What's Working vs. What's Not</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The market has already split. Operators who consolidate to unified platforms are compounding structural advantages. Those who keep adding point solutions are compounding structural debt. The gap between these two groups is measurable in cost efficiency and operational responsiveness — and it widens every year.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">What Works — Consolidation to Unified Platforms</div>
+          <p>The Canary Technologies report on hotel operating costs establishes the consolidation case directly: <em>"Investing in a comprehensive, integrated system can be more cost-effective than maintaining multiple separate tools."</em> Their guidance on reducing hotel operating costs identifies the hotel tech stack as a primary lever — <strong>evaluating all software subscriptions, eliminating redundancies, and replacing multiple point solutions with integrated platforms reduces both direct cost and maintenance overhead.</strong><span class="cite"> Canary Technologies, "Reducing Hotel Operating Costs with Integrated Technology," canarytechnologies.com</span></p>
+          <p>Mordor Intelligence's market analysis confirms that operators are moving in this direction: analytics modules moved from optional add-ons to core purchase criteria as operators seek predictive insights. The vendors winning market share in 2025 are those with broad, integrated platforms — not narrow point solutions. <strong>The market is validating consolidation as the dominant architecture.</strong><span class="cite"> Mordor Intelligence, mordorintelligence.com, 2025</span></p>
+          <div class="sec-head">What Doesn't Work — Best-of-Breed Sprawl</div>
+          <p>The Canary Technologies report documents the failure mode precisely: <em>"Maintaining outdated tech gets costly — paying for overlapping tools like multiple messaging apps, and letting unused licenses drain budgets."</em> The "best tool for each job" model assumes an integration quality that rarely exists in practice. Each add-on costs $50–150/month plus training, plus the ongoing maintenance burden as vendors update APIs independently, plus the staff time required to bridge the gaps between systems that were never designed to work together.<span class="cite"> Canary Technologies, canarytechnologies.com</span></p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>Jim Taylor, restaurant technology consultant:</strong> "Stop buying, start measuring. Before purchasing any new tool, calculate the ROI of what you already have. Most operators are sitting on more technology capability than they've deployed — the first audit should be internal, not external." <span class="cite"> Jim Taylor, LinkedIn post, restaurant technology commentary, linkedin.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Consolidation vs. Sprawl — By the Numbers</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(212,175,55,0.05);border-radius:3px;padding:5px 7px;align-items:center;"><div style="font-size:9px;color:rgba(255,255,255,0.5);font-weight:700;text-transform:uppercase;">Approach</div><div style="font-size:9px;color:rgba(212,175,55,0.7);font-weight:700;text-align:center;text-transform:uppercase;">Tech Reduction</div><div style="font-size:9px;color:rgba(0,212,170,0.7);font-weight:700;text-align:center;text-transform:uppercase;">Annual Saving</div></div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(0,212,170,0.1);border-radius:3px;padding:8px 7px;align-items:center;"><div style="font-size:12px;color:#fff;font-weight:600;">Unified all-in-one platform</div><div style="font-size:12px;color:#00D4AA;font-weight:700;text-align:center;">40–60%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">$5K–15K+</div></div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(212,175,55,0.08);border-radius:3px;padding:8px 7px;align-items:center;"><div style="font-size:12px;color:#fff;font-weight:600;">Partial consolidation (3→1 audit)</div><div style="font-size:12px;color:#D4AF37;font-weight:700;text-align:center;">20–30%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">$2K–6K</div></div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(255,255,255,0.05);border-radius:3px;padding:8px 7px;align-items:center;"><div style="font-size:12px;color:#fff;font-weight:600;">License audit only</div><div style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;text-align:center;">10–15%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);text-align:center;">$1K–3K</div></div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:5px;background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:8px 7px;align-items:center;"><div style="font-size:12px;color:#e74c3c;font-weight:600;">Add another tool (status quo+)</div><div style="font-size:12px;color:#e74c3c;font-weight:700;text-align:center;">−10%</div><div style="font-size:11px;color:#e74c3c;text-align:center;">−$1.2K+ net</div></div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: Canary Technologies (canarytechnologies.com); Abbacus Technologies (abbacustechnologies.com); operator practice models</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">40%</div>
+          <div class="stat-lbl">reduction is achievable by consolidating to unified all-in-one platforms — saving $5K+ annually</div>
+          <div class="stat-sub">Industry operator case studies; Canary Technologies, canarytechnologies.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 8 — HOTEL OPERATING COST DEEP DIVE (Full bleed navy) -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">Hotel-Side Evidence</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">HOTEL OPERATING COSTS — THE IT CULPRIT</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Canary Technologies' Framework for Reducing Costs Through Integration</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Canary Technologies — The Cost Audit Framework</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:16px;margin-bottom:12px;">
+            <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14.5px;color:#fff;line-height:1.65;margin-bottom:8px;">"Maintaining outdated tech gets costly when you're paying for overlapping tools like multiple messaging apps and letting unused licenses drain budgets before anyone notices."</div>
+            <div style="font-size:11px;font-weight:700;color:#D4AF37;">Canary Technologies</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;margin-top:2px;">"Reducing Hotel Operating Costs with Integrated Technology" · canarytechnologies.com</div>
+          </div>
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Their 4-Step Audit Recommendation</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:9px 11px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">STEP 1 — Evaluate all software subscriptions</div><div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.4;">List every active subscription, including add-ons, per-user fees, and trials that became permanent. Most operators have never done this comprehensively.</div></div>
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:9px 11px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">STEP 2 — Eliminate redundancies</div><div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.4;">Identify overlapping tools — multiple messaging platforms, duplicate analytics, loyalty apps that duplicate CRM functionality. Each redundancy is a double payment for a single capability.</div></div>
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:9px 11px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">STEP 3 — Replace solutions with integrated platforms</div><div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.4;">"Investing in a comprehensive, integrated system can be more cost-effective than maintaining multiple separate tools." — Canary Technologies. One vendor relationship, one data model, one training cycle.</div></div>
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:9px 11px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">STEP 4 — Leverage tech to reduce labor costs</div><div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.4;">Automation of manual processes — digital check-in, AI messaging, mobile ordering — reduces the labor hours spent bridging system gaps rather than serving guests.</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Hotel Operating Cost Context</div>
+          <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#e74c3c;line-height:1;margin-bottom:5px;">5% YoY</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:5px;">rise in hotel operating costs in 2024, with IT and SaaS spending among the top drivers alongside labor and supply chain. The complexity tax compounds on a rising cost base.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Canary Technologies, canarytechnologies.com</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px;">
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.8);line-height:1.6;margin-bottom:6px;"><strong style="color:#fff;">The Phocuswire warning:</strong> Managing rising fees in 2026 requires a proactive audit of all technology contracts, commission structures, and subscription agreements. Hospitality operators who have not reviewed their full software spend in the past 12 months are likely paying for capabilities they are not using, at rates that have increased without a corresponding renegotiation.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">Phocuswire, "Managing rising fees in 2026: 7 steps for hospitality operators," phocuswire.com</div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:4px;padding:14px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#D4AF37;line-height:1;margin-bottom:5px;">75%</div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin-bottom:5px;">of all organizations believe their IT environments are too complex — leading to security risk and measurable operational inefficiency across retail and hospitality specifically.</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,0.35);font-style:italic;">PwC Global Digital Trust Insights · cited in Logically, logically.com</div>
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin-bottom:10px;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;">"Investing in a comprehensive, integrated system can be more cost-effective than maintaining multiple separate tools." — Canary Technologies (canarytechnologies.com)</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 9 — SaaS PRICING SURGE -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Pricing Environment</div>
+    <div class="ch-title">The 2025 SaaS Price Surge — Why Your Stack Is Getting More Expensive Without Getting Better</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Operators who signed multi-year SaaS contracts in 2021–2022 are now receiving renewal notices with price increases that were not in the original pitch deck. The SaaS pricing environment has fundamentally shifted — and hospitality operators are absorbing increases they didn't budget for.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Forbes Tech Council Warning</div>
+          <p>Forbes Tech Council's 2025 analysis of SaaS pricing identifies the structural pressure driving increases: <em>"The SaaS pricing surge that will outrun your cloud playbook."</em> The analysis documents how vendors are moving from flat-rate pricing to usage-based and seat-based models — which increases costs predictably as operations grow. <strong>Every new hire, every new location, and every new feature activation now has a price tag that compounds with scale.</strong><span class="cite"> Forbes Tech Council, "The SaaS Pricing Surge That Will Outrun Your Cloud Playbook," Forbes, Nov. 10, 2025</span></p>
+          <p>SaaStr's documentation of "The Great SaaS Price Surge of 2025" establishes the context: <strong>major SaaS vendors raised prices 20–40% in 2024–2025, often with 30-day notice periods and without corresponding feature improvements.</strong> Operators locked into multi-year contracts are protected temporarily — but only until renewal, at which point they face either significantly higher costs or the operational disruption of switching platforms.<span class="cite"> SaaStr, "The Great SaaS Price Surge of 2025: A Comprehensive Breakdown," saastr.com</span></p>
+          <div class="sec-head">The Phocuswire Playbook for 2026</div>
+          <p>Phocuswire's guidance for hospitality operators managing rising fees in 2026 provides a direct action framework: operators who <strong>proactively audit every technology contract before renewal, negotiate multi-year terms with price protection caps, and consolidate vendors</strong> to reduce the number of renewal cycles they face are consistently finding 15–25% cost reduction without capability loss.<span class="cite"> Phocuswire, "Managing rising fees in 2026: 7 steps for hospitality operators," phocuswire.com</span></p>
+          <div class="callout" style="margin-top:12px;">
+            <strong>The leverage window:</strong> The best time to negotiate a SaaS contract is 90 days before renewal, not 30. At 30 days, the vendor knows you haven't had time to evaluate alternatives. At 90 days, you have leverage. The complexity tax includes the cost of renewing without negotiating — which most operators do, every year, across every vendor in their stack.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Pricing Shift — What Changed</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">2019–2022 — FLAT RATE ERA</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Most hospitality tech tools priced at flat monthly rates with predictable annual increases of 3–5%. Operators could budget with confidence.</div></div>
+            <div style="text-align:center;font-size:12px;color:rgba(212,175,55,0.4);">↓ shift happened</div>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">2023–2025 — USAGE-BASED SURGE</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Major vendors moved to per-seat, per-location, or usage-based models. Price increases of 20–40% at renewal. 30-day notice periods. Feature gating at lower tiers.</div></div>
+            <div style="text-align:center;font-size:12px;color:rgba(212,175,55,0.4);">↓ operator response</div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">2026 — CONSOLIDATION OR ABSORPTION</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Operators who audit, consolidate, and negotiate absorb 15–25% less in SaaS costs. Those who renew passively absorb the full increase across every vendor annually.</div></div>
+          </div>
+          <div style="font-size:9.5px;color:rgba(255,255,255,0.3);margin-top:8px;font-style:italic;">Sources: Forbes Tech Council (Nov. 2025); SaaStr (saastr.com); Phocuswire (phocuswire.com)</div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">20–40%</div>
+          <div class="stat-lbl">SaaS price increases at renewal in 2024–2025 — often with 30-day notice periods</div>
+          <div class="stat-sub">SaaStr, "The Great SaaS Price Surge of 2025," saastr.com</div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 10 — THE CONSOLIDATION CASE -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Way Out</div>
+    <div class="ch-title">Consolidation as Competitive Advantage</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">The complexity tax is not inevitable. It is the accumulated consequence of procurement decisions made without a big picture view. The operators who eliminate it don't do so by spending more on better tools. They do it by spending less on fewer tools that are designed to work together.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Mordor Intelligence Market Signal</div>
+          <p>Mordor Intelligence's 2025 analysis of the HOSPITALITY MANAGEMENT software market documents where the momentum is going: <strong>"Competitive intensity sharpened around delivery-integration depth, workflow-automation breadth, and data-security assurances, especially for enterprise chains running multi-brand portfolios."</strong> The vendors winning are not the ones with the best single feature — they are the ones with the deepest integration across the full operational footprint.<span class="cite"> Mordor Intelligence, mordorintelligence.com, 2025</span></p>
+          <p>The market is also documenting a second shift: <strong>"Strategic partnerships among POS, payments, and last-mile logistics vendors have reduced integration friction."</strong> This means the industry is moving toward a smaller number of larger platform ecosystems — and the operators who position inside those ecosystems will have integration advantages over those who continue to mix and match.<span class="cite"> Mordor Intelligence, mordorintelligence.com</span></p>
+          <div class="sec-head">The Practical Consolidation Path</div>
+          <p>Canary Technologies provides the most direct path to consolidation in hotel operations: <strong>evaluate all subscriptions, eliminate redundancies, integrate platforms, and leverage tech to reduce labor costs through automation</strong> — not through additional tools, but through deeper deployment of existing ones. The ROI comes from utilization, not acquisition.<span class="cite"> Canary Technologies, canarytechnologies.com</span></p>
+          <p>For restaurants, the same logic applies: the Cloud Awards' restaurant technology consolidation analysis documents that brands cutting their stack by 40% through consolidation to all-in-one platforms save $5,000+ annually in direct software costs, before calculating the labor savings from eliminating manual consolidation processes.<span class="cite"> Cloud Awards, "The Restaurant Technology Consolidation Wave," cloud-awards.com</span></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#00D4AA;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The Consolidation Decision Framework</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#e74c3c;margin-bottom:3px;">KEEP if ALL of these are true:</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">✓ Used by more than 70% of staff who have access<br>✓ Integrates natively with your core POS<br>✓ No manual data transfer required between this and adjacent systems<br>✓ You could articulate its ROI in 30 seconds</div></div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">CUT if ANY of these are true:</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">✗ Another tool already does what this one does<br>✗ Nobody trained on it in the last 90 days<br>✗ You're paying per seat for seats that aren't active<br>✗ Staff built a workaround because this tool is too slow</div></div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">REPLACE if this is true:</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.5;">Your core POS vendor offers a native version of what 3+ separate tools in your stack are trying to do. Consolidation to one platform > best-of-breed across many.</div></div>
+          </div>
+        </div>
+        <div class="q-card light" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"The most impactful investments in restaurant technology are not new tools — they are deeper deployments of tools already owned and underutilized."</div>
+          <div class="q-attr">Jim Taylor</div>
+          <div class="q-src">Restaurant technology consultant · LinkedIn commentary · linkedin.com</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">$5K+</div>
+          <div class="stat-lbl">annual savings achievable by consolidating to unified platforms — direct cost reduction before labor savings</div>
+          <div class="stat-sub">Cloud Awards, "The Restaurant Technology Consolidation Wave" · cloud-awards.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 11 — THE UNIFIED ARCHITECTURE (Full bleed navy) -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37;margin-bottom:3px;">The Architecture Shift</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;line-height:1;margin-bottom:4px;">FROM SPRAWL TO SYSTEM — WHAT THE UNIFIED STACK LOOKS LIKE</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;letter-spacing:1.5px;text-transform:uppercase;">Before and After — How Consolidation Changes the Operational Reality</div>
+      <div style="height:2px;background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent);margin-bottom:18px;"></div>
+      <div style="display:grid;grid-template-columns:1fr 70px 1fr;gap:0;align-items:stretch;">
+        <div style="background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);border-radius:4px 0 0 4px;padding:16px;display:flex;flex-direction:column;min-height:0;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e74c3c;letter-spacing:2px;margin-bottom:10px;flex-shrink:0;">❌ THE SPRAWL STACK</div>
+          <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
+            <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);border-radius:3px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11.5px;color:#fff;">POS Vendor A</span><span style="font-size:11px;color:#e74c3c;">$250/mo · no delivery integration</span></div>
+            <div style="text-align:center;font-size:9px;color:rgba(255,107,107,0.4);">↕ manual ticket entry</div>
+            <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);border-radius:3px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11.5px;color:#fff;">Delivery <br> Platform B</span><span style="font-size:11px;color:#e74c3c;">$120/mo · separate guest data</span></div>
+            <div style="text-align:center;font-size:9px;color:rgba(255,107,107,0.4);">↕ no sync</div>
+            <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);border-radius:3px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11.5px;color:#fff;">Reservations Vendor C</span><span style="font-size:11px;color:#e74c3c;">$150/mo · can't see POS history</span></div>
+            <div style="text-align:center;font-size:9px;color:rgba(255,107,107,0.4);">↕ manual export</div>
+            <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);border-radius:3px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11.5px;color:#fff;">Scheduling Vendor D</span><span style="font-size:11px;color:#e74c3c;">$100/mo · no labor cost visibility</span></div>
+            <div style="text-align:center;font-size:9px;color:rgba(255,107,107,0.4);">↕ no connection</div>
+            <div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);border-radius:3px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11.5px;color:#fff;">Loyalty <br> Vendor E</span><span style="font-size:11px;color:#e74c3c;">$75/mo · 85% guests unreachable</span></div>
+          </div>
+          <div style="margin-top:auto;flex-shrink:0;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);border-radius:3px;padding:10px;"><div style="font-size:11.5px;color:#fff;line-height:1.5;">Total: <strong style="color:#e74c3c;">$695/mo visible</strong> + $8,300+/yr hidden waste + 20% efficiency loss from manual reconciliation. <strong style="color:#e74c3c;">Zero unified guest profile.</strong></div></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.03);"><div style="font-size:40px;line-height:1;" role="img" aria-label="Unify">🧩</div></div>
+        <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.3);border-radius:0 4px 4px 0;padding:16px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#00D4AA;letter-spacing:2px;margin-bottom:10px;">✓ THE UNIFIED STACK</div>
+          <div style="background:rgba(0,212,170,0.15);border:2px solid rgba(0,212,170,0.5);border-radius:4px;padding:12px;margin-bottom:10px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00D4AA;letter-spacing:2px;margin-bottom:5px;">UNIFIED PLATFORM (e.g., All-in-One)</div><div style="font-size:12px;color:#fff;line-height:1.5;">POS + Online Ordering + Scheduling + Payroll + Loyalty + Reporting — one data model, one vendor relationship, one training cycle.</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:8px 10px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">Every order channel</div><div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Feeds one unified guest profile in real time</div></div>
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:8px 10px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">Scheduling sees sales</div><div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Labor cost visible against revenue in real time</div></div>
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:8px 10px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">Loyalty actually works</div><div style="font-size:11.5px;color:rgba(255,255,255,0.7);">Every transaction builds the guest profile across channels</div></div>
+            <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:8px 10px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:2px;">AI can deploy</div><div style="font-size:11.5px;color:rgba(255,255,255,0.7);">One clean data model supports automation, forecasting, personalization</div></div>
+          </div>
+          <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px;"><div style="font-size:11.5px;color:#fff;line-height:1.5;">Total: <strong style="color:#D4AF37;">$400–600/mo visible</strong> (vs. $695+ fragmented) + <strong style="color:#D4AF37;">$5,000–8,000+ hidden waste eliminated</strong> + full guest profile + AI-ready data. Stack reduced by 40–60%.</div></div>
+        </div>
+      </div>
+      <div style="height:1px;background:rgba(212,175,55,0.25);margin:12px 0;"></div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.6);text-align:center;">"Competitive intensity sharpened around delivery-integration depth, workflow-automation breadth, and data-security assurances." — Mordor Intelligence, mordorintelligence.com, 2025</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 12 — THE MEASUREMENT IMPERATIVE -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Discipline of Measurement</div>
+    <div class="ch-title">Stop Buying, Start Measuring: The ROI Audit That Pays</div>
+    <div class="two-col" style="flex:1;align-items:start;gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%;font-size:14px;">Jim Taylor's LinkedIn commentary on restaurant technology captures the core discipline: "Stop buying, start measuring." Most operators have never calculated the ROI of the tools they already have. The technology audit is not a cost reduction exercise. It is a profit recovery exercise.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">The Hidden Tech Stack Tax</div>
+          <p>A LinkedIn post by an industry researcher — drawing on a global survey on hidden complexity costs — summarizes the finding: <strong>"Hidden tech stack tax costs businesses 1 in every 5 dollars."</strong> The 20% efficiency loss from fragmented technology environments is not a theoretical construct — it is a measurable drag on revenue per available seat, labor cost per cover, and guest satisfaction scores that feed back into repeat visit rate.<span class="cite"> LinkedIn, "Hidden Tech Stack Tax Costs Businesses $1 in $5," citing global survey on hidden costs of complexity · linkedin.com</span></p>
+          <p>Logically's research on hidden costs in retail and hospitality puts specific shape on the efficiency loss: <strong>fragmented data leads to service delays and inaccurate reporting; redundant processes force employees to manually transfer data between systems, increasing error risk and wasting time; and scaling becomes disproportionately expensive</strong> when each new location requires reconfiguring multiple independent vendor relationships.<span class="cite"> Logically, "The Hidden Costs of IT Complexity in Retail and Hospitality," logically.com</span></p>
+          <div class="sec-head">The Measurement Framework</div>
+          <p>The exercise at the end of this chapter provides the measurement framework. But the discipline that makes it actionable is assigning ownership: <strong>one person in the operation is responsible for the software inventory, one person owns the vendor relationships, and every renewal is reviewed 90 days in advance</strong> against a documented utilization report. This is not a technology discipline — it is a management discipline. The technology is already there. The question is whether anyone is accountable for the value it delivers.</p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44;padding:16px;border-radius:4px;">
+          <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">The ROI Audit — What to Measure</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">UTILIZATION RATE</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">What % of licensed users are actively logging in? What % of features are being used? 52% of licenses go unused — your number is somewhere in that range.</div></div>
+            <div style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#00D4AA;margin-bottom:3px;">INTEGRATION HEALTH</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">How many manual data transfers happen between this tool and the rest of your stack? Each one is a potential error and a labor cost that the integration should be eliminating.</div></div>
+            <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;">OVERLAP DETECTION</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">List every capability your current stack delivers. Identify how many tools are delivering the same capability. Every overlap is a duplicate payment.</div></div>
+            <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:3px;padding:10px 12px;"><div style="font-size:11px;font-weight:700;color:#D4AF37;margin-bottom:3px;">WORKAROUND MAPPING</div><div style="font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;">Ask your staff: "What do you do when [tool] doesn't work the way you need it to?" Every workaround is a hidden cost. Map them. They reveal the gaps the tools were supposed to fill.</div></div>
+          </div>
+        </div>
+        <div class="stat-box red">
+          <div class="stat-num">$1 in $5</div>
+          <div class="stat-lbl">of business revenue consumed by hidden tech stack complexity — the 20% efficiency drain</div>
+          <div class="stat-sub">Global survey on hidden costs of complexity · cited via LinkedIn · linkedin.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 13 — WORKBOOK EXERCISE -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 9 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:#1A2A44;margin-bottom:14px;line-height:1.6;max-width:640px;">The sticker shock moment is the beginning of the fix. List everything, calculate the true cost including hidden waste, and leave with one specific cut or consolidation action.</div>
+    <div style="border:2px solid #1A2A44;border-radius:4px;overflow:hidden;margin-bottom:14px;">
+      <div style="background:#1A2A44;padding:10px 18px;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;background:#D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:17px;color:#1A2A44;">1</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">List Every SaaS Subscription — Including Trials, Add-ons, and Per-User Fees</div>
+      </div>
+      <div style="padding:12px 18px;">
+        <div style="display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:8px;margin-bottom:6px;">
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Tool / Vendor</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Monthly $</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;text-align:center;">Active Users</div>
+          <div style="font-size:10px;font-weight:700;color:#1A2A44;text-transform:uppercase;letter-spacing:1px;">Integrates With?</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:8px;background:#F4F6F9;padding:7px 8px;border-radius:3px;"><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:8px;padding:7px 8px;border-radius:3px;"><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:8px;background:#F4F6F9;padding:7px 8px;border-radius:3px;"><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:8px;padding:7px 8px;border-radius:3px;"><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 90px 90px 1fr;gap:8px;background:#F4F6F9;padding:7px 8px;border-radius:3px;"><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div><div class="fill-line" style="margin:0;height:20px;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #e74c3c;">
+        <div class="fill-label" style="color:#c0392b;">Calculate waste: Unused features × monthly rate + manual workaround hours × $20/hr =</div>
+        <div class="fill-line"></div>
+        <div class="fill-label" style="margin-top:6px;">Total monthly stack cost:</div>
+        <div class="fill-line"></div>
+      </div>
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #D4AF37;">
+        <div class="fill-label">Add annualized one-time/setup fees (÷12) and estimate as % of annual revenue:</div>
+        <div class="fill-line"></div>
+        <div class="fill-label" style="margin-top:6px;">My complexity tax is approximately ___% of revenue:</div>
+        <div class="fill-line"></div>
+      </div>
+      <div style="background:#F4F6F9;padding:12px;border-radius:4px;border-top:3px solid #00D4AA;">
+        <div class="fill-label">Tools that duplicate capability (both doing the same job):</div>
+        <div class="fill-line"></div><div class="fill-line"></div>
+      </div>
+      <div style="background:#1A2A44;padding:12px;border-radius:4px;">
+        <div class="fill-label" style="color:#D4AF37;">Complete your one-line insight:</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:12.5px;color:rgba(255,255,255,0.7);margin-bottom:8px;line-height:1.5;">"Our stack costs $___/mo but leaks $___ via [top waste]. Fix #1: ___."</div>
+        <div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div><div class="fill-line" style="border-color:rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+    <div style="background:#1A2A44;padding:10px 16px;border-radius:4px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;flex-shrink:0;line-height:1.1;">PURE<br>PROFIT<br>UNLOCK</div>
+      <div style="font-size:12.5px;color:#fff;line-height:1.55;">The first cut is the highest-ROI technology decision most operators will ever make. You are not replacing a tool — you are recovering money that has been quietly leaving the building every month. The average audit recovers $3,000–$8,000 in the first 90 days through license cuts, duplicate eliminations, and contract renegotiations alone. Before the next purchase, do the audit.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- PAGE 14 — SUMMARY + BRIDGE -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary &amp; What Comes Next</div>
+    <div class="ch-title">The Tech Stack Trap Is a Profit Problem, Not a Technology Problem</div>
+    <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:#1A2A44;line-height:1.6;margin-bottom:20px;max-width:620px;">Every disconnected addition to technology extracts a complexity tax through unused licenses, integration failures, staff time on workarounds, and decision paralysis. The operators who audit, consolidate, and measure recover that revenue — and it becomes permanent profit.</div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #e74c3c;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e74c3c;line-height:1;flex-shrink:0;width:26px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE AVERAGE MID-SIZED OPERATOR PAYS $400–1,500/MONTH IN VISIBLE COSTS</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Plus $8,300+/year in hidden waste from unused licenses, duplicate tools, integration failures, and manual reconciliation labor. The visible number is manageable. The hidden number is the one worth fixing. <span style="font-size:9.5px;color:#888;font-style:italic;">Source: Abbacus Technologies; operator models; Logically, logically.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #D4AF37;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#D4AF37;line-height:1;flex-shrink:0;width:26px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">52% OF SaaS LICENSES GO UNUSED — EVERY MONTH, IN EVERY STACK</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">The tool was purchased with good intentions. It was partially deployed. Nobody owns the audit. The invoice renews. The waste compounds. An annual license audit is the most reliably profitable 2-hour investment any operator can make. <span style="font-size:9.5px;color:#888;font-style:italic;">Industry SaaS utilization benchmarks; Canary Technologies, canarytechnologies.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #00D4AA;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#00D4AA;line-height:1;flex-shrink:0;width:26px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">CONSOLIDATION PRODUCES A $5,000+ ANNUAL SAVING AND A BETTER DATA MODEL</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">Operators who consolidate to unified platforms save on direct cost, eliminate integration maintenance, reduce staff overwhelm, and — critically — build the unified data architecture that makes AI, loyalty, and personalization possible. <span style="font-size:9.5px;color:#888;font-style:italic;">Cloud Awards; Mordor Intelligence, mordorintelligence.com</span></div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:#F4F6F9;border-left:4px solid #1A2A44;border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;line-height:1;flex-shrink:0;width:26px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#1A2A44;letter-spacing:1px;margin-bottom:3px;">THE MARKET IS GROWING TOWARD YOU — BUT ONLY IF YOU CONTROL THE SYSTEM</div><div style="font-size:12.5px;color:#1A1A1A;line-height:1.55;">The restaurant software market grows to $13B by 2030 at 14.74% CAGR. Every dollar of that growth funds new tools trying to enter your stack. The operators who build a disciplined approach — buy less, measure more, consolidate deliberately — will compound cost advantages as the market expands. <span style="font-size:9.5px;color:#888;font-style:italic;">Mordor Intelligence, mordorintelligence.com</span></div></div>
+      </div>
+    </div>
+    <div style="background:#1A2A44;padding:12px 18px;border-radius:4px;display:flex;align-items:center;gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px;color:#D4AF37;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">Next → Chapter 10</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:3px;">THE DATA OWNERSHIP CRISIS</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Chapter 9 identified the complexity tax. Chapter 10 goes deeper into the specific cost of not owning your guest data — what it means when your delivery platform knows your customers better than you do, and how operators are systematically surrendering their most valuable long-term asset one third-party order at a time.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#D4AF37;flex-shrink:0;line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">9 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId(){const pages=document.querySelectorAll('.page');let closest=pages[0],closestDist=Infinity;const center=window.scrollY+window.innerHeight/2;pages.forEach(p=>{const rect=p.getBoundingClientRect();const pc=window.scrollY+rect.top+rect.height/2;const d=Math.abs(center-pc);if(d<closestDist){closestDist=d;closest=p;}});return closest.id;}
+async function capturePage(id){const page=document.getElementById(id);await document.fonts.ready;await new Promise(r=>setTimeout(r,500));return await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:816,height:1056,scrollX:0,scrollY:-window.scrollY});}
+async function downloadVisible(){const id=getVisiblePageId();const num=id.replace('p','');const canvas=await capturePage(id);const a=document.createElement('a');a.download=`chaos-mastery-ch9-p${num.padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();}
+async function downloadAll(){const btn=document.querySelector('.btn-all');btn.disabled=true;for(let i=1;i<=14;i++){btn.textContent=`Downloading ${i}/14...`;const canvas=await capturePage('p'+i);const a=document.createElement('a');a.download=`chaos-mastery-ch9-p${String(i).padStart(2,'0')}.png`;a.href=canvas.toDataURL('image/png');a.click();await new Promise(r=>setTimeout(r,400));}btn.textContent='⬇ Download All 14 Pages';btn.disabled=false;}
+</script>
+</body>
+</html>

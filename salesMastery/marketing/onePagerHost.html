@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seamlessly — One Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --teal: #1A7A6E;
+    --white: #F8F5EF;
+    --mid: #3A4A5C;
+  }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 40px 56px;
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 20px;
+    margin-bottom: 36px;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 3px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .logo span {
+    color: var(--gold);
+  }
+
+  .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold-light);
+    text-align: right;
+    max-width: 260px;
+    line-height: 1.4;
+  }
+
+  /* HERO STATEMENT */
+  .hero {
+    background: linear-gradient(135deg, var(--teal) 0%, #0f4f46 100%);
+    border-left: 5px solid var(--gold);
+    padding: 24px 28px;
+    margin-bottom: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 120px;
+    height: 120px;
+    border: 2px solid rgba(201,168,76,0.2);
+    border-radius: 50%;
+  }
+
+  .hero p {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.7;
+    color: var(--white);
+    max-width: 780px;
+  }
+
+  /* TWO COL LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(201,168,76,0.3);
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 20px 22px;
+    height: 100%;
+  }
+
+  .problem-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .problem-list li {
+    padding-left: 18px;
+    position: relative;
+    color: rgba(248,245,239,0.85);
+  }
+
+  .problem-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* SOLUTION ITEMS */
+  .solution-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .solution-item:last-child { margin-bottom: 0; }
+
+  .sol-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--gold);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sol-text strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .sol-text p {
+    color: rgba(248,245,239,0.75);
+    font-size: 12px;
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.2);
+    margin-bottom: 32px;
+  }
+
+  .stat {
+    background: var(--navy);
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(248,245,239,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* HOW IT WORKS */
+  .how {
+    margin-bottom: 32px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.15);
+  }
+
+  .step {
+    background: rgba(255,255,255,0.03);
+    padding: 18px 16px;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: rgba(201,168,76,0.25);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .step strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .step p {
+    font-size: 11px;
+    color: rgba(248,245,239,0.65);
+  }
+
+  /* WHO WE SERVE */
+  .serve {
+    margin-bottom: 32px;
+  }
+
+  .venue-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+  }
+
+  /* CTA */
+  .cta {
+    background: var(--gold);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .cta-text strong {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .cta-text p {
+    font-size: 12px;
+    color: rgba(13,27,42,0.75);
+    font-weight: 600;
+  }
+
+  .cta-contact {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .cta-contact a {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .cta-contact a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  footer span {
+    font-size: 10px;
+    color: rgba(248,245,239,0.35);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .download-btn {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    margin: 24px auto 32px;
+    padding: 14px 22px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(201,168,76,0.3);
+    transition: all 0.3s ease;
+  }
+
+  .download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201,168,76,0.4);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">Seam<span>less</span>ly</div>
+    <div class="tagline">The all-in-one platform that reduces fees, streamlines operations, and puts operators back in control.</div>
+  </header>
+
+  <!-- HERO STATEMENT -->
+  <div class="hero">
+    <p>Guests abandon lines with an 8-minute wait. Staff turnover averages 59 days. Fragmented tech stacks drain margins monthly. Seamlessly is the unified mobile ordering and guest experience platform that eliminates every one of those friction points</p>
+  </div>
+
+  <!-- STATS -->
+<div class="stats-strip">
+    <div class="stat">
+      <span class="stat-num">8 Min</span>
+      <span class="stat-label">The Wait Threshold That Kills a Sale</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Minimum Lines</span>
+      <span class="stat-label">The Guest Experience We Deliver</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">59 days</span>
+      <span class="stat-label">Avg. Staff Tenure (industry)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">1 Platform</span>
+      <span class="stat-label">vs. 5+ Disjointed Tools</span>
+    </div>
+  </div>
+
+
+
+  <!-- PROBLEM / SOLUTION -->
+  <div class="two-col">
+    <div class="card">
+      <div class="section-label">The Problem</div>
+      <h2>Revenue is leaking everywhere</h2>
+      <ul class="problem-list">
+        <li>Guests abandon lines at the 8-minute mark — revenue walks out the door</li>
+        <li>Overwhelmed staff underdeliver on quality, driving complaints and chargebacks</li>
+        <li>59-day average staff tenure creates a revolving door of recruitment costs</li>
+        <li>Fragmented tech — ticketing, POS, reservations, delivery — all separate fees, all separate headaches</li>
+        <li>Third-party delivery services upcharge guests and pass complaints back to you</li>
+        <li>No data ownership means no loyalty, no retention, no intelligence</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="section-label">The Solution</div>
+      <h2>One platform. End-to-end.</h2>
+
+      <div class="solution-item">
+        <div class="sol-icon">01</div>
+        <div class="sol-text">
+          <strong>Mobile Ordering via QR</strong>
+          <p>Guests scan, order, and skip the line. Works across every venue in the Seamlessly network.</p>
+        </div>
+      </div>
+
+      <div class="solution-item">
+        <div class="sol-icon">02</div>
+        <div class="sol-text">
+          <strong>Universal POS Integration</strong>
+          <p>Works with all major POS systems — no rip-and-replace required.</p>
+        </div>
+      </div>
+
+      <div class="solution-item">
+        <div class="sol-icon">03</div>
+        <div class="sol-text">
+          <strong>The Eventbrella</strong>
+          <p>Ticketing, reservations, scheduling, POS, and delivery unified under one roof.</p>
+        </div>
+      </div>
+
+      <div class="solution-item">
+        <div class="sol-icon">04</div>
+        <div class="sol-text">
+          <strong>First-Party Data & Network Effects</strong>
+          <p>You own your guest data — driving retention, higher order values, and smarter inventory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-text">
+      <strong>Let's Connect</strong>
+      <p>See how Seamlessly can reduce wait times, increase revenue, and simplify your tech stack — starting day one.</p>
+    </div>
+    <div class="cta-contact">
+      <a href="mailto:maurice.sanders@seamlessly.us">maurice.sanders@seamlessly.us</a>
+      <a href="tel:3054340738">305-434-0738</a>
+      <a href="https://seamlessly.us" target="_blank">seamlessly.us</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Seamlessly — Hospitality One-Pager</span>
+    <span>Confidential — For internal review</span>
+  </footer>
+</div>
+
+<button class="download-btn" id="downloadPngBtn" type="button">
+  ↓ &nbsp; Download One-Pager as PNG
+</button>
+
+<button class="download-btn" id="downloadPdfBtn" type="button">
+  ↓ &nbsp; Download One-Pager as PDF
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  (function () {
+    var pngBtn = document.getElementById('downloadPngBtn');
+    var pdfBtn = document.getElementById('downloadPdfBtn');
+    var pageEl = document.querySelector('.page') || document.body;
+
+    function renderCanvas() {
+      return html2canvas(pageEl, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        backgroundColor: getComputedStyle(document.body).backgroundColor || '#0D1B2A'
+      });
+    }
+
+    if (pngBtn) {
+      pngBtn.addEventListener('click', function () {
+        var button = this;
+        button.disabled = true;
+        button.textContent = 'Generating PNG…';
+
+        renderCanvas().then(function (canvas) {
+          var link = document.createElement('a');
+          link.download = 'seamlessly-one-pager.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          button.disabled = false;
+          button.textContent = '↓   Download One-Pager as PNG';
+        }).catch(function (err) {
+          console.error(err);
+          button.disabled = false;
+          button.textContent = '↓   Download One-Pager as PNG';
+        });
+      });
+    }
+
+    if (pdfBtn) {
+      pdfBtn.addEventListener('click', function () {
+        var button = this;
+        button.disabled = true;
+        button.textContent = 'Generating PDF…';
+
+        renderCanvas().then(function (canvas) {
+          var imgData = canvas.toDataURL('image/png');
+          var pdf = new window.jspdf.jsPDF({
+            orientation: 'portrait',
+            unit: 'px',
+            format: [canvas.width, canvas.height]
+          });
+
+          pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+          pdf.save('seamlessly-one-pager.pdf');
+
+          button.disabled = false;
+          button.textContent = '↓   Download One-Pager as PDF';
+        }).catch(function (err) {
+          console.error(err);
+          button.disabled = false;
+          button.textContent = '↓   Download One-Pager as PDF';
+        });
+      });
+    }
+  })();
+</script>

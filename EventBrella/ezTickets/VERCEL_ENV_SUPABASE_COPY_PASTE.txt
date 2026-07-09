@@ -1,0 +1,16 @@
+# ============================================================
+# Vercel Environment Variables — Name and Value (copy-paste)
+# ============================================================
+# In Vercel: Project → Settings → Environment Variables
+# Add each row: Name = left, Value = right. Add to Production + Preview.
+# ============================================================
+
+SUPABASE_URL=https://hdeymsqvxdogkydwvlwh.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkZXltc3F2eGRvZ2t5ZHd2bHdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNDI3NjIsImV4cCI6MjA4MDYxODc2Mn0.Ruwf5XmnGtGBP5caUPdLj938KNAmqA3rbcAk2Ejb6zQ
+SUPABASE_SERVICE_KEY=<get from Supabase Dashboard → Settings → API → service_role key>
+
+# ============================================================
+# SUPABASE_SERVICE_KEY is not in .env (secret). Get it from:
+#   Supabase → Your project → Settings → API → Project API keys
+#   Copy the "service_role" key (not the anon key).
+# ============================================================

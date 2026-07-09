@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ask — Seamlessly</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold2: #e8c84a;
+    --gold-dim: rgba(212,175,55,0.55);
+    --gold-border: rgba(212,175,55,0.3);
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; font-family: 'DM Sans', sans-serif; color: var(--white); padding: 40px 20px 80px; margin: 0; }
+
+  .card-wrap { width: 100%; max-width: 540px; margin: 0 auto 28px; }
+
+  .card { background: #000; border: none; }
+
+  .card-inner { padding: 32px 36px 36px; }
+
+  /* eyebrow */
+  .eyebrow-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .eyebrow-pill {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: #000;
+    background: var(--gold); padding: 4px 12px; border-radius: 2px; white-space: nowrap;
+  }
+  .eyebrow-line { flex: 1; height: 1px; background: var(--gold-border); }
+  .eyebrow-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+  /* headline */
+  .card-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; line-height: 1; letter-spacing: 2px;
+    color: var(--gold); margin-bottom: 24px;
+  }
+  .card-headline span { color: var(--white); }
+
+  /* lesson list */
+  .lesson-list { display: flex; flex-direction: column; gap: 0; }
+
+  .lesson-item {
+    display: flex; align-items: flex-start;
+    border-top: 1px solid rgba(212,175,55,0.2);
+    padding: 14px 0;
+    gap: 16px;
+  }
+
+  .lesson-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; line-height: 1;
+    color: rgba(212,175,55,0.25);
+    width: 34px; flex-shrink: 0;
+  }
+
+  .lesson-body { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+
+  .lesson-title {
+    font-size: 14px; font-weight: 700;
+    color: var(--gold); line-height: 1.2;
+  }
+
+  .lesson-desc {
+    font-size: 12px; font-weight: 600;
+    color: var(--white); line-height: 1.55;
+  }
+
+  /* footer */
+  .card-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 36px;
+    background: #000;
+    border-top: 1px solid rgba(212,175,55,0.15);
+  }
+  .card-foot-brand { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2px; color: var(--gold-dim); }
+  .card-foot-url { font-size: 11px; color: rgba(212,175,55,0.35); letter-spacing: 0.5px; }
+
+  /* download */
+  .card-dl {
+    display: block; width: 100%; padding: 12px 20px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2px;
+    color: #000; background: linear-gradient(135deg, #D4AF37, #e8c84a);
+    border: none; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(212,175,55,0.28); transition: box-shadow 0.2s;
+  }
+  .card-dl:hover { box-shadow: 0 6px 22px rgba(212,175,55,0.5); }
+  .card-dl:disabled { opacity: 0.55; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  function dlCard(id, filename, btn) {
+    btn.disabled = true;
+    btn.textContent = 'Generating PNG…';
+    html2canvas(document.getElementById(id), {
+      scale: 2, useCORS: true, allowTaint: true,
+      backgroundColor: '#000000', logging: false
+    }).then(function(canvas) {
+      var a = document.createElement('a');
+      a.download = filename;
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+      btn.disabled = false;
+      btn.textContent = '↓  Download as PNG';
+    });
+  }
+</script>
+
+<div class="card-wrap">
+  <div id="card1">
+    <div class="card">
+      <div class="card-inner">
+
+        <div class="eyebrow-row">
+          <div class="eyebrow-pill">Seamlessly</div>
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-tag">Seamless Operations Intelligence</span>
+        </div>
+
+        <div class="card-headline">The <span>Ask</span></div>
+
+        <div class="lesson-list">
+
+          <div class="lesson-item">
+            <div class="lesson-num">01</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Introductions</div>
+              <div class="lesson-desc">Who and what are strong partnership opportunities worth exploring — operators, platforms, distribution channels, adjacent tech?</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">02</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Strategy</div>
+              <div class="lesson-desc">What pain points are being overlooked? Where are the blind spots in the current approach that the room can see from the outside?</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">03</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Don't Hold Back</div>
+              <div class="lesson-desc">All feedback and recommendations are welcome — including the hard ones. Candid input is the most valuable thing in the room.</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">04</div>
+            <div class="lesson-body">
+              <div class="lesson-title">GTM Strategy</div>
+              <div class="lesson-desc">How can the go-to-market timeline be compressed? What levers — partnerships, channels, positioning — accelerate the process?</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">05</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Articulation</div>
+              <div class="lesson-desc">How do you sell infrastructure to operators who don't yet know they're losing revenue without it — and what's the message that makes it click?</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-num">06</div>
+            <div class="lesson-body">
+              <div class="lesson-title">Freelance Work</div>
+              <div class="lesson-desc">With exerience in designing apps, websites, ai agents, and automation. We're open for contract work</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-foot">
+      <div class="card-foot-brand">Seamlessly</div>
+      <div class="card-foot-url">seamlessly.us</div>
+    </div>
+  </div>
+  <button class="card-dl" onclick="dlCard('card1','seamlessly-the-ask.png',this)">↓ &nbsp; Download as PNG</button>
+</div>
+
+</body>
+</html>

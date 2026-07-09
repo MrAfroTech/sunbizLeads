@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HeyYou for Event Planners — Issue 001</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#111; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; }
+.newsletter { width:640px; display:flex; flex-direction:column; gap:0; }
+
+/* HEADER */
+.nl-header { background:#1A2A44; border-bottom:4px solid #D4AF37; position:relative; overflow:hidden; }
+.nl-header::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(212,175,55,0.04) 79px,rgba(212,175,55,0.04) 80px),repeating-linear-gradient(180deg,transparent,transparent 39px,rgba(212,175,55,0.03) 39px,rgba(212,175,55,0.03) 40px); z-index:1; }
+.nl-header-inner { padding:28px 40px 22px; position:relative; z-index:2; }
+.nl-eyebrow { font-size:10px; font-weight:700; letter-spacing:3px; color:#00D4AA; text-transform:uppercase; margin-bottom:8px; }
+.nl-wordmark { font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; letter-spacing:3px; line-height:1; margin-bottom:2px; }
+.nl-wordmark span { color:#D4AF37; }
+.nl-subtitle { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; line-height:1.5; }
+.nl-issue-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.meta-pill { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 10px; border-radius:2px; }
+.meta-pill.gold { background:#D4AF37; color:#1A2A44; }
+.meta-pill.teal { background:#00D4AA; color:#1A2A44; }
+.meta-pill.outline { border:1px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.6); }
+
+/* HERO BAND */
+.hero-band { background:#D4AF37; padding:22px 40px; }
+.hero-kicker { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(26,42,68,0.55); margin-bottom:6px; }
+.hero-headline { font-family:'Bebas Neue',sans-serif; font-size:30px; color:#1A2A44; letter-spacing:1px; line-height:1.1; }
+
+/* BODY */
+.nl-body { background:#fff; padding:32px 40px; display:flex; flex-direction:column; gap:24px; }
+
+.opening-line { font-family:'DM Serif Display',serif; font-style:italic; font-size:16px; color:#1A2A44; line-height:1.65; border-left:4px solid #D4AF37; padding:14px 18px; background:#FEFCF3; border-radius:0 4px 4px 0; }
+
+/* THREE INSIGHTS */
+.insights-label { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#D4AF37; margin-bottom:10px; }
+.insight-list { display:flex; flex-direction:column; gap:12px; }
+.insight-item { display:flex; gap:16px; align-items:flex-start; padding:16px 18px; background:#F4F6F9; border-radius:4px; border-left:4px solid #1A2A44; }
+.insight-num { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:24px; }
+.insight-content { display:flex; flex-direction:column; gap:4px; }
+.insight-title { font-size:13px; font-weight:700; color:#1A2A44; line-height:1.4; }
+.insight-body { font-size:13px; color:#444; line-height:1.6; }
+
+/* DIVIDER */
+.divider { height:1px; background:rgba(26,42,68,0.1); }
+
+/* CLOSING LINE */
+.closing { font-size:14px; color:#333; line-height:1.75; }
+.closing strong { color:#1A2A44; }
+
+/* CTA */
+.cta-block { display:flex; flex-direction:column; align-items:stretch; gap:8px; }
+.cta-hint { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(26,42,68,0.35); text-align:center; }
+.cta-btn { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:2px; padding:18px 28px; border-radius:4px; text-decoration:none; display:block; text-align:center; background:#1A2A44; color:#D4AF37; border:2px solid #1A2A44; transition:opacity 0.2s; }
+.cta-btn:hover { opacity:0.88; }
+.cta-sub { font-size:11.5px; color:rgba(26,42,68,0.45); text-align:center; font-style:italic; }
+
+/* FOOTER */
+.nl-footer { background:#1A2A44; padding:24px 40px; border-top:4px solid #D4AF37; }
+.social-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:18px; }
+.social-btn { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:1.5px; padding:9px 10px; border-radius:3px; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:5px; transition:opacity 0.2s; text-align:center; }
+.social-btn:hover { opacity:0.8; }
+.social-btn.ig { background:#D4AF37; color:#1A2A44; }
+.social-btn.li { background:#0077B5; color:#fff; }
+.social-btn.web { background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25); }
+.social-btn.talk { background:#00D4AA; color:#1A2A44; }
+.social-icon { width:13px; height:13px; display:inline-block; vertical-align:middle; flex-shrink:0; }
+.footer-bottom { border-top:1px solid rgba(212,175,55,0.2); padding-top:14px; display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap; }
+.footer-brand { font-family:'Bebas Neue',sans-serif; font-size:16px; color:#D4AF37; letter-spacing:3px; line-height:1; margin-bottom:3px; }
+.footer-copy { font-size:10.5px; color:rgba(255,255,255,0.4); line-height:1.5; }
+.footer-note { font-size:10px; color:rgba(255,255,255,0.3); font-style:italic; text-align:right; line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <!-- HEADER -->
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">HeyYou — Guest Intelligence for Event Planners</div>
+      <div class="nl-wordmark">HEY<span>YOU</span></div>
+      <div class="nl-subtitle">What the best planners already know about the venues they recommend</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 001</div>
+        <div class="meta-pill teal">Event Planners Edition</div>
+        <div class="meta-pill outline">3 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-band">
+    <div class="hero-kicker">The gap between your prep work and what the venue actually knows</div>
+    <div class="hero-headline">THE VENUE DROPPED THE BALL</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="nl-body">
+
+    <div class="opening-line">
+      "You spend weeks collecting what your clients care about. Dietary needs. VIP guests. Drink preferences. The venue gets a one-page brief and a prayer."
+    </div>
+
+    <div>
+      <div class="insights-label">3 things you'll take from this</div>
+      <div class="insight-list">
+
+        <div class="insight-item">
+          <div class="insight-num">1</div>
+          <div class="insight-content">
+            <div class="insight-title">The handoff is where your reputation goes to die.</div>
+            <div class="insight-body">When floor staff don't know that Table 4 is a VIP or that the MOB has a shellfish allergy, the guest blames the experience — and the experience is yours. Not the venue's. Yours. The brief you handed over didn't survive contact with a busy Friday night.</div>
+          </div>
+        </div>
+
+        <div class="insight-item">
+          <div class="insight-num">2</div>
+          <div class="insight-content">
+            <div class="insight-title">Guest intelligence at the venue level now exists — and planners can require it.</div>
+            <div class="insight-body">A QR-based system that surfaces returning guest preferences to staff the moment they scan in isn't a future thing. Planners who are already speccing it into their venue requirements are running events where staff actually know things — before the guest has to repeat themselves.</div>
+          </div>
+        </div>
+
+        <div class="insight-item">
+          <div class="insight-num">3</div>
+          <div class="insight-content">
+            <div class="insight-title">One dropped preference doesn't cost you one guest. It costs you the re-book.</div>
+            <div class="insight-body">Your business runs on referrals and repeat clients. When something goes wrong at the venue level, the client doesn't call the venue to complain. They just quietly book someone else next time. The cost of a missed preference isn't the moment — it's everything that follows it.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="closing">
+      The venues you recommend are a direct reflection of your judgment. <strong>Guest intelligence gives you a way to close the gap between what you know about your clients and what the venue delivers on the day.</strong> Next issue: how to use this as a qualifier when evaluating venues — and what to ask for.
+    </div>
+
+    <div class="cta-block">
+      <p class="cta-hint">See the gap in numbers before the next event</p>
+      <a class="cta-btn" href="https://heyyou.seamlessly.us/calculator/guest-experience-gap?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign={{ message.id }}" target="_blank">RUN THE GUEST EXPERIENCE GAP CALCULATOR →</a>
+      <p class="cta-sub">Takes 2 minutes. Shows you what a single missed preference costs across a full event season.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="social-btn web" href="https://seamlessly.us" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        HeyYou
+      </a>
+      <a class="social-btn talk" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Let's Talk
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">HEYYOU</div>
+        <div class="footer-copy">A Seamlessly Product &middot; Guest Intelligence Series &middot; &copy; 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">You're receiving this because you manage events<br>where guests deserve to be remembered.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

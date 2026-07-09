@@ -1,0 +1,95 @@
+{
+  "credentials": {
+    "facebook": {
+      "name": "Facebook Page Account",
+      "pageAccessToken": "PASTE_YOUR_FACEBOOK_PAGE_ACCESS_TOKEN_HERE",
+      "pageId": "PASTE_YOUR_FACEBOOK_PAGE_ID_HERE"
+    },
+    "googleSheets": {
+      "name": "Google Sheets Account",
+      "spreadsheetId": "PASTE_YOUR_SPREADSHEET_ID_HERE"
+    },
+    "openAi": {
+      "name": "OpenAI",
+      "apiKey": "PASTE_YOUR_OPENAI_KEY_HERE"
+    },
+    "seamlesslyApi": {
+      "name": "Seamlessly API",
+      "apiKey": "PASTE_YOUR_SEAMLESSLY_API_KEY_HERE",
+      "endpoint": "https://api.seamlessly.com/v1"
+    }
+  },
+  "facebookApi": {
+    "version": "v18.0",
+    "baseUrl": "https://graph.facebook.com/v18.0",
+    "rateLimit": {
+      "requestsPerHour": 200,
+      "requestsPerDay": 4800,
+      "retryAfterSeconds": 60
+    }
+  },
+  "postingSchedule": {
+    "advance_notice_days": 14,
+    "reminder_schedule": [
+      {
+        "hours_before": 48,
+        "type": "reminder"
+      },
+      {
+        "hours_before": 24,
+        "type": "reminder"
+      },
+      {
+        "hours_before": 4,
+        "type": "last_call"
+      }
+    ],
+    "optimal_post_times": {
+      "weekdays": "18:00",
+      "weekends": "11:00",
+      "timezone": "America/New_York"
+    }
+  },
+  "eventCategories": [
+    "concert",
+    "sports",
+    "nightlife",
+    "food-festival",
+    "networking",
+    "other"
+  ],
+  "imageHandling": {
+    "maxImageSize": 5242880,
+    "supportedFormats": ["jpg", "jpeg", "png"],
+    "aspectRatio": "1.91:1",
+    "minWidth": 1200,
+    "minHeight": 628
+  },
+  "multiVenueSupport": {
+    "enabled": true,
+    "maxVenuesPerEvent": 10,
+    "venueSeparator": " | "
+  },
+  "globalSettings": {
+    "defaultTimezone": "America/New_York",
+    "maxRetries": 3,
+    "retryDelaySeconds": 5,
+    "enableErrorLogging": true
+  },
+  "sheetColumns": {
+    "A": "event_id",
+    "B": "venue_name",
+    "C": "event_name",
+    "D": "event_date",
+    "E": "event_time",
+    "F": "description",
+    "G": "ticket_link",
+    "H": "facebook_event_id",
+    "I": "facebook_post_id",
+    "J": "posted_date",
+    "K": "rsvp_count",
+    "L": "ticket_sales",
+    "M": "status",
+    "N": "notes"
+  }
+}

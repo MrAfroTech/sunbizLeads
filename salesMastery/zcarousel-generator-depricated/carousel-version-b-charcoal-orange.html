@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Generator — Version B (Charcoal + Orange)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal:     #2C3E50;
+      --orange:       #F28C38;
+      --orange-light: #f5a05a;
+      --white:        #FFFFFF;
+      --stat:         #00D4AA;
+      --image-pct:    58%;
+      --text-pct:     42%;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #161616;
+      min-height: 100vh;
+      color: var(--white);
+      padding: 24px;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 24px;
+      color: var(--orange); text-align: center; margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center; color: rgba(255,255,255,0.38);
+      font-size: 13px; margin-bottom: 40px;
+    }
+
+    .carousel-label {
+      width: 100%; max-width: 1080px;
+      margin: 48px auto 8px auto;
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); border-left: 3px solid var(--orange); padding-left: 10px;
+    }
+
+    .carousel-label:first-of-type { margin-top: 0; }
+
+    .slide-label {
+      width: 100%; max-width: 1080px;
+      margin: 0 auto 8px auto;
+      font-family: 'DM Sans', sans-serif; font-size: 11px;
+      color: rgba(255,255,255,0.28); padding-left: 2px;
+    }
+
+    .section { margin-bottom: 8px; }
+
+    .box-wrapper { display: inline-block; margin-bottom: 16px; }
+
+    /* ── 1080×1080 CARD ── */
+    .carousel-card {
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      background: var(--charcoal);
+    }
+
+    /* LEFT: image */
+    .card-left {
+      width: var(--image-pct);
+      flex-shrink: 0; height: 100%;
+      position: relative; overflow: hidden;
+    }
+
+    .card-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .card-left-fade {
+      position: absolute; inset: 0;
+      background: linear-gradient(270deg, rgba(44,62,80,0.82) 0%, rgba(44,62,80,0.04) 45%, transparent 100%);
+      pointer-events: none; z-index: 1;
+    }
+
+    .card-left-corner {
+      position: absolute; top: 0; left: 0;
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, rgba(242,140,56,0.28) 0%, transparent 60%);
+      pointer-events: none; z-index: 2;
+    }
+
+    .img-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1e2d3d 0%, #111 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+    }
+
+    .img-placeholder svg { width: 56px; height: 56px; stroke: rgba(242,140,56,0.35); }
+    .img-placeholder p {
+      font-family: 'DM Sans', sans-serif; font-size: 20px;
+      color: rgba(242,140,56,0.35); text-align: center; padding: 0 32px; line-height: 1.5;
+    }
+
+    /* RIGHT: text */
+    .card-right {
+      width: var(--text-pct);
+      flex-shrink: 0; height: 100%;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 64px 52px 60px 48px;
+      background: var(--charcoal); position: relative; overflow: hidden;
+    }
+
+    .card-right::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(242,140,56,0.1) 1px, transparent 1px);
+      background-size: 26px 26px; pointer-events: none; z-index: 0;
+    }
+
+    .card-right::after {
+      content: ''; position: absolute;
+      right: 0; top: 0; bottom: 0; width: 6px;
+      background: linear-gradient(180deg, var(--orange) 0%, rgba(242,140,56,0.08) 100%);
+      z-index: 2;
+    }
+
+    .card-right > * { position: relative; z-index: 1; }
+
+    .card-top-row { display: flex; flex-direction: column; gap: 14px; }
+
+    .card-topic-tag {
+      font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600;
+      color: var(--orange); letter-spacing: 2px; text-transform: uppercase; line-height: 1.3;
+    }
+
+    .card-rule { width: 48px; height: 4px; background: var(--orange); border-radius: 2px; }
+
+    .card-logo {
+      font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 20px;
+      color: rgba(255,255,255,0.12); letter-spacing: 0.5px;
+    }
+
+    .card-body {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; padding: 40px 0; gap: 28px;
+    }
+
+    .card-headline {
+      font-family: 'Poppins', sans-serif; font-weight: 900;
+      color: var(--white); line-height: 1.13;
+    }
+
+    .stat-pill {
+      display: flex; flex-direction: column; gap: 8px;
+      background: rgba(242,140,56,0.08);
+      border: 2px solid rgba(242,140,56,0.3);
+      border-radius: 14px; padding: 20px 26px;
+      box-shadow: 0 4px 20px rgba(242,140,56,0.08);
+    }
+
+    .stat-number {
+      font-family: 'Poppins', sans-serif; font-weight: 900;
+      color: var(--stat); line-height: 1; display: block; font-size: 70px;
+    }
+
+    .stat-label {
+      display: block; font-family: 'DM Sans', sans-serif; font-size: 18px;
+      color: rgba(255,255,255,0.48); line-height: 1.4;
+    }
+
+    .card-body-text {
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      color: rgba(255,255,255,0.72); line-height: 1.65; font-size: 22px;
+    }
+
+    .card-bottom-row { display: flex; flex-direction: column; gap: 12px; }
+
+    .card-slide-indicator {
+      font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 600;
+      color: rgba(242,140,56,0.4); letter-spacing: 1px;
+    }
+
+    .card-cta {
+      font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Download button — exact original pattern */
+    .download-btn {
+      display: block;
+      width: 1080px;
+      margin: 0 auto 32px auto;
+      padding: 14px 24px;
+      font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: #111;
+      background: linear-gradient(135deg, var(--orange), var(--orange-light));
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(242,140,56,0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(242,140,56,0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Carousel Generator — Version B</h1>
+  <p class="subtitle">Charcoal + Orange · Staff Burnout vs Guest Experience · 7 Carousels × 5 Slides</p>
+  <div id="root"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+  (function () {
+
+    var IMGS = [
+      'frustratedstaffphotos/download.jpeg',
+      'frustratedstaffphotos/download (1).jpeg',
+      'frustratedstaffphotos/download (3).jpeg',
+      'frustratedstaffphotos/Employee-angry-shopper-closeup-1280x720.jpg',
+      'frustratedstaffphotos/images.jpeg',
+      'frustratedstaffphotos/images (1).jpeg',
+      'frustratedstaffphotos/images (2).jpeg'
+    ];
+
+    var IMG_SETS = [
+      [0,1,2,3,4],
+      [1,2,3,4,5],
+      [2,3,4,5,6],
+      [3,4,5,6,0],
+      [4,5,6,0,1],
+      [5,6,0,1,2],
+      [6,0,1,2,3]
+    ];
+
+    var CAROUSELS = [
+      {
+        title: 'Carousel 1 — The Burnout Trigger',
+        slides: [
+          { headline: 'Bad systems don\'t just hurt your bottom line.', body: 'They burn out the people running your operation.', stat: null },
+          { headline: 'Hospitality has some of the highest burnout rates in the service economy.', body: 'High emotional labor. Irregular hours. And tools that create more work instead of less.', stat: null },
+          { headline: 'Burned-out teams see turnover more than 2× higher.', body: 'Every replacement costs tens of thousands in lost productivity, recruiting, and onboarding.', stat: { n: '2×', l: 'higher turnover in burned-out teams' } },
+          { headline: 'That\'s not a people problem. That\'s an operations problem.', body: 'When the tools make the job harder, burnout isn\'t a personality trait. It\'s a systems failure.', stat: null },
+          { headline: 'Fix the system. The people follow.', body: 'Integrated tools reduce manual work, lower errors, and give staff the bandwidth to actually show up. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 2 — The Hidden Cost of Turnover',
+        slides: [
+          { headline: 'Every time a frontline employee quits, you pay for it twice.', body: 'Once in productivity lost. Once in the cost to replace and retrain.', stat: null },
+          { headline: 'Burnout can cost companies up to $21,000 per employee annually.', body: 'That figure scales fast in operations with dozens or hundreds of staff.', stat: { n: '$21K', l: 'per employee annually in burnout-related costs' } },
+          { headline: 'Burned-out teams churn at 2× the rate of stable ones.', body: 'And hospitality already runs high baseline churn. Burnout compounds an already expensive problem.', stat: { n: '2×', l: 'higher churn in burned-out hospitality teams' } },
+          { headline: 'The onboarding treadmill never stops.', body: 'New hires slow service for weeks. Mistakes increase. Guest experience degrades. Repeat.', stat: null },
+          { headline: 'Retention is an operations problem, not an HR problem.', body: 'Reduce friction in the daily workflow and turnover follows. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 3 — Fragmented Tools, Frustrated Staff',
+        slides: [
+          { headline: 'Fragmented systems force staff to hunt for info instead of serving guests.', body: 'Extra steps. Rework. Friction on every single shift.', stat: null },
+          { headline: 'Isolated systems create inconsistent reporting.', body: 'When staff can\'t trust the data in front of them, they improvise. That inconsistency shows up in guest interactions.', stat: null },
+          { headline: 'Unclear data standards add workload for every manager on shift.', body: 'Decisions that should take seconds take minutes. Multiplied across a full team, that\'s hours of daily friction.', stat: null },
+          { headline: 'Operational stress is a direct burnout accelerant.', body: 'It\'s not just emotional labor. It\'s the constant low-grade frustration of working in a broken environment.', stat: null },
+          { headline: 'Centralized data and integrated tools reduce manual work.', body: 'Less rework. Less hunting. Less friction. Staff can focus on the job they were actually hired to do. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 4 — Burnout Shows Up at the Guest Level',
+        slides: [
+          { headline: 'When staff burn out, guests feel it.', body: 'Slower service. Colder interactions. Worse reviews. The connection is direct.', stat: null },
+          { headline: 'A disengaged team member can\'t deliver a premium experience.', body: 'No amount of training overcomes an environment where the tools make every interaction harder than it needs to be.', stat: null },
+          { headline: 'Bad reviews are often a systems problem in disguise.', body: 'The guest sees rudeness or slowness. The root cause is almost always a burned-out employee running on a broken stack.', stat: null },
+          { headline: 'Staff engagement and guest satisfaction move together.', body: 'Research consistently ties technology-enabled efficiency to improved satisfaction scores and loyalty metrics.', stat: null },
+          { headline: 'You can\'t buy your way out of this with better hiring.', body: 'You need an environment where good people can do good work. That starts with the systems underneath. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 5 — The RevPAR Connection',
+        slides: [
+          { headline: 'RevPAR, satisfaction, and loyalty all move together.', body: 'And all three are sensitive to one thing: whether your staff have the bandwidth to show up.', stat: null },
+          { headline: 'Technology-enabled efficiency isn\'t a nice-to-have.', body: 'It ties directly to your key metrics. The operators who invest in it see it in their numbers.', stat: null },
+          { headline: 'Operational friction suppresses revenue potential.', body: 'When staff are overwhelmed, upsell opportunities are missed, response times lag, and guests disengage.', stat: null },
+          { headline: 'Integrated operations unlock performance across the board.', body: 'System integration streamlines operations, lowers errors, and improves staff productivity — which shows up in RevPAR.', stat: null },
+          { headline: 'The throughline is the same every time.', body: 'Better systems → less burnout → better staff → better guests → better revenue. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 6 — The Modernization Gap',
+        slides: [
+          { headline: 'The burnout isn\'t just emotional. It\'s operational.', body: 'Slow modernization has a human cost that never shows up on a tech roadmap.', stat: null },
+          { headline: 'Hospitality modernization is being undermined from within.', body: 'Isolated systems and unclear data standards block progress before new initiatives even launch.', stat: null },
+          { headline: 'Every manual workaround is a tax on your team\'s energy.', body: 'They\'re not lazy. They\'re burning cycles on problems that integrated systems would eliminate entirely.', stat: null },
+          { headline: 'The operators falling behind aren\'t under-investing in people.', body: 'They\'re under-investing in the infrastructure that lets people perform.', stat: null },
+          { headline: 'Modernization isn\'t a project. It\'s a competitive moat.', body: 'The operations that integrate first will retain better staff and deliver better experiences — compounding over time. / ➜ Follow for more.', stat: null }
+        ]
+      },
+      {
+        title: 'Carousel 7 — The Systems Fix',
+        slides: [
+          { headline: 'What if your staff didn\'t spend their shifts fighting the tools?', body: 'Less friction. Less rework. More energy for the job that actually matters.', stat: null },
+          { headline: 'Integrated tools don\'t just reduce errors. They reduce exhaustion.', body: 'When the system works, the workday is lighter. That lightness compounds into retention.', stat: null },
+          { headline: 'Staff productivity improves when data flows freely.', body: 'No more hunting across systems. No more inconsistent reports. Just clear information when it\'s needed.', stat: null },
+          { headline: 'The best operators have already figured this out.', body: 'They\'ve tied technology-enabled efficiency directly to satisfaction scores, loyalty metrics, and RevPAR.', stat: { n: '2×', l: 'better retention in operations with integrated systems' } },
+          { headline: 'Happier teams. Healthier margins.', body: 'It\'s not a slogan. It\'s a systems outcome. Fix the foundation and everything else follows. / ➜ Follow for more.', stat: null }
+        ]
+      }
+    ];
+
+    var root = document.getElementById('root');
+
+    CAROUSELS.forEach(function (carousel, cIdx) {
+
+      var clabel = document.createElement('div');
+      clabel.className = 'carousel-label';
+      clabel.textContent = carousel.title;
+      root.appendChild(clabel);
+
+      carousel.slides.forEach(function (slide, sIdx) {
+
+        var slabel = document.createElement('div');
+        slabel.className = 'slide-label';
+        slabel.textContent = 'Slide ' + (sIdx + 1) + ' of 5';
+        root.appendChild(slabel);
+
+        var section = document.createElement('div');
+        section.className = 'section';
+
+        var boxWrapper = document.createElement('div');
+        boxWrapper.className = 'box-wrapper';
+
+        /* ── CARD ── */
+        var card = document.createElement('div');
+        card.className = 'carousel-card';
+
+        var imgSrc = IMGS[IMG_SETS[cIdx][sIdx]];
+
+        /* LEFT */
+        var left = document.createElement('div');
+        left.className = 'card-left';
+
+        var corner = document.createElement('div');
+        corner.className = 'card-left-corner';
+        left.appendChild(corner);
+
+        var img = document.createElement('img');
+        img.className = 'card-image';
+        img.src = imgSrc; img.alt = '';
+
+        var ph = document.createElement('div');
+        ph.className = 'img-placeholder';
+        ph.style.display = 'none';
+        ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><p>' + imgSrc + '</p>';
+        img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+        left.appendChild(img);
+        left.appendChild(ph);
+
+        var fade = document.createElement('div');
+        fade.className = 'card-left-fade';
+        left.appendChild(fade);
+
+        card.appendChild(left);
+
+        /* RIGHT */
+        var right = document.createElement('div');
+        right.className = 'card-right';
+
+        var topRow = document.createElement('div');
+        topRow.className = 'card-top-row';
+        var tag = document.createElement('div'); tag.className = 'card-topic-tag'; tag.textContent = 'Staff Burnout'; topRow.appendChild(tag);
+        var rule = document.createElement('div'); rule.className = 'card-rule'; topRow.appendChild(rule);
+        var logo = document.createElement('div'); logo.className = 'card-logo'; logo.textContent = 'Seamlessly'; topRow.appendChild(logo);
+        right.appendChild(topRow);
+
+        var body = document.createElement('div');
+        body.className = 'card-body';
+
+        var hlLen = slide.headline.length;
+        var hlSize = hlLen < 30 ? 54 : hlLen < 50 ? 44 : hlLen < 70 ? 36 : 29;
+        var hl = document.createElement('div');
+        hl.className = 'card-headline';
+        hl.style.fontSize = hlSize + 'px';
+        hl.textContent = slide.headline;
+        body.appendChild(hl);
+
+        if (slide.stat) {
+          var pill = document.createElement('div');
+          pill.className = 'stat-pill';
+          var sn = document.createElement('span'); sn.className = 'stat-number'; sn.textContent = slide.stat.n; pill.appendChild(sn);
+          var sl = document.createElement('span'); sl.className = 'stat-label'; sl.textContent = slide.stat.l; pill.appendChild(sl);
+          body.appendChild(pill);
+        }
+
+        slide.body.split(' / ').forEach(function (line) {
+          var p = document.createElement('div'); p.className = 'card-body-text'; p.textContent = line.trim(); body.appendChild(p);
+        });
+
+        right.appendChild(body);
+
+        var bottomRow = document.createElement('div');
+        bottomRow.className = 'card-bottom-row';
+        var ind = document.createElement('div'); ind.className = 'card-slide-indicator'; ind.textContent = (sIdx + 1) + ' / 5'; bottomRow.appendChild(ind);
+        var cta = document.createElement('div'); cta.className = 'card-cta'; cta.textContent = 'seamlessly.us'; bottomRow.appendChild(cta);
+        right.appendChild(bottomRow);
+
+        card.appendChild(right);
+        boxWrapper.appendChild(card);
+
+        /* BUTTON — exact original pattern */
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'download-btn';
+        var defaultBtnText = 'Download PNG  —  C' + (cIdx + 1) + ' · Slide ' + (sIdx + 1);
+        btn.textContent = defaultBtnText;
+
+        btn.addEventListener('click', function () {
+          btn.disabled = true;
+          btn.textContent = 'Generating PNG...';
+          var btnOriginalDisplay = btn.style.display;
+          btn.style.display = 'none';
+
+          html2canvas(card, {
+            scale: 1,
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            backgroundColor: '#2C3E50',
+            onclone: function (clonedDoc, clonedNode) {
+              var style = clonedNode.style;
+              if (style) {
+                style.background = '#2C3E50';
+                style.backgroundColor = '#2C3E50';
+              }
+            }
+          }).then(function (canvas) {
+            btn.style.display = btnOriginalDisplay;
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            var imgData = canvas.toDataURL('image/png');
+            var link = document.createElement('a');
+            link.download = 'v-b-c' + (cIdx + 1) + '-s' + (sIdx + 1) + '.png';
+            link.href = imgData;
+            link.click();
+          }).catch(function (err) {
+            btn.style.display = btnOriginalDisplay;
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            console.error('PNG generation failed:', err);
+          });
+        });
+
+        section.appendChild(boxWrapper);
+        section.appendChild(btn);
+        root.appendChild(section);
+      });
+    });
+
+  }());
+  </script>
+</body>
+</html>

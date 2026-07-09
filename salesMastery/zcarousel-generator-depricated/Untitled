@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@mauricethefirst — Carousel System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #111;
+    color: #fff;
+    padding: 40px 24px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.18);
+    margin-bottom: 60px;
+  }
+
+  .carousel-block {
+    width: 1080px;
+    margin: 0 auto 80px auto;
+  }
+
+  .label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 10px;
+  }
+
+  /* ───────── CAROUSEL CORE ───────── */
+
+  .carousel-window {
+    width: 1080px;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.35s ease;
+  }
+
+  .slide {
+    width: 1080px;
+    height: 1080px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 160px;
+  }
+
+  /* alternating theme */
+  .slide.dark {
+    background: #000;
+    color: #fff;
+  }
+
+  .slide.light {
+    background: #fff;
+    color: #000;
+  }
+
+  .text {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    z-index: 2;
+    position: relative;
+  }
+
+  .subtext {
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: 400;
+    opacity: 0.65;
+    z-index: 2;
+    position: relative;
+  }
+
+  /* watermark number */
+  .wm {
+    position: absolute;
+    bottom: -40px;
+    right: 40px;
+    font-size: 260px;
+    font-weight: 700;
+    opacity: 0.06;
+    letter-spacing: -10px;
+    z-index: 1;
+  }
+
+  .light .wm { opacity: 0.08; }
+
+  /* nav */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  button {
+    padding: 10px 22px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .btn {
+    background: #fff;
+    color: #000;
+  }
+
+  .btn:disabled { opacity: 0.3; cursor: default; }
+
+  .dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .dot.active { background: #fff; }
+
+</style>
+</head>
+
+<body>
+
+<h1>@mauricethefirst</h1>
+<div class="subtitle">Carousel System — Hook → Story → Educate → Tease Reel</div>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+(function () {
+
+const PHOTO = 'personalBrandPhotos/profilePic.png';
+
+/* ───────── ORIGINAL INPUT ───────── */
+const POSTS = [
+  { day:'Day 1', h:'YOUR FANS WANT TO ORDER. THE LINE IS STOPPING THEM', s:'Long lines reduce conversion. Guests abandon before ordering.' },
+  { day:'Day 2', h:'YOU THINK YOU’RE GIVING CUSTOM SERVICE', s:'Guests feel inconsistency, not customization.' },
+  { day:'Day 3', h:'DEMAND IS NOT THE PROBLEM', s:'Indifference is what determines where people go.' },
+  { day:'Day 4', h:'BASIC DOESN’T FADE. IT DISAPPEARS.', s:'Forgettable operations lose without realizing it.' },
+  { day:'Day 5', h:'LOYALTY PROGRAMS ARE EVERYWHERE', s:'Most guests don’t remember what makes them different.' }
+];
+
+/* ───────── BUILD CAROUSELS ───────── */
+
+function buildSlides(post) {
+
+  return [
+    {
+      type:'hook',
+      text: post.h,
+      sub:'This is what most operators see — but not what they measure.'
+    },
+    {
+      type:'context',
+      text:'What’s actually happening here is more predictable than it looks.',
+      sub: post.s
+    },
+    {
+      type:'effect',
+      text:'This doesn’t just affect one table.',
+      sub:'It changes how the entire floor performs.'
+    },
+    {
+      type:'impact',
+      text:'Most operators don’t notice it in real time.',
+      sub:'They see it in end-of-night numbers instead.'
+    },
+    {
+      type:'tease',
+      text:'Later we break down what actually drives the shift.',
+      sub:'And why some nights outperform others with the same traffic.'
+    }
+  ];
+}
+
+/* ───────── RENDER ───────── */
+
+const root = document.getElementById('root');
+
+POSTS.forEach((post, i) => {
+
+  const slides = buildSlides(post);
+
+  const block = document.createElement('div');
+  block.className = 'carousel-block';
+
+  const label = document.createElement('div');
+  label.className = 'label';
+  label.textContent = post.day;
+
+  const windowEl = document.createElement('div');
+  windowEl.className = 'carousel-window';
+
+  const track = document.createElement('div');
+  track.className = 'carousel-track';
+
+  let index = 0;
+
+  const dotsWrap = document.createElement('div');
+  dotsWrap.className = 'dots';
+
+  function update() {
+    track.style.transform = `translateX(-${index * 1080}px)`;
+
+    [...dotsWrap.children].forEach((d, i2) => {
+      d.classList.toggle('active', i2 === index);
+    });
+  }
+
+  slides.forEach((s, idx) => {
+
+    const slide = document.createElement('div');
+
+    const isDark = idx % 2 === 0;
+
+    slide.className = 'slide ' + (isDark ? 'dark' : 'light');
+
+    const wm = document.createElement('div');
+    wm.className = 'wm';
+    wm.textContent = idx + 1;
+
+    const text = document.createElement('div');
+    text.className = 'text';
+    text.textContent = s.text;
+
+    const sub = document.createElement('div');
+    sub.className = 'subtext';
+    sub.textContent = s.sub;
+
+    slide.appendChild(wm);
+    slide.appendChild(text);
+    slide.appendChild(sub);
+
+    track.appendChild(slide);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dotsWrap.appendChild(dot);
+  });
+
+  windowEl.appendChild(track);
+
+  const nav = document.createElement('div');
+  nav.className = 'nav';
+
+  const left = document.createElement('button');
+  left.className = 'btn';
+  left.textContent = 'Back';
+
+  const right = document.createElement('button');
+  right.className = 'btn';
+  right.textContent = 'Next';
+
+  left.onclick = () => {
+    if (index > 0) index--;
+    update();
+  };
+
+  right.onclick = () => {
+    if (index < slides.length - 1) index++;
+    update();
+  };
+
+  const download = document.createElement('button');
+  download.className = 'btn';
+  download.textContent = 'Download Slide';
+
+  download.onclick = async () => {
+    const slide = track.children[index];
+
+    download.textContent = 'Generating...';
+    download.disabled = true;
+
+    html2canvas(slide, {
+      scale: 1,
+      useCORS: true,
+      backgroundColor: slide.classList.contains('dark') ? '#000' : '#fff'
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = `${post.day}-slide-${index+1}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+
+      download.textContent = 'Download Slide';
+      download.disabled = false;
+    });
+  };
+
+  nav.appendChild(left);
+  nav.appendChild(dotsWrap);
+  nav.appendChild(right);
+  nav.appendChild(download);
+
+  block.appendChild(label);
+  block.appendChild(windowEl);
+  block.appendChild(nav);
+
+  root.appendChild(block);
+
+  update();
+});
+
+})();
+</script>
+
+</body>
+</html>

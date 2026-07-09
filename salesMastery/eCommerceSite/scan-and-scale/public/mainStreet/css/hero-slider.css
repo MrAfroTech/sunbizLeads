@@ -1,0 +1,52 @@
+/* Full-page background slider (calculator) — images served from site /public */
+.watch-vs-order-page--hero-slider {
+  position: relative;
+  background: #1a1208;
+}
+
+.ms-hero-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ms-hero-bg__slides {
+  position: absolute;
+  inset: 0;
+}
+
+.ms-hero-bg__layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.ms-hero-bg__layer.is-visible {
+  opacity: 1;
+}
+
+.ms-hero-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 18, 8, 0.82) 0%,
+    rgba(26, 18, 8, 0.88) 45%,
+    rgba(26, 18, 8, 0.94) 100%
+  );
+}
+
+.watch-vs-order-page--hero-slider .watch-vs-order-container {
+  position: relative;
+  z-index: 1;
+}
+
+.watch-vs-order-page--hero-slider::before {
+  z-index: 0;
+}

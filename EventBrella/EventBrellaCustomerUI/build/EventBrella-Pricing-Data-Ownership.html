@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventBrella Pricing - Data Ownership</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f9f9f9;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .competitor-section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .competitor-section h2 {
+            color: #2D5016;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .competitor-list {
+            margin: 20px 0;
+        }
+        
+        .competitor-list p {
+            padding: 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .total-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .total-box strong {
+            font-size: 1.3rem;
+            color: #856404;
+        }
+        
+        .eventbrella-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .eventbrella-box strong {
+            font-size: 1.3rem;
+            color: #155724;
+        }
+        
+        .savings-box {
+            background: #2D5016;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .savings-box strong {
+            font-size: 1.5rem;
+        }
+        
+        .pricing-table {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        .pricing-table h2 {
+            color: #2D5016;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #2D5016;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        th.popular {
+            background: #DAA520;
+        }
+        
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .data-ownership-row {
+            background: #fffacd !important;
+            font-weight: bold;
+        }
+        
+        .cta-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .cta-section h3 {
+            color: #2D5016;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button.starter {
+            background: #2D5016;
+        }
+        
+        .cta-button.professional {
+            background: #DAA520;
+        }
+        
+        .cta-button.enterprise {
+            background: #333;
+        }
+        
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #2D5016;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn:hover {
+            background: #1a3d0a;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn no-print" onclick="window.print()">Download PDF</button>
+    
+    <div class="header">
+        <h1>EVENTBRELLA: YOU OWN YOUR DATA. YOU OWN YOUR BUSINESS.</h1>
+        <p>Stop building someone else's database. Build yours.</p>
+    </div>
+    
+    <div class="competitor-section">
+        <h2>IF YOU BOUGHT THESE SEPARATELY FROM COMPETITORS:</h2>
+        <div class="competitor-list">
+            <p>• Mindbody/Vagaro (Massage Booking): $100/month</p>
+            <p>• Libsyn/Podbean (Podcast Hosting): $30/month</p>
+            <p>• Calendly/Acuity (Scheduling): $35/month</p>
+            <p>• Square/Clover (POS System): $60/month</p>
+            <p>• Toast/ChowNow (Mobile Ordering for Cafe): $125/month</p>
+            <p>• Beaconstac/QR Code Generator (QR Codes + Maintenance): $50/month</p>
+            <p>• Eventbrite/Ticketmaster (Event Ticketing & Space Rental): $65/month</p>
+        </div>
+        
+        <div class="total-box">
+            <strong>TOTAL: $465/month across 7 different platforms</strong>
+            <p style="margin-top: 10px;">Plus you don't own your data</p>
+        </div>
+        
+        <div class="eventbrella-box">
+            <strong>EVENTBRELLA ALL-IN-ONE PRICE: Starting at $149.99/month</strong>
+        </div>
+        
+        <div class="savings-box">
+            <strong>YOU SAVE: Up to $315/month ($3,780/year)</strong>
+        </div>
+    </div>
+    
+    <div class="pricing-table">
+        <h2>PRICING TIERS</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Starter<br>$149.99/month</th>
+                    <th class="popular">Professional<br>$349.99/month<br>(MOST POPULAR)</th>
+                    <th>Enterprise<br>$699/month</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="data-ownership-row">
+                    <td><strong>YOU OWN YOUR DATA</strong></td>
+                    <td><strong>✓</strong></td>
+                    <td><strong>✓</strong></td>
+                    <td><strong>✓</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Unified Customer Profiles</strong></td>
+                    <td><strong>✓</strong></td>
+                    <td><strong>✓</strong></td>
+                    <td><strong>✓ + Behavior Analytics</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Cross-Service Insights</strong></td>
+                    <td><strong>✓ Basic</strong></td>
+                    <td><strong>✓ Advanced</strong></td>
+                    <td><strong>✓ Predictive AI</strong></td>
+                </tr>
+                <tr>
+                    <td>QR Codes (Generated & Maintained)</td>
+                    <td>5 QR codes</td>
+                    <td>12 QR codes</td>
+                    <td>35 QR codes</td>
+                </tr>
+                <tr>
+                    <td>Staff Accounts</td>
+                    <td>2</td>
+                    <td>10</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Monthly Appointments</td>
+                    <td>1,000</td>
+                    <td>Unlimited</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Booking System</td>
+                    <td>Basic</td>
+                    <td>Full Featured</td>
+                    <td>Full Featured</td>
+                </tr>
+                <tr>
+                    <td>POS System</td>
+                    <td>Square Integration</td>
+                    <td>Square + Advanced Reporting</td>
+                    <td>Square + Advanced Reporting</td>
+                </tr>
+                <tr>
+                    <td>Mobile Ordering (Cafe)</td>
+                    <td>Basic</td>
+                    <td>Unlimited</td>
+                    <td>Unlimited</td>
+                </tr>
+                <tr>
+                    <td>Storage (Podcasts)</td>
+                    <td>5GB</td>
+                    <td>50GB</td>
+                    <td>200GB</td>
+                </tr>
+                <tr>
+                    <td>Event Ticketing & Space Rental</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Custom Integrations</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Brand Customization</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                </tr>
+                <tr>
+                    <td>Data Export Anytime</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓ Priority Format</td>
+                </tr>
+                <tr>
+                    <td>Account Manager</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>Dedicated</td>
+                </tr>
+                <tr>
+                    <td>Support Response</td>
+                    <td>Email (48hrs)</td>
+                    <td>Priority (24hrs)</td>
+                    <td>Priority (2hrs)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="cta-section">
+        <h3>Ready to Own Your Data?</h3>
+        <div class="cta-buttons">
+            <a href="https://ticketseam-customer-ui.vercel.app/data-ownership" class="cta-button starter">Get Started - $149.99/mo</a>
+            <a href="https://ticketseam-customer-ui.vercel.app/data-ownership" class="cta-button professional">Get Started - $349.99/mo</a>
+            <a href="https://ticketseam-customer-ui.vercel.app/data-ownership" class="cta-button enterprise">Get Started - $699/mo</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p><strong>EventBrella</strong> - All-In-One Business Platform</p>
+        <p>Visit: https://ticketseam-customer-ui.vercel.app/data-ownership</p>
+    </div>
+</body>
+</html>
+
+

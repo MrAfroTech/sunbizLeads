@@ -1,0 +1,213 @@
+/* LeadMagnetForm.css */
+
+.lead-magnet-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .form-header {
+    background: linear-gradient(135deg, #22074e 0%, #3b0d63 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .form-title {
+    font-size: 24px;
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  
+  .form-subtitle {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.9;
+  }
+  
+  .highlight {
+    color: #d4af37;
+  }
+  
+  form {
+    padding: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #3b0d63;
+  }
+  
+  .form-group input.error,
+  .form-group select.error {
+    border-color: #e74c3c;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .error-notification {
+    background-color: #fff5f5;
+    border: 1px solid #ffe0e0;
+    border-left: 4px solid #e74c3c;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .error-icon {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  .error-text {
+    color: #e74c3c;
+  }
+  
+  .form-footer {
+    margin-top: 30px;
+  }
+  
+  .primary-button {
+    background: linear-gradient(135deg, #d4af37 0%, #f2c94c 100%);
+    color: #22074e;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .secondary-button {
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 14px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+  }
+  
+  .primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+  }
+  
+  .secondary-button:hover {
+    background: #e8e8e8;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+  }
+  
+  .privacy-note {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    margin-top: 15px;
+  }
+  
+  /* Success screen styles */
+  .success-container {
+    padding-bottom: 30px;
+  }
+  
+  .success-header {
+    background: linear-gradient(135deg, #22074e 0%, #3b0d63 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .success-title {
+    font-size: 30px;
+    margin: 0 0 10px;
+    color: #d4af37;
+  }
+  
+  .success-message {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .success-content {
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .next-steps {
+    margin: 30px 0 20px;
+    font-size: 18px;
+  }
+  
+  .success-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .form-header {
+      padding: 20px;
+    }
+    
+    form {
+      padding: 20px;
+    }
+    
+    .success-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .secondary-button {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }

@@ -1,0 +1,65 @@
+/* Additional styles for the CashFinder integration with LeadCaptureFunnel */
+
+.cash-finder-wrapper {
+  max-width: 100%;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+/* Ensure adequate spacing around the CashFinderForm within the funnel */
+.cash-finder-wrapper .funnel-container {
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Style adjustments for nested forms */
+.cash-finder-wrapper .funnel-form {
+  margin-top: 0;
+}
+
+/* Ensure back button is properly styled */
+.cash-finder-wrapper .secondary-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cash-finder-wrapper .secondary-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure consistent styling for the CashFinderForm within the funnel context */
+.funnel-overlay .cash-finder-wrapper .funnel-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.funnel-overlay .cash-finder-wrapper .funnel-subtitle {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Make sure the popup adapts to the CashFinderForm */
+@media (min-width: 768px) {
+  .funnel-overlay .funnel-container {
+    max-width: 650px;
+  }
+}
+
+/* Handle animation transition between views */
+.success-step, .cash-finder-wrapper {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

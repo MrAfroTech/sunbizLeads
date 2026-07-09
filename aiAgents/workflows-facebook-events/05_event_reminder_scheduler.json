@@ -1,0 +1,728 @@
+{
+  "name": "05 - Event Reminder Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every Hour",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "equal",
+              "keyValue": "Promoted on Facebook"
+            },
+            {
+              "keyName": "facebook_event_id",
+              "condition": "notEmpty"
+            }
+          ]
+        }
+      },
+      "id": "read-promoted-events",
+      "name": "Get Events with Active Promotion",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all();\nconst now = new Date();\n\nconst reminderWindows = [\n  { hours: 48, name: '48h_reminder', label: '2 DAYS' },\n  { hours: 24, name: '24h_reminder', label: '24 HOURS' },\n  { hours: 4, name: '4h_reminder', label: '4 HOURS' }\n];\n\nconst eventsDueForReminder = [];\n\nevents.forEach(item => {\n  const data = item.json;\n  const eventDateTime = new Date(`${data.event_date}T${data.event_time}`);\n  const hoursUntilEvent = (eventDateTime - now) / (1000 * 60 * 60);\n  \n  // Skip if event has already passed\n  if (hoursUntilEvent < 0) return;\n  \n  // Check which reminder window we're in\n  for (const window of reminderWindows) {\n    const isInWindow = hoursUntilEvent <= window.hours && hoursUntilEvent > (window.hours - 1);\n    const reminderSent = (data.notes || '').includes(window.name);\n    \n    if (isInWindow && !reminderSent) {\n      eventsDueForReminder.push({\n        ...data,\n        reminder_type: window.name,\n        reminder_label: window.label,\n        hours_until_event: Math.round(hoursUntilEvent * 10) / 10,\n        is_final_reminder: window.hours === 4\n      });\n      break; // Only send one reminder at a time\n    }\n  }\n});\n\nreturn eventsDueForReminder;"
+      },
+      "id": "calculate-reminders",
+      "name": "Check if Reminder Due",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-reminders",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-reminders-due",
+      "name": "Check Reminders Due",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Reminder",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.7
+        },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Write Facebook reminder posts for upcoming events.\n\nREMINDER POST RULES:\n- Create urgency without being pushy\n- Short and scannable (60-80 words)\n- Include countdown emoji (⏰ ⏳ 🔥)\n- Emphasize limited availability if true\n- Strong CTA (Get tickets NOW, Last chance, etc.)\n- Reference the main event for context\n\n48H REMINDER TONE: Excitement building, \"don't forget\"\n24H REMINDER TONE: Urgency increasing, \"tomorrow!\"\n4H REMINDER TONE: Final call, \"happening soon!\""
+            },
+            {
+              "role": "user",
+              "content": "Write {{ $json.reminder_type }} reminder post:\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nTime Until Event: {{ $json.reminder_label }}\nIs Final Reminder: {{ $json.is_final_reminder }}\n\nTicket Link: {{ $json.ticket_link }}\nFacebook Event: {{ $json.facebook_event_url }}\n\n{{ $json.is_final_reminder ? '🔥 FINAL CALL structure:\\n- Hook: \"Event starts in 4 hours!\"\\n- What: Quick event recap\\n- CTA: \"Last chance for tickets\"' : '⏰ COUNTDOWN structure:\\n- Hook: \"' + $json.reminder_label + ' until [Event]!\"\\n- Excitement: Brief why-attend reminder\\n- CTA: \"Grab your tickets\"' }}\n\nReturn ONLY the post text. No JSON."
+            }
+          ]
+        }
+      },
+      "id": "generate-reminder",
+      "name": "Write Reminder Post",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [1250, 250],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Process Each Reminder\"].json;\nconst reminderText = $node[\"Write Reminder Post\"].json.choices?.[0]?.message?.content || $node[\"Write Reminder Post\"].json.message?.content || '';\n\n// Add countdown emoji based on urgency\nlet emoji = '⏰';\nif (eventData.hours_until_event <= 4) emoji = '🔥';\nelse if (eventData.hours_until_event <= 24) emoji = '⏳';\n\nconst postMessage = `${emoji} ${reminderText}\\n\\n🎟️ Tickets: ${eventData.ticket_link || 'Check event page'}\\n📅 Event: ${eventData.facebook_event_url || 'https://facebook.com/events/' + eventData.facebook_event_id}`;\n\nreturn {\n  ...eventData,\n  reminder_post_message: postMessage\n};"
+      },
+      "id": "format-reminder",
+      "name": "Build Reminder Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 250]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/feed",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"message\": \"{{ $json.reminder_post_message }}\",\n  \"link\": \"{{ $json.facebook_event_url || 'https://facebook.com/events/' + $json.facebook_event_id }}\",\n  \"published\": true\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "post-reminder",
+      "name": "POST Reminder to Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1650, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Build Reminder Payload\"].json;\nconst apiResponse = $input.first().json;\n\n// Handle both success and error responses\nlet reminderPostId = '';\nlet success = false;\nlet errorMessage = '';\n\nif (apiResponse.id) {\n  reminderPostId = apiResponse.id;\n  success = true;\n} else if (apiResponse.error) {\n  errorMessage = apiResponse.error.message || JSON.stringify(apiResponse.error);\n  success = false;\n} else if (apiResponse.body?.id) {\n  reminderPostId = apiResponse.body.id;\n  success = true;\n} else if (apiResponse.body?.error) {\n  errorMessage = apiResponse.body.error.message || JSON.stringify(apiResponse.body.error);\n  success = false;\n}\n\n// Append to notes which reminders have been sent\nconst currentNotes = eventData.notes || '';\nconst updatedNotes = success \n  ? `${currentNotes} | ${eventData.reminder_type} sent at ${new Date().toISOString()}`\n  : `${currentNotes} | ${eventData.reminder_type} failed: ${errorMessage}`;\n\nreturn {\n  ...eventData,\n  reminder_post_id: reminderPostId,\n  notes: updatedNotes,\n  last_activity: new Date().toISOString(),\n  reminders_sent: success ? ((parseInt(eventData.reminders_sent) || 0) + 1) : (parseInt(eventData.reminders_sent) || 0),\n  reminder_success: success,\n  reminder_error: errorMessage\n};"
+      },
+      "id": "log-reminder",
+      "name": "Update Reminder Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1850, 250]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "reminder-success",
+              "leftValue": "={{ $json.reminder_success }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-reminder-success",
+      "name": "Check Reminder Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2050, 250]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "notes": "={{ $json.notes }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "update-reminder-log",
+      "name": "Log Reminder Sent",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2250, 200],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-final",
+              "leftValue": "={{ $json.is_final_reminder }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-final-reminder",
+      "name": "Check if Last Reminder",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2450, 200]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Event Imminent - Final Reminder Sent"
+          }
+        }
+      },
+      "id": "mark-imminent",
+      "name": "Update to Event Imminent",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2650, 150],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "attending_count,interested_count,maybe_count,noreply_count"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-stats",
+      "name": "Get Facebook Event Stats",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2650, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Update to Event Imminent\"].json;\nconst fbStats = $input.first().json;\n\nconst attendingCount = fbStats.attending_count || 0;\nconst interestedCount = fbStats.interested_count || 0;\nconst maybeCount = fbStats.maybe_count || 0;\nconst totalRSVPs = attendingCount + interestedCount + maybeCount;\n\nconst ticketSales = parseInt(eventData.ticket_sales) || 0;\nconst engagementRate = ticketSales > 0 ? (totalRSVPs / ticketSales) : totalRSVPs;\n\nreturn {\n  ...eventData,\n  rsvp_count: totalRSVPs,\n  attending_count: attendingCount,\n  interested_count: interestedCount,\n  maybe_count: maybeCount,\n  facebook_engagement_rate: Math.round(engagementRate * 100) / 100\n};"
+      },
+      "id": "calculate-metrics",
+      "name": "Aggregate Event Metrics",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2850, 250]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "rsvp_count": "={{ $json.rsvp_count }}"
+          }
+        }
+      },
+      "id": "update-stats",
+      "name": "Log Event Performance",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [3050, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "📊 Event Starting Soon: {{ $json.event_name }}",
+        "text": "Event is about to start - final reminder sent!\n\nEVENT: {{ $json.event_name }}\nVENUE: {{ $json.venue_name }}\nSTART TIME: {{ $json.event_date }} at {{ $json.event_time }}\n\nFACEBOOK PERFORMANCE:\n- Total RSVPs: {{ $json.rsvp_count }}\n- Attending: {{ $json.attending_count }}\n- Interested: {{ $json.interested_count }}\n\nPROMOTION SUMMARY:\n- Reminders Sent: {{ $json.reminders_sent }}\n- Event URL: {{ $json.facebook_event_url }}\n- Ticket Link: {{ $json.ticket_link }}\n\nNext: Post-event follow-up in 24 hours.",
+        "options": {}
+      },
+      "id": "final-report",
+      "name": "Final Event Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [3250, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "log-failure",
+      "name": "Mark Reminder Failed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2250, 400],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "⚠️ Event Reminder Failed: {{ $json.event_name }}",
+        "text": "Failed to post event reminder.\n\nEvent: {{ $json.event_name }}\nReminder Type: {{ $json.reminder_type }}\nHours Until Event: {{ $json.hours_until_event }}\n\nError: {{ $json.reminder_error }}\n\nAction: Post reminder manually to avoid missing promotion window.",
+        "options": {}
+      },
+      "id": "alert-failure",
+      "name": "Alert Reminder Failure",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2450, 400],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "waitTime": 2,
+        "unit": "seconds"
+      },
+      "id": "wait-rate-limit",
+      "name": "Wait for Rate Limit",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [3450, 250]
+    }
+  ],
+  "connections": {
+    "Every Hour": {
+      "main": [
+        [
+          {
+            "node": "Get Events with Active Promotion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events with Active Promotion": {
+      "main": [
+        [
+          {
+            "node": "Check if Reminder Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Reminder Due": {
+      "main": [
+        [
+          {
+            "node": "Check Reminders Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Reminders Due": {
+      "main": [
+        [
+          {
+            "node": "Process Each Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Reminder": {
+      "main": [
+        [
+          {
+            "node": "Write Reminder Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Reminder Post": {
+      "main": [
+        [
+          {
+            "node": "Build Reminder Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reminder Payload": {
+      "main": [
+        [
+          {
+            "node": "POST Reminder to Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST Reminder to Page": {
+      "main": [
+        [
+          {
+            "node": "Update Reminder Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Reminder Status": {
+      "main": [
+        [
+          {
+            "node": "Check Reminder Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Reminder Success": {
+      "main": [
+        [
+          {
+            "node": "Log Reminder Sent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Reminder Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Reminder Sent": {
+      "main": [
+        [
+          {
+            "node": "Check if Last Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Last Reminder": {
+      "main": [
+        [
+          {
+            "node": "Update to Event Imminent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Facebook Event Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update to Event Imminent": {
+      "main": [
+        [
+          {
+            "node": "Get Facebook Event Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Facebook Event Stats": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Event Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Event Metrics": {
+      "main": [
+        [
+          {
+            "node": "Log Event Performance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Event Performance": {
+      "main": [
+        [
+          {
+            "node": "Final Event Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Event Report": {
+      "main": [
+        [
+          {
+            "node": "Wait for Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Process Each Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Reminder Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Reminder Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

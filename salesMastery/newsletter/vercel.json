@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    {
+      "source": "/chaos-mastery-checkout",
+      "destination": "/chaos-mastery-checkout/index.html"
+    },
+    {
+      "source": "/chaos-mastery-checkout/",
+      "destination": "/chaos-mastery-checkout/index.html"
+    },
+    {
+      "source": "/chaos-mastery-preview",
+      "destination": "/chaos-mastery-preview/index.html"
+    },
+    {
+      "source": "/chaos-mastery-preview/",
+      "destination": "/chaos-mastery-preview/index.html"
+    }
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10,
+      "includeFiles": "node_modules/**"
+    }
+  }
+}

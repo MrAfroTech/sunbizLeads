@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>White-Label Onboarding — Client Config</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            eb: {
+              dark: '#0a0a0a',
+              'dark-2': '#1a1a1a',
+              gold: '#d4af37',
+              'gold-light': '#f8e8a0',
+              'gold-dark': '#b8860b',
+            },
+          },
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+            display: ['Playfair Display', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    :root {
+      --primary-dark: #0a0a0a;
+      --primary-light: #f9f9f9;
+      --accent-gold: #d4af37;
+      --accent-gold-light: #f8e8a0;
+      --accent-gold-dark: #b8860b;
+      --text-dark: #1a1a1a;
+      --text-light: #ffffff;
+      --text-gray: #8a8a8a;
+      --font-primary: 'Montserrat', sans-serif;
+      --font-secondary: 'Playfair Display', serif;
+    }
+    body { font-family: var(--font-primary); background: var(--primary-dark); color: var(--text-light); min-height: 100vh; }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.12), transparent 40%),
+                  radial-gradient(circle at 70% 60%, rgba(184, 134, 11, 0.08), transparent 50%);
+      z-index: -2;
+    }
+    .accordion-panel { display: none; }
+    .accordion-panel.open { display: block; }
+    .accordion-trigger { cursor: pointer; user-select: none; }
+    .accordion-trigger:hover { background: rgba(212, 175, 55, 0.1); }
+    .char-count { font-size: 0.75rem; color: var(--text-gray); }
+    .char-count.warn { color: #f59e0b; }
+    .char-count.over { color: #ef4444; }
+    .tooltip-trigger { cursor: help; }
+    [data-tooltip] { position: relative; }
+    [data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 0; bottom: 100%;
+      padding: 0.5rem 0.75rem;
+      background: #1a1a1a;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #f9f9f9;
+      white-space: normal;
+      max-width: 280px;
+      z-index: 50;
+      margin-bottom: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .preview-box { font-family: ui-monospace, monospace; font-size: 0.8rem; white-space: pre-wrap; }
+    .dynamic-card { border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 1rem; background: rgba(0,0,0,0.3); margin-bottom: 1rem; }
+    .btn-remove { padding: 6px 12px; border-radius: 6px; font-size: 0.875rem; border: 1px solid rgba(239, 68, 68, 0.5); color: #f87171; background: transparent; cursor: pointer; }
+    .btn-remove:hover { background: rgba(239, 68, 68, 0.15); }
+  </style>
+</head>
+<body class="antialiased">
+  <div class="max-w-4xl mx-auto px-4 py-8 pb-24">
+    <header class="text-center mb-10">
+      <h1 class="font-display text-3xl md:text-4xl font-bold bg-gradient-to-r from-eb-gold via-eb-gold-light to-eb-gold-dark bg-clip-text text-transparent">
+        White-Label Onboarding
+      </h1>
+      <p class="text-eb-gold/90 mt-2">Client config → Cursor instruction</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-6">
+        <button type="button" id="btnSaveDraft" class="px-4 py-2 rounded-lg border border-eb-gold/40 text-eb-gold hover:bg-eb-gold/10 text-sm font-medium">
+          Save draft
+        </button>
+        <button type="button" id="btnLoadDraft" class="px-4 py-2 rounded-lg border border-eb-gold/40 text-eb-gold hover:bg-eb-gold/10 text-sm font-medium">
+          Load draft
+        </button>
+        <button type="button" id="btnClearForm" class="px-4 py-2 rounded-lg border border-red-500/50 text-red-400 hover:bg-red-500/10 text-sm font-medium">
+          Clear form
+        </button>
+        <button type="button" id="btnPrefill" class="px-4 py-2 rounded-lg border border-eb-gold/40 text-eb-gold hover:bg-eb-gold/10 text-sm font-medium">
+          Pre-fill example
+        </button>
+        <label class="px-4 py-2 rounded-lg border border-eb-gold/40 text-eb-gold hover:bg-eb-gold/10 text-sm font-medium cursor-pointer">
+          Import JSON <input type="file" id="importFile" accept=".json" class="hidden" />
+        </label>
+        <button type="button" id="btnExportJson" class="px-4 py-2 rounded-lg border border-eb-gold/40 text-eb-gold hover:bg-eb-gold/10 text-sm font-medium">
+          Export JSON
+        </button>
+      </div>
+    </header>
+
+    <form id="whiteLabelForm" class="space-y-2">
+      <!-- 1. Identity & Branding -->
+      <section class="rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+        <button type="button" class="accordion-trigger w-full px-5 py-4 flex items-center justify-between text-left" data-accordion="1">
+          <span class="font-display font-semibold text-eb-gold">1. Identity & Branding</span>
+          <span class="accordion-icon text-eb-gold">▼</span>
+        </button>
+        <div id="panel-1" class="accordion-panel px-5 pb-5 space-y-4 border-t border-eb-gold/10 pt-4">
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Client name <span class="text-red-400">*</span></label>
+            <input type="text" name="CLIENT_NAME" placeholder="e.g. Here On The Farm" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Client display name <span class="text-red-400">*</span></label>
+            <input type="text" name="CLIENT_ORGANIZER_NAME" placeholder="e.g. Here On The Farm (how it appears in the app)" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Event name</label>
+            <input type="text" name="CLIENT_EVENT_NAME" placeholder="e.g. Farm Tours, Cassava Harvest" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Event time</label>
+            <input type="text" name="CLIENT_EVENT_TIME" placeholder="e.g. 9:00 AM - 11:00 AM EST" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Event description</label>
+            <textarea name="CLIENT_EVENT_DESCRIPTION" rows="3" placeholder="Full event description..." class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Organizer photo</label>
+            <p class="text-xs text-gray-400 mb-1">Upload image; the generated prompt will instruct placing it in the client’s <code class="text-eb-gold/80">public/images/</code> folder.</p>
+            <input type="file" name="organizerImage" id="organizerImage" accept="image/*" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-eb-gold/20 file:text-eb-gold">
+            <p id="organizerImageName" class="text-xs text-gray-500 mt-1"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Venue & Location -->
+      <section class="rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+        <button type="button" class="accordion-trigger w-full px-5 py-4 flex items-center justify-between text-left" data-accordion="2">
+          <span class="font-display font-semibold text-eb-gold">2. Venue & Location</span>
+          <span class="accordion-icon text-eb-gold">▼</span>
+        </button>
+        <div id="panel-2" class="accordion-panel px-5 pb-5 space-y-4 border-t border-eb-gold/10 pt-4">
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_VENUE_NAME</label>
+            <input type="text" name="CLIENT_VENUE_NAME" placeholder="e.g. Here On The Farm" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_ADDRESS_LINE1</label>
+            <input type="text" name="CLIENT_ADDRESS_LINE1" placeholder="Street address" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_ADDRESS_LINE2</label>
+            <input type="text" name="CLIENT_ADDRESS_LINE2" placeholder="City, State ZIP" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <p class="text-xs text-gray-400">Google Maps “Get Directions” and embed URL are calculated from the address above when you generate the prompt.</p>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_PHONE</label>
+            <input type="tel" name="CLIENT_PHONE" placeholder="Contact phone" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Contact & Web -->
+      <section class="rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+        <button type="button" class="accordion-trigger w-full px-5 py-4 flex items-center justify-between text-left" data-accordion="3">
+          <span class="font-display font-semibold text-eb-gold">3. Contact & Web</span>
+          <span class="accordion-icon text-eb-gold">▼</span>
+        </button>
+        <div id="panel-3" class="accordion-panel px-5 pb-5 space-y-4 border-t border-eb-gold/10 pt-4">
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_WEBSITE_URL</label>
+            <input type="url" name="CLIENT_WEBSITE_URL" placeholder="https://clientdomain.com" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_CONTACT_EMAIL</label>
+            <input type="email" name="CLIENT_CONTACT_EMAIL" placeholder="contact@example.com" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Ticketing Tiers -->
+      <section class="rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+        <button type="button" class="accordion-trigger w-full px-5 py-4 flex items-center justify-between text-left" data-accordion="4">
+          <span class="font-display font-semibold text-eb-gold">4. Ticketing Tiers</span>
+          <span class="accordion-icon text-eb-gold">▼</span>
+        </button>
+        <div id="panel-4" class="accordion-panel px-5 pb-5 space-y-4 border-t border-eb-gold/10 pt-4">
+          <p class="text-sm text-gray-400 mb-2">Define pricing tiers (e.g. General Admission, VIP, Early Bird).</p>
+          <div id="ticketingTiersContainer" class="space-y-4"></div>
+          <button type="button" id="btnAddTier" class="px-4 py-2 rounded-lg font-medium bg-eb-gold/20 border border-eb-gold text-eb-gold hover:bg-eb-gold/30 text-sm">
+            + Add Tier
+          </button>
+        </div>
+      </section>
+
+      <!-- 5. Images -->
+      <section class="rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+        <button type="button" class="accordion-trigger w-full px-5 py-4 flex items-center justify-between text-left" data-accordion="5">
+          <span class="font-display font-semibold text-eb-gold">5. Images (URLs)</span>
+          <span class="accordion-icon text-eb-gold">▼</span>
+        </button>
+        <div id="panel-5" class="accordion-panel px-5 pb-5 space-y-4 border-t border-eb-gold/10 pt-4">
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Hero image left <span class="text-gray-500 font-normal" data-tooltip="Use a path like /images/your-left.png or a full image URL. Place files in public/images/ if using paths.">ℹ️</span></label>
+            <input type="text" name="CLIENT_HERO_IMAGE_LEFT" placeholder="/images/CLIENT_HERO_IMAGE_LEFT.png or full URL" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">Hero image right</label>
+            <input type="text" name="CLIENT_HERO_IMAGE_RIGHT" placeholder="/images/CLIENT_HERO_IMAGE_RIGHT.png or full URL" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-eb-gold/90 mb-1">CLIENT_EVENT_POSTER_IMAGE_URL</label>
+            <input type="url" name="CLIENT_EVENT_POSTER_IMAGE_URL" placeholder="Event poster (e.g. index page)" class="w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Config / Env (summary) -->
+      <section class="rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+        <button type="button" class="accordion-trigger w-full px-5 py-4 flex items-center justify-between text-left" data-accordion="6">
+          <span class="font-display font-semibold text-eb-gold">6. Config / Env (Summary)</span>
+          <span class="accordion-icon text-eb-gold">▼</span>
+        </button>
+        <div id="panel-6" class="accordion-panel px-5 pb-5 border-t border-eb-gold/10 pt-4">
+          <p class="text-sm text-gray-400 mb-3">Set these in <strong>Vercel</strong> (and optionally <code class="text-eb-gold/80">config/config.env</code>) so the API stays white-label:</p>
+          <div id="configSummary" class="rounded-lg bg-eb-dark-2 border border-eb-gold/20 p-4 font-mono text-sm text-gray-300 space-y-1">
+            — Fill Identity & Venue to see summary —
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <div class="mt-8 flex justify-center">
+      <button type="button" id="btnSubmitForm" class="px-8 py-4 rounded-xl font-semibold text-eb-dark bg-eb-gold hover:bg-eb-gold-light focus:ring-2 focus:ring-eb-gold focus:ring-offset-2 focus:ring-offset-eb-dark transition shadow-lg hover:shadow-eb-gold/20">
+        Submit form → Generate prompt
+      </button>
+    </div>
+
+    <!-- Live preview + actions -->
+    <section id="promptPreviewSection" class="mt-10 rounded-xl border border-eb-gold/20 bg-black/40 backdrop-blur overflow-hidden">
+      <div class="px-5 py-4 flex flex-wrap items-center justify-between gap-3 border-b border-eb-gold/10">
+        <h2 class="font-display font-semibold text-eb-gold">Generated Cursor instruction</h2>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" id="btnCopy" class="px-4 py-2 rounded-lg bg-eb-gold/20 border border-eb-gold text-eb-gold hover:bg-eb-gold/30 text-sm font-medium">
+            Copy to clipboard
+          </button>
+          <button type="button" id="btnDownload" class="px-4 py-2 rounded-lg bg-eb-gold/20 border border-eb-gold text-eb-gold hover:bg-eb-gold/30 text-sm font-medium">
+            Download .txt
+          </button>
+          <button type="button" id="btnPreviewMode" class="px-4 py-2 rounded-lg border border-eb-gold/40 text-eb-gold hover:bg-eb-gold/10 text-sm font-medium">
+            Preview mode
+          </button>
+        </div>
+      </div>
+      <div class="p-5">
+        <pre id="previewOutput" class="preview-box rounded-lg bg-eb-dark-2 border border-eb-gold/20 p-4 max-h-[420px] overflow-auto text-gray-300"></pre>
+      </div>
+    </section>
+  </div>
+
+  <!-- Preview modal -->
+  <div id="previewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-eb-dark-2 border border-eb-gold/30 rounded-xl max-w-3xl w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl">
+      <div class="px-5 py-4 border-b border-eb-gold/20 flex justify-between items-center">
+        <h3 class="font-display font-semibold text-eb-gold">Sample output (preview)</h3>
+        <button type="button" id="previewModalClose" class="text-eb-gold hover:opacity-80">✕</button>
+      </div>
+      <div class="p-5 overflow-auto flex-1">
+        <div id="previewModalContent" class="preview-box text-sm text-gray-300 whitespace-pre-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="prompt-template.js"></script>
+  <script>
+    // Ensure preview runs after prompt-template.js loads (buildCursorPrompt + exampleClientData)
+    (function () {
+      const FORM = document.getElementById('whiteLabelForm');
+      const PREVIEW = document.getElementById('previewOutput');
+      const CONFIG_SUMMARY = document.getElementById('configSummary');
+      const STORAGE_KEY = 'whiteLabelFormDraft';
+      const ACCORDION_KEY = 'whiteLabelFormAccordion';
+
+      let ticketingTiersCount = 0;
+
+      const inputCls = 'w-full px-4 py-2 rounded-lg bg-eb-dark-2 border border-eb-gold/30 text-white placeholder-gray-500 focus:border-eb-gold focus:ring-1 focus:ring-eb-gold/50';
+
+      document.getElementById('organizerImage').addEventListener('change', function () {
+        document.getElementById('organizerImageName').textContent = this.files && this.files[0] ? this.files[0].name : '';
+      });
+
+      // ——— Accordion (one open at a time, panels 1–6) ———
+      function openPanel(id) {
+        document.querySelectorAll('.accordion-panel').forEach(p => p.classList.remove('open'));
+        document.querySelectorAll('.accordion-trigger').forEach(t => { const icon = t.querySelector('.accordion-icon'); if (icon) icon.textContent = '▼'; });
+        const panel = document.getElementById('panel-' + id);
+        const trigger = document.querySelector('[data-accordion="' + id + '"]');
+        if (panel && trigger) { panel.classList.add('open'); trigger.querySelector('.accordion-icon').textContent = '▲'; }
+        try { localStorage.setItem(ACCORDION_KEY, String(id)); } catch (e) {}
+      }
+      document.querySelectorAll('.accordion-trigger').forEach(btn => {
+        btn.addEventListener('click', () => openPanel(btn.dataset.accordion));
+      });
+      const savedAcc = localStorage.getItem(ACCORDION_KEY);
+      if (savedAcc) openPanel(savedAcc);
+      else openPanel('1');
+
+      // ——— Dynamic: Add Ticketing Tier ———
+      function addTicketingTier(prefill) {
+        ticketingTiersCount++;
+        const n = ticketingTiersCount;
+        const container = document.getElementById('ticketingTiersContainer');
+        const card = document.createElement('div');
+        card.className = 'dynamic-card';
+        card.innerHTML = '<div class="flex justify-between items-center mb-3"><h4 class="font-semibold text-eb-gold">Tier #' + n + '</h4><button type="button" class="btn-remove">Remove Tier</button></div>' +
+          '<div class="space-y-3"><div><label class="block text-sm font-medium text-eb-gold/90 mb-1">Tier Name</label><input type="text" name="tierName_' + n + '" class="' + inputCls + '" placeholder="e.g. General Admission, VIP"></div>' +
+          '<div><label class="block text-sm font-medium text-eb-gold/90 mb-1">Tier ID/Slug</label><input type="text" name="tierId_' + n + '" class="' + inputCls + '" placeholder="e.g. general, vip"></div>' +
+          '<div class="grid grid-cols-2 gap-3"><div><label class="block text-sm font-medium text-eb-gold/90 mb-1">Price (USD)</label><input type="number" name="tierPrice_' + n + '" step="0.01" min="0" class="' + inputCls + '" placeholder="25.00"></div><div><label class="block text-sm font-medium text-eb-gold/90 mb-1">Capacity (optional)</label><input type="number" name="tierCapacity_' + n + '" min="0" class="' + inputCls + '" placeholder="100"></div></div>' +
+          '<div><label class="block text-sm font-medium text-eb-gold/90 mb-1">Description</label><textarea name="tierDescription_' + n + '" rows="2" class="' + inputCls + '" placeholder="What\'s included..."></textarea></div></div>';
+        card.querySelector('.btn-remove').addEventListener('click', () => { card.remove(); });
+        container.appendChild(card);
+        if (prefill) {
+          const el = (name) => FORM.querySelector('[name="' + name + '"]');
+          if (el('tierName_' + n)) el('tierName_' + n).value = prefill.name || '';
+          if (el('tierId_' + n)) el('tierId_' + n).value = prefill.id || '';
+          if (el('tierPrice_' + n)) el('tierPrice_' + n).value = prefill.price != null ? prefill.price : '';
+          if (el('tierCapacity_' + n)) el('tierCapacity_' + n).value = prefill.capacity != null ? prefill.capacity : '';
+          if (el('tierDescription_' + n)) el('tierDescription_' + n).value = prefill.description || '';
+        }
+        updatePreview();
+      }
+
+      document.getElementById('btnAddTier').addEventListener('click', () => addTicketingTier());
+
+      // ——— Compute Google Maps URL from address ———
+      function computeGoogleFromAddress(line1, line2) {
+        const raw = [line1, line2].filter(Boolean).join(', ');
+        if (!raw.trim()) return { destination: '', embedUrl: '' };
+        const encoded = encodeURIComponent(raw);
+        const destination = raw.replace(/\s+/g, '+');
+        const embedUrl = 'https://www.google.com/maps?q=' + encoded + '&output=embed';
+        return { destination, embedUrl };
+      }
+
+      // ——— Form data object (include dynamic arrays; compute Google from address) ———
+      function getFormData() {
+        const fd = new FormData(FORM);
+        const data = {};
+        for (const [k, v] of fd) {
+          if (v instanceof File) continue;
+          data[k] = (v || '').trim();
+        }
+        data.CLIENT_APP_NAME = data.CLIENT_ORGANIZER_NAME || '';
+        data.CLIENT_EVENT_TYPE_LABEL = data.CLIENT_EVENT_NAME || '';
+
+        const google = computeGoogleFromAddress(data.CLIENT_ADDRESS_LINE1 || '', data.CLIENT_ADDRESS_LINE2 || '');
+        data.CLIENT_GOOGLE_MAPS_DESTINATION = google.destination;
+        data.CLIENT_GOOGLE_MAPS_EMBED_URL = google.embedUrl;
+
+        const organizerInput = FORM.querySelector('#organizerImage');
+        data.organizerImageFileName = organizerInput && organizerInput.files && organizerInput.files[0] ? organizerInput.files[0].name : '';
+
+        const ticketingTiers = [];
+        for (let i = 1; i <= ticketingTiersCount; i++) {
+          const name = (data['tierName_' + i] || '').trim();
+          if (name) ticketingTiers.push({ name, id: (data['tierId_' + i] || '').trim(), price: (data['tierPrice_' + i] || '').trim(), capacity: (data['tierCapacity_' + i] || '').trim(), description: (data['tierDescription_' + i] || '').trim() });
+        }
+        data.ticketingTiers = ticketingTiers;
+        data._ticketingTiersCount = ticketingTiersCount;
+        return data;
+      }
+
+      function setFormData(data) {
+        const skipKeys = ['ticketingTiers', '_ticketingTiersCount', 'CLIENT_GOOGLE_MAPS_DESTINATION', 'CLIENT_GOOGLE_MAPS_EMBED_URL', 'organizerImageFileName'];
+        const dynamicKeys = new Set();
+        for (let i = 1; i <= (data._ticketingTiersCount || 0); i++) { dynamicKeys.add('tierName_' + i); dynamicKeys.add('tierId_' + i); dynamicKeys.add('tierPrice_' + i); dynamicKeys.add('tierCapacity_' + i); dynamicKeys.add('tierDescription_' + i); }
+
+        document.getElementById('ticketingTiersContainer').innerHTML = '';
+        ticketingTiersCount = 0;
+
+        if (Array.isArray(data.ticketingTiers) && data.ticketingTiers.length) {
+          data.ticketingTiers.forEach(t => addTicketingTier(t));
+        }
+
+        Object.keys(data).forEach(key => {
+          if (skipKeys.includes(key) || dynamicKeys.has(key)) return;
+          const el = FORM.querySelector('[name="' + key + '"]');
+          if (!el) return;
+          if (el.tagName !== 'SELECT') { el.value = data[key] != null ? data[key] : ''; return; }
+          const opt = Array.from(el.options).find(o => o.value === data[key]);
+          if (opt) el.value = data[key];
+          else if (data[key]) { el.value = '__custom__'; const custom = FORM.querySelector('[name="' + key + '_custom"]'); if (custom) { custom.value = data[key]; custom.classList.remove('hidden'); } }
+        });
+        updateCharCounts();
+        updatePreview();
+        updateConfigSummary();
+      }
+
+      // ——— Character counts for textareas ———
+      function updateCharCounts() {
+        FORM.querySelectorAll('textarea[maxlength]').forEach(ta => {
+          const max = parseInt(ta.getAttribute('maxlength'), 10);
+          const len = (ta.value || '').length;
+          const counter = FORM.querySelector('.char-count[data-for="' + ta.name + '"]');
+          if (!counter) return;
+          counter.textContent = len + ' / ' + max;
+          counter.classList.remove('warn', 'over');
+          if (len >= max) counter.classList.add('over');
+          else if (len >= max * 0.9) counter.classList.add('warn');
+        });
+      }
+      FORM.querySelectorAll('textarea').forEach(ta => ta.addEventListener('input', updateCharCounts));
+
+      // ——— Prompt template & preview ———
+      function updatePreview() {
+        const data = getFormData();
+        PREVIEW.textContent = window.buildCursorPrompt ? window.buildCursorPrompt(data) : JSON.stringify(data, null, 2);
+      }
+      function updateConfigSummary() {
+        const d = getFormData();
+        const lines = [
+          'ORGANIZER_NAME → ' + (d.CLIENT_ORGANIZER_NAME || '—'),
+          'BASE_URL → https://<client-subdomain>.eventbrella.us (or client domain)',
+          'CLIENT_VENUE_NAME → ' + (d.CLIENT_VENUE_NAME || '—'),
+          'CLIENT_ADDRESS_LINE1, CLIENT_ADDRESS_LINE2 → for API/emails',
+          'CLIENT_EVENT_SLUG, CLIENT_DEFAULT_EVENT_NAME → optional, for webhook/Klaviyo',
+        ];
+        CONFIG_SUMMARY.innerHTML = lines.map(l => l.replace(/^(.+?) →/, '<span class="text-eb-gold">$1</span> →')).join('<br>');
+      }
+      FORM.addEventListener('input', updatePreview);
+      FORM.addEventListener('change', updatePreview);
+      updatePreview();
+      updateConfigSummary();
+
+      // ——— Submit form: validate, populate prompt, scroll to preview ———
+      const previewSection = document.getElementById('promptPreviewSection');
+      document.getElementById('btnSubmitForm').addEventListener('click', () => {
+        updateCharCounts();
+        updatePreview();
+        updateConfigSummary();
+        previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        previewSection.classList.add('ring-2', 'ring-eb-gold/50');
+        setTimeout(() => previewSection.classList.remove('ring-2', 'ring-eb-gold/50'), 2000);
+      });
+
+      // ——— Copy ———
+      const btnCopyEl = document.getElementById('btnCopy');
+      btnCopyEl.addEventListener('click', () => {
+        const text = PREVIEW.textContent;
+        navigator.clipboard.writeText(text).then(() => { btnCopyEl.textContent = 'Copied!'; setTimeout(() => { btnCopyEl.textContent = 'Copy to clipboard'; }, 2000); });
+      });
+
+      // ——— Download .txt ———
+      document.getElementById('btnDownload').addEventListener('click', () => {
+        const text = PREVIEW.textContent;
+        const name = (getFormData().CLIENT_APP_NAME || 'white-label').replace(/\s+/g, '-') + '-cursor-instruction.txt';
+        const a = document.createElement('a');
+        a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+        a.download = name;
+        a.click();
+      });
+
+      // ——— Save / Load draft (localStorage) ———
+      const btnSaveDraft = document.getElementById('btnSaveDraft');
+      btnSaveDraft.addEventListener('click', () => {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(getFormData()));
+          btnSaveDraft.textContent = 'Saved!';
+          setTimeout(() => { btnSaveDraft.textContent = 'Save draft'; }, 2000);
+        } catch (e) { alert('Could not save draft'); }
+      });
+      document.getElementById('btnLoadDraft').addEventListener('click', () => {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) { alert('No draft found'); return; }
+          setFormData(JSON.parse(raw));
+        } catch (e) { alert('Invalid draft'); }
+      });
+
+      // ——— Clear form ———
+      document.getElementById('btnClearForm').addEventListener('click', () => {
+        if (confirm('Clear all fields?')) {
+          FORM.reset();
+          document.getElementById('ticketingTiersContainer').innerHTML = '';
+          document.getElementById('organizerImageName').textContent = '';
+          ticketingTiersCount = 0;
+          updatePreview();
+          updateConfigSummary();
+        }
+      });
+
+      // ——— Pre-fill example ———
+      document.getElementById('btnPrefill').addEventListener('click', () => {
+        setFormData(window.exampleClientData || {});
+      });
+
+      // ——— Import JSON ———
+      document.getElementById('importFile').addEventListener('change', e => {
+        const f = e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = () => { try { setFormData(JSON.parse(r.result)); } catch (err) { alert('Invalid JSON'); } e.target.value = ''; };
+        r.readAsText(f);
+      });
+
+      // ——— Export JSON ———
+      document.getElementById('btnExportJson').addEventListener('click', () => {
+        const data = getFormData();
+        const name = (data.CLIENT_APP_NAME || 'white-label').replace(/\s+/g, '-') + '-config.json';
+        const a = document.createElement('a');
+        a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data, null, 2));
+        a.download = name;
+        a.click();
+      });
+
+      // ——— Preview mode (modal with sample) ———
+      const previewModal = document.getElementById('previewModal');
+      const previewModalContent = document.getElementById('previewModalContent');
+      document.getElementById('btnPreviewMode').addEventListener('click', () => {
+        previewModalContent.textContent = window.buildCursorPrompt ? window.buildCursorPrompt(getFormData()) : PREVIEW.textContent;
+        previewModal.classList.remove('hidden');
+        previewModal.classList.add('flex');
+      });
+      document.getElementById('previewModalClose').addEventListener('click', () => {
+        previewModal.classList.add('hidden');
+        previewModal.classList.remove('flex');
+      });
+      previewModal.addEventListener('click', e => { if (e.target === previewModal) previewModal.classList.add('hidden'); previewModal.classList.remove('flex'); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{
+  "credentials": {
+    "googleSheets": {
+      "name": "Google Sheets Account",
+      "spreadsheetId": "PASTE_YOUR_SPREADSHEET_ID_HERE"
+    },
+    "gmail": {
+      "name": "Gmail Account",
+      "email": "your-sales-email@domain.com"
+    },
+    "openAi": {
+      "name": "OpenAI",
+      "apiKey": "PASTE_YOUR_OPENAI_KEY_HERE"
+    },
+    "googleMaps": {
+      "name": "Google Maps API",
+      "apiKey": "PASTE_YOUR_MAPS_KEY_HERE"
+    }
+  },
+  "seamlesslyPitch": {
+    "coreValueProps": [
+      "Mobile ordering reduces wait times by 70%",
+      "Unified platform integrates with Toast, Square, Clover",
+      "Average 30% revenue increase for venues",
+      "Real-time inventory management",
+      "Customer data analytics dashboard"
+    ],
+    "industryPainPoints": [
+      "$25M annual revenue loss industry-wide from wait abandonment",
+      "8-minute average wait time causes 25% customer abandonment",
+      "Fragmented POS systems create operational chaos",
+      "Manual ordering processes slow service during peak hours",
+      "Lost customer data across multiple platforms"
+    ],
+    "integrationPartners": [
+      "Toast",
+      "Square",
+      "Clover",
+      "Resy",
+      "OpenTable",
+      "Yelp Reservations"
+    ],
+    "targetRoles": [
+      "Owner",
+      "General Manager",
+      "Operations Director",
+      "Food & Beverage Director",
+      "Technology Director",
+      "IT Manager"
+    ]
+  },
+  "globalSettings": {
+    "maxDailySendsHot": 5,
+    "maxDailySendsQualified": 10,
+    "maxDailySendsNurture": 20,
+    "followUpDelayDays": 4,
+    "maxFollowUps": 2,
+    "defaultTimezone": "America/New_York"
+  },
+  "scoringThresholds": {
+    "hotLeadScore": 15,
+    "qualifiedScore": 10,
+    "lowPriorityScore": 5
+  },
+  "sheetColumns": {
+    "A": "business_name",
+    "B": "category",
+    "C": "city",
+    "D": "address",
+    "E": "website",
+    "F": "email",
+    "G": "phone",
+    "H": "rating",
+    "I": "review_count",
+    "J": "pain_signals",
+    "K": "pos_system",
+    "L": "location_count",
+    "M": "score",
+    "N": "status",
+    "O": "contacted_date",
+    "P": "last_activity",
+    "Q": "place_id",
+    "R": "email_subject",
+    "S": "email_body",
+    "T": "engagement_level",
+    "U": "decision_maker_role",
+    "V": "estimated_monthly_loss"
+  }
+}

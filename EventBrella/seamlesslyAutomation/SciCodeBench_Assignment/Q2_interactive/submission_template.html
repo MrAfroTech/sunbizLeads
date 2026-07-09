@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q2 Interactive – Gemini conversation export</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 1rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.25rem; }
+    .turn { margin: 1rem 0; padding: 0.75rem; border-radius: 8px; }
+    .user { background: #e3f2fd; }
+    .model { background: #f5f5f5; }
+    .label { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem; }
+    pre { white-space: pre-wrap; margin: 0; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Q2: Interactive Question – Saved conversation</h1>
+  <p><strong>Instructions:</strong> Paste your full conversation from the Gemini app below (Prompt + your replies + Gemini responses). Save this file and upload to Google Drive; put the shareable URL in the submission spreadsheet column "Saved HTML file (URL)".</p>
+
+  <div class="turn user">
+    <div class="label">Prompt (User)</div>
+    <pre>You are helping me design and implement a small public API for a "user preferences" service.
+Requirements (initial): Store and retrieve preferences by user ID and preference key. Support at least: get(key), set(key, value), delete(key), list_keys(). We will add authentication and rate limits later; for now assume a single-tenant backend.
+Before writing any code or finalizing the API shape:
+1) Ask me at least one clarifying question about scope, constraints, or expected behavior.
+2) After I answer, propose a minimal API and confirm with me.
+3) Then provide a short implementation sketch or pseudocode and mention one edge case or failure mode you considered.
+Proceed step by step; do not output the full implementation until we have agreed on the design.</pre>
+  </div>
+
+  <div class="turn model">
+    <div class="label">Gemini Response (Turn 1)</div>
+    <pre>[Paste Gemini's first response here]</pre>
+  </div>
+
+  <div class="turn user">
+    <div class="label">Your reply (e.g. answers to clarifying questions)</div>
+    <pre>[Paste your reply here]</pre>
+  </div>
+
+  <div class="turn model">
+    <div class="label">Gemini Response (Turn 2)</div>
+    <pre>[Paste Gemini's second response here]</pre>
+  </div>
+
+  <p><em>Add more turns as needed, then save and upload to Drive.</em></p>
+</body>
+</html>

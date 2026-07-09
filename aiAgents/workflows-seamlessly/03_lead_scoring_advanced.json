@@ -1,0 +1,225 @@
+{
+  "name": "03 - Lead Scoring (Advanced)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 11 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 11 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:V",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "equal",
+              "value": "Contacts Found"
+            }
+          ]
+        }
+      },
+      "id": "get-leads",
+      "name": "Get Leads to Score",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = $input.all();\n\nconst scoredLeads = leads.map(item => {\n  const data = item.json;\n  let score = 0;\n  let scoreBreakdown = {};\n  \n  // VOLUME SCORE (0-10 points)\n  const reviewCount = data.review_count || 0;\n  if (reviewCount >= 1000) {\n    score += 10;\n    scoreBreakdown.volume = '10 (1000+ reviews - Stadium/Arena)';\n  } else if (reviewCount >= 500) {\n    score += 8;\n    scoreBreakdown.volume = '8 (500-999 reviews - High volume)';\n  } else if (reviewCount >= 200) {\n    score += 5;\n    scoreBreakdown.volume = '5 (200-499 reviews - Mid tier)';\n  } else if (reviewCount >= 50) {\n    score += 3;\n    scoreBreakdown.volume = '3 (50-199 reviews - Small)';\n  } else {\n    score += 1;\n    scoreBreakdown.volume = '1 (<50 reviews - Very small)';\n  }\n  \n  // PAIN SIGNALS (0-5 points)\n  const painSignals = (data.pain_signals || '').toLowerCase();\n  let painScore = 0;\n  if (painSignals.includes('long wait')) painScore += 2;\n  if (painSignals.includes('long line')) painScore += 2;\n  if (painSignals.includes('slow service')) painScore += 1;\n  if (painSignals.includes('crowded')) painScore += 1;\n  painScore = Math.min(painScore, 5);\n  score += painScore;\n  scoreBreakdown.pain = `${painScore} (Pain signals detected)`;\n  \n  // RATING QUALITY (0-3 points)\n  const rating = data.rating || 0;\n  if (rating >= 4.0) {\n    score += 3;\n    scoreBreakdown.rating = '3 (4.0+ rating - Quality venue)';\n  } else if (rating >= 3.5) {\n    score += 2;\n    scoreBreakdown.rating = '2 (3.5-3.9 rating)';\n  } else if (rating >= 3.0) {\n    score += 1;\n    scoreBreakdown.rating = '1 (3.0-3.4 rating)';\n  }\n  \n  // TECH READINESS (0-3 points)\n  const website = (data.website || '').toLowerCase();\n  let techScore = 0;\n  if (website.includes('order') || website.includes('menu')) techScore += 1;\n  if (data.pos_system && data.pos_system !== '') techScore += 2;\n  score += techScore;\n  scoreBreakdown.tech = `${techScore} (Tech indicators)`;\n  \n  // MULTI-LOCATION MULTIPLIER\n  const locationCount = data.location_count || 1;\n  if (locationCount >= 3) {\n    score = Math.floor(score * 1.5);\n    scoreBreakdown.multiplier = '1.5x (Multi-location)';\n  }\n  \n  // ESTIMATED MONTHLY REVENUE LOSS\n  // Formula: (review_count / 30) * (pain_score / 5) * $200 avg_order * 25% abandonment\n  const avgDailyGuests = reviewCount / 30; // Rough proxy\n  const abandonmentRate = 0.25;\n  const avgOrder = 200;\n  const estimatedLoss = Math.round(\n    avgDailyGuests * (painScore / 5) * avgOrder * abandonmentRate * 30\n  );\n  \n  // DETERMINE STATUS\n  let status;\n  if (score >= 15) {\n    status = 'Hot Lead - Prioritize';\n  } else if (score >= 10) {\n    status = 'Qualified - Standard Outreach';\n  } else if (score >= 5) {\n    status = 'Low Priority - Nurture';\n  } else {\n    status = 'Disqualify';\n  }\n  \n  return {\n    ...data,\n    score: score,\n    estimated_monthly_loss: estimatedLoss,\n    status: status,\n    last_activity: new Date().toISOString()\n  };\n});\n\nreturn scoredLeads;"
+      },
+      "id": "score-algorithm",
+      "name": "Advanced Scoring Algorithm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "score": "={{ $json.score }}",
+            "estimated_monthly_loss": "={{ $json.estimated_monthly_loss }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "update-scores",
+      "name": "Write Scores to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [850, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "hot-lead-check",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": 15,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-hot",
+      "name": "Check for Hot Leads",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=🔥 Hot Lead: {{ $json.business_name }} (Score: {{ $json.score }})",
+        "emailType": "text",
+        "message": "=Hot lead detected!\n\nVenue: {{ $json.business_name }}\nCity: {{ $json.city }}\nScore: {{ $json.score }}/25\nPain Signals: {{ $json.pain_signals }}\nEst. Monthly Loss: ${{ $json.estimated_monthly_loss }}\nReviews: {{ $json.review_count }}\n\nPrioritize outreach immediately.",
+        "options": {}
+      },
+      "id": "alert-hot",
+      "name": "Alert: Hot Lead Found",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1250, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 11 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Leads to Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Leads to Score": {
+      "main": [
+        [
+          {
+            "node": "Advanced Scoring Algorithm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Advanced Scoring Algorithm": {
+      "main": [
+        [
+          {
+            "node": "Write Scores to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Scores to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Check for Hot Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for Hot Leads": {
+      "main": [
+        [
+          {
+            "node": "Alert: Hot Lead Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

@@ -1,0 +1,46 @@
+{
+  "credentials": {
+    "googleSheets": {
+      "name": "Google Sheets Account",
+      "spreadsheetId": "PASTE_YOUR_SPREADSHEET_ID_HERE"
+    },
+    "gmail": {
+      "name": "Gmail Account",
+      "email": "your-burner-email@gmail.com"
+    },
+    "openAi": {
+      "name": "OpenAI",
+      "apiKey": "PASTE_YOUR_OPENAI_KEY_HERE"
+    },
+    "googleMaps": {
+      "name": "Google Maps API",
+      "apiKey": "PASTE_YOUR_MAPS_KEY_HERE"
+    }
+  },
+  "globalSettings": {
+    "maxDailySends": 10,
+    "followUpDelayDays": 4,
+    "maxFollowUps": 1,
+    "defaultTimezone": "America/New_York"
+  },
+  "sheetColumns": {
+    "A": "business_name",
+    "B": "category",
+    "C": "city",
+    "D": "address",
+    "E": "website",
+    "F": "email",
+    "G": "phone",
+    "H": "rating",
+    "I": "review_count",
+    "J": "score",
+    "K": "status",
+    "L": "contacted_date",
+    "M": "last_activity",
+    "N": "place_id",
+    "O": "email_subject",
+    "P": "email_body"
+  }
+}
+
+

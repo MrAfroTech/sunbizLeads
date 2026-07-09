@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@mauricethefirst — Instagram Week</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      min-height: 100vh;
+      color: #fff;
+      padding: 32px 24px;
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.18);
+      font-size: 11px;
+      margin-bottom: 48px;
+      letter-spacing: 1px;
+    }
+
+    .day-label {
+      width: 1080px;
+      margin: 40px auto 10px auto;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      padding-left: 2px;
+    }
+
+    .day-label:first-of-type { margin-top: 0; }
+
+    .post-wrapper {
+      display: block;
+      margin-bottom: 0;
+    }
+
+    /* ── 1080×1080 CARD ── */
+    .post-card {
+      width: 1080px;
+      height: 1080px;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 72px 188px 124px 152px;
+    }
+
+    /* Profile row */
+    .profile-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .profile-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #222;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+    }
+
+    .avatar-placeholder svg {
+      width: 40px;
+      height: 40px;
+      stroke: rgba(255,255,255,0.2);
+    }
+
+    .profile-text { display: flex; flex-direction: column; gap: 4px; }
+
+    .profile-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    .profile-handle {
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Quote body */
+    .quote-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      padding: 0;
+      min-height: 0;
+    }
+
+    .quote-line {
+      font-size: 68px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.08;
+      letter-spacing: -1px;
+      text-align: left;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .quote-line-two {
+      font-size: 68px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-top: 12px;
+      text-align: left;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    .quote-body.long .quote-line,
+    .quote-body.long .quote-line-two {
+      font-size: 52px;
+    }
+
+    .quote-body.xlong .quote-line,
+    .quote-body.xlong .quote-line-two {
+      font-size: 42px;
+    }
+
+    .post-card.inverted { background: #000; }
+    .post-card.inverted .profile-name { color: #fff; }
+    .post-card.inverted .profile-handle { color: rgba(255,255,255,0.4); }
+    .post-card.inverted .profile-avatar { background: #222; border-color: rgba(255,255,255,0.1); }
+    .post-card.inverted .avatar-placeholder { background: #1a1a1a; }
+    .post-card.inverted .avatar-placeholder svg { stroke: rgba(255,255,255,0.2); }
+    .post-card.inverted .quote-line { color: #fff; }
+    .post-card.inverted .quote-line-two { color: rgba(255,255,255,0.75); }
+
+    /* Download button */
+    .download-btn {
+      display: block;
+      width: 1080px;
+      margin: 0 auto 48px auto;
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-top: 12px;
+    }
+
+    .download-btn:hover { opacity: 0.85; }
+
+    /* ── CAROUSEL ADDITIONS ── */
+    .carousel-clip {
+      width: 1080px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .carousel-strip {
+      display: flex;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .carousel-card {
+      width: 1080px;
+      height: 1080px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 72px 188px 124px 152px;
+    }
+
+    .carousel-card.dark  { background: #000; }
+    .carousel-card.light { background: #000; }
+
+    .carousel-card.dark  .profile-name   { color: #fff; }
+    .carousel-card.dark  .profile-handle { color: rgba(255,255,255,0.4); }
+    .carousel-card.dark  .profile-avatar { background: #222; border-color: rgba(255,255,255,0.1); }
+    .carousel-card.dark  .avatar-placeholder { background: #1a1a1a; }
+    .carousel-card.dark  .avatar-placeholder svg { stroke: rgba(255,255,255,0.2); }
+
+    .carousel-card.light .profile-name   { color: #fff; }
+    .carousel-card.light .profile-handle { color: rgba(255,255,255,0.4); }
+    .carousel-card.light .profile-avatar { background: #222; border-color: rgba(255,255,255,0.1); }
+    .carousel-card.light .avatar-placeholder { background: #1a1a1a; }
+    .carousel-card.light .avatar-placeholder svg { stroke: rgba(255,255,255,0.2); }
+
+    .carousel-cover-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .carousel-cover-title {
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+
+    .carousel-card.dark  .carousel-cover-title { color: #fff; }
+    .carousel-card.light .carousel-cover-title { color: #fff; }
+
+    .carousel-cover-sub {
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: -0.3px;
+    }
+
+    .carousel-card.dark  .carousel-cover-sub { color: rgba(255,255,255,0.5); }
+    .carousel-card.light .carousel-cover-sub { color: rgba(255,255,255,0.5); }
+
+    .carousel-step-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .step-ghost-num {
+      font-size: 220px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -8px;
+      position: absolute;
+      bottom: -20px;
+      right: -40px;
+      user-select: none;
+    }
+
+    .carousel-card.dark  .step-ghost-num { color: rgba(255,255,255,0.06); }
+    .carousel-card.light .step-ghost-num { color: rgba(255,255,255,0.06); }
+
+    .step-title {
+      font-size: 54px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.8px;
+      margin-bottom: 28px;
+      max-width: 680px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .carousel-card.dark  .step-title { color: #fff; }
+    .carousel-card.light .step-title { color: #fff; }
+
+    .step-copy {
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.45;
+      letter-spacing: -0.2px;
+      max-width: 660px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .carousel-card.dark  .step-copy { color: rgba(255,255,255,0.62); }
+    .carousel-card.light .step-copy { color: rgba(255,255,255,0.62); }
+
+    .carousel-nav {
+      width: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+
+    .c-nav-btn {
+      padding: 12px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #000;
+      background: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .c-nav-btn:hover    { opacity: 0.75; }
+    .c-nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+    .c-dots { display: flex; gap: 8px; align-items: center; }
+
+    .c-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.2s;
+    }
+
+    .c-dot.active { background: #fff; }
+  </style>
+</head>
+<body>
+
+  <h1>@mauricethefirst</h1>
+  <p class="subtitle">Instagram · 28 Standalone Posts · Week 1–4 · 28 Posts</p>
+
+  <div id="root"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+  (function () {
+
+    var PHOTO_SRC = encodeURI('personalBrandPhotos/profilePic.png');
+
+    var POSTS = [
+      /* WEEK 1: THE PROBLEM */
+      { day: 'Week 1 — Day 1',  line1: ' ', line2: ' ', noProfile: true },
+      { day: 'Week 1 — Day 1',  line1: 'Your Fans Want To Order. The Line Is Stopping Them', line2: '45% Abandon Long Lines. 77% would spend more if lines were shorter. 80% abandon a purchase mid-line at least once'},
+      { day: 'Week 1 — Day 2',  line1: 'You think you\'re creating a custom experience. Your guests think you\'re guessing.', line2: 'The gap between what you think you\'re delivering and what they actually feel — that\'s where loyalty dies.' },
+      { day: 'Week 1 — Day 3',  line1: 'Demand isn\'t the problem. Indifference is.', line2: 'People are still going out. They\'re just quicker to decide who\'s worth going to. (Deloitte)' },
+      { day: 'Week 1 — Day 4',  line1: 'Basic doesn\'t fade. It disappears.', line2: 'The operators who can\'t make their experience feel distinct aren\'t losing to competitors — they\'re losing to forgettability.' },
+      { day: 'Week 1 — Day 5',  line1: '90% of hospitality brands have a loyalty program.', line2: 'Most guests can\'t tell you what makes any of them worth staying loyal to. (HBR)' },
+      { day: 'Week 1 — Day 6',  line1: 'Highly engaged teams are 23% more profitable.', line2: 'Which means disengaged ones are bleeding money quietly, every single shift.' },
+      { day: 'Week 1 — Day 7',  line1: 'Friction isn\'t a complaint. It\'s a decision.', line2: 'Every time a guest hits resistance — ordering, waiting, asking — they\'re deciding whether to come back. (Medallia)' },
+
+      /* WEEK 2: THE PEOPLE */
+      { day: 'Week 2 — Day 8',  line1: 'Your guest experience has a ceiling. It\'s called your staff engagement.', line2: 'You can\'t build a great guest experience on top of a team that\'s checked out.' },
+      { day: 'Week 2 — Day 9',  line1: 'U.S. employee engagement just hit a 10-year low.', line2: 'If your operation feels harder to run than it used to — that\'s not a staffing problem. That\'s a culture problem. (Gallup)' },
+      { day: 'Week 2 — Day 10', line1: 'The staff member who fumbled that interaction wasn\'t lazy.', line2: 'They were undertrained and put in front of a guest anyway.' },
+      { day: 'Week 2 — Day 11', line1: 'Over a third of guest satisfaction comes down to whether your staff actually cares.', line2: 'Not the menu. Not the décor. The person standing in front of them. (Cornell Hospitality Research)' },
+      { day: 'Week 2 — Day 12', line1: 'The culture on your floor isn\'t set by you.', line2: 'It\'s set by how your team treats each other when you\'re not watching.' },
+      { day: 'Week 2 — Day 13', line1: 'You\'re measuring guest satisfaction monthly. The damage happens daily.', line2: 'Real-time feedback isn\'t a nice-to-have — it\'s the only way to catch a problem before it becomes a pattern. (Medallia)' },
+      { day: 'Week 2 — Day 14', line1: 'The teams that recover fastest aren\'t the most talented. They\'re the most empowered.', line2: 'A staff member who has to find a manager to fix a $12 problem just cost you a $1,200 guest.' },
+
+      /* WEEK 3: THE EXPERIENCE */
+      { day: 'Week 3 — Day 15', line1: 'Guests don\'t remember everything. They remember the moments that felt different.', line2: 'You don\'t need a flawless operation. You need a few moments that are memorable.' },
+      { day: 'Week 3 — Day 16', line1: 'Convenience isn\'t a feature anymore. It\'s the baseline.', line2: 'Guests who hit friction at any point in the journey don\'t complain about that moment — they just don\'t come back. (Medallia)' },
+      { day: 'Week 3 — Day 17', line1: 'Customization that only lives in your marketing but isn\'t providing a custom experience. It\'s false advertising.', line2: 'The gap between what you promise and what they feel is exactly where trust breaks down.' },
+      { day: 'Week 3 — Day 18', line1: 'The best guest experiences don\'t feel engineered. They feel effortless.', line2: 'That effortlessness costs nothing extra — it just requires knowing what your guest needs before they ask. (McKinsey)' },
+      { day: 'Week 3 — Day 19', line1: '70% of guests say they\'d pay more for a better experience.', line2: 'Which means your pricing problem might actually be an experience problem. (HBR)' },
+      { day: 'Week 3 — Day 20', line1: 'Satisfaction isn\'t loyalty. It\'s just the absence of a complaint.', line2: 'The guests who come back aren\'t the ones who thought it was fine — they\'re the ones who who felt you exceeded expectations.' },
+      { day: 'Week 3 — Day 21', line1: 'The experience doesn\'t end when they leave. It ends when they stop thinking about you.', line2: 'Most operations let that window close without saying a word. (Medallia)' },
+
+      /* WEEK 4: THE OUTCOME */
+      { day: 'Week 4 — Day 22', line1: 'Repeat guests aren\'t loyal because your product is great.', line2: 'They\'re loyal because at some point, you made them feel like you knew them.' },
+      { day: 'Week 4 — Day 23', line1: 'A 5% increase in retention can lift profit by 25% TO 95%.', line2: 'You don\'t have a revenue problem. You have a churn problem. (Feefo)' },
+      { day: 'Week 4 — Day 24', line1: 'The average consumer belongs to 14 loyalty programs.', line2: 'If yours doesn\'t make them feel anything, it\'s just noise in their wallet. (HBR)' },
+      { day: 'Week 4 — Day 25', line1: 'Your best marketing isn\'t a campaign. It\'s a guest who felt something.', line2: 'You can\'t buy that. You can only build the conditions for it.' },
+      { day: 'Week 4 — Day 26', line1: 'Culture isn\'t a vibe. It\'s a margin driver.', line2: 'The operators who figured that out; stopped treating people like a line item. (Gallup)' },
+      { day: 'Week 4 — Day 27', line1: 'The operators winning right now aren\'t the ones with the biggest budgets.', line2: 'They\'re the ones paying attention to what\'s actually happening on their floor — and moving fast when something\'s off.' },
+      { day: 'Week 4 — Day 28', line1: 'The experience IS the business model. Everything else is just overhead.', line2: 'The operators who understand that don\'t compete on price — they compete on the moment. (Deloitte)' }
+    ];
+
+    var CAROUSELS = [];
+
+    var root = document.getElementById('root');
+
+    function buildProfileRow() {
+      var profileRow = document.createElement('div');
+      profileRow.className = 'profile-row';
+
+      var avatar = document.createElement('div');
+      avatar.className = 'profile-avatar';
+
+      var img = document.createElement('img');
+      img.src = PHOTO_SRC;
+      img.alt = 'Maurice Sanders';
+
+      var ph = document.createElement('div');
+      ph.className = 'avatar-placeholder';
+      ph.style.display = 'none';
+      ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+      img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+      avatar.appendChild(img);
+      avatar.appendChild(ph);
+      profileRow.appendChild(avatar);
+
+      var profileText = document.createElement('div');
+      profileText.className = 'profile-text';
+
+      var name = document.createElement('div');
+      name.className = 'profile-name';
+      name.textContent = 'Maurice Sanders';
+
+      var handle = document.createElement('div');
+      handle.className = 'profile-handle';
+      handle.textContent = '@maurice.seamlessly';
+
+      profileText.appendChild(name);
+      profileText.appendChild(handle);
+      profileRow.appendChild(profileText);
+
+      return profileRow;
+    }
+
+    POSTS.forEach(function (post, i) {
+
+      var dayLabel = document.createElement('div');
+      dayLabel.className = 'day-label';
+      dayLabel.textContent = post.day;
+      root.appendChild(dayLabel);
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'post-wrapper';
+
+      var card = document.createElement('div');
+      card.className = 'post-card';
+      var bgColor = '#000000';
+
+      /* Only render profile row if noProfile is not set */
+      if (!post.noProfile) {
+        var profileRow = document.createElement('div');
+        profileRow.className = 'profile-row';
+
+        var avatar = document.createElement('div');
+        avatar.className = 'profile-avatar';
+
+        var img = document.createElement('img');
+        img.src = PHOTO_SRC;
+        img.alt = 'Maurice Sanders';
+
+        var ph = document.createElement('div');
+        ph.className = 'avatar-placeholder';
+        ph.style.display = 'none';
+        ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+        img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+        avatar.appendChild(img);
+        avatar.appendChild(ph);
+        profileRow.appendChild(avatar);
+
+        var profileText = document.createElement('div');
+        profileText.className = 'profile-text';
+
+        var name = document.createElement('div');
+        name.className = 'profile-name';
+        name.textContent = 'Maurice Sanders';
+
+        var handle = document.createElement('div');
+        handle.className = 'profile-handle';
+        handle.textContent = '@maurice.seamlessly';
+
+        profileText.appendChild(name);
+        profileText.appendChild(handle);
+        profileRow.appendChild(profileText);
+        card.appendChild(profileRow);
+      }
+
+      var quoteBody = document.createElement('div');
+      quoteBody.className = 'quote-body';
+
+      var totalLen = post.line1.length + (post.line2 ? post.line2.length : 0);
+      if (totalLen > 120) quoteBody.classList.add('xlong');
+      else if (totalLen > 80) quoteBody.classList.add('long');
+
+      var l1 = document.createElement('div');
+      l1.className = 'quote-line';
+      l1.textContent = post.line1;
+      quoteBody.appendChild(l1);
+
+      if (post.line2) {
+        var l2 = document.createElement('div');
+        l2.className = 'quote-line-two';
+        l2.textContent = post.line2;
+        quoteBody.appendChild(l2);
+      }
+
+      card.appendChild(quoteBody);
+      wrapper.appendChild(card);
+
+      var btn = document.createElement('button');
+      btn.className = 'download-btn';
+      var defaultText = 'Download PNG — ' + post.day;
+      btn.textContent = defaultText;
+
+      btn.addEventListener('click', function () {
+        btn.disabled = true;
+        btn.textContent = 'Generating...';
+        var origDisplay = btn.style.display;
+        btn.style.display = 'none';
+
+        html2canvas(card, {
+          scale: 1,
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          backgroundColor: bgColor
+        }).then(function (canvas) {
+          btn.style.display = origDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultText;
+          var link = document.createElement('a');
+          link.download = 'mauricethefirst-' + post.day.toLowerCase().replace(/\s/g,'-') + '.png';
+          link.href = canvas.toDataURL('image/png');
+          document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        }).catch(function (err) {
+          btn.style.display = origDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultText;
+          console.error(err);
+        });
+      });
+
+      root.appendChild(wrapper);
+      root.appendChild(btn);
+    });
+
+  }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "supabaseUrl": "https://your-project-ref.supabase.co",
+  "supabaseAnonKey": "your-anon-key-here",
+  "_comment": "Copy to config.json and paste your Supabase URL and anon key. config.json is gitignored."
+}

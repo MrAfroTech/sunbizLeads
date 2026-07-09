@@ -1,0 +1,186 @@
+.cash-finder-page {
+    min-height: 100vh;
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .page-logo {
+    margin-bottom: 30px;
+    max-width: 150px;
+  }
+  
+  /* Results page styling */
+  .cash-finder-page .cash-finder-container {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+  
+  /* Override styles from CashFinderForm.css to ensure consistency */
+  .cash-finder-page .funnel-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  .cash-finder-page .funnel-step {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    color: #fff;
+  }
+  
+  .cash-finder-page .gradient-text {
+    background: linear-gradient(to right, #ffd700, #ffbb00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .cash-finder-page .primary-button,
+  .cash-finder-page a.primary-button {
+    background: linear-gradient(to right, #ffd700, #ffbb00);
+    color: #000;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  .cash-finder-page .primary-button:hover {
+    background: linear-gradient(to right, #ffbb00, #ffd700);
+    transform: translateY(-2px);
+  }
+  
+  .cash-finder-page .secondary-button {
+    background: transparent;
+    color: #ffd700;
+    border: 1px solid #ffd700;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .cash-finder-page .secondary-button:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+  
+  .cash-finder-page .benefit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .cash-finder-page .benefit-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: #ffd700;
+  }
+  
+  .cash-finder-page .benefit-text h4 {
+    margin: 0 0 5px;
+    color: #ffd700;
+  }
+  
+  .cash-finder-page .benefit-text p {
+    margin: 0;
+    opacity: 0.8;
+  }
+  
+  /* Results Container Styling */
+  .results-container {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 8px;
+    padding: 30px;
+    color: #fff;
+  }
+  
+  .results-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .results-header h2 {
+    margin: 0 0 15px;
+    font-size: 2rem;
+  }
+  
+  .results-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .result-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .result-card h3 {
+    color: #ffd700;
+    margin: 0 0 10px;
+  }
+  
+  .result-card.highlight {
+    background: linear-gradient(to right, rgba(255, 215, 0, 0.2), rgba(255, 187, 0, 0.2));
+    border: 1px solid #ffd700;
+  }
+  
+  .result-value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin: 10px 0;
+  }
+  
+  .next-steps {
+    text-align: center;
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .next-steps h3 {
+    color: #ffd700;
+    margin: 0 0 15px;
+  }
+  
+  .next-steps p {
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .results-summary {
+      flex-direction: row;
+    }
+    
+    .result-card {
+      flex: 1;
+    }
+  }

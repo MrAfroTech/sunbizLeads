@@ -1,0 +1,634 @@
+{
+  "name": "03 - Facebook Event Creator (Graph API)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 */2 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every 2 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N",
+          "limit": 5
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "contains",
+              "keyValue": "Approved"
+            },
+            {
+              "keyName": "facebook_event_id",
+              "condition": "empty"
+            }
+          ]
+        }
+      },
+      "id": "read-approved-events",
+      "name": "Get Events Ready to Post",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Event",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [550, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all();\n\nconst formattedEvents = events.map(item => {\n  const data = item.json;\n  \n  // Combine date + time into ISO format\n  const eventDateTime = new Date(`${data.event_date}T${data.event_time}`);\n  const eventEndTime = new Date(eventDateTime.getTime() + (4 * 60 * 60 * 1000)); // +4 hours default\n  \n  return {\n    ...data,\n    facebook_payload: {\n      name: data.event_name,\n      description: data.description,\n      start_time: eventDateTime.toISOString(),\n      end_time: eventEndTime.toISOString(),\n      location: data.location,\n      ticket_uri: data.ticket_link,\n      is_online: false,\n      category: mapCategory(data.event_category),\n      online_event_format: null\n    }\n  };\n});\n\nfunction mapCategory(seamlesslyCategory) {\n  const categoryMap = {\n    'concert': 'MUSIC_EVENT',\n    'sports': 'SPORTS_EVENT',\n    'nightlife': 'PARTY',\n    'food-festival': 'FOOD_TASTING',\n    'networking': 'NETWORKING',\n    'other': 'OTHER'\n  };\n  return categoryMap[seamlesslyCategory] || 'OTHER';\n}\n\nreturn formattedEvents;"
+      },
+      "id": "format-payload",
+      "name": "Prepare Facebook Event Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"name\": \"{{ $json.facebook_payload.name }}\",\n  \"description\": \"{{ $json.facebook_payload.description }}\",\n  \"start_time\": \"{{ $json.facebook_payload.start_time }}\",\n  \"end_time\": \"{{ $json.facebook_payload.end_time }}\",\n  \"location\": \"{{ $json.facebook_payload.location }}\",\n  \"ticket_uri\": \"{{ $json.facebook_payload.ticket_uri }}\",\n  \"is_online\": false,\n  \"category\": \"{{ $json.facebook_payload.category }}\"\n}",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "responseFormat": "json",
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "create-facebook-event",
+      "name": "POST to Facebook Graph API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Prepare Facebook Event Payload\"].json;\nconst apiResponse = $input.first().json;\n\n// Handle both success and error responses\nlet facebookEventId = '';\nlet success = false;\nlet errorMessage = '';\n\nif (apiResponse.id) {\n  facebookEventId = apiResponse.id;\n  success = true;\n} else if (apiResponse.error) {\n  errorMessage = apiResponse.error.message || JSON.stringify(apiResponse.error);\n  success = false;\n} else if (apiResponse.body?.id) {\n  facebookEventId = apiResponse.body.id;\n  success = true;\n} else if (apiResponse.body?.error) {\n  errorMessage = apiResponse.body.error.message || JSON.stringify(apiResponse.body.error);\n  success = false;\n}\n\nreturn {\n  ...eventData,\n  facebook_event_id: facebookEventId,\n  facebook_event_url: success ? `https://facebook.com/events/${facebookEventId}` : '',\n  status: success ? 'Facebook Event Created' : 'API Error',\n  posted_date: success ? new Date().toISOString() : '',\n  last_activity: new Date().toISOString(),\n  api_response: JSON.stringify(apiResponse),\n  error_message: errorMessage\n};"
+      },
+      "id": "parse-response",
+      "name": "Parse API Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-event-id",
+              "leftValue": "={{ $json.facebook_event_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-success",
+      "name": "Check Creation Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-image",
+              "leftValue": "={{ $json.image_url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "isNotEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-image",
+      "name": "Check if Image Available",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1450, 250]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_event_id }}/picture",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "picture",
+              "value": "={{ $json.image_url }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "upload-image",
+      "name": "Add Cover Photo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1650, 150]
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $input.first().json;\nreturn {\n  ...event,\n  image_uploaded: true,\n  notes: `${event.notes || ''}\\nCover image uploaded successfully`\n};"
+      },
+      "id": "mark-image-uploaded",
+      "name": "Mark Image Uploaded",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1850, 150]
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $input.first().json;\nreturn {\n  ...event,\n  image_uploaded: false,\n  notes: `${event.notes || ''}\\nNo image URL provided, skipped`\n};"
+      },
+      "id": "skip-image",
+      "name": "Skip Image Upload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 350]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll"
+      },
+      "id": "merge-image",
+      "name": "Merge Image Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [2050, 250]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "facebook_event_id": "={{ $json.facebook_event_id }}",
+            "status": "={{ $json.status }}",
+            "posted_date": "={{ $json.posted_date }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "update-status",
+      "name": "Mark as Posted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2250, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.seamlessly.com/v1/events/{{ $json.event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"facebook_event_id\": \"{{ $json.facebook_event_id }}\",\n  \"facebook_event_url\": \"{{ $json.facebook_event_url }}\",\n  \"facebook_posted\": true,\n  \"facebook_posted_date\": \"{{ $json.posted_date }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "sync-seamlessly",
+      "name": "Sync Facebook Event ID to Seamlessly",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2450, 250]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "✅ Facebook Event Created: {{ $json.event_name }}",
+        "text": "Facebook Event successfully created!\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nDate: {{ $json.event_date }} at {{ $json.event_time }}\n\nFacebook Event: {{ $json.facebook_event_url }}\nTicket Link: {{ $json.ticket_link }}\n\nNext: Promotional post will be published shortly.",
+        "options": {}
+      },
+      "id": "success-email",
+      "name": "Confirm Event Posted",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2650, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "API Error - Manual Review",
+            "notes": "={{ $json.notes || '' }}\\nAPI Error: {{ $json.error_message }}\\nResponse: {{ $json.api_response }}"
+          }
+        }
+      },
+      "id": "log-error",
+      "name": "Mark as Failed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1450, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "❌ Facebook Event Creation Failed",
+        "text": "Failed to create Facebook Event.\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nPage ID: {{ $json.venue_facebook_page_id }}\n\nAPI Response:\n{{ $json.api_response }}\n\nPossible issues:\n- Invalid Page Access Token\n- Page doesn't have events permission\n- API rate limit reached\n- Invalid event data\n\nReview and retry manually.",
+        "options": {}
+      },
+      "id": "error-email",
+      "name": "Alert Failed Event",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1650, 350],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "waitTime": 2,
+        "unit": "seconds"
+      },
+      "id": "wait-rate-limit",
+      "name": "Wait for Rate Limit",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2850, 250]
+    }
+  ],
+  "connections": {
+    "Every 2 Hours": {
+      "main": [
+        [
+          {
+            "node": "Get Events Ready to Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events Ready to Post": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Event": {
+      "main": [
+        [
+          {
+            "node": "Prepare Facebook Event Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Facebook Event Payload": {
+      "main": [
+        [
+          {
+            "node": "POST to Facebook Graph API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST to Facebook Graph API": {
+      "main": [
+        [
+          {
+            "node": "Parse API Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse API Response": {
+      "main": [
+        [
+          {
+            "node": "Check Creation Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Creation Success": {
+      "main": [
+        [
+          {
+            "node": "Check if Image Available",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark as Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Image Available": {
+      "main": [
+        [
+          {
+            "node": "Add Cover Photo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Skip Image Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Cover Photo": {
+      "main": [
+        [
+          {
+            "node": "Mark Image Uploaded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Image Uploaded": {
+      "main": [
+        [
+          {
+            "node": "Merge Image Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip Image Upload": {
+      "main": [
+        [
+          {
+            "node": "Merge Image Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Image Paths": {
+      "main": [
+        [
+          {
+            "node": "Mark as Posted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Posted": {
+      "main": [
+        [
+          {
+            "node": "Sync Facebook Event ID to Seamlessly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync Facebook Event ID to Seamlessly": {
+      "main": [
+        [
+          {
+            "node": "Confirm Event Posted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirm Event Posted": {
+      "main": [
+        [
+          {
+            "node": "Wait for Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Failed Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

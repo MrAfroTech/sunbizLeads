@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 5: The Golden Age of Hospitality</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub   { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+.dl-btns { display:flex; gap:10px; }
+.dl-btns button { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:8px 18px; border:none; border-radius:3px; cursor:pointer; }
+.btn-single { background:#00D4AA; color:#1A2A44; }
+.btn-all    { background:#D4AF37; color:#1A2A44; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:22px 64px 14px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:22px 64px 18px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:4px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:38px; color:#1A2A44; line-height:1; margin-bottom:12px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; line-height:1.5; margin-bottom:10px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1A2A44; letter-spacing:1px; margin-bottom:5px; margin-top:10px; }
+.body     { font-size:12.5px; color:#1A1A1A; line-height:1.58; }
+.body p   { margin-bottom:7px; }
+.body strong { color:#1A2A44; font-weight:700; }
+.cite     { font-size:10px; color:#999; font-style:italic; vertical-align:super; }
+.src-note { font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px; margin-top:6px; }
+
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.two-col-eq { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.three-col  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.four-col   { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.sidebar    { display:flex; flex-direction:column; gap:10px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:10px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:11px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.3; }
+.stat-sub { font-size:10px; color:#666; margin-top:3px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:9px 12px; font-size:12.5px; color:#1A2A44; line-height:1.55; }
+.callout strong { color:#D4AF37; }
+
+.q-card { padding:14px 16px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-card.teal { background:#00D4AA; }
+.q-card.light { background:#F4F6F9; border:1px solid #e0e0e0; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:40px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; line-height:1.65; margin-bottom:8px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-src  { font-size:10px; font-style:italic; opacity:.65; margin-top:3px; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; } .q-card.navy .q-attr { color:#D4AF37; } .q-card.navy .q-src { color:rgba(255,255,255,0.55); }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src { color:#1A2A44; }
+.q-card.teal .q-text,.q-card.teal .q-mark,.q-card.teal .q-attr,.q-card.teal .q-src { color:#1A2A44; }
+.q-card.light .q-mark,.q-card.light .q-text { color:#1A2A44; } .q-card.light .q-attr { color:#666; }
+
+.grid-card { background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.25); padding:18px; border-radius:4px; }
+.grid-card .gc-num { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; }
+.grid-card .gc-lbl { font-size:12px; font-weight:700; margin-top:4px; line-height:1.4; }
+.grid-card .gc-sub { font-size:10.5px; opacity:.65; margin-top:5px; line-height:1.4; }
+.gc-gold .gc-num { color:#D4AF37; } .gc-gold .gc-lbl { color:#fff; }
+.gc-teal .gc-num { color:#00D4AA; } .gc-teal .gc-lbl { color:#fff; }
+.gc-white .gc-num { color:#fff; }   .gc-white .gc-lbl { color:#D4AF37; }
+
+.prog-bar  { height:9px; background:#E8EEF5; border-radius:5px; overflow:hidden; margin-top:5px; }
+.prog-fill { height:100%; border-radius:5px; }
+
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+.chk-row  { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid #F0F0F0; }
+.chk-box  { width:16px; height:16px; flex-shrink:0; border:2px solid #1A2A44; border-radius:2px; margin-top:1px; }
+.chk-text { font-size:13px; color:#1A1A1A; line-height:1.5; }
+.chk-text strong { color:#1A2A44; }
+
+.week-block { border-radius:3px; overflow:hidden; }
+.week-head  { padding:8px 14px; display:flex; align-items:center; justify-content:space-between; }
+.week-head span { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; }
+.week-head small { font-size:11px; opacity:.6; }
+.week-body  { border:1.5px solid; border-top:none; padding:10px 14px; border-radius:0 0 3px 3px; }
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 5: The Golden Age of Hospitality</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all"    onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 1 — CHAPTER OPENER
+════════════════════════════════════════════════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:52px 80px 40px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part II — The Evolution of Hospitality</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 5</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:80px; color:#fff; line-height:.92; margin-bottom:2px;">THE GOLDEN AGE</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:80px; color:#D4AF37; line-height:.92; margin-bottom:36px;">OF HOSPITALITY</div>
+        <div style="width:72px; height:4px; background:#00D4AA; margin-bottom:30px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:21px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:580px;">
+          "In the 1950s and 1960s, location was everything. Get the right spot on the highway, near the stadium, on the right block of the right street — and the guests would come. You didn't have to earn them. You just had to be there."
+        </div>
+      </div>
+      <div>
+        <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:26px;"></div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; line-height:1;">1948</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">McDonald's assembly-line model — the formula that franchised American dining</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">1965</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Houston Astrodome opens — the first dome stadium, for the first time the venuewas part of the experience</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#fff; line-height:1;">1989</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">The Mirage opens — Steve Wynn redefines the Strip as a destination</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">1,000+</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">Howard Johnson's at peak — the highway location model taken to national scale</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 2 — THE POST-WAR BOOM
+════════════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="two-col" style="flex:1; align-items:start; gap:18px;">
+      <div>
+        <div class="label">1945–1960</div>
+        <div class="ch-title">The Post-War Economy Builds Hospitality</div>
+        <div class="ch-intro" style="max-width:100%; font-size:13px;">Returning veterans, rising wages, suburban expansion, and the automobile combined to create the most fertile hospitality market in American history. For 40 years, location was all an operator needed.</div>
+        <div class="body" style="line-height:1.44; font-size:12px;">
+          <p>The post-war boom of the late 1940s through the 1960s created conditions that hospitality operators had never encountered before and would never encounter again. As History Tools documents, by the 1990s more than one-third of Americans dined out on fast food alone — a behavioral shift that had its origins in the 1950s when, as Colony Diner's historical research describes, <strong>"Americans had more money to spend"</strong> and car culture began routing consumers past restaurants they had never previously had access to.<span class="cite"> Colony Diner, colonydiner.com</span></p>
+          <p>The television posed an existential threat that shaped the entire design philosophy of the era. As Daktronics's century of stadium design research documents, <strong>"Sports teams have competed with TV for fans' preference since the first football game was televised in 1951."</strong> In response, 1950s stadium design was defined by "fan comfort improvements, including expanded seating areas with better sightlines, more concessions selection and more developed concourse areas." The same dynamic applied to restaurants: they competed with the domestic living room by being bigger, brighter, and more accessible.<span class="cite"> Daktronics, "100 Years of American Stadium Design in 5 Minutes"</span></p>
+          <div class="sec-head">The Suburban Expansion</div>
+          <p>Kiplinger's historical analysis of classic chain restaurants identifies the critical strategic lesson of the era: White Tower, which had dominated urban corners, began to fade in the 1950s because it <strong>"never made the move to the more lucrative suburbs, like many of its fast-food competitors did, with their accelerated growth in the late 1960s and 1970s."</strong> Location didn't just matter — it was the entire business model.<span class="cite"> Kiplinger, "Classic Restaurant Chains: Where Are They Now?"</span></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The core dynamic of the golden age:</strong> Post-war Americans had cars, had money, and were moving to suburbs — places with no established restaurant infrastructure. The operator who planted a flag first on a promising highway exit or growing suburb corner could expect sustained foot traffic for years to come.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box">
+          <div class="stat-num">1951</div>
+          <div class="stat-lbl">First televised football game — venues begin competing with the living room for the first time</div>
+          <div class="stat-sub">Daktronics, "100 Years of American Stadium Design in 5 Minutes"</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">1954</div>
+          <div class="stat-lbl">Ray Kroc franchises McDonald's — the replication formula that changes American dining forever</div>
+          <div class="stat-sub">Shannon Callahan, History Hit; History Tools, historytools.org</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">400</div>
+          <div class="stat-lbl">Howard Johnson's locations by 1954 — highway visibility as the complete business strategy</div>
+          <div class="stat-sub">Kiplinger, "Classic Restaurant Chains: Where Are They Now?"</div>
+        </div>
+        <div style="background:#1A2A44; padding:14px 15px; border-radius:3px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Golden Age Formula</div>
+          <div style="font-size:12.5px; color:#fff; line-height:1.6;">Right location + sufficient parking + basic food + visibility from the road = profitable operation. This formula ran essentially uncontested for four decades.</div>
+        </div>
+        <div class="callout">
+          <strong>White Tower's lesson:</strong> The chain peaked at 230 urban locations in the 1950s, then faded as suburbs grew. Location advantage is only permanent if it follows cultural evolutions.
+          <div style="font-size:10px; color:#888; margin-top:4px; font-style:italic;">Source: Kiplinger</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 3 — FAST FOOD CHAIN EXPLOSION TIMELINE (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Chain Explosion</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE FRANCHISE ERA — 1948 TO 1990</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:16px; letter-spacing:1.5px; text-transform:uppercase;">How replication Became the Dominant Hospitality Business Model</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:20px;"></div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; flex:1;">
+        <!-- Row headers -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; padding:0 0 4px 0;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase;">YEAR</div>
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase;">EVENT & SIGNIFICANCE</div>
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; text-align:right;">LOCATION LOGIC</div>
+        </div>
+
+        <!-- 1948 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#D4AF37; line-height:1;">1948</div>
+          <div><div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:2px;">McDonald's Assembly Line — San Bernardino, CA</div><div style="font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.4;">Richard and Maurice McDonald switch to hamburgers and implement speed-service. Ray Kroc sees it in 1954 and buys the rights. The franchising model is born: replicate the formula, acquire the location, collect the revenue. <span style="font-style:italic; opacity:.6;">— History Hit; historytools.org</span></div></div>
+          <div style="font-size:11px; color:#D4AF37; font-weight:700; text-align:right; line-height:1.4;">Highway access + parking = everything</div>
+        </div>
+
+        <!-- 1952-1955 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(0,212,170,0.07); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#00D4AA; line-height:1;">1952–55</div>
+          <div><div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:2px;">KFC, Taco Bell, Howard Johnson's Hit 400 Locations</div><div style="font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.4;">Colonel Sanders begins KFC franchise. Howard Johnson's reaches 400 locations across 32 states — all strategically positioned on the new American highway system. <span style="font-style:italic; opacity:.6;">— Kiplinger; liveabout.com</span></div></div>
+          <div style="font-size:11px; color:#00D4AA; font-weight:700; text-align:right; line-height:1.4;">Interstate highway = guaranteed captive audience</div>
+        </div>
+
+        <!-- 1961 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#fff; line-height:1;">1961</div>
+          <div><div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:2px;">Howard Johnson's Goes Public</div><div style="font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.4;">"One of the first major restaurant chains, it went public in 1961 with 605 restaurants and 88 motor lodges, both of which were major fixtures dotting the new American highway system." The orange roof was a brand signal visible from 500 feet. <span style="font-style:italic; opacity:.6;">— Kiplinger</span></div></div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.7); font-weight:700; text-align:right; line-height:1.4;">Brand = location identifier from the road</div>
+        </div>
+
+        <!-- 1965 -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#D4AF37; line-height:1;">1965</div>
+          <div><div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:2px;">TGI Fridays Founded — First "Casual Dining" Location</div><div style="font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.4;">"TGI Fridays, founded in 1965 by Alan Stillman in New York City, quickly gained popularity among young singles, thanks to its strategic location next to an apartment building housing 480 flight attendants." The location was the entire marketing strategy. <span style="font-style:italic; opacity:.6;">— History Tools, historytools.org</span></div></div>
+          <div style="font-size:11px; color:#D4AF37; font-weight:700; text-align:right; line-height:1.4;">Proximity to target demo = immediate market</div>
+        </div>
+
+        <!-- 1970s -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(0,212,170,0.07); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#00D4AA; line-height:1;">1970s</div>
+          <div><div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:2px;">The "Browning of America" — Suburban Chain Proliferation</div><div style="font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.4;">Restaurant-ing Through History documents the shift: mansard roofs, earth tones, hanging plants. "Coffee shop type suburban restaurants continued in chains such as Denny's." Suburban location = guaranteed commuter traffic. <span style="font-style:italic; opacity:.6;">— restaurant-ingthroughhistory.com</span></div></div>
+          <div style="font-size:11px; color:#00D4AA; font-weight:700; text-align:right; line-height:1.4;">Suburban corner = daily repeat traffic</div>
+        </div>
+
+        <!-- 1990s -->
+        <div style="display:grid; grid-template-columns:80px 1fr 140px; gap:12px; align-items:center; background:rgba(255,107,107,0.08); border:1px solid rgba(255,107,107,0.2); border-radius:3px; padding:10px 14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#ff6b6b; line-height:1;">1990s</div>
+          <div><div style="font-size:13px; color:#fff; font-weight:600; margin-bottom:2px;">Olive Garden, Applebee's — The Peak and the Warning Sign</div><div style="font-size:11.5px; color:rgba(255,255,255,0.65); line-height:1.4;">"Chains like Olive Garden and Applebee's catered to the growing middle class and offered moderately priced meals and children's menus." Casual dining hits peak market share. But the model is still location-first, experience-secondary — the flaw that will surface in 2010s. <span style="font-style:italic; opacity:.6;">— Shannon Callahan, History Hit; History Tools</span></div></div>
+          <div style="font-size:11px; color:#ff6b6b; font-weight:700; text-align:right; line-height:1.4;">⚠ Location First — Guest Experience Was An Afterthought</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin:12px 0;"></div>
+      <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:rgba(255,255,255,0.65); text-align:center; line-height:1.6;">
+        "McDonald's created a formula for franchising fast-food restaurants in the 1950s that would change the landscape of American dining." — Shannon Callahan, History Hit, Feb. 22, 2022
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 4 — STADIUM CONCESSIONS
+════════════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label" style="margin-bottom:2px;">The Captive Audience Model</div>
+    <div class="ch-title" style="font-size:32px; margin-bottom:4px;">Stadium Concessions: The Original Captive Market</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12.5px; line-height:1.44; margin-bottom:4px;">Long before QR codes and mobile ordering, stadium operators understood the most powerful form of location advantage: a guest who physically cannot leave. Stadium concessions built the first systematic model of captive-audience hospitality — and its flaws still haunt venues today.</div>
+        <div class="body" style="line-height:1.36; font-size:11.5px;">
+          <p>The Society for American Baseball Research (SABR)'s history of Yankee Stadium concessions documents the evolution from improvised vendor networks to organized hospitality empires. By the 1940s, Harry M. Stevens's operation managed not only Yankee Stadium and the Polo Grounds but Ebbets Field in Brooklyn, Braves Field and Fenway Park in Boston, Churchill Downs, Pimlico, Belmont Park, Saratoga, Hialeah, and Narragansett — a multi-venue hospitality conglomerate built entirely on the premise of <strong>geographic captivity.</strong><span class="cite"> SABR, "When Harry Met the Bronx Bombers: The History of the Yankee Stadium Concessions"</span></p>
+          <div class="sec-head">What Early Concessions Looked Like</div>
+          <p>Marty Appel's account of the original Yankee Stadium reveals how basic the concession model was in its golden age: <em>"The concession stands didn't show much imagination. In those days, you could buy a yearbook, a scorecard, a pencil, a badge with Yogi or Mickey on it, a pennant, a baseball with facsimile autographs, a 12-player picture pack (black and white), and maybe a cap."</em><span class="cite"> Marty Appel, cited in SABR Journal; appelpr.com</span></p>
+          <p>The food itself was secondary. Fans came for the game; the concessions were an incidental revenue stream, priced based on what a captive audience would tolerate. Groundwork Collaborative's research documents that this pricing philosophy became entrenched: <strong>a 1979 New York Times article documented a fan who successfully campaigned to roll back ballpark hot dog prices</strong> — a battle that illustrated just how comfortable stadium operators had become with their captive pricing model.<span class="cite"> Groundwork Collaborative, "Shakedown at the Snack Counter"</span></p>
+          <div class="sec-head">The 1973 Renovation — Concessions Upgraded</div>
+          <p>The 1973–1976 Yankee Stadium renovation marked the first major acknowledgment that concessions could be a strategic investment rather than a secondary revenue stream. As BallparksofBaseball documents: <strong>"New luxury suites and concessions were added along with the remodeling of the press box and restrooms."</strong> This was the moment stadium hospitality moved from passive to active.<span class="cite"> BallparksofBaseball, "Old Yankee Stadium"</span></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The captive model's inherent flaw:</strong> When location and captivity are your entire strategy, you have no incentive to improve the experience. The guest is already there. The long-term cost of this thinking is measurable in today's competition from in-seat mobile ordering, delivery services, and the simple fact that fans can now eat before the game — at a better experience — and just drink water inside.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Stevens Concessions Empire</div>
+          <div style="display:flex; flex-direction:column; gap:6px; font-size:12px; color:#fff;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); padding:8px 10px; border-radius:3px;"><strong style="color:#D4AF37;">⚾ Baseball:</strong> Yankee Stadium, Polo Grounds, Ebbets Field, Fenway Park, Braves Field</div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); padding:8px 10px; border-radius:3px;"><strong style="color:#00D4AA;">🏇 Racing:</strong> Churchill Downs, Pimlico, Belmont Park, Saratoga, Hialeah, Narragansett</div>
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:8px 10px; border-radius:3px;"><strong style="color:#fff;">🎪 Other:</strong> Minor league parks, dog tracks, state fairgrounds, polo fields</div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:10px; font-style:italic;">Source: SABR, "When Harry Met the Bronx Bombers: The History of the Yankee Stadium Concessions"</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">1976</div>
+          <div class="stat-lbl">First Yankee Stadium renovation adds luxury suites and modern concessions — the turning point from passive to strategic</div>
+          <div class="stat-sub">BallparksofBaseball, ballparksofbaseball.com</div>
+        </div>
+        <div class="q-card navy" style="padding:16px;">
+          <div class="q-mark">"</div>
+          <div class="q-text" style="font-size:13px;">"The concession stands didn't show much imagination. In those days, you could buy a yearbook, a scorecard, a pencil..."</div>
+          <div class="q-attr">Marty Appel</div>
+          <div class="q-src">Author, <em>Pinstripe Empire</em> · Source: SABR Journal; appelpr.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 5 — STADIUM DESIGN EVOLUTION (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">Venue Architecture</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">STADIUM DESIGN — FROM BASIC TO ICONIC</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">How Venues Evolved To Inspire The Imagination — 1950s to 1990s</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:12px;">
+        <!-- Era 1 -->
+        <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; overflow:hidden;">
+          <div style="background:rgba(212,175,55,0.15); border-bottom:2px solid #D4AF37; padding:10px 14px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37; letter-spacing:2px;">1950s — FAN COMFORT ERA</div>
+          </div>
+          <div style="padding:14px; display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55;">Competing with televised sports for the first time, 1950s stadium design focused on basic fan comfort. Expanded seating, better sightlines, more concessions, more developed concourse areas. The Astrodome (1965) introduces the dome concept — weather is no longer a factor.</div>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Better sightlines</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ More concession stands</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Developed concourses</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Lambeau Field (1957), Candlestick Park (1960)</div>
+            </div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Daktronics, "100 Years of American Stadium Design in 5 Minutes"</div>
+          </div>
+        </div>
+
+        <!-- Era 2 -->
+        <div style="background:rgba(0,212,170,0.06); border:1px solid rgba(0,212,170,0.2); border-radius:4px; overflow:hidden;">
+          <div style="background:rgba(0,212,170,0.12); border-bottom:2px solid #00D4AA; padding:10px 14px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#00D4AA; letter-spacing:2px;">1960s–1980s — COOKIE CUTTER MULTI-PURPOSE</div>
+          </div>
+          <div style="padding:14px; display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55;">SABR's renovation history documents the "cookie cutter" stadium era — concrete multipurpose venues built by cities to accommodate both baseball and football. "Public officials jumped at the chance to use tax money to fund these stadiums as tangible evidence that they were improving their cities." Shea Stadium (1964), Three Rivers, Veterans Stadium — function with no pizazz.</div>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Multi-sport functionality</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Publicly funded</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✗ Generic experience</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✗ Concessions still basic</div>
+            </div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: SABR, "Yankee Stadium and the Renovation of '76"</div>
+          </div>
+        </div>
+
+        <!-- Era 3 -->
+        <div style="background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:4px; overflow:hidden;">
+          <div style="background:rgba(212,175,55,0.12); border-bottom:2px solid #D4AF37; padding:10px 14px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37; letter-spacing:2px;">1990s — THE RETRO-CLASSIC REVOLUTION</div>
+          </div>
+          <div style="padding:14px; display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.55;">Camden Yards (1992) pioneers the retro-classic ballpark trend. Daktronics documents: "In the 1980s, baseball nostalgia drove a jewel box ballpark trend harkening back to the Golden Age... dark green fences and seating, exposed steel, stone and red brick exterior construction." Experience becomes the design brief for the first time. The venue is now supposed to feel like somewhere, not just seat fans.</div>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Architectural identity</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Experience-forward design</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Premium seating / suites</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.6);">✓ Upscale concessions</div>
+            </div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Daktronics, "100 Years of American Stadium Design"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The shift insight -->
+      <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:12px 16px; margin-bottom:10px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The Key Shift — When Experience Replaced Location as the Design Brief</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">Camden Yards in 1992 marks the moment stadium designers stopped asking "how do we fit more people?" and started asking "what should it feel like to be here?" This shift — from container to experience — is the architectural equivalent of the hospitality transition this entire chapter describes. Daktronics documents the modern evolution: <strong style="color:#00D4AA;">"Another popular trend is designing a more finished look for public spaces within the stadium, like bars, clubs and concourses... venues have renovated the entrance experience and added premium experiences."</strong></div>
+        <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: Daktronics, "100 Years of American Stadium Design in 5 Minutes," daktronics.com</div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+        <div class="grid-card gc-gold" style="text-align:center; padding:12px 14px;">
+          <div class="gc-num" style="font-size:36px;">1965</div>
+          <div class="gc-lbl">Houston Astrodome — first dome, enclosed concessions, weather-proof entertainment</div>
+          <div class="gc-sub">Daktronics stadium design history</div>
+        </div>
+        <div class="grid-card gc-teal" style="text-align:center; padding:12px 14px;">
+          <div class="gc-num" style="font-size:36px;">1992</div>
+          <div class="gc-lbl">Camden Yards — fan-focused design</div>
+          <div class="gc-sub">Daktronics stadium design history</div>
+        </div>
+        <div class="grid-card gc-white" style="text-align:center; padding:12px 14px;">
+          <div class="gc-num" style="font-size:36px;">2009</div>
+          <div class="gc-lbl">New Yankee Stadium — 25 fixed + 112 movable concession stands, celebrity chef appearances</div>
+          <div class="gc-sub">Wikipedia, Yankee Stadium; Legends Hospitality</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 6 — ENTERTAINMENT DISTRICTS
+════════════════════════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The District Model</div>
+    <div class="ch-title">Entertainment Districts: When Location Became the Product</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:13px; line-height:1.48; margin-bottom:8px;">The entertainment district took location advantage to its logical extreme. Rather than one venue benefiting from foot traffic, an entire zone became self-reinforcing — each business drawing guests who then wandered to others. The Las Vegas Strip was the most ambitious expression of this model ever built.</div>
+        <div class="body" style="line-height:1.46; font-size:12px;"> represents the purest expression of location-as-strategy in hospitality history. Britannica's history of Las Vegas documents that the Strip's original hotel-casinos — the Thunderbird (1948), Desert Inn (1950), Sands and Sahara (1952), Riviera and Dunes (1955) — clustered along what was then Highway 91 specifically because land was cheaper there than downtown, and the highway provided access to a national tourist audience. <strong>The location created the market; the market justified further development; further development created more location value.</strong><span class="cite"> Britannica, "Las Vegas — Gambling, Entertainment, Tourism"</span></p>
+          <div class="sec-head">The Rat Pack Era — Location as Glamour</div>
+          <p>By the mid-1950s, the Strip had added something location alone could not purchase: cultural cachet. Online Nevada documents that "The Sahara opened in 1952 and went on to change the Las Vegas entertainment scene. The Sands boasted Sammy Davis Jr. on the marquee, and he and friends Frank Sinatra and Dean Martin would give the Sands a lot to boast about."<span class="cite"> Online Nevada, "Las Vegas Strip: The First Boom," onlinenevada.org</span> This was the moment the Las Vegas entertainment district model evolved from pure location play to something more durable: <strong>a travel destination.</strong></p>
+          <div class="sec-head">The 1980s Corporate Turn</div>
+          <p>Frommers documents the crisis that ended the mob era: "As the '80s began, Las Vegas was suffering an identity crisis. The departure of the mob and its money, combined with a struggling economy and Reagan-era conservatism, put a damper on the shining star of the desert." The solution was corporate consolidation. Steve Wynn's 1989 Mirage — funded by junk bonds, featuring a volcano, tigers, and dolphins — announced that the entertainment district model now required <strong>continuous reinvestment in the spectacle itself.</strong> Location was no longer enough.<span class="cite"> Frommers, "History in Las Vegas"; Britannica, Las Vegas Strip</span></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Evolution of The Las Vegas Strip</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#D4AF37; font-weight:700; margin-bottom:2px;">1941–1955 — LOCATION PLAY</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">El Rancho Vegas (1941) to Dunes (1955). Cheap land on Highway 91. Location = revenue.</div>
+            </div>
+            <div style="text-align:center; font-size:14px; color:#D4AF37;">↓</div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#00D4AA; font-weight:700; margin-bottom:2px;">1955–1980 — GLAMOUR DESTINATION</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">Rat Pack at The Sands. Caesars Palace (1966). Location + cultural cachet = national destination.</div>
+            </div>
+            <div style="text-align:center; font-size:14px; color:#D4AF37;">↓</div>
+            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#fff; font-weight:700; margin-bottom:2px;">1989–2000 — EXPERIENCE INVESTMENT</div>
+              <div style="font-size:11.5px; color:rgba(255,255,255,0.75); line-height:1.4;">The Mirage (1989) with volcano. Bellagio (1998) at $1.7B. Location + spectacle = global brand.</div>
+            </div>
+            <div style="text-align:center; font-size:14px; color:#D4AF37;">↓</div>
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:9px 12px;">
+              <div style="font-size:11px; color:#D4AF37; font-weight:700; margin-bottom:2px;">2000–PRESENT — INTEGRATED RESORT</div>
+              <div style="font-size:11.5px; color:#fff; line-height:1.4;">MGM, Caesars. "The Strip is now a global destination brand, not just a gambling locale." — hospitality analyst James Kwon</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:8px; font-style:italic;">Sources: Britannica; Online Nevada; Frommers; St. Augustine's University exploration piece</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">$60B</div>
+          <div class="stat-lbl">Annual visitor spending generated by the Las Vegas Strip today</div>
+          <div class="stat-sub">St. Augustine's University, explore.st-aug.edu — Las Vegas Strip analysis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 7 — MOB TO CORPORATE: THE STRIP AS HOSPITALITY MODEL (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Entertainment District Model</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE STRIP AS THE ULTIMATE HOSPITALITY LESSON</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:10px; letter-spacing:1.5px; text-transform:uppercase;">What Las Vegas Taught Every Venue Operator About Location, Reinvention, and Experience</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">LESSON 1: LOCATION CREATES THE OPPORTUNITY — NOT THE BUSINESS</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">The original Strip operators chose Highway 91 because land was cheap and it connected to a national tourist route. The location created access. But as Online Nevada documents, the operators who built lasting businesses understood that <strong style="color:#D4AF37;">what you build on the location determines everything.</strong> The Flamingo failed initially despite perfect placement. The Sands thrived not because of its address but because it had the Rat Pack.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Online Nevada, onlinenevada.org — "Las Vegas Strip: The First Boom"</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">LESSON 2: WHEN LOCATION ADVANTAGES ERODE, YOU MUST INVEST IN EXPERIENCE</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Frommers documents the 1980s Strip crisis: "Las Vegas was suffering an identity crisis... Las Vegas became tacky, desperate, and possibly unsafe." The location advantage of being Nevada's legal gambling zone hadn't changed. What had changed was that the experience had stagnated. Steve Wynn's response — the $620M Mirage with its volcano — was the hospitality industry's clearest proof that <strong style="color:#00D4AA;">spectacle must be continuously renewed.</strong></div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Frommers, "History in Las Vegas," frommers.com</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#fff; letter-spacing:1px; margin-bottom:6px;">LESSON 3: CORPORATE CONSOLIDATION WINS SCALE — BUT LOSES SOUL</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">By the 2000s, MGM had bought Mirage Resorts, bringing multiple major properties under one corporate umbrella. The St. Augustine's University analysis notes the transition: "Corporate branding introduced integrated resorts — entire entertainment complexes featuring hotels, conventions, shopping, and live performances — diversifying revenue and reducing reliance on gambling alone." Scale and consistency, but at the cost of the idiosyncratic character that made each property distinct.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: St. Augustine's University, explore.st-aug.edu</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">LESSON 4: THE DISTRICT MODEL ONLY WORKS WHEN EVERY NODE INVESTS</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Entertainment districts are only as strong as their weakest venue. Britannica documents the final fate of the 1950s-era Dunes: demolished in 1993. "Its destruction symbolically ushered in a new era of elite hotels, including the Venetian and the Bellagio." The district model continuously refreshes itself by eliminating underperforming nodes — a process that operates in every entertainment district from Bourbon Street to the Theatre District to your local restaurant row.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Britannica, "Las Vegas — Gambling, Entertainment, Tourism"</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:4px; padding:14px 18px;">
+        <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">The Modern Operator Takeaway</div>
+        <div style="font-size:13.5px; color:#fff; line-height:1.6;">Your venue doesn't need to be Las Vegas. But the Strip's arc — from location advantage to glamour destination to experience investment to integrated brand — is the compressed version of the journey every hospitality operator must navigate. The question is which phase you're in, and whether you're investing ahead of the transition or behind it.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 8 — HOSPITALITY GROUPS & CHAINS
+════════════════════════════════════════════════════ -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Consolidation Era</div>
+    <div class="ch-title">Chains, Groups & the Industrialization of Hospitality</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12.5px; line-height:1.48; margin-bottom:8px;">The golden age produced not just restaurants and venues but the hospitality group — a corporate entity that operated multiple concepts across multiple markets. This consolidation created efficiency, brand consistency, and scale. It also created the distance between guest and operator that experience-forward venues now exploit.</div>
+        <div class="body" style="line-height:1.40; font-size:11.5px;">
+          <p>The History Tools analysis of chain restaurant evolution traces the consolidation arc directly: <em>"The modern era of chain restaurants in the United States can be said to have begun in the late 1960s with the launch of TGI Fridays and Applebee's. These two pioneering brands helped to fill the market gap between the ubiquitous fast-food hamburgers and the more formal, high-end steakhouse dining experiences."</em><span class="cite"> History Tools, "The Rise and Evolution of Famous Chain Restaurants in America," historytools.org</span></p>
+          <div class="sec-head">Howard Johnson's: The Peak of the Location Model</div>
+          <p>Kiplinger's analysis of Howard Johnson's provides the clearest case study of the golden age model at its apex — and its limits. At its zenith, Howard Johnson's operated more than 1,000 restaurants. Its demise came from a specific failure: <em>"Failing to update its menu, its infrastructure and marketing, along with increased competition from the likes of Friendly's, Applebee's and Chili's, sealed the fate of the Howard Johnson's restaurant chain."</em><span class="cite"> Kiplinger, "Classic Restaurant Chains: Where Are They Now?"</span></p>
+          <p>This is the golden age model's fundamental vulnerability: <strong>location creates loyalty until something better appears at the same location.</strong> Howard Johnson's had the highway positioning. It didn't have the menu, the experience, or the willingness to invest in renewal. The location advantage evaporated the moment McDonald's, Burger King, and Wendy's built their own locations on the same highway exits.</p>
+          <div class="sec-head">Red Lobster: 700 Locations and a Structural Warning</div>
+          <p>History Tools documents Red Lobster's arc: "Founded in 1968 in Lakeland, Florida, Red Lobster was once a pioneer in the seafood dining segment, expanding to 700 locations at its peak. However, the chain's decline in recent years, culminating in a bankruptcy filing in 2024, highlights the challenges faced by some chain restaurants in adapting to changing consumer tastes." The "Ultimate Endless Shrimp" promotion in 2023 — which resulted in an $11 million loss — is a footnote to a larger structural failure: <strong>scale without experience is not a sustainable hospitality model.</strong><span class="cite"> History Tools, historytools.org</span></p>
+          <div class="callout">
+            <strong>The consolidation paradox:</strong> The bigger a chain gets, the more it optimizes for operational consistency — and the less it can offer the tribal belonging and distinctive identity that drives loyalty in the experience economy.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Chain Consolidation Arc</div>
+          <div style="display:flex; flex-direction:column; gap:7px; font-size:12px;">
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:3px; padding:8px 11px;">
+              <div style="color:#00D4AA; font-weight:700; margin-bottom:2px;">1954 — McDONALD'S FRANCHISES</div>
+              <div style="color:rgba(255,255,255,0.75); line-height:1.4;">Ray Kroc's franchising model: standardized product, replicable location, scalable brand. Template for every chain that follows.</div>
+            </div>
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); border-radius:3px; padding:8px 11px;">
+              <div style="color:#D4AF37; font-weight:700; margin-bottom:2px;">1965 — TGI FRIDAYS CASUAL DINING</div>
+              <div style="color:rgba(255,255,255,0.75); line-height:1.4;">First explicitly demographic-targeted chain location. Position next to your customer, not just near traffic.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:3px; padding:8px 11px;">
+              <div style="color:#fff; font-weight:700; margin-bottom:2px;">1970s–1990s — FULL SCALE CHAINS</div>
+              <div style="color:rgba(255,255,255,0.6); line-height:1.4;">Olive Garden, Applebee's, Red Lobster, Chili's. Middle-class family dining market fully served. Location + brand consistency = reliable revenue.</div>
+            </div>
+            <div style="background:rgba(255,107,107,0.08); border:1px solid rgba(255,107,107,0.25); border-radius:3px; padding:8px 11px;">
+              <div style="color:#ff6b6b; font-weight:700; margin-bottom:2px;">2010s–2024 — STRUCTURAL CORRECTION</div>
+              <div style="color:rgba(255,255,255,0.6); line-height:1.4;">TGI Fridays bankruptcy. Red Lobster collapse. The chains that survived on location without investing in experience begin to fail.</div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:8px; font-style:italic;">Sources: History Tools (historytools.org); Kiplinger; Shannon Callahan, History Hit</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1,000+</div>
+          <div class="stat-lbl">Howard Johnson's peak locations — then failed to update and collapsed against new competition</div>
+          <div class="stat-sub">Kiplinger — "Classic Restaurant Chains: Where Are They Now?"</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">700</div>
+          <div class="stat-lbl">Red Lobster peak locations — bankruptcy filed 2024 after "Endless Shrimp" $11M loss</div>
+          <div class="stat-sub">History Tools, historytools.org</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 9 — LOCATION AS THE ADVANTAGE
+════════════════════════════════════════════════════ -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Chapter's Core Insight</div>
+    <div class="ch-title">Why Location Was the Advantage — And When It Stopped Being Enough</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:13px; line-height:1.48; margin-bottom:8px;">From 1948 to roughly 1995, an operator who secured the right location — the right highway exit, the right corner, the right block of the right entertainment district — had a structural advantage that was genuinely difficult to overcome. Then three things changed.</div>
+        <div class="body" style="line-height:1.44; font-size:12px;">
+          <p>The golden age logic was straightforward: hospitality was a discovery problem, not a preference problem. Guests didn't choose restaurants based on detailed research or experiential expectation — they chose the one that was visible, accessible, and available when they were hungry or seeking entertainment. <strong>The operator who solved the discovery problem with a great location solved the business problem.</strong></p>
+          <div class="sec-head">The Three Shifts That Ended Location Dominance</div>
+          <p><strong>1. Oversaturation:</strong> The Seattle Times and Washington Post documented that the US went from roughly 200,000 restaurants in 1972 to over one million by 2018. When every highway exit has five restaurant options and every neighborhood has a dining district, location is no longer differentiating — it is the baseline.<span class="cite"> Seattle Times; Washington Post, 2019</span></p>
+          <p><strong>2. Digital discovery:</strong> Google Maps, Yelp, and OpenTable gave consumers the ability to discover, compare, and book any venue within a mile of their location in under 30 seconds. The information asymmetry that location advantage depended upon — the guest didn't know what else was nearby — was eliminated entirely.</p>
+          <p><strong>3. Experience expectation:</strong> The Atlantic's 2024 analysis of mid-tier casual dining's decline documents what the data confirms: <em>"Americans' dining preferences are polarizing, with diners gravitating to either fast-casual or premium dining options."</em> The middle — which location-first chains had dominated — collapsed when consumers decided they could get a better experience elsewhere at the same price point.<span class="cite"> The Atlantic, "How America Lost Its Taste for the Middle," Dec. 2024</span></p>
+          <div class="callout" style="margin:14px 0;">
+            <strong>The operator's new reality:</strong> Location is now a necessary condition — not a sufficient one. A bad location still fails. But a great location no longer guarantees success. What fills the gap that location used to fill is experience: the quality of the gathering, the fluidity of the service, and the sense of identity the venue creates for its guests.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#F4F6F9; border:2px solid #1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">The Location Advantage Erosion Timeline</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44;">✓</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">1950–1980: Location IS the advantage</div><div style="font-size:11.5px; color:#666; line-height:1.4;">200K restaurants nationwide. Highway corner = captive market. Brand visibility from road = discovery.</div></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:13px; color:#1A2A44;">~</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">1980–2000: Location is necessary but partial</div><div style="font-size:11.5px; color:#666; line-height:1.4;">500K restaurants. Suburbs fully saturated. Brand loyalty supplements location. Menu and experience begin to matter.</div></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#ff6b6b; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:13px; color:#fff;">!</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">2000–2015: Location is table stakes</div><div style="font-size:11.5px; color:#666; line-height:1.4;">800K+ restaurants. Google Maps remove the mystery. Experience begins to overtake location as primary differentiator.</div></div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <div style="width:28px; height:28px; background:#1A2A44; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Bebas Neue',sans-serif; font-size:13px; color:#D4AF37;">→</div>
+              <div><div style="font-size:12px; font-weight:700; color:#1A2A44;">2015–Now: Experience is the advantage</div><div style="font-size:11.5px; color:#666; line-height:1.4;">1M restaurants. Location is baseline. Flow, identity, and belonging are the differentiators that drive repeat behavior.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>The core shift:</strong> In the golden age, guests found you because of where you were. Today, guests choose you because of what you are. The discovery problem is solved by Google (and now AI). The loyalty problem is solved by experience.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 10 — WHEN LOCATION STOPPED BEING ENOUGH (Full bleed navy)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Transition</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:4px;">THE MOMENT LOCATION STOPPED BEING ENOUGH</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:10px; letter-spacing:1.5px; text-transform:uppercase;">Four Structural Shifts That Ended the Golden Age Model</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; flex:1;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#D4AF37; letter-spacing:1px; line-height:1.1;">SHIFT 1<br>MARKET SATURATION</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#fff; line-height:1;">1M+</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.6;">US restaurants by 2018 — up from 200K in 1972. Every highway exit, shopping mall, and neighborhood now has multiple hospitality options. When every location has options, location stops differentiating. <strong style="color:#D4AF37;">The discovery problem is solved by supply, not by your address.</strong></div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Seattle Times; Washington Post, 2019</div>
+        </div>
+
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#00D4AA; letter-spacing:1px; line-height:1.1;">SHIFT 2<br>DIGITAL DISCOVERY</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#fff; line-height:1;">30 SEC</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.6;">Time for a consumer to discover, compare, and book any nearby venue using Google Maps, Yelp, or OpenTable. The information that made highway visibility valuable is gone. <strong style="color:#00D4AA;">Your location is now one of five results on a phone screen — not the only sign visible from the road.</strong></div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Digital behavior analysis — Google Maps ubiquity post-2007</div>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:1px; line-height:1.1;">SHIFT 3<br>EXPERIENCE POLARIZATION</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; line-height:1;">2 ENDS</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.6;">The Atlantic's 2024 analysis: Americans are gravitating toward either fast-casual or premium dining, abandoning the location-first mid-tier that chains like TGI Fridays and Red Lobster built their business on. <strong style="color:#fff;">The middle — where location advantage was strongest — has been hollowed out by experience expectations at both ends.</strong></div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: The Atlantic, "How America Lost Its Taste for the Middle," Dec. 2024</div>
+        </div>
+
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:18px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#D4AF37; letter-spacing:1px; line-height:1.1;">SHIFT 4<br>HOME DELIVERY COMPETITION</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#fff; line-height:1;">DOOR</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.8); line-height:1.6;">Shannon Callahan's History Hit research concludes: "The rise of delivery services in cities allows people to access countless restaurants... without ever leaving their homes." Proximity is no longer required for fulfillment. <strong style="color:#D4AF37;">Location solves access. It no longer solves the alternative of not going out at all.</strong></div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Shannon Callahan, History Hit, Feb. 22, 2022</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin:8px 0;"></div>
+      <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:4px; padding:12px 18px;">
+        <div style="font-size:13.5px; color:#fff; line-height:1.6;"><strong style="color:#00D4AA;">The operator's imperative:</strong> Location still matters — a venue in a dead corridor with no foot traffic still fails. But a venue with great location and no experience advantage is now vulnerable in ways it wasn't in 1970. The operators who thrive in the next decade will be those who treat experience as their primary competitive asset and location as its delivery mechanism.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 11 — LOCATION VS EXPERIENCE (Full bleed navy before/after)
+════════════════════════════════════════════════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Competitive Shift</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:40px; color:#fff; line-height:1; margin-bottom:14px;">GOLDEN AGE VENUE vs EXPERIENCE-ERA VENUE</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:18px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 60px 1fr; gap:0; flex:1;">
+        <!-- Location-first column -->
+        <div style="background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:4px 0 0 4px; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; letter-spacing:2px; margin-bottom:4px;">GOLDEN AGE — 1950s–1990s</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px;">The Location-First Model</div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Primary strategy:</strong> Secure the right highway exit, corner, or district address. Guest discovery is automatic.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Menu strategy:</strong> Standardized, consistent, optimized for speed and margin. Differentiation unnecessary.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Marketing:</strong> Visible signage, bright neon roof. Brand recognition from the road is the entire marketing budget.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Concessions:</strong> Basic. Captive audience will buy regardless. No investment in food quality or experience at point of sale.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Guest relationship:</strong> Transactional. Guest is at the venue because they're hungry and nearby. Loyalty not required.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#D4AF37; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#D4AF37;">Technology:</strong> POS systems built for speed. No data collection, no personalization, no relationship beyond the transaction.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#ff6b6b; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#ff6b6b;">Failure mode:</strong> Better-located competitor opens. Digital discovery eliminates information advantage. Guest never returns.</div></div>
+        </div>
+
+        <!-- Arrow divider -->
+        <div style="display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.03);">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; writing-mode:vertical-rl; letter-spacing:4px;">→ NOW →</div>
+        </div>
+
+        <!-- Experience-first column -->
+        <div style="background:rgba(0,212,170,0.06); border:1px solid rgba(0,212,170,0.25); border-radius:0 4px 4px 0; padding:18px 20px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#00D4AA; letter-spacing:2px; margin-bottom:4px;">EXPERIENCE ERA — 2000s–PRESENT</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px;">The Experience-First Model</div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Primary strategy:</strong> Build an experience worth traveling to. Location provides access; experience earns loyalty.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Menu strategy:</strong> Distinctive, identity-forming. Guests use menu choices to signal who they are to others.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Marketing:</strong> Social sharing, check-in behavior, and community identity do the marketing. The guest is the brand signal.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Concessions:</strong> Food quality is part of the experience architecture. Mobile ordering reduces friction. Per-cap spend increases.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Guest relationship:</strong> Community-based. Regular guests form identity around the venue. Return rate is the metric.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Technology:</strong> QR ordering, mobile payments, data capture, personalization. Guest data is a competitive asset.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12.5px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Resilience:</strong> Guest returns even when alternatives are closer — because the experience, not the location, is the reason to go.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 12 — THE MODERN PARALLEL
+════════════════════════════════════════════════════ -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Historical Parallels for Modern Operators</div>
+    <div class="ch-title">What the Golden Age Teaches Your Venue Today</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:14.5px;">Every golden age lesson maps directly to a decision your venue makes today. The operators who read the historical pattern correctly are the ones who invest in experience before the correction forces them to.</div>
+        <div class="body">
+          <div class="sec-head" style="margin-top:0;">Howard Johnson's and Your Venue</div>
+          <p>Kiplinger's analysis of Howard Johnson's failure is worth holding up as a mirror: <em>"Failing to update its menu, its infrastructure and marketing, along with increased competition, sealed the fate of the chain."</em> Howard Johnson's had 1,000+ locations. It had the highway. It had brand recognition. <strong>It didn't have a reason for guests to specifically choose it over what came next.</strong><span class="cite"> Kiplinger</span></p>
+          <p>The question for your venue: what would happen to your guest volume if a better-funded competitor opened within a half mile of you? If the answer is "we'd lose significantly," your location advantage is more fragile than it appears.</p>
+          <div class="sec-head">The Camden Yards Moment</div>
+          <p>Daktronics documents that Camden Yards (1992) didn't just provide better sightlines — it provided a reason to <em>be there</em>. The exposed steel and brick, the natural grass, the connection to Baltimore's urban fabric were not cosmetic choices. They were a statement that the experience of attending a game at this specific venue was worth the trip, independent of the team's performance. <strong>This is what experience advantage looks like in a venue context.</strong><span class="cite"> Daktronics, "100 Years of American Stadium Design"</span></p>
+          <div class="sec-head">The Mirage Model for Any Scale</div>
+          <p>You don't need Steve Wynn's budget to apply the Mirage's logic. The Mirage succeeded because it asked a fundamentally different question than prior Strip operators: not "what gambling experience can we offer?" but "what experience is so distinctive that people will specifically come here to have it?" The volcano was the answer — but the question is the lesson. <strong>What does your venue offer that cannot be replicated at the next location?</strong><span class="cite"> Frommers; Britannica</span></p>
+          <div class="callout">
+            <strong>The operator's question:</strong> "If my location disappeared tomorrow and I had to earn every guest based purely on the experience I provide, how many would return?" That number is your real competitive moat.
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:16px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">Historical Parallel — Then vs Now</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:8px 10px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">1950s: HoJo's</div><div style="font-size:11.5px; color:#fff; line-height:1.4;">Orange roof from the highway. No reason to choose them other than visibility. Failed when alternatives appeared.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:8px 10px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Today: Your Venue</div><div style="font-size:11.5px; color:#fff; line-height:1.4;">Google Maps and AI the highway. What makes you the specific search result guests click — not just the nearest one?</div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:8px 10px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">1989: The Mirage</div><div style="font-size:11.5px; color:#fff; line-height:1.4;">$620M investment to create an experience no one had seen. Guests traveled specifically for it. Not location but distinction.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:8px 10px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Today: Your Venue</div><div style="font-size:11.5px; color:#fff; line-height:1.4;">What's your volcano? What's the thing at your venue that people specifically tell others about, rather than just mentioning the address?</div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:8px 10px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">1992: Camden Yards</div><div style="font-size:11.5px; color:#fff; line-height:1.4;">Designed to feel like a specific place, not any stadium. Identity-driven design. Fans arrive for the venue, not just the game.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:8px 10px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Today: Your Venue</div><div style="font-size:11.5px; color:#fff; line-height:1.4;">Does your venue feel like somewhere specific? Or could it be any venue? The identity gap is where your experience advantage is built.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card gold" style="padding:16px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"The Strip is now a global destination brand, not just a gambling locale."</div>
+          <div class="q-attr">James Kwon</div>
+          <div class="q-src">Hospitality Analyst · Source: St. Augustine's University, explore.st-aug.edu</div>
+        </div>
+        <div class="src-note">Sources: Kiplinger; Daktronics; Frommers; Britannica; St. Augustine's University</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 13 — WORKBOOK EXERCISE
+════════════════════════════════════════════════════ -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 5 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14px; color:#1A2A44; margin-bottom:12px; line-height:1.6; max-width:640px;">Evaluate your location advantage vs your experience advantage. This exercise reveals which one is currently carrying your business — and which one needs investment.</div>
+
+    <!-- Location Audit -->
+    <div style="border:2px solid #1A2A44; border-radius:4px; overflow:hidden; margin-bottom:10px;">
+      <div style="background:#1A2A44; padding:10px 20px; display:flex; align-items:center; gap:12px;">
+        <div style="width:32px; height:32px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">A</span></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:1px;">Score Your Location Advantage (1–10 each)</div>
+      </div>
+      <div style="padding:14px 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Foot traffic / visibility from road:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = hidden/unknown, 10 = highest traffic corner</div></div>
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Proximity to target demographic:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = far from your guests, 10 = in the middle of them</div></div>
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">District / cluster advantage:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = isolated, 10 = hub of entertainment district</div></div>
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Google Maps / digital visibility:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = buried in results, 10 = first result with 4.5+ stars</div></div>
+        <div style="background:#1A2A44; padding:10px; border-radius:3px; grid-column:span 2;"><div class="fill-label" style="color:#D4AF37;">LOCATION ADVANTAGE TOTAL (out of 40):</div><div class="fill-line" style="border-color:rgba(255,255,255,0.2);"></div></div>
+      </div>
+    </div>
+
+    <!-- Experience Audit -->
+    <div style="border:2px solid #00D4AA; border-radius:4px; overflow:hidden; margin-bottom:10px;">
+      <div style="background:#1A2A44; padding:10px 20px; display:flex; align-items:center; gap:12px; border-bottom:3px solid #00D4AA;">
+        <div style="width:32px; height:32px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">B</span></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:1px;">Score Your Experience Advantage (1–10 each)</div>
+      </div>
+      <div style="padding:14px 20px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Distinctive identity (would guests miss you?):</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = interchangeable, 10 = irreplaceable community anchor</div></div>
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Service flow quality (friction score):</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = high friction, 10 = seamless order-to-receive</div></div>
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Community/tribe formation:</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = transactional visits only, 10 = loyal regulars with rituals</div></div>
+        <div style="background:#F4F6F9; padding:10px; border-radius:3px;"><div class="fill-label">Social signal value (would guests share?):</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = never photographed, 10 = consistently shared/tagged</div></div>
+        <div style="background:#1A2A44; padding:10px; border-radius:3px; grid-column:span 2;"><div class="fill-label" style="color:#00D4AA;">EXPERIENCE ADVANTAGE TOTAL (out of 40):</div><div class="fill-line" style="border-color:rgba(255,255,255,0.2);"></div></div>
+      </div>
+    </div>
+
+    <!-- Interpretation -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:10px;">
+      <div style="background:#F4F6F9; padding:12px; border-radius:4px; border-top:3px solid #D4AF37;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; margin-bottom:5px;">IF LOCATION &gt; EXPERIENCE:</div>
+        <div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">You are in the golden age model — and vulnerable. A new competitor, a Google Maps ranking shift, or a delivery app could erode your business overnight. <strong>Invest in experience now, before the correction forces them to.</strong></div>
+      </div>
+      <div style="background:#F4F6F9; padding:12px; border-radius:4px; border-top:3px solid #00D4AA;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; margin-bottom:5px;">IF EXPERIENCE &gt; LOCATION:</div>
+        <div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">You have a real competitive moat. Guests return for the experience, not the address. Your risk profile is lower and your growth ceiling is higher. <strong>Document and systematize what makes the experience great.</strong></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:12px 18px; border-radius:4px; display:flex; align-items:center; gap:14px;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; color:#D4AF37; flex-shrink:0; line-height:1.1;">KEY<br>INSIGHT</div>
+      <div style="font-size:13px; color:#fff; line-height:1.55;">The golden age gave operators 40 years where location was all that mattered. That era is over. The operators who recognize this and invest in experience architecture are building the venues that will survive the next 40 years.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 14 — CHAPTER SUMMARY + BRIDGE
+════════════════════════════════════════════════════ -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary & What Comes Next</div>
+    <div class="ch-title">What the Golden Age Tells Modern Operators</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:14.5px; color:#1A2A44; line-height:1.6; margin-bottom:14px; max-width:620px;">The 1950s–1990s built the physical infrastructure of modern hospitality. It also built the mental model that is now the industry's greatest liability: the belief that location is sufficient.</div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:28px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">LOCATION WAS NEVER THE PRODUCT — IT WAS THE DELIVERY MECHANISM</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">The Sands had the Rat Pack, not just the Strip address. TGI Fridays was built next to flight attendants, not just in Manhattan. The best golden age operators always understood that location solved discovery, but experience solved loyalty. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Online Nevada, onlinenevada.org; History Tools, historytools.org</span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #00D4AA; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#00D4AA; line-height:1; flex-shrink:0; width:28px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">STADIUM CONCESSIONS BUILT THE CAPTIVE AUDIENCE MODEL — AND EXPOSED ITS FLAW</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">Harry M. Stevens's concession empire showed that a captive audience will buy. But as Marty Appel documents, when the creative bar is "no imagination required," the standard stays at hot dogs and pennants. Modern stadium hospitality has been building toward experiential ever since Camden Yards. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: SABR; Daktronics; Marty Appel</span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #1A2A44; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#1A2A44; line-height:1; flex-shrink:0; width:28px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">ENTERTAINMENT DISTRICTS REQUIRE CONTINUOUS REINVESTMENT TO SURVIVE</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">The Las Vegas Strip's 80-year arc from Highway 91 roadside stop to $60B global destination proves that location creates the initial opportunity — but sustained investment in the experience is what builds permanence. The 1980s crisis and Steve Wynn's Mirage response is the template. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Frommers; Britannica; St. Augustine's University</span></div></div>
+      </div>
+      <div style="display:flex; gap:14px; align-items:flex-start; padding:12px 16px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:28px; color:#D4AF37; line-height:1; flex-shrink:0; width:28px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#1A2A44; letter-spacing:1px; margin-bottom:3px;">SCALE WITHOUT EXPERIENCE IS THE MISTAKE EVERY GENERATION REPEATS</div><div style="font-size:13px; color:#1A1A1A; line-height:1.55;">Howard Johnson's 1,000+ locations, Red Lobster's 700, TGI Fridays' national footprint — all built on replication, all failed when the experience stagnated. Your local venue, at any scale, faces the same choice: invest in the experience first and more the competition does, or watch all other advantage erode. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Kiplinger; History Tools; The Atlantic</span></div></div>
+      </div>
+    </div>
+
+    <!-- Bridge to Chapter 6 -->
+    <div style="background:#1A2A44; padding:14px 20px; border-radius:4px; display:flex; align-items:center; gap:16px;">
+      <div style="flex:1;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Next → Chapter 6</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:1px; margin-bottom:4px;">THE TECHNOLOGY DISRUPTION ERA</div>
+        <div style="font-size:12.5px; color:rgba(255,255,255,0.7); line-height:1.5;">2000–present: POS systems, delivery apps, ticketing platforms, and reservation tools that promised to solve the experience problem — and instead created a new one: fragmentation. The tech stack crisis that is costing hospitality operators millions in disconnected systems, lost guest data, and missed revenue.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#D4AF37; flex-shrink:0; line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">5 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId() {
+  const pages = document.querySelectorAll('.page');
+  let closest = pages[0], closestDist = Infinity;
+  const center = window.scrollY + window.innerHeight / 2;
+  pages.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pc = window.scrollY + rect.top + rect.height / 2;
+    const d = Math.abs(center - pc);
+    if (d < closestDist) { closestDist = d; closest = p; }
+  });
+  return closest.id;
+}
+async function capturePage(id) {
+  const page = document.getElementById(id);
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
+  return await html2canvas(page, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:816, height:1056, scrollX:0, scrollY:-window.scrollY });
+}
+async function downloadVisible() {
+  const id = getVisiblePageId();
+  const num = id.replace('p','');
+  const canvas = await capturePage(id);
+  const a = document.createElement('a');
+  a.download = `chaos-mastery-ch3-p${num.padStart(2,'0')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+async function downloadAll() {
+  const btn = document.querySelector('.btn-all');
+  btn.disabled = true;
+  for (let i = 1; i <= 14; i++) {
+    btn.textContent = `Downloading ${i}/14...`;
+    const canvas = await capturePage('p'+i);
+    const a = document.createElement('a');
+    a.download = `chaos-mastery-ch3-p${String(i).padStart(2,'0')}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  btn.textContent = '⬇ Download All 14 Pages';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

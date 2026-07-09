@@ -1,0 +1,5 @@
+{
+  "owner_notification_email": "team@seamlessly.us",
+  "funnel_name": "calculator_page",
+  "email_sequence_days": [0, 2, 4, 6]
+}

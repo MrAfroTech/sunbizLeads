@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Chapter 6: When Technology & Friction Collide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#2a2a2a; font-family:'DM Sans',sans-serif; display:flex; flex-direction:column; align-items:center; padding:32px 16px; gap:0; }
+
+.dl-bar { width:816px; background:#1A2A44; border:2px solid #D4AF37; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-radius:3px; }
+.dl-bar-title { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:18px; letter-spacing:2px; }
+.dl-bar-sub   { font-size:12px; color:rgba(255,255,255,0.55); margin-top:2px; }
+.dl-btns { display:flex; gap:10px; }
+.dl-btns button { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:1px; padding:8px 18px; border:none; border-radius:3px; cursor:pointer; }
+.btn-single { background:#00D4AA; color:#1A2A44; }
+.btn-all    { background:#D4AF37; color:#1A2A44; }
+
+.page { width:816px; height:1056px; background:#fff; position:relative; display:flex; flex-direction:column; overflow:hidden; margin-bottom:2px; flex-shrink:0; }
+.ph { width:100%; height:48px; background:#1A2A44; display:flex; align-items:center; justify-content:space-between; padding:0 64px; border-bottom:4px solid #D4AF37; flex-shrink:0; }
+.ph-brand { font-family:'Bebas Neue',sans-serif; color:#D4AF37; font-size:20px; letter-spacing:3px; }
+.ph-title { font-family:'Bebas Neue',sans-serif; color:#fff; font-size:15px; letter-spacing:2px; }
+.pf { width:100%; height:28px; border-top:1px solid #D4AF37; display:flex; align-items:center; padding:0 80px; flex-shrink:0; }
+.pf-num   { font-size:11px; color:#1A2A44; font-weight:700; }
+.pf-title { font-size:11px; color:#999; margin-left:auto; font-style:italic; }
+
+.pc      { flex:1; padding:28px 64px 16px 80px; display:flex; flex-direction:column; overflow:hidden; }
+.pc-full { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.navy-bg { flex:1; background:#1A2A44; padding:22px 64px 18px 80px; display:flex; flex-direction:column; }
+
+.label    { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:700; color:#D4AF37; text-transform:uppercase; letter-spacing:3px; margin-bottom:4px; }
+.ch-title { font-family:'Bebas Neue',sans-serif; font-size:38px; color:#1A2A44; line-height:1; margin-bottom:12px; }
+.ch-intro { font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; line-height:1.5; margin-bottom:10px; }
+.sec-head { font-family:'Bebas Neue',sans-serif; font-size:18px; color:#1A2A44; letter-spacing:1px; margin-bottom:5px; margin-top:10px; }
+.body     { font-size:12.5px; color:#1A1A1A; line-height:1.58; }
+.body p   { margin-bottom:7px; }
+.body strong { color:#1A2A44; font-weight:700; }
+.cite     { font-size:10px; color:#999; font-style:italic; vertical-align:super; }
+.src-note { font-size:10.5px; color:#888; font-style:italic; line-height:1.5; border-top:1px solid #eee; padding-top:8px; margin-top:6px; }
+
+.two-col    { display:grid; grid-template-columns:55% 42%; gap:3%; }
+.sidebar    { display:flex; flex-direction:column; gap:10px; }
+
+.stat-box { background:#fff; border-left:4px solid #1A2A44; padding:10px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#D4AF37; line-height:1; }
+.stat-lbl { font-size:11px; color:#1A2A44; font-weight:700; margin-top:2px; line-height:1.3; }
+.stat-sub { font-size:10px; color:#666; margin-top:3px; }
+.stat-box.teal { border-color:#00D4AA; } .stat-box.teal .stat-num { color:#00D4AA; }
+.stat-box.gold { border-color:#D4AF37; }
+.stat-box.red  { border-color:#e05252; } .stat-box.red .stat-num  { color:#e05252; }
+
+.callout { background:#F4F6F9; border-left:4px solid #D4AF37; padding:9px 12px; font-size:12.5px; color:#1A2A44; line-height:1.55; }
+.callout strong { color:#D4AF37; }
+
+.fill-line  { border-bottom:1px solid #CCCCCC; height:30px; margin-bottom:5px; }
+.fill-label { font-size:11px; color:#1A2A44; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }
+
+.grid-card { background:rgba(255,255,255,0.07); border:1px solid rgba(212,175,55,0.25); padding:12px 14px; border-radius:4px; }
+.grid-card .gc-num { font-family:'Bebas Neue',sans-serif; font-size:36px; line-height:1; }
+.grid-card .gc-lbl { font-size:12px; font-weight:700; margin-top:4px; line-height:1.4; }
+.grid-card .gc-sub { font-size:10.5px; opacity:.65; margin-top:5px; line-height:1.4; }
+.gc-gold .gc-num { color:#D4AF37; } .gc-gold .gc-lbl { color:#fff; }
+.gc-teal .gc-num { color:#00D4AA; } .gc-teal .gc-lbl { color:#fff; }
+.gc-red  .gc-num { color:#e05252; } .gc-red  .gc-lbl { color:#fff; }
+
+.q-card { padding:14px 16px; border-radius:4px; }
+.q-card.navy { background:#1A2A44; }
+.q-card.gold { background:#D4AF37; }
+.q-mark { font-family:'DM Serif Display',serif; font-size:36px; line-height:1; opacity:.3; margin-bottom:4px; }
+.q-text { font-family:'DM Serif Display',serif; font-style:italic; font-size:13px; line-height:1.6; margin-bottom:8px; }
+.q-attr { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.q-src  { font-size:10px; font-style:italic; opacity:.65; margin-top:3px; }
+.q-card.navy .q-mark,.q-card.navy .q-text { color:#fff; }
+.q-card.navy .q-attr { color:#D4AF37; }
+.q-card.navy .q-src  { color:rgba(255,255,255,0.55); }
+.q-card.gold .q-text,.q-card.gold .q-mark,.q-card.gold .q-attr,.q-card.gold .q-src { color:#1A2A44; }
+
+@media print {
+  @page { size: letter; margin: 0; }
+  html, body { margin:0; padding:0; background:#fff; }
+  .dl-bar { display:none; }
+  .page { margin:0; page-break-after:always; }
+}
+</style>
+</head>
+<body>
+
+<div class="dl-bar">
+  <div>
+    <div class="dl-bar-title">Chaos Mastery — Chapter 6: When Technology &amp; Friction Collide</div>
+    <div class="dl-bar-sub">14 pages · Print-ready · 816 × 1056px per page</div>
+  </div>
+  <div class="dl-btns">
+    <button class="btn-single" onclick="downloadVisible()">⬇ Download Visible Page</button>
+    <button class="btn-all"    onclick="downloadAll()">⬇ Download All 14 Pages</button>
+  </div>
+</div>
+
+<!-- ════════ PAGE 1 — CHAPTER OPENER ════════ -->
+<div class="page" id="p1">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div style="background:#1A2A44; flex:1; padding:48px 80px 32px 80px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px;">Part II — The Evolution of Hospitality</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.35); font-family:'Bebas Neue',sans-serif; letter-spacing:3px; margin-bottom:10px;">Chapter 6</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:72px; color:#fff; line-height:.92; margin-bottom:2px;">WHEN TECHNOLOGY</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:72px; color:#D4AF37; line-height:.92; margin-bottom:28px;">AND FRICTION COLLIDE</div>
+        <div style="width:72px; height:4px; background:#00D4AA; margin-bottom:24px;"></div>
+        <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,0.85); line-height:1.65; max-width:560px;">
+          2000–present: POS systems, delivery apps, ticketing platforms, and reservation tools promised to solve the operations problem. Instead, they created a new one — fragmentation. Six disconnected systems that can't share data, talk to staff, or remember your guests.
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#00D4AA; line-height:1;">76%</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">of operators say tech gives them a competitive edge — but only 13% are satisfied with their current stack</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">30%</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">commission taken by DoorDash and Uber Eats on every delivery order — before food cost or labor</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#fff; line-height:1;">43%</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">of guests can't recall the establishments name after ordering through a delivery app</div>
+        </div>
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; line-height:1;">$59B</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.65); font-weight:600; line-height:1.4;">global establishment tech market in 2024 — projected to reach $314B by 2033</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 1</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 2 — THE PROMISE VS. THE REALITY ════════ -->
+<div class="page" id="p2">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">2000–Present</div>
+    <div class="ch-title" style="margin-bottom:6px">The Promise Was Clarity. The Reality Was Chaos.</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">Every technology wave from 2000 onward arrived with the same pitch: this system will simplify your operation. The POS will manage your transactions. The reservation platform will fill your tables. The delivery app will reach new customers. The ticketing tool will sell out your events. Each one delivered on its narrow promise. What none of them solved was how they'd work together.</div>
+        <div class="body" style="font-size:11.5px; line-height:1.36;">
+          <p>The result, across two decades of accelerating adoption, is what hospitality operators now navigate daily: a stack of systems that each do their job in isolation while collectively creating a new layer of operational friction. Your POS tracks transactions. Your online ordering platform runs separately. Your loyalty program sits in a different database. Your reservation system is isolated. Your inventory management is manual. Your labor scheduling is disconnected.</p>
+          <div class="sec-head">The Scale of the Problem</div>
+          <p>The National Restaurant Association's 2024 Technology Landscape Report surveyed more than 1,000 operators and found that <strong>76% say technology gives them a competitive edge — but only 13% are satisfied with their current tech stack.</strong><span class="cite"> National Restaurant Association, Restaurant Technology Landscape Report 2024</span> That gap — between believing in technology and being served by it — defines the central challenge of the current era.</p>
+          <p>The global establishment technology market reached $59.3 billion in 2024 and is projected to grow to $314.85 billion by 2033 at a compound annual growth rate of 16.39%.<span class="cite"> Mordor Intelligence, Restaurant Management Software Market 2031</span> Money is flowing in. The systems are multiplying. But the integration problem remains: <strong>a customer who orders in-store on Tuesday, online on Thursday, and makes a reservation on Saturday is, in most stacks, three different customers.</strong></p>
+          <div class="sec-head">What the Technology Was Supposed to Fix</div>
+          <p>When POS systems arrived as the first major technology layer, the pitch was operational efficiency: fewer errors, faster transactions, cleaner reporting. When online ordering scaled during COVID-19, it was access: reach guests who can't come in. When reservation platforms emerged, it was demand management: fill seats systematically. When delivery apps arrived, it was distribution: extend your footprint beyond your four walls.</p>
+          <div class="callout" style="margin-top:10px;"><strong>Each system solved a discrete problem</strong> — and created a new one. The more systems an operator adds, the more they accumulate data that cannot be reconciled, guests that cannot be recognized, and staff workflows that require working around the technology rather than through it.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box red">
+          <div class="stat-num">13%</div>
+          <div class="stat-lbl">of establishment operators satisfied with their current technology stack</div>
+          <div class="stat-sub">National Restaurant Association, Restaurant Technology Landscape Report 2024</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">76%</div>
+          <div class="stat-lbl">say technology gives them a competitive edge — yet most are running fragmented, siloed stacks</div>
+          <div class="stat-sub">National Restaurant Association, 2024</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">$59B</div>
+          <div class="stat-lbl">global establishment tech market size in 2024, growing 16% annually to 2033</div>
+          <div class="stat-sub">Mordor Intelligence, 2026</div>
+        </div>
+        <div class="callout">
+          <strong>The stack problem in plain language:</strong> Operators are investing more in technology than at any point in history — and are less satisfied with the result than they've ever been. The tools work. The stack doesn't.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 2</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 3 — THE FRAGMENTED STACK MAPPED ════════ -->
+<div class="page" id="p3">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Fragmentation Problem</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">SIX SYSTEMS. ZERO CONVERSATION.</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">The Standard Hospitality Tech Stack — And Why It Fails</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#D4AF37; letter-spacing:1px; margin-bottom:5px;">POS SYSTEM</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-bottom:5px;">The operational core. Manages transactions, tracks sales, feeds the kitchen. Toast, Square, Clover, Oracle Simphony — all operating as islands with their own data architecture. <strong style="color:#D4AF37;">What it doesn't know:</strong> who the guest is, when they last visited, what they ordered online.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: QSR Magazine, "Navigating the 2024 Restaurant Technology Landscape"</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#00D4AA; letter-spacing:1px; margin-bottom:5px;">DELIVERY PLATFORM</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-bottom:5px;">DoorDash, Uber Eats, Grubhub. Extends the venue's reach — and extracts 15–30% of every order in commission. <strong style="color:#00D4AA;">What it keeps:</strong> all guest data. The platform owns the customer relationship. The establishment owns the food cost and the packaging.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Digital Restaurant Association; ActiveMenus industry analysis, 2024</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#fff; letter-spacing:1px; margin-bottom:5px;">RESERVATION SYSTEM</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-bottom:5px;">OpenTable, Resy, SevenRooms. Manages table availability, confirmation, and waitlists. <strong style="color:#fff;">The data gap:</strong> OpenTable charges $0.25–$1.50 per cover while capturing guest behavior data the establishment cannot access or market against without the platform's permission.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: BentoBox, "10 Types of Restaurant Technology," 2024; TableCheck data ownership analysis</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#D4AF37; letter-spacing:1px; margin-bottom:5px;">LOYALTY PLATFORM</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-bottom:5px;">A standalone loyalty app or points program, typically separate from POS, delivery, and reservations. <strong style="color:#D4AF37;">The core irony:</strong> loyalty programs are designed to recognize returning guests — but can't see them when they order through a third-party channel or book through an OTA.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Hospitality Headline, "The Unified establishment Tech Stack," 2026</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#00D4AA; letter-spacing:1px; margin-bottom:5px;">INVENTORY MANAGEMENT</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-bottom:5px;">Separate software tracking stock levels, waste, and ordering. The market for establishment inventory tools reached $3.95 billion in 2024 and is growing nearly 15% annually. <strong style="color:#00D4AA;">The problem:</strong> most inventory systems don't pull real-time sales data from the POS automatically.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Grand View Research; Restroworks technology statistics 2024</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:16px; color:#fff; letter-spacing:1px; margin-bottom:5px;">LABOR SCHEDULING</div>
+          <div style="font-size:11.5px; color:rgba(255,255,255,0.8); line-height:1.5; margin-bottom:5px;">Workforce management tools for scheduling, timekeeping, and payroll. Separate from POS, delivery, and inventory. <strong style="color:#fff;">The result:</strong> labor is scheduled off historical averages and intuition — not real-time demand signals from the actual systems tracking covers and order volume.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Restaurant365 State of the Restaurant Industry Survey 2024</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(229,57,53,0.1); border:1px solid rgba(229,57,53,0.3); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#e05252; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Shared Failure Mode</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">Each system captures data in its own format, on its own timeline, accessible only through its own dashboard. The guest who orders in-store Tuesday, online Thursday, and books a reservation Saturday is three different people across three different systems. The operator cannot see the full picture. Neither can the staff.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 3</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 4 — DELIVERY APPS: THE COMMISSION CRISIS ════════ -->
+<div class="page" id="p4">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Delivery Platform Problem</div>
+    <div class="ch-title">You're Paying 30% to Serve Your Own Guests</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:13px; line-height:1.48; margin-bottom:8px;">Third-party delivery transformed hospitality distribution. It also quietly transferred the most valuable asset in any venue operation — the guest relationship — to a platform that charges the venue for access to its own customers. The commission is just the beginning.</div>
+        <div class="body" style="font-size:12px; line-height:1.44;">
+          <p>By March 2024, DoorDash held approximately 67% of observed US meal-delivery sales, with Uber Eats second at 23%.<span class="cite"> KitchenHub, "What Marketplaces Aren't Telling You," 2026</span> That duopoly means most establishments have no realistic alternative to participation — and no leverage in negotiating terms. In 2024, DoorDash's revenue reached approximately $10.72 billion, a 24.2% increase year-over-year. Uber Eats contributed approximately $13.7 billion to Uber's food delivery segment.<span class="cite"> Independent establishment Coalition, deliveryapps_2025</span></p>
+          <div class="sec-head">The True Commission Structure</div>
+          <p>Most operators understand the headline commission: DoorDash charges 15% (Basic), 25% (Plus), or 30% (Premier) per delivery order, with Uber Eats running 20–30% depending on plan tier.<span class="cite"> Restaurant Dive; KitchenHub 2026</span> What fewer operators account for is the full cost stack: payment processing fees (2.9–3.5%), optional sponsored listing costs, and the compounding effect of customers who reorder at a 15–25% rate through the platform versus a 35–55% direct reorder rate when the operator owns the relationship.<span class="cite"> ActiveMenus industry analysis, 2024</span></p>
+          <p>Industry analysis from McKinsey, the Digital Restaurant Association, and Technomic's 2024 Delivery Consumer Trend Report finds that the true cost of third-party delivery regularly exceeds 40% of per-order revenue when all fees and indirect costs are included. <strong>For a establishment operating on a 10–15% net margin, a 30% commission does not reduce profit — it eliminates it.</strong></p>
+          <div class="sec-head">The Data Ownership Problem</div>
+          <p>The commission is the visible cost. The less visible cost is structural: in most third-party delivery arrangements, the platform — not the establishment — is the legal owner of the guest data. The establishment cannot market directly to guests who ordered through DoorDash or Uber Eats. The platform can — and uses that data to promote competitors.<span class="cite"> Formiti, "Data Privacy in Hospitality," Dec. 2025; TableCheck, guest data analysis</span></p>
+          <div class="callout"><strong>The compounding problem:</strong> 43% of guests cannot recall the establishment's name after ordering through a delivery app. The venue did the cooking. The platform built the brand relationship. And then charged the venue for the privilege.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box red">
+          <div class="stat-num">40%+</div>
+          <div class="stat-lbl">true per-order cost of third-party delivery when all fees and indirect costs are calculated</div>
+          <div class="stat-sub">McKinsey; Digital Restaurant Association; Technomic 2024</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">67%</div>
+          <div class="stat-lbl">of observed US meal-delivery sales captured by DoorDash as of March 2024</div>
+          <div class="stat-sub">KitchenHub marketplace analysis, 2026</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">43%</div>
+          <div class="stat-lbl">of guests can't name the establishment after ordering through a delivery app</div>
+          <div class="stat-sub">Industry research via ActiveMenus, 2024</div>
+        </div>
+        <div style="background:#1A2A44; padding:13px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Commission Tier Comparison</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-size:11.5px; color:#fff; line-height:1.4;">
+            <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);"><span style="color:rgba(255,255,255,0.6);">DoorDash Basic</span><span style="color:#D4AF37; font-weight:700;">15%</span></div>
+            <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);"><span style="color:rgba(255,255,255,0.6);">DoorDash Plus</span><span style="color:#D4AF37; font-weight:700;">25%</span></div>
+            <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);"><span style="color:rgba(255,255,255,0.6);">DoorDash Premier</span><span style="color:#e05252; font-weight:700;">30%</span></div>
+            <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);"><span style="color:rgba(255,255,255,0.6);">Uber Eats Lite</span><span style="color:#D4AF37; font-weight:700;">20%</span></div>
+            <div style="display:flex; justify-content:space-between; padding:5px 0;"><span style="color:rgba(255,255,255,0.6);">Uber Eats Premium</span><span style="color:#e05252; font-weight:700;">30%</span></div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Sources: DoorDash Partnership Plans; Uber Eats merchant pricing; KitchenHub 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 4</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 5 — GUEST DATA: THE INVISIBLE THEFT ════════ -->
+<div class="page" id="p5">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Data Ownership Crisis</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">YOUR GUESTS. THEIR DATABASE.</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">How Third-Party Platforms Captured the Most Valuable Asset in Hospitality</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">WHAT THE PLATFORM CAPTURES</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Name, email, phone, address, full order history, ordering frequency, preferred items, price sensitivity, neighborhood, device type. Every data point needed to build a loyalty relationship — captured at the moment the guest orders from your venue — stored in the platform's database, not yours.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Evokad, "The Restaurant First-Party Data Strategy Guide," 2026; Formiti Data Privacy Series, 2025</div>
+        </div>
+        <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#e05252; letter-spacing:1px; margin-bottom:6px;">WHAT THE RESTAURANT CAPTURES</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Nothing. When a booking is made via a third-party OTA or delivery platform, the platform is typically the legal controller and owner of the guest data. The establishment cannot market to guests outside the scope of their immediate reservation or order. Meanwhile, the platform can — and does — advertise competitor venues to the same guests.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: TableCheck, "Fuel Your Success with Your Own Guest Data"; Goodwin Law HMA analysis, 2024</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">THE LIFETIME VALUE GAP</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Research from Affinect and Evokad finds that establishments with direct ordering channels grow their customer databases 5–10x faster than those relying on third-party platforms. Direct-channel guests spend 15–20% more over their lifetime due to owned engagement strategies. DoorDash orders generate revenue—but they don’t build relationships you can grow.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Evokad, "Restaurant First-Party Data Strategy Guide for 2026"</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE DISINTERMEDIATION CYCLE</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Third-party delivery doesn’t just take a percentage of the sale—it becomes the gatekeeper between you and your customer, turning what should be a lasting relationship into a one-time transaction instead of a relationship that compounds over time. Great revenue model for them, horrible one for you.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: BuyerGenomics CDP analysis; Restaurant365 State of the Industry 2024</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.3); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#00D4AA; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Operator Imperative</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">First-party data — information collected directly from guests through your own channels — is the only data you own permanently, immune to platform policy changes or algorithm shifts. Third-party cookie deprecation by Chrome and Apple has already begun eroding the retargeting infrastructure most establishments depended on. The operators building direct-channel infrastructure now are building a competitive moat that compounds over time.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 5</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 6 — THE POS FRAGMENTATION ERA ════════ -->
+<div class="page" id="p6">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The POS Landscape</div>
+    <div class="ch-title" style="margin-bottom:6px">The Heart of Operations — And the Source of the Silo</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">The point-of-sale system was supposed to be the nervous system of the modern hospitality operation. In practice, it became the loudest voice in a room full of systems that can't hear each other. The POS knows what was sold. It doesn't know who bought it, whether they've been before, or what they ordered last time they came through a different channel.</div>
+        <div class="body" style="font-size:11.5px; line-height:1.38;">
+          <p>The global establishment POS terminal market reached $22.3 billion in 2023 and is projected to hit $38.2 billion by 2030, growing at 8% annually.<span class="cite"> Grand View Research, Restaurant Point of Sale Terminal Market, 2023</span> The market is dominated by NCR (retained as segment leader in IDC's 2025 MarketScape), Oracle Simphony for enterprise table service, Toast for fast-casual and QSR, and Square/Clover/Lightspeed for independent and small-chain operators.</p>
+          <div class="sec-head">Toast's Rapid Expansion</div>
+          <p>Toast alone added 8,000 new QSR outlets in Q2 2024, each requiring a full cloud POS deployment.<span class="cite"> Toast, "Second Quarter 2024 Financial Results," toasttab.com; Mordor Intelligence</span> Cloud solutions accounted for 60.87% of restaurant management software revenue in 2025, growing at 14.94% annually — far outpacing hybrid and on-premise stacks. The market is democratizing: what once required dedicated IT staff now deploys through browser wizards in under an hour.</p>
+          <div class="sec-head">The Integration Battleground</div>
+          <p>The competitive edge among POS vendors has shifted toward how well their systems connect with everything else a establishment uses. Operators are no longer looking for a collection of separate ‘best-in-class’ tools—they want fewer systems that can seamlessly work with delivery platforms, accounting software, and workforce management right out of the box.
+
+            The problem is that most establishments are stuck in the middle of this transition, running a legacy POS that was built before modern integrations were standard, alongside newer ordering and delivery tools that were never designed to work with it. The result is a fragmented system where data doesn’t flow cleanly, processes break down, and operators are forced to manually bridge the gaps.</p>
+          <div class="sec-head">IHOP's 15-Year Gap</div>
+          <p>Among the most telling case studies: IHOP invested in a new POS system for the first time in 15 years in 2024.<span class="cite"> Nation's Restaurant News, "7 Restaurant Tech Stack Glow-Ups from 2024"</span> The chain had been running operations — including all guest data collection, kitchen management, and transaction processing — on a system designed before smartphones, before delivery apps, and before cloud computing became the default architecture. <strong>What IHOP was managing around is what thousands of independent and mid-size operators are still managing around today.</strong></p>
+          <div class="callout"><strong>The POS paradox:</strong> It's the most-invested technology in hospitality — and the one most likely to become the bottleneck when any other system needs to share data with it.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box">
+          <div class="stat-num">$22B</div>
+          <div class="stat-lbl">global establishment POS market in 2023, projected to $38B by 2030</div>
+          <div class="stat-sub">Grand View Research, 2023</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">8,000</div>
+          <div class="stat-lbl">new vendor locations added by Toast in Q2 2024 alone — each requiring full cloud POS deployment</div>
+          <div class="stat-sub">Toast Q2 2024 Financial Results; Mordor Intelligence</div>
+        </div>
+        <div style="background:#1A2A44; padding:13px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Major POS Players by Segment</div>
+          <div style="display:flex; flex-direction:column; gap:5px; font-size:11px;">
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:6px 9px;"><span style="color:#D4AF37; font-weight:700;">Enterprise</span><span style="color:rgba(255,255,255,0.75);"> — Oracle Simphony, NCR Voyix</span></div>
+            <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:6px 9px;"><span style="color:#00D4AA; font-weight:700;">Fast-Casual/QSR</span><span style="color:rgba(255,255,255,0.75);"> — Toast, PAR POS</span></div>
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:3px; padding:6px 9px;"><span style="color:#fff; font-weight:700;">Independent</span><span style="color:rgba(255,255,255,0.75);"> — Square, Clover, Lightspeed</span></div>
+            <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:6px 9px;"><span style="color:#D4AF37; font-weight:700;">Stadium/Venue</span><span style="color:rgba(255,255,255,0.75);"> — Oracle Simphony, CBS NorthStar</span></div>
+          </div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-top:6px; font-style:italic;">Source: Hospitality Technology POS Software Survey 2024–2025</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">15 YRS</div>
+          <div class="stat-lbl">since IHOP's last POS upgrade before their 2024 replacement — a common gap across independent and mid-size operators</div>
+          <div class="stat-sub">Nation's Restaurant News, 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 6</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 7 — THE RESERVATION PLATFORM TRAP ════════ -->
+<div class="page" id="p7">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Reservation & Booking Problem</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">PAYING TO MEET YOUR OWN GUESTS</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">How Booking Platforms Replicated the Delivery App Problem for Table Service</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">THE OPENTABLE MODEL</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">OpenTable charges establishments $0.25–$1.50 per cover depending on plan and discovery channel — but more importantly, reserves the right to own the guest data generated through its platform. A establishment booking 400 covers per week through OpenTable pays $5,200–$31,200 annually in cover fees. The guest who booked belongs to OpenTable's marketing database, not the establishment's.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: BentoBox, "10 Types of Restaurant Technology You Need in 2024"</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">THE ALTERNATIVE: DIRECT BOOKING</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Reservation tools that integrate directly with the restaurant's website — like SevenRooms or built-in booking via BentoBox — charge no per-cover fee and hand the operator full ownership of the guest data. The trade-off: the operator gives up marketplace discovery visibility in exchange for relationship ownership. Over 60% of diners prefer to book tables online, which makes the choice of booking infrastructure a direct revenue and data strategy decision.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Restroworks technology statistics 2024; BentoBox, 2024</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE HOTEL OTA PARALLEL</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">Hotels face the same dynamic through OTAs like Booking.com and Expedia. As Hospitalitynet's 2025 analysis frames it: "The issue is no longer which channels we use, but who controls the guest narrative and the data behind it." When a guest books through an OTA, the platform legally controls the data. The hotel cannot market to that guest or contact them outside the scope of their immediate reservation — while the OTA can send them competitive listings.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Hospitalitynet, viewpoint Dec. 2025; Goodwin Law, HMA data analysis, 2024</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:14px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">THE LOYALTY PROGRAM DISCONNECT</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:6px;">52% of consumers participate in loyalty programs, per the National Restaurant Association's 2024 Report. But loyalty programs are structurally blind to third-party channel behavior. A guest who orders 3x per week through DoorDash and visits in-person once per month appears, in the loyalty system, as an infrequent visitor. The program undervalues your highest-spending guests because it can't see the full picture.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: National Restaurant Association, 2024 Technology Landscape Report; Evokad 2026</div>
+        </div>
+      </div>
+
+      <div style="height:1px; background:rgba(212,175,55,0.25); margin-bottom:10px;"></div>
+      <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Core Pattern</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">Delivery apps, reservation platforms, and OTAs share a single business model: they insert themselves between the venue and the guest, capture the data that makes the relationship valuable, and then sell that data back to the venue in the form of marketing tools and promoted placement. The hospitality operator becomes a contractor — executing the experience — while the platform owns the customer.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 7</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 8 — COVID: THE FORCING FUNCTION ════════ -->
+<div class="page" id="p8">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label" style="margin-bottom:2px;">The COVID Acceleration</div>
+    <div class="ch-title" style="margin-bottom:4px; font-size:27px;">The Pandemic Didn't Create the Chaos With Tech Stacks It Exposed It.</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:12px; line-height:1.44; margin-bottom:6px;">In March 2020, the hospitality industry's technology fragmentation stopped being an operational inconvenience and became an undeniable threat. Operators who had been managing around their disconnected systems suddenly had to rebuild their entire service model — in weeks — using those same systems. What they discovered was that the stack they had built for normal operations was not designed for adaptability.</div>
+        <div class="body" style="font-size:11.5px; line-height:1.33;">
+          <p>QSR Magazine's landscape analysis documents the acceleration: "Once 2020 came along, establishments were forced to quickly innovate their way through unfamiliar guidelines, staffing shortages, rising wages and food costs, supply chain issues, and consumers' increased appetite to engage through new channels — digital, delivery, drive-thru — all further accelerating technology adoption."<span class="cite"> QSR Magazine, "Navigating the 2024 Restaurant Technology Landscape"</span></p>
+          <div class="sec-head">Online Ordering Becomes Non-Optional</div>
+          <p>Online ordering and delivery exploded during COVID-19. For the operators who survived, this was — as Poached Jobs' guide frames it — "a blessing in disguise," because online ordering and delivery became a permanent piece of their digital infrastructure.<span class="cite"> Poached Jobs, "A Guide to Building a Restaurant Tech Stack," 2024</span> The technology forced establishments to confront the question they had been deferring: how do all of these systems work together?</p>
+          <p><b>For the most part, they don't. </b><br><br> Menus had to be updated in four different places simultaneously — the POS, the delivery app, the website, and any third-party integration middleware. A menu change at 2pm that didn't propagate correctly could result in orders placed for items that were no longer available, 86'd in the kitchen but still live on DoorDash. <strong>The disconnec that had been an annoyance was now a failure at scale.</strong></p>
+          <div class="sec-head">Technology Investment Accelerates — So Does Dissatisfaction</div>
+          <p>By 2023, 51% of operators had invested in technology specifically to make their service more efficient, with 55% planning further investment in 2024.<span class="cite"> National Restaurant Association, Restaurant Technology Landscape Report 2024; Escoffier, 2024</span> In 2024, 73% of restaurant operators increased their technology investments — the highest rate of digital adoption in the industry's history.<span class="cite"> National Restaurant Association, 2024 State of the Industry Report</span></p>
+          <p>Yet operator satisfaction fell. The 13% satisfaction figure — only 13% of operators happy with their current stack — is the result of rapid adoption without integration strategy: more systems were added faster than they could be made to communicate with each other. <strong>The stack grew. The disconnect widened.</strong></p>
+          <div class="callout"><strong>The COVID paradox:</strong> The pandemic forced hospitality to adopt technology at unprecedented speed — and revealed that speed of adoption without the right foundation, that speed created more chaos, not less.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box">
+          <div class="stat-num">73%</div>
+          <div class="stat-lbl">of operators increased technology investment in 2024 — the highest adoption rate in the sector's history</div>
+          <div class="stat-sub">National Restaurant Association, 2024 State of the Industry Report</div>
+        </div>
+        <div class="stat-box teal">
+          <div class="stat-num">51%</div>
+          <div class="stat-lbl">invested in technology in 2023 to improve operational efficiency; 55% planned further investment in 2024</div>
+          <div class="stat-sub">National Restaurant Association, Technology Landscape Report 2024</div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Establishments were forced to quickly innovate through staffing shortages, rising costs, and consumers' increased appetite for digital channels — all further accelerating technology adoption."</div>
+          <div class="q-attr">QSR Magazine</div>
+          <div class="q-src">Navigating the 2024 Restaurant Technology Landscape</div>
+        </div>
+        <div class="src-note">Sources: National Restaurant Association 2024; QSR Magazine 2024; Escoffier education analysis 2024; Poached Jobs restaurant tech guide 2024</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 8</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 9 — WHAT UNIFIED LOOKS LIKE ════════ -->
+<div class="page" id="p9">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Alternative</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:34px; color:#fff; line-height:1; margin-bottom:4px;">FRAGMENTED VS. UNIFIED: THE GAP BETWEEN CHAOS & CONTROL</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">What Changes When the Tech Stack Communicate With Each Other</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 60px 1fr; gap:0; align-items:start;">
+        <div style="background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.2); border-radius:4px 0 0 4px; padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#D4AF37; letter-spacing:2px; margin-bottom:2px;">FRAGMENTED STACK</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px;">The Current Reality for Most Operators</div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#e05252; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#e05252;">Guest identity:</strong> Three different customers across POS, delivery apps, and reservation system. No single guest profile exists.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#e05252; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#e05252;">Menu management:</strong> Changes must be made in 4–6 separate systems manually. A missed update on one platform creates order errors.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#e05252; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#e05252;">Inventory:</strong> Inventory reconciled manually, typically at end of week. Real-time depletion is invisible.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#e05252; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#e05252;">Labor:</strong> Scheduling based on historical data and intuition, not real-time demand from the POS or reservation system.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#e05252; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#e05252;">Data insight:</strong> Customer data locked across 6 dashboards. Basic questions — which guests are at risk of churn? — go unanswered.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#e05252; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#e05252;">Staff experience:</strong> Working around the system instead of with it. Manual reconciliation eats 10–20 hours weekly of management time.</div></div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.03); align-self:stretch;">
+           
+        </div>
+        <div style="background:rgba(0,212,170,0.06); border:1px solid rgba(0,212,170,0.25); border-radius:0 4px 4px 0; padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#00D4AA; letter-spacing:2px; margin-bottom:2px;">UNIFIED STACK</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:4px;">The Competitive Advantage</div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Guest identity:</strong> One profile across all channels. In-store, online, reservation — the same guest, recognized and valued wherever they interact.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Menu management:</strong> One change propagates across POS, online ordering, kiosks, and delivery integrations simultaneously.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Inventory:</strong> Real-time depletion pulled from live sales data. Out-of-stock items 86'd automatically across all ordering channels.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Labor:</strong> Scheduling informed by reservation load, historical demand curves, and real-time cover counts from the POS.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Data insight:</strong> Unified guest intelligence enables churn prediction, personalized offers, and revenue optimization in real time.</div></div>
+          <div style="display:flex; gap:8px; align-items:flex-start;"><div style="width:8px; height:8px; background:#00D4AA; border-radius:50%; margin-top:4px; flex-shrink:0;"></div><div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.5;"><strong style="color:#00D4AA;">Staff experience:</strong> Technology handles operational coordination. Staff attention goes to guests, not to reconciling system discrepancies.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 9</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 10 — AI & THE NEXT WAVE ════════ -->
+<div class="page" id="p10">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">The Next Technology Layer</div>
+    <div class="ch-title" style="margin-bottom:5px">WITH AI. The Data Problem Matters More Than Ever.</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:11.5px; line-height:1.40; margin-bottom:5px;">Artificial intelligence is the next major technology wave hitting hospitality. POS vendors are racing to add AI-driven features: predictive demand forecasting, automated marketing, AI-powered upsell, voice ordering, kitchen optimization. The promise is exactly what every prior technology wave promised — greater efficiency, less friction, more revenue. The prerequisite is different this time: AI only works when it has access to unified data.</div>
+        <div class="body" style="font-size:11px; line-height:1.34;">
+          <p>Among Restaurant365's survey respondents for 2024, 41% planned to invest in AI sales forecasting and scheduling, 33% in AI-driven guest marketing, and 31% in AI inventory and purchasing tools.<span class="cite"> Restaurant365, State of the Restaurant Industry Survey 2024</span> The National Restaurant Association's 2024 survey found 47% of restaurant owners predicted that technology and automation would help address labor shortages — while 69% believed it would augment rather than replace human labor.<span class="cite"> Escoffier, "2024 Restaurant Technology and Innovation Statistics"</span></p>
+          <div class="sec-head">Why Fragmented Stacks Can't Use AI Effectively</div>
+          <p>The Hospitality Headline's unified stack analysis states it plainly: <strong>"AI only works when it has access to unified data. Fragmented systems can't feed AI properly."</strong><span class="cite"> Hospitality Headline, "The Unified Restaurant Tech Stack," 2026</span> The AI tools being marketed to hospitality operators — churn prediction, dynamic pricing, demand forecasting — require cross-channel guest data that most operators' stacks cannot produce. An AI model trained on POS data alone will tell you what sold. It cannot tell you which guests are at risk of not returning, because it doesn't know they've been ordering through DoorDash three times a week.</p>
+          <div class="sec-head">The Compounding Advantage</div>
+          <p>Hospitality Headline's analysis concludes with a stark assessment: <strong>"Establishments operating on fragmented legacy systems are accumulating technical debt that compounds daily. The operators investing in integrated infrastructure now will have insurmountable advantages by 2027. They'll have 2–3 years of unified customer data. Refined AI models. Optimized workflows. Trained teams. Competitors won't be able to catch up."</strong><span class="cite"> Hospitality Headline, 2026</span></p>
+          <p>The POS market's cloud transition accelerates this timeline. Cloud solutions grew at 14.94% annually in 2025 and accounted for over 60% of Establishment management software revenue — removing the capex barrier that had historically kept smaller operators on legacy systems. The democratization of cloud POS means the integration gap is now a strategic choice, not a resource constraint.</p>
+          <div class="callout"><strong>The AI window:</strong> The operators who consolidate their stack now won't just be more operationally efficient today. They'll be building the data foundation that makes AI-driven personalization, demand forecasting, and guest retention possible in the years ahead. Delay is not neutral — it is compounding disadvantage.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="stat-box teal">
+          <div class="stat-num">41%</div>
+          <div class="stat-lbl">of operators planning to invest in AI sales forecasting and scheduling in 2024–2025</div>
+          <div class="stat-sub">Restaurant365 State of the Industry Survey 2024</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">61%</div>
+          <div class="stat-lbl">of limited-service operators planning loyalty and rewards technology investment in 2024</div>
+          <div class="stat-sub">National Restaurant Association, 2024</div>
+        </div>
+        <div class="q-card gold" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Unified technology platforms are no longer nice-to-have. They're table stakes. Establishments operating on fragmented systems are accumulating technical debt that compounds daily."</div>
+          <div class="q-attr">Hospitality Headline</div>
+          <div class="q-src">The Unified Restaurant Tech Stack, 2026</div>
+        </div>
+        <div class="stat-box gold">
+          <div class="stat-num">14.9%</div>
+          <div class="stat-lbl">annual growth rate of cloud-based vendor management software in 2025 — far outpacing on-premise and hybrid stacks</div>
+          <div class="stat-sub">Mordor Intelligence, 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 10</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 11 — THE HUMAN COST ════════ -->
+<div class="page" id="p11">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc-full">
+    <div class="navy-bg">
+      <div class="label" style="color:#D4AF37; margin-bottom:3px;">The Hidden Cost</div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:38px; color:#fff; line-height:1; margin-bottom:4px;">WHAT THE STACK COSTS THE PEOPLE RUNNING IT</div>
+      <div style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:8px; letter-spacing:1.5px; text-transform:uppercase;">Disjointed Tech and the Bridge to Staff Burnout</div>
+      <div style="height:2px; background:linear-gradient(90deg,#D4AF37,#00D4AA,transparent); margin-bottom:12px;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#e05252; letter-spacing:1px; margin-bottom:6px;">THE MANUAL RECONCILIATION TAX</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">When systems don't communicate, humans become the middleware. Managers reconcile inventory counts against POS reports manually. Delivery order errors must be cross-referenced across three platforms. Menu changes that didn't propagate require correction calls. The Hospitality Headline estimates operators save 10–20 hours weekly of manual work when AI-powered unified systems handle what fragmented stacks push onto managers.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Hospitality Headline, "The Unified Restaurant Tech Stack," 2026</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.08); border:1px solid rgba(212,175,55,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#D4AF37; letter-spacing:1px; margin-bottom:6px;">TRAINING COMPLEXITY AS TURNOVER ACCELERANT</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Industry turnover is exceptionally high — a persistent operational reality that fragmented tech stacks make worse. Every new hire must be trained on multiple systems, each with its own interface, workflow, and error mode. Operators are now investing in software to get new hires "shift ready" as fast as possible. When the stack is complex, that onboarding time extends — and staff who never get fully comfortable with the system are more likely to disengage.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: QSR Magazine, "Navigating the 2024 Restaurant Technology Landscape"; Restaurant365 survey 2024</div>
+        </div>
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.25); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#00D4AA; letter-spacing:1px; margin-bottom:6px;">THE CYBERSECURITY EXPOSURE</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">47% of full-service operators planned to invest in cybersecurity in 2024, compared to 31% of limited-service operators.<span style="font-size:10px; opacity:0.65;"> National Restaurant Association 2024</span> The security risk of fragmented stacks is real: multiple entry points, inconsistent encryption standards, and third-party vendor access across POS, cloud storage, and booking systems create a threat surface that unified architectures substantially reduce. Mews's data protection analysis identifies POS intrusions, cloud hacking, phishing, and third-party vendor vulnerabilities as the primary vectors.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: Mews, "Hotel Data Protection Challenges," 2026; BEP Backoffice, restaurant tech stack guide 2026</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:13px;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:15px; color:#fff; letter-spacing:1px; margin-bottom:6px;">THE MARGIN PRESSURE COMPOUNDING</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.8); line-height:1.52; margin-bottom:5px;">Industry profit margins average 3–5% across the industry, with top-performing establishments reaching near 10%, per NYU 2024 data. Against those margins, a 30% delivery commission, $0.25–$1.50 per reservation cover, 10–20 hours of manual management labor weekly, and a fragmented loyalty program that can't see 60% of guest behavior are not isolated costs — they are cumulative margin destruction. 52% of establishment professionals named lowering high operating costs as their top priority.</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); font-style:italic;">Source: NYU 2024; Sculpture Hospitality industry statistics; National Restaurant Association 2024</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(229,57,53,0.08); border:1px solid rgba(229,57,53,0.25); border-radius:4px; padding:12px 16px;">
+        <div style="font-size:10px; color:#e05252; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;">The Bridge to Chapter 7</div>
+        <div style="font-size:12.5px; color:#fff; line-height:1.55;">The systems crisis documented in this chapter does not stay in the back office. It travels to the floor. Staff who spend their shifts managing around broken integrations, training on seven different dashboards, and apologizing for order errors generated by platforms that don't talk to each other are staff who disengage — and leave. Chapter 7 focuses up the human cost while this chapter handled the operational one.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 11</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 12 — THE MODERN PARALLEL ════════ -->
+<div class="page" id="p12">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Historical Parallels for Modern Operators</div>
+    <div class="ch-title">What the Technology Era Teaches Your Venue Today</div>
+    <div class="two-col" style="flex:1; align-items:start; gap:22px;">
+      <div>
+        <div class="ch-intro" style="max-width:100%; font-size:13px; line-height:1.48; margin-bottom:8px;">Every technology adoption decision a venue makes today maps directly to the lessons of the past two decades. The operators who read the pattern correctly are not the ones with the most technology — they are the ones whose technology works together.</div>
+        <div class="body" style="font-size:12px; line-height:1.44;">
+          <div class="sec-head" style="margin-top:0;">The Howard Johnson's Lesson, Restated</div>
+          <p>Howard Johnson's failed, as Chapter 5 documented, because it had 1,000+ locations and the highway — but didn't invest in the experience that would justify returning. The technology era's equivalent: operators who have six systems running simultaneously but can't answer a basic question about their guests. <strong>Fragmentation is the new stagnation.</strong> The tool count is high. The intelligence is zero.</p>
+          <div class="sec-head">The Domino's Exception</div>
+          <p>Not every chain fell into the fragmentation trap. Domino's famously rebuilt itself around technology in the 2010s — not by adopting the most platforms, but by building a unified ordering and delivery infrastructure it controlled internally. The result was what became known as a "tech company that sells pizza." By 2024, Domino's was rolling out its own proprietary systems rather than adopting third-party platforms, maintaining ownership of its guest data and delivery economics.<span class="cite"> Nation's Restaurant News, "7 Restaurant Tech Stack Glow-Ups from 2024"; Wingstop followed a similar path</span> The lesson is not that operators should build their own systems — it is that <strong>owning the guest relationship requires owning the infrastructure through which it's managed.</strong></p>
+          <div class="sec-head">The Wingstop and Church's Models</div>
+          <p>Wingstop similarly developed proprietary systems in 2024, while Church's Texas Chicken invested in AI-driven drive-thru technology and predictive production systems.<span class="cite"> Nation's Restaurant News, 2024; DeVita & Hancock Hospitality analysis 2025</span> In both cases, the investment was not in the most visible guest-facing technology — it was in the operational infrastructure that makes guest experience consistent and data capture complete.</p>
+          <div class="callout"><strong>The operator's question:</strong> "If my delivery platform shut down tomorrow and I had to rebuild my guest relationship from scratch — how many guests would I be able to contact directly?" That number is your actual customer base. Everything else belongs to the platform.</div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div style="background:#1A2A44; padding:14px; border-radius:4px;">
+          <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">Technology Era — Then vs Now</div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">2005: Early POS</div><div style="font-size:11px; color:#fff; line-height:1.4;">One system — transactions. Everything was visible and manageable.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Now: Your Venue</div><div style="font-size:11px; color:#fff; line-height:1.4;">6 systems. Each working indepedently. Each capturing data the others can't see.</div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">2012: DoorDash Launches</div><div style="font-size:11px; color:#fff; line-height:1.4;">New revenue channel. Commission seemed worth it for reach.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Now: Your Venue</div><div style="font-size:11px; color:#fff; line-height:1.4;">30% commission + data ownership loss. Guest belongs to the platform.</div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px;">
+              <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#D4AF37; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Domino's 2015</div><div style="font-size:11px; color:#fff; line-height:1.4;">Built proprietary unified ordering. Owns guest data. 2x'd stock price.</div></div>
+              <div style="background:rgba(0,212,170,0.1); border:1px solid rgba(0,212,170,0.2); border-radius:3px; padding:7px 9px;"><div style="font-size:9px; color:#00D4AA; font-weight:700; text-transform:uppercase; margin-bottom:3px;">Now: Your Venue</div><div style="font-size:11px; color:#fff; line-height:1.4;">What's your Domino's moment? When do you consolidate and own the relationship?</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="q-card navy" style="padding:14px;">
+          <div class="q-mark">"</div>
+          <div class="q-text">"Delivery app intermediaries continuously seize all customer relationships at scale, and block brands from their own customers."</div>
+          <div class="q-attr">BuyerGenomics</div>
+          <div class="q-src">Restaurant CDP Analysis; independent vendor technology research</div>
+        </div>
+        <div class="src-note">Sources: Nation's Restaurant News 2024; BuyerGenomics CDP research; Kiplinger; Hospitality Headline 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 12</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 13 — WORKBOOK EXERCISE ════════ -->
+<div class="page" id="p13">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Apply It Now</div>
+    <div class="ch-title">Chapter 6 Workbook Exercise</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; margin-bottom:12px; line-height:1.6; max-width:640px;">Your tech stack is either a competitive asset or a liability you're managing around. This exercise maps the real state of your current systems and reveals the specific friction points costing you revenue, guest relationships, and management time.</div>
+
+    <div style="border:2px solid #1A2A44; border-radius:4px; overflow:hidden; margin-bottom:10px;">
+      <div style="background:#1A2A44; padding:10px 20px; display:flex; align-items:center; gap:12px;">
+        <div style="width:32px; height:32px; background:#D4AF37; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">A</span></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px;">Map Your Current Stack (list every system you use and its purpose)</div>
+      </div>
+      <div style="padding:12px 20px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">POS System:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Delivery Platform(s):</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Reservation System:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Loyalty Program:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Inventory Management:</div><div class="fill-line"></div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Labor Scheduling:</div><div class="fill-line"></div></div>
+      </div>
+    </div>
+
+    <div style="border:2px solid #00D4AA; border-radius:4px; overflow:hidden; margin-bottom:10px;">
+      <div style="background:#1A2A44; padding:10px 20px; display:flex; align-items:center; gap:12px; border-bottom:3px solid #00D4AA;">
+        <div style="width:32px; height:32px; background:#00D4AA; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><span style="font-family:'Bebas Neue',sans-serif; color:#1A2A44; font-size:17px;">B</span></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px;">Score Your Integration (1 = no connection, 5 = fully integrated)</div>
+      </div>
+      <div style="padding:12px 20px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">POS ↔ Delivery Platform — does a menu change in one update the other?</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = manual only, 5 = automatic real-time sync</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">POS ↔ Loyalty — can you see a guest's full spend across all channels?</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = no connection, 5 = unified guest profile</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Reservation ↔ POS — does the front desk know what a returning guest ordered last time?</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = no, 5 = full history visible at check-in</div></div>
+        <div style="background:#F4F6F9; padding:9px; border-radius:3px;"><div class="fill-label">Inventory ↔ POS — does inventory deplete in real time from live sales?</div><div class="fill-line"></div><div style="font-size:10px; color:#888;">1 = manual weekly count, 5 = live depletion</div></div>
+        <div style="background:#1A2A44; padding:9px; border-radius:3px; grid-column:span 2;"><div class="fill-label" style="color:#D4AF37;">INTEGRATION SCORE TOTAL (out of 20) — anything under 12 is a documented liability:</div><div class="fill-line" style="border-color:rgba(255,255,255,0.2);"></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:11px 16px; border-radius:4px; display:flex; align-items:center; gap:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:20px; color:#D4AF37; flex-shrink:0; line-height:1.1;">KEY<br>INSIGHT</div>
+      <div style="font-size:12.5px; color:#fff; line-height:1.5;">The guest who can't be recognized across your channels is a guest you are re-acquiring every single visit. The data you don't own today is the marketing list you can't build tomorrow. Your integration score is your guest relationship score.</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 13</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<!-- ════════ PAGE 14 — CHAPTER SUMMARY + BRIDGE ════════ -->
+<div class="page" id="p14">
+  <div class="ph"><span class="ph-brand">SEAMLESSLY</span><span class="ph-title">CHAOS MASTERY</span></div>
+  <div class="pc">
+    <div class="label">Chapter Summary &amp; What Comes Next</div>
+    <div class="ch-title">What the Technology Era Tells Modern Operators</div>
+    <div style="font-family:'DM Serif Display',serif; font-style:italic; font-size:13.5px; color:#1A2A44; line-height:1.6; margin-bottom:14px; max-width:620px;">The 2000s through today produced the most powerful hospitality technology in history. It also produced the most fragmented operational reality operators have ever managed. The problem was never the technology — it was the assumption that adding tools was the same as building infrastructure.</div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#D4AF37; line-height:1; flex-shrink:0; width:24px;">1</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">THE STACK PROBLEM IS REAL — AND MEASURABLE</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">76% of operators believe technology gives them a competitive edge. Only 13% are satisfied with their current stack. That gap is not confusion — it is the lived experience of systems that were adopted faster than they could be integrated. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: National Restaurant Association, 2024</span></div></div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #00D4AA; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#00D4AA; line-height:1; flex-shrink:0; width:24px;">2</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">COMMISSION ECONOMICS ERODE PROFITABILITY AT THE MARGIN LEVEL</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">A 30% delivery commission on orders from a venue operating at 10–15% net margin does not reduce profit. It eliminates it. The operator doing volume on DoorDash may be generating revenue while destroying margin — and has no direct relationship to show for it. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: McKinsey; Digital Restaurant Association; ActiveMenus, 2024</span></div></div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #1A2A44; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#1A2A44; line-height:1; flex-shrink:0; width:24px;">3</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">GUEST DATA IS THE MOST VALUABLE ASSET — AND THE MOST SURRENDERED ONE</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">43% of delivery app users can't recall the establishment name after ordering. The platform owns the customer. Direct-channel guests spend 15–20% more over their lifetime and reorder at twice the rate. The gap between what platforms capture and what operators own is the gap between a transactional venue and a loyalty-building one. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Evokad, 2026; Affinect research</span></div></div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 14px; background:#F4F6F9; border-left:4px solid #D4AF37; border-radius:0 3px 3px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:26px; color:#D4AF37; line-height:1; flex-shrink:0; width:24px;">4</div>
+        <div><div style="font-family:'Bebas Neue',sans-serif; font-size:14px; color:#1A2A44; letter-spacing:1px; margin-bottom:2px;">AI REQUIRES UNIFIED DATA — FRAGMENTED STACKS CAN'T PARTICIPATE</div><div style="font-size:12.5px; color:#1A1A1A; line-height:1.5;">The next competitive layer — AI-driven personalization, demand forecasting, churn prediction — is only accessible to operators with unified guest data. Operators still running fragmented stacks will not be able to adopt AI tools meaningfully. The investment window to consolidate is now. <span style="font-size:10.5px; color:#888; font-style:italic;">Source: Hospitality Headline, 2026; Mordor Intelligence, 2026</span></div></div>
+      </div>
+    </div>
+
+    <div style="background:#1A2A44; padding:12px 18px; border-radius:4px; display:flex; align-items:center; gap:14px;">
+      <div style="flex:1;">
+        <div style="font-size:10px; color:#D4AF37; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:3px;">Next → Chapter 7</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:18px; color:#fff; letter-spacing:1px; margin-bottom:3px;">THE STAFF BURNOUT CYCLE</div>
+        <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.5;">The operational chaos documented in Chapter 6 doesn't stay in the back office — it travels to the floor. Staff working around broken integrations, learning seven dashboards, and absorbing the consequences of platform errors lead to a average tenure of 59 days. Chapter 7 maps the human cost of the systems crisis.</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif; font-size:44px; color:#D4AF37; flex-shrink:0; line-height:1;">→</div>
+    </div>
+  </div>
+  <div class="pf"><span class="pf-num">6 · 14</span><span class="pf-title">Chaos Mastery — 4,000 Years of Hospitality Leadership</span></div>
+</div>
+
+<script>
+function getVisiblePageId() {
+  const pages = document.querySelectorAll('.page');
+  let closest = pages[0], closestDist = Infinity;
+  const center = window.scrollY + window.innerHeight / 2;
+  pages.forEach(p => {
+    const rect = p.getBoundingClientRect();
+    const pc = window.scrollY + rect.top + rect.height / 2;
+    const d = Math.abs(center - pc);
+    if (d < closestDist) { closestDist = d; closest = p; }
+  });
+  return closest.id;
+}
+async function capturePage(id) {
+  const page = document.getElementById(id);
+  await document.fonts.ready;
+  await new Promise(r => setTimeout(r, 500));
+  return await html2canvas(page, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:816, height:1056, scrollX:0, scrollY:-window.scrollY });
+}
+async function downloadVisible() {
+  const id = getVisiblePageId();
+  const num = id.replace('p','');
+  const canvas = await capturePage(id);
+  const a = document.createElement('a');
+  a.download = `chaos-mastery-ch6-p${num.padStart(2,'0')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+async function downloadAll() {
+  const btn = document.querySelector('.btn-all');
+  btn.disabled = true;
+  for (let i = 1; i <= 14; i++) {
+    btn.textContent = `Downloading ${i}/14...`;
+    const canvas = await capturePage('p'+i);
+    const a = document.createElement('a');
+    a.download = `chaos-mastery-ch6-p${String(i).padStart(2,'0')}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+  }
+  btn.textContent = '⬇ Download All 14 Pages';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>

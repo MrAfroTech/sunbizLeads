@@ -1,0 +1,142 @@
+/* Product detail subpages only (/products/...) */
+
+.page-product-detail .home-hero--banner.home-hero--detail-banner {
+  height: clamp(300px, 38vh, 400px);
+  min-height: 300px;
+  max-height: 400px;
+}
+
+.product-detail-main {
+  padding-top: 28px;
+  padding-bottom: 56px;
+}
+
+.product-detail-back {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 22px;
+  text-decoration: none;
+}
+
+.product-detail-back:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.product-detail-collection {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 8px;
+}
+
+.product-detail-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(34px, 5vw, 48px);
+  letter-spacing: 1px;
+  color: var(--gold);
+  line-height: 1.05;
+  margin: 0 0 18px;
+}
+
+.product-detail-photo.placeholder-block {
+  min-height: 160px;
+  margin-bottom: 20px;
+}
+
+.product-detail-desc {
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 720px;
+  margin: 0 0 20px;
+}
+
+.product-detail-includes {
+  margin: 0 0 28px 20px;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.78);
+  display: grid;
+  gap: 8px;
+  max-width: 720px;
+}
+
+.product-detail-includes li {
+  margin: 0;
+}
+
+.product-detail-tiers-head {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+.scanband-addon-section {
+  margin-top: 52px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+.scanband-addon-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(26px, 3.5vw, 34px);
+  letter-spacing: 1px;
+  color: #fff;
+  margin: 0 0 18px;
+}
+
+.scanband-addon-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(26, 42, 68, 0.72);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  max-width: 560px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scanband-addon-card:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.scanband-addon-card:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.scanband-addon-card .placeholder-block {
+  margin-bottom: 0;
+  min-height: 120px;
+}
+
+.scanband-addon-desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+
+.scanband-addon-price {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.scanband-addon-card .btn {
+  align-self: flex-start;
+  pointer-events: none;
+}

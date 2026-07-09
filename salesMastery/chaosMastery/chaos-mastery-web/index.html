@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaos Mastery — Book</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: #1A2A44;
+      font-family: 'DM Sans', sans-serif;
+      color: rgba(255,255,255,0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+    .wrap { max-width: 520px; width: 100%; text-align: center; }
+    .brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 4px;
+      color: #D4AF37;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 10vw, 64px);
+      line-height: 0.95;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    h1 span { color: #00D4AA; }
+    p.sub {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 18px;
+    }
+    a.download-btn {
+      display: inline-block;
+      margin-bottom: 28px;
+      padding: 12px 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 4px;
+      background: #D4AF37;
+      color: #1A2A44;
+      border: 2px solid #D4AF37;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    a.download-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.25);
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    a.card {
+      display: block;
+      padding: 20px 24px;
+      border: 2px solid rgba(212,175,55,0.35);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      text-decoration: none;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    a.card:hover {
+      border-color: #D4AF37;
+      background: rgba(255,255,255,0.07);
+    }
+    a.card strong {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      display: block;
+      color: #D4AF37;
+      margin-bottom: 6px;
+    }
+    a.card span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.45;
+    }
+    footer {
+      margin-top: 48px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+    .checkout-block {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(212,175,55,0.2);
+    }
+    .checkout-block h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #D4AF37;
+      margin-bottom: 8px;
+    }
+    .checkout-block .hint {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .checkout-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    a.step-btn {
+      display: inline-block;
+      padding: 10px 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 2px solid rgba(212,175,55,0.45);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    a.step-btn:hover {
+      border-color: #D4AF37;
+      background: rgba(212,175,55,0.1);
+      transform: translateY(-1px);
+    }
+    a.step-btn.full {
+      width: 100%;
+      margin-top: 8px;
+      border-color: #00D4AA;
+      color: #00D4AA;
+    }
+    a.step-btn.full:hover {
+      background: rgba(0,212,170,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">SEAMLESSLY</div>
+    <h1>CHAOS <span>MASTERY</span></h1>
+    <p class="sub">Read online, or download PDFs (intro + Chapter 1 bundle, or Chapter 4).</p>
+    <a class="download-btn" href="/chaos_mastery_intro_ch1_combined.pdf" download="chaos_mastery_intro_ch1_combined.pdf">
+      Download Intro + Chapter 1 PDF
+    </a>
+    <a class="download-btn" href="/chaos_mastery_ch4.pdf" download="chaos_mastery_ch4.pdf" style="margin-top:12px;background:#1A2A44;color:#D4AF37;border-color:#D4AF37;">
+      Download Chapter 4 PDF
+    </a>
+    <nav class="links" aria-label="Chapters">
+      <a class="card" href="/intro.html">
+        <strong>Introduction</strong>
+        <span>Why this book exists and how to use it.</span>
+      </a>
+      <a class="card" href="/chapter-1.html">
+        <strong>Chapter 1 — Hospitality Before Hospitality</strong>
+        <span>The dawn of hospitality · Download all pages as a ZIP.</span>
+      </a>
+      <a class="card" href="/chapter-4.html">
+        <strong>Chapter 4 — And the Crowd Goes Wild</strong>
+        <span>Venues, events, and the worth-it gap · Download all pages as a ZIP.</span>
+      </a>
+    </nav>
+
+    <div class="checkout-block">
+      <h2>Checkout</h2>
+      <p class="hint">Jump to a step in the purchase flow (cart, details, payment, or confirmation).</p>
+      <div class="checkout-steps" role="group" aria-label="Checkout steps">
+        <a class="step-btn" href="/checkout.html#cart">1 · Cart</a>
+        <a class="step-btn" href="/checkout.html#details">2 · Details</a>
+        <a class="step-btn" href="/checkout.html#payment">3 · Payment</a>
+        <a class="step-btn" href="/checkout.html#confirmation">4 · Confirmation</a>
+      </div>
+      <a class="step-btn full" href="/checkout.html">Open checkout from the start →</a>
+    </div>
+
+    <footer>4,000 Years of Hospitality Leadership</footer>
+  </div>
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams(window.location.search);
+        var raw = q.get('contact');
+        if (!raw) return;
+        var contact = decodeURIComponent(String(raw).replace(/\+/g, ' ')).trim();
+        if (!contact) return;
+        var campaign = (q.get('campaign') || '').trim();
+        var path = (window.location.pathname + (window.location.search || '')).slice(0, 2000);
+        fetch('/api/log-email-click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contact: contact, campaign: campaign, path: path }),
+          keepalive: true,
+        }).catch(function () {});
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>

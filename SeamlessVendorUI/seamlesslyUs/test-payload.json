@@ -1,0 +1,9 @@
+{
+  "httpMethod": "GET",
+  "queryStringParameters": {
+    "merchant_id": "VH42MXF75NHJ1",
+    "employee_id": "2N27GZZW4SDNY",
+    "client_id": "8JBVMZPB4R54C",
+    "code": "test-code-123"
+  }
+}

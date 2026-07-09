@@ -1,0 +1,55 @@
+{
+  "contacts": [
+    {
+      "firstName": "Jeff",
+      "lastName": "Levack",
+      "email": "jeff.levack@placeholder.local",
+      "jobTitle": "Albany Firebirds",
+      "role": "President"
+    },
+    {
+      "firstName": "Damon",
+      "lastName": "Ware",
+      "email": "damon.ware@placeholder.local",
+      "jobTitle": "Albany Firebirds",
+      "role": "General Manager / Head Coach"
+    },
+    {
+      "firstName": "Rich",
+      "lastName": "Szesnat",
+      "email": "rich.szesnat@placeholder.local",
+      "jobTitle": "Albany Firebirds",
+      "role": "Owner"
+    },
+    {
+      "firstName": "Andy",
+      "lastName": "Guelcher",
+      "email": "andy.guelcher@placeholder.local",
+      "jobTitle": "Albany Firebirds",
+      "role": "Owner"
+    },
+    {
+      "firstName": "Mike",
+      "lastName": "Kwarta",
+      "email": "mike.kwarta@placeholder.local",
+      "jobTitle": "Albany Firebirds",
+      "role": "Owner"
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "info@kccougars.com",
+      "phone": "(630) 232-8811",
+      "jobTitle": "Kane County Cougars",
+      "website": "kccougars.com"
+    },
+    {
+      "firstName": "",
+      "lastName": "",
+      "email": "lincoln.saltdogs@placeholder.local",
+      "phone": "(402) 474-2255",
+      "jobTitle": "Lincoln Saltdogs",
+      "address": "403 Line Drive Circle, Ste. A, Lincoln, NE 68508"
+    }
+  ]
+}

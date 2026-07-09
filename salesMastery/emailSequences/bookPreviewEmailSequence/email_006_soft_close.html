@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaos Mastery — Email 006: Two Doors</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #111;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+}
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+
+/* HEADER */
+.nl-header { background: #1A2A44; border-bottom: 4px solid #D4AF37; position: relative; overflow: hidden; }
+.nl-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.04) 79px, rgba(212,175,55,0.04) 80px),
+    repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px);
+  z-index: 1;
+}
+.nl-header-inner { padding: 32px 40px 24px; position: relative; z-index: 2; }
+.nl-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #00D4AA; text-transform: uppercase; margin-bottom: 8px; }
+.nl-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; letter-spacing: 3px; line-height: 1; margin-bottom: 2px; }
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.5; }
+.nl-issue-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+
+/* HERO BAND — full dark with gold vertical stripe */
+.hero-band {
+  background: #1A2A44;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero-band-stripe {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 8px;
+  background: linear-gradient(180deg, #D4AF37, #00D4AA);
+}
+.hero-band-inner {
+  padding: 32px 40px 32px 56px;
+}
+.hero-num { font-family: 'Bebas Neue', sans-serif; font-size: 110px; color: rgba(212,175,55,0.07); line-height: 1; position: absolute; bottom: -10px; right: 20px; }
+.hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #00D4AA; margin-bottom: 8px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #fff; letter-spacing: 1px; line-height: 1.05; margin-bottom: 10px; }
+.hero-sub { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* BODY */
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+.opening-quote { border-left: 4px solid #D4AF37; padding: 16px 20px; background: #FEFCF3; border-radius: 0 4px 4px 0; }
+.opening-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: #1A2A44; line-height: 1.65; }
+
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.8; }
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+
+/* SEQUENCE RECAP */
+.recap-strip {
+  background: #F4F6F9;
+  border-radius: 4px;
+  padding: 20px;
+}
+.recap-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 14px; }
+.recap-items { display: flex; flex-direction: column; gap: 8px; }
+.recap-item { display: flex; gap: 12px; align-items: center; }
+.recap-dot { width: 8px; height: 8px; border-radius: 50%; background: #D4AF37; flex-shrink: 0; }
+.recap-dot.teal { background: #00D4AA; }
+.recap-text { font-size: 13.5px; color: #1A2A44; line-height: 1.5; }
+.recap-text strong { font-weight: 700; }
+
+/* TWO DOORS */
+.two-doors { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.door {
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.door-head { padding: 14px 18px; }
+.door-head-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 4px; }
+.door-head-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; line-height: 1; }
+.door-body { padding: 16px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.door-body p { font-size: 13px; line-height: 1.65; }
+.door-cta {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  padding: 14px 18px;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.2s;
+  margin-top: auto;
+}
+.door-cta:hover { opacity: 0.85; }
+
+/* Door 1 — Book */
+.door.book { border: 2px solid #D4AF37; }
+.door.book .door-head { background: #D4AF37; }
+.door.book .door-head-label { color: rgba(26,42,68,0.6); }
+.door.book .door-head-title { color: #1A2A44; }
+.door.book .door-body { background: #FEFCF3; }
+.door.book .door-body p { color: #333; }
+.door.book .door-body p strong { color: #1A2A44; }
+.door.book .door-cta { background: #1A2A44; color: #D4AF37; }
+.door-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: #1A2A44;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.door-price-sub { font-size: 11px; color: #888; }
+.door-what-you-get { font-size: 11px; color: #555; line-height: 1.6; }
+.door-what-you-get li { margin-left: 14px; margin-bottom: 3px; }
+
+/* Door 2 — Demo */
+.door.demo { border: 2px solid #00D4AA; }
+.door.demo .door-head { background: #1A2A44; border-bottom: 3px solid #00D4AA; }
+.door.demo .door-head-label { color: #00D4AA; }
+.door.demo .door-head-title { color: #fff; }
+.door.demo .door-body { background: #F0FBF8; }
+.door.demo .door-body p { color: #333; }
+.door.demo .door-body p strong { color: #1A2A44; }
+.door.demo .door-cta { background: #00D4AA; color: #1A2A44; }
+.demo-bullets { font-size: 12.5px; color: #444; line-height: 1.7; padding-left: 0; list-style: none; }
+.demo-bullets li::before { content: "→ "; color: #00A884; font-weight: 700; }
+
+/* HONEST CLOSE */
+.honest-block {
+  background: #1A2A44;
+  border-radius: 4px;
+  padding: 24px 28px;
+}
+.honest-block p { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.75; margin-bottom: 12px; }
+.honest-block p:last-child { margin-bottom: 0; }
+.honest-block strong { color: #D4AF37; }
+.honest-block em { color: #00D4AA; font-style: normal; }
+
+/* SIGNATURE */
+.signature-block { padding: 4px 0 0; }
+.signature-block p { font-size: 14px; color: #1A1A1A; line-height: 1.7; margin-bottom: 10px; }
+.signature-block strong { color: #1A2A44; }
+.sig-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: #1A2A44; letter-spacing: 2px; line-height: 1; margin-top: 14px; }
+.sig-title { font-size: 12px; color: #888; margin-top: 4px; }
+
+/* FOOTER */
+.nl-footer { background: #1A2A44; padding: 28px 40px; border-top: 4px solid #D4AF37; }
+.social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.social-btn { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; padding: 8px 14px; border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.2s; text-align: center; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-icon { width: 14px; height: 14px; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(212,175,55,0.2); padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #D4AF37; letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.footer-note { font-size: 10.5px; color: rgba(255,255,255,0.35); font-style: italic; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Chaos Mastery — The Newsletter · Book Launch Sequence</div>
+      <div class="nl-wordmark">Chaos <span>Mastery</span></div>
+      <div class="nl-subtitle">Seamless Hospitality for the 21st Century</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Email 6 of 6</div>
+        <div class="meta-pill teal">Decision Point</div>
+        <div class="meta-pill outline">4 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-band-stripe"></div>
+    <div class="hero-band-inner">
+      <div class="hero-kicker">Last Email In This Sequence</div>
+      <div class="hero-headline">You've Seen The Thinking.<br>Here's What's Next.</div>
+      <div class="hero-sub">Two ways forward. Pick the one that fits where you are right now.</div>
+      <div class="hero-num">06</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="opening-quote">
+      <p>"If the thinking in these emails already matched how you see your venue, the full book is going to go several levels deeper. If you want to see how it maps to your specific operation, we can do that in 20 minutes."</p>
+    </div>
+
+    <div class="body-text">
+      <p>This is the last email in this sequence, so I'll keep it direct.</p>
+      <p>Over the past five emails we've covered a lot of ground: the friction problem most venues are ignoring, the way small leaks compound into massive revenue losses across a season, why the book exists as a framework and not a checklist, the behavioral blind spots that cost operators the most, and what the results actually look like when this approach is applied.</p>
+      <p>You clicked the preview. That tells me something — you're curious at minimum, and likely you're recognizing your own venue in some of what I've described. So here's where I land you.</p>
+    </div>
+
+    <div>
+      <div class="recap-strip">
+        <div class="recap-title">What We Covered In This Sequence</div>
+        <div class="recap-items">
+          <div class="recap-item"><div class="recap-dot"></div><div class="recap-text"><strong>Email 1:</strong> You're solving the wrong problem — friction, not offers, is the issue</div></div>
+          <div class="recap-item"><div class="recap-dot teal"></div><div class="recap-text"><strong>Email 2:</strong> Small leaks compound — how $2M+ disappears across a season</div></div>
+          <div class="recap-item"><div class="recap-dot"></div><div class="recap-text"><strong>Email 3:</strong> The book is a framework, not a checklist — and why that matters</div></div>
+          <div class="recap-item"><div class="recap-dot teal"></div><div class="recap-text"><strong>Email 4:</strong> The problem is behavioral, not technological — and operators miss it</div></div>
+          <div class="recap-item"><div class="recap-dot"></div><div class="recap-text"><strong>Email 5:</strong> What the results actually look like — Pirates case study, no major capex</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#D4AF37;margin-bottom:8px;">Two Ways Forward</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1A2A44;letter-spacing:1px;margin-bottom:14px;line-height:1;">Pick The Door That Fits Where You Are</div>
+      <div class="two-doors">
+        <div class="door book">
+          <div class="door-head">
+            <div class="door-head-label">Door One — Self-Directed</div>
+            <div class="door-head-title">Get The Full Book</div>
+          </div>
+          <div class="door-body">
+            <div class="door-price">$29</div>
+            <div class="door-price-sub">One-time · Digital + Print options available</div>
+            <p style="margin-top:10px;">You want the framework in your hands. You'll read it, apply it to your venue on your own timeline, and use the 12-month roadmap to sequence your changes. Right for operators who:</p>
+            <ul class="door-what-you-get">
+              <li>Already see the friction problem and want the blueprint</li>
+              <li>Want the historical context and full chapter arc</li>
+              <li>Prefer to move at their own pace before bringing in outside help</li>
+            </ul>
+          </div>
+          <a class="door-cta" href="https://chaosmastery.seamlessly.us/checkout.html?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign=book-preview-006#cart" target="_blank">
+            Get The Book →
+          </a>
+        </div>
+        <div class="door demo">
+          <div class="door-head">
+            <div class="door-head-label">Door Two — Applied Together</div>
+            <div class="door-head-title">Map It To Your Venue</div>
+          </div>
+          <div class="door-body">
+            <p><strong>20-minute conversation.</strong> No pitch deck. We look at your specific venue — format, attendance, current tech stack, biggest friction complaint — and I'll tell you exactly what I'd prioritize first.</p>
+            <ul class="demo-bullets" style="margin-top:8px;">
+              <li>Good for venues where you already know something is leaking</li>
+              <li>Good if you want to know where to start before investing time in the full book</li>
+              <li>Good if you're evaluating whether Seamlessly fits your operation</li>
+            </ul>
+          </div>
+          <a class="door-cta" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+            Book The 20-Min Call →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="honest-block">
+      <p><strong>Here's my honest read on who picks which door:</strong></p>
+      <p>If you're a practitioner — a GM, a VP of Fan Experience, a Director of Food & Beverage — you'll probably want the book first. It'll give you language and a framework to bring into your organization, and the 12-month roadmap is designed to be handed to a team.</p>
+      <p>If you're at the ownership or C-suite level and you're already thinking about the P&amp;L problem, the 20-minute call is faster. We skip the theory and go straight to your venue's specific profile and what the lift model looks like for your format.</p>
+      <p><em>Either way, both start with the same place: a clear picture of where your revenue is going and a sequence to get it back.</em></p>
+    </div>
+
+    <div class="signature-block">
+      <p>I started writing Chaos Mastery because I kept having the same conversation — different venue, different market, same diagnosis. <strong>The money was leaving through friction points nobody was measuring.</strong> The book is that conversation, scaled out to 4,000 years of hospitality history and 20 chapters of applied framework.</p>
+      <p>If the preview confirmed what you already suspected about your operation, the rest of the book will give you the map to fix it.</p>
+      <p>Either way — thank you for reading. This sequence was written to be worth your time even if you never buy anything. I hope it was.</p>
+      <div class="sig-name">Maurice Sanders</div>
+      <div class="sig-title">Founder & CEO, Seamlessly · Author, Chaos Mastery</div>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="social-btn web" href="https://seamlessly.us?contactId={{ contact.ID }}&email={{ contact.EMAIL }}&firstName={{ contact.FIRSTNAME }}&lastName={{ contact.LASTNAME }}&campaign=book-preview-006" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        seamlessly.us
+      </a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Book A Demo
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">Chaos Mastery</div>
+        <div class="footer-copy">A newsletter by Maurice Sanders · Seamlessly, Inc.<br>© 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">
+        You're receiving this because you<br>downloaded the Chaos Mastery preview.
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

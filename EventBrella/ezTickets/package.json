@@ -1,0 +1,20 @@
+{
+  "name": "new-client-white-lable-system",
+  "version": "1.0.0",
+  "description": "EventBrella New Client White Lable System (ticketing, Stripe, Vercel, PostgreSQL)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "1.6.8",
+    "qrcode": "^1.5.4",
+    "stripe": "^14.0.0",
+    "uuid": "^9.0.1"
+  },
+  "keywords": ["eventbrella", "ticketing", "stripe", "klaviyo", "white-lable", "new-client"],
+  "author": "EventBrella Team",
+  "license": "MIT",
+  "engines": { "node": ">=18.x" }
+}

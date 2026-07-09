@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel video export — typewriter (script only)</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0a0a0a;
+      color: #e8e8e8;
+      padding: 32px 20px 80px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #D4AF37;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .sub {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sub strong { color: rgba(0,212,170,0.85); font-weight: 600; }
+    .back {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .back a {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00D4AA;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,212,170,0.35);
+      padding-bottom: 2px;
+    }
+    .back a:hover { color: #D4AF37; border-bottom-color: rgba(212,175,55,0.45); }
+    .controls {
+      max-width: 720px;
+      margin: 0 auto 24px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 640px) { .controls { grid-template-columns: 1fr; } }
+    label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); display: block; margin-bottom: 8px; }
+    select, input[type="range"] { width: 100%; }
+    select {
+      background: #161616;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 13px;
+    }
+    .range-val { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 6px; }
+    .actions {
+      max-width: 720px;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    button {
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #D4AF37;
+      color: #000;
+    }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    button.secondary { background: #222; color: #fff; border: 1px solid rgba(255,255,255,0.12); }
+    button.secondary:hover:not(:disabled) { background: #2a2a2a; }
+    .status {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      min-height: 20px;
+      margin-bottom: 16px;
+    }
+    .status.rec { color: #ff6b6b; }
+    .status.ok { color: #00D4AA; }
+    .preview-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .frame {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      line-height: 0;
+      max-width: min(360px, 90vw);
+    }
+    canvas { width: 100%; height: auto; display: block; vertical-align: top; }
+    .note {
+      max-width: 560px;
+      margin: 24px auto 0;
+      font-size: 11px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.28);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Reel video export</h1>
+  <p class="sub">Exports a <strong>9:16</strong> video: <strong>one centered sentence at a time</strong> from <code>screens</code> (typewriter → hold → next). Reel script only — no caption or hashtags.</p>
+  <div class="back"><a href="../reelScript.html">← Back to 28 Reels</a></div>
+
+  <div class="controls">
+    <div>
+      <label for="reelSelect">Reel</label>
+      <select id="reelSelect"></select>
+    </div>
+    <div>
+      <label for="speed">Typing speed (chars / sec)</label>
+      <input type="range" id="speed" min="18" max="120" value="48">
+      <div class="range-val" id="speedVal">48</div>
+    </div>
+    <div>
+      <label for="hold">Hold each full sentence (seconds)</label>
+      <input type="range" id="hold" min="0.5" max="4" value="1.5" step="0.25">
+      <div class="range-val" id="holdVal">1.5</div>
+    </div>
+    <div>
+      <label for="gap">Pause between sentences (seconds)</label>
+      <input type="range" id="gap" min="0" max="1.5" value="0.35" step="0.05">
+      <div class="range-val" id="gapVal">0.35</div>
+    </div>
+    <div>
+      <label for="fps">Capture FPS</label>
+      <input type="range" id="fps" min="24" max="60" value="30" step="1">
+      <div class="range-val" id="fpsVal">30</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="button" id="btnPreview">Preview typewriter</button>
+    <button type="button" class="secondary" id="btnReset">Reset text</button>
+    <button type="button" id="btnRecord">Record &amp; download</button>
+  </div>
+  <div class="status" id="status"></div>
+
+  <div class="preview-wrap">
+    <div class="frame">
+      <canvas id="c" width="1080" height="1920"></canvas>
+    </div>
+  </div>
+
+  <p class="note">Downloads are <strong>H.264 MP4</strong> when your browser supports MP4 <code>MediaRecorder</code> (recent <strong>Chrome</strong> or <strong>Edge</strong>, typically 126+). If you see an error here, update the browser or try the other; canvas → MP4 is not available in Firefox today.</p>
+
+  <script src="reels-data.js"></script>
+  <script>
+  (function () {
+    var W = 1080;
+    var H = 1920;
+    var PAD = 72;
+    var DATA = window.REEL_SCRIPT_DATA;
+    if (!DATA || !DATA.length) {
+      document.getElementById('status').textContent = 'Missing REEL_SCRIPT_DATA — open reels-data.js';
+      return;
+    }
+
+    var canvas = document.getElementById('c');
+    var ctx = canvas.getContext('2d');
+    var sel = document.getElementById('reelSelect');
+    var speedEl = document.getElementById('speed');
+    var speedVal = document.getElementById('speedVal');
+    var holdEl = document.getElementById('hold');
+    var holdVal = document.getElementById('holdVal');
+    var gapEl = document.getElementById('gap');
+    var gapVal = document.getElementById('gapVal');
+    var fpsEl = document.getElementById('fps');
+    var fpsVal = document.getElementById('fpsVal');
+    var statusEl = document.getElementById('status');
+    var btnPreview = document.getElementById('btnPreview');
+    var btnReset = document.getElementById('btnReset');
+    var btnRecord = document.getElementById('btnRecord');
+
+    DATA.forEach(function (p) {
+      var o = document.createElement('option');
+      o.value = String(p.reel);
+      o.textContent = 'R' + p.reel + ' — ' + (p.day || '');
+      sel.appendChild(o);
+    });
+
+    function hashReel() {
+      var m = /[#&?]reel=(\d+)/i.exec(window.location.hash) || /[#&?]r=(\d+)/i.exec(window.location.hash);
+      if (m) return parseInt(m[1], 10);
+      return null;
+    }
+    var hr = hashReel();
+    if (hr) sel.value = String(hr);
+
+    speedEl.addEventListener('input', function () { speedVal.textContent = speedEl.value; });
+    holdEl.addEventListener('input', function () { holdVal.textContent = holdEl.value; });
+    gapEl.addEventListener('input', function () { gapVal.textContent = gapEl.value; });
+    fpsEl.addEventListener('input', function () { fpsVal.textContent = fpsEl.value; });
+    speedVal.textContent = speedEl.value;
+    holdVal.textContent = holdEl.value;
+    gapVal.textContent = gapEl.value;
+    fpsVal.textContent = fpsEl.value;
+
+    function currentPost() {
+      var n = parseInt(sel.value, 10);
+      for (var i = 0; i < DATA.length; i++) {
+        if (DATA[i].reel === n) return DATA[i];
+      }
+      return DATA[0];
+    }
+
+    function wrapParagraph(ctx, paragraph, maxWidth) {
+      var words = paragraph.split(/\s+/).filter(Boolean);
+      var lines = [];
+      var line = '';
+      for (var i = 0; i < words.length; i++) {
+        var w = words[i];
+        var test = line ? line + ' ' + w : w;
+        if (ctx.measureText(test).width > maxWidth && line) {
+          lines.push(line);
+          line = w;
+        } else {
+          line = test;
+        }
+      }
+      if (line) lines.push(line);
+      return lines;
+    }
+
+    function fitFontSizeOneScreen(sentence, maxW, maxH, minPx, maxPx) {
+      var lo = minPx;
+      var hi = maxPx;
+      var best = minPx;
+      while (lo <= hi) {
+        var mid = Math.floor((lo + hi) / 2);
+        ctx.font = '500 ' + mid + 'px "DM Sans", sans-serif';
+        var lines = wrapParagraph(ctx, sentence, maxW);
+        var lh = mid * 1.42;
+        var total = lines.length * lh;
+        if (total <= maxH) {
+          best = mid;
+          lo = mid + 1;
+        } else {
+          hi = mid - 1;
+        }
+      }
+      return best;
+    }
+
+    var fontSize = 44;
+    var layoutCacheSentence = null;
+
+    function prepareLayoutForSentence(sentence) {
+      if (sentence === layoutCacheSentence) return;
+      var maxW = W - PAD * 2;
+      var maxH = H - PAD * 2;
+      fontSize = fitFontSizeOneScreen(sentence, maxW, maxH, 24, 58);
+      ctx.font = '500 ' + fontSize + 'px "DM Sans", sans-serif';
+      layoutCacheSentence = sentence;
+    }
+
+    function totalDurationSec(post, cps, holdSec, gapSec) {
+      var screens = post.screens;
+      var sum = 0;
+      for (var i = 0; i < screens.length; i++) {
+        var L = screens[i].length;
+        var typeT = cps > 0 ? L / cps : 0;
+        sum += typeT + holdSec;
+        if (i < screens.length - 1) sum += gapSec;
+      }
+      return sum;
+    }
+
+    /** @returns {{ blank: boolean, screenIdx: number, chars: number, full: string }} */
+    function stateAtTime(post, t, cps, holdSec, gapSec) {
+      var screens = post.screens;
+      var acc = 0;
+      for (var i = 0; i < screens.length; i++) {
+        var full = screens[i];
+        var L = full.length;
+        var typeT = cps > 0 ? L / cps : 0;
+        if (t < acc + typeT) {
+          var dt = t - acc;
+          var chars = Math.min(L, Math.floor(dt * cps));
+          return { blank: false, screenIdx: i, chars: chars, full: full };
+        }
+        acc += typeT;
+        if (t < acc + holdSec) {
+          return { blank: false, screenIdx: i, chars: L, full: full };
+        }
+        acc += holdSec;
+        var hasGap = i < screens.length - 1 && gapSec > 0;
+        if (hasGap && t < acc + gapSec) {
+          return { blank: true, screenIdx: i, chars: L, full: full };
+        }
+        acc += hasGap ? gapSec : 0;
+      }
+      var last = screens.length - 1;
+      var f = screens[last];
+      return { blank: false, screenIdx: last, chars: f.length, full: f };
+    }
+
+    function drawCenteredBlock(partial, fullSentence, showCursor) {
+      prepareLayoutForSentence(fullSentence);
+      ctx.font = '500 ' + fontSize + 'px "DM Sans", sans-serif';
+      var maxW = W - PAD * 2;
+      var lines = wrapParagraph(ctx, partial, maxW);
+      var lh = fontSize * 1.42;
+      var startY = (H - lines.length * lh) / 2 + fontSize * 0.88;
+
+      ctx.fillStyle = '#0a0a0a';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var tw = ctx.measureText(line).width;
+        var x = (W - tw) / 2;
+        var y = startY + i * lh;
+        ctx.fillText(line, x, y);
+      }
+
+      if (showCursor && partial.length < fullSentence.length) {
+        ctx.fillStyle = '#D4AF37';
+        var barW = Math.max(3, fontSize * 0.06);
+        var barH = fontSize * 1.05;
+        if (!lines.length) {
+          ctx.fillRect(W / 2 - barW / 2, H / 2 - barH * 0.45, barW, barH);
+        } else {
+          var last = lines[lines.length - 1];
+          var lx = (W - ctx.measureText(last).width) / 2 + ctx.measureText(last).width;
+          var ly = startY + (lines.length - 1) * lh;
+          ctx.fillRect(lx, ly - fontSize * 0.85, barW, barH);
+        }
+      }
+    }
+
+    function drawFrameAt(tSec, cps, holdSec, gapSec, showCursor) {
+      var post = currentPost();
+      var st = stateAtTime(post, tSec, cps, holdSec, gapSec);
+      if (st.blank) {
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(0, 0, W, H);
+        return;
+      }
+      var full = st.full;
+      var partial = full.slice(0, st.chars);
+      drawCenteredBlock(partial, full, showCursor);
+    }
+
+    var previewRaf = null;
+    var previewStart = 0;
+    var previewParams = { cps: 48, hold: 1.5, gap: 0.35, total: 0 };
+
+    function stopPreview() {
+      if (previewRaf) {
+        cancelAnimationFrame(previewRaf);
+        previewRaf = null;
+      }
+    }
+
+    function previewLoop() {
+      var post = currentPost();
+      var elapsed = (performance.now() - previewStart) / 1000;
+      var t = Math.min(elapsed, previewParams.total);
+      drawFrameAt(t, previewParams.cps, previewParams.hold, previewParams.gap, true);
+      if (elapsed < previewParams.total) {
+        previewRaf = requestAnimationFrame(previewLoop);
+      } else {
+        previewRaf = null;
+        btnPreview.disabled = false;
+      }
+    }
+
+    btnPreview.addEventListener('click', function () {
+      stopPreview();
+      var post = currentPost();
+      previewParams.cps = parseFloat(speedEl.value, 10) || 48;
+      previewParams.hold = parseFloat(holdEl.value, 10) || 1.5;
+      previewParams.gap = parseFloat(gapEl.value, 10) || 0;
+      previewParams.total = totalDurationSec(post, previewParams.cps, previewParams.hold, previewParams.gap);
+      previewStart = performance.now();
+      btnPreview.disabled = true;
+      previewRaf = requestAnimationFrame(previewLoop);
+    });
+
+    btnReset.addEventListener('click', function () {
+      stopPreview();
+      layoutCacheSentence = null;
+      drawFrameAt(0, parseFloat(speedEl.value, 10) || 48, parseFloat(holdEl.value, 10) || 1.5, parseFloat(gapEl.value, 10) || 0, false);
+      btnPreview.disabled = false;
+    });
+
+    sel.addEventListener('change', function () {
+      window.location.hash = 'reel=' + sel.value;
+      stopPreview();
+      layoutCacheSentence = null;
+      drawFrameAt(0, parseFloat(speedEl.value, 10) || 48, parseFloat(holdEl.value, 10) || 1.5, parseFloat(gapEl.value, 10) || 0, false);
+      btnPreview.disabled = false;
+    });
+
+    /**
+     * Prefer H.264 MP4 (Instagram-friendly). Chromium 126+ typically supports these for canvas.captureStream().
+     * @returns {{ mime: string, blobType: string } | null}
+     */
+    function pickMp4RecorderMime() {
+      if (!window.MediaRecorder) return null;
+      var types = [
+        'video/mp4; codecs=avc1.42E01E',
+        'video/mp4; codecs=avc1.4D401E',
+        'video/mp4; codecs=avc1.4D401F',
+        'video/mp4; codecs=avc1.4D4028',
+        'video/mp4; codecs=avc1',
+        'video/mp4; codecs=avc1,mp4a.40.2',
+        'video/mp4'
+      ];
+      for (var i = 0; i < types.length; i++) {
+        if (MediaRecorder.isTypeSupported(types[i])) {
+          return { mime: types[i], blobType: types[i].split(';')[0].trim() };
+        }
+      }
+      return null;
+    }
+
+    btnRecord.addEventListener('click', function () {
+      stopPreview();
+      if (!window.MediaRecorder) {
+        statusEl.textContent = 'MediaRecorder not supported in this browser.';
+        return;
+      }
+      var picked = pickMp4RecorderMime();
+      if (!picked) {
+        statusEl.className = 'status';
+        statusEl.textContent = 'MP4 recording is not supported in this browser. Use recent Chrome or Edge (126+) for H.264 canvas export.';
+        return;
+      }
+      var mime = picked.mime;
+      var blobType = picked.blobType;
+
+      btnRecord.disabled = true;
+      btnPreview.disabled = true;
+      statusEl.className = 'status rec';
+      statusEl.textContent = 'Wait: loading fonts…';
+
+      document.fonts.ready.then(function () {
+        var post = currentPost();
+        var fps = parseInt(fpsEl.value, 10) || 30;
+        var cps = parseFloat(speedEl.value, 10) || 48;
+        var holdSec = parseFloat(holdEl.value, 10) || 1.5;
+        var gapSec = parseFloat(gapEl.value, 10) || 0;
+        var total = totalDurationSec(post, cps, holdSec, gapSec);
+        layoutCacheSentence = null;
+
+        var stream = canvas.captureStream(fps);
+        var chunks = [];
+        var rec;
+        try {
+          rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8000000 });
+        } catch (e) {
+          statusEl.textContent = 'Could not start recorder: ' + (e && e.message ? e.message : e);
+          btnRecord.disabled = false;
+          btnPreview.disabled = false;
+          return;
+        }
+        rec.ondataavailable = function (e) {
+          if (e.data && e.data.size) chunks.push(e.data);
+        };
+        rec.onstop = function () {
+          var blob = new Blob(chunks, { type: blobType });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'reel-' + post.reel + '-typewriter.mp4';
+          a.click();
+          URL.revokeObjectURL(url);
+          statusEl.className = 'status ok';
+          statusEl.textContent = 'Saved ' + a.download;
+          btnRecord.disabled = false;
+          btnPreview.disabled = false;
+        };
+
+        statusEl.textContent = 'Recording… stay on this tab.';
+        rec.start(100);
+
+        var t0 = performance.now();
+
+        function tick(now) {
+          var elapsed = (now - t0) / 1000;
+          var t = Math.min(elapsed, total);
+          drawFrameAt(t, cps, holdSec, gapSec, true);
+          if (elapsed >= total) {
+            rec.stop();
+            return;
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    });
+
+    document.fonts.ready.then(function () {
+      layoutCacheSentence = null;
+      drawFrameAt(0, parseFloat(speedEl.value, 10) || 48, parseFloat(holdEl.value, 10) || 1.5, parseFloat(gapEl.value, 10) || 0, false);
+    });
+  }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "jira-automation",
+  "version": "1.0.0",
+  "description": "Create Jira tickets from JSON for Eventbrella growth strategy",
+  "type": "module",
+  "main": "create-tickets.js",
+  "scripts": {
+    "create": "node create-tickets.js",
+    "delete": "node delete-ticket.js",
+    "move-todo": "node move-to-todo.js",
+    "add-sprint": "node add-to-sprint.js",
+    "cvo-to-op": "node cvo-to-op.js",
+    "organize-sprints": "node organize-sprints.js",
+    "farmer-bank": "node farmer-bank.js",
+    "quick-update": "node quick-update.js",
+    "create-monthly-task": "node create-monthly-social-media-task.js",
+    "create-monthly-cycle": "node create-monthly-operations-cycle.js",
+    "add-ai-creator-tasks": "node add-ai-creator-tasks.js",
+    "add-business-card-tasks": "node add-business-card-tasks.js",
+    "add-admin-tasks-epic": "node add-admin-tasks-epic.js",
+    "update-board-filter-in-review": "node update-board-filter-in-review.js",
+    "create-sales-prospecting": "node jira-sales-prospecting/create-sales-prospecting.js",
+    "create-contacts": "node ../brevo-contact-automation/create-contacts.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "node-fetch": "^3.3.2"
+  }
+}

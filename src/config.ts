@@ -1,10 +1,14 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-// Load shared aiAgents/.env first, then local .env (local overrides)
-const aiAgentsEnv = path.resolve(__dirname, '../../../.env');
-dotenv.config({ path: aiAgentsEnv });
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(__dirname, '..');
+
+// Load aiAgents/.env first, then repo-root .env, then cwd .env (later wins on duplicate keys)
+dotenv.config({ path: path.join(repoRoot, 'aiAgents', '.env') });
+dotenv.config({ path: path.join(repoRoot, '.env') });
 dotenv.config();
 
 const categoriesPath = path.join(process.cwd(), 'config', 'categories.json');

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Tech Innovation Summit 2024",
+    "status": "active",
+    "date": "2024-11-15",
+    "location": "San Francisco Convention Center",
+    "attendees": 250,
+    "type": "conference"
+  },
+  {
+    "id": 2,
+    "name": "Marketing Workshop Series",
+    "status": "draft",
+    "date": "2024-12-01",
+    "location": "Downtown Business Center",
+    "attendees": 45,
+    "type": "workshop"
+  },
+  {
+    "id": 3,
+    "name": "Annual Company Retreat",
+    "status": "active",
+    "date": "2024-10-28",
+    "location": "Mountain Resort Lodge",
+    "attendees": 120,
+    "type": "retreat"
+  }
+]

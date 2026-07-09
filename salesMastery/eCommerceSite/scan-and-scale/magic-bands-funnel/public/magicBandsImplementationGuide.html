@@ -1,0 +1,2887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>TourPass Revenue Audit — Scan & Scale</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<style>
+
+:root{
+  --navy:#1A2A44;
+  --gold:#D4AF37;
+  --teal:#00D4AA;
+  --paper:#F4F6F9;
+  --ink:#1A1A1A;
+  --muted:#666666;
+
+  --page-width:816px;
+  --page-height:1056px;
+
+  --font-display:'Bebas Neue', sans-serif;
+  --font-body:'DM Sans', sans-serif;
+  --font-editorial:'DM Serif Display', serif;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#2A2A2A;
+  font-family:var(--font-body);
+  padding:40px 0;
+}
+
+.wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:30px;
+}
+
+.toolbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  width:100%;
+  background:#111;
+  padding:16px;
+  display:flex;
+  justify-content:center;
+  gap:16px;
+}
+
+.btn{
+  border:none;
+  background:var(--gold);
+  color:#111;
+  font-family:var(--font-body);
+  font-weight:700;
+  padding:12px 20px;
+  cursor:pointer;
+  border-radius:4px;
+  letter-spacing:1px;
+}
+
+.page{
+  width:var(--page-width);
+  height:var(--page-height);
+  background:#fff;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+
+.ph{
+  height:48px;
+  background:var(--navy);
+  border-bottom:4px solid var(--gold);
+  padding:0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  font-family:var(--font-display);
+  font-size:20px;
+  color:var(--gold);
+  letter-spacing:3px;
+}
+
+.series{
+  font-family:var(--font-display);
+  font-size:15px;
+  color:#fff;
+  letter-spacing:2px;
+}
+
+.pc{
+  flex:1;
+  padding:36px 64px 20px 80px;
+}
+
+.navy-bg{
+  background:var(--navy);
+  color:#fff;
+}
+
+.pf{
+  height:28px;
+  border-top:1px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  font-size:11px;
+}
+
+.pn{
+  font-weight:700;
+  color:var(--navy);
+}
+
+.ft{
+  color:#999;
+  font-style:italic;
+}
+
+.navy-bg .pf{
+  border-top:1px solid rgba(212,175,55,0.25);
+}
+
+.navy-bg .pn{
+  color:#fff;
+}
+
+.navy-bg .ft{
+  color:rgba(255,255,255,0.45);
+}
+
+.eyebrow{
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.hero-head{
+  font-family:var(--font-display);
+  font-size:82px;
+  line-height:.92;
+  letter-spacing:1px;
+  color:#fff;
+  margin:0;
+}
+
+.gold{
+  color:var(--gold);
+}
+
+.teal-bar{
+  width:72px;
+  height:4px;
+  background:var(--teal);
+  margin:28px 0;
+}
+
+.ch-intro{
+  font-family:var(--font-editorial);
+  font-size:20px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.86);
+  max-width:560px;
+}
+
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:60px;
+}
+
+.grid-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.25);
+  padding:18px;
+  border-radius:4px;
+}
+
+.stat-num{
+  font-family:var(--font-display);
+  font-size:48px;
+  line-height:1;
+  margin-bottom:6px;
+  letter-spacing:1px;
+}
+
+.stat-label{
+  font-size:12px;
+  font-weight:700;
+  color:#fff;
+  line-height:1.5;
+}
+
+.sec-title{
+  font-family:var(--font-display);
+  font-size:44px;
+  line-height:1;
+  color:var(--navy);
+  margin:0 0 10px 0;
+}
+
+.sec-intro{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--navy);
+  margin-bottom:34px;
+}
+
+.two-col{
+  display:grid;
+  grid-template-columns:55% 40%;
+  gap:34px;
+}
+
+.body{
+  font-size:14px;
+  line-height:1.74;
+  color:var(--ink);
+}
+
+.body strong{
+  color:var(--navy);
+}
+
+.stat-box{
+  background:#fff;
+  border-left:4px solid var(--gold);
+  padding:18px;
+  margin-bottom:16px;
+  border-radius:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.sb-num{
+  font-family:var(--font-display);
+  font-size:44px;
+  color:var(--gold);
+  line-height:1;
+}
+
+.sb-label{
+  font-weight:700;
+  color:var(--navy);
+  margin-top:6px;
+}
+
+.sb-sub{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+  margin-top:8px;
+}
+
+.callout{
+  background:var(--paper);
+  border-left:4px solid var(--gold);
+  padding:20px;
+  margin-top:22px;
+  border-radius:4px;
+}
+
+.callout strong{
+  color:var(--gold);
+}
+
+.q-card{
+  margin-top:20px;
+  padding:22px;
+  border-radius:4px;
+  background:var(--paper);
+  position:relative;
+}
+
+.q-card:before{
+  content:"\201C";
+  position:absolute;
+  top:0;
+  left:12px;
+  font-size:58px;
+  opacity:.12;
+  font-family:var(--font-editorial);
+}
+
+.q-text{
+  position:relative;
+  z-index:2;
+  font-family:var(--font-editorial);
+  font-style:italic;
+  line-height:1.7;
+  color:var(--navy);
+}
+
+.q-author{
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#777;
+  font-weight:700;
+}
+
+.timeline{
+  margin-top:34px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.t-row{
+  display:grid;
+  grid-template-columns:90px 40px 1fr;
+  gap:20px;
+}
+
+.t-date{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:32px;
+  text-align:right;
+}
+
+.t-line{
+  position:relative;
+}
+
+.dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--gold);
+  position:absolute;
+  top:8px;
+  left:13px;
+}
+
+.line{
+  position:absolute;
+  width:2px;
+  background:rgba(212,175,55,0.25);
+  top:24px;
+  bottom:-42px;
+  left:19px;
+}
+
+.t-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:18px;
+  border-radius:4px;
+}
+
+.t-head{
+  font-family:var(--font-display);
+  color:#fff;
+  font-size:24px;
+  letter-spacing:1px;
+}
+
+.t-body{
+  color:rgba(255,255,255,0.8);
+  line-height:1.7;
+  font-size:13px;
+  margin-top:8px;
+}
+
+.chk-row{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.chk{
+  width:18px;
+  height:18px;
+  border:2px solid var(--navy);
+  margin-top:2px;
+}
+
+.chk-row span{
+  flex:1;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.phase-block{
+  border:1px solid #e0e0e0;
+  border-left:4px solid var(--gold);
+  padding:11px 13px;
+  margin-bottom:10px;
+  border-radius:4px;
+  background:#fff;
+}
+.phase-block.teal{border-left-color:var(--teal);}
+.phase-block.navy{border-left-color:var(--navy);}
+.phase-name{
+  font-family:var(--font-display);
+  font-size:16px;
+  letter-spacing:1px;
+  color:var(--navy);
+  margin-bottom:5px;
+}
+.phase-meta{
+  font-size:10.5px;
+  line-height:1.5;
+  color:var(--ink);
+}
+.phase-meta strong{color:var(--navy);}
+.kpi-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.kpi-grid .stat-box{margin-bottom:0;padding:12px 14px;}
+.ops-panel{
+  background:var(--paper);
+  border:1px solid rgba(212,175,55,0.35);
+  border-left:4px solid var(--gold);
+  padding:14px;
+  border-radius:4px;
+  margin-bottom:12px;
+}
+.ops-panel.navy{
+  background:var(--navy);
+  border:1px solid rgba(212,175,55,0.25);
+}
+.ops-panel-title{
+  font-family:var(--font-display);
+  font-size:15px;
+  letter-spacing:1px;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.ops-panel.navy .ops-panel-title{color:var(--gold);}
+.ops-panel-body{font-size:11.5px;line-height:1.6;color:var(--ink);}
+.ops-panel.navy .ops-panel-body{color:rgba(255,255,255,0.82);}
+.brand-banner{
+  font-family:var(--font-display);
+  font-size:46px;
+  line-height:1.02;
+  letter-spacing:1px;
+  color:#fff;
+  margin:0 0 12px 0;
+}
+.brand-banner .gold{color:var(--gold);}
+.timeline.compact{gap:12px;margin-top:10px;}
+.timeline.compact .t-date{font-size:18px;}
+.timeline.compact .t-card{padding:12px 14px;}
+.timeline.compact .t-head{font-size:14px;}
+.timeline.compact .t-body{font-size:11.5px;margin-top:4px;}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin:18px 0;
+}
+.grid3 .stat-box{margin-bottom:0;padding:14px;}
+.navy-bg .grid3 .stat-box{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.25);
+  border-left:4px solid var(--gold);
+  box-shadow:none;
+}
+.navy-bg .grid3 .sb-label{color:#fff;}
+.navy-bg .grid3 .sb-sub{color:rgba(255,255,255,0.65);}
+.callout.gold-border{
+  border:1px solid rgba(212,175,55,0.45);
+  border-left:4px solid var(--gold);
+}
+.navy-bg .callout.gold-border{
+  background:rgba(255,255,255,0.05);
+  color:rgba(255,255,255,0.88);
+  border:1px solid rgba(212,175,55,0.35);
+  border-left:4px solid var(--gold);
+}
+.navy-bg .callout.gold-border strong{color:var(--gold);}
+
+.rank-card{
+  display:grid;
+  grid-template-columns:28px 1fr;
+  gap:10px;
+  border:1px solid #e0e0e0;
+  border-left:4px solid var(--gold);
+  padding:10px 12px;
+  margin-bottom:8px;
+  border-radius:4px;
+  background:#fff;
+}
+.rank-num{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:26px;
+  line-height:1;
+  margin-bottom:4px;
+}
+.rank-zone{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:15px;
+  letter-spacing:0.5px;
+  line-height:1.1;
+}
+.rank-impact{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:4px 0;
+}
+.rank-desc{
+  font-size:10.5px;
+  line-height:1.45;
+  color:var(--ink);
+}
+
+.roi-h-timeline{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  margin:20px 0 14px;
+  position:relative;
+}
+.roi-h-timeline:before{
+  content:"";
+  position:absolute;
+  top:6px;
+  left:8%;
+  right:8%;
+  height:2px;
+  background:rgba(0,212,170,0.35);
+  z-index:0;
+}
+.roi-step{
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.roi-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--teal);
+  margin:0 auto 8px;
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px var(--teal);
+}
+.roi-month{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:13px;
+  letter-spacing:0.5px;
+}
+.roi-body{
+  font-size:8.5px;
+  line-height:1.35;
+  color:var(--ink);
+  margin-top:6px;
+  text-align:left;
+}
+
+.materials-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.mat-card{
+  border:1px solid #e0e0e0;
+  border-left:4px solid var(--teal);
+  padding:11px 12px;
+  border-radius:4px;
+  background:#fff;
+}
+.mat-cat{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:14px;
+  letter-spacing:0.5px;
+  margin-bottom:8px;
+}
+.mat-item{
+  font-size:10px;
+  line-height:1.45;
+  color:var(--ink);
+  margin-bottom:4px;
+  padding-left:10px;
+  position:relative;
+}
+.mat-item:before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--gold);
+}
+
+.role-card{
+  border-left:4px solid var(--gold);
+  padding:10px 14px;
+  margin-bottom:9px;
+  background:var(--paper);
+  border-radius:0 4px 4px 0;
+}
+.role-title{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:17px;
+  letter-spacing:0.5px;
+}
+.role-label{
+  color:var(--teal);
+  font-size:9px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-top:2px;
+}
+.role-desc{
+  font-size:10.5px;
+  line-height:1.45;
+  color:var(--ink);
+  margin-top:5px;
+}
+.callout.teal-accent{
+  border-left:4px solid var(--teal);
+  background:rgba(0,212,170,0.08);
+}
+
+.cta-btn{
+  display:inline-block;
+  background:var(--gold);
+  color:#111;
+  font-family:var(--font-body);
+  font-weight:700;
+  padding:14px 18px;
+  text-decoration:none;
+  font-size:11px;
+  letter-spacing:1px;
+  text-align:center;
+  border-radius:4px;
+  line-height:1.4;
+}
+.qr-box{
+  width:160px;
+  height:160px;
+  border:2px solid var(--teal);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:4px;
+  background:#fff;
+}
+.qr-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.qr-fallback{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:13px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  text-align:center;
+  padding:8px;
+}
+.gold-rule{
+  height:2px;
+  background:var(--gold);
+  margin:18px 0 10px;
+}
+.closing-line{
+  font-size:9px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#999;
+  text-align:center;
+  font-weight:700;
+}
+
+.exp-dark-card{
+  background:rgba(0,0,0,0.22);
+  border-left:4px solid var(--teal);
+  padding:22px 24px;
+  border-radius:4px;
+  margin-bottom:0;
+}
+.exp-heading-gold{
+  font-family:var(--font-display);
+  font-size:34px;
+  color:var(--gold);
+  letter-spacing:1px;
+  line-height:1.05;
+  margin:0 0 10px 0;
+}
+.exp-label-teal{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:14px;
+}
+.exp-body{
+  font-size:12.5px;
+  line-height:1.72;
+  color:rgba(255,255,255,0.86);
+}
+.exp-body p{margin:0 0 12px 0;}
+.exp-quote-card{
+  background:var(--paper);
+  border:1px solid rgba(212,175,55,0.45);
+  border-left:4px solid var(--gold);
+  padding:18px 20px;
+  border-radius:4px;
+}
+.exp-quote-text{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:13px;
+  line-height:1.7;
+  color:var(--navy);
+}
+.exp-stat-stack .stat-box{margin-bottom:12px;}
+.exp-stat-stack .stat-box:last-child{margin-bottom:0;}
+.exp-heading-white{
+  font-family:var(--font-display);
+  font-size:32px;
+  color:#fff;
+  letter-spacing:1px;
+  line-height:1.05;
+  margin:0 0 8px 0;
+}
+.irr-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.irr-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.2);
+  border-left:3px solid var(--gold);
+  padding:11px 12px;
+  border-radius:4px;
+}
+.irr-label{
+  font-family:var(--font-display);
+  font-size:13px;
+  color:var(--gold);
+  letter-spacing:0.5px;
+  line-height:1.15;
+  margin-bottom:6px;
+}
+.irr-body{
+  font-size:10px;
+  line-height:1.5;
+  color:rgba(255,255,255,0.82);
+}
+.exp-block-gold-top{
+  border-top:4px solid var(--gold);
+  padding-top:20px;
+}
+.exp-heading-teal{
+  font-family:var(--font-display);
+  font-size:34px;
+  color:var(--teal);
+  letter-spacing:1px;
+  line-height:1.05;
+  margin:0 0 10px 0;
+}
+.exp-label-gold{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.exp-close-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.4);
+  border-left:4px solid var(--gold);
+  padding:20px 22px;
+  border-radius:4px;
+}
+.exp-close-card .exp-heading-white{font-size:28px;margin-bottom:12px;}
+.exp-close-card .exp-body{color:rgba(255,255,255,0.88);}
+
+.exp-block-teal-top{border-top:4px solid var(--teal);padding-top:20px;}
+.psych-open{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:17px;
+  color:var(--gold);
+  line-height:1.65;
+  margin:12px 0 16px;
+}
+.grid4-psych{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+.psych-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(0,212,170,0.2);
+  padding:11px 10px;
+  border-radius:4px;
+}
+.psych-cat{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:12px;
+  letter-spacing:0.5px;
+  margin-bottom:5px;
+}
+.psych-stat{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:26px;
+  line-height:1;
+  margin-bottom:5px;
+}
+.psych-card-body{
+  font-size:8.5px;
+  line-height:1.38;
+  color:rgba(255,255,255,0.82);
+}
+.feel-card{
+  background:rgba(255,255,255,0.05);
+  padding:13px 14px;
+  border-radius:4px;
+  height:100%;
+}
+.feel-card.gold-b{border:1px solid rgba(212,175,55,0.35);}
+.feel-card.teal-b{border:1px solid rgba(0,212,170,0.35);}
+.feel-card h3{
+  font-family:var(--font-display);
+  color:#fff;
+  font-size:14px;
+  letter-spacing:0.5px;
+  line-height:1.15;
+  margin:0 0 10px 0;
+}
+.feel-list{
+  margin:0;
+  padding:0;
+  font-size:10px;
+  line-height:1.5;
+  color:rgba(255,255,255,0.88);
+}
+.feel-list li{
+  margin-bottom:7px;
+  padding-left:12px;
+  position:relative;
+  list-style:none;
+}
+.feel-list.teal-bullets li:before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--teal);
+}
+.feel-list.gold-bullets li:before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--gold);
+}
+.callout.gold-full{
+  border:1px solid rgba(212,175,55,0.4);
+  border-left:4px solid var(--gold);
+  background:rgba(255,255,255,0.05);
+}
+.callout.gold-full .callout-body{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:12px;
+  line-height:1.65;
+  color:rgba(255,255,255,0.9);
+}
+.callout.teal-full{
+  border:1px solid rgba(0,212,170,0.35);
+  border-left:4px solid var(--teal);
+  background:rgba(0,212,170,0.06);
+}
+.callout.teal-full .callout-body{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:12px;
+  line-height:1.65;
+  color:rgba(255,255,255,0.9);
+}
+.wrist-visual{
+  width:280px;
+  height:180px;
+  border:2px solid var(--teal);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:4px;
+  background:rgba(255,255,255,0.04);
+}
+.wrist-visual img{width:100%;height:100%;object-fit:cover;}
+.wrist-fallback{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:12px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.wrist-step{
+  display:flex;
+  gap:10px;
+  margin-bottom:9px;
+  background:rgba(255,255,255,0.06);
+  border-left:3px solid var(--gold);
+  padding:9px 11px;
+  border-radius:0 4px 4px 0;
+}
+.wrist-num{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:20px;
+  line-height:1;
+  min-width:22px;
+}
+.wrist-label{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:11px;
+  letter-spacing:0.5px;
+}
+.wrist-desc{
+  font-size:9.5px;
+  line-height:1.42;
+  color:rgba(255,255,255,0.85);
+  margin-top:3px;
+}
+.teal-closing{
+  font-size:9px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--teal);
+  text-align:center;
+  font-weight:700;
+}
+
+@media print{
+  body{background:#fff;padding:0;}
+  .toolbar{display:none;}
+  .page{margin:0;page-break-after:always;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="toolbar">
+  <button class="btn" type="button" id="buy-blueprint-btn">Buy Blueprint — $17</button>
+  <button class="btn" onclick="downloadPNGs()">Download PNG ZIP</button>
+  <button class="btn" onclick="window.print()">Print PDF</button>
+</div>
+
+<div class="wrapper">
+
+<!-- PAGE 1 — COVER -->
+
+<div class="page">
+
+<div class="ph">
+  <div class="brand">SCAN & SCALE</div>
+  <div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Traveling Events & Fan Takeover Intelligence</div>
+
+<h1 class="hero-head">
+YOUR TOUR IS<br>
+<span class="gold">LOSING REVENUE</span><br>
+AT EVERY HANDOFF
+</h1>
+
+<div class="teal-bar"></div>
+
+<div class="ch-intro">
+A tour-specific audit showing where fan experience fragmentation destroys spending behavior — and how a unified digital identity layer recovers it across every city, venue, and stop.
+</div>
+
+<div class="grid4">
+
+<div class="grid-card">
+<div class="stat-num gold">2–3x</div>
+<div class="stat-label">More spend from traveling fans vs. local attendees when friction is removed</div>
+</div>
+
+<div class="grid-card">
+<div class="stat-num" style="color:var(--teal)">30–40%</div>
+<div class="stat-label">Of fans miss VIP perks or offers due to friction at multi-city events</div>
+</div>
+
+<div class="grid-card">
+<div class="stat-num">15–25%</div>
+<div class="stat-label">Lift in per-cap spend with unified access across cities</div>
+</div>
+
+<div class="grid-card">
+<div class="stat-num gold">$100K</div>
+<div class="stat-label">Recoverable tour revenue on a 10-city run at 500 fans per stop</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">01</div>
+<div class="ft">The Revenue Leak</div>
+</div>
+
+</div>
+
+<!-- PAGE 2 — SECTION 01 EXPANSION (BEFORE) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="exp-dark-card">
+<div class="exp-heading-gold">THEY CHOSE YOUR TOUR OVER EVERYTHING ELSE</div>
+<div class="exp-label-teal">The Competitive Reality for Traveling Event Operators</div>
+<div class="exp-body">
+<p>Think about what your fan said no to the weekend they bought that tour package.</p>
+<p>They passed on staying home. They booked flights. They found a hotel in a city they've never been to. They paid for tickets, pre-paid packages, and VIP access — all before they ever set foot at your event.</p>
+<p>They chose your tour. They chose to follow your brand across cities because something about it felt worth doing.</p>
+<p>That decision deserves to be honored.</p>
+<p>Not just with a great event. With an experience that makes every city feel like you were expecting them. That their pass works at the door without a search through their email. That their VIP perks are already loaded and ready to go.</p>
+<p>The moment a traveling fan reaches a new city and has to figure out a new check-in process, a new app, or a new set of instructions — that promise breaks. Quietly. In the back of their mind where next tour's registration decision gets made.</p>
+</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 01 · Competitive Reality</div>
+</div>
+
+</div>
+
+<!-- PAGE 2 — THE FRAGMENTATION ECONOMY -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Section 01</div>
+
+<h2 class="sec-title">THE FRAGMENTATION ECONOMY</h2>
+
+<div class="sec-intro">
+Most traveling event brands don't have a demand problem. They have a handoff problem.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+Every new city brings a new venue, new local staff, new ticketing process, and a new check-in workflow. Fans who paid for the whole tour have to figure it out from scratch at each stop.
+</p>
+
+<p>
+That fragmentation quietly reduces fan spending — not because fans don't want to engage, but because the experience becomes exhausting to navigate.
+</p>
+
+<p>
+In traveling events, convenience directly affects revenue velocity across every city on the run.
+</p>
+
+<p>
+The average traveling fan makes emotional spending decisions. If accessing what they paid for feels unclear, slow, or inconsistent city to city, spending behavior changes immediately.
+</p>
+
+<p>
+The result:
+</p>
+
+<p>
+<strong>• Fewer VIP upgrades purchased</strong><br>
+<strong>• Lower redemption of pre-paid offers</strong><br>
+<strong>• Abandoned perks and packages</strong><br>
+<strong>• Reduced sponsor activation engagement</strong><br>
+<strong>• Lower repeat tour registration</strong><br>
+<strong>• Poor word-of-mouth after the run</strong>
+</p>
+
+<div class="callout">
+<strong>The core principle:</strong><br><br>
+Traveling fans spend more when the tour feels like one experience, not ten separate events.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">2–3x</div>
+<div class="sb-label">More spend from traveling fans</div>
+<div class="sb-sub">
+Fans traveling for events spend more per stop — but only when the experience removes friction from VIP access, perks, and check-in.
+</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal)">
+<div class="sb-num" style="color:var(--teal)">15–25%</div>
+<div class="sb-label">Lift in per-cap spend</div>
+<div class="sb-sub">
+Unified access across cities consistently drives higher per-fan spend through increased VIP conversion and offer redemption.
+</div>
+</div>
+
+<div class="q-card">
+<div class="q-text">
+"The best traveling event systems don't just improve check-in speed — they remove friction at the exact moment fans are deciding whether the tour experience is worth coming back for next year."
+</div>
+<div class="q-author">
+Fan Tour Economics
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">02</div>
+<div class="ft">Fan Psychology & Spending</div>
+</div>
+
+</div>
+
+<!-- PAGE — SECTION 01 EXPANSION (AFTER / STATS) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="two-col" style="grid-template-columns:52% 42%;gap:6%;">
+
+<div class="exp-quote-card">
+<div class="exp-quote-text">"The fan who feels taken care of at every city doesn't just come back. They bring someone with them. They post about it. They become the reason three other people register for next year's tour who weren't there for this one."</div>
+</div>
+
+<div class="exp-stat-stack">
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal);">15–25%</div>
+<div class="sb-label">Per-cap spend lift with unified tour access</div>
+</div>
+
+<div class="stat-box">
+<div class="sb-num">2–3x</div>
+<div class="sb-label">Higher spend vs. local attendees when friction is removed</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal);">30–50%</div>
+<div class="sb-label">Reduction in abandoned perks when a single token handles all access</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 01 · Fan Retention Economics</div>
+</div>
+
+</div>
+
+<!-- PAGE — WHAT KILLS THE TOUR EXPERIENCE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="exp-heading-white">WHAT KILLS THE TOUR EXPERIENCE BEFORE THE NEXT CITY</div>
+<div class="exp-label-teal">What Your Fans Are Thinking But Not Saying</div>
+
+<div class="irr-grid">
+
+<div class="irr-card">
+<div class="irr-label">"I can't find my pass — I know I got an email."</div>
+<div class="irr-body">They bought a tour package months ago. Now they're standing at a check-in table in a new city, searching through their inbox while the line backs up behind them. That moment defines how they feel about the entire stop.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"This city's process is totally different from the last one."</div>
+<div class="irr-body">Every new venue means new instructions, new staff, and new confusion. Fans who signed up for a tour shouldn't have to relearn how to access it at every stop. Inconsistency signals disorganization — and disorganization destroys perceived value.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"I paid for VIP and nobody here knows what that means."</div>
+<div class="irr-body">Manual VIP lists passed city to city via spreadsheet or email are a liability. One miscommunication and your highest-value fan is standing at a rope wondering why they paid a premium. That experience is never forgotten — and rarely forgiven.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"I didn't even know there was a sponsor offer."</div>
+<div class="irr-body">30 to 40 percent of fans miss perks and offers not because they don't want them — but because they never knew how to find them. Every unredeemed offer is a failed sponsor activation and a missed upsell.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"I'm not sure it's worth doing all 10 cities."</div>
+<div class="irr-body">This is the most expensive thought a multi-city fan can have. It doesn't show up in your city-by-city attendance numbers until it's already too late. Friction at stop two is the reason stop seven doesn't sell out.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"The event was great. The logistics were a mess."</div>
+<div class="irr-body">This is the review that costs you the most. The product was good. The infrastructure failed it. And infrastructure is the one thing entirely within your control.</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 01 · Fan Friction Points</div>
+</div>
+
+</div>
+
+<!-- PAGE — REVENUE LEAK SCORE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Traveling Events & Fan Takeover Audit</div>
+
+<h2 class="sec-title" style="color:#fff;">YOUR TOUR REVENUE LEAK SCORE</h2>
+
+<div class="sec-intro" style="color:rgba(255,255,255,0.82);margin-bottom:20px;">
+TRAVELING EVENT & FAN TAKEOVER AUDIT
+</div>
+
+<div class="grid3">
+
+<div class="stat-box">
+<div class="sb-num">$0</div>
+<div class="sb-label">Current per-cap revenue captured per tour stop</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal);">+$20</div>
+<div class="sb-label">Additional per-fan revenue at 20% uplift from unified access</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--navy);">
+<div class="sb-num" style="color:var(--gold);">$100K</div>
+<div class="sb-label">Recoverable on a 10-city run at 500 fans per stop</div>
+</div>
+
+</div>
+
+<div class="callout gold-border" style="margin-top:18px;">
+Every tour stop you run without a unified identity layer is a stop where fragmented check-in, missed perks, and manual VIP management are quietly costing you fan loyalty and revenue. The number above is not a projection. It is the cost of the handoff — per city, per tour, per season.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">07</div>
+<div class="ft">Revenue Leak Score</div>
+</div>
+
+</div>
+
+<!-- PAGE — PRIORITIZED OPPORTUNITY SCORE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Ranked by Revenue Impact</div>
+
+<h2 class="sec-title" style="font-size:36px;">WHERE YOUR TOUR IS<br>BLEEDING REVENUE FIRST</h2>
+
+<div class="sec-intro" style="margin-bottom:16px;font-size:14px;">
+RANKED BY REVENUE IMPACT — TRAVELING EVENTS & FAN TAKEOVERS
+</div>
+
+<div class="rank-card">
+<div class="rank-num">1</div>
+<div>
+<div class="rank-zone">City Check-In Points</div>
+<div class="rank-impact">Highest Impact</div>
+<div class="rank-desc">This is where the tour experience lives or dies. Fragmented check-in at each new venue is the fastest way to destroy the brand equity you built at the last stop. This is your fastest ROI zone.</div>
+</div>
+</div>
+
+<div class="rank-card">
+<div class="rank-num">2</div>
+<div>
+<div class="rank-zone">VIP Entrances & Tour-Pass Verification</div>
+<div class="rank-impact">High Impact</div>
+<div class="rank-desc">VIP and bottle service drive 30–50% of revenue at each stop. Manual VIP list management across cities is error-prone and expensive. A single scan should verify status instantly at every venue.</div>
+</div>
+</div>
+
+<div class="rank-card">
+<div class="rank-num">3</div>
+<div>
+<div class="rank-zone">Sponsor Activation Zones</div>
+<div class="rank-impact">High Impact</div>
+<div class="rank-desc">Sponsors need tour-wide performance data — not city-by-city estimates. Scan-to-redemption tracking at each activation zone is how you command 20–50% higher sponsorship fees next cycle.</div>
+</div>
+</div>
+
+<div class="rank-card">
+<div class="rank-num">4</div>
+<div>
+<div class="rank-zone">Pre-Paid Package & Perk Redemption</div>
+<div class="rank-impact">Premium Impact</div>
+<div class="rank-desc">30–40% of fans miss perks they already paid for. A unified token that pre-loads all offers and upgrades turns every stop into a seamless delivery of what fans already bought.</div>
+</div>
+</div>
+
+<div class="rank-card" style="margin-bottom:0;">
+<div class="rank-num">5</div>
+<div>
+<div class="rank-zone">Tour-Wide Upsell Touchpoints</div>
+<div class="rank-impact">Moderate Impact</div>
+<div class="rank-desc">Digital prompts delivered via wristband or wallet card — upgrade to multi-city VIP pass, unlock city-exclusive perks — drive incremental revenue at every stop on the run.</div>
+</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">14</div>
+<div class="ft">Prioritized Opportunity Score</div>
+</div>
+
+</div>
+
+<!-- PAGE — 6-STOP ROI RECOVERY TIMELINE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Traveling Event Deployment Projection</div>
+
+<h2 class="sec-title" style="font-size:38px;">6-STOP ROI<br>RECOVERY TIMELINE</h2>
+
+<div class="sec-intro" style="margin-bottom:14px;font-size:14px;">
+TRAVELING EVENT & FAN TAKEOVER DEPLOYMENT PROJECTION
+</div>
+
+<div class="roi-h-timeline">
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Stop 1</div>
+<div class="roi-body">Pilot city live. TourPass deployed. Check-in flow confirmed. Staff trained. Baseline KPIs captured.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Stop 2</div>
+<div class="roi-body">Check-in data in. Placement optimized. VIP verification smooth. Fan adoption behavior emerging.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Stop 3</div>
+<div class="roi-body">Repeat fan behavior confirmed. Sponsor activation layer added. Per-cap spend rising.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Stop 4</div>
+<div class="roi-body">Offer redemption rates climbing. Tour-pass upsell campaigns running. Abandonment rate declining.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Stop 5</div>
+<div class="roi-body">Tour-wide dashboard live. Sponsor reporting active. Upsell conversion compounding city to city.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Stop 6</div>
+<div class="roi-body">Full ROI recovery window. Tour-wide unified infrastructure operational. Season-over-season LTV compounding.</div>
+</div>
+
+</div>
+
+<div class="callout" style="margin-top:8px;">
+Most tours see measurable per-cap lift within the first two stops of pilot deployment. The operators who move at stop one are the ones who capture the full tour revenue window before it closes.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">15</div>
+<div class="ft">6-Stop ROI Recovery Timeline</div>
+</div>
+
+</div>
+
+<!-- PAGE 3 — THE WRISTBAND/CARD ISN'T THE PRODUCT -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Section 02</div>
+
+<h2 class="sec-title" style="color:#fff">
+THE WRISTBAND<br>ISN'T THE PRODUCT
+</h2>
+
+<div class="teal-bar"></div>
+
+<div class="ch-intro">
+Most tour operators think implementation starts with ordering wristbands and printing a check-in sheet.
+
+That is usually where deployment problems begin.
+</div>
+
+<div class="two-col" style="margin-top:40px;">
+
+<div>
+
+<div class="grid-card" style="margin-bottom:18px;">
+<div class="t-head">THE REAL SYSTEM</div>
+
+<div class="t-body" style="margin-top:14px;">
+• Unified digital identity across cities<br>
+• Access & check-in flow architecture<br>
+• VIP verification logic<br>
+• Offer & perk redemption<br>
+• Sponsor activation tracking<br>
+• Tour-wide data capture<br>
+• Fan engagement layer<br>
+• Staff onboarding per city<br>
+• Tour-pass management<br>
+• Physical wristband or digital wallet card
+</div>
+</div>
+
+<div class="q-card" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)">
+<div class="q-text" style="color:#fff">
+"The wristband or digital card is only the surface feature. The real leverage comes from the unified identity layer operating underneath it."
+</div>
+</div>
+
+</div>
+
+<div>
+
+<div class="grid-card" style="border-color:rgba(0,212,170,.25); margin-bottom:18px;">
+
+<div class="t-head" style="color:var(--teal)">
+TOURPASS IMPLEMENTATION STACK
+</div>
+
+<div class="t-body" style="margin-top:18px; line-height:2;">
+Access Layer<br>
+↓<br>
+Identity & Verification<br>
+↓<br>
+Redemption Engine<br>
+↓<br>
+Data & Analytics<br>
+↓<br>
+Sponsorship Activation<br>
+↓<br>
+Fan Engagement & Loyalty<br>
+↓<br>
+Tour-Wide Dashboard<br>
+↓<br>
+Wristband / Digital Wallet Card
+</div>
+
+</div>
+
+<div class="grid-card">
+
+<div class="stat-num gold">1</div>
+
+<div class="stat-label">
+Bad workflow at one city can break the tour brand across all of them
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">03</div>
+<div class="ft">Unified Identity Infrastructure Layer</div>
+</div>
+
+</div>
+
+<!-- PAGE — THE PSYCHOLOGY OF FRAGMENTATION (1) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-teal-top">
+
+<div class="exp-heading-gold">THE PSYCHOLOGY OF THE HANDOFF</div>
+<div class="exp-label-teal">Programmatic · Financial · Psychological · Sociological</div>
+
+<div class="psych-open">"Fans don't just want a great event. They want an experience that feels like someone expected them."</div>
+
+<div class="grid4-psych">
+
+<div class="psych-card">
+<div class="psych-cat">PROGRAMMATIC</div>
+<div class="psych-stat">40%</div>
+<div class="psych-card-body">Up to 40% of fans miss VIP perks or sponsor offers at multi-city events due to friction at check-in or redemption. That isn't a fan engagement failure. It is a systems failure. The offer existed. The fan wanted it. The process got in the way.</div>
+</div>
+
+<div class="psych-card">
+<div class="psych-cat">FINANCIAL</div>
+<div class="psych-stat">$0</div>
+<div class="psych-card-body">Every perk a fan fails to redeem is revenue that never enters your system. Every VIP package that fails at the door is a refund request, a social complaint, or a quiet decision not to register next year. Invisible loss is still loss — and it compounds city by city across the entire tour run.</div>
+</div>
+
+<div class="psych-card">
+<div class="psych-cat">PSYCHOLOGICAL</div>
+<div class="psych-stat">City 2</div>
+<div class="psych-card-body">Research on consumer experience shows that a bad experience at one touchpoint degrades perception of every subsequent touchpoint. A rough check-in at city two doesn't just cost you city two. It colors how that fan experiences cities three through ten. The handoff is the moment of highest vulnerability.</div>
+</div>
+
+<div class="psych-card">
+<div class="psych-cat">SOCIOLOGICAL</div>
+<div class="psych-stat" style="font-size:18px;">Group Effect</div>
+<div class="psych-card-body">Traveling fans move in groups. When one person in the group has a frictionless experience, everyone else asks how they did it. When one person gets stuck at check-in, the whole group tenses up. Seamless access is socially contagious in both directions. The question is which direction your current setup is spreading.</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">The Psychology of the Handoff</div>
+</div>
+
+</div>
+
+<!-- PAGE — THE PSYCHOLOGY OF FRAGMENTATION (2) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="two-col" style="grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+<div class="feel-card gold-b">
+<h3>WHAT FANS FEEL WHEN THE HANDOFF BREAKS</h3>
+<ul class="feel-list teal-bullets">
+<li>Confusion — they don't know if their pass works here or if it's a different process this stop</li>
+<li>Resentment — the tour feels like it wasn't built for the people who bought the full package</li>
+<li>Regret — the travel, the hotel, and the ticket price start to feel like a miscalculation</li>
+<li>Disconnection — they're physically at your event but mentally questioning their decision</li>
+<li>Finality — somewhere in that check-in line, the decision not to register next year gets made</li>
+</ul>
+</div>
+
+<div class="feel-card teal-b">
+<h3>WHAT FANS FEEL WHEN THE TOUR IS UNIFIED</h3>
+<ul class="feel-list gold-bullets">
+<li>Confidence — they know exactly what to expect because every city works the same way</li>
+<li>Status — their wristband or wallet card signals they're part of something premium</li>
+<li>Presence — they stay immersed in the experience they paid to have</li>
+<li>Generosity — fans in a positive emotional state spend more and upgrade more</li>
+<li>Loyalty — a seamless tour becomes the story they tell, and the reason they return next year</li>
+</ul>
+</div>
+
+</div>
+
+<div class="callout gold-full">
+<div class="callout-body">The tours that solve the handoff problem don't just improve check-in scores. They change the emotional memory fans carry out of every city. And emotional memory is what drives every registration, every referral, and every renewal that follows.</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Handoff · Emotional Memory</div>
+</div>
+
+</div>
+
+<!-- PAGE — TOURPASS AT THE DOOR -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-gold-top">
+
+<div class="exp-heading-teal">THE WRISTBAND AT THE DOOR — THE SURFACE FEATURE</div>
+<div class="exp-label-gold">Unified identity for traveling events, city takeovers, and fan-group tours</div>
+
+<div class="exp-body">
+<p>TourPass is not just a wristband at the door — it is a unified digital identity layer that tells every city exactly who your fan is, what they paid for, and what they're entitled to the moment they scan in.</p>
+<p>Fans check in. They get a band or a digital wallet card. That credential moves them through check-in, VIP verification, sponsor activation zones, and perk redemption — without a single paper list, email search, or staff debate at the door.</p>
+<p>For traveling event series: pre-assign access tiers by city, load tour packages, and know who showed up and where.</p>
+<p>For fan-group takeovers: one wristband or card handles tickets, VIP meetups, pre-paid packages, and group discounts at every partner venue across the trip.</p>
+<p>Bar tabs and POS integration are coming soon — the current product is about access, identity, redemption, data, and sponsorship value.</p>
+</div>
+
+<div class="two-col" style="grid-template-columns:auto 1fr;gap:20px;margin-top:14px;align-items:start;">
+
+<div class="wrist-visual">
+<img src="./assets/tourpass-wristband.png" alt="TourPass smart wristband" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+<div class="wrist-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">WRISTBAND VISUAL</div>
+</div>
+
+<div>
+
+<div class="wrist-step">
+<div class="wrist-num">01</div>
+<div>
+<div class="wrist-label">ACCESS & IDENTITY ON THE WRIST</div>
+<div class="wrist-desc">One scan at every city. No new tickets, no new apps, no new instructions. The band already knows who the fan is and what they're entitled to at this stop.</div>
+</div>
+</div>
+
+<div class="wrist-step">
+<div class="wrist-num">02</div>
+<div>
+<div class="wrist-label">REDEMPTION & SPONSOR ACTIVATION</div>
+<div class="wrist-desc">Perks, offers, and sponsor activations are pre-loaded and scan-to-redeem ready. Fans don't have to find them. Staff don't have to manage lists. It just works.</div>
+</div>
+</div>
+
+<div class="wrist-step">
+<div class="wrist-num">03</div>
+<div>
+<div class="wrist-label">POS & BAR TAB INTEGRATION — COMING SOON</div>
+<div class="wrist-desc">Connect TourPass to venue POS later: track spend by band, manage bar tabs, and close the loop between access and purchase behavior across every city.</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="callout teal-full" style="margin-top:14px;">
+<div class="callout-body">TourPass is the unified identity layer that makes every city feel like you were expecting them — and the data layer that proves tour-wide ROI to every sponsor on the run.</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Unified Digital Identity Token</div>
+</div>
+
+</div>
+
+<!-- PAGE 4 — DEPLOYMENT PRIORITIES -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Section 03</div>
+
+<h2 class="sec-title">DEPLOYMENT PRIORITIES</h2>
+
+<div class="sec-intro">
+The highest-performing TourPass systems usually begin with one friction point solved exceptionally well at the first city.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+<strong>The pilot should focus on the highest-friction handoff zones.</strong>
+</p>
+
+<p>
+These are the points where fans are already stationary, waiting, or mentally prepared to engage — and where a failed process does the most damage to tour brand perception.
+</p>
+
+<p>
+Recommended first deployments:
+</p>
+
+<p>
+<strong>• City check-in points</strong><br>
+<strong>• VIP entrances</strong><br>
+<strong>• Tour-pass verification zones</strong><br>
+<strong>• Pre-paid package redemption areas</strong><br>
+<strong>• Sponsor activation zones</strong><br>
+<strong>• Meet-and-greet access lanes</strong>
+</p>
+
+<p>
+Consistency matters more than complexity.
+</p>
+
+<p>
+The objective is to create the fastest possible improvement to fan experience with the least operational resistance at each new city.
+</p>
+
+<div class="callout">
+<strong>Important:</strong><br><br>
+Most failed TourPass deployments are not technology failures — they are workflow, staff-training, or city-consistency failures.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">30–40%</div>
+<div class="sb-label">Fans miss perks due to friction</div>
+<div class="sb-sub">
+At multi-city events, missed VIP perks and sponsor offers are the clearest signal that the handoff is broken. This is the first thing TourPass fixes.
+</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--navy)">
+<div class="sb-num" style="color:var(--navy)">20–50%</div>
+<div class="sb-label">Higher sponsorship fees with tour-wide data</div>
+<div class="sb-sub">
+Performance-based sponsor deals command a significant premium over flat logo placements. You can only sell them with the data TourPass generates.
+</div>
+</div>
+
+<div class="q-card">
+<div class="q-text">
+"The tours seeing the strongest results aren't necessarily using better technology. They're deploying it more consistently across every city on the run."
+</div>
+<div class="q-author">
+Tour Operations Logic
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">04</div>
+<div class="ft">Operational Rollout Strategy</div>
+</div>
+
+</div>
+
+<!-- PAGE — WHAT YOU ACTUALLY NEED TO DEPLOY -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Traveling Events & Fan Takeover — Materials Checklist</div>
+
+<h2 class="sec-title" style="font-size:36px;">WHAT YOU ACTUALLY<br>NEED TO DEPLOY</h2>
+
+<div class="sec-intro" style="margin-bottom:14px;font-size:14px;">
+TRAVELING EVENT & FAN TAKEOVER — CITY DEPLOYMENT CHECKLIST
+</div>
+
+<div class="materials-grid">
+
+<div class="mat-card">
+<div class="mat-cat">City Setup & Signage</div>
+<div class="mat-item">Check-in lane signage at every city venue entry point — fans need to know exactly where to go</div>
+<div class="mat-item">VIP zone markers with scan-to-verify instructions for door staff</div>
+<div class="mat-item">Sponsor activation zone signage with tap-to-redeem CTA</div>
+<div class="mat-item">Tour-pass verification station layout confirmed per venue before arrival</div>
+</div>
+
+<div class="mat-card">
+<div class="mat-cat">Technology & Infrastructure</div>
+<div class="mat-item">All fan pass data pre-loaded before each city — no manual updates at the door</div>
+<div class="mat-item">QR/scan system tested end-to-end at each venue before doors open</div>
+<div class="mat-item">Redemption triggers confirmed for all sponsor offers and pre-paid packages</div>
+<div class="mat-item">Tour-wide dashboard configured to capture check-ins, redemptions, and engagement by city</div>
+</div>
+
+<div class="mat-card">
+<div class="mat-cat">Staffing & Operations</div>
+<div class="mat-item">Designated TourPass lead per city — one person owns the system at each stop</div>
+<div class="mat-item">City-specific staff brief distributed 48 hours before each event</div>
+<div class="mat-item">VIP list backup procedure confirmed and distributed before each stop</div>
+<div class="mat-item">Staff script for fan check-in questions and access disputes</div>
+</div>
+
+<div class="mat-card">
+<div class="mat-cat">Measurement</div>
+<div class="mat-item">City-by-city check-in rate tracked from stop one</div>
+<div class="mat-item">VIP conversion and redemption rate pulled after each stop</div>
+<div class="mat-item">Sponsor activation scan-to-redemption data delivered post-event</div>
+<div class="mat-item">7-day, 14-day, 30-day, and 90-day tour check-ins locked on calendar before launch</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">16</div>
+<div class="ft">City Deployment Checklist</div>
+</div>
+
+</div>
+
+<!-- PAGE — WHO NEEDS TO BE IN THE ROOM -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Minimum Launch Team</div>
+
+<h2 class="sec-title" style="font-size:38px;">WHO NEEDS TO BE<br>IN THE ROOM</h2>
+
+<div class="sec-intro" style="margin-bottom:14px;font-size:14px;">
+MINIMUM LAUNCH TEAM — TRAVELING EVENTS & FAN TAKEOVERS
+</div>
+
+<div class="role-card">
+<div class="role-title">Tour Operations Manager</div>
+<div class="role-label">Operational Owner</div>
+<div class="role-desc">Owns city-by-city deployment, staff briefings, check-in flow setup, and day-of execution at every stop.</div>
+</div>
+
+<div class="role-card">
+<div class="role-title">VIP & Guest Experience Lead</div>
+<div class="role-label">Access Owner</div>
+<div class="role-desc">Owns VIP list management, table assignment encoding, tour-pass verification, and perk redemption workflows.</div>
+</div>
+
+<div class="role-card">
+<div class="role-title">Technology or Platform Contact</div>
+<div class="role-label">Infrastructure Owner</div>
+<div class="role-desc">Confirms pass data is loaded, scan system is live, and redemption triggers are firing correctly before each city goes live.</div>
+</div>
+
+<div class="role-card">
+<div class="role-title">Sponsorship & Partnerships Lead</div>
+<div class="role-label">Activation Owner</div>
+<div class="role-desc">Owns sponsor offer setup, activation zone placement, and post-event performance reporting per city.</div>
+</div>
+
+<div class="role-card" style="margin-bottom:12px;">
+<div class="role-title">Tour Director or Founder</div>
+<div class="role-label">Scale Authorization</div>
+<div class="role-desc">Makes the call to expand from pilot to full tour. No scale decision before they sign off on pilot KPIs.</div>
+</div>
+
+<div class="callout teal-accent">
+You don't need a tech team. You need five people who each own one thing. The tours that fail are the ones that launch without this accountability stack in place.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">17</div>
+<div class="ft">Launch Team & Accountability</div>
+</div>
+
+</div>
+
+<!-- PAGE 5 — HIGHEST ROI SYSTEMS LOOK SMALL FIRST -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Section 04</div>
+
+<h2 class="sec-title">
+THE HIGHEST ROI SYSTEMS<br>
+OFTEN LOOK SMALL FIRST
+</h2>
+
+<div class="sec-intro">
+Some of the highest-return innovations in live events looked like a simple convenience upgrade at first.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+<strong>Digital boarding passes.</strong><br>
+<strong>Festival wristbands.</strong><br>
+<strong>Mobile tickets.</strong><br>
+<strong>Cashless payment cards.</strong><br>
+<strong>One-tap access control.</strong><br>
+<strong>TourPass.</strong>
+</p>
+
+<p>
+None of them looked transformational at first.
+</p>
+
+<p>
+But each one replaced a fragmented, paper-based process with a single token.
+</p>
+
+<p>
+And when the handoff gets unified:
+</p>
+
+<p>
+<strong>• fan confidence rises</strong><br>
+<strong>• VIP conversion increases</strong><br>
+<strong>• offer redemption climbs</strong><br>
+<strong>• sponsor value compounds</strong><br>
+<strong>• per-cap spend improves across every city</strong>
+</p>
+
+<p>
+A properly deployed TourPass system generates returns across the entire run — and improves with every stop as the data layer matures.
+</p>
+
+<p>
+Unlike a single-city marketing spend, the infrastructure stays.
+</p>
+
+<p>
+The data compounds.
+</p>
+
+<p>
+And fan loyalty builds with every seamless handoff.
+</p>
+
+<div class="callout">
+<strong>The best traveling event systems do not merely increase attendance.</strong><br><br>
+They increase the ease of spending money across every city.<br><br>
+And ease compounds.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">$100K</div>
+<div class="sb-label">Recoverable tour revenue</div>
+<div class="sb-sub">
+On a 10-city run at 500 fans per stop — based on a 20% per-cap uplift from unified access and reduced friction.
+</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal)">
+<div class="sb-num" style="color:var(--teal)">ROI</div>
+<div class="sb-label">Doesn't stop after the first city</div>
+<div class="sb-sub">
+The infrastructure compounds. Every stop adds data, improves operations, and builds sponsor proof.
+</div>
+</div>
+
+<div class="q-card">
+<div class="q-text">
+"One unified identity layer can quietly affect thousands of fan decisions across an entire tour season."
+</div>
+
+<div class="q-author">
+Tour Experience Economics
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">05</div>
+<div class="ft">Compounding ROI Infrastructure</div>
+</div>
+
+</div>
+
+<!-- PAGE 6 — SECTION 05 EXPANSION (BEFORE) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-gold-top">
+
+<div class="exp-heading-teal">WHAT A GREAT TOUR STOP ACTUALLY FEELS LIKE</div>
+<div class="exp-label-gold">Put Yourself in the Fan's Shoes</div>
+
+<div class="exp-body">
+<p>Imagine you signed up for a 5-city tour. You booked flights. You found a hotel. You're excited.</p>
+<p>You get to the first city and the check-in is instant. One scan of your wristband. Done. The VIP section already knows you're coming. Your pre-paid package is loaded. The sponsor offer pops up automatically when you walk through the activation zone.</p>
+<p>You feel like you're in on something the general admission crowd isn't.</p>
+<p>At city two, it's exactly the same. Same scan. Same seamless experience. Different venue, same feeling of being expected. City three, four, five — each one confirms that this tour actually has it together.</p>
+<p>You post about it. You tell your friends. You start thinking about whether next year has more stops.</p>
+<p>That feeling — organized, premium, frictionless — is not an accident. It is an operational decision. And it is entirely available to every traveling event brand that chooses to build it.</p>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 05 · Fan Experience Vision</div>
+</div>
+
+</div>
+
+<!-- PAGE 6 — THE REAL PRODUCT IS THE FEELING -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Section 05</div>
+
+<h2 class="sec-title" style="color:#fff">
+THE REAL PRODUCT<br>
+IS THE FEELING
+</h2>
+
+<div class="teal-bar"></div>
+
+<div class="two-col">
+
+<div>
+
+<div class="body" style="color:rgba(255,255,255,.86)">
+
+<p>
+Fans rarely remember the specific logistics of each city.
+</p>
+
+<p>
+They remember:
+</p>
+
+<p>
+<strong style="color:#fff;">• whether the tour felt organized or chaotic</strong><br>
+<strong style="color:#fff;">• whether access felt seamless or stressful</strong><br>
+<strong style="color:#fff;">• whether VIP felt real or improvised</strong><br>
+<strong style="color:#fff;">• whether they felt like a valued guest or an afterthought</strong>
+</p>
+
+<p>
+That emotional memory becomes tour brand perception.
+</p>
+
+<p>
+And tour brand perception drives:
+</p>
+
+<p>
+<strong style="color:#fff;">• repeat registrations</strong><br>
+<strong style="color:#fff;">• referrals and group signups</strong><br>
+<strong style="color:#fff;">• multi-city package upgrades</strong><br>
+<strong style="color:#fff;">• social content and organic reach</strong><br>
+<strong style="color:#fff;">• lifetime fan value</strong>
+</p>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="grid-card" style="margin-bottom:18px;">
+
+<div class="t-head">
+PERCEIVED TOUR VALUE RISES WHEN:
+</div>
+
+<div class="t-body" style="margin-top:14px;">
+• the handoff feels consistent<br>
+• access works the same every city<br>
+• VIP feels earned and effortless<br>
+• perks arrive without friction<br>
+• the fan feels expected and prioritized
+</div>
+
+</div>
+
+<div class="q-card" style="background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.25)">
+
+<div class="q-text" style="color:#fff">
+"When fans scan once, get in fast, and the tour experience feels the same at every city, the brand starts to feel more premium — even if nothing changed about the event itself."
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">06</div>
+<div class="ft">Experience Economics & LTV</div>
+</div>
+
+</div>
+
+<!-- PAGE 6 — SECTION 05 EXPANSION (AFTER) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="exp-close-card">
+<div class="exp-heading-white">THE TOURS WINNING RIGHT NOW AREN'T BIGGER. THEY'RE SMOOTHER.</div>
+<div class="exp-body">
+<p>The competitive advantage for a traveling event brand or fan takeover operator is not just the experience itself. Every market has events. Every weekend has options.</p>
+<p>The advantage is the feeling fans can only get when your tour actually works the way it was designed to.</p>
+<p>The tour where check-in doesn't steal the first 20 minutes. Where VIP actually feels like VIP. Where the perk they pre-paid for three months ago is still there waiting for them at city seven.</p>
+<p>When you build that — when fans leave every stop saying the logistics matched the experience — you stop competing on price, lineup, and city selection alone.</p>
+<p>You start competing on trust. And trust is the one thing a competing event cannot replicate overnight.</p>
+<p>That is what TourPass infrastructure builds. Not just a wristband at the door. A reason to follow you to the next city.</p>
+</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 05 · Tour Experience Competitive Moat</div>
+</div>
+
+</div>
+
+<!-- PAGE 8 — IMPLEMENTATION BLUEPRINT -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title" style="font-size:38px;">TOURPASS<br>IMPLEMENTATION BLUEPRINT</h2>
+
+<div class="sec-intro" style="margin-bottom:18px;">
+A phased tour rollout framework designed to reduce deployment risk while maximizing fan adoption, per-cap spend, and sponsor ROI across every city.
+</div>
+
+<div class="two-col" style="grid-template-columns:58% 38%; gap:4%;">
+
+<div>
+
+<div class="phase-block">
+<div class="phase-name">PHASE 1 — CITY MAPPING & FRICTION AUDIT</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Map every friction point across the full tour route.<br><br>
+<strong>Deliverables:</strong> City-by-city check-in flow analysis · VIP verification review · Perk & offer redemption audit · Sponsor activation mapping · Staff onboarding gaps identified · Tour-pass workflow design<br><br>
+<strong>Team Roles:</strong> Tour ops lead · VIP & experience lead · Platform contact · Sponsorship lead<br><br>
+<strong>Success Metric:</strong> First pilot city fully scoped and prepped for deployment.
+</div>
+</div>
+
+<div class="phase-block teal">
+<div class="phase-name">PHASE 2 — PILOT STOP DEPLOYMENT</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Launch TourPass at the first city. Prove the system before scaling.<br><br>
+<strong>Deliverables:</strong> Wristbands or digital wallet cards distributed · Check-in flow live · VIP verification active · Sponsor offers loaded and scan-to-redeem enabled · KPI baseline captured<br><br>
+<strong>KPI Targets:</strong> Check-in rate · VIP conversion · Perk redemption rate · Fan adoption % · Tour-wide per-cap vs. prior year<br><br>
+<strong>Success Metric:</strong> Operational stability + positive fan experience signal.
+</div>
+</div>
+
+</div>
+
+<div>
+
+<div class="ops-panel">
+<div class="ops-panel-title">IMPLEMENTATION REALITY</div>
+<div class="ops-panel-body">
+Most tour deployments fail because operators attempt to scale before:<br><br>
+• check-in consistency<br>
+• VIP workflow stability<br>
+• staff confidence per city<br><br>
+have been proven at one stop.<br><br>
+The best systems scale one city at a time.
+</div>
+</div>
+
+<div class="stat-box" style="margin-bottom:12px;">
+<div class="sb-num" style="font-size:32px;">4</div>
+<div class="sb-label">Phased tour rollout framework</div>
+<div class="sb-sub">City Mapping → Pilot Stop → Optimization → Full Tour Scale</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal); font-size:32px;">1</div>
+<div class="sb-label">Pilot city first</div>
+<div class="sb-sub">Never expand across the full tour before workflow stability is proven at stop one.</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">08</div>
+<div class="ft">Rollout Phases 1–2 · City Mapping & Pilot</div>
+</div>
+
+</div>
+
+<!-- PAGE 9 — PHASES 3–4 + CHECKLIST -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title" style="font-size:34px;">ROLLOUT PHASES<br>3 & 4</h2>
+
+<div class="two-col" style="grid-template-columns:55% 40%;">
+
+<div>
+
+<div class="phase-block navy">
+<div class="phase-name">PHASE 3 — CITY-BY-CITY OPTIMIZATION</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Improve check-in speed, perk redemption, and sponsor activation performance across each city.<br><br>
+<strong>Deliverables:</strong> Check-in flow adjustments · VIP workflow tuning · Offer redemption optimization · Sponsor activation performance review · Staff brief improvements · City-specific data review<br><br>
+<strong>KPI Targets:</strong> Check-in rate by city · Redemption rate · VIP conversion · Tour-wide per-cap spend · Sponsor scan-to-conversion
+</div>
+</div>
+
+<div class="phase-block">
+<div class="phase-name">PHASE 4 — FULL TOUR SCALE + SPONSOR ACTIVATION LAYER</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Expand TourPass to all remaining tour stops and activate the full sponsorship data layer.<br><br>
+<strong>Expansion Areas:</strong> All remaining cities · Multi-city VIP pass upsells · Tour-wide loyalty and gamification · Sponsor performance reporting · Post-tour analytics package<br><br>
+<strong>Goal:</strong> Tour-wide unified revenue and engagement infrastructure.
+</div>
+</div>
+
+<div class="callout" style="margin-top:8px;">
+<strong>Scale rule:</strong> Do not expand to the full tour until pilot KPIs stabilize at stop one.
+</div>
+
+</div>
+
+<div>
+
+<div class="ops-panel" style="margin-bottom:0;">
+<div class="ops-panel-title">DEPLOYMENT CHECKLIST</div>
+
+<div class="chk-row"><span>☐ City-by-city friction audit completed</span></div>
+<div class="chk-row"><span>☐ All fan pass data pre-loaded before each stop</span></div>
+<div class="chk-row"><span>☐ Check-in lane layout confirmed per venue</span></div>
+<div class="chk-row"><span>☐ VIP verification workflow tested live</span></div>
+<div class="chk-row"><span>☐ Perk and offer redemption triggers confirmed</span></div>
+<div class="chk-row"><span>☐ Sponsor activation zones mapped and signage ready</span></div>
+<div class="chk-row"><span>☐ City staff brief distributed 48 hours pre-event</span></div>
+<div class="chk-row"><span>☐ Access fallback procedure created and distributed</span></div>
+<div class="chk-row"><span>☐ Tour-wide KPI dashboard configured</span></div>
+<div class="chk-row" style="border-bottom:none;"><span>☐ Fan adoption benchmarks established at stop one</span></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">09</div>
+<div class="ft">Optimization · Scale · Deployment Checklist</div>
+</div>
+
+</div>
+
+<!-- PAGE 10 — EXECUTIVE KPI TRACKING -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title">EXECUTIVE KPI TRACKING</h2>
+
+<div class="sec-intro" style="margin-bottom:16px;">
+TourPass systems should be measured operationally — not emotionally. Without KPI tracking city by city, optimization becomes guesswork.
+</div>
+
+<div class="kpi-grid">
+
+<div class="stat-box"><div class="sb-num" style="font-size:36px;">CHK</div><div class="sb-label">Check-in rate by city</div></div>
+<div class="stat-box" style="border-left-color:var(--teal)"><div class="sb-num" style="color:var(--teal);font-size:36px;">RDM</div><div class="sb-label">Perk & offer redemption rate</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:32px;">VIP</div><div class="sb-label">VIP conversion rate</div></div>
+<div class="stat-box" style="border-left-color:var(--navy)"><div class="sb-num" style="color:var(--navy);font-size:32px;">PPC</div><div class="sb-label">Tour-wide per-cap spend</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:36px;">SPR</div><div class="sb-label">Sponsor scan-to-redemption ROI</div></div>
+<div class="stat-box" style="border-left-color:var(--teal)"><div class="sb-num" style="color:var(--teal);font-size:36px;">MCC</div><div class="sb-label">Multi-city conversion rate</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:32px;">CITY</div><div class="sb-label">Revenue by city</div></div>
+<div class="stat-box" style="border-left-color:var(--gold)"><div class="sb-num">ADP</div><div class="sb-label">Fan adoption rate per stop</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:36px;">RTN</div><div class="sb-label">Repeat tour registration %</div></div>
+<div class="stat-box" style="border-left-color:var(--teal)"><div class="sb-num" style="color:var(--teal);font-size:36px;">ABN</div><div class="sb-label">Perk abandonment rate</div></div>
+
+</div>
+
+<div class="ops-panel navy" style="margin-top:14px;margin-bottom:0;">
+<div class="ops-panel-title">MEASUREMENT PRINCIPLE</div>
+<div class="ops-panel-body">
+TourPass infrastructure must be tracked per city — check-in rate, redemption, VIP conversion, and per-cap spend. Emotional impressions from the team do not replace operational data from the dashboard.
+</div>
+</div>
+
+<div class="callout" style="margin-top:14px;padding:14px;">
+<strong>Executive rule:</strong> If a KPI cannot be tracked after each city, it cannot be optimized before the next one.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">10</div>
+<div class="ft">Executive KPI Dashboard</div>
+</div>
+
+</div>
+
+<!-- PAGE 11 — CHECK-INS + PIVOT -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title" style="font-size:36px;">IMPLEMENTATION<br>CHECK-INS</h2>
+
+<div class="two-col" style="grid-template-columns:52% 44%;">
+
+<div class="timeline compact">
+
+<div class="t-row">
+<div class="t-date">7-DAY</div>
+<div class="t-line"><div class="dot"></div><div class="line"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--navy);">7-DAY CHECK-IN</div>
+<div class="t-body" style="color:var(--ink);">Pre-tour review — city mapping confirmed · staff briefed · all pass data loaded · pilot city fully prepped</div>
+</div>
+</div>
+
+<div class="t-row">
+<div class="t-date" style="color:var(--teal)">14-DAY</div>
+<div class="t-line"><div class="dot" style="background:var(--teal)"></div><div class="line" style="background:rgba(0,212,170,.25)"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--teal);">14-DAY CHECK-IN</div>
+<div class="t-body" style="color:var(--ink);">First stop post-review — check-in data pulled · VIP conversion reviewed · redemption rate analyzed · city two adjustments made</div>
+</div>
+</div>
+
+<div class="t-row">
+<div class="t-date" style="color:var(--navy)">30-DAY</div>
+<div class="t-line"><div class="dot" style="background:#fff;border:2px solid var(--navy)"></div><div class="line"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--navy);">30-DAY CHECK-IN</div>
+<div class="t-body" style="color:var(--ink);">Mid-tour review — per-cap trajectory evaluated · sponsor activation performance reviewed · upsell campaigns refined</div>
+</div>
+</div>
+
+<div class="t-row">
+<div class="t-date">90-DAY</div>
+<div class="t-line"><div class="dot"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--gold);">90-DAY REVIEW</div>
+<div class="t-body" style="color:var(--ink);">Full tour season review · LTV and repeat registration analysis · sponsor performance package delivered · next tour planning</div>
+</div>
+</div>
+
+</div>
+
+<div>
+
+<div class="callout" style="margin-top:0;">
+<div class="ops-panel-title" style="margin-bottom:8px;">PIVOT CONDITIONS</div>
+<div class="ops-panel-body">
+If adoption is low after the pilot city:<br><br>
+• simplify the check-in flow<br>
+• retrain city staff on the process<br>
+• improve signage at check-in lanes<br>
+• reduce steps to access perks<br>
+• narrow deployment scope at next stop<br><br>
+<strong style="color:var(--gold);">Do not scale a broken handoff.</strong>
+</div>
+</div>
+
+<div class="stat-box" style="margin-top:14px;">
+<div class="sb-num" style="font-size:32px;">90</div>
+<div class="sb-label">Day full tour season review gate</div>
+<div class="sb-sub">No next-season planning before the 90-day review is complete and KPIs are analyzed.</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">11</div>
+<div class="ft">Check-In Schedule · Pivot Conditions</div>
+</div>
+
+</div>
+
+<!-- PAGE 12 — BRAND POSITIONING + OWNERSHIP -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg" style="display:flex;flex-direction:column;justify-content:space-between;">
+
+<div style="padding-top:20px;">
+
+<div class="eyebrow">Operational Infrastructure</div>
+
+<h2 class="brand-banner">
+TOURPASS IS NOT EVENT TECH.<br>
+<span class="gold">IT IS TOUR-WIDE<br>REVENUE INFRASTRUCTURE.</span>
+</h2>
+
+<div class="teal-bar"></div>
+
+</div>
+
+<div class="two-col" style="grid-template-columns:1fr 1fr;gap:20px;margin-bottom:12px;">
+
+<div class="ops-panel navy" style="margin-bottom:0;">
+<div class="ops-panel-title">WHO OWNS THE SYSTEM?</div>
+<div class="ops-panel-body">
+Successful TourPass deployments require:<br><br>
+• one operational owner per city<br>
+• one performance owner for the full tour<br>
+• one escalation owner for the season<br><br>
+Without accountability, city-by-city consistency breaks down.
+</div>
+</div>
+
+<div class="grid-card" style="margin-bottom:0;">
+<div class="t-head">ACCOUNTABILITY STACK</div>
+<div class="t-body" style="margin-top:12px;line-height:1.9;">
+City Owner → daily check-in ops<br>
+Performance Owner → KPI review per stop<br>
+Escalation Owner → pivot decisions<br>
+Tour Leadership → full tour scale
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">12</div>
+<div class="ft">Infrastructure Positioning · Operational Ownership</div>
+</div>
+
+</div>
+
+<!-- PAGE 13 — WHY STANDARD DEPLOYMENTS FAIL -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Final Section</div>
+
+<h2 class="sec-title">
+WHY STANDARD TOUR<br>
+DEPLOYMENTS FAIL
+</h2>
+
+<div class="sec-intro">
+Most failed implementations don't fail because the technology is ineffective.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+They fail because:
+</p>
+
+<p>
+<strong>• city setups are fragmented and inconsistent</strong><br>
+<strong>• VIP management is still manual and error-prone</strong><br>
+<strong>• perk redemption has no unified system behind it</strong><br>
+<strong>• staff at each city have no standard process</strong><br>
+<strong>• sponsor proof is city-by-city estimates, not data</strong><br>
+<strong>• there is no tour-wide view of who showed up or spent what</strong><br>
+<strong>• the workflow adds friction instead of removing it at every handoff</strong>
+</p>
+
+<p>
+Many tour operators underestimate:
+</p>
+
+<p>
+<strong>• fan psychology at each new city</strong><br>
+<strong>• the cost of one bad handoff on the full tour brand</strong><br>
+<strong>• the sponsor value they're leaving on the table</strong><br>
+<strong>• the per-cap spend sitting in unredeemed offers</strong><br>
+<strong>• what consistency across cities actually requires</strong>
+</p>
+
+<div class="callout">
+<strong>The fastest way to lose a touring fan</strong><br><br>
+is giving them a great event wrapped in a bad logistics experience.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">30</div>
+<div class="sb-label">Minute Revenue Fit Session</div>
+
+<div class="sb-sub">
+Identify your highest-leverage city deployment zones, handoff friction points, and fastest path to per-cap lift based on your tour type and current setup.
+</div>
+</div>
+
+<div class="q-card">
+
+<div class="q-text">
+"The tour that removes friction at every handoff usually wins the fan for the next one."
+</div>
+
+<div class="q-author">
+Scan & Scale
+</div>
+
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal)">
+<div class="sb-num" style="color:var(--teal)">10+</div>
+
+<div class="sb-label">
+Cities worth of data from one unified system
+</div>
+
+<div class="sb-sub">
+One deployment compounds across every stop. The data layer improves with every city on the run.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">13</div>
+<div class="ft">Revenue Fit Session & Deployment Strategy</div>
+</div>
+
+</div>
+
+<!-- PAGE — REVENUE FIT CTA -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Your Next Step</div>
+
+<h2 class="sec-title" style="color:#fff;font-size:40px;">THE TOUR THAT MOVES<br>FIRST WINS THE FAN.</h2>
+
+<div class="sec-intro" style="color:rgba(255,255,255,0.75);margin-bottom:18px;font-size:13px;">
+YOUR NEXT STEP
+</div>
+
+<div class="body" style="color:rgba(255,255,255,0.88);font-size:12.5px;margin-bottom:20px;">
+
+<p>You now have the leak identified. The cities ranked. The handoff points mapped. The materials listed. The team defined.</p>
+
+<p>The only thing left is the decision.</p>
+
+<p>Every city you run without a unified identity layer is another stop where fragmented check-in, missed perks, and manual VIP management are deciding how your fans feel about the full tour. The operators who close this gap first don't do it because they had more resources. They do it because they moved while everyone else was still figuring out spreadsheets.</p>
+
+<p>Your 30-minute Revenue Fit Session is free. We'll identify your highest-leverage deployment city, your fastest path to per-cap lift, and exactly what your TourPass setup looks like before your next stop.</p>
+
+</div>
+
+<div class="two-col" style="grid-template-columns:1fr auto;gap:24px;align-items:center;">
+
+<div>
+<a class="cta-btn" href="https://scan-and-scale.seamlessly.us/calculator/tourpass">BOOK YOUR FREE REVENUE FIT SESSION</a>
+</div>
+
+<div class="qr-box">
+<img src="./assets/qr-revenue-fit.png" alt="Scan to book your Revenue Fit Session" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+<div class="qr-fallback" style="display:none;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;">
+SCAN TO BOOK
+</div>
+</div>
+
+</div>
+
+<div class="gold-rule"></div>
+
+<div class="closing-line">SCAN &amp; SCALE · TOURPASS REVENUE AUDIT · SEAMLESSLY.US</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">18</div>
+<div class="ft">Book Your Revenue Fit Session</div>
+</div>
+
+</div>
+
+<!-- PAGE — THIS IS JUST THE BEGINNING -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">TOURPASS REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-gold-top">
+
+<div class="exp-heading-white" style="font-size:36px;">THIS IS JUST THE BEGINNING</div>
+<div class="exp-label-teal">What TourPass Infrastructure Connects to Next</div>
+
+<div class="exp-body">
+<p>Everything in this audit covers unified identity and access — less friction at check-in, consistent VIP verification, seamless perk redemption, and sponsor proof at every city.</p>
+<p>There is a larger system underneath it.</p>
+<p>Ticketing. Pre-event packages. Multi-city loyalty programs. Post-event fan data. Bar tab management. POS integration. Season-long engagement analytics.</p>
+<p>Every friction point in the total fan journey — from the moment they register for the tour to the moment they decide whether to do it again next year — is a touchpoint the Seamlessly ecosystem can make faster, smoother, and more revenue-generative. TourPass handles access, identity, redemption, and data today. POS integration and bar tab management close the loop tomorrow.</p>
+<p>We are not going to overwhelm you with all of it today.</p>
+<p>Your first move is the one that matters. Pick the city. Launch the pilot. Prove the handoff works.</p>
+<p>When you're ready to go deeper, we'll be there.</p>
+<p>Seamlessly is the operating system underneath TourPass. It connects your identity infrastructure to your ticketing, your loyalty program, your sponsor activation layer, and your full fan analytics — in one platform built specifically for traveling event brands, fan-group operators, and city-takeover organizers. TourPass is the entry point. Seamlessly is the destination.</p>
+</div>
+
+<div class="gold-rule"></div>
+
+<div class="teal-closing">ACCESS & IDENTITY TODAY · POS-LINKED REVENUE TOMORROW · SEAMLESSLY.US</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">The Total Fan Experience</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+async function downloadPNGs(){
+
+  const zip = new JSZip();
+  const pages = document.querySelectorAll('.page');
+  await document.fonts.ready;
+
+  for(let i=0;i<pages.length;i++){
+    const canvas = await html2canvas(pages[i],{
+      scale:2,
+      backgroundColor:'#ffffff',
+      width:816,
+      height:1056,
+      useCORS:true
+    });
+    const data = canvas.toDataURL('image/png');
+    zip.file(
+      `tourpass-revenue-audit-p${i+1}.png`,
+      data.split(',')[1],
+      {base64:true}
+    );
+  }
+
+  const blob = await zip.generateAsync({type:'blob'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'tourpass-revenue-audit.zip';
+  a.click();
+
+}
+
+</script>
+<script src="/js/checkout.js"></script>
+<script>
+  document.getElementById('buy-blueprint-btn')?.addEventListener('click', function () {
+    startCheckout('magic-bands-deployment-blueprint', this);
+  });
+</script>
+
+</body>
+</html>

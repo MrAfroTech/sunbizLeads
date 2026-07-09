@@ -1,0 +1,323 @@
+{
+  "name": "07 - Stakeholder Mapping (Enterprise)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Weekly on Monday 9 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:V",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "score",
+              "condition": "gte",
+              "value": 15
+            },
+            {
+              "fieldName": "location_count",
+              "condition": "gte",
+              "value": 3
+            },
+            {
+              "fieldName": "status",
+              "condition": "notContains",
+              "value": "Contacted"
+            }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "get-enterprise",
+      "name": "Get Enterprise Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://www.linkedin.com/search/results/companies/?keywords={{ encodeURIComponent($json.business_name) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "search-linkedin",
+      "name": "Search LinkedIn Company",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are an expert at B2B sales stakeholder mapping for hospitality tech (SaaS platform).\n\nFor a venue/restaurant group, identify WHO makes buying decisions for:\n- Technology platforms\n- POS systems\n- Guest experience tools\n\nTypical stakeholders:\n- Operations Director (feels pain, champions solution)\n- Technology/IT Director (evaluates technical fit)\n- CFO/Finance (approves budget)\n- CEO/Owner (final sign-off for large deals)\n- General Manager (user, provides feedback)\n\nReturn JSON array of roles needed for this deal size."
+            },
+            {
+              "role": "user",
+              "content": "=Map stakeholders for this opportunity:\n\nCompany: {{ $json.business_name }}\nType: {{ $json.category }}\nSize: {{ $json.review_count }} reviews\nLocations: {{ $json.location_count }}\nScore: {{ $json.score }}\n\nBased on size, who needs to be involved in buying decision?\n\nReturn JSON:\n[\n  {\n    \"role\": \"operations_director\",\n    \"title_variants\": [\"VP Operations\", \"Director of Operations\", \"COO\"],\n    \"priority\": 1,\n    \"why\": \"Champions solution, feels pain daily\"\n  },\n  ...\n]"
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.3,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "map-stakeholders",
+      "name": "Map Org Structure",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [850, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leadData = $node[\"Get Enterprise Leads\"].json;\n\nlet stakeholders = [];\ntry {\n  const response = $json.message.content;\n  const parsed = JSON.parse(response);\n  stakeholders = Array.isArray(parsed) ? parsed : (parsed.stakeholders || []);\n} catch (e) {\n  console.error('Failed to parse stakeholders:', e);\n  // Default stakeholder map for hospitality\n  stakeholders = [\n    {\n      role: 'operations',\n      title_variants: ['Operations Director', 'VP Operations', 'Director of Guest Experience'],\n      priority: 1,\n      why: 'Primary champion'\n    },\n    {\n      role: 'technology',\n      title_variants: ['IT Director', 'Technology Director', 'CTO'],\n      priority: 2,\n      why: 'Technical evaluation'\n    },\n    {\n      role: 'finance',\n      title_variants: ['CFO', 'Finance Director', 'Controller'],\n      priority: 3,\n      why: 'Budget approval'\n    }\n  ];\n}\n\nreturn {\n  ...leadData,\n  stakeholder_map: JSON.stringify(stakeholders),\n  stakeholder_count: stakeholders.length,\n  multi_threaded: stakeholders.length > 1 ? 'yes' : 'no',\n  status: 'Stakeholders Mapped',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "parse-stakeholders",
+      "name": "Process Stakeholder List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "stakeholder_map": "={{ $json.stakeholder_map }}",
+            "multi_threaded": "={{ $json.multi_threaded }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "write-stakeholders",
+      "name": "Write Stakeholder Map",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1250, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "multi-check",
+              "leftValue": "={{ $json.stakeholder_count }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-complexity",
+      "name": "Check Deal Complexity",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=Enterprise Deal Requires Multi-Threading: {{ $json.business_name }}",
+        "emailType": "text",
+        "message": "=High-value opportunity needs multi-stakeholder approach:\n\nCompany: {{ $json.business_name }}\nScore: {{ $json.score }}\nLocations: {{ $json.location_count }}\nEst. Value: ${{ $json.estimated_monthly_loss * 12 }}/year\n\nStakeholders identified:\n{{ $json.stakeholder_map }}\n\nAction: Create coordinated outreach plan for each role.\n\nRecommendation:\n1. Start with Operations (champion)\n2. Loop in Technology (evaluation)\n3. Present ROI to Finance\n4. Executive summary for C-suite",
+        "options": {}
+      },
+      "id": "alert-multi",
+      "name": "Alert: Multi-Touch Required",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1650, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// For single-stakeholder deals, standard outreach applies\nreturn {\n  ...$input.first().json,\n  outreach_strategy: 'standard',\n  status: 'Ready for Standard Outreach'\n};"
+      },
+      "id": "create-sequence",
+      "name": "Create Multi-Touch Sequence",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 350]
+    }
+  ],
+  "connections": {
+    "Weekly on Monday 9 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Enterprise Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Enterprise Leads": {
+      "main": [
+        [
+          {
+            "node": "Search LinkedIn Company",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search LinkedIn Company": {
+      "main": [
+        [
+          {
+            "node": "Map Org Structure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Org Structure": {
+      "main": [
+        [
+          {
+            "node": "Process Stakeholder List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Stakeholder List": {
+      "main": [
+        [
+          {
+            "node": "Write Stakeholder Map",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Stakeholder Map": {
+      "main": [
+        [
+          {
+            "node": "Check Deal Complexity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Deal Complexity": {
+      "main": [
+        [
+          {
+            "node": "Alert: Multi-Touch Required",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Multi-Touch Sequence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

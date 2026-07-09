@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan &amp; Scale — Issue 002: The 80% Rule (Sports Edition)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #111;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+}
+.newsletter { width: 640px; display: flex; flex-direction: column; gap: 0; }
+
+/* HEADER */
+.nl-header { background: #1A2A44; border-bottom: 4px solid #D4AF37; position: relative; overflow: hidden; }
+.nl-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.04) 79px, rgba(212,175,55,0.04) 80px),
+    repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(212,175,55,0.03) 39px, rgba(212,175,55,0.03) 40px);
+  z-index: 1;
+}
+.nl-header-inner { padding: 32px 40px 24px; position: relative; z-index: 2; }
+.nl-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #00D4AA; text-transform: uppercase; margin-bottom: 8px; }
+.nl-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #fff; letter-spacing: 3px; line-height: 1; margin-bottom: 2px; }
+.nl-wordmark span { color: #D4AF37; }
+.nl-subtitle { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; line-height: 1.5; }
+.nl-issue-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.meta-pill { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.meta-pill.gold { background: #D4AF37; color: #1A2A44; }
+.meta-pill.teal { background: #00D4AA; color: #1A2A44; }
+.meta-pill.outline { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+
+/* HERO BAND */
+.hero-band {
+  background: #D4AF37;
+  padding: 28px 40px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.hero-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: #1A2A44; line-height: 1; flex-shrink: 0; opacity: 0.15; }
+.hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.6); margin-bottom: 6px; }
+.hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #1A2A44; letter-spacing: 1px; line-height: 1.05; }
+
+/* BODY */
+.nl-body { background: #fff; padding: 36px 40px; display: flex; flex-direction: column; gap: 28px; }
+
+.opening-quote { border-left: 4px solid #D4AF37; padding: 16px 20px; background: #FEFCF3; border-radius: 0 4px 4px 0; }
+.opening-quote p { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; color: #1A2A44; line-height: 1.65; }
+
+.body-text { font-size: 15px; color: #1A1A1A; line-height: 1.8; }
+.body-text p { margin-bottom: 16px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: #1A2A44; font-weight: 700; }
+
+.section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #D4AF37; margin-bottom: 8px; }
+.section-head { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 14px; line-height: 1; }
+
+/* PILLARS */
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pillar-card {
+  background: #1A2A44;
+  border-radius: 4px;
+  padding: 20px;
+  border-bottom: 3px solid #D4AF37;
+  position: relative;
+  overflow: hidden;
+}
+.pillar-card:nth-child(2) { border-color: #00D4AA; }
+.pillar-card:nth-child(3) { border-color: #00D4AA; }
+.pillar-card:nth-child(4) { border-color: #D4AF37; }
+.pillar-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: rgba(255,255,255,0.06);
+  position: absolute;
+  top: 8px; right: 12px;
+  line-height: 1;
+}
+.pillar-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 6px; }
+.pillar-card:nth-child(2) .pillar-label,
+.pillar-card:nth-child(3) .pillar-label { color: #00D4AA; }
+.pillar-head { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; letter-spacing: 0.5px; margin-bottom: 8px; }
+.pillar-body { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+/* CONTRAST */
+.contrast-block { background: #F4F6F9; border-radius: 4px; padding: 24px; }
+.contrast-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #1A2A44; letter-spacing: 1px; margin-bottom: 16px; }
+.contrast-row { display: flex; gap: 16px; margin-bottom: 12px; }
+.contrast-row:last-child { margin-bottom: 0; }
+.contrast-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.contrast-tag.tactic { background: rgba(224,82,82,0.12); color: #C03C3C; }
+.contrast-tag.framework { background: rgba(0,212,170,0.12); color: #00A884; }
+.contrast-text { font-size: 13.5px; color: #333; line-height: 1.6; }
+
+/* USE CASE STRIP */
+.usecase-strip { display: flex; flex-direction: column; gap: 8px; }
+.usecase-strip-head { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #D4AF37; margin-bottom: 4px; }
+.usecase-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #F9FAFB;
+  border-left: 3px solid transparent;
+  border-radius: 0 3px 3px 0;
+}
+.usecase-item:nth-child(odd) { border-color: #D4AF37; }
+.usecase-item:nth-child(even) { border-color: #00D4AA; }
+.uc-label { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: #D4AF37; flex-shrink: 0; width: 90px; padding-top: 1px; }
+.usecase-item:nth-child(even) .uc-label { color: #00A884; }
+.uc-body { font-size: 13px; color: #1A2A44; line-height: 1.55; }
+.uc-body strong { font-weight: 700; }
+
+/* STAT HIGHLIGHT */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-card { background: #1A2A44; border-radius: 4px; padding: 18px 16px; text-align: center; }
+.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #D4AF37; line-height: 1; margin-bottom: 6px; }
+.stat-card:nth-child(2) .stat-num { color: #00D4AA; }
+.stat-desc { font-size: 11.5px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+/* CTA */
+.cta-block { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.cta-hint { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(26,42,68,0.4); text-align: center; }
+.cta-btn { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; padding: 18px 28px; border-radius: 4px; text-decoration: none; display: block; text-align: center; background: #D4AF37; color: #1A2A44; transition: opacity 0.2s; }
+.cta-btn:hover { opacity: 0.88; }
+.cta-sub { font-size: 12px; color: rgba(26,42,68,0.5); text-align: center; font-style: italic; }
+
+/* FOOTER */
+.nl-footer { background: #1A2A44; padding: 28px 40px; border-top: 4px solid #D4AF37; }
+.social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+.social-btn { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; padding: 8px 14px; border-radius: 3px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: opacity 0.2s; text-align: center; }
+.social-btn:hover { opacity: 0.8; }
+.social-btn.ig { background: #D4AF37; color: #1A2A44; }
+.social-btn.li { background: #0077B5; color: #fff; }
+.social-btn.web { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+.social-btn.speak { background: #00D4AA; color: #1A2A44; }
+.social-icon { width: 14px; height: 14px; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.footer-bottom { border-top: 1px solid rgba(212,175,55,0.2); padding-top: 16px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #D4AF37; letter-spacing: 3px; line-height: 1; margin-bottom: 4px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.footer-note { font-size: 10.5px; color: rgba(255,255,255,0.35); font-style: italic; text-align: right; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="newsletter">
+
+  <div class="nl-header">
+    <div class="nl-header-inner">
+      <div class="nl-eyebrow">Scan &amp; Scale — Fan Intelligence Series</div>
+      <div class="nl-wordmark">SCAN &amp; <span>SCALE</span></div>
+      <div class="nl-subtitle">QR intelligence for sports teams, stadiums, and live event venues</div>
+      <div class="nl-issue-meta">
+        <div class="meta-pill gold">Issue 002</div>
+        <div class="meta-pill teal">Sports Edition</div>
+        <div class="meta-pill outline">5 min read</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-band">
+    <div class="hero-num">80</div>
+    <div class="hero-text">
+      <div class="hero-kicker">The Fan Data Gap</div>
+      <div class="hero-headline">8 IN 10 FANS WILL SHARE DATA.<br>MOST TEAMS DO NOTHING WITH IT.</div>
+    </div>
+  </div>
+
+  <div class="nl-body">
+
+    <div class="opening-quote">
+      <p>"Your fans are already willing to tell you who they are. The question is whether you're set up to listen."</p>
+    </div>
+
+    <div class="body-text">
+      <p>More than 80% of consumers will share data via QR code — either by opting in directly or through an opt-out flow. That number isn't a maybe. It's been consistent across multiple independent studies.</p>
+      <p>Yet fewer than 36% of marketers actually use QR codes to deliver a personalized follow-up experience. In sports, the gap is even wider. Most stadiums use QR codes to solve one problem — get people through the gate or to a digital menu — and stop there.</p>
+      <p>The scan happens. Nothing follows. The fan goes home. You don't know who they were.</p>
+      <p>That's the 80% rule. Most of your fans are willing to give you something. Most teams aren't built to receive it.</p>
+    </div>
+
+    <div>
+      <div class="section-label">WHAT'S ACTUALLY HAPPENING IN YOUR STADIUM</div>
+      <div class="section-head">The Problem Isn't QR Adoption. It's What Comes After.</div>
+      <div class="pillars">
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <div class="pillar-label">THE COLLECTION GAP</div>
+          <div class="pillar-head">You're Counting Scans. Not Building Fan Profiles.</div>
+          <div class="pillar-body">90%+ of marketers say QR codes are valuable for first-party data collection. Most stadiums track scan volume. That's not a fan profile — that's a page view. Scan count doesn't tell you who will renew their season tickets.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <div class="pillar-label">THE INTENT GAP</div>
+          <div class="pillar-head">75% of Fans Scan to Get More Information. You're Not Giving Them Any.</div>
+          <div class="pillar-body">The top reason fans scan QR codes is to get more information. The second is discounts. Most stadium QR codes deliver a static menu or a ticketing link. That's not information. It's a redirect. There's no preference capture, no follow-up, no memory of the interaction.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <div class="pillar-label">THE REVENUE GAP</div>
+          <div class="pillar-head">A One-Time Ticket Buyer Is Not a Season Ticket Holder.</div>
+          <div class="pillar-body">QR data — if collected and acted on — can tell you which fans come back, what they buy, what they care about, and which ones are drifting. Without it, every renewal campaign is a cold guess. With it, you know exactly who to target and what to say.</div>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">04</div>
+          <div class="pillar-label">THE TRUST GAP</div>
+          <div class="pillar-head">Fans Trust QR Codes More Than They Did Last Year.</div>
+          <div class="pillar-body">Nearly 60% of consumers say they're confident QR codes are safe to scan. Over 25% trust them more now than 12 months ago. The barrier to opt-in is lower than it's ever been. The only thing missing is a system that uses what fans are already willing to share.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">THE NUMBERS BEHIND THE GAP</div>
+      <div class="section-head">This Is What's Being Left on the Table.</div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">80%+</div>
+          <div class="stat-desc">of consumers will share data via QR — 42% with consent, 41% opt-out</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">36%</div>
+          <div class="stat-desc">of marketers actually use QR data to deliver personalized follow-up</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">94%</div>
+          <div class="stat-desc">of marketers increased QR usage last year — but growth alone isn't intelligence</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>Gen Z and Millennials — the core demographics for basketball, soccer, and esports — already scan QR codes at least weekly. The behavior is there. The question is whether you're capturing anything when they do.</p>
+    </div>
+
+    <div>
+      <div class="section-label">WHAT FAN INTELLIGENCE ACTUALLY LOOKS LIKE</div>
+      <div class="section-head">Same QR Code. Completely Different Outcome.</div>
+      <div class="contrast-block">
+        <div class="contrast-title">The difference isn't the scan. It's what your system does next.</div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">Fan scans a QR code at the concession stand. Gets a menu. Orders or doesn't. You have no idea who they are, what they like, or whether they'll be back next week.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">Fan scans. System captures preference — what they ordered, when, how often they've been in. Next game, they get a relevant offer tied to their history. You know who your repeat fans are before renewal season starts.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag tactic">WITHOUT IT</span>
+          <div class="contrast-text">Renewal campaigns go to every name in the database with the same message. Conversion rates are inconsistent and hard to explain.</div>
+        </div>
+        <div class="contrast-row">
+          <span class="contrast-tag framework">WITH IT</span>
+          <div class="contrast-text">You can identify lapsed fans — someone who hasn't scanned in three games — and reach out with a specific, relevant reason to come back. Not a blast. A targeted interaction.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">WHAT THIS LOOKS LIKE INSIDE YOUR VENUE</div>
+      <div class="section-head">Four Places Where Fan Intelligence Changes the Outcome.</div>
+      <div class="usecase-strip">
+        <div class="usecase-item">
+          <div class="uc-label">CONCESSIONS</div>
+          <div class="uc-body"><strong>Fan scans at a food stand.</strong> System knows they ordered wings last game. This game they get a relevant offer tied to what they already bought — not a generic discount, a specific one. Purchase history drives the offer. That's the difference between a promotion and a personalized interaction.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">MERCHANDISE</div>
+          <div class="uc-body"><strong>Fan scans a jersey tag at the team store.</strong> System connects their scan history to a favorite player they've interacted with before. Shows them the next home game date and a relevant bundle offer. The scan becomes a conversion point instead of a browse.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">ENTRY &amp; PARKING</div>
+          <div class="uc-body"><strong>Fan scans at gate entry.</strong> System knows their visit frequency and usual arrival pattern. Over time, you understand peak arrival behavior across your entire fan base. That's operational data that informs staffing, security deployment, and lane design — not just a head count.</div>
+        </div>
+        <div class="usecase-item">
+          <div class="uc-label">FAN RETENTION</div>
+          <div class="uc-body"><strong>Fan misses three games in a row.</strong> System flags them as lapsed. Your team reaches out with a specific reason to return — not a mass email, a targeted message tied to their fan history. That's the difference between a renewal strategy and a retention system.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      <p>The point isn't that QR codes are new. 94% of sports marketers already increased QR usage last year. The point is that adding more QR codes without a system behind them just gives you more scans. More scans aren't more fans.</p>
+      <p>If you're curious how your current setup compares — or whether what you're collecting now is actually being used — the Scan &amp; Scale audit is a straightforward way to find out. It's free, it's specific to your venue, and it gives you a dollar figure to work with.</p>
+    </div>
+
+    <div class="cta-block">
+      <p class="cta-hint">No pressure — just a clearer picture of what you're working with</p>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/calculator/magic-bands?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank">
+        RUN YOUR FREE VENUE REVENUE AUDIT →
+      </a>
+      <a class="cta-btn" href="https://scan-and-scale.seamlessly.us/magicBandsImplementationGuide.html?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank" style="background: #1A2A44; color: #D4AF37; border: 2px solid #D4AF37;">
+        GET THE FAN INTELLIGENCE DEPLOYMENT GUIDE →
+      </a>
+      <p class="cta-sub">Takes about 10 minutes. You'll walk away with a number, not a pitch.</p>
+    </div>
+
+  </div>
+
+  <div class="nl-footer">
+    <div class="social-grid">
+      <a class="social-btn ig" href="https://instagram.com/maurice.seamlessly" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a class="social-btn li" href="https://www.linkedin.com/in/maurice-sanders1" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="social-btn web" href="https://scan-and-scale.seamlessly.us/products?contactId={{ contact.ID }}&amp;email={{ contact.EMAIL }}&amp;firstName={{ contact.FIRSTNAME }}&amp;lastName={{ contact.LASTNAME }}&amp;campaign={{ message.id }}" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Scan &amp; Scale
+      </a>
+      <a class="social-btn speak" href="https://calendly.com/staying-ahead-of-the-game/seamless-chat-clone" target="_blank">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Book A Demo
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand">SCAN &amp; SCALE</div>
+        <div class="footer-copy">A Seamlessly Production · Fan Intelligence Series · © 2026 All rights reserved.</div>
+      </div>
+      <div class="footer-note">
+        You're receiving this because you engaged with the Scan &amp; Scale Revenue Audit.
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

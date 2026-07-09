@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@mauricethefirst — Guest Intelligence & Inventory Series</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #111; padding: 32px; color: #fff; }
+    h1 { text-align: center; font-size: 13px; letter-spacing: 3px; color: rgba(255,255,255,0.3); margin-bottom: 6px; text-transform: uppercase; }
+    .subtitle { text-align: center; font-size: 11px; color: rgba(255,255,255,0.2); margin-bottom: 40px; }
+    .day-label { width: 1080px; margin: 40px auto 10px auto; font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,0.25); text-transform: uppercase; }
+    .carousel { width: 1080px; margin: 0 auto 60px auto; }
+    .carousel-window { width: 1080px; overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.35s ease; }
+    .slide { width: 1080px; height: 1080px; flex-shrink: 0; position: relative; padding: 72px 140px; display: flex; flex-direction: column; }
+    .black { background: #000; color: #fff; }
+    .white { background: #fff; color: #000; }
+    .white .profile-handle { color: rgba(0,0,0,0.5); }
+    .white .name, .white .title { color: #000; }
+    .white .body { color: rgba(0,0,0,0.72); }
+    .white .ghost { color: rgba(0,0,0,0.06); }
+    .black .profile-handle { color: rgba(255,255,255,0.4); }
+    .black .ghost { color: rgba(255,255,255,0.06); }
+    .profile { display: flex; align-items: center; gap: 16px; margin-bottom: 80px; }
+    .avatar { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; background: #222; border: 2px solid rgba(255,255,255,0.1); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .name { font-size: 22px; font-weight: 700; }
+    .profile-handle { font-size: 18px; }
+    .content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .title { font-size: 54px; font-weight: 700; line-height: 1.1; max-width: 760px; }
+    .body { margin-top: 24px; font-size: 30px; line-height: 1.4; max-width: 760px; opacity: 0.75; }
+    .ghost { position: absolute; bottom: 32px; right: 72px; font-size: 280px; font-weight: 700; line-height: 1; letter-spacing: -10px; user-select: none; pointer-events: none; }
+    .nav { width: 1080px; margin: 10px auto 40px auto; display: flex; justify-content: space-between; align-items: center; }
+    button { padding: 10px 20px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border: none; background: #fff; color: #000; border-radius: 6px; }
+    button:disabled { opacity: 0.3; }
+    .dots { display: flex; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .dot.active { background: #fff; }
+    .download-btn { display: block; width: 1080px; margin: 12px auto 0 auto; padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #000; background: #fff; border: none; border-radius: 8px; cursor: pointer; transition: opacity 0.2s; }
+    .download-btn:hover { opacity: 0.85; }
+    .download-btn:disabled { opacity: 0.5; cursor: default; }
+    .download-all-btn { margin-top: 8px; background: rgba(255,255,255,0.12); color: #fff; }
+    .download-all-btn:hover { opacity: 0.9; }
+    .avatar-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #1a1a1a; }
+    .avatar-placeholder svg { width: 32px; height: 32px; stroke: rgba(255,255,255,0.2); }
+    .white .avatar-placeholder { background: #eee; }
+    .white .avatar-placeholder svg { stroke: rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body>
+
+<h1>@mauricethefirst</h1>
+<p class="subtitle">Carousels — Guest Intelligence & Inventory · 7 Thought Leadership Series</p>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="../personalBrandPhotos/profilePic-embed.js"></script>
+
+<script>
+(function () {
+
+  const PHOTO_SRC = window.PROFILE_PIC_DATA_URL || encodeURI('../personalBrandPhotos/profilePic.png');
+
+  const DATA = [
+    {
+      day: 'Reel 1 — Guest Intelligence Is Your Inventory Signal',
+      title: 'TWO VENUES. SAME MENU. ONE OF THEM KNOWS WHAT WILL MOVE BEFORE SERVICE STARTS.',
+      screens: [
+        'Same foot traffic. Same covers. Same bar team.',
+        'The difference? One operator knows what guests are actually ordering this week — and stocked accordingly.',
+        'The other is guessing based on last season’s spreadsheet.',
+        'When guest data tells you what’s coming, inventory stops being a guess and starts being a response.',
+        'The question isn’t whether you track guest behavior. It’s whether your inventory is already behind the operators who do.'
+      ],
+      finalSetup: 'How are you currently stocking — and when did you last adjust based on what guests actually wanted?'
+    },
+    {
+      day: 'Reel 2 — Your Guest Intelligence Layer Should Drive Purchasing',
+      title: 'THE OPERATORS WHO SAY "WE’LL STOCK WHAT WE THINK THEY WANT" ARE LOSING TO THE ONES THAT KNOW.',
+      screens: [
+        "I've watched operators run the same purchasing review for years.",
+        'Check usage on Friday. Order something on Monday. Repeat.',
+        'By the time the order lands, the window it was meant to catch has already closed.',
+        'When your guest intelligence tells you demand is shifting, waiting to buy means you’re buying for last week.',
+        "Systems that close the gap between guest signal and inventory are not a luxury. They're what the gap costs you."
+      ],
+      finalSetup: 'How long does it take between noticing a guest preference shift and adjusting what you stock?'
+    },
+    {
+      day: 'Reel 3 — Demand Is Up. So Is Waste.',
+      title: 'A BUSIER FLOOR DOES NOT MEAN A BETTER-STOCKED ONE.',
+      screens: [
+        "I have seen venues run their highest-cover months with more waste than quieter periods two years ago.",
+        'More guests. More covers. More bookings — and more spoilage at the end of it.',
+        'Because the stock didn’t match the demand pattern.',
+        'A full room covers the overhead. It does not automatically cover what you over-bought.',
+        'Guest data and inventory are two different numbers. A growing market only helps operators who watch both.'
+      ],
+      finalSetup: 'Do you know your actual waste on a full night — and what drove it?'
+    },
+    {
+      day: 'Reel 4 — One Inventory Plan Is Not Enough',
+      title: 'MOST VENUES ARE STOCKING FOR A NIGHT THAT DOESN’T EXIST.',
+      screens: [
+        'The guest mix exists. The demand pattern exists. The booking data exists.',
+        "What is usually missing is the inventory structure around it — the quantities, the timing, and the decision to treat demand as real signal.",
+        'A guest who comes for one thing and orders a second has a materially higher visit value.',
+        'Seasonal shifts, event nights, daypart changes — these are not extras at venues stocking well. They’re planned inventory with their own waste targets.',
+        'Demand-aligned inventory is not a strategy change. It is an operations decision.'
+      ],
+      finalSetup: 'What guest pattern is sitting in your data right now that you haven’t built a stock plan around yet?'
+    },
+    {
+      day: 'Reel 5 — Guest Forecasting Is Now Standard',
+      title: 'YOUR THURSDAY STOCK AND YOUR SATURDAY STOCK SHOULD NOT LOOK THE SAME. BUT AT MOST VENUES, THEY DO.',
+      screens: [
+        'Fixed inventory across all days and dayparts is one of the most consistent waste leaks I see in hospitality.',
+        'It overstocks slow periods — tying up cash in items that won’t move.',
+        'And it understocks peak demand — leaving you scrambling on nights when guests would have ordered more.',
+        "Guest-aligned stocking is not about buying more. It is about buying accurately.",
+        'The operators doing this well are not running complex models. They’re looking at guest signals and adjusting before service, not after.'
+      ],
+      finalSetup: 'When did you last raise your stock on a high-demand night — and when did you last lower it to avoid waste?'
+    },
+    {
+      day: 'Reel 6 — Operators Notice How You Stock',
+      title: 'THE GUEST WHO LEFT BECAUSE YOU DIDN’T HAVE WHAT THEY WANTED IS NOT COMING BACK. AND THEY’RE GOING TO TELL SOMEONE.',
+      screens: [
+        "I have read enough post-visit reviews to know that stock confusion is one of the most reliable ways to lose a guest permanently.",
+        'Not low inventory. Confusing inventory. Inconsistent inventory. Stock that didn’t match what the guest expected when they arrived.',
+        "That friction doesn't just cost you the review. It costs you the return visit, the referral, and the tab they would have run next time.",
+        'Guests are more demand-aware than they have ever been. They compare. They remember. They talk.',
+        'Transparent, demand-aligned stocking is not a hospitality nicety. It is a retention decision.'
+      ],
+      finalSetup: 'Have you ever lost a guest to a stock surprise — something they felt wasn’t clear before they got the bill?'
+    },
+    {
+      day: 'Reel 7 — Guest Intelligence as an Operator Decision',
+      title: 'THE BEST OPERATORS I KNOW DON’T FIND OUT WHAT GUESTS WANTED ON FRIDAY. THEY DECIDED WHAT TO STOCK ON MONDAY.',
+      screens: [
+        'There is a version of running a venue where you track what happened.',
+        "And there is a version where you set a stock target, build the shift around it, and measure against something you actually chose.",
+        'Those two approaches feel similar in a good week. They produce very different results across a quarter.',
+        "Knowing your guest demand pattern, your inventory turnover, and your waste target before service starts means your team is not guessing what to stock.",
+        'The shift from reactive to proactive is not a systems upgrade. It is a decision about what kind of operator you are going to be.'
+      ],
+      finalSetup: 'Do you know your waste target before service starts tonight?'
+    }
+  ];
+
+  const root = document.getElementById('root');
+
+  DATA.forEach((item, index) => {
+
+    const dayLabel = document.createElement('div');
+    dayLabel.className = 'day-label';
+    dayLabel.textContent = item.day;
+    root.appendChild(dayLabel);
+
+    const carousel = document.createElement('div');
+    carousel.className = 'carousel';
+
+    const win = document.createElement('div');
+    win.className = 'carousel-window';
+
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+
+    const slides = [];
+
+    const all = [item.title, ...item.screens, item.finalSetup];
+
+    all.forEach((text, i) => {
+      const slide = document.createElement('div');
+      const isBlack = i % 2 === 0;
+      slide.className = 'slide ' + (isBlack ? 'black' : 'white');
+
+      const profile = document.createElement('div');
+      profile.className = 'profile';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+
+      const img = document.createElement('img');
+      img.src = PHOTO_SRC;
+      img.alt = 'Maurice Sanders';
+
+      const ph = document.createElement('div');
+      ph.className = 'avatar-placeholder';
+      ph.style.display = 'none';
+      ph.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+      img.onerror = function () { img.style.display = 'none'; ph.style.display = 'flex'; };
+
+      avatar.appendChild(img);
+      avatar.appendChild(ph);
+
+      const info = document.createElement('div');
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.textContent = 'Maurice Sanders';
+
+      const handle = document.createElement('div');
+      handle.className = 'profile-handle';
+      handle.textContent = '@maurice.seamlessly';
+
+      info.appendChild(name);
+      info.appendChild(handle);
+      profile.appendChild(avatar);
+      profile.appendChild(info);
+
+      const content = document.createElement('div');
+      content.className = 'content';
+
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = text;
+      content.appendChild(title);
+
+      const ghost = document.createElement('div');
+      ghost.className = 'ghost';
+      ghost.textContent = i + 1;
+
+      slide.appendChild(profile);
+      slide.appendChild(content);
+      slide.appendChild(ghost);
+
+      track.appendChild(slide);
+      slides.push(slide);
+    });
+
+    win.appendChild(track);
+    carousel.appendChild(win);
+
+    let current = 0;
+
+    const nav = document.createElement('div');
+    nav.className = 'nav';
+
+    const prev = document.createElement('button');
+    prev.textContent = 'Back';
+
+    const next = document.createElement('button');
+    next.textContent = 'Next';
+
+    const dots = document.createElement('div');
+    dots.className = 'dots';
+
+    const dotEls = slides.map((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      dots.appendChild(d);
+      return d;
+    });
+
+    function slideBackground(slide) {
+      return slide.classList.contains('black') ? '#000000' : '#ffffff';
+    }
+
+    function fileSlug(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    function waitForImages(node) {
+      const images = node.querySelectorAll('img');
+      return Promise.all(Array.from(images).map(function (img) {
+        if (img.complete && img.naturalWidth) return Promise.resolve();
+        return new Promise(function (resolve) {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      }));
+    }
+
+    function captureSlide(slide, slideNum) {
+      return waitForImages(slide).then(function () {
+        return html2canvas(slide, {
+          scale: 1,
+          useCORS: true,
+          allowTaint: false,
+          logging: false,
+          backgroundColor: slideBackground(slide)
+        });
+      }).then(function (canvas) {
+        const link = document.createElement('a');
+        link.download = 'guest-intel-inventory-' + fileSlug(item.day) + '-slide-' + slideNum + '.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+
+    const downloadBtn = document.createElement('button');
+    downloadBtn.type = 'button';
+    downloadBtn.className = 'download-btn';
+
+    downloadBtn.addEventListener('click', function () {
+      const defaultText = downloadBtn.textContent;
+      downloadBtn.disabled = true;
+      downloadBtn.textContent = 'Generating...';
+      const origDisplay = downloadBtn.style.display;
+      downloadBtn.style.display = 'none';
+      captureSlide(slides[current], current + 1)
+        .then(function () {
+          downloadBtn.style.display = origDisplay;
+          downloadBtn.disabled = false;
+          downloadBtn.textContent = defaultText;
+        })
+        .catch(function (err) {
+          downloadBtn.style.display = origDisplay;
+          downloadBtn.disabled = false;
+          downloadBtn.textContent = defaultText;
+          console.error(err);
+        });
+    });
+
+    const downloadAllBtn = document.createElement('button');
+    downloadAllBtn.type = 'button';
+    downloadAllBtn.className = 'download-btn download-all-btn';
+    downloadAllBtn.textContent = 'Download All Slides';
+
+    downloadAllBtn.addEventListener('click', function () {
+      const defaultText = downloadAllBtn.textContent;
+      const savedIndex = current;
+      downloadAllBtn.disabled = true;
+      downloadBtn.disabled = true;
+      downloadAllBtn.textContent = 'Generating...';
+      let chain = Promise.resolve();
+      slides.forEach(function (slide, i) {
+        chain = chain.then(function () {
+          current = i;
+          update();
+          updateDownloadLabel();
+          downloadAllBtn.textContent = 'Generating slide ' + (i + 1) + ' of ' + slides.length + '...';
+          return captureSlide(slide, i + 1);
+        });
+      });
+      chain
+        .then(function () {
+          current = savedIndex;
+          update();
+          updateDownloadLabel();
+          downloadAllBtn.disabled = false;
+          downloadBtn.disabled = false;
+          downloadAllBtn.textContent = defaultText;
+        })
+        .catch(function (err) {
+          current = savedIndex;
+          update();
+          updateDownloadLabel();
+          downloadAllBtn.disabled = false;
+          downloadBtn.disabled = false;
+          downloadAllBtn.textContent = defaultText;
+          console.error(err);
+        });
+    });
+
+    function updateDownloadLabel() {
+      downloadBtn.textContent = 'Download PNG — Slide ' + (current + 1);
+    }
+
+    function update() {
+      track.style.transform = 'translateX(-' + (current * 1080) + 'px)';
+      dotEls.forEach((d, i) => {
+        d.className = 'dot' + (i === current ? ' active' : '');
+      });
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      updateDownloadLabel();
+    }
+
+    prev.onclick = () => { if (current > 0) { current--; update(); } };
+    next.onclick = () => { if (current < slides.length - 1) { current++; update(); } };
+
+    nav.appendChild(prev);
+    nav.appendChild(dots);
+    nav.appendChild(next);
+    carousel.appendChild(nav);
+    update();
+
+    root.appendChild(carousel);
+    root.appendChild(downloadBtn);
+    root.appendChild(downloadAllBtn);
+  });
+
+})();
+</script>
+
+</body>
+</html>

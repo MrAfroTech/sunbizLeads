@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeamLessly QR Code Generator</title>
+    <style>
+        :root {
+            --brand-gold: #d4af37;
+            --brand-gold-light: #e0b841;
+            --dark-bg: #121212;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .logo span.gold {
+            color: var(--brand-gold);
+        }
+        
+        .btn {
+            background-color: var(--brand-gold);
+            color: var(--dark-bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--brand-gold-light);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--brand-gold);
+            color: var(--brand-gold);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .card-header .subtitle {
+            font-size: 14px;
+            opacity: 0.7;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: var(--white);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .color-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            border: 2px solid transparent;
+        }
+        
+        .color-option.active .color-preview {
+            border-color: var(--brand-gold);
+        }
+        
+        .color-name {
+            font-size: 12px;
+        }
+        
+        .qr-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: var(--light-gray);
+            min-height: 300px;
+        }
+        
+        .preview-title {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .qr-container {
+            width: 200px;
+            height: 200px;
+            background-color: transparent; /* Changed from white to transparent */
+            padding: 0; /* Changed from 10px to 0 */
+            border-radius: 0; /* Changed from 8px to 0 */
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .download-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .download-all-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .info-text {
+            background-color: #f0f8ff;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .success-text {
+            background-color: #e6f7e6;
+            border-left: 4px solid #2e7d32;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .qr-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .qr-item-image {
+            width: 120px;
+            height: 120px;
+            background-color: transparent; /* Changed from white to transparent */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qr-item-details {
+            flex: 1;
+        }
+        
+        .qr-item-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .qr-item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            background-color: var(--light-gray);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .action-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .filename-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .filename-container input {
+            flex: 1;
+        }
+
+        .tracking-data {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .tracking-info {
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Export modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .qr-item-image {
+            width: 120px;
+            height: 120px;
+            background-color: transparent !important;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .qr-item-image canvas {
+            display: block !important;
+            margin: 0 !important;
+            background-color: transparent !important;
+        }
+
+        .qr-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .cm-landing-intro { font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5; }
+        .cm-landing-controls { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+        .cm-landing-controls label { font-weight: bold; display: block; margin-bottom: 4px; }
+        .cm-chapter-qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .cm-chapter-qr-cell {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            background: #fafafa;
+        }
+        .cm-chapter-qr-cell canvas { display: block; margin: 0 auto 8px; }
+        .cm-chapter-qr-cell .cm-ch-num { font-weight: bold; color: #d4af37; font-size: 12px; letter-spacing: 1px; }
+        .cm-chapter-qr-cell .cm-ch-title { font-size: 12px; color: #333; margin: 4px 0 8px; line-height: 1.3; min-height: 2.6em; }
+        .cm-chapter-qr-cell .cm-ch-url { font-size: 10px; color: #888; word-break: break-all; text-align: left; }
+
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><span class="gold">Seam</span>Lessly QR Code Generator</h1>
+                </div>
+                <div>
+                    <button class="btn btn-outline" id="view-dashboard-btn">View Tracking Dashboard</button>
+                    <button class="btn" id="export-data-btn">Export QR Data</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Generate Trackable QR Code
+                <div class="subtitle">Create a unique QR code for your postcard campaign</div>
+            </div>
+            <div class="card-body">
+                <div class="info-text">
+                    <strong>Tracking:</strong> Each QR code will have a unique identifier that lets you track scans. 
+                    Downloaded QR codes include tracking data that can be used with the dashboard.
+                </div>
+                
+                <div class="two-column">
+                    <div>
+                        <!-- Replace the current Campaign Name input field -->
+                        <div class="form-group">
+                            <label class="form-label" for="campaign-name">Campaign Name</label>
+                            <select id="campaign-name" class="form-select" required>
+                                <option value="">Select an existing campaign</option>
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                            <small>Choose which campaign this QR code belongs to</small>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="target-url">Destination URL</label>
+                                <input type="url" id="target-url" class="form-input" placeholder="https://seamlessly.us/special-offer" value="https://seamlessly.us/" required>
+                                <small>Where should people go when they scan this QR code?</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="campaign-type">Postcard Type</label>
+                                <select id="campaign-type" class="form-select">
+                                    <option value="postcard">Postcard</option>
+                                    <option value="flyer">Flyer</option>
+                                    <option value="business-card">Business Card</option>
+                                    <option value="banner">Banner</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="variant">Variant/Design</label>
+                            <input type="text" id="variant" class="form-input" placeholder="Design A" required>
+                            <small>Identify which postcard design this QR code will be on</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">QR Code Colors</label>
+                            <div class="color-options">
+                                <div class="color-option" data-foreground="#000000" data-background="transparent">
+                                    <div class="color-preview" style="background-color: #000000;"></div>
+                                    <span class="color-name">Black</span>
+                                </div>
+                                <div class="color-option active" data-foreground="#d4af37" data-background="transparent">
+                                    <div class="color-preview" style="background-color: #d4af37;"></div>
+                                    <span class="color-name">Gold</span>
+                                </div>
+                                <div class="color-option" data-foreground="#121212" data-background="#d4af37">
+                                    <div class="color-preview" style="background-color: #121212; border: 2px solid #d4af37;"></div>
+                                    <span class="color-name">Dark on Gold</span>
+                                </div>
+                                <div class="color-option" data-foreground="#0078D7" data-background="transparent">
+                                    <div class="color-preview" style="background-color: #0078D7;"></div>
+                                    <span class="color-name">Blue</span>
+                                </div>
+                                <div class="color-option" data-foreground="#D83B01" data-background="transparent">
+                                    <div class="color-preview" style="background-color: #D83B01;"></div>
+                                    <span class="color-name">Red</span>
+                                </div>
+                                <div class="color-option" data-foreground="#107C41" data-background="transparent">
+                                    <div class="color-preview" style="background-color: #107C41;"></div>
+                                    <span class="color-name">Green</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="qr-filename">Filename</label>
+                            <div class="filename-container">
+                                <input type="text" id="qr-filename" class="form-input" placeholder="seamlessly-qr-code">
+                                <span>.png</span>
+                            </div>
+                        </div>
+                        
+                        <button id="generate-qr" class="btn">Generate QR Code</button>
+                    </div>
+                    
+                    <div class="qr-preview">
+                        <div class="preview-title">QR Code Preview</div>
+                        <div class="qr-container" id="qr-display">
+                            <img id="qr-placeholder" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23f5f5f5'/%3E%3Ctext x='75' y='75' font-family='Arial' font-size='15' fill='%23666' text-anchor='middle' dominant-baseline='middle'%3EQR Code Preview%3C/text%3E%3C/svg%3E" alt="QR Code Preview">
+                        </div>
+                        <div id="qr-info" style="text-align: center; display: none;">
+                            <p><strong>Campaign:</strong> <span id="info-campaign"></span></p>
+                            <p><strong>Variant:</strong> <span id="info-variant"></span></p>
+                            <p><strong>Tracking ID:</strong> <span id="info-tracking-id"></span></p>
+                        </div>
+                        <div class="download-options" style="display: none;" id="download-options">
+                            <button class="btn" id="download-png">Download PNG</button>
+                            <button class="btn btn-outline" id="download-svg">Download SVG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                Recently Generated QR Codes
+            </div>
+            <div class="card-body" id="recent-codes-container">
+                <div style="text-align: center; padding: 20px;">
+                    <p>No QR codes generated yet. Create your first QR code above!</p>
+                </div>
+                <div class="download-all-container" style="display: none;">
+                    <button class="btn" id="download-all-btn">Download All QR Codes</button>
+                    <button class="btn btn-outline" id="clear-all-btn">Clear History</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Chaos Mastery — Chapter landing QR codes
+                <div class="subtitle">22 gold QR codes (#d4af37 on white): one <strong>master index</strong> (<code>{base}/</code>) plus <strong>21</strong> chapter pages (<code>{base}/landing-….html</code>).</div>
+            </div>
+            <div class="card-body">
+                <p class="cm-landing-intro">
+                    Production default: <strong>chaosmasterybook.seamlessly.us</strong>. The first QR opens the <a href="https://chaosmasterybook.seamlessly.us/" target="_blank" rel="noopener">book bonus master index</a> (all chapter links); the rest open each chapter HTML directly. Change the base URL for local previews only.
+                </p>
+                <div class="cm-landing-controls">
+                    <div class="form-group" style="flex: 1; min-width: 260px; margin-bottom: 0;">
+                        <label class="form-label" for="cm-landing-base-url">Landing base URL</label>
+                        <input type="url" id="cm-landing-base-url" class="form-input" placeholder="https://chaosmasterybook.seamlessly.us" value="https://chaosmasterybook.seamlessly.us">
+                    </div>
+                    <button type="button" class="btn" id="cm-rebuild-chapter-qrs">Rebuild chapter QR codes</button>
+                </div>
+                <div class="cm-chapter-qr-grid" id="cm-chapter-qr-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal-overlay" id="export-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Export QR Code Tracking Data</div>
+                <button class="modal-close" id="close-export-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This tracking data contains all the information needed to track your QR codes. You can use this with your tracking dashboard.</p>
+                
+                <div class="tracking-data">
+                    <p><strong>Copy the tracking data below:</strong></p>
+                    <div class="tracking-info" id="tracking-json"></div>
+                </div>
+                
+                <div class="success-text" style="margin-top: 20px;">
+                    <strong>Instructions:</strong> 
+                    <ol style="margin-top: 10px; margin-left: 20px;">
+                        <li>Copy the JSON data above</li>
+                        <li>Save it to a file named <code>seamlessly-tracking-data.json</code></li>
+                        <li>Place this file in the same folder as your tracking dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-export">Cancel</button>
+                <button class="btn" id="copy-tracking-data">Copy to Clipboard</button>
+                <button class="btn" id="download-tracking-data">Download JSON File</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Include QRious library for QR code generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <!-- Include JSZip for bundling multiple QR codes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Variables to store QR code data
+    let currentQrCode = null;
+    let generatedCodes = [];
+    
+    // DOM elements
+    const generateQrBtn = document.getElementById('generate-qr');
+    const campaignNameInput = document.getElementById('campaign-name');
+    const targetUrlInput = document.getElementById('target-url');
+    const campaignTypeSelect = document.getElementById('campaign-type');
+    const variantInput = document.getElementById('variant');
+    const filenameInput = document.getElementById('qr-filename');
+    const qrDisplay = document.getElementById('qr-display');
+    const qrPlaceholder = document.getElementById('qr-placeholder');
+    const qrInfo = document.getElementById('qr-info');
+    const downloadOptions = document.getElementById('download-options');
+    const downloadPngBtn = document.getElementById('download-png');
+    const downloadSvgBtn = document.getElementById('download-svg');
+    const downloadAllBtn = document.getElementById('download-all-btn');
+    const clearAllBtn = document.getElementById('clear-all-btn');
+    const recentCodesContainer = document.getElementById('recent-codes-container');
+    const viewDashboardBtn = document.getElementById('view-dashboard-btn');
+    const exportDataBtn = document.getElementById('export-data-btn');
+    const downloadAllContainer = document.querySelector('.download-all-container');
+    
+    // Modal elements
+    const exportModal = document.getElementById('export-modal');
+    const closeExportModalBtn = document.getElementById('close-export-modal');
+    const cancelExportBtn = document.getElementById('cancel-export');
+    const copyTrackingDataBtn = document.getElementById('copy-tracking-data');
+    const downloadTrackingDataBtn = document.getElementById('download-tracking-data');
+    const trackingJsonElement = document.getElementById('tracking-json');
+    
+    // Initialize the application
+    loadExistingCampaigns();
+    loadGeneratedCodes();
+    
+    // Color selection
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove active class from all options
+            document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+            // Add active class to clicked option
+            this.classList.add('active');
+        });
+    });
+    
+    // Generate QR Code
+    generateQrBtn.addEventListener('click', function() {
+        // Declare campaignName variable first
+        let campaignName;
+        
+        // Then assign the value based on the condition
+        if (campaignNameInput.value === 'new') {
+            const newCampaignInput = document.getElementById('new-campaign-name');
+            if (newCampaignInput) {
+                campaignName = newCampaignInput.value.trim();
+            } else {
+                campaignName = window.prompt("Enter new campaign name:", "");
+            }
+            if (!campaignName) {
+                alert('Please enter a campaign name');
+                return;
+            }
+        } else {
+            campaignName = campaignNameInput.value.trim();
+            if (!campaignName) {
+                alert('Please select a campaign');
+                return;
+            }
+        }
+        
+        const targetUrl = targetUrlInput.value.trim();
+        const campaignType = campaignTypeSelect.value;
+        const variant = variantInput.value.trim();
+        let filename = filenameInput.value.trim();
+        
+        // Validate inputs
+        if (!campaignName || !targetUrl || !variant) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        // Generate tracking ID
+        const trackingId = generateTrackingId(campaignName, variant);
+        
+        // Create trackable URL
+        const trackableUrl = createTrackableUrl(targetUrl, trackingId);
+        
+        // Set default filename if empty
+        if (!filename) {
+            filename = `seamlessly-${campaignName.toLowerCase().replace(/[^\w]/g, '-')}-${variant.toLowerCase().replace(/[^\w]/g, '-')}`;
+            filenameInput.value = filename;
+        }
+        
+        // Get selected colors
+        const activeColorOption = document.querySelector('.color-option.active');
+        const foreground = activeColorOption.getAttribute('data-foreground');
+        const background = activeColorOption.getAttribute('data-background');
+        
+        // Generate QR code
+        generateQrCode(trackableUrl, foreground, background);
+        
+        // Update info display
+        document.getElementById('info-campaign').textContent = campaignName;
+        document.getElementById('info-variant').textContent = variant;
+        document.getElementById('info-tracking-id').textContent = trackingId;
+        
+        // Show info and download options
+        qrInfo.style.display = 'block';
+        downloadOptions.style.display = 'flex';
+        
+        // Store current QR code data
+        currentQrCode = {
+            campaign: campaignName,
+            variant: variant,
+            type: campaignType,
+            trackingId: trackingId,
+            url: trackableUrl,
+            foreground: foreground,
+            background: background,
+            filename: filename,
+            created: new Date().toISOString()
+        };
+        
+        // Add to generated codes
+        generatedCodes.push(currentQrCode);
+        
+        // Store in localStorage for persistence
+        storeGeneratedCodes();
+        
+        // Update recent codes display
+        updateRecentCodes();
+        
+        // Show download all button if we have multiple codes
+        if (generatedCodes.length > 1) {
+            downloadAllContainer.style.display = 'block';
+        }
+    });
+    
+    // Download QR code as PNG - Fixed to remove extra padding
+    downloadPngBtn.addEventListener('click', function() {
+    if (!currentQrCode) return;
+    
+    // Get raw QR code data directly
+    const qr = new QRious({
+        value: currentQrCode.url,
+        level: 'H' // High error correction for better scanning
+    });
+    
+    // Get QR code module count
+    const moduleCount = qr._qr.moduleCount;
+    
+    // Use a fixed output size of 500px for downloads (high resolution)
+    const finalSize = 500;
+    const cellSize = finalSize / moduleCount;
+    
+    // Create a canvas with exact dimensions
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = finalSize;
+    tempCanvas.height = finalSize;
+    const ctx = tempCanvas.getContext('2d');
+    
+    // Set transparent background
+    ctx.clearRect(0, 0, finalSize, finalSize);
+    
+    // Draw only the QR modules - filling the entire canvas
+    for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+            if (qr._qr.isDark(row, col)) {
+                ctx.fillStyle = currentQrCode.foreground;
+                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+    
+    // Use the canvas directly for download
+    const link = document.createElement('a');
+    link.download = `${currentQrCode.filename}.png`;
+    link.href = tempCanvas.toDataURL('image/png');
+    link.click();
+});
+
+    // Download QR code as SVG - Fixed to remove extra padding
+    downloadSvgBtn.addEventListener('click', function() {
+        if (!currentQrCode) return;
+        
+        // Create SVG from QR code data
+        const svgContent = createSvgFromQrCode(currentQrCode);
+        
+        // Create a temporary link and trigger download
+        const link = document.createElement('a');
+        link.download = `${currentQrCode.filename}.svg`;
+        link.href = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgContent);
+        link.click();
+    });
+    
+    // Download all QR codes as a ZIP
+    downloadAllBtn.addEventListener('click', async function() {
+        if (generatedCodes.length === 0) return;
+        
+        const zip = new JSZip();
+        const imgFolder = zip.folder("qr-images");
+        const dataFolder = zip.folder("tracking-data");
+        
+        // Add readme file
+        zip.file("README.txt", 
+            "SeamLessly QR Code Generator\n" +
+            "=========================\n\n" +
+            "This ZIP contains all your generated QR codes and their tracking data.\n\n" +
+            "- qr-images/ folder contains all QR code images\n" +
+            "- tracking-data/ folder contains tracking information\n" +
+            "- tracking-data.json contains the complete tracking data for all QR codes\n\n" +
+            "To use with the SeamLessly tracking dashboard, place the tracking-data.json file\n" +
+            "in the same folder as your tracking dashboard HTML file.\n"
+        );
+        
+        // Add tracking data file
+        const trackingData = createTrackingData();
+        zip.file("tracking-data.json", JSON.stringify(trackingData, null, 2));
+        
+        // Create an individual data file for each code
+        for (const code of generatedCodes) {
+            // Create individual tracking data file
+            dataFolder.file(`${code.filename}.json`, JSON.stringify(code, null, 2));
+            
+            // Create QR code with no padding at all
+            const qr = new QRious({
+                value: code.url,
+                level: 'H' // High error correction for better scanning
+            });
+            
+            // Get raw module count
+            const moduleCount = qr._qr.moduleCount;
+            
+            // Use fixed cell size for consistent output
+            const cellSize = 10;
+            const finalSize = cellSize * moduleCount;
+            
+            // Create a canvas with perfect pixel alignment
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = finalSize;
+            tempCanvas.height = finalSize;
+            const ctx = tempCanvas.getContext('2d');
+            
+            // Clear canvas (transparent background)
+            ctx.clearRect(0, 0, finalSize, finalSize);
+            
+            // Draw only the QR modules with exact pixel alignment
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr._qr.isDark(row, col)) {
+                        ctx.fillStyle = code.foreground;
+                        ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+            
+            // Convert canvas to blob and add to zip
+            const blob = await new Promise(resolve => tempCanvas.toBlob(resolve));
+            imgFolder.file(`${code.filename}.png`, blob);
+            
+            // Also generate SVG version with no padding
+            const svgContent = createSvgFromQrCode(code);
+            imgFolder.file(`${code.filename}.svg`, svgContent);
+        }
+        
+        // Generate and download the zip
+        zip.generateAsync({ type: "blob" }).then(function(content) {
+            const link = document.createElement('a');
+            link.download = "seamlessly-qr-codes.zip";
+            link.href = URL.createObjectURL(content);
+            link.click();
+        });
+    });
+    
+    // Clear all generated codes
+    clearAllBtn.addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear all generated QR codes? This cannot be undone.')) {
+            generatedCodes = [];
+            localStorage.removeItem('seamlessly-qr-codes');
+            updateRecentCodes();
+            downloadAllContainer.style.display = 'none';
+            
+            // Clear the current QR code display too
+            currentQrCode = null;
+            qrInfo.style.display = 'none';
+            downloadOptions.style.display = 'none';
+            if (qrDisplay.querySelector('canvas')) {
+                qrDisplay.removeChild(qrDisplay.querySelector('canvas'));
+            }
+            qrPlaceholder.style.display = 'block';
+        }
+    });
+    
+    // View dashboard button
+    viewDashboardBtn.addEventListener('click', function() {
+        window.location.href = 'qrCodeTracking.html';
+    });
+    
+    // Export Data Button
+    exportDataBtn.addEventListener('click', function() {
+        if (generatedCodes.length === 0) {
+            alert('No QR codes have been generated yet. Create some QR codes first.');
+            return;
+        }
+        
+        // Update the tracking data in the modal
+        const trackingData = createTrackingData();
+        trackingJsonElement.textContent = JSON.stringify(trackingData, null, 2);
+        
+        // Show the modal
+        exportModal.style.display = 'flex';
+    });
+    
+    // Close Export Modal
+    closeExportModalBtn.addEventListener('click', function() {
+        exportModal.style.display = 'none';
+    });
+    
+    cancelExportBtn.addEventListener('click', function() {
+        exportModal.style.display = 'none';
+    });
+    
+    // Copy tracking data to clipboard
+    copyTrackingDataBtn.addEventListener('click', function() {
+        const trackingData = createTrackingData();
+        const dataStr = JSON.stringify(trackingData, null, 2);
+        
+        navigator.clipboard.writeText(dataStr).then(function() {
+            alert('Tracking data copied to clipboard successfully!');
+        }).catch(function(err) {
+            console.error('Could not copy text: ', err);
+            alert('Failed to copy to clipboard. Please copy the text manually.');
+        });
+    });
+    
+    // Download tracking data as JSON file
+    downloadTrackingDataBtn.addEventListener('click', function() {
+        const trackingData = createTrackingData();
+        const dataStr = JSON.stringify(trackingData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        
+        const link = document.createElement('a');
+        link.download = "seamlessly-tracking-data.json";
+        link.href = URL.createObjectURL(dataBlob);
+        link.click();
+    });
+    
+    // Function to generate a unique tracking ID
+    function generateTrackingId(campaign, variant) {
+        // Create a simplified campaign and variant string
+        const simpleCampaign = campaign.toLowerCase().replace(/[^\w]/g, '');
+        const simpleVariant = variant.toLowerCase().replace(/[^\w]/g, '');
+        
+        // Generate a random component
+        const randomPart = Math.random().toString(36).substring(2, 8);
+        
+        // Create timestamp component (last 6 digits)
+        const timestamp = Date.now().toString().slice(-6);
+        
+        // Combine all parts
+        return `${simpleCampaign.substring(0, 3)}-${simpleVariant.substring(0, 3)}-${randomPart}-${timestamp}`;
+    }
+    
+    // Function to create a trackable URL with a tracking parameter
+    function createTrackableUrl(baseUrl, trackingId) {
+        // Make sure the URL has a protocol
+        if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+            baseUrl = 'https://' + baseUrl;
+        }
+        
+        // Add the tracking parameter
+        try {
+            const url = new URL(baseUrl);
+            url.searchParams.append('t', trackingId);
+            return url.toString();
+        } catch (e) {
+            // Fallback if URL parsing fails
+            console.error('Error parsing URL:', e);
+            
+            // Add a separator based on whether the URL already has query parameters
+            const separator = baseUrl.includes('?') ? '&' : '?';
+            return `${baseUrl}${separator}t=${trackingId}`;
+        }
+    }
+    
+    // Function to generate a QR code in the display area - FIXED to ensure exact pixel alignment with no padding
+    function generateQrCode(url, foregroundColor, backgroundColor) {
+    // Remove any existing QR code
+    if (qrDisplay.querySelector('canvas')) {
+        qrDisplay.removeChild(qrDisplay.querySelector('canvas'));
+    }
+    
+    // Hide the placeholder
+    qrPlaceholder.style.display = 'none';
+    
+    // Create raw QR code data
+    const qr = new QRious({
+        value: url,
+        level: 'H' // High error correction for better scanning
+    });
+    
+    // Get module count for precise calculations
+    const moduleCount = qr._qr.moduleCount;
+    
+    // Get container size (200px is the container size from CSS)
+    const containerSize = 200;
+    
+    // Calculate cell size to completely fill the container
+    const cellSize = containerSize / moduleCount;
+    const finalSize = containerSize; // Use full container size
+    
+    // Create a canvas with exact dimensions to fill container
+    const canvas = document.createElement('canvas');
+    canvas.width = finalSize;
+    canvas.height = finalSize;
+    const ctx = canvas.getContext('2d');
+    
+    // Set background (transparent by default)
+    ctx.clearRect(0, 0, finalSize, finalSize);
+    if (backgroundColor && backgroundColor !== 'transparent') {
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, 0, finalSize, finalSize);
+    }
+    
+    // Draw QR code module by module, scaling to fill the container
+    for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+            if (qr._qr.isDark(row, col)) {
+                ctx.fillStyle = foregroundColor;
+                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+    
+    // Add the canvas to the display container
+    qrDisplay.appendChild(canvas);
+    
+    return qr;
+}
+
+    // Improved SVG creation function - Fixed to ensure perfect pixel alignment with no padding
+    function createSvgFromQrCode(qrCode) {
+        // Create new QRious instance directly (don't reuse the display one)
+        const qr = new QRious({
+            value: qrCode.url,
+            level: 'H' // High error correction for better scanning
+        });
+        
+        // Get the raw QR code module count
+        const moduleCount = qr._qr.moduleCount;
+        
+        // Create a path-based SVG with absolutely no padding
+        // Using viewBox with exact module count dimensions
+        let svg = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${moduleCount} ${moduleCount}" width="${moduleCount}" height="${moduleCount}">`;
+        
+        // Use a single path for better performance and smaller file size
+        let pathData = '';
+        
+        // Build path data for all modules
+        for (let row = 0; row < moduleCount; row++) {
+            for (let col = 0; col < moduleCount; col++) {
+                if (qr._qr.isDark(row, col)) {
+                    // M = move to, h = horizontal line, v = vertical line, z = close path
+                    pathData += `M${col},${row}h1v1h-1z`;
+                }
+            }
+        }
+        
+        // Add the path with all QR modules
+        svg += `<path d="${pathData}" fill="${qrCode.foreground}" />`;
+        
+        // Add metadata as a comment
+        svg += `<!-- SeamLessly QR Code - Campaign: ${qrCode.campaign}, Variant: ${qrCode.variant}, TrackingID: ${qrCode.trackingId} -->`;
+        
+        // Close SVG
+        svg += `</svg>`;
+        
+        return svg;
+    }
+    
+    // Function to load existing campaigns into the dropdown
+    function loadExistingCampaigns() {
+        // Get select element
+        const campaignSelect = document.getElementById('campaign-name');
+        
+        // Reset existing options, keeping only the default option
+        while (campaignSelect.options.length > 1) {
+            campaignSelect.remove(1);
+        }
+        
+        // Always add a "New Campaign" option
+        const newCampaignOption = document.createElement('option');
+        newCampaignOption.value = 'new';
+        newCampaignOption.textContent = '+ Create New Campaign';
+        campaignSelect.appendChild(newCampaignOption);
+        
+        // Get QR codes data from localStorage
+        const savedQrCodes = localStorage.getItem('seamlessly-qr-codes');
+        
+        // Get manually created campaigns from localStorage
+        const savedManualCampaigns = localStorage.getItem('seamlessly-manual-campaigns');
+        
+        // Collect unique campaign names
+        const uniqueCampaigns = new Set();
+        
+        // Process QR code campaigns
+        if (savedQrCodes) {
+            try {
+                const qrCodes = JSON.parse(savedQrCodes);
+                
+                qrCodes.forEach(code => {
+                    if (code.campaign && !uniqueCampaigns.has(code.campaign)) {
+                        uniqueCampaigns.add(code.campaign);
+                        
+                        const option = document.createElement('option');
+                        option.value = code.campaign;
+                        option.textContent = code.campaign;
+                        campaignSelect.appendChild(option);
+                    }
+                });
+            } catch (error) {
+                console.error('Error processing QR code campaigns:', error);
+            }
+        }
+        
+        // Process manually created campaigns
+        if (savedManualCampaigns) {
+            try {
+                const manualCampaigns = JSON.parse(savedManualCampaigns);
+                
+                manualCampaigns.forEach(campaign => {
+                    if (campaign.name && !uniqueCampaigns.has(campaign.name)) {
+                        uniqueCampaigns.add(campaign.name);
+                        
+                        const option = document.createElement('option');
+                        option.value = campaign.name;
+                        option.textContent = campaign.name;
+                        campaignSelect.appendChild(option);
+                    }
+                });
+            } catch (error) {
+                console.error('Error processing manual campaigns:', error);
+            }
+        }
+        
+        console.log(`Loaded ${uniqueCampaigns.size} unique campaigns`);
+    }
+    
+    // Function to store generated codes in localStorage
+    function storeGeneratedCodes() {
+        try {
+            // Ensure generatedCodes is not null or undefined and is an array
+            const codesToStore = Array.isArray(generatedCodes) ? generatedCodes : [];
+            
+            // Validate each code before storing
+            const validatedCodes = codesToStore.filter(code => 
+                code && 
+                code.campaign && 
+                code.variant && 
+                code.trackingId
+            );
+            
+            // Store the validated codes
+            localStorage.setItem('seamlessly-qr-codes', JSON.stringify(validatedCodes));
+            
+            // Reload campaigns in the dropdown to reflect the latest data
+            loadExistingCampaigns();
+            
+            // Log successful storage
+            console.log(`Successfully stored ${validatedCodes.length} QR codes`);
+        } catch (error) {
+            // More detailed error handling
+            console.error('Error storing generated codes:', error);
+            
+            // Provide user-friendly error feedback
+            alert('Failed to save QR code. Please check your browser storage settings and try again.');
+        }
+    }
+    
+    // Function to load previously generated codes from localStorage
+    function loadGeneratedCodes() {
+        try {
+            const savedCodes = localStorage.getItem('seamlessly-qr-codes');
+            if (savedCodes) {
+                generatedCodes = JSON.parse(savedCodes);
+                
+                // Validate the loaded data
+                if (!Array.isArray(generatedCodes)) {
+                    console.error('Stored QR codes is not an array');
+                    generatedCodes = [];
+                }
+                
+                updateRecentCodes();
+                
+                // Show download all button if we have multiple codes
+                if (generatedCodes.length > 1) {
+                    downloadAllContainer.style.display = 'block';
+                }
+                
+                console.log(`Loaded ${generatedCodes.length} QR codes from storage`);
+            } else {
+                console.log('No stored QR codes found');
+                generatedCodes = [];
+            }
+        } catch (error) {
+            console.error('Error loading generated codes:', error);
+            generatedCodes = [];
+            alert('There was an error loading your saved QR codes. Starting with a fresh history.');
+        }
+    }
+    
+    // Function to update the recent codes display with perfectly aligned QR codes
+    function updateRecentCodesQR(code, qrImage) {
+    // Create a QR code with no padding
+    const qr = new QRious({
+        value: code.url,
+        level: 'H' // High error correction for better scanning
+    });
+    
+    // Get raw module count
+    const moduleCount = qr._qr.moduleCount;
+    
+    // Use container size from CSS (120px)
+    const containerSize = 120;
+    const cellSize = containerSize / moduleCount;
+    
+    // Create canvas with exact dimensions
+    const canvas = document.createElement('canvas');
+    canvas.width = containerSize;
+    canvas.height = containerSize;
+    const ctx = canvas.getContext('2d');
+    
+    // Clear the canvas (transparent background)
+    ctx.clearRect(0, 0, containerSize, containerSize);
+    if (code.background && code.background !== 'transparent') {
+        ctx.fillStyle = code.background;
+        ctx.fillRect(0, 0, containerSize, containerSize);
+    }
+    
+    // Draw each QR module with precise positioning to fill container
+    for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+            if (qr._qr.isDark(row, col)) {
+                ctx.fillStyle = code.foreground;
+                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+    
+    qrImage.appendChild(canvas);
+}
+
+    // Function to create tracking data for all codes
+    function createTrackingData() {
+        return {
+            generatedAt: new Date().toISOString(),
+            company: "SeamLessly",
+            codes: generatedCodes.map(code => ({
+                trackingId: code.trackingId,
+                campaign: code.campaign,
+                variant: code.variant,
+                type: code.type,
+                url: code.url,
+                created: code.created
+            }))
+        };
+    }
+    
+    // Function to handle campaign dropdown change
+    campaignNameInput.addEventListener('change', function() {
+        if (this.value === 'new') {
+            // Create input for new campaign name if it doesn't exist
+            if (!document.getElementById('new-campaign-name-container')) {
+                const container = document.createElement('div');
+                container.id = 'new-campaign-name-container';
+                container.className = 'form-group';
+                container.innerHTML = `
+                    <label class="form-label" for="new-campaign-name">New Campaign Name</label>
+                    <input type="text" id="new-campaign-name" class="form-input" placeholder="Enter campaign name" required>
+                `;
+                
+                // Insert after the campaign select field
+                this.parentNode.insertAdjacentElement('afterend', container);
+            }
+        } else {
+            // Remove new campaign input if it exists
+            const container = document.getElementById('new-campaign-name-container');
+            if (container) {
+                container.remove();
+            }
+        }
+    });
+    
+    // Function to store UI preferences
+    function storeUiPreferences() {
+        const preferences = {
+            campaignName: campaignNameInput.value,
+            targetUrl: targetUrlInput.value,
+            campaignType: campaignTypeSelect.value,
+            variant: variantInput.value,
+            filename: filenameInput.value,
+            activeColorIndex: Array.from(document.querySelectorAll('.color-option'))
+                .findIndex(opt => opt.classList.contains('active'))
+        };
+        localStorage.setItem('seamlessly-ui-preferences', JSON.stringify(preferences));
+    }
+    
+    // Function to load UI preferences
+    function loadUiPreferences() {
+        const preferences = localStorage.getItem('seamlessly-ui-preferences');
+        if (preferences) {
+            try {
+                const prefs = JSON.parse(preferences);
+                
+                // Only set values if the elements exist
+                if (campaignNameInput) campaignNameInput.value = prefs.campaignName || '';
+                if (targetUrlInput) targetUrlInput.value = prefs.targetUrl || 'https://seamlessly.us/';
+                if (campaignTypeSelect) campaignTypeSelect.value = prefs.campaignType || 'postcard';
+                if (variantInput) variantInput.value = prefs.variant || '';
+                if (filenameInput) filenameInput.value = prefs.filename || '';
+                
+                // Set active color
+                if (prefs.activeColorIndex !== undefined && prefs.activeColorIndex >= 0) {
+                    const colorOptions = document.querySelectorAll('.color-option');
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    if (colorOptions[prefs.activeColorIndex]) {
+                        colorOptions[prefs.activeColorIndex].classList.add('active');
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading UI preferences:', error);
+            }
+        }
+    }
+
+    function downloadSingleQR(code) {
+    // Create a QR code with no padding
+    const qr = new QRious({
+        value: code.url,
+        level: 'H' // High error correction for better scanning
+    });
+    
+    // Get module count
+    const moduleCount = qr._qr.moduleCount;
+    
+    // Use a fixed output size of 500px for downloads (high resolution)
+    const finalSize = 500;
+    const cellSize = finalSize / moduleCount;
+    
+    // Create a canvas with perfect alignment
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = finalSize;
+    tempCanvas.height = finalSize;
+    const ctx = tempCanvas.getContext('2d');
+    
+    // Clear canvas (transparent background)
+    ctx.clearRect(0, 0, finalSize, finalSize);
+    
+    // Draw QR modules to fill the entire canvas
+    for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+            if (qr._qr.isDark(row, col)) {
+                ctx.fillStyle = code.foreground;
+                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+    
+    // Create download with no padding
+    const link = document.createElement('a');
+    link.download = `${code.filename}.png`;
+    link.href = tempCanvas.toDataURL('image/png');
+    link.click();
+}
+
+// Update the batch download function
+function generateQrForZip(code) {
+    // Create QR code
+    const qr = new QRious({
+        value: code.url,
+        level: 'H'
+    });
+    
+    // Get raw module count
+    const moduleCount = qr._qr.moduleCount;
+    
+    // Use fixed output size of 500px for consistency
+    const finalSize = 500;
+    const cellSize = finalSize / moduleCount;
+    
+    // Create canvas
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = finalSize;
+    tempCanvas.height = finalSize;
+    const ctx = tempCanvas.getContext('2d');
+    
+    // Clear canvas (transparent background)
+    ctx.clearRect(0, 0, finalSize, finalSize);
+    
+    // Draw QR modules
+    for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+            if (qr._qr.isDark(row, col)) {
+                ctx.fillStyle = code.foreground;
+                ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+    
+    return tempCanvas;
+}
+    
+    // Load UI preferences on startup
+    loadUiPreferences();
+    
+    // Store UI preferences when inputs change
+    const allInputs = [campaignNameInput, targetUrlInput, campaignTypeSelect, variantInput, filenameInput];
+    allInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('change', storeUiPreferences);
+        }
+    });
+    
+    // Store UI preferences when color options change
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', storeUiPreferences);
+    });
+});
+    </script>
+    <script>
+(function () {
+    var CM_CHAPTERS = [
+        { chapter: 1, path: '/landing-hospitality-was-always-human.html', title: 'Hospitality Was Always Human' },
+        { chapter: 2, path: '/landing-the-guest-who-changed-everything.html', title: 'The Guest Who Changed Everything' },
+        { chapter: 3, path: '/landing-the-urban-venue-era.html', title: 'The Urban Venue Era' },
+        { chapter: 4, path: '/landing-the-stadium-opportunity.html', title: 'The Stadium Opportunity' },
+        { chapter: 5, path: '/landing-when-hospitality-was-at-its-best.html', title: 'When Hospitality Was at Its Best' },
+        { chapter: 6, path: '/landing-the-tools-made-it-worse.html', title: 'The Tools Made It Worse' },
+        { chapter: 7, path: '/landing-the-hidden-cost-of-a-bad-stack.html', title: 'The Hidden Cost of a Bad Stack' },
+        { chapter: 8, path: '/landing-why-your-best-people-keep-leaving.html', title: 'Why Your Best People Keep Leaving' },
+        { chapter: 9, path: '/landing-youre-paying-for-the-problem.html', title: "You're Paying for the Problem" },
+        { chapter: 10, path: '/landing-you-dont-know-your-guests.html', title: "You Don't Actually Know Your Guests" },
+        { chapter: 11, path: '/landing-the-only-thing-guests-remember.html', title: 'The Only Thing Guests Remember' },
+        { chapter: 12, path: '/landing-the-wait-is-killing-your-revenue.html', title: 'The Wait Is Killing Your Revenue' },
+        { chapter: 13, path: '/landing-build-it-so-they-stay.html', title: 'Build It So They Stay' },
+        { chapter: 14, path: '/landing-events-are-operations-not-magic.html', title: 'Events Are Operations, Not Magic' },
+        { chapter: 15, path: '/landing-keep-the-people-who-know-what-theyre-doing.html', title: "Keep the People Who Know What They're Doing" },
+        { chapter: 16, path: '/landing-what-happens-when-it-all-works-together.html', title: 'What Happens When It All Works Together' },
+        { chapter: 17, path: '/landing-one-system-fewer-problems.html', title: 'One System. Fewer Problems.' },
+        { chapter: 18, path: '/landing-the-venue-that-runs-itself.html', title: 'The Venue That Runs Itself' },
+        { chapter: 19, path: '/landing-from-arrival-to-last-call.html', title: 'From Arrival to Last Call' },
+        { chapter: 20, path: '/landing-what-the-best-operators-do-differently.html', title: 'What the Best Operators Do Differently' },
+        { chapter: 21, path: '/landing-what-killed-the-greats.html', title: 'What Killed the Greats' }
+    ];
+    var CM_DEFAULT_LANDING_BASE = 'https://chaosmasterybook.seamlessly.us';
+    var STORAGE_KEY = 'cm-landing-base-url-v5';
+
+    function normalizeBase(raw) {
+        var s = (raw || '').trim();
+        if (!s) return CM_DEFAULT_LANDING_BASE;
+        return s.replace(/\/+$/, '');
+    }
+
+    function rebuildCmChapterQrs() {
+        var baseInput = document.getElementById('cm-landing-base-url');
+        var grid = document.getElementById('cm-chapter-qr-grid');
+        if (!baseInput || !grid || typeof QRious === 'undefined') return;
+
+        var base = normalizeBase(baseInput.value);
+        baseInput.value = base;
+        try { localStorage.setItem(STORAGE_KEY, base); } catch (e) {}
+
+        grid.innerHTML = '';
+
+        function addCell(labelNum, title, urlPath) {
+            var fullUrl = base + urlPath;
+            var cell = document.createElement('div');
+            cell.className = 'cm-chapter-qr-cell';
+            var canvas = document.createElement('canvas');
+            cell.appendChild(canvas);
+            var numEl = document.createElement('div');
+            numEl.className = 'cm-ch-num';
+            numEl.textContent = labelNum;
+            cell.appendChild(numEl);
+            var titleEl = document.createElement('div');
+            titleEl.className = 'cm-ch-title';
+            titleEl.textContent = title;
+            cell.appendChild(titleEl);
+            var urlEl = document.createElement('div');
+            urlEl.className = 'cm-ch-url';
+            urlEl.textContent = fullUrl;
+            cell.appendChild(urlEl);
+
+            new QRious({
+                element: canvas,
+                value: fullUrl,
+                size: 160,
+                foreground: '#d4af37',
+                background: '#ffffff',
+                level: 'H'
+            });
+            grid.appendChild(cell);
+        }
+
+        addCell('MASTER INDEX', 'Book bonus landing pages — full list of chapter resources', '/');
+        CM_CHAPTERS.forEach(function (row) {
+            addCell('CHAPTER ' + row.chapter, row.title, row.path);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var baseInput = document.getElementById('cm-landing-base-url');
+        var btn = document.getElementById('cm-rebuild-chapter-qrs');
+        try {
+            var saved = localStorage.getItem(STORAGE_KEY);
+            if (saved && baseInput) baseInput.value = saved;
+        } catch (e) {}
+        if (btn) btn.addEventListener('click', rebuildCmChapterQrs);
+        if (baseInput) baseInput.addEventListener('change', rebuildCmChapterQrs);
+
+        function tryBuild() {
+            if (typeof QRious !== 'undefined') rebuildCmChapterQrs();
+            else setTimeout(tryBuild, 50);
+        }
+        tryBuild();
+    });
+})();
+    </script>
+</body>
+</html>

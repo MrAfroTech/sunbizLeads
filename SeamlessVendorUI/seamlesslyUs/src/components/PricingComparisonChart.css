@@ -1,0 +1,393 @@
+/* Pricing Comparison Chart Styles - UCF Branded */
+.pricing-comparison {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #121212;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.comparison-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(184, 134, 11, 0.05));
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.comparison-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.comparison-subtitle {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.comparison-table-container {
+  background: #0f0f0f;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin-bottom: 3rem;
+}
+
+.comparison-table {
+  width: 100%;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #121212;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-header > div {
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid rgba(18, 18, 18, 0.1);
+}
+
+.table-header > div:last-child {
+  border-right: none;
+}
+
+.factor-column {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.competitor-column {
+  position: relative;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.competitor-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.seamlessly-column {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+
+.winner-badge {
+  font-size: 0.8rem;
+  background: #333333;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.table-row:hover {
+  background: #1a1810;
+}
+
+.table-row.even {
+  background: #141414;
+}
+
+.table-row.odd {
+  background: #0f0f0f;
+}
+
+.table-row > div {
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 80px;
+}
+
+.table-row > div:last-child {
+  border-right: none;
+}
+
+.factor-cell {
+  background: #1a1810;
+  font-weight: 600;
+  color: #d4af37;
+}
+
+.factor-name {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.competitor-cell {
+  justify-content: center;
+  text-align: center;
+}
+
+.competitor-value {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.seamlessly-cell {
+  background: #0d2a14;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.seamlessly-cell.highlight {
+  background: #0f3018;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  box-shadow: 0 0 20px rgba(40, 167, 69, 0.1);
+}
+
+.seamlessly-value {
+  color: #28a745;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.comparison-footer {
+  background: #0f0f0f;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.key-benefits h3 {
+  text-align: center;
+  margin: 0 0 2rem 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #d4af37;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.benefit-card {
+  background: #141414;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  background: #252218;
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+}
+
+.benefit-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.benefit-card h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #d4af37;
+}
+
+.benefit-card p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  }
+}
+
+@media (max-width: 968px) {
+  .pricing-comparison {
+    padding: 1rem;
+  }
+  
+  .comparison-header h2 {
+    font-size: 2rem;
+  }
+  
+  .comparison-subtitle {
+    font-size: 1rem;
+  }
+  
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .table-header > div,
+  .table-row > div {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    min-height: auto;
+  }
+  
+  .table-header > div:last-child,
+  .table-row > div:last-child {
+    border-bottom: none;
+  }
+  
+  .factor-cell {
+    background: #252218;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  
+  .competitor-cell {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  
+  .competitor-value {
+    font-size: 1rem;
+  }
+  
+  .seamlessly-value {
+    font-size: 1.05rem;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .comparison-header {
+    padding: 1.5rem;
+  }
+  
+  .comparison-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .table-header > div,
+  .table-row > div {
+    padding: 0.75rem;
+  }
+  
+  .competitor-logo {
+    font-size: 1rem;
+  }
+  
+  .winner-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .benefit-card {
+    padding: 1rem;
+  }
+  
+  .benefit-icon {
+    font-size: 2rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .pricing-comparison {
+    background: white;
+    color: black;
+  }
+  
+  .comparison-header {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .comparison-header h2 {
+    color: #d4af37;
+    -webkit-text-fill-color: #d4af37;
+  }
+  
+  .comparison-subtitle {
+    color: #6c757d;
+  }
+  
+  .table-header {
+    background: #d4af37;
+    color: white;
+  }
+  
+  .seamlessly-column {
+    background: #28a745;
+  }
+  
+  .table-row {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .factor-cell {
+    background: #f8f9fa;
+    color: #d4af37;
+  }
+  
+  .competitor-value {
+    color: #6c757d;
+  }
+  
+  .seamlessly-value {
+    color: #28a745;
+  }
+  
+  .comparison-footer {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .benefit-card {
+    background: white;
+    border: 1px solid #dee2e6;
+  }
+  
+  .benefit-card h4 {
+    color: #d4af37;
+  }
+  
+  .benefit-card p {
+    color: #6c757d;
+  }
+}

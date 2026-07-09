@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Magic Code™ Revenue Audit — Scan & Scale</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<style>
+
+:root{
+  --navy:#1A2A44;
+  --gold:#D4AF37;
+  --teal:#00D4AA;
+  --paper:#F4F6F9;
+  --ink:#1A1A1A;
+  --muted:#666666;
+
+  --page-width:816px;
+  --page-height:1056px;
+
+  --font-display:'Bebas Neue', sans-serif;
+  --font-body:'DM Sans', sans-serif;
+  --font-editorial:'DM Serif Display', serif;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#2A2A2A;
+  font-family:var(--font-body);
+  padding:40px 0;
+}
+
+.wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:30px;
+}
+
+.toolbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  width:100%;
+  background:#111;
+  padding:16px;
+  display:flex;
+  justify-content:center;
+  gap:16px;
+}
+
+.btn{
+  border:none;
+  background:var(--gold);
+  color:#111;
+  font-family:var(--font-body);
+  font-weight:700;
+  padding:12px 20px;
+  cursor:pointer;
+  border-radius:4px;
+  letter-spacing:1px;
+}
+
+.page{
+  width:var(--page-width);
+  height:var(--page-height);
+  background:#fff;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+
+.ph{
+  height:48px;
+  background:var(--navy);
+  border-bottom:4px solid var(--gold);
+  padding:0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  font-family:var(--font-display);
+  font-size:20px;
+  color:var(--gold);
+  letter-spacing:3px;
+}
+
+.series{
+  font-family:var(--font-display);
+  font-size:15px;
+  color:#fff;
+  letter-spacing:2px;
+}
+
+.pc{
+  flex:1;
+  padding:36px 64px 20px 80px;
+}
+
+.navy-bg{
+  background:var(--navy);
+  color:#fff;
+}
+
+.pf{
+  height:28px;
+  border-top:1px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  font-size:11px;
+}
+
+.pn{
+  font-weight:700;
+  color:var(--navy);
+}
+
+.ft{
+  color:#999;
+  font-style:italic;
+}
+
+.navy-bg .pf{
+  border-top:1px solid rgba(212,175,55,0.25);
+}
+
+.navy-bg .pn{
+  color:#fff;
+}
+
+.navy-bg .ft{
+  color:rgba(255,255,255,0.45);
+}
+
+.eyebrow{
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.hero-head{
+  font-family:var(--font-display);
+  font-size:82px;
+  line-height:.92;
+  letter-spacing:1px;
+  color:#fff;
+  margin:0;
+}
+
+.gold{
+  color:var(--gold);
+}
+
+.teal-bar{
+  width:72px;
+  height:4px;
+  background:var(--teal);
+  margin:28px 0;
+}
+
+.ch-intro{
+  font-family:var(--font-editorial);
+  font-size:20px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.86);
+  max-width:560px;
+}
+
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:60px;
+}
+
+.grid-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.25);
+  padding:18px;
+  border-radius:4px;
+}
+
+.stat-num{
+  font-family:var(--font-display);
+  font-size:48px;
+  line-height:1;
+  margin-bottom:6px;
+  letter-spacing:1px;
+}
+
+.stat-label{
+  font-size:12px;
+  font-weight:700;
+  color:#fff;
+  line-height:1.5;
+}
+
+.sec-title{
+  font-family:var(--font-display);
+  font-size:44px;
+  line-height:1;
+  color:var(--navy);
+  margin:0 0 10px 0;
+}
+
+.sec-intro{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--navy);
+  margin-bottom:34px;
+}
+
+.two-col{
+  display:grid;
+  grid-template-columns:55% 40%;
+  gap:34px;
+}
+
+.body{
+  font-size:14px;
+  line-height:1.74;
+  color:var(--ink);
+}
+
+.body strong{
+  color:var(--navy);
+}
+
+.stat-box{
+  background:#fff;
+  border-left:4px solid var(--gold);
+  padding:18px;
+  margin-bottom:16px;
+  border-radius:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.sb-num{
+  font-family:var(--font-display);
+  font-size:44px;
+  color:var(--gold);
+  line-height:1;
+}
+
+.sb-label{
+  font-weight:700;
+  color:var(--navy);
+  margin-top:6px;
+}
+
+.sb-sub{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+  margin-top:8px;
+}
+
+.callout{
+  background:var(--paper);
+  border-left:4px solid var(--gold);
+  padding:20px;
+  margin-top:22px;
+  border-radius:4px;
+}
+
+.callout strong{
+  color:var(--gold);
+}
+
+.q-card{
+  margin-top:20px;
+  padding:22px;
+  border-radius:4px;
+  background:var(--paper);
+  position:relative;
+}
+
+.q-card:before{
+  content:"“";
+  position:absolute;
+  top:0;
+  left:12px;
+  font-size:58px;
+  opacity:.12;
+  font-family:var(--font-editorial);
+}
+
+.q-text{
+  position:relative;
+  z-index:2;
+  font-family:var(--font-editorial);
+  font-style:italic;
+  line-height:1.7;
+  color:var(--navy);
+}
+
+.q-author{
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#777;
+  font-weight:700;
+}
+
+.timeline{
+  margin-top:34px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.t-row{
+  display:grid;
+  grid-template-columns:90px 40px 1fr;
+  gap:20px;
+}
+
+.t-date{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:32px;
+  text-align:right;
+}
+
+.t-line{
+  position:relative;
+}
+
+.dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--gold);
+  position:absolute;
+  top:8px;
+  left:13px;
+}
+
+.line{
+  position:absolute;
+  width:2px;
+  background:rgba(212,175,55,0.25);
+  top:24px;
+  bottom:-42px;
+  left:19px;
+}
+
+.t-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:18px;
+  border-radius:4px;
+}
+
+.t-head{
+  font-family:var(--font-display);
+  color:#fff;
+  font-size:24px;
+  letter-spacing:1px;
+}
+
+.t-body{
+  color:rgba(255,255,255,0.8);
+  line-height:1.7;
+  font-size:13px;
+  margin-top:8px;
+}
+
+.chk-row{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.chk{
+  width:18px;
+  height:18px;
+  border:2px solid var(--navy);
+  margin-top:2px;
+}
+
+.chk-row span{
+  flex:1;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.phase-block{
+  border:1px solid #e0e0e0;
+  border-left:4px solid var(--gold);
+  padding:11px 13px;
+  margin-bottom:10px;
+  border-radius:4px;
+  background:#fff;
+}
+.phase-block.teal{border-left-color:var(--teal);}
+.phase-block.navy{border-left-color:var(--navy);}
+.phase-name{
+  font-family:var(--font-display);
+  font-size:16px;
+  letter-spacing:1px;
+  color:var(--navy);
+  margin-bottom:5px;
+}
+.phase-meta{
+  font-size:10.5px;
+  line-height:1.5;
+  color:var(--ink);
+}
+.phase-meta strong{color:var(--navy);}
+.kpi-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.kpi-grid .stat-box{margin-bottom:0;padding:12px 14px;}
+.ops-panel{
+  background:var(--paper);
+  border:1px solid rgba(212,175,55,0.35);
+  border-left:4px solid var(--gold);
+  padding:14px;
+  border-radius:4px;
+  margin-bottom:12px;
+}
+.ops-panel.navy{
+  background:var(--navy);
+  border:1px solid rgba(212,175,55,0.25);
+}
+.ops-panel-title{
+  font-family:var(--font-display);
+  font-size:15px;
+  letter-spacing:1px;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.ops-panel.navy .ops-panel-title{color:var(--gold);}
+.ops-panel-body{font-size:11.5px;line-height:1.6;color:var(--ink);}
+.ops-panel.navy .ops-panel-body{color:rgba(255,255,255,0.82);}
+.brand-banner{
+  font-family:var(--font-display);
+  font-size:46px;
+  line-height:1.02;
+  letter-spacing:1px;
+  color:#fff;
+  margin:0 0 12px 0;
+}
+.brand-banner .gold{color:var(--gold);}
+.timeline.compact{gap:12px;margin-top:10px;}
+.timeline.compact .t-date{font-size:18px;}
+.timeline.compact .t-card{padding:12px 14px;}
+.timeline.compact .t-head{font-size:14px;}
+.timeline.compact .t-body{font-size:11.5px;margin-top:4px;}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin:18px 0;
+}
+.grid3 .stat-box{margin-bottom:0;padding:14px;}
+.navy-bg .grid3 .stat-box{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.25);
+  border-left:4px solid var(--gold);
+  box-shadow:none;
+}
+.navy-bg .grid3 .sb-label{color:#fff;}
+.navy-bg .grid3 .sb-sub{color:rgba(255,255,255,0.65);}
+.callout.gold-border{
+  border:1px solid rgba(212,175,55,0.45);
+  border-left:4px solid var(--gold);
+}
+.navy-bg .callout.gold-border{
+  background:rgba(255,255,255,0.05);
+  color:rgba(255,255,255,0.88);
+  border:1px solid rgba(212,175,55,0.35);
+  border-left:4px solid var(--gold);
+}
+.navy-bg .callout.gold-border strong{color:var(--gold);}
+
+.rank-card{
+  display:grid;
+  grid-template-columns:28px 1fr;
+  gap:10px;
+  border:1px solid #e0e0e0;
+  border-left:4px solid var(--gold);
+  padding:10px 12px;
+  margin-bottom:8px;
+  border-radius:4px;
+  background:#fff;
+}
+.rank-num{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:26px;
+  line-height:1;
+  margin-bottom:4px;
+}
+.rank-zone{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:15px;
+  letter-spacing:0.5px;
+  line-height:1.1;
+}
+.rank-impact{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:4px 0;
+}
+.rank-desc{
+  font-size:10.5px;
+  line-height:1.45;
+  color:var(--ink);
+}
+
+.roi-h-timeline{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  margin:20px 0 14px;
+  position:relative;
+}
+.roi-h-timeline:before{
+  content:"";
+  position:absolute;
+  top:6px;
+  left:8%;
+  right:8%;
+  height:2px;
+  background:rgba(0,212,170,0.35);
+  z-index:0;
+}
+.roi-step{
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.roi-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--teal);
+  margin:0 auto 8px;
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px var(--teal);
+}
+.roi-month{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:13px;
+  letter-spacing:0.5px;
+}
+.roi-body{
+  font-size:8.5px;
+  line-height:1.35;
+  color:var(--ink);
+  margin-top:6px;
+  text-align:left;
+}
+
+.materials-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.mat-card{
+  border:1px solid #e0e0e0;
+  border-left:4px solid var(--teal);
+  padding:11px 12px;
+  border-radius:4px;
+  background:#fff;
+}
+.mat-cat{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:14px;
+  letter-spacing:0.5px;
+  margin-bottom:8px;
+}
+.mat-item{
+  font-size:10px;
+  line-height:1.45;
+  color:var(--ink);
+  margin-bottom:4px;
+  padding-left:10px;
+  position:relative;
+}
+.mat-item:before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--gold);
+}
+
+.role-card{
+  border-left:4px solid var(--gold);
+  padding:10px 14px;
+  margin-bottom:9px;
+  background:var(--paper);
+  border-radius:0 4px 4px 0;
+}
+.role-title{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:17px;
+  letter-spacing:0.5px;
+}
+.role-label{
+  color:var(--teal);
+  font-size:9px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-top:2px;
+}
+.role-desc{
+  font-size:10.5px;
+  line-height:1.45;
+  color:var(--ink);
+  margin-top:5px;
+}
+.callout.teal-accent{
+  border-left:4px solid var(--teal);
+  background:rgba(0,212,170,0.08);
+}
+
+.cta-btn{
+  display:inline-block;
+  background:var(--gold);
+  color:#111;
+  font-family:var(--font-body);
+  font-weight:700;
+  padding:14px 18px;
+  text-decoration:none;
+  font-size:11px;
+  letter-spacing:1px;
+  text-align:center;
+  border-radius:4px;
+  line-height:1.4;
+}
+.qr-box{
+  width:160px;
+  height:160px;
+  border:2px solid var(--teal);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:4px;
+  background:#fff;
+}
+.qr-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.qr-fallback{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:13px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  text-align:center;
+  padding:8px;
+}
+.gold-rule{
+  height:2px;
+  background:var(--gold);
+  margin:18px 0 10px;
+}
+.closing-line{
+  font-size:9px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#999;
+  text-align:center;
+  font-weight:700;
+}
+
+.exp-dark-card{
+  background:rgba(0,0,0,0.22);
+  border-left:4px solid var(--teal);
+  padding:22px 24px;
+  border-radius:4px;
+  margin-bottom:0;
+}
+.exp-heading-gold{
+  font-family:var(--font-display);
+  font-size:34px;
+  color:var(--gold);
+  letter-spacing:1px;
+  line-height:1.05;
+  margin:0 0 10px 0;
+}
+.exp-label-teal{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:14px;
+}
+.exp-body{
+  font-size:12.5px;
+  line-height:1.72;
+  color:rgba(255,255,255,0.86);
+}
+.exp-body p{margin:0 0 12px 0;}
+.exp-quote-card{
+  background:var(--paper);
+  border:1px solid rgba(212,175,55,0.45);
+  border-left:4px solid var(--gold);
+  padding:18px 20px;
+  border-radius:4px;
+}
+.exp-quote-text{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:13px;
+  line-height:1.7;
+  color:var(--navy);
+}
+.exp-stat-stack .stat-box{margin-bottom:12px;}
+.exp-stat-stack .stat-box:last-child{margin-bottom:0;}
+.exp-heading-white{
+  font-family:var(--font-display);
+  font-size:32px;
+  color:#fff;
+  letter-spacing:1px;
+  line-height:1.05;
+  margin:0 0 8px 0;
+}
+.irr-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.irr-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.2);
+  border-left:3px solid var(--gold);
+  padding:11px 12px;
+  border-radius:4px;
+}
+.irr-label{
+  font-family:var(--font-display);
+  font-size:13px;
+  color:var(--gold);
+  letter-spacing:0.5px;
+  line-height:1.15;
+  margin-bottom:6px;
+}
+.irr-body{
+  font-size:10px;
+  line-height:1.5;
+  color:rgba(255,255,255,0.82);
+}
+.exp-block-gold-top{
+  border-top:4px solid var(--gold);
+  padding-top:20px;
+}
+.exp-heading-teal{
+  font-family:var(--font-display);
+  font-size:34px;
+  color:var(--teal);
+  letter-spacing:1px;
+  line-height:1.05;
+  margin:0 0 10px 0;
+}
+.exp-label-gold{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+.exp-close-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(212,175,55,0.4);
+  border-left:4px solid var(--gold);
+  padding:20px 22px;
+  border-radius:4px;
+}
+.exp-close-card .exp-heading-white{font-size:28px;margin-bottom:12px;}
+.exp-close-card .exp-body{color:rgba(255,255,255,0.88);}
+
+.exp-block-teal-top{border-top:4px solid var(--teal);padding-top:20px;}
+.psych-open{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:17px;
+  color:var(--gold);
+  line-height:1.65;
+  margin:12px 0 16px;
+}
+.grid4-psych{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+.psych-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(0,212,170,0.2);
+  padding:11px 10px;
+  border-radius:4px;
+}
+.psych-cat{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:12px;
+  letter-spacing:0.5px;
+  margin-bottom:5px;
+}
+.psych-stat{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:26px;
+  line-height:1;
+  margin-bottom:5px;
+}
+.psych-card-body{
+  font-size:8.5px;
+  line-height:1.38;
+  color:rgba(255,255,255,0.82);
+}
+.feel-card{
+  background:rgba(255,255,255,0.05);
+  padding:13px 14px;
+  border-radius:4px;
+  height:100%;
+}
+.feel-card.gold-b{border:1px solid rgba(212,175,55,0.35);}
+.feel-card.teal-b{border:1px solid rgba(0,212,170,0.35);}
+.feel-card h3{
+  font-family:var(--font-display);
+  color:#fff;
+  font-size:14px;
+  letter-spacing:0.5px;
+  line-height:1.15;
+  margin:0 0 10px 0;
+}
+.feel-list{
+  margin:0;
+  padding:0;
+  font-size:10px;
+  line-height:1.5;
+  color:rgba(255,255,255,0.88);
+}
+.feel-list li{
+  margin-bottom:7px;
+  padding-left:12px;
+  position:relative;
+  list-style:none;
+}
+.feel-list.teal-bullets li:before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--teal);
+}
+.feel-list.gold-bullets li:before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:var(--gold);
+}
+.callout.gold-full{
+  border:1px solid rgba(212,175,55,0.4);
+  border-left:4px solid var(--gold);
+  background:rgba(255,255,255,0.05);
+}
+.callout.gold-full .callout-body{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:12px;
+  line-height:1.65;
+  color:rgba(255,255,255,0.9);
+}
+.callout.teal-full{
+  border:1px solid rgba(0,212,170,0.35);
+  border-left:4px solid var(--teal);
+  background:rgba(0,212,170,0.06);
+}
+.callout.teal-full .callout-body{
+  font-family:var(--font-editorial);
+  font-style:italic;
+  font-size:12px;
+  line-height:1.65;
+  color:rgba(255,255,255,0.9);
+}
+.wrist-visual{
+  width:280px;
+  height:180px;
+  border:2px solid var(--teal);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:4px;
+  background:rgba(255,255,255,0.04);
+}
+.wrist-visual img{width:100%;height:100%;object-fit:cover;}
+.wrist-fallback{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:12px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.wrist-step{
+  display:flex;
+  gap:10px;
+  margin-bottom:9px;
+  background:rgba(255,255,255,0.06);
+  border-left:3px solid var(--gold);
+  padding:9px 11px;
+  border-radius:0 4px 4px 0;
+}
+.wrist-num{
+  font-family:var(--font-display);
+  color:var(--gold);
+  font-size:20px;
+  line-height:1;
+  min-width:22px;
+}
+.wrist-label{
+  font-family:var(--font-display);
+  color:var(--teal);
+  font-size:11px;
+  letter-spacing:0.5px;
+}
+.wrist-desc{
+  font-size:9.5px;
+  line-height:1.42;
+  color:rgba(255,255,255,0.85);
+  margin-top:3px;
+}
+.teal-closing{
+  font-size:9px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--teal);
+  text-align:center;
+  font-weight:700;
+}
+
+@media print{
+
+  body{
+    background:#fff;
+    padding:0;
+  }
+
+  .toolbar{
+    display:none;
+  }
+
+  .page{
+    margin:0;
+    page-break-after:always;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="toolbar">
+  <button class="btn" onclick="downloadPNGs()">Download PNG ZIP</button>
+  <button class="btn" onclick="window.print()">Print PDF</button>
+</div>
+
+<div class="wrapper">
+
+<!-- PAGE 1 -->
+
+<div class="page">
+
+<div class="ph">
+  <div class="brand">SCAN & SCALE</div>
+  <div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Hospitality Intelligence Briefing</div>
+
+<h1 class="hero-head">
+YOUR VENUE<br>
+IS LOSING<br>
+<span class="gold">REVENUE</span><br>
+IN LINE
+</h1>
+
+<div class="teal-bar"></div>
+
+<div class="ch-intro">
+A venue-specific deployment roadmap showing where guest friction destroys spending behavior — and how strategic Magic Code™ infrastructure recovers lost revenue through convenience, speed, and operational flow.
+</div>
+
+<div class="grid4">
+
+<div class="grid-card">
+<div class="stat-num gold">42%</div>
+<div class="stat-label">Higher average transaction size reported in mobile ordering case studies</div>
+</div>
+
+<div class="grid-card">
+<div class="stat-num" style="color:var(--teal)">81%</div>
+<div class="stat-label">In-seat delivery adoption in stadium mobile ordering studies</div>
+</div>
+
+<div class="grid-card">
+<div class="stat-num">48%</div>
+<div class="stat-label">Repeat user behavior after frictionless ordering adoption</div>
+</div>
+
+<div class="grid-card">
+<div class="stat-num gold">17</div>
+<div class="stat-label">Dollar audit designed to expose revenue leakage and deployment priorities</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">01</div>
+<div class="ft">The Revenue Leak</div>
+</div>
+
+</div>
+
+<!-- PAGE 2 — SECTION 01 EXPANSION (BEFORE) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="exp-dark-card">
+<div class="exp-heading-gold">THEY CHOSE YOU OVER EVERYTHING ELSE</div>
+<div class="exp-label-teal">The Competitive Reality for Stadiums &amp; Semi-Pro Venues</div>
+<div class="exp-body">
+<p>Think about what your guest said no to the night they bought that ticket.</p>
+<p>They passed on staying home with a 75-inch screen and a $12 case of beer. They passed on the concert. The restaurant. The theme park. The college game. The Saturday at the lake with the family.</p>
+<p>They chose your venue. They chose your team. They chose to spend real money — on tickets, on parking, on food, on the experience — because something about what you offer felt worth it.</p>
+<p>That decision deserves to be honored.</p>
+<p>Not just with a good game. With an environment that makes them feel like the money they spent was the best decision they made all weekend.</p>
+<p>The moment a guest stands in a 20-minute concession line and misses the play that everyone around them is reacting to — that promise breaks. Not loudly. Quietly. In the back of their mind where next season's ticket decision gets made.</p>
+</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 01 · Competitive Reality</div>
+</div>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Section 01</div>
+
+<h2 class="sec-title">THE FRICTION ECONOMY</h2>
+
+<div class="sec-intro">
+Most venues don’t have a demand problem. They have a friction problem.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+Every long line, delayed drink, crowded concession area, or confusing ordering workflow quietly reduces guest spending.
+</p>
+
+<p>
+Not because guests don’t want to buy — but because the purchasing experience becomes mentally exhausting.
+</p>
+
+<p>
+In hospitality, convenience directly affects revenue velocity.
+</p>
+
+<p>
+The average guest makes emotional spending decisions. If ordering feels difficult, uncertain, crowded, or slow, spending behavior changes immediately.
+</p>
+
+<p>
+The result:
+</p>
+
+<p>
+<strong>• Lower drink frequency</strong><br>
+<strong>• Fewer impulse purchases</strong><br>
+<strong>• Abandoned concession visits</strong><br>
+<strong>• Reduced premium spending</strong><br>
+<strong>• Earlier departures</strong><br>
+<strong>• Lower guest satisfaction</strong>
+</p>
+
+<div class="callout">
+<strong>The core principle:</strong><br><br>
+Guests spend more when spending feels easier.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">42%</div>
+<div class="sb-label">Higher transaction sizes</div>
+<div class="sb-sub">
+Mobile ordering studies reported meaningful basket-size increases compared to walk-up ordering behavior.
+</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal)">
+<div class="sb-num" style="color:var(--teal)">15–29%</div>
+<div class="sb-label">Higher spend per transaction</div>
+<div class="sb-sub">
+Venue mobile ordering workflows are consistently associated with higher average spend behavior.
+</div>
+</div>
+
+<div class="q-card">
+<div class="q-text">
+“The best hospitality systems don’t just move lines faster — they reduce friction at the exact moment guests are deciding whether spending feels worth the effort.”
+</div>
+<div class="q-author">
+Guest Flow Economics
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">02</div>
+<div class="ft">Guest Psychology & Spending</div>
+</div>
+
+</div>
+
+<!-- PAGE 2 — SECTION 01 EXPANSION (AFTER) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="two-col" style="grid-template-columns:52% 42%;gap:6%;">
+
+<div class="exp-quote-card">
+<div class="exp-quote-text">"The guest who feels taken care of doesn't just come back. They bring someone with them. They post about it. They become the reason three other people show up next season who weren't there this one."</div>
+</div>
+
+<div class="exp-stat-stack">
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal);">48%</div>
+<div class="sb-label">Repeat user behavior after frictionless ordering adoption</div>
+</div>
+
+<div class="stat-box">
+<div class="sb-num">42%</div>
+<div class="sb-label">Higher average transaction size with mobile ordering</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal);">1 in 6</div>
+<div class="sb-label">Abandoned orders recovered through frictionless checkout</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 01 · Guest Retention Economics</div>
+</div>
+
+</div>
+
+<!-- PAGE 2 — SECTION 01 EXPANSION (IRRITANTS) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="exp-heading-white">WHAT KILLS THE EXPERIENCE BEFORE HALFTIME</div>
+<div class="exp-label-teal">What Your Guests Are Thinking But Not Saying</div>
+
+<div class="irr-grid">
+
+<div class="irr-card">
+<div class="irr-label">"I missed the play standing in this line."</div>
+<div class="irr-body">They didn't leave the game to get a drink because they were thirsty. They left because the experience felt worth it. The moment that drink costs them a memory, the calculus changes permanently.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"I can't even find where to order."</div>
+<div class="irr-body">Confusion is invisible to operators and deafening to guests. When a fan can't figure out how to get food in under 60 seconds, they make a decision — and it's rarely the one that generates revenue.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"The prices aren't even worth this wait."</div>
+<div class="irr-body">Perceived value collapses under friction. A $14 beer feels like a bad deal when it takes 18 minutes to get it. The same beer feels like a premium experience when it arrives at the seat.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"I don't know if I'd bring my family back here."</div>
+<div class="irr-body">This is the most expensive thought a guest can have. It doesn't show up in your POS data. It shows up in next season's attendance numbers.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"Why is this so much harder than ordering on my phone?"</div>
+<div class="irr-body">Your guests order Uber Eats in 90 seconds. They book flights on their phone. They pay for everything with a tap. When your venue requires them to step backward in time to get a hot dog, the experience gap becomes personal.</div>
+</div>
+
+<div class="irr-card">
+<div class="irr-label">"The game was great. Everything else was a hassle."</div>
+<div class="irr-body">This is the review that hurts most. The product was good. The infrastructure failed it. And infrastructure is the one thing entirely within your control.</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 01 · Guest Irritants</div>
+</div>
+
+</div>
+
+<!-- PAGE — REVENUE LEAK SCORE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Stadium & Semi-Pro Venue Audit</div>
+
+<h2 class="sec-title" style="color:#fff;">YOUR REVENUE LEAK SCORE</h2>
+
+<div class="sec-intro" style="color:rgba(255,255,255,0.82);margin-bottom:20px;">
+STADIUM & SEMI-PRO VENUE AUDIT
+</div>
+
+<div class="grid3">
+
+<div class="stat-box">
+<div class="sb-num">$0</div>
+<div class="sb-label">Current revenue per scan at your venue</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal);">$4.20</div>
+<div class="sb-label">Industry average revenue per scan</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--navy);">
+<div class="sb-num" style="color:var(--gold);">$0</div>
+<div class="sb-label">Monthly gap based on your scan volume</div>
+</div>
+
+</div>
+
+<div class="callout gold-border" style="margin-top:18px;">
+Every game you run without a Magic Code™ infrastructure is a game your concession lines are making the spending decision for your guests. That gap above is not a projection. It is the cost of friction — per scan, per event, per season.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">07</div>
+<div class="ft">Revenue Leak Score</div>
+</div>
+
+</div>
+
+<!-- PAGE — PRIORITIZED OPPORTUNITY SCORE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Ranked by Revenue Impact</div>
+
+<h2 class="sec-title" style="font-size:36px;">WHERE YOUR STADIUM IS<br>BLEEDING REVENUE FIRST</h2>
+
+<div class="sec-intro" style="margin-bottom:16px;font-size:14px;">
+RANKED BY REVENUE IMPACT — STADIUMS & SEMI-PRO VENUES
+</div>
+
+<div class="rank-card">
+<div class="rank-num">1</div>
+<div>
+<div class="rank-zone">Concourse & General Concession Lines</div>
+<div class="rank-impact">Highest Impact</div>
+<div class="rank-desc">This is where guest spending dies. Long lines during peak periods cause guests to abandon purchases entirely. This is your fastest ROI zone.</div>
+</div>
+</div>
+
+<div class="rank-card">
+<div class="rank-num">2</div>
+<div>
+<div class="rank-zone">In-Seat & Section Ordering</div>
+<div class="rank-impact">High Impact</div>
+<div class="rank-desc">Fans who never leave their seat spend more per event. In-seat delivery adoption in stadium studies reached 81%. This zone compounds every game.</div>
+</div>
+</div>
+
+<div class="rank-card">
+<div class="rank-num">3</div>
+<div>
+<div class="rank-zone">Entry & Gate Zones</div>
+<div class="rank-impact">High Impact</div>
+<div class="rank-desc">The first 10 minutes of arrival set the guest's spending posture for the entire event. Frictionless entry correlates directly with higher F&amp;B spend.</div>
+</div>
+</div>
+
+<div class="rank-card">
+<div class="rank-num">4</div>
+<div>
+<div class="rank-zone">VIP & Suite Service</div>
+<div class="rank-impact">Premium Impact</div>
+<div class="rank-desc">Premium guests expect premium speed. Tablet ordering, dedicated pickup, and personalized service convert suite holders into your highest-LTV repeat buyers.</div>
+</div>
+</div>
+
+<div class="rank-card" style="margin-bottom:0;">
+<div class="rank-num">5</div>
+<div>
+<div class="rank-zone">Merchandise & Retail Zones</div>
+<div class="rank-impact">Moderate Impact</div>
+<div class="rank-desc">Mobile ordering studies report 15–25% higher merchandise sales when scan-to-buy is available at the point of excitement — not at a crowded table.</div>
+</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">14</div>
+<div class="ft">Prioritized Opportunity Score</div>
+</div>
+
+</div>
+
+<!-- PAGE — 6-MONTH ROI RECOVERY TIMELINE -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Stadium & Semi-Pro Deployment Projection</div>
+
+<h2 class="sec-title" style="font-size:38px;">6-MONTH ROI<br>RECOVERY TIMELINE</h2>
+
+<div class="sec-intro" style="margin-bottom:14px;font-size:14px;">
+STADIUM & SEMI-PRO DEPLOYMENT PROJECTION
+</div>
+
+<div class="roi-h-timeline">
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Month 1</div>
+<div class="roi-body">Pilot zone live. Concourse Magic Code™ deployed. Scan visibility confirmed. Staff trained. Baseline KPIs captured.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Month 2</div>
+<div class="roi-body">Conversion data in. Placement optimized. AOV trending up. Guest adoption behavior emerging.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Month 3</div>
+<div class="roi-body">Repeat guest behavior confirmed. In-seat ordering layer added. Revenue per guest rising.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Month 4</div>
+<div class="roi-body">Gate and entry zones activated. Suite ordering workflow live. Full-venue coverage in progress.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Month 5</div>
+<div class="roi-body">Merch scan-to-buy active. Upsell campaigns running. Abandonment rate declining.</div>
+</div>
+
+<div class="roi-step">
+<div class="roi-dot"></div>
+<div class="roi-month">Month 6</div>
+<div class="roi-body">Full ROI recovery window. Venue-wide frictionless infrastructure operational. Season-over-season LTV compounding.</div>
+</div>
+
+</div>
+
+<div class="callout" style="margin-top:8px;">
+Most venues see measurable AOV lift within the first two games of pilot deployment. The operators who move in Month 1 are the ones who close the gap before their competitors realize there is one.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">15</div>
+<div class="ft">6-Month ROI Recovery Timeline</div>
+</div>
+
+</div>
+
+<!-- PAGE 3 -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Section 02</div>
+
+<h2 class="sec-title" style="color:#fff">
+MAGIC CODES™<br>AREN'T THE PRODUCT
+</h2>
+
+<div class="teal-bar"></div>
+
+<div class="ch-intro">
+Most venues think implementation starts with generating a Magic Code™ and printing signage.
+
+That is usually where deployment problems begin.
+</div>
+
+<div class="two-col" style="margin-top:40px;">
+
+<div>
+
+<div class="grid-card" style="margin-bottom:18px;">
+<div class="t-head">THE REAL SYSTEM</div>
+
+<div class="t-body" style="margin-top:14px;">
+• Guest experience flow<br>
+• Ordering workflow architecture<br>
+• POS & vendor routing logic<br>
+• Payment handling<br>
+• Pickup coordination<br>
+• Staff adaptation<br>
+• Guest education<br>
+• Throughput balancing<br>
+• Premium service logic<br>
+• Physical signage systems
+</div>
+</div>
+
+<div class="q-card" style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)">
+<div class="q-text" style="color:#fff">
+"The Magic Code™ itself is only the entry point. The real leverage comes from the operational system behind it."
+</div>
+</div>
+
+</div>
+
+<div>
+
+<div class="grid-card" style="border-color:rgba(0,212,170,.25); margin-bottom:18px;">
+
+<div class="t-head" style="color:var(--teal)">
+IMPLEMENTATION STACK
+</div>
+
+<div class="t-body" style="margin-top:18px; line-height:2;">
+Guest Experience Layer<br>
+↓<br>
+Ordering Workflow<br>
+↓<br>
+POS / Vendor Routing<br>
+↓<br>
+Payment Handling<br>
+↓<br>
+Operational Logic<br>
+↓<br>
+Staff Coordination<br>
+↓<br>
+Physical Signage System<br>
+↓<br>
+Magic Code™ Access Layer
+</div>
+
+</div>
+
+<div class="grid-card">
+
+<div class="stat-num gold">1</div>
+
+<div class="stat-label">
+Bad workflow can destroy adoption faster than bad technology
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">03</div>
+<div class="ft">Operational Infrastructure Layer</div>
+</div>
+
+</div>
+
+<!-- PAGE — THE PSYCHOLOGY OF WAITING (1) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-teal-top">
+
+<div class="exp-heading-gold">THE PSYCHOLOGY OF WAITING</div>
+<div class="exp-label-teal">Programmatic · Financial · Psychological · Sociological</div>
+
+<div class="psych-open">"People hate waiting. But they hate waiting when they don't know how long they're going to wait even more."</div>
+
+<div class="grid4-psych">
+
+<div class="psych-card">
+<div class="psych-cat">PROGRAMMATIC</div>
+<div class="psych-stat">67%</div>
+<div class="psych-card-body">One stadium study reported a 67% drop in scan engagement when a Magic Code™ was not visible long enough to act on. Visibility is not a design preference. It is a conversion variable. The system only works when the guest can see it, read it, and scan it before the moment passes.</div>
+</div>
+
+<div class="psych-card">
+<div class="psych-cat">FINANCIAL</div>
+<div class="psych-stat">$0</div>
+<div class="psych-card-body">Every minute a guest spends in a concession line is a minute they are not spending money anywhere else in your venue. Abandoned purchase behavior — guests who walk away from a line before ordering — represents revenue that never enters your POS system and never shows up in your reporting. It is invisible loss. And it compounds every game.</div>
+</div>
+
+<div class="psych-card">
+<div class="psych-cat">PSYCHOLOGICAL</div>
+<div class="psych-stat">8 mins</div>
+<div class="psych-card-body">Research consistently shows that unoccupied wait time feels nearly three times longer than occupied wait time. A guest standing in a line with no information, no progress signal, and no alternative feels the wait at a psychological multiplier. That feeling transfers directly to their perception of your venue — not the line. Your venue.</div>
+</div>
+
+<div class="psych-card">
+<div class="psych-cat">SOCIOLOGICAL</div>
+<div class="psych-stat" style="font-size:18px;">Group Effect</div>
+<div class="psych-card-body">Waiting is a social experience. When one person in a group abandons a line, the group often follows. When one person in a group scans and orders from their seat, the people around them ask how they did it. Frictionless ordering is socially contagious in both directions. The question is which direction your current infrastructure is spreading.</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">The Psychology of Waiting</div>
+</div>
+
+</div>
+
+<!-- PAGE — THE PSYCHOLOGY OF WAITING (2) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="two-col" style="grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+<div class="feel-card gold-b">
+<h3>WHAT GUESTS FEEL WHEN THEY WAIT WITHOUT INFORMATION</h3>
+<ul class="feel-list teal-bullets">
+<li>Anxiety — they don't know if the line will move before the game restarts</li>
+<li>Resentment — the venue feels disorganized and indifferent to their time</li>
+<li>Regret — the ticket price starts to feel like a bad investment in real time</li>
+<li>Disconnection — they are physically at your event but mentally somewhere else</li>
+<li>Finality — somewhere in that line, the decision not to return next season gets made</li>
+</ul>
+</div>
+
+<div class="feel-card teal-b">
+<h3>WHAT GUESTS FEEL WHEN THE WAIT IS MANAGED</h3>
+<ul class="feel-list gold-bullets">
+<li>Control — they made a decision and the system responded to it</li>
+<li>Confidence — the venue feels competent and worth the money</li>
+<li>Presence — they stay immersed in the event they paid to attend</li>
+<li>Generosity — guests in a positive emotional state spend more and tip more</li>
+<li>Loyalty — a smooth experience becomes the story they tell, and the reason they return</li>
+</ul>
+</div>
+
+</div>
+
+<div class="callout gold-full">
+<div class="callout-body">The venues that solve the wait time problem do not just improve guest satisfaction scores. They change the emotional memory guests carry out of the building. And emotional memory is what drives every ticket, every renewal, and every referral that follows.</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Waiting · Emotional Memory</div>
+</div>
+
+</div>
+
+<!-- PAGE — MAGIC CODE ON WRIST -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-gold-top">
+
+<div class="exp-heading-teal">YOUR MAGIC CODE™ ALREADY WORKS ON THEIR WRIST</div>
+<div class="exp-label-gold">Smart Wristband Ordering — Current Seamlessly Functionality</div>
+
+<div class="exp-body">
+<p>Here is something most venues do not realize until after their first deployment.</p>
+<p>The same Magic Code™ infrastructure powering your concourse signs, suite tablets, and in-seat panels works on a wristband.</p>
+<p>Guests check in. They get a wristband. That wristband has a Magic Code™ on it.</p>
+<p>From that moment, anywhere in your venue — at their seat, by the pool deck, in the VIP lounge, at the merch table — they scan their wrist and order. No phone fumbling. No app download. No wallet. Just a scan and a confirmation.</p>
+<p>It is the same system. The same workflow. The same Magic Code™ infrastructure you are already deploying.</p>
+<p>It just got a lot more powerful.</p>
+</div>
+
+<div class="two-col" style="grid-template-columns:auto 1fr;gap:20px;margin-top:14px;align-items:start;">
+
+<div class="wrist-visual">
+<img src="./assets/magic-code-wristband.png" alt="Magic Code™ smart wristband ordering" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+<div class="wrist-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">WRISTBAND VISUAL</div>
+</div>
+
+<div>
+
+<div class="wrist-step">
+<div class="wrist-num">01</div>
+<div>
+<div class="wrist-label">SCAN ANYWHERE IN THE VENUE</div>
+<div class="wrist-desc">The wristband is not zone-locked. Wherever the guest goes, the Magic Code™ goes with them. Every touchpoint becomes an ordering opportunity.</div>
+</div>
+</div>
+
+<div class="wrist-step">
+<div class="wrist-num">02</div>
+<div>
+<div class="wrist-label">NO APP. NO WALLET. NO FRICTION.</div>
+<div class="wrist-desc">The guest experience collapses to its simplest form. Scan. Order. Receive. The wristband removes every remaining barrier between intent and purchase.</div>
+</div>
+</div>
+
+<div class="wrist-step">
+<div class="wrist-num">03</div>
+<div>
+<div class="wrist-label">THE SAME SYSTEM. ZERO ADDITIONAL INFRASTRUCTURE.</div>
+<div class="wrist-desc">You are not adding a new platform. You are extending the Magic Code™ infrastructure already running your venue into the most personal touchpoint a guest carries.</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="callout teal-full" style="margin-top:14px;">
+<div class="callout-body">This is not a future feature. This is what your Magic Code™ deployment already supports. The wristband is just the moment guests stop thinking about ordering and start experiencing the venue the way it was always supposed to feel.</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Smart Wristband Ordering</div>
+</div>
+
+</div>
+
+<!-- PAGE 4 -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Section 03</div>
+
+<h2 class="sec-title">DEPLOYMENT PRIORITIES</h2>
+
+<div class="sec-intro">
+The highest-performing Magic Code™ systems usually begin with one friction point solved exceptionally well.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+<strong>Phase 1 should focus on the highest-traffic conversion zones.</strong>
+</p>
+
+<p>
+These are the areas where guests are already stationary, waiting, or mentally prepared to purchase.
+</p>
+
+<p>
+Recommended first deployments:
+</p>
+
+<p>
+<strong>• Main bars</strong><br>
+<strong>• Concession bottlenecks</strong><br>
+<strong>• VIP entrances</strong><br>
+<strong>• Poolside seating</strong><br>
+<strong>• Table ordering zones</strong><br>
+<strong>• Suite service areas</strong>
+</p>
+
+<p>
+Visibility matters more than complexity.
+</p>
+
+<p>
+The objective is to create the fastest possible behavior shift with the least operational resistance.
+</p>
+
+<div class="callout">
+<strong>Important:</strong><br><br>
+Most failed Magic Code™ deployments were not technology failures — they were visibility, workflow, or operational design failures.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">67%</div>
+<div class="sb-label">Scan reduction</div>
+<div class="sb-sub">
+One stadium study reported significant Magic Code™ scan loss when codes were not visible long enough.
+</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--navy)">
+<div class="sb-num" style="color:var(--navy)">20%</div>
+<div class="sb-label">Starbucks mobile revenue</div>
+<div class="sb-sub">
+One of the strongest consumer-scale examples of mobile ordering adoption at scale.
+</div>
+</div>
+
+<div class="q-card">
+<div class="q-text">
+"The businesses seeing the strongest Magic Code™ results are not necessarily using better technology. They are implementing it more strategically."
+</div>
+<div class="q-author">
+Operational Deployment Logic
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">04</div>
+<div class="ft">Operational Rollout Strategy</div>
+</div>
+
+</div>
+
+
+<!-- PAGE — PHYSICAL MATERIALS LIST -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Stadium & Semi-Pro Venue — Materials Checklist</div>
+
+<h2 class="sec-title" style="font-size:36px;">WHAT YOU ACTUALLY<br>NEED TO DEPLOY</h2>
+
+<div class="sec-intro" style="margin-bottom:14px;font-size:14px;">
+STADIUM & SEMI-PRO VENUE — MATERIALS CHECKLIST
+</div>
+
+<div class="materials-grid">
+
+<div class="mat-card">
+<div class="mat-cat">Signage & Placement</div>
+<div class="mat-item">Weatherproof A-frame signs for concourse entry points (minimum 2 per concession zone)</div>
+<div class="mat-item">Backlit or high-contrast signage for low-light stadium environments</div>
+<div class="mat-item">Table tents for suite and VIP areas</div>
+<div class="mat-item">Section-mounted QR panels for in-seat zones (one per 4–6 rows)</div>
+<div class="mat-item">Gate-facing banners for arrival flow zones</div>
+</div>
+
+<div class="mat-card">
+<div class="mat-cat">Technology & Infrastructure</div>
+<div class="mat-item">Mobile-optimized ordering page live before first scan goes live</div>
+<div class="mat-item">Weak-signal fallback tested (stadiums have notoriously poor interior connectivity)</div>
+<div class="mat-item">POS routing confirmed for each pickup zone</div>
+<div class="mat-item">Payment processing tested end-to-end before game day</div>
+<div class="mat-item">Analytics tracking configured per zone</div>
+</div>
+
+<div class="mat-card">
+<div class="mat-cat">Staffing & Operations</div>
+<div class="mat-item">Designated pickup zone per concession area with clear signage</div>
+<div class="mat-item">One trained staff lead per active Magic Code™ zone on game day</div>
+<div class="mat-item">Queue fallback procedure documented and distributed before launch</div>
+<div class="mat-item">Staff script for guest confusion moments</div>
+</div>
+
+<div class="mat-card">
+<div class="mat-cat">Measurement</div>
+<div class="mat-item">Weekly KPI pull configured: scan rate, AOV, conversion, repeat %</div>
+<div class="mat-item">Zone-by-zone revenue tracking active from Day 1</div>
+<div class="mat-item">7-day, 14-day, and 30-day check-in dates locked on calendar before launch</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">16</div>
+<div class="ft">Physical Materials List</div>
+</div>
+
+</div>
+
+<!-- PAGE — WHO NEEDS TO BE IN THE ROOM -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Minimum Launch Team</div>
+
+<h2 class="sec-title" style="font-size:38px;">WHO NEEDS TO BE<br>IN THE ROOM</h2>
+
+<div class="sec-intro" style="margin-bottom:14px;font-size:14px;">
+MINIMUM LAUNCH TEAM — STADIUMS & SEMI-PRO VENUES
+</div>
+
+<div class="role-card">
+<div class="role-title">Operations Manager</div>
+<div class="role-label">Operational Owner</div>
+<div class="role-desc">Owns daily workflow, staff deployment, pickup zone setup, and game-day execution.</div>
+</div>
+
+<div class="role-card">
+<div class="role-title">F&amp;B or Concessions Lead</div>
+<div class="role-label">Zone Owner</div>
+<div class="role-desc">Owns menu optimization, ordering flow, and throughput management per zone.</div>
+</div>
+
+<div class="role-card">
+<div class="role-title">IT or AV Contact</div>
+<div class="role-label">Infrastructure Owner</div>
+<div class="role-desc">Confirms connectivity, POS routing, payment processing, and mobile UX stability.</div>
+</div>
+
+<div class="role-card">
+<div class="role-title">Marketing or Sponsorship Lead</div>
+<div class="role-label">Visibility Owner</div>
+<div class="role-desc">Controls signage placement approvals, fan communication, and scan activation promotion.</div>
+</div>
+
+<div class="role-card" style="margin-bottom:12px;">
+<div class="role-title">General Manager or Venue Director</div>
+<div class="role-label">Scale Authorization</div>
+<div class="role-desc">Makes the call to expand from pilot to full-venue. No scale without their sign-off.</div>
+</div>
+
+<div class="callout teal-accent">
+You do not need a tech team. You need five people who own five things. The venues that fail are the ones that launch without this accountability stack in place.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">17</div>
+<div class="ft">Launch Team & Accountability</div>
+</div>
+
+</div>
+
+<!-- PAGE 5 -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Section 04</div>
+
+<h2 class="sec-title">
+THE HIGHEST ROI SYSTEMS<br>
+OFTEN LOOK SMALL FIRST
+</h2>
+
+<div class="sec-intro">
+Some of the highest-return innovations in business history looked deceptively simple in the beginning.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+<strong>Credit cards.</strong><br>
+<strong>Drive-thrus.</strong><br>
+<strong>Online reservations.</strong><br>
+<strong>Mobile boarding passes.</strong><br>
+<strong>Contactless payments.</strong><br>
+<strong>Magic Codes™.</strong>
+</p>
+
+<p>
+None of them looked revolutionary at first.
+</p>
+
+<p>
+But each one removed friction from an existing behavior.
+</p>
+
+<p>
+And when friction drops:
+</p>
+
+<p>
+<strong>• transaction frequency rises</strong><br>
+<strong>• operational capacity expands</strong><br>
+<strong>• convenience increases</strong><br>
+<strong>• guest habits evolve</strong><br>
+<strong>• spending velocity improves</strong>
+</p>
+
+<p>
+A properly implemented Magic Code™ system can continue generating returns long after the initial deployment investment has been recovered.
+</p>
+
+<p>
+Unlike advertising, the infrastructure remains.
+</p>
+
+<p>
+The workflow compounds.
+</p>
+
+<p>
+And guest behavior improves over time.
+</p>
+
+<div class="callout">
+<strong>The best hospitality systems do not merely increase sales.</strong><br><br>
+They increase the ease of spending money.<br><br>
+And ease compounds.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">100X</div>
+<div class="sb-label">Compounding return potential</div>
+<div class="sb-sub">
+A one-time implementation can influence thousands of guest decisions across months or years.
+</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal)">
+<div class="sb-num" style="color:var(--teal)">ROI</div>
+<div class="sb-label">Doesn't stop after launch</div>
+<div class="sb-sub">
+The infrastructure continues producing operational leverage after deployment.
+</div>
+</div>
+
+<div class="q-card">
+<div class="q-text">
+"One small flow improvement can quietly affect thousands of transactions per month."
+</div>
+
+<div class="q-author">
+Experience Economics
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">05</div>
+<div class="ft">Compounding ROI Infrastructure</div>
+</div>
+
+</div>
+
+<!-- PAGE 6 — SECTION 05 EXPANSION (BEFORE) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-gold-top">
+
+<div class="exp-heading-teal">WHAT A GREAT NIGHT ACTUALLY FEELS LIKE</div>
+<div class="exp-label-gold">Put Yourself in the Guest's Seat</div>
+
+<div class="exp-body">
+<p>Imagine you bought tickets to a game. Good seats. You're excited. You get there and parking flows smoothly. The entry gate scans fast. Someone hands you a card that says scan this to order food and drinks from your seat and it'll be there in 12 minutes.</p>
+<p>You scan it. You order. You never miss an inning.</p>
+<p>The beer is cold. The food shows up. The person next to you asks how you did that. You feel like you figured something out — like you're in on something the rest of the crowd hasn't discovered yet.</p>
+<p>At halftime you order again. No line. No chaos. No missing the second half warm-up.</p>
+<p>You leave thinking: that was worth every dollar. Maybe even worth bringing the whole family next time.</p>
+<p>That feeling — effortless, organized, premium — is not an accident. It is an operational decision. And it is entirely available to every venue that chooses to build it.</p>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 05 · Guest Experience Vision</div>
+</div>
+
+</div>
+
+<!-- PAGE 6 -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Section 05</div>
+
+<h2 class="sec-title" style="color:#fff">
+THE REAL PRODUCT<br>
+IS THE FEELING
+</h2>
+
+<div class="teal-bar"></div>
+
+<div class="two-col">
+
+<div>
+
+<div class="body" style="color:rgba(255,255,255,.86)">
+
+<p>
+Guests rarely remember exact wait times.
+</p>
+
+<p>
+They remember:
+</p>
+
+<p>
+<strong style="color:#fff;">• whether the venue felt chaotic</strong><br>
+<strong style="color:#fff;">• whether ordering felt stressful</strong><br>
+<strong style="color:#fff;">• whether service felt smooth</strong><br>
+<strong style="color:#fff;">• whether they felt prioritized</strong>
+</p>
+
+<p>
+That emotional memory becomes brand perception.
+</p>
+
+<p>
+And brand perception drives:
+</p>
+
+<p>
+<strong style="color:#fff;">• repeat visits</strong><br>
+<strong style="color:#fff;">• recommendations</strong><br>
+<strong style="color:#fff;">• loyalty</strong><br>
+<strong style="color:#fff;">• social sharing</strong><br>
+<strong style="color:#fff;">• lifetime customer value</strong>
+</p>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="grid-card" style="margin-bottom:18px;">
+
+<div class="t-head">
+PERCEIVED VALUE RISES WHEN:
+</div>
+
+<div class="t-body" style="margin-top:14px;">
+• effort drops<br>
+• confusion disappears<br>
+• service feels organized<br>
+• ordering feels effortless<br>
+• guests feel prioritized
+</div>
+
+</div>
+
+<div class="q-card" style="background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.25)">
+
+<div class="q-text" style="color:#fff">
+"When guests can scan instantly, order effortlessly, and stay immersed in the experience, the venue begins to feel more premium — even if nothing changed physically."
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">06</div>
+<div class="ft">Experience Economics & LTV</div>
+</div>
+
+</div>
+
+<!-- PAGE 6 — SECTION 05 EXPANSION (AFTER) -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="exp-close-card">
+<div class="exp-heading-white">THE VENUES WINNING THIS WAR AREN'T BIGGER. THEY'RE SMOOTHER.</div>
+<div class="exp-body">
+<p>The competitive moat for a semi-pro or regional stadium venue is not the sport. Every market has entertainment options. Every weekend has competing events.</p>
+<p>The moat is the feeling guests can only get inside your walls.</p>
+<p>The team that makes ordering feel effortless. The venue where the lines don't steal the moment. The place where spending money feels good instead of frustrating.</p>
+<p>When you build that environment — when guests leave saying 'I'm glad I spent my money there' — you stop competing on price, proximity, and schedule.</p>
+<p>You start competing on experience. And experience is the one thing a 75-inch TV at home cannot replicate.</p>
+<p>That is what Magic Code™ infrastructure builds. Not a QR code program. A reason to come back.</p>
+</div>
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">Section 05 · Experience Competitive Moat</div>
+</div>
+
+</div>
+
+<!-- PAGE 8 — IMPLEMENTATION BLUEPRINT -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title" style="font-size:38px;">MAGIC CODE™<br>IMPLEMENTATION BLUEPRINT</h2>
+
+<div class="sec-intro" style="margin-bottom:18px;">
+A phased operational rollout framework designed to reduce deployment risk while maximizing guest adoption and ROI.
+</div>
+
+<div class="two-col" style="grid-template-columns:58% 38%; gap:4%;">
+
+<div>
+
+<div class="phase-block">
+<div class="phase-name">PHASE 1 — DISCOVERY & MAPPING</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Identify highest-friction revenue zones.<br><br>
+<strong>Deliverables:</strong> Guest-flow analysis · Congestion mapping · Revenue leak analysis · Workflow review · Staff interviews · Bottleneck mapping · POS/vendor review<br><br>
+<strong>Team Roles:</strong> Operations lead · Venue manager · Beverage lead · POS/vendor contact<br><br>
+<strong>Success Metric:</strong> First high-leverage deployment zone identified.
+</div>
+</div>
+
+<div class="phase-block teal">
+<div class="phase-name">PHASE 2 — PILOT DEPLOYMENT</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Launch smallest high-ROI implementation first.<br><br>
+<strong>Deliverables:</strong> Magic Code™ placement · Menu optimization · Ordering flow · Routing logic · Staff onboarding · Pickup zone · Mobile UX testing<br><br>
+<strong>KPI Targets:</strong> Scan rate · Order completion % · Queue reduction · Guest adoption % · Avg order value<br><br>
+<strong>Success Metric:</strong> Operational stability + repeat guest behavior.
+</div>
+</div>
+
+</div>
+
+<div>
+
+<div class="ops-panel">
+<div class="ops-panel-title">IMPLEMENTATION REALITY</div>
+<div class="ops-panel-body">
+Most deployments fail because venues attempt to scale before:<br><br>
+• operational consistency<br>
+• guest adoption<br>
+• workflow stability<br><br>
+have been established.<br><br>
+The best systems scale slowly and intentionally.
+</div>
+</div>
+
+<div class="stat-box" style="margin-bottom:12px;">
+<div class="sb-num" style="font-size:32px;">4</div>
+<div class="sb-label">Phased rollout framework</div>
+<div class="sb-sub">Discovery → Pilot → Optimization → Scale</div>
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal);">
+<div class="sb-num" style="color:var(--teal); font-size:32px;">1</div>
+<div class="sb-label">Pilot zone first</div>
+<div class="sb-sub">Never scale before workflow stability is proven in one zone.</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">08</div>
+<div class="ft">Rollout Phases 1–2 · Discovery & Pilot</div>
+</div>
+
+</div>
+
+<!-- PAGE 9 — PHASES 3–4 + CHECKLIST -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title" style="font-size:34px;">ROLLOUT PHASES<br>3 & 4</h2>
+
+<div class="two-col" style="grid-template-columns:55% 40%;">
+
+<div>
+
+<div class="phase-block navy">
+<div class="phase-name">PHASE 3 — OPTIMIZATION</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Improve conversion and reduce friction.<br><br>
+<strong>Deliverables:</strong> Placement adjustments · Visibility improvements · CTA optimization · Throughput balancing · Workflow tuning · Repeat-order optimization<br><br>
+<strong>KPI Targets:</strong> Revenue per scan · Repeat order % · Abandonment rate · Time-to-order · Revenue per guest
+</div>
+</div>
+
+<div class="phase-block">
+<div class="phase-name">PHASE 4 — SCALE</div>
+<div class="phase-meta">
+<strong>Objective:</strong> Expand into additional revenue zones.<br><br>
+<strong>Expansion Areas:</strong> VIP · Suites · Poolside · In-seat ordering · Express pickup · Events · Upsell campaigns · Wayfinding<br><br>
+<strong>Goal:</strong> Venue-wide frictionless spending infrastructure.
+</div>
+</div>
+
+<div class="callout" style="margin-top:8px;">
+<strong>Scale rule:</strong> Do not expand until pilot KPIs stabilize.
+</div>
+
+</div>
+
+<div>
+
+<div class="ops-panel" style="margin-bottom:0;">
+<div class="ops-panel-title">DEPLOYMENT CHECKLIST</div>
+
+<div class="chk-row"><span>☐ Guest-flow mapping completed</span></div>
+<div class="chk-row"><span>☐ High-friction zones identified</span></div>
+<div class="chk-row"><span>☐ Magic Code™ visibility approved</span></div>
+<div class="chk-row"><span>☐ Staff workflow documented</span></div>
+<div class="chk-row"><span>☐ Pickup logic tested</span></div>
+<div class="chk-row"><span>☐ Vendor routing confirmed</span></div>
+<div class="chk-row"><span>☐ Mobile ordering tested live</span></div>
+<div class="chk-row"><span>☐ Queue fallback procedures created</span></div>
+<div class="chk-row"><span>☐ KPI dashboard configured</span></div>
+<div class="chk-row" style="border-bottom:none;"><span>☐ Guest adoption benchmarks established</span></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">09</div>
+<div class="ft">Optimization · Scale · Deployment Checklist</div>
+</div>
+
+</div>
+
+<!-- PAGE 10 — EXECUTIVE KPI TRACKING -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title">EXECUTIVE KPI TRACKING</h2>
+
+<div class="sec-intro" style="margin-bottom:16px;">
+Magic Code™ systems should be measured operationally — not emotionally. Without KPI tracking, optimization becomes guesswork.
+</div>
+
+<div class="kpi-grid">
+
+<div class="stat-box"><div class="sb-num">$</div><div class="sb-label">Revenue per scan</div></div>
+<div class="stat-box" style="border-left-color:var(--teal)"><div class="sb-num" style="color:var(--teal)">%</div><div class="sb-label">Scan-to-order conversion</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:36px;">AOV</div><div class="sb-label">Avg order value</div></div>
+<div class="stat-box" style="border-left-color:var(--navy)"><div class="sb-num" style="color:var(--navy);font-size:36px;">R%</div><div class="sb-label">Repeat guest %</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:36px;">Q↓</div><div class="sb-label">Queue reduction</div></div>
+<div class="stat-box" style="border-left-color:var(--teal)"><div class="sb-num" style="color:var(--teal);font-size:36px;">WT</div><div class="sb-label">Wait-time reduction</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:32px;">ZONE</div><div class="sb-label">Revenue by zone</div></div>
+<div class="stat-box" style="border-left-color:var(--gold)"><div class="sb-num">VIP</div><div class="sb-label">VIP engagement</div></div>
+<div class="stat-box"><div class="sb-num" style="font-size:36px;">ADP</div><div class="sb-label">Adoption rate</div></div>
+<div class="stat-box" style="border-left-color:var(--teal)"><div class="sb-num" style="color:var(--teal);font-size:36px;">ABN</div><div class="sb-label">Abandonment rate</div></div>
+
+</div>
+
+<div class="ops-panel navy" style="margin-top:14px;margin-bottom:0;">
+<div class="ops-panel-title">MEASUREMENT PRINCIPLE</div>
+<div class="ops-panel-body">
+Magic Code™ infrastructure must be tracked weekly during pilot — scan visibility, conversion, queue impact, and revenue per zone. Emotional impressions do not replace operational data.
+</div>
+</div>
+
+<div class="callout" style="margin-top:14px;padding:14px;">
+<strong>Executive rule:</strong> If a KPI cannot be tracked weekly during pilot, it cannot be optimized during scale.
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">10</div>
+<div class="ft">Executive KPI Dashboard</div>
+</div>
+
+</div>
+
+<!-- PAGE 11 — CHECK-INS + PIVOT -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Implementation Operations</div>
+
+<h2 class="sec-title" style="font-size:36px;">IMPLEMENTATION<br>CHECK-INS</h2>
+
+<div class="two-col" style="grid-template-columns:52% 44%;">
+
+<div class="timeline compact">
+
+<div class="t-row">
+<div class="t-date">7-DAY</div>
+<div class="t-line"><div class="dot"></div><div class="line"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--navy);">7-DAY CHECK-IN</div>
+<div class="t-body" style="color:var(--ink);">Verify scan visibility · Validate staff adoption · Identify guest confusion points</div>
+</div>
+</div>
+
+<div class="t-row">
+<div class="t-date" style="color:var(--teal)">14-DAY</div>
+<div class="t-line"><div class="dot" style="background:var(--teal)"></div><div class="line" style="background:rgba(0,212,170,.25)"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--teal);">14-DAY CHECK-IN</div>
+<div class="t-body" style="color:var(--ink);">Review conversion metrics · Analyze high-performing zones · Optimize placement</div>
+</div>
+</div>
+
+<div class="t-row">
+<div class="t-date" style="color:var(--navy)">30-DAY</div>
+<div class="t-line"><div class="dot" style="background:#fff;border:2px solid var(--navy)"></div><div class="line"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--navy);">30-DAY CHECK-IN</div>
+<div class="t-body" style="color:var(--ink);">Evaluate ROI trajectory · Expand into secondary zones · Launch repeat-order optimization</div>
+</div>
+</div>
+
+<div class="t-row">
+<div class="t-date">90-DAY</div>
+<div class="t-line"><div class="dot"></div></div>
+<div class="t-card" style="background:var(--paper);border:1px solid #e0e0e0;">
+<div class="t-head" style="color:var(--gold);">90-DAY REVIEW</div>
+<div class="t-body" style="color:var(--ink);">Full operational review · LTV analysis · Venue-wide expansion planning</div>
+</div>
+</div>
+
+</div>
+
+<div>
+
+<div class="callout" style="margin-top:0;">
+<div class="ops-panel-title" style="margin-bottom:8px;">PIVOT CONDITIONS</div>
+<div class="ops-panel-body">
+If adoption remains low after launch:<br><br>
+• reposition signage<br>
+• simplify menu architecture<br>
+• reduce ordering steps<br>
+• improve visibility<br>
+• retrain staff<br>
+• narrow deployment scope<br><br>
+<strong style="color:var(--gold);">Do not scale a broken workflow.</strong>
+</div>
+</div>
+
+<div class="stat-box" style="margin-top:14px;">
+<div class="sb-num" style="font-size:32px;">90</div>
+<div class="sb-label">Day operational review gate</div>
+<div class="sb-sub">No scale decision before 90-day KPI review is complete.</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">11</div>
+<div class="ft">Check-In Schedule · Pivot Conditions</div>
+</div>
+
+</div>
+
+<!-- PAGE 12 — BRAND POSITIONING + OWNERSHIP -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg" style="display:flex;flex-direction:column;justify-content:space-between;">
+
+<div style="padding-top:20px;">
+
+<div class="eyebrow">Operational Infrastructure</div>
+
+<h2 class="brand-banner">
+MAGIC CODES™ ARE NOT<br>
+A MARKETING GIMMICK.<br>
+<span class="gold">THEY ARE OPERATIONAL<br>INFRASTRUCTURE.</span>
+</h2>
+
+<div class="teal-bar"></div>
+
+</div>
+
+<div class="two-col" style="grid-template-columns:1fr 1fr;gap:20px;margin-bottom:12px;">
+
+<div class="ops-panel navy" style="margin-bottom:0;">
+<div class="ops-panel-title">WHO OWNS THE SYSTEM?</div>
+<div class="ops-panel-body">
+Successful Magic Code™ deployments require:<br><br>
+• one operational owner<br>
+• one performance owner<br>
+• one escalation owner<br><br>
+Without accountability, adoption declines quickly.
+</div>
+</div>
+
+<div class="grid-card" style="margin-bottom:0;">
+<div class="t-head">ACCOUNTABILITY STACK</div>
+<div class="t-body" style="margin-top:12px;line-height:1.9;">
+Operational Owner → daily workflow<br>
+Performance Owner → KPI review<br>
+Escalation Owner → pivot decisions<br>
+Venue Leadership → scale authorization
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">12</div>
+<div class="ft">Infrastructure Positioning · Operational Ownership</div>
+</div>
+
+</div>
+
+<!-- PAGE 13 -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc">
+
+<div class="eyebrow">Final Section</div>
+
+<h2 class="sec-title">
+WHY STANDARD QR CODE<br>
+DEPLOYMENTS FAIL
+</h2>
+
+<div class="sec-intro">
+Most failed implementations do not fail because the technology is ineffective.
+</div>
+
+<div class="two-col">
+
+<div class="body">
+
+<p>
+They fail because:
+</p>
+
+<p>
+<strong>• placement strategy was weak</strong><br>
+<strong>• signage lacked visibility</strong><br>
+<strong>• guest flow was confusing</strong><br>
+<strong>• operational logic broke down</strong><br>
+<strong>• menus were poorly structured</strong><br>
+<strong>• staff buy-in was missing</strong><br>
+<strong>• the workflow added friction instead of removing it</strong>
+</p>
+
+<p>
+Many venues underestimate:
+</p>
+
+<p>
+<strong>• guest psychology</strong><br>
+<strong>• mobile decision-making</strong><br>
+<strong>• queue dynamics</strong><br>
+<strong>• throughput design</strong><br>
+<strong>• operational adaptation</strong>
+</p>
+
+<div class="callout">
+<strong>The fastest way to waste money</strong><br><br>
+is implementing the wrong workflow first.
+</div>
+
+</div>
+
+<div>
+
+<div class="stat-box">
+<div class="sb-num">30</div>
+<div class="sb-label">Minute Revenue Fit Session</div>
+
+<div class="sb-sub">
+Identify your highest-leverage deployment zones, operational bottlenecks, signage priorities, and fastest path to ROI based on your venue type.
+</div>
+</div>
+
+<div class="q-card">
+
+<div class="q-text">
+"The venue that removes friction the fastest usually wins the guest."
+</div>
+
+<div class="q-author">
+Scan & Scale
+</div>
+
+</div>
+
+<div class="stat-box" style="border-left-color:var(--teal)">
+<div class="sb-num" style="color:var(--teal)">1000s</div>
+
+<div class="sb-label">
+Guest decisions influenced monthly
+</div>
+
+<div class="sb-sub">
+One small operational improvement can quietly compound across thousands of interactions.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">13</div>
+<div class="ft">Revenue Fit Session & Deployment Strategy</div>
+</div>
+
+</div>
+
+
+<!-- PAGE — QR CODE + CTA -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg">
+
+<div class="eyebrow">Your Next Step</div>
+
+<h2 class="sec-title" style="color:#fff;font-size:40px;">THE VENUE THAT MOVES<br>FIRST WINS THE GUEST.</h2>
+
+<div class="sec-intro" style="color:rgba(255,255,255,0.75);margin-bottom:18px;font-size:13px;">
+YOUR NEXT STEP
+</div>
+
+<div class="body" style="color:rgba(255,255,255,0.88);font-size:12.5px;margin-bottom:20px;">
+
+<p>You now have the leak identified. The zones ranked. The timeline mapped. The materials listed. The team defined.</p>
+
+<p>The only thing left is the decision.</p>
+
+<p>Every game you wait is another game your concession lines are deciding how much your guests spend. The operators who close this gap first don't do it because they had more resources. They do it because they moved while everyone else was still thinking about it.</p>
+
+<p>Your 30-minute Revenue Fit Session is free. We'll identify your highest-leverage deployment zone, your fastest path to ROI, and exactly what to order to get your pilot live before your next home game.</p>
+
+</div>
+
+<div class="two-col" style="grid-template-columns:1fr auto;gap:24px;align-items:center;">
+
+<div>
+<a class="cta-btn" href="https://seamlessly.us/calculator/sports">BOOK YOUR FREE REVENUE FIT SESSION</a>
+</div>
+
+<div class="qr-box">
+<img src="./assets/qr-revenue-fit.png" alt="Scan to book your Revenue Fit Session" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+<div class="qr-fallback" style="display:none;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;">
+SCAN TO BOOK
+</div>
+</div>
+
+</div>
+
+<div class="gold-rule"></div>
+
+<div class="closing-line">SCAN &amp; SCALE · MAGIC CODE™ REVENUE AUDIT · SEAMLESSLY.US</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">18</div>
+<div class="ft">Book Your Revenue Fit Session</div>
+</div>
+
+</div>
+
+<!-- PAGE — THIS IS JUST THE BEGINNING -->
+
+<div class="page">
+
+<div class="ph">
+<div class="brand">SCAN & SCALE</div>
+<div class="series">MAGIC CODE™ REVENUE AUDIT</div>
+</div>
+
+<div class="pc navy-bg exp-block-gold-top">
+
+<div class="exp-heading-white" style="font-size:36px;">THIS IS JUST THE BEGINNING</div>
+<div class="exp-label-teal">What Magic Code™ Infrastructure Connects to Next</div>
+
+<div class="exp-body">
+<p>Everything you have read in this audit covers one layer of what Magic Code™ infrastructure makes possible at your venue.</p>
+<p>There is a larger system underneath it.</p>
+<p>Ticketing. Parking. Guest arrival flow. Pre-event ordering. Post-event loyalty. Season ticket holder experiences. Sponsorship activation. Wayfinding.</p>
+<p>Every friction point in the total guest journey — from the moment they buy a ticket to the moment they pull out of your parking lot — is a touchpoint the Seamlessly ecosystem can make faster, smoother, and more revenue-generative. Magic Code™ is where most venues start. Seamlessly is where they end up.</p>
+<p>We are not going to overwhelm you with all of it today.</p>
+<p>Your first move is the one that matters. Pick the zone. Launch the pilot. Prove the ROI.</p>
+<p>When you are ready to go deeper, we will be there.</p>
+<p>Seamlessly is the operating system underneath Magic Code™. It connects your ordering infrastructure to your ticketing, your parking, your loyalty program, your staffing workflow, and your analytics — in one platform built specifically for venues, stadiums, bars, hotels, and live event spaces. Magic Code™ is the entry point. Seamlessly is the destination.</p>
+</div>
+
+<div class="gold-rule"></div>
+
+<div class="teal-closing">THE TOTAL GUEST EXPERIENCE · POWERED BY MAGIC CODE™ · SEAMLESSLY.US</div>
+
+</div>
+
+<div class="pf">
+<div class="pn">—</div>
+<div class="ft">The Total Guest Experience</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+async function downloadPNGs(){
+
+  const zip = new JSZip();
+
+  const pages = document.querySelectorAll('.page');
+
+  await document.fonts.ready;
+
+  for(let i=0;i<pages.length;i++){
+
+    const canvas = await html2canvas(pages[i],{
+      scale:2,
+      backgroundColor:'#ffffff',
+      width:816,
+      height:1056,
+      useCORS:true
+    });
+
+    const data = canvas.toDataURL('image/png');
+
+    zip.file(
+      `magic-code-revenue-audit-p${i+1}.png`,
+      data.split(',')[1],
+      {base64:true}
+    );
+
+  }
+
+  const blob = await zip.generateAsync({type:'blob'});
+
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'magic-code-revenue-audit.zip';
+  a.click();
+
+}
+
+</script>
+
+</body>
+</html>

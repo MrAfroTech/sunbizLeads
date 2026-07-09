@@ -1,0 +1,741 @@
+{
+  "name": "04 - Facebook Page Poster (Promotional Posts)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 */3 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Every 3 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N",
+          "limit": 3
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "equal",
+              "keyValue": "Facebook Event Created"
+            },
+            {
+              "keyName": "facebook_post_id",
+              "condition": "empty"
+            }
+          ]
+        }
+      },
+      "id": "read-events",
+      "name": "Get Events Ready for Promo Post",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all();\nconst now = new Date();\nconst currentHour = now.getHours();\nconst currentDay = now.getDay(); // 0=Sunday, 6=Saturday\n\n// Optimal posting times (higher engagement)\nconst optimalTimes = {\n  weekday: [9, 12, 18, 20], // 9am, 12pm, 6pm, 8pm\n  weekend: [11, 14, 19]     // 11am, 2pm, 7pm\n};\n\nconst isWeekend = currentDay === 0 || currentDay === 6;\nconst idealHours = isWeekend ? optimalTimes.weekend : optimalTimes.weekday;\n\n// Check if current time is optimal\nconst isOptimalTime = idealHours.includes(currentHour);\n\nconst processedEvents = events.map(item => {\n  const data = item.json;\n  \n  // Calculate urgency (how soon is event)\n  const eventDate = new Date(`${data.event_date}T${data.event_time}`);\n  const daysUntilEvent = Math.ceil((eventDate - now) / (1000 * 60 * 60 * 24));\n  \n  let urgency = 'low';\n  let shouldPostNow = isOptimalTime;\n  \n  if (daysUntilEvent <= 3) {\n    urgency = 'high';\n    shouldPostNow = true; // Post immediately if event is within 3 days\n  } else if (daysUntilEvent <= 7) {\n    urgency = 'medium';\n  }\n  \n  return {\n    ...data,\n    days_until_event: daysUntilEvent,\n    urgency: urgency,\n    should_post_now: shouldPostNow,\n    current_hour: currentHour,\n    is_optimal_time: isOptimalTime\n  };\n});\n\n// Filter to only events that should post now\nreturn processedEvents.filter(e => e.should_post_now);"
+      },
+      "id": "calculate-post-time",
+      "name": "Calculate Best Post Time",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-events",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-ready",
+      "name": "Check if Any Ready",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "split-batch",
+      "name": "Process Each Event",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $input.first().json;\n\n// Add urgency text if event is soon\nlet urgencyText = '';\nif (eventData.days_until_event <= 3) {\n  urgencyText = `⏰ HAPPENING ${eventData.days_until_event === 0 ? 'TODAY' : \n                eventData.days_until_event === 1 ? 'TOMORROW' : \n                'IN ' + eventData.days_until_event + ' DAYS'}!\\n\\n`;\n} else if (eventData.days_until_event <= 7) {\n  urgencyText = `📅 Coming up this week!\\n\\n`;\n}\n\n// Construct full post\nconst postMessage = `${urgencyText}${eventData.page_post_copy || eventData.description || ''}\\n\\n${eventData.hashtags || ''}`;\n\n// Determine if we should include image\nconst hasImage = eventData.image_url && eventData.image_url !== '';\n\nreturn {\n  ...eventData,\n  final_post_message: postMessage,\n  has_image: hasImage,\n  post_type: hasImage ? 'photo' : 'link'\n};"
+      },
+      "id": "build-payload",
+      "name": "Build Post Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 250]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-image",
+              "leftValue": "={{ $json.has_image }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-image",
+      "name": "Check Post Type",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1450, 250]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/photos",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "={{ $json.image_url }}"
+            },
+            {
+              "name": "message",
+              "value": "={{ $json.final_post_message }}"
+            },
+            {
+              "name": "published",
+              "value": "true"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "post-photo",
+      "name": "POST Photo to Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1650, 150]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.venue_facebook_page_id }}/feed",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"message\": \"{{ $json.final_post_message }}\",\n  \"link\": \"{{ $json.facebook_event_url || 'https://facebook.com/events/' + $json.facebook_event_id }}\",\n  \"published\": true\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "post-link",
+      "name": "POST Link to Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1650, 350]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll"
+      },
+      "id": "merge-posts",
+      "name": "Merge Post Responses",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1850, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Build Post Payload\"].json;\nconst apiResponse = $input.first().json;\n\n// Handle both success and error responses\nlet postId = '';\nlet success = false;\nlet errorMessage = '';\n\nif (apiResponse.id) {\n  postId = apiResponse.id;\n  success = true;\n} else if (apiResponse.error) {\n  errorMessage = apiResponse.error.message || JSON.stringify(apiResponse.error);\n  success = false;\n} else if (apiResponse.body?.id) {\n  postId = apiResponse.body.id;\n  success = true;\n} else if (apiResponse.body?.error) {\n  errorMessage = apiResponse.body.error.message || JSON.stringify(apiResponse.body.error);\n  success = false;\n}\n\n// Extract page ID and post ID from response (format: pageID_postID)\nconst [pageId, actualPostId] = postId.split('_');\n\nreturn {\n  ...eventData,\n  facebook_post_id: postId,\n  facebook_post_url: success ? `https://facebook.com/${postId}` : '',\n  status: success ? 'Promoted on Facebook' : 'Post Failed',\n  last_activity: new Date().toISOString(),\n  post_api_response: JSON.stringify(apiResponse),\n  error_message: errorMessage,\n  post_success: success\n};"
+      },
+      "id": "parse-response",
+      "name": "Extract Post ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2050, 250]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "post-success",
+              "leftValue": "={{ $json.post_success }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-post-success",
+      "name": "Check Post Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2250, 250]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "facebook_post_id": "={{ $json.facebook_post_id }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}",
+            "notes": "={{ $json.notes || '' }}\\nPost published: {{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "update-status",
+      "name": "Mark as Promoted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2450, 150],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v18.0/{{ $json.facebook_post_id }}/tags",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.facebook_event_id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $credentials.facebookPageToken.token }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "link-event",
+      "name": "Link Post to Event",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2650, 150]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.seamlessly.com/v1/events/{{ $json.event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"facebook_post_id\": \"{{ $json.facebook_post_id }}\",\n  \"facebook_post_url\": \"{{ $json.facebook_post_url }}\",\n  \"facebook_promoted\": true,\n  \"facebook_promoted_date\": \"{{ $json.last_activity }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "sync-seamlessly",
+      "name": "Sync Post to Seamlessly",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2850, 150]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "📱 Facebook Post Published: {{ $json.event_name }}",
+        "text": "Promotional post successfully published!\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nUrgency: {{ $json.urgency }}\nDays Until Event: {{ $json.days_until_event }}\n\nFacebook Post: {{ $json.facebook_post_url }}\nFacebook Event: {{ $json.facebook_event_url }}\n\nPost Content:\n{{ $json.final_post_message }}",
+        "options": {}
+      },
+      "id": "success-email",
+      "name": "Confirm Post Published",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [3050, 150],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "waitTime": 3,
+        "unit": "seconds"
+      },
+      "id": "wait-rate-limit",
+      "name": "Wait for Rate Limit",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [3250, 150]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Post Failed - Review",
+            "notes": "={{ $json.notes || '' }}\\nPost failed: {{ $json.error_message }}\\nResponse: {{ $json.post_api_response }}"
+          }
+        }
+      },
+      "id": "log-error",
+      "name": "Mark Post Failed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2450, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "❌ Facebook Post Failed: {{ $json.event_name }}",
+        "text": "Failed to post to Facebook Page.\n\nEvent: {{ $json.event_name }}\nVenue: {{ $json.venue_name }}\nPage ID: {{ $json.venue_facebook_page_id }}\n\nError:\n{{ $json.post_api_response }}\n\nPossible issues:\n- Invalid Page Access Token\n- Post violates Facebook policies\n- Rate limit exceeded\n- Image URL inaccessible\n\nReview and retry manually.",
+        "options": {}
+      },
+      "id": "error-email",
+      "name": "Alert Post Failure",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2650, 350],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst currentHour = now.getHours();\nconst currentDay = now.getDay();\n\n// Optimal posting times\nconst optimalTimes = {\n  weekday: [9, 12, 18, 20],\n  weekend: [11, 14, 19]\n};\n\nconst isWeekend = currentDay === 0 || currentDay === 6;\nconst idealHours = isWeekend ? optimalTimes.weekend : optimalTimes.weekday;\n\n// Find next optimal hour\nlet nextOptimalHour = idealHours.find(h => h > currentHour);\nif (!nextOptimalHour) {\n  // If no more optimal hours today, use first one tomorrow\n  nextOptimalHour = idealHours[0];\n}\n\n// Calculate wait time until next optimal hour\nconst waitUntil = new Date(now);\nwaitUntil.setHours(nextOptimalHour, 0, 0, 0);\nif (waitUntil <= now) {\n  waitUntil.setDate(waitUntil.getDate() + 1);\n}\n\nreturn {\n  wait_until: waitUntil.toISOString(),\n  wait_seconds: Math.ceil((waitUntil - now) / 1000)\n};"
+      },
+      "id": "calculate-wait",
+      "name": "Calculate Wait Time",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "resume": "atSpecificTime",
+        "resumeAt": "={{ $json.wait_until }}"
+      },
+      "id": "wait-optimal",
+      "name": "Wait for Better Engagement Time",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1250, 350]
+    }
+  ],
+  "connections": {
+    "Every 3 Hours": {
+      "main": [
+        [
+          {
+            "node": "Get Events Ready for Promo Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events Ready for Promo Post": {
+      "main": [
+        [
+          {
+            "node": "Calculate Best Post Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Best Post Time": {
+      "main": [
+        [
+          {
+            "node": "Check if Any Ready",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Any Ready": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Calculate Wait Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Each Event": {
+      "main": [
+        [
+          {
+            "node": "Build Post Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Post Payload": {
+      "main": [
+        [
+          {
+            "node": "Check Post Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Post Type": {
+      "main": [
+        [
+          {
+            "node": "POST Photo to Page",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "POST Link to Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST Photo to Page": {
+      "main": [
+        [
+          {
+            "node": "Merge Post Responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST Link to Page": {
+      "main": [
+        [
+          {
+            "node": "Merge Post Responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Post Responses": {
+      "main": [
+        [
+          {
+            "node": "Extract Post ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Post ID": {
+      "main": [
+        [
+          {
+            "node": "Check Post Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Post Success": {
+      "main": [
+        [
+          {
+            "node": "Mark as Promoted",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Post Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Promoted": {
+      "main": [
+        [
+          {
+            "node": "Link Post to Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Link Post to Event": {
+      "main": [
+        [
+          {
+            "node": "Sync Post to Seamlessly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync Post to Seamlessly": {
+      "main": [
+        [
+          {
+            "node": "Confirm Post Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirm Post Published": {
+      "main": [
+        [
+          {
+            "node": "Wait for Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Process Each Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Post Failed": {
+      "main": [
+        [
+          {
+            "node": "Alert Post Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Wait Time": {
+      "main": [
+        [
+          {
+            "node": "Wait for Better Engagement Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

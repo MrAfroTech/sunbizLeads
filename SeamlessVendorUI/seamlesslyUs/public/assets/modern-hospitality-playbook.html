@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Modern Hospitality Playbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Include html2canvas and jsPDF libraries for downloading -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #1a1410;
+      line-height: 1.6;
+      background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+    }
+    
+    .page {
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .cover {
+      background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+      color: #1a1410;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 50px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1), transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05), transparent 40%);
+      pointer-events: none;
+    }
+    
+    .cover > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .gold-text {
+      color: #1a1410;
+    }
+    
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1a1410;
+    }
+    
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 25px;
+      color: #1a1410;
+    }
+    
+    h3 {
+      font-size: 28px;
+      color: #1a1410;
+      border-bottom: 2px solid #e0b841;
+      padding-bottom: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    
+    .cover-subtitle {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      font-size: 18px;
+      color: rgba(26, 20, 16, 0.85);
+      line-height: 1.8;
+    }
+    
+    .cover-footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: rgba(26, 20, 16, 0.7);
+    }
+    
+    .step {
+      margin-bottom: 50px;
+      page-break-inside: avoid;
+    }
+    
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .step-number {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 24px;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+    
+    .step-title {
+      font-size: 22px;
+      color: #1a1410;
+      font-weight: 600;
+    }
+    
+    .step-body {
+      font-size: 16px;
+      margin-bottom: 20px;
+      line-height: 1.8;
+      color: rgba(26, 20, 16, 0.85);
+    }
+    
+    .step-subheading {
+      font-size: 18px;
+      color: #1a1410;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+    
+    ul {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+    
+    li {
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    
+    .insight-callout {
+      background-color: rgba(139, 116, 78, 0.2);
+      border-left: 4px solid #e0b841;
+      border-right: 2px solid #e0b841;
+      padding: 20px;
+      margin: 30px 0;
+      font-style: italic;
+      font-size: 18px;
+      color: #1a1410;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 8px;
+    }
+    
+    .divider {
+      text-align: center;
+      margin: 40px 0;
+      color: #d4af37;
+      font-size: 24px;
+      letter-spacing: 5px;
+    }
+    
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 50px;
+      color: rgba(26, 20, 16, 0.7);
+      padding: 20px;
+      border-top: 1px solid rgba(224, 184, 65, 0.15);
+    }
+    
+    .playbook-container {
+      position: relative;
+    }
+    
+    .download-section {
+      margin: 30px 0;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .download-btn {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 10px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .download-btn:hover {
+      background: linear-gradient(135deg, #e5c860, #e0b841);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(224, 184, 65, 0.35);
+    }
+    
+    .download-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .resolution-options {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .resolution-btn {
+      background-color: rgba(139, 116, 78, 0.3);
+      border: 1px solid rgba(139, 116, 78, 0.4);
+      border-radius: 8px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #1a1410;
+      transition: all 0.2s ease;
+    }
+    
+    .resolution-btn:hover {
+      background-color: rgba(139, 116, 78, 0.4);
+    }
+    
+    .resolution-btn.active {
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      color: #1a1410;
+      border-color: #e0b841;
+      font-weight: 600;
+    }
+    
+    .specs {
+      background: rgba(139, 116, 78, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: rgba(26, 20, 16, 0.7);
+      border: 1px solid rgba(139, 116, 78, 0.2);
+    }
+    
+    .status-message {
+      text-align: center;
+      margin: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .status-message.success {
+      background-color: rgba(224, 184, 65, 0.2);
+      color: #1a1410;
+      border: 1px solid rgba(224, 184, 65, 0.4);
+    }
+    
+    .status-message.error {
+      background-color: rgba(139, 116, 78, 0.2);
+      color: #1a1410;
+      border: 1px solid rgba(139, 116, 78, 0.4);
+    }
+    
+    .status-message.loading {
+      background-color: rgba(224, 184, 65, 0.15);
+      color: #1a1410;
+      border: 1px solid rgba(224, 184, 65, 0.3);
+    }
+    
+    @media print {
+      .page {
+        page-break-after: always;
+      }
+      
+      .step {
+        page-break-inside: avoid;
+      }
+      
+      .download-section {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .page {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 32px;
+      }
+      
+      h2 {
+        font-size: 20px;
+      }
+      
+      h3 {
+        font-size: 24px;
+      }
+      
+      .step-title {
+        font-size: 18px;
+      }
+      
+      .cover {
+        min-height: 400px;
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="playbook-container" id="playbook-container">
+  <!-- Cover Section -->
+  <div class="cover">
+    <h1>The Modern Hospitality Playbook</h1>
+    <h2>7 Steps Cutting-Edge Venues Use to Compete in the 21st Century</h2>
+    <p class="cover-subtitle">
+      A practical guide for venues, vendors, and operators who want higher revenue, lower stress, and better guest experiences—without adding complexity.
+    </p>
+    <p class="cover-footer">Presented by Seamlessly - www.seamlessly.us</p>
+  </div>
+  
+  <!-- Step 1 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Treat Wait Time as a Revenue Metric</div>
+      </div>
+      
+      <p class="step-body">
+        Modern venues don't see lines as a "staffing issue."<br>
+        They treat wait time as a core KPI.
+      </p>
+      
+      <ul>
+        <li>Guests begin abandoning purchases after 5–10 minutes</li>
+        <li>Long lines reduce spend, satisfaction, and repeat visits</li>
+        <li>Top venues design systems to keep waits under 6 minutes</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "If guests are waiting, revenue is leaking."
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 2 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Design for Peak Demand, Not Average Demand</div>
+      </div>
+      
+      <p class="step-body">
+        Most venues operate for the "normal" hour and break during rushes.
+      </p>
+      
+      <p class="step-subheading">Cutting-edge operators:</p>
+      
+      <ul>
+        <li>Design workflows specifically for peak volume</li>
+        <li>Shift ordering and payment away from bottlenecks</li>
+        <li>Reduce cognitive load on staff during high-stress moments</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "Service quality doesn't fail randomly—it fails under load."
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 3 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">Reduce Staff Stress Before Hiring More Staff</div>
+      </div>
+      
+      <p class="step-body">
+        Hiring faster doesn't fix broken systems.
+      </p>
+      
+      <p class="step-subheading">High-performing venues:</p>
+      
+      <ul>
+        <li>Remove repetitive tasks from staff workflows</li>
+        <li>Eliminate manual order relay and payment handling</li>
+        <li>Create calmer, more predictable shifts</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "Lower stress increases tenure, consistency, and service quality."
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 4 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div class="step-title">Eliminate Fragmented Guest Experiences</div>
+      </div>
+      
+      <p class="step-body">
+        Guests don't think in "systems."<br>
+        They think in experiences.
+      </p>
+      
+      <p class="step-subheading">Modern venues:</p>
+      
+      <ul>
+        <li>Connect entry, ordering, payment, fulfillment, and follow-up</li>
+        <li>Avoid forcing guests across multiple apps or platforms</li>
+        <li>Maintain continuity from arrival to exit</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "Fragmentation kills engagement—even when each tool works 'fine.'"
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 5 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <div class="step-title">Take Back Control of Customer Data</div>
+      </div>
+      
+      <p class="step-body">
+        Third-party platforms optimize for their margins, not yours.
+      </p>
+      
+      <p class="step-subheading">Advanced operators:</p>
+      
+      <ul>
+        <li>Own first-party customer relationships</li>
+        <li>Track preferences, behavior, and frequency</li>
+        <li>Use data to improve retention and spend per guest</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "Data ownership compounds value over time."
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 6 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">6</div>
+        <div class="step-title">Forecast Revenue, Inventory, and Staffing Together</div>
+      </div>
+      
+      <p class="step-body">
+        Most venues forecast in silos—if they forecast at all.
+      </p>
+      
+      <p class="step-subheading">Leaders:</p>
+      
+      <ul>
+        <li>Use demand signals to align inventory and labor</li>
+        <li>Reduce out-of-stock moments and overstaffing</li>
+        <li>Make decisions proactively, not reactively</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "Predictability is profit."
+      </div>
+    </div>
+  </div>
+  
+  <!-- Step 7 -->
+  <div class="page">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">7</div>
+        <div class="step-title">Build Systems That Get Better as You Grow</div>
+      </div>
+      
+      <p class="step-body">
+        The best venues don't just scale locations—they scale intelligence.
+      </p>
+      
+      <p class="step-subheading">They:</p>
+      
+      <ul>
+        <li>Learn from guest behavior across nights, events, and seasons</li>
+        <li>Improve performance through network effects</li>
+        <li>Create experiences that feel personal, even at scale</li>
+      </ul>
+      
+      <div class="insight-callout">
+        "Growth should simplify operations, not complicate them."
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="page">
+    <div class="footer">
+      <p>© 2025 Seamlessly. All rights reserved.</p>
+      <p>www.seamlessly.us</p>
+    </div>
+  </div>
+  </div>
+
+  <div class="download-section">
+    <h3>Download Your Lead Magnet</h3>
+    <p>Get your high-resolution copy ready for printing or sharing:</p>
+    
+    <div class="resolution-options">
+      <button class="resolution-btn active" data-dpi="300">300 DPI (Standard)</button>
+      <button class="resolution-btn" data-dpi="150">150 DPI (Web)</button>
+    </div>
+    
+    <div id="status-message" class="status-message"></div>
+    
+    <div style="margin: 20px 0;">
+      <button id="download-png" class="download-btn">Download PNG</button>
+      <button id="download-pdf" class="download-btn">Download PDF</button>
+    </div>
+    
+    <div class="specs">
+      <strong>Download Specifications:</strong><br>
+      • 300 DPI: Professional print quality (recommended)<br>
+      • 150 DPI: Web/digital use (faster download)<br>
+      • PNG Format: High-resolution image<br>
+      • PDF Format: Best for professional printing and sharing<br>
+      • Ready to use as a lead magnet for your business
+    </div>
+  </div>
+
+  <script>
+    // Current resolution setting
+    let currentDPI = 300;
+    const statusMessage = document.getElementById('status-message');
+    
+    // Update resolution based on button clicks
+    document.querySelectorAll('.resolution-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        document.querySelectorAll('.resolution-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Set the DPI
+        currentDPI = parseInt(this.getAttribute('data-dpi'));
+        
+        // Show confirmation message
+        showStatus(`Resolution set to ${currentDPI} DPI`, 'success');
+      });
+    });
+    
+    // Download functions for both PNG and PDF
+    document.getElementById('download-png').addEventListener('click', function() {
+      downloadPlaybook(`ModernHospitalityPlaybook_${currentDPI}DPI.png`, 'png');
+    });
+    
+    document.getElementById('download-pdf').addEventListener('click', function() {
+      downloadPlaybook(`ModernHospitalityPlaybook_${currentDPI}DPI.pdf`, 'pdf');
+    });
+    
+    function downloadPlaybook(filename, format) {
+      // Disable buttons during generation
+      const buttons = document.querySelectorAll('.download-btn');
+      buttons.forEach(btn => btn.disabled = true);
+      
+      // Show loading message
+      showStatus(`Generating ${currentDPI} DPI ${format.toUpperCase()}... Please wait.`, 'loading');
+      
+      // Get the container element
+      const container = document.getElementById('playbook-container');
+      if (!container) {
+        showStatus('Error: Container not found.', 'error');
+        buttons.forEach(btn => btn.disabled = false);
+        return;
+      }
+      
+      // Use a more conservative scale factor to avoid memory issues
+      const scaleFactor = currentDPI / 96;
+      
+      // Options for html2canvas
+      const options = {
+        scale: scaleFactor,
+        backgroundColor: '#d4af37',
+        logging: false,
+        useCORS: true,
+        allowTaint: false,
+        width: container.offsetWidth,
+        height: container.scrollHeight,
+        windowWidth: container.offsetWidth,
+        windowHeight: container.scrollHeight
+      };
+      
+      // Generate the canvas
+      html2canvas(container, options).then(function(canvas) {
+        try {
+          if (format === 'png') {
+            // PNG Download
+            canvas.toBlob(function(blob) {
+              const link = document.createElement('a');
+              link.download = filename;
+              link.href = URL.createObjectURL(blob);
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(link.href);
+              
+              showStatus(`✓ Downloaded ${filename}`, 'success');
+              buttons.forEach(btn => btn.disabled = false);
+            }, 'image/png', 0.95);
+            
+          } else if (format === 'pdf') {
+            // PDF Download using jsPDF
+            // Convert canvas to data URL
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            
+            // Calculate PDF dimensions in inches
+            const pdfWidthInches = canvas.width / currentDPI;
+            const pdfHeightInches = canvas.height / currentDPI;
+            
+            // Create PDF with calculated dimensions
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+              orientation: pdfHeightInches > pdfWidthInches ? 'portrait' : 'landscape',
+              unit: 'in',
+              format: [pdfWidthInches, pdfHeightInches],
+              compress: true
+            });
+            
+            // Add the image to PDF
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidthInches, pdfHeightInches, '', 'FAST');
+            
+            // Save the PDF
+            pdf.save(filename);
+            
+            showStatus(`✓ Downloaded ${filename}`, 'success');
+            buttons.forEach(btn => btn.disabled = false);
+          }
+        } catch (error) {
+          console.error('Error generating download:', error);
+          showStatus(`Error: ${error.message}. Try the lower DPI setting.`, 'error');
+          buttons.forEach(btn => btn.disabled = false);
+        }
+      }).catch(function(error) {
+        console.error('Error with html2canvas:', error);
+        showStatus('Error generating image. Try the lower DPI setting or refresh the page.', 'error');
+        buttons.forEach(btn => btn.disabled = false);
+      });
+    }
+    
+    function showStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = 'status-message ' + type;
+      statusMessage.style.display = 'block';
+      
+      // Hide success/error after 5 seconds, keep loading visible
+      if (type !== 'loading') {
+        setTimeout(() => {
+          statusMessage.style.display = 'none';
+        }, 5000);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+{
+  "credentials": {
+    "googleSheets": {
+      "name": "Google Sheets Account",
+      "spreadsheetId": "PASTE_YOUR_SPREADSHEET_ID_HERE"
+    },
+    "gmail": {
+      "name": "Gmail Account",
+      "email": "your-email@domain.com"
+    },
+    "openAi": {
+      "name": "OpenAI",
+      "apiKey": "PASTE_YOUR_OPENAI_KEY_HERE"
+    },
+    "serpApi": {
+      "name": "SerpAPI",
+      "apiKey": "PASTE_YOUR_SERPAPI_KEY_HERE"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "apiKey": "PASTE_YOUR_LINKEDIN_KEY_HERE"
+    }
+  },
+  "speakingTopics": {
+    "topics": [
+      {
+        "title": "The $25M Wait-Time Problem: Mobile Ordering's Impact on Revenue",
+        "one_liner": "How hospitality venues lose millions annually to wait-time abandonment and how mobile ordering solves it",
+        "target_audience": "Venue operators, restaurant owners, hospitality executives",
+        "key_takeaways": [
+          "8-minute wait threshold causes 25% customer abandonment",
+          "Mobile ordering reduces wait times by 70%",
+          "Average 30% revenue increase for implementing venues"
+        ],
+        "talk_length": "30-45 minutes",
+        "format": "Keynote, Panel, Workshop"
+      },
+      {
+        "title": "Death by a Thousand Apps: Unifying Hospitality Tech Stacks",
+        "one_liner": "Why fragmented tech stacks cost venues 15% of revenue and how unified platforms solve it",
+        "target_audience": "Technology directors, operations managers, C-suite",
+        "key_takeaways": [
+          "Average venue uses 5+ disconnected apps",
+          "Unified platforms reduce operational overhead by 40%",
+          "Single source of truth for customer data"
+        ],
+        "talk_length": "20-30 minutes",
+        "format": "Panel, Workshop, Breakout"
+      },
+      {
+        "title": "How We Increased Venue Revenue 30% in 90 Days",
+        "one_liner": "Case study of real venue transformations using mobile ordering and unified platforms",
+        "target_audience": "Venue owners, general managers, investors",
+        "key_takeaways": [
+          "Step-by-step implementation roadmap",
+          "ROI calculation methodology",
+          "Staff turnover reduction (45% average)"
+        ],
+        "talk_length": "45-60 minutes",
+        "format": "Keynote, Case Study Session"
+      },
+      {
+        "title": "The Future of Guest Experience: Network Effects in Hospitality",
+        "one_liner": "How platform thinking creates competitive moats in hospitality technology",
+        "target_audience": "Investors, entrepreneurs, tech leaders",
+        "key_takeaways": [
+          "Network effects in B2B hospitality platforms",
+          "Data moats and customer lifetime value",
+          "Platform vs. point solution strategy"
+        ],
+        "talk_length": "30-45 minutes",
+        "format": "Keynote, Investor Panel"
+      }
+    ]
+  },
+  "speakerCredentials": {
+    "company": "Seamlessly",
+    "role": "Founder",
+    "industry": "Hospitality Technology",
+    "proofPoints": [
+      "100+ venues using platform",
+      "30% average revenue increase",
+      "45% staff turnover reduction",
+      "$25M+ in revenue impact across network"
+    ],
+    "pastSpeaking": [
+      "Hospitality Tech Summit 2025",
+      "Restaurant Innovation Conference 2024",
+      "Various university guest lectures"
+    ],
+    "mediaAppearances": [
+      "TechCrunch",
+      "Hospitality Technology Magazine",
+      "Restaurant Business"
+    ]
+  },
+  "outreachLimits": {
+    "maxDailyEmails": 10,
+    "maxLinkedinConnections": 15,
+    "followUpDelayDays": 7,
+    "maxFollowUps": 3
+  },
+  "sheetColumns": {
+    "opportunities": {
+      "A": "event_name",
+      "B": "event_type",
+      "C": "industry",
+      "D": "event_date",
+      "E": "location",
+      "F": "format",
+      "G": "website",
+      "H": "cfp_deadline",
+      "I": "speaker_app_link",
+      "J": "past_speakers",
+      "K": "attendance",
+      "L": "audience_type",
+      "M": "organizer_name",
+      "N": "organizer_email",
+      "O": "organizer_linkedin",
+      "P": "score",
+      "Q": "status",
+      "R": "contacted_date",
+      "S": "last_activity",
+      "T": "response",
+      "U": "notes",
+      "V": "pitch_subject",
+      "W": "pitch_body",
+      "X": "recommended_topic",
+      "Y": "follow_up_count",
+      "Z": "last_follow_up_date",
+      "AA": "responded_date"
+    },
+    "contacts": {
+      "A": "contact_name",
+      "B": "title",
+      "C": "organization",
+      "D": "email",
+      "E": "linkedin",
+      "F": "phone",
+      "G": "event_related",
+      "H": "relationship_stage",
+      "I": "last_contact",
+      "J": "notes"
+    },
+    "speakingAssets": {
+      "A": "topic_title",
+      "B": "one_liner",
+      "C": "target_audience",
+      "D": "key_takeaways",
+      "E": "talk_length",
+      "F": "past_delivery",
+      "G": "video_link",
+      "H": "created_date"
+    }
+  }
+}

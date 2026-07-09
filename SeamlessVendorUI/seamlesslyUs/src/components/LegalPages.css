@@ -1,0 +1,204 @@
+/* Legal Pages Styling - Dark Brown, Gold, and Black Theme */
+.legal-page {
+  min-height: 100vh;
+  background-color: #0a0a0a; /* Dark background */
+  padding: 120px 0 20px 0; /* Increased top padding to account for fixed navbar */
+  margin-top: 0; /* Ensure no additional margin */
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #1a1a1a; /* Dark brown background */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2); /* Gold glow */
+  line-height: 1.6;
+  border: 1px solid #d4af37; /* Gold border */
+}
+
+.legal-container h1 {
+  color: #d4af37; /* Gold color */
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 3px solid #d4af37; /* Gold border */
+  padding-bottom: 20px;
+  scroll-margin-top: 120px; /* Ensure anchor links don't get hidden behind navbar */
+}
+
+.legal-container h2 {
+  color: #f8e8a0; /* Light gold color */
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #d4af37; /* Gold border */
+  scroll-margin-top: 120px; /* Ensure anchor links don't get hidden behind navbar */
+}
+
+.last-updated {
+  text-align: center;
+  color: #d4af37; /* Gold color */
+  font-style: italic;
+  margin-bottom: 40px;
+  font-size: 0.9rem;
+}
+
+.legal-container section {
+  margin-bottom: 30px;
+  padding: 0; /* Override global section padding */
+  position: static; /* Override global section positioning */
+}
+
+.legal-container h3 {
+  color: #f8e8a0; /* Light gold color */
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.legal-container p {
+  color: #ffffff; /* White text */
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.legal-container ul {
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+.legal-container li {
+  color: #ffffff; /* White text */
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.legal-container strong {
+  color: #d4af37; /* Gold color for emphasis */
+  font-weight: 600;
+}
+
+.legal-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 2px solid #d4af37; /* Gold border */
+  text-align: center;
+  background-color: #0a0a0a; /* Dark background */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #d4af37; /* Gold border */
+}
+
+.legal-footer p {
+  color: #d4af37; /* Gold color */
+  font-style: italic;
+  margin: 0;
+}
+
+/* Override global section styles for legal pages */
+.legal-page section {
+  padding: 0 !important;
+  position: static !important;
+}
+
+/* Force override any global section styles */
+.legal-page .legal-container section {
+  padding: 0 !important;
+  position: static !important;
+  margin-bottom: 30px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .legal-page {
+    padding: 100px 0 20px 0; /* Slightly reduced top padding for mobile */
+  }
+  
+  .legal-container {
+    margin: 0 20px;
+    padding: 30px 20px;
+  }
+  
+  .legal-container h1 {
+    font-size: 2rem;
+    scroll-margin-top: 100px; /* Adjusted for mobile */
+  }
+  
+  .legal-container h2 {
+    font-size: 1.3rem;
+    scroll-margin-top: 100px; /* Adjusted for mobile */
+  }
+  
+  .legal-container h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-page {
+    padding: 90px 0 20px 0; /* Further reduced for very small screens */
+  }
+  
+  .legal-container {
+    margin: 0 10px;
+    padding: 20px 15px;
+  }
+  
+  .legal-container h1 {
+    font-size: 1.8rem;
+    scroll-margin-top: 90px; /* Adjusted for very small screens */
+  }
+  
+  .legal-container h2 {
+    font-size: 1.2rem;
+    scroll-margin-top: 90px; /* Adjusted for very small screens */
+  }
+  
+  .legal-container h3 {
+    font-size: 1rem;
+  }
+  
+  .legal-container p,
+  .legal-container li {
+    font-size: 0.9rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .legal-page {
+    background: white;
+    padding: 0;
+  }
+  
+  .legal-container {
+    box-shadow: none;
+    border: 1px solid #000;
+    background: white;
+  }
+  
+  .legal-container h1,
+  .legal-container h2,
+  .legal-container h3 {
+    color: black;
+  }
+  
+  .legal-container p,
+  .legal-container li {
+    color: black;
+  }
+  
+  .legal-footer {
+    background: white;
+    border: 1px solid #000;
+  }
+  
+  .legal-footer p {
+    color: black;
+  }
+}

@@ -1,0 +1,663 @@
+{
+  "name": "09 - Image Optimizer & Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "cronExpression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 8 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:N"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "status",
+              "condition": "contains",
+              "keyValue": "New"
+            }
+          ]
+        }
+      },
+      "id": "read-events",
+      "name": "Get Events Without Images",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const events = $input.all();\n\nconst eventsNeedingImages = events.filter(item => {\n  const data = item.json;\n  return !data.image_url || data.image_url === '' || data.image_url === null;\n});\n\nconst classified = eventsNeedingImages.map(item => {\n  const data = item.json;\n  \n  // Determine best image strategy\n  let imageStrategy = 'generate_ai';\n  let imagePrompt = '';\n  let fallbackCategory = data.event_category || 'other';\n  \n  // Build AI image generation prompt\n  if (data.event_category === 'concert') {\n    imagePrompt = `A vibrant concert event poster for \"${data.event_name}\", featuring stage lights, crowd silhouettes, energetic atmosphere, professional event photography style, 1200x628px`;\n  } else if (data.event_category === 'sports') {\n    imagePrompt = `A dynamic sports event graphic for \"${data.event_name}\", athletic action, stadium atmosphere, bold colors, professional sports photography, 1200x628px`;\n  } else if (data.event_category === 'nightlife') {\n    imagePrompt = `A stylish nightlife event poster for \"${data.event_name}\", neon lights, dance floor energy, modern club aesthetic, vibrant colors, 1200x628px`;\n  } else if (data.event_category === 'food-festival') {\n    imagePrompt = `A mouth-watering food festival poster for \"${data.event_name}\", gourmet dishes, culinary diversity, appetizing presentation, professional food photography, 1200x628px`;\n  } else if (data.event_category === 'networking') {\n    imagePrompt = `A professional networking event graphic for \"${data.event_name}\", business professionals connecting, modern office aesthetic, clean design, 1200x628px`;\n  } else {\n    imagePrompt = `A professional event poster for \"${data.event_name}\", ${data.event_category} theme, inviting atmosphere, high quality, 1200x628px`;\n  }\n  \n  return {\n    ...data,\n    image_strategy: imageStrategy,\n    ai_image_prompt: imagePrompt,\n    fallback_category: fallbackCategory\n  };\n});\n\nreturn classified;"
+      },
+      "id": "classify-image-needs",
+      "name": "Determine Image Strategy",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "high-value",
+              "leftValue": "={{ parseInt($json.ticket_price || '0') }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "check-ai-budget",
+      "name": "Check AI Image Budget",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.openAi.apiKey }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"model\": \"dall-e-3\",\n  \"prompt\": \"{{ $json.ai_image_prompt }}\",\n  \"n\": 1,\n  \"size\": \"1792x1024\",\n  \"quality\": \"standard\",\n  \"style\": \"vivid\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "generate-ai-image",
+      "name": "Create AI Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.data[0].url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "download-ai-image",
+      "name": "Download AI Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 250]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.unsplash.com/photos/random",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.event_category }} event"
+            },
+            {
+              "name": "orientation",
+              "value": "landscape"
+            },
+            {
+              "name": "client_id",
+              "value": "={{ $credentials.unsplash.accessKey }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fetch-stock-photo",
+      "name": "Get Stock Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.urls.regular }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "download-stock-photo",
+      "name": "Download Stock Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1250, 350]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll"
+      },
+      "id": "merge-image-paths",
+      "name": "Merge Image Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [1450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const eventData = $node[\"Determine Image Strategy\"].json;\nconst imageData = $input.first();\n\n// Extract URL from AI generation or stock photo\nlet imageUrl = '';\nlet imageSource = '';\nlet imageCredit = '';\n\nif ($node[\"Download AI Image\"]?.json) {\n  // AI generated image - need to upload to CDN\n  imageSource = 'ai_generated';\n  // Note: In production, upload binary data to Cloudinary/CDN here\n  // For now, use the temporary URL (expires in 1 hour)\n  imageUrl = $node[\"Create AI Image\"].json.data[0].url;\n} else if ($node[\"Download Stock Image\"]?.json) {\n  // Stock photo - need to upload to CDN\n  imageSource = 'unsplash_stock';\n  const unsplashData = $node[\"Get Stock Image\"].json;\n  imageCredit = `Photo by ${unsplashData.user.name} on Unsplash`;\n  // Note: In production, upload binary data to Cloudinary/CDN here\n  imageUrl = unsplashData.urls.regular;\n}\n\nreturn {\n  ...eventData,\n  image_url: imageUrl,\n  image_source: imageSource,\n  image_credit: imageCredit,\n  image_generated_at: new Date().toISOString()\n};"
+      },
+      "id": "extract-image-url",
+      "name": "Get Image URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 300]
+    },
+    {
+      "parameters": {
+        "method": "HEAD",
+        "url": "={{ $json.image_url }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "validate-image-url",
+      "name": "Check Image Accessibility",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $input.first().json;\nconst imageResponse = $node[\"Check Image Accessibility\"];\n\n// Facebook image requirements:\n// - Min 1200x628 pixels\n// - Aspect ratio 1.91:1\n// - Max 8MB\n// - Format: JPG or PNG\n\nconst contentType = imageResponse?.json?.headers?.['content-type'] || '';\nconst contentLength = parseInt(imageResponse?.json?.headers?.['content-length'] || '0');\n\nconst isValidFormat = contentType.includes('image/jpeg') || \n                     contentType.includes('image/png') ||\n                     contentType.includes('image/jpg');\nconst isValidSize = contentLength > 0 && contentLength < 8 * 1024 * 1024; // 8MB\n\nlet validationStatus = 'valid';\nlet validationNotes = '';\n\nif (!isValidFormat && contentType) {\n  validationStatus = 'invalid_format';\n  validationNotes = 'Image must be JPG or PNG';\n} else if (!isValidSize && contentLength > 0) {\n  validationStatus = 'invalid_size';\n  validationNotes = contentLength === 0 ? 'Image not found' : 'Image too large (>8MB)';\n} else if (contentLength === 0 && !contentType) {\n  validationStatus = 'not_accessible';\n  validationNotes = 'Image URL not accessible';\n}\n\nreturn {\n  ...event,\n  image_validation_status: validationStatus,\n  image_validation_notes: validationNotes,\n  image_file_size: contentLength,\n  image_format: contentType\n};"
+      },
+      "id": "validate-specs",
+      "name": "Validate Facebook Requirements",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "is-valid",
+              "leftValue": "={{ $json.image_validation_status }}",
+              "rightValue": "valid",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-validation",
+      "name": "Check Validation Result",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_url": "={{ $json.image_url }}",
+            "image_source": "={{ $json.image_source }}",
+            "image_generated_at": "={{ $json.image_generated_at }}",
+            "image_validation_status": "={{ $json.image_validation_status }}",
+            "image_file_size": "={{ $json.image_file_size }}",
+            "image_format": "={{ $json.image_format }}",
+            "notes": "={{ $json.notes || '' }}\\nImage generated: {{ $json.image_source }}"
+          }
+        }
+      },
+      "id": "save-image-url",
+      "name": "Save Image URL",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2450, 250],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://api.seamlessly.com/v1/events/{{ $json.event_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $credentials.seamlesslyApi.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "bodyParametersJson": "={\n  \"cover_image_url\": \"{{ $json.image_url }}\",\n  \"image_source\": \"{{ $json.image_source }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "sync-seamlessly",
+      "name": "Update Seamlessly with Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2650, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $input.first().json;\n\n// Pre-designed default images for each category\nconst defaultImages = {\n  'concert': 'https://your-cdn.com/defaults/concert-default.jpg',\n  'sports': 'https://your-cdn.com/defaults/sports-default.jpg',\n  'nightlife': 'https://your-cdn.com/defaults/nightlife-default.jpg',\n  'food-festival': 'https://your-cdn.com/defaults/food-default.jpg',\n  'networking': 'https://your-cdn.com/defaults/networking-default.jpg',\n  'other': 'https://your-cdn.com/defaults/generic-event.jpg'\n};\n\nconst defaultImage = defaultImages[event.fallback_category] || defaultImages['other'];\n\nreturn {\n  ...event,\n  image_url: defaultImage,\n  image_source: 'category_default',\n  image_validation_status: 'valid',\n  notes: (event.notes || '') + ' | Using category default image (validation failed)'\n};"
+      },
+      "id": "apply-default-image",
+      "name": "Apply Default Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2450, 350]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Facebook Events Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "event_id",
+        "valueToMatchOn": "={{ $json.event_id }}",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_url": "={{ $json.image_url }}",
+            "image_source": "={{ $json.image_source }}",
+            "image_validation_status": "={{ $json.image_validation_status }}",
+            "notes": "={{ $json.notes }}"
+          }
+        }
+      },
+      "id": "save-default-image",
+      "name": "Save Default Image",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [2650, 350],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const allEvents = $input.all();\n\nconst summary = {\n  total_processed: allEvents.length,\n  ai_generated: allEvents.filter(e => e.image_source === 'ai_generated').length,\n  stock_photos: allEvents.filter(e => e.image_source === 'unsplash_stock').length,\n  defaults_used: allEvents.filter(e => e.image_source === 'category_default').length,\n  validation_failures: allEvents.filter(e => e.image_validation_status !== 'valid').length,\n  estimated_cost: allEvents.filter(e => e.image_source === 'ai_generated').length * 0.04,\n  timestamp: new Date().toISOString()\n};\n\nreturn summary;"
+      },
+      "id": "generate-report",
+      "name": "Create Daily Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2850, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@seamlessly.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "🖼️ Daily Image Generation Report",
+        "text": "Image optimization summary:\n\nEvents Processed: {{ $json.total_processed }}\n\nImage Sources:\n- AI Generated (DALL-E): {{ $json.ai_generated }}\n- Stock Photos (Unsplash): {{ $json.stock_photos }}\n- Category Defaults: {{ $json.defaults_used }}\n\nValidation Failures: {{ $json.validation_failures }}\n\nEstimated Cost: ${{ $json.estimated_cost }}",
+        "options": {}
+      },
+      "id": "send-report",
+      "name": "Send Image Summary",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [3050, 300],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 8 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Events Without Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events Without Images": {
+      "main": [
+        [
+          {
+            "node": "Determine Image Strategy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determine Image Strategy": {
+      "main": [
+        [
+          {
+            "node": "Check AI Image Budget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check AI Image Budget": {
+      "main": [
+        [
+          {
+            "node": "Create AI Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Stock Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create AI Image": {
+      "main": [
+        [
+          {
+            "node": "Download AI Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download AI Image": {
+      "main": [
+        [
+          {
+            "node": "Merge Image Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Stock Image": {
+      "main": [
+        [
+          {
+            "node": "Download Stock Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Stock Image": {
+      "main": [
+        [
+          {
+            "node": "Merge Image Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Image Paths": {
+      "main": [
+        [
+          {
+            "node": "Get Image URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Image URL": {
+      "main": [
+        [
+          {
+            "node": "Check Image Accessibility",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Image Accessibility": {
+      "main": [
+        [
+          {
+            "node": "Validate Facebook Requirements",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Facebook Requirements": {
+      "main": [
+        [
+          {
+            "node": "Check Validation Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Validation Result": {
+      "main": [
+        [
+          {
+            "node": "Save Image URL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Apply Default Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Image URL": {
+      "main": [
+        [
+          {
+            "node": "Update Seamlessly with Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply Default Image": {
+      "main": [
+        [
+          {
+            "node": "Save Default Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Seamlessly with Image": {
+      "main": [
+        [
+          {
+            "node": "Create Daily Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Default Image": {
+      "main": [
+        [
+          {
+            "node": "Create Daily Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Daily Summary": {
+      "main": [
+        [
+          {
+            "node": "Send Image Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integration & Partnership Overview | Seamlessly</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: transparent;
+      min-height: 100vh;
+      color: #1a1410;
+      line-height: 1.6;
+    }
+    .app-content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+    }
+    .page-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(212, 175, 55, 0.6);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .background-slider {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .background-slider__slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1500ms ease-in-out;
+    }
+    .background-slider__slide--active {
+      opacity: 1;
+      z-index: 1;
+    }
+    
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 160px 24px 60px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    
+    h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 700;
+      color: #1a1410;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    
+    .subheadline {
+      font-size: 18px;
+      color: #1a1410;
+      margin-bottom: 32px;
+    }
+    
+    .whats-inside {
+      background: rgba(245, 240, 230, 0.6);
+      border-left: 4px solid #e0b841;
+      padding: 24px 24px 24px 28px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 32px;
+    }
+    
+    .whats-inside h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1a1410;
+    }
+    
+    .whats-inside ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .whats-inside li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: #1a1410;
+    }
+    
+    .whats-inside li:before {
+      content: '\2713';
+      position: absolute;
+      left: 0;
+      color: #e0b841;
+      font-weight: 700;
+    }
+    
+    .whats-inside p {
+      font-size: 15px;
+      color: #1a1410;
+      margin-bottom: 12px;
+    }
+    
+    .whats-inside p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .social-proof {
+      text-align: center;
+      padding: 16px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1410;
+    }
+    
+    .social-proof span {
+      color: #e0b841;
+    }
+    
+    .cta-button {
+      width: 100%;
+      padding: 18px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1410;
+      background: linear-gradient(135deg, #e0b841, #d4af37);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(224, 184, 65, 0.3);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    
+    .cta-button:hover {
+      background: linear-gradient(135deg, #e5c860, #e0b841);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(224, 184, 65, 0.4);
+    }
+    
+    .cta-button:disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      transform: none;
+      filter: grayscale(0.4);
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 140px 16px 40px;
+      }
+      
+      .card {
+        padding: 32px 24px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .subheadline {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-slider" id="bgSlider" aria-hidden="true">
+    <div class="background-slider__slide background-slider__slide--active" style="background-image: url('/pexels-pixabay-262047.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-bluerhinomedia-2788792.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-brett-sayles-2339712.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-wb2008-2290070.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935100.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-pixabay-260922.jpg')"></div>
+    <div class="background-slider__slide" style="background-image: url('/pexels-imin-technology-276315592-12935077.jpg')"></div>
+  </div>
+  <div class="page-overlay" aria-hidden="true"></div>
+  <div class="app-content">
+  <div class="container">
+    <div class="card">
+      <h1 style="text-align: center;">Integration & Partnership Overview</h1>
+      <p class="subheadline" style="text-align: center;">POS and ticketing integrations, flexible workflows, onboarding timelines, and pricing—everything you need to know about partnering with Seamlessly.</p>
+      
+      <div class="whats-inside">
+        <h2>1. POS & Ticketing Integrations</h2>
+        <p>We integrate with <strong>Square</strong>, <strong>Clover</strong>, <strong>Lightspeed</strong>, <strong>Aloha</strong>, <strong>Shopify Pro</strong>, and <strong>Stripe</strong> (Toast pending). If you use a POS we haven’t partnered with yet, a simple request from you will expedite the integration.</p>
+        <p>We’ve integrated with <strong>Eventbrite</strong> and are in talks with <strong>Ticketmaster</strong>. If we move forward, we can easily integrate with your current ticketing system. We also offer our own ticketing system, <strong>Eventbrella</strong>. As with POS, a simple request will expedite integration with your preferred ticket platform.</p>
+        <p><strong>All integrations are real-time API.</strong></p>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>2. Workflow & Ordering Options</h2>
+        <ul>
+          <li>We work with your preferred workflow and can adjust as needed. Service staff can be expeditors only or full service—your setup, your choice.</li>
+          <li>We’re an add-on to your current system, or we can work together on a custom solution.</li>
+          <li><strong>QR code ordering</strong> to avoid the friction of downloading an app—or use our <strong>app</strong> for a better experience for guests and your organization.</li>
+          <li>With the app: <strong>push notifications</strong> that work as marketing tools inside and outside the venue, plus data collection for deeper knowledge of consumer likes and preferences and better inventory management.</li>
+        </ul>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>3. Hardware & Notifications</h2>
+        <p>We integrate with your current POS; notifications are sent to your existing hardware and software. If you need a POS system, we can work with you to find hardware solutions that fit your exact needs.</p>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>4. Onboarding</h2>
+        <ul>
+          <li><strong>As little as 72 hours</strong> when we only need your permission to integrate with your POS.</li>
+          <li><strong>Two to three weeks</strong> if we need to build or configure your POS system.</li>
+          <li>Staff training is minimal—our core offering is mobile-first and designed to work with your current system.</li>
+        </ul>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>5. Contracts</h2>
+        <p>Our contracts are <strong>month to month</strong>. If hardware purchases are required, the hardware may have a cancellation fee or an annual contract until the hardware is paid in full, depending on the number of units you’d return.</p>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>6. Pricing</h2>
+        <ul>
+          <li><strong>SaaS fee</strong> that can be waived once a certain number of transactions are fulfilled.</li>
+          <li>Fee depends on the number of features you want and any custom features requested.</li>
+          <li>We offer a <strong>pilot program</strong> for businesses where we can explore a mutually beneficial relationship.</li>
+        </ul>
+      </div>
+      
+      <div class="whats-inside">
+        <h2>7. Custom Features & Fan Engagement</h2>
+        <p>We often brainstorm new features with partners. Our goal is to optimize fan engagement, and we have the marketing and tech skills to deliver new features with minimum onboarding time.</p>
+      </div>
+      
+      <p class="social-proof">Ready to partner? <span>Let’s build something together.</span></p>
+      
+      <button type="button" class="cta-button" id="downloadPdfBtn">DOWNLOAD PDF</button>
+    </div>
+  </div>
+  </div>
+  <script>
+    (function() {
+      var slides = document.querySelectorAll('#bgSlider .background-slider__slide');
+      if (slides.length <= 1) return;
+      var i = 0;
+      setInterval(function() {
+        slides[i].classList.remove('background-slider__slide--active');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('background-slider__slide--active');
+      }, 5000);
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    (function() {
+      var btn = document.getElementById('downloadPdfBtn');
+      var card = document.querySelector('.card');
+      var defaultText = 'DOWNLOAD PDF';
+
+      btn.addEventListener('click', function() {
+        btn.disabled = true;
+        btn.textContent = 'Generating PDF...';
+
+        var btnOriginalDisplay = btn.style.display;
+        btn.style.display = 'none';
+
+        html2canvas(card, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff'
+        }).then(function(canvas) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultText;
+
+          var imgData = canvas.toDataURL('image/png');
+          var imgW = canvas.width;
+          var imgH = canvas.height;
+
+          var jsPDF = window.jspdf.jsPDF;
+          var pdf = new jsPDF({
+            orientation: imgH > imgW ? 'portrait' : 'landscape',
+            unit: 'px',
+            format: [imgW, imgH]
+          });
+          pdf.addImage(imgData, 'PNG', 0, 0, imgW, imgH);
+          pdf.save('seamlessly-integration-partnership-overview.pdf');
+        }).catch(function(err) {
+          btn.style.display = btnOriginalDisplay;
+          btn.disabled = false;
+          btn.textContent = defaultText;
+          console.error('PDF generation failed:', err);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

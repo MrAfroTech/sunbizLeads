@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reels Caption Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 32px 24px;
+      min-height: 100vh;
+    }
+
+    .week-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #f28c38;
+      border-left: 3px solid #f28c38;
+      padding-left: 12px;
+      margin-bottom: 24px;
+    }
+
+    .post {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      max-width: 760px;
+    }
+
+    .post-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .post-day {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-bottom: 10px;
+    }
+
+    .image-line-1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #e6edf3;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .image-line-2 {
+      font-size: 15px;
+      font-weight: 400;
+      color: #8b949e;
+      line-height: 1.4;
+    }
+
+    .caption-block {
+      padding: 20px 24px;
+    }
+
+    .caption-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-bottom: 12px;
+    }
+
+    .caption-text {
+      font-size: 14px;
+      color: #c9d1d9;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      margin-bottom: 12px;
+    }
+
+    .hashtags {
+      font-size: 13px;
+      color: #58a6ff;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .copy-btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      background: transparent;
+      color: #e6edf3;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover { background: #21262d; }
+    .copy-btn.copied { color: #3fb950; border-color: #3fb950; }
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script>
+  (function () {
+
+    var DATA = [
+
+      // ─────────────────────────────────────
+      // PILLAR 1 — GUEST EXPERIENCE
+      // ─────────────────────────────────────
+
+      {
+        week: 'Pillar 1 — Guest Experience (Reels 1–14)',
+        day: 'Reel 1',
+        line1: 'What\'s the largest party you\'ve hosted this graduation season?',
+        line2: 'And be honest... Did it actually make you more money?',
+        caption:
+`Most operators celebrate a full dining room.
+
+The best operators look at revenue per hour.
+
+Those are not always the same thing.
+
+Comment the largest party size you've handled this month.
+
+I'm curious what everyone's seeing.`,
+        hashtags: '#RestaurantOwner #HospitalityManagement #GraduationSeason #RestaurantOperations'
+      },
+
+      {
+        day: 'Reel 2',
+        line1: 'What time does your second rush usually start?',
+        line2: 'For some places it\'s 9PM. For others it\'s midnight.',
+        caption:
+`For bars it might not start until after the event ends.
+
+The operators who plan for that wave usually have a very different night than the operators who get surprised by it.
+
+Drop your busiest late-night hour below.`,
+        hashtags: '#RestaurantOwner #BarOwner #HospitalityManagement #PromSeason #RestaurantOperations'
+      },
+
+      {
+        day: 'Reel 3',
+        line1: 'Which matters more:',
+        line2: 'More guests? Or more table turns?',
+        caption:
+`Most operators answer that question differently after a packed holiday weekend.
+
+Curious where you stand.
+
+If every table in your venue stayed an extra 30 minutes tonight, how much revenue would that cost?`,
+        hashtags: '#RestaurantOwner #HospitalityBusiness #RestaurantGrowth #RestaurantOperations'
+      },
+
+      {
+        day: 'Reel 4',
+        line1: 'Agree or disagree:',
+        line2: 'A packed restaurant can still underperform.',
+        caption:
+`I've seen operators leave a shift feeling exhausted only to discover the numbers weren't nearly as strong as expected.
+
+Busy and profitable are not always the same thing.
+
+Where do you think most restaurants lose revenue during high-volume nights?`,
+        hashtags: '#RestaurantOwner #HospitalityManagement #RestaurantGrowth'
+      },
+
+      {
+        day: 'Reel 5',
+        line1: 'What\'s the most stressful part of a shift for your team?',
+        line2: 'Not the busiest. The most stressful.',
+        caption:
+`Large parties?
+
+Ticket times?
+
+Constant interruptions?
+
+Being short staffed?
+
+Drop it below.
+
+I bet a lot of operators are dealing with the same thing.`,
+        hashtags: '#RestaurantManagement #HospitalityLeadership #RestaurantOperations'
+      },
+
+      {
+        day: 'Reel 6',
+        line1: 'What\'s your biggest walk-in horror story?',
+        line2: 'Every operator has one.',
+        caption:
+`A surprise group.
+
+A packed floor.
+
+A decision that created problems for the next two hours.
+
+Tell me the size of the walk-in and what happened next.
+
+Let's compare notes.`,
+        hashtags: '#RestaurantOwner #HospitalityManagement #RestaurantLife'
+      },
+
+      {
+        day: 'Reel 7',
+        line1: 'The first busy weekend usually exposes every weak process in the building.',
+        line2: 'Agree or disagree?',
+        caption:
+`The interesting part is that guests notice it too.
+
+Some venues feel calm during peak demand.
+
+Others feel chaotic.
+
+Same demand.
+
+Different systems.
+
+What's the first thing you prepare for before a major holiday, graduation weekend, or seasonal rush?
+
+Comment below.
+
+I'd love to see how other operators approach it.`,
+        hashtags: '#RestaurantOwner #HospitalityManagement #OperationsManagement #RestaurantGrowth'
+      },
+
+      {
+        day: 'Reel 8',
+        line1: 'Waiting to pay is one of the most consistent friction points in hospitality.',
+        line2: 'And one of the easiest to remove.',
+        caption:
+`The meal was great.
+
+Now they're stuck waiting to pay.
+
+That last moment shapes the memory of everything that came before it.
+
+Seamless checkout removes the wait entirely.
+
+Guests pay when they're ready.
+No flagging down a server.
+No waiting for the check to come back.
+
+A smooth exit is one of the cheapest loyalty tools in this business — most venues just don't prioritize it.
+
+What does the end of a guest's experience feel like at your venue?`,
+        hashtags: '#GuestExperience #QRCode #RestaurantTech #HospitalityTech #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 9',
+        line1: 'Seamless feedback at checkout gets higher response rates than email surveys.',
+        line2: 'Catching issues in the moment keeps them off public review sites.',
+        caption:
+`Most guests don't leave reviews.
+
+They just don't come back.
+
+Seamless feedback at checkout changes that window.
+
+The experience is fresh.
+The review speaks to when they are at the highest level of satisfaction.
+Response rates beat email-only surveys — consistently.
+
+Issues surface before they become public reviews.
+Problems get fixed before they become patterns.
+
+That feedback loop is one of the most underused tools in hospitality.
+
+How are you currently collecting guest feedback?`,
+        hashtags: '#GuestFeedback #QRCode #HospitalityTech #GuestExperience #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 10',
+        line1: 'Seamless Systems connect physical venues to digital services without a major tech overhaul.',
+        line2: 'The barrier to getting started is lower than most operators think.',
+        caption:
+`Most operators assume digital means overhauling their current systems.
+
+Or a long implementation.
+Or rebuilding the whole stack.
+
+It doesn't.
+
+Seamless Systems bridge physical and digital without requiring any of that.
+
+Guests get convenience.
+Operations get data.
+And the starting point is a lot closer than it looks.
+
+What's the biggest obstacle to digital ordering at your venue right now?`,
+        hashtags: '#HospitalityTech #DigitalTransformation #QRCode #VenueOperations #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 11',
+        line1: 'Seamless Systems support the full guest lifecycle — not just the menu.',
+        line2: 'Pre-arrival, on-property, and post-stay. Most venues use one of the three.',
+        caption:
+`Most venues deploy digital implementations for one thing.
+
+The menu.
+
+But the same infrastructure supports every stage of the guest relationship.
+
+Pre-arrival info and check-in.
+On-property ordering and payment.
+Post-stay feedback and offers.
+
+One system. Every touchpoint.
+
+Most operations are using one corner of what's already available to them.
+
+Which stage of the guest journey are you currently missing?`,
+        hashtags: '#GuestExperience #GuestRetention #QRCode #HospitalityTech #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 12',
+        line1: 'The full dining journey can now happen on a guest\'s phone.',
+        line2: 'Browse, order, pay — without waiting for staff at any stage.',
+        caption:
+`Browse the menu.
+Place the order.
+Pay when ready.
+
+No waiting at any step.
+
+Guests control the pace of their own experience.
+
+Staff shift from processing transactions to delivering the experience.
+
+That's a fundamentally different kind of service — and guests feel the difference.
+
+What would your team do differently if they weren't tied to order-taking?`,
+        hashtags: '#RestaurantTech #GuestExperience #QRCode #MobileOrdering #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 13',
+        line1: 'Seamless reduces printing costs and front-desk load.',
+        line2: 'Guests who want to skip the line can. Guests who want the interaction still get it.',
+        caption:
+`Check-in is the first impression.
+
+For a lot of guests, it's also the first frustration.
+
+Long front-desk lines. Paper forms. Staff stretched across too many arrivals at once.
+
+QR-based digital check-in removes all of that for guests who prefer it.
+
+No printing costs. No front-desk wait. Arrival feels effortless.
+
+And the guests who want the human interaction still get it — because staff aren't stuck processing paperwork.
+
+What does arrival currently feel like at your venue?`,
+        hashtags: '#HotelTech #GuestExperience #QRCode #VenueOperations #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 14',
+        line1: 'QR-enabled offers drive more impulse purchases on-site.',
+        line2: 'Timing is the variable. Seamless integrationmakes it consistent.',
+        caption:
+`The best upsell lands at the right moment.
+
+Not on a flyer at the entrance.
+Not from a server managing six tables who forgot to mention it.
+
+A QR-triggered offer at the moment of ordering.
+Or right after check-in.
+Or halfway through the stay.
+
+Impulse purchases go up because the timing is right — every time, not just when someone remembers.
+
+How are you currently delivering offers to guests while they're on-property?`,
+        hashtags: '#RevenueOptimization #GuestExperience #QRCode #HospitalityTech #SeamlesslyUS'
+      },
+
+      // ─────────────────────────────────────
+      // PILLAR 2 — STAFF WORKFLOW
+      // ─────────────────────────────────────
+
+      {
+        week: 'Pillar 2 — Staff Workflow (Reels 15–28)',
+        day: 'Reel 15',
+        line1: 'Seamless ordering can increase table turnover by 30%.',
+        line2: 'Same floor. Same staff. More covers per shift.',
+        caption:
+`30% faster table turnover.
+
+Same team.
+Same number of tables.
+Same floor.
+
+Just faster ordering and checkout at every step.
+
+One case study documented exactly that.
+
+More covers per shift without rushing anyone — because the bottleneck wasn't the kitchen or the staff.
+
+It was the ordering and payment process.
+
+How many covers are you losing per shift to slow turnover right now?`,
+        hashtags: '#RestaurantOps #QRCode #HospitalityTech #RevenueOptimization #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 16',
+        line1: 'Seamless menus reduce front-of-house labor needs.',
+        line2: 'Some locations run the same volume with fewer servers on the floor.',
+        caption:
+`Labor is one of the highest costs in hospitality.
+
+And front-of-house is where it concentrates.
+
+Seamless ordering shifts the workload.
+
+Guests place their own orders.
+Guests pay on their own.
+Some locations document running the same volume with fewer servers.
+
+The work doesn't disappear — it shifts to the guest, where the friction was lowest anyway.
+
+What's your current server-to-table ratio and how is it holding up?`,
+        hashtags: '#LaborCosts #RestaurantOps #QRCode #HospitalityTech #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 17',
+        line1: 'One operator reported labor costs running 150% lower with Seamless ordering.',
+        line2: 'Not from reduceting staff — from changing how the work flows.',
+        caption:
+`A beer garden owner reported labor cost percentage running 150% lower.
+
+Not from reducing headcount.
+
+From redistributing how the work actually flowed.
+
+Seamless ordering handled the transactions.
+Staff handled the experience.
+
+Those are two very different jobs — and only one of them requires a person.
+
+The cost structure changes when you separate them.
+
+What percentage of your labor spend is going toward transaction processing right now?`,
+        hashtags: '#LaborCosts #QRCode #HospitalityTech #RestaurantOps #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 18',
+        line1: 'Digital menus get updated more than 4x as often as printed ones.',
+        line2: 'When updating is free and instant, operators actually do it.',
+        caption:
+`Printed menus are a commitment.
+
+Every change costs money.
+So most operators don't make changes — even when they should.
+
+Seamless menus change that math entirely.
+
+Updates are instant.
+They're free.
+Operators update more than 4 times as often.
+
+That means the menu stays accurate.
+Pricing reflects reality.
+New dishes get tested without a print run.
+
+How often does your current menu actually reflect what's available and priced correctly?`,
+        hashtags: '#RestaurantOps #QRCode #HospitalityTech #MenuManagement #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 19',
+        line1: 'Seamless orders go straight to the kitchen — no manual entry.',
+        line2: 'The handoff that causes most errors just disappears.',
+        caption:
+`The order handoff is where errors happen.
+
+Server takes the order.
+Walks to the POS.
+Types it in.
+Something gets missed or entered wrong.
+
+Seamless orders skip that entire step.
+
+Straight to the kitchen display.
+No manual entry.
+No translation errors.
+No "I thought you said no onions."
+
+The friction between the guest's intention and the kitchen's action is gone.
+
+How often do order errors show up in your kitchen right now?`,
+        hashtags: '#KitchenOps #QRCode #RestaurantTech #HospitalityTech #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 20',
+        line1: 'Seamless workflows free servers from repetitive tasks.',
+        line2: 'The time doesn\'t disappear — it goes toward the part of hospitality that actually matters.',
+        caption:
+`Most of what servers do is transactional.
+
+Take the order.
+Punch it in.
+Bring the check.
+Run the card.
+
+Seamless Menus handles all of that.
+
+Servers shift to what actually builds loyalty.
+
+Guest interaction.
+Service recovery.
+Genuine connection.
+
+That's the part of hospitality no technology replaces — and right now your team doesn't have enough time for it.
+
+What would your team spend that time on if they weren't processing orders manually?`,
+        hashtags: '#StaffExperience #Seamless MenusCode #HospitalityTech #RestaurantOps #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 21',
+        line1: 'Back-of-house Seamless Menus codes can link shelves directly to digital inventory logs.',
+        line2: 'Inventory problems usually surface too late. This moves them earlier.',
+        caption:
+`Inventory errors are quiet.
+
+They don't announce themselves.
+They show up as waste you didn't plan for.
+Or out-of-stocks at exactly the wrong moment.
+
+Seamless shelf systems link to live digital logs.
+
+No manual entry.
+Real-time visibility.
+Stock problems surface before they become service problems.
+
+That's a different level of operational awareness — and the infrastructure to build it already exists.
+
+How are you currently managing inventory accuracy in your operation?`,
+        hashtags: '#BackOfHouse #InventoryManagement #QRCode #HospitalityTech #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 22',
+        line1: 'Seamless Systems support housekeeping, training, maintenance, and inventory — not just guest ordering.',
+        line2: 'Most venues are using one corner of what\'s already available to them.',
+        caption:
+`Most operators think Seamless Systems are guest-facing.
+
+They're not just that.
+
+The same infrastructure supports internal workflows across the entire operation.
+
+Housekeeping checklists.
+Staff training materials.
+Maintenance requests.
+Inventory logs.
+
+One system. Multiple workflows.
+
+Most venues are only using it for the menu.
+
+Which internal workflow costs your team the most manual time right now?`,
+        hashtags: '#VenueOperations #HospitalityTech #QRCode #OperationalExcellence #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 23',
+        line1: 'Seamless Systems can automate service requests and centralize staff access to digital tools.',
+        line2: 'Less time navigating. More time working.',
+        caption:
+`Staff spend a significant part of every shift navigating systems.
+
+Logging in.
+Switching between tools.
+Looking up information that should take two seconds.
+
+Seamless integration optimizes that.
+
+One scan.
+Right tool. Right information. Right now.
+
+The friction inside the operation directly affects the experience outside it.
+
+How many different systems does your team touch in a single shift?`,
+        hashtags: '#StaffWorkflow #QRCode #HospitalityTech #OperationsManagement #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 24',
+        line1: 'QR-based digital tipping keeps gratuity accessible as cash use declines.',
+        line2: 'Staff shouldn\'t lose income because guest payment habits changed.',
+        caption:
+`Fewer guests carry cash now.
+
+That directly affects tips.
+Which directly affects your staff.
+
+Seamlesstipping solves that quietly.
+
+Guests tip digitally.
+No cash required.
+Staff don't lose income to a shift in payment behavior they had no control over.
+
+That matters for morale.
+That matters for retention.
+
+Has the move away from cash affected tipping at your venue?`,
+        hashtags: '#StaffRetention #QRCode #HospitalityTech #DigitalPayments #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 25',
+        line1: 'Digital tools that reduce friction and foster belonging improve employee retention.',
+        line2: 'It\'s not the technology. It\'s what the technology makes possible.',
+        caption:
+`Retention isn't just about pay.
+
+It's about environment.
+
+About feeling like the tools support you instead of fighting you.
+About knowing what's expected and having clarity on how you're doing.
+
+Digital tools that reduce daily friction and give staff visibility into their role tend to keep people longer.
+
+Not because of the tech itself.
+Because of what the tech makes possible for the people using it.
+
+What's the main reason your staff tend to leave — and how much of it is environment?`,
+        hashtags: '#EmployeeRetention #StaffExperience #HospitalityTech #PeopleFirst #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 26',
+        line1: 'Real-time digital feedback helps staff understand their performance and stay longer.',
+        line2: 'Most operations only give feedback when something breaks. That\'s too late.',
+        caption:
+`Most performance feedback in hospitality is delayed.
+
+Or vague.
+Or only delivered when something went wrong.
+
+That's not a feedback loop. That's damage control.
+
+Digital tools that deliver real-time, specific feedback change how staff relate to their work.
+
+They understand where they stand.
+They know what to improve.
+They feel like the operation is invested in them.
+
+And they stay longer because of it.
+
+How are you currently giving performance feedback to your frontline team?`,
+        hashtags: '#EmployeeRetention #StaffExperience #HospitalityLeaders #PeopleFirst #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 27',
+        line1: 'Predictive digital tools can identify at-risk employees before they resign.',
+        line2: 'Most operators find out someone is leaving when they hand in their notice.',
+        caption:
+`By then it's too late.
+
+The replacement search starts. Productivity drops.
+Training costs kick in. The cycle repeats.
+
+Predictive analytics change that window.
+
+Engagement patterns.
+Workflow signals.
+Behavioral shifts that tend to precede a resignation.
+
+At-risk employees surface weeks earlier.
+
+The conversation shifts from "how do we replace them" to "what do they actually need."
+
+How much runway do you typically have before a resignation catches you off guard?`,
+        hashtags: '#EmployeeRetention #HospitalityTech #StaffExperience #PeopleOperations #SeamlesslyUS'
+      },
+
+      {
+        day: 'Reel 28',
+        line1: 'Systems that reduce errors and stress support longer staff retention.',
+        line2: 'People don\'t just leave for more money. They leave because the environment stopped being worth it.',
+        caption:
+`Staff don't always leave because the pay is bad.
+
+They leave because the environment wears them down.
+
+Unclear processes.
+Repeated errors that weren't their fault.
+Stress that compounds shift after shift.
+
+Systems that document work clearly and reduce errors reduce that stress at the source.
+
+Less chaos.
+Less pressure.
+People stay longer in environments that actually function.
+
+What's the one process at your venue that causes the most unnecessary stress for your team?`,
+        hashtags: '#StaffRetention #EmployeeExperience #HospitalityTech #OperationsManagement #SeamlesslyUS'
+      }
+
+    ];
+
+    var root = document.getElementById('root');
+    var lastWeek = '';
+
+    DATA.forEach(function (post) {
+
+      if (post.week && post.week !== lastWeek) {
+        var wl = document.createElement('div');
+        wl.className = 'week-label';
+        wl.style.marginTop = lastWeek ? '64px' : '0';
+        wl.textContent = post.week;
+        root.appendChild(wl);
+        lastWeek = post.week;
+      }
+
+      var el = document.createElement('div');
+      el.className = 'post';
+
+      var header = document.createElement('div');
+      header.className = 'post-header';
+
+      var dayEl = document.createElement('div');
+      dayEl.className = 'post-day';
+      dayEl.textContent = post.day;
+      header.appendChild(dayEl);
+
+      var l1 = document.createElement('div');
+      l1.className = 'image-line-1';
+      l1.textContent = post.line1;
+      header.appendChild(l1);
+
+      if (post.line2) {
+        var l2 = document.createElement('div');
+        l2.className = 'image-line-2';
+        l2.textContent = post.line2;
+        header.appendChild(l2);
+      }
+
+      el.appendChild(header);
+
+      var cap = document.createElement('div');
+      cap.className = 'caption-block';
+
+      var label = document.createElement('div');
+      label.className = 'caption-label';
+      label.textContent = 'Caption + Hashtags';
+      cap.appendChild(label);
+
+      var capText = document.createElement('div');
+      capText.className = 'caption-text';
+      capText.textContent = post.caption;
+      cap.appendChild(capText);
+
+      var hash = document.createElement('div');
+      hash.className = 'hashtags';
+      hash.textContent = post.hashtags;
+      cap.appendChild(hash);
+
+      var full = post.caption + '\n\n' + post.hashtags;
+
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy Caption';
+
+      btn.addEventListener('click', function () {
+        navigator.clipboard.writeText(full).then(function () {
+          btn.textContent = '✓ Copied';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = 'Copy Caption';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+
+      cap.appendChild(btn);
+      el.appendChild(cap);
+      root.appendChild(el);
+
+    });
+
+  }());
+  </script>
+
+</body>
+</html>

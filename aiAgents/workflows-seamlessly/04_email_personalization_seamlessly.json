@@ -1,0 +1,281 @@
+{
+  "name": "04 - Email Personalization (Seamlessly)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 12 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily at 12 PM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "options": {
+          "range": "A:V",
+          "useFirstRowAsHeaders": true,
+          "returnAll": true
+        },
+        "filters": {
+          "conditions": [
+            {
+              "fieldName": "status",
+              "condition": "contains",
+              "value": "Hot Lead - Prioritize"
+            },
+            {
+              "fieldName": "status",
+              "condition": "contains",
+              "value": "Qualified - Standard Outreach"
+            },
+            {
+              "fieldName": "contacted_date",
+              "condition": "equal",
+              "value": ""
+            }
+          ],
+          "combinator": "or"
+        }
+      },
+      "id": "get-qualified",
+      "name": "Get Qualified Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a B2B SaaS sales expert writing emails for Seamlessly, a hospitality tech platform.\n\nSEAMLESSLY VALUE PROPS:\n- Mobile QR ordering (guests skip lines)\n- Unified platform (POS, reservations, delivery in one system)\n- Proven results: 30% revenue increase, 45% lower staff turnover\n- Works with Toast, Square, Clover, and major POS systems\n\nINDUSTRY PAIN POINTS:\n- $25M annual loss from wait-time abandonment\n- Guests abandon lines over 8 minutes\n- Disjointed tech stacks (5+ apps, multiple fees)\n- High staff turnover (avg 59 days)\n- Loss of customer data to delivery platforms\n\nEMAIL RULES:\n- Length: 150-200 words\n- Tone: Professional, consultative, not salesy\n- Structure: Custom opener → Problem → Solution → Proof → Demo CTA\n- NO emojis, NO hype words (\"revolutionary\", \"game-changing\")\n- Calculate venue-specific revenue loss when possible\n- Reference their specific pain signals if available\n\nReturn ONLY valid JSON (no markdown):\n{\n  \"subject\": \"subject line (10 words max)\",\n  \"opener\": \"personalized first sentence\",\n  \"body\": \"full email body\",\n  \"ps\": \"optional PS line\"\n}"
+            },
+            {
+              "role": "user",
+              "content": "=Write a sales email for this venue:\n\nVenue: {{ $json.business_name }}\nType: {{ $json.category }}\nCity: {{ $json.city }}\nReviews: {{ $json.review_count }}\nRating: {{ $json.rating }}\nPain Signals: {{ $json.pain_signals }}\nDecision Maker Role: {{ $json.decision_maker_role }}\nEstimated Monthly Loss: ${{ $json.estimated_monthly_loss }}\nScore: {{ $json.score }}\n\nTailor the pitch to their specific situation. If they have pain signals, reference them. If high volume, emphasize revenue opportunity. If they have tech already, emphasize consolidation."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7,
+          "responseFormat": "json_object"
+        }
+      },
+      "id": "write-pitch",
+      "name": "Write Seamlessly Pitch",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1.3,
+      "position": [650, 300],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-cred",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leadData = $node[\"Get Qualified Leads\"].json;\n\nlet emailData;\ntry {\n  const content = $json.message.content;\n  emailData = JSON.parse(content);\n} catch (e) {\n  console.error('Failed to parse email JSON:', e);\n  // Fallback email\n  emailData = {\n    subject: `Quick question about ${leadData.business_name}`,\n    opener: `Hi, I noticed ${leadData.business_name} serves high volumes.`,\n    body: `Most hospitality venues lose 25-40% of potential orders because guests avoid lines over 8 minutes. Seamlessly fixes this with mobile QR ordering integrated directly into your existing POS. We recently helped a similar ${leadData.category} increase revenue 30%. Would a 15-minute demo make sense?`,\n    ps: ''\n  };\n}\n\n// Construct full email body\nconst fullBody = `${emailData.opener}\\n\\n${emailData.body}${emailData.ps ? '\\n\\nP.S. ' + emailData.ps : ''}`;\n\n// Add signature\nconst signature = `\\n\\nBest,\\n[Your Name]\\nFounder, Seamlessly\\n[Your Phone]\\n[Your Website]`;\n\nreturn {\n  ...leadData,\n  email_subject: emailData.subject,\n  email_body: fullBody + signature,\n  status: leadData.score >= 15 ? 'Ready to Send - Hot' : 'Ready to Send - Qualified',\n  last_activity: new Date().toISOString()\n};"
+      },
+      "id": "process-email",
+      "name": "Process Email Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $credentials.googleSheets.sheetId }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Seamlessly Pipeline",
+          "mode": "name"
+        },
+        "columnToMatchOn": "business_name",
+        "valueToMatchOn": "={{ $json.business_name }}",
+        "values": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email_subject": "={{ $json.email_subject }}",
+            "email_body": "={{ $json.email_body }}",
+            "status": "={{ $json.status }}",
+            "last_activity": "={{ $json.last_activity }}"
+          }
+        }
+      },
+      "id": "save-email",
+      "name": "Save Email to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1050, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "google-sheets-cred",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "hot-lead-check",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": 15,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-hot",
+      "name": "Check if Hot Lead",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "your-email@domain.com",
+        "toEmail": "your-email@domain.com",
+        "subject": "=Review Hot Lead Email: {{ $json.business_name }}",
+        "emailType": "text",
+        "message": "=Hot lead email ready for your review:\n\nTO: {{ $json.email }}\nSUBJECT: {{ $json.email_subject }}\n\nBODY:\n{{ $json.email_body }}\n\n---\nVenue: {{ $json.business_name }}\nScore: {{ $json.score }}\nEst. Loss: ${{ $json.estimated_monthly_loss }}/mo\n\nReview and approve in sheet before sending.",
+        "options": {}
+      },
+      "id": "request-review",
+      "name": "Request Manual Review",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1450, 250],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-cred",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 12 PM": {
+      "main": [
+        [
+          {
+            "node": "Get Qualified Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Qualified Leads": {
+      "main": [
+        [
+          {
+            "node": "Write Seamlessly Pitch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Seamlessly Pitch": {
+      "main": [
+        [
+          {
+            "node": "Process Email Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Email Content": {
+      "main": [
+        [
+          {
+            "node": "Save Email to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Email to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Check if Hot Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Hot Lead": {
+      "main": [
+        [
+          {
+            "node": "Request Manual Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

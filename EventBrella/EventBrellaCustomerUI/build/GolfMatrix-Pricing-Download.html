@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10K Golf Membership - Pricing</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .container { max-width: 100%; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        /* Hero Section */
+        .pricing-hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            border: 3px solid transparent;
+        }
+        
+        .pricing-card.popular {
+            border-color: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        
+        .tier-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .tier-tagline {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .price-container {
+            margin: 30px 0;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2D5016;
+        }
+        
+        .period {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .credit-badge {
+            background: rgba(45, 80, 22, 0.1);
+            border: 3px solid #2D5016;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        
+        .credit-amount {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2D5016;
+        }
+        
+        .credit-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+        
+        .features-list li::before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .feature-inherit {
+            font-style: italic;
+            color: #888;
+        }
+        
+        .credit-uses-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .credit-uses-section h4 {
+            color: #2D5016;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .credit-uses-list {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .credit-uses-list li {
+            padding: 8px 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .credit-uses-list li::before {
+            content: "• ";
+            color: #DAA520;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        /* Value Section */
+        .value-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .value-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 40px;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .value-card {
+            text-align: center;
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .value-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .value-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Comparison Table */
+        .comparison-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+        }
+        
+        .comparison-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .comparison-table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #2D5016;
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        th.popular {
+            background: #DAA520;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+        }
+        
+        .faq-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .faq-item h3 {
+            color: #2D5016;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .faq-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .footer strong {
+            color: #2D5016;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn no-print" onclick="window.print()">📄 Download PDF</button>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="pricing-hero">
+            <h1 class="hero-title">10K Golf Membership</h1>
+            <p class="hero-subtitle">
+                Get in-app credits with every membership. Use them for lessons, events, gear, and more.
+            </p>
+        </div>
+        
+        <!-- Pricing Cards -->
+        <div class="pricing-grid">
+            <!-- Starter Card -->
+            <div class="pricing-card">
+                <h3 class="tier-name">Starter</h3>
+                <p class="tier-tagline">Get in the game</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">99</span>
+                    <span class="period">/year</span>
+                </div>
+                <div class="credit-badge" style="border-color: #2D5016;">
+                    <span class="credit-amount">$200</span>
+                    <span class="credit-label">in credits</span>
+                </div>
+                <ul class="features-list">
+                    <li>$200 in-app credit (immediate)</li>
+                    <li>Access to community feed & forums</li>
+                    <li>Basic swing analysis (upload video, get AI feedback)</li>
+                    <li>Monthly group webinars</li>
+                    <li>10% discount on partner pro shops</li>
+                </ul>
+                <div class="credit-uses-section">
+                    <h4>Use Your Credits For:</h4>
+                    <ul class="credit-uses-list">
+                        <li>2 virtual lessons ($100 ea)</li>
+                        <li>1 event entry ($50)</li>
+                        <li>Gear bundles ($25–$150)</li>
+                        <li>Unlocking premium drills/courses ($10–$50)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Player Card -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3 class="tier-name">Player</h3>
+                <p class="tier-tagline">Play smarter, not harder</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">199</span>
+                    <span class="period">/year</span>
+                </div>
+                <div class="credit-badge" style="border-color: #DAA520;">
+                    <span class="credit-amount">$400</span>
+                    <span class="credit-label">in credits</span>
+                </div>
+                <ul class="features-list">
+                    <li class="feature-inherit">Everything in Starter, plus:</li>
+                    <li>$400 in-app credit (double the value)</li>
+                    <li>Personalized club fitting quiz</li>
+                    <li>Access to exclusive video library (200+ pro breakdowns)</li>
+                    <li>1-on-1 coaching session per quarter (via Zoom or in-app)</li>
+                    <li>Early access to events & gear drops</li>
+                    <li>Monthly performance tracking dashboard</li>
+                    <li>20% discount on partner pro shops</li>
+                </ul>
+                <div class="credit-uses-section">
+                    <h4>Use Your Credits For:</h4>
+                    <ul class="credit-uses-list">
+                        <li>4 virtual lessons</li>
+                        <li>2–3 event entries</li>
+                        <li>Premium content unlocks</li>
+                        <li>Swing analysis add-ons (biomechanics, launch monitor data review)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Elite Card -->
+            <div class="pricing-card">
+                <h3 class="tier-name">Elite</h3>
+                <p class="tier-tagline">Built for serious players</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">499</span>
+                    <span class="period">/year</span>
+                </div>
+                <div class="credit-badge" style="border-color: #2D5016;">
+                    <span class="credit-amount">$1,000</span>
+                    <span class="credit-label">in credits</span>
+                </div>
+                <ul class="features-list">
+                    <li class="feature-inherit">Everything in Player, plus:</li>
+                    <li>$1,000 in-app credit (2x your membership cost back)</li>
+                    <li>Full concierge club fitting</li>
+                    <li>Unlimited 1-on-1 coaching sessions</li>
+                    <li>Access to private Elite-only community & events</li>
+                    <li>Quarterly in-person meetups (regional)</li>
+                    <li>Priority support (24-hour response time)</li>
+                    <li>VIP early access to new features & beta programs</li>
+                    <li>30% discount on partner pro shops</li>
+                    <li>Free entry to all 10K Golf tournaments and events</li>
+                </ul>
+                <div class="credit-uses-section">
+                    <h4>Use Your Credits For:</h4>
+                    <ul class="credit-uses-list">
+                        <li>10 virtual lessons</li>
+                        <li>All event entries covered</li>
+                        <li>Exclusive masterclasses ($100–$200 ea)</li>
+                        <li>Gear bundles & custom equipment consultations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Value Proposition Section -->
+        <div class="value-section">
+            <h2>Why Join?</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">💳</div>
+                    <h3>Instant Value</h3>
+                    <p>Every membership pays for itself with in-app credits. Use them immediately on what matters to you.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📈</div>
+                    <h3>Unlock Your Potential</h3>
+                    <p>Access world-class coaching, exclusive content, and personalized tools to improve your game.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Join the Community</h3>
+                    <p>Connect with serious players, attend exclusive events, and elevate your golf experience.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3>Flexible & Fair</h3>
+                    <p>No hidden fees. Cancel anytime. Your credits never expire as long as you're a member.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison Table -->
+        <div class="comparison-section">
+            <h2>Compare Plans</h2>
+            <div class="comparison-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Starter</th>
+                            <th class="popular">Player</th>
+                            <th>Elite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Annual Credits</strong></td>
+                            <td>$200</td>
+                            <td>$400</td>
+                            <td>$1,000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pro Shop Discount</strong></td>
+                            <td>10%</td>
+                            <td>20%</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Swing Analysis</strong></td>
+                            <td>✓ Basic</td>
+                            <td>✓ Advanced</td>
+                            <td>✓ Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1-on-1 Coaching</strong></td>
+                            <td>—</td>
+                            <td>✓ Quarterly</td>
+                            <td>✓ Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Club Fitting Quiz</strong></td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓ + Concierge</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video Library</strong></td>
+                            <td>—</td>
+                            <td>✓ 200+ videos</td>
+                            <td>✓ Full Access</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Priority Support</strong></td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓ 24-hour</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Elite Events</strong></td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓ Free Entry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Private Community</strong></td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How do credits work?</h3>
+                    <p>Credits are instantly added to your account when you join. Use them to book lessons, enter events, purchase gear, or unlock premium content. They're like cash within the platform.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do credits expire?</h3>
+                    <p>Credits remain active as long as you maintain your membership. If you cancel, you have 90 days to use remaining credits.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I upgrade or downgrade?</h3>
+                    <p>Yes! Upgrade anytime and receive pro-rated credits immediately. Downgrades take effect at your next renewal date.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What if I cancel?</h3>
+                    <p>Cancel anytime with no penalties. Your membership continues until the end of your billing period, and you keep all earned credits for 90 days.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this a subscription?</h3>
+                    <p>Yes, memberships renew annually. You'll receive a full credit refresh with each renewal. You can turn off auto-renewal in your settings.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I gift a membership?</h3>
+                    <p>Absolutely! Contact our support team to purchase a gift membership for a fellow golfer.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>10K Golf</strong> - Membership Program</p>
+            <p>Contact: info@10kgolf.com</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena League Football - Complete Fan Experience Platform</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .container { max-width: 100%; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f9f9f9 0%, #ffffff 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Download Button */
+        .download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        
+        /* Hero Section */
+        .pricing-hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2D5016 0%, #1a3d0a 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px auto;
+            display: block;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Platform Overview */
+        .platform-overview {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .platform-overview h2 {
+            font-size: 2rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        .platform-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .platform-feature {
+            text-align: center;
+        }
+        
+        .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .platform-feature h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .platform-feature p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            border: 3px solid transparent;
+        }
+        
+        .pricing-card.popular {
+            border-color: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        
+        .tier-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .tier-tagline {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .price-container {
+            margin: 30px 0;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2D5016;
+        }
+        
+        .period {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .setup-fee {
+            background: rgba(218, 165, 32, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+        }
+        
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+        
+        .features-list li::before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .feature-inherit {
+            font-style: italic;
+            color: #888;
+        }
+        
+        .perfect-for {
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+        
+        /* Value Section */
+        .value-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .value-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 40px;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .value-card {
+            text-align: center;
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .value-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .value-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Comparison Table */
+        .comparison-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+        }
+        
+        .comparison-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .comparison-table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #2D5016;
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        th.popular {
+            background: #DAA520;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        /* Customer Experience Section */
+        .experience-section {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.05) 0%, rgba(218, 165, 32, 0.05) 100%);
+            padding: 60px 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .experience-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .experience-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .experience-card h3 {
+            color: #2D5016;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .experience-card ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .experience-card li {
+            padding: 8px 0;
+            color: #666;
+        }
+        
+        .experience-card li::before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #2D5016;
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .cta-button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .cta-button.starter {
+            background: #2D5016;
+        }
+        
+        .cta-button.professional {
+            background: #DAA520;
+            transform: scale(1.05);
+        }
+        
+        .cta-button.enterprise {
+            background: #333;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .footer strong {
+            color: #2D5016;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            
+            .cta-button.professional {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="download-btn no-print" onclick="window.print()">📄 Download PDF</button>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="pricing-hero">
+            <img src="orlandopirateslogo.svg" alt="Orlando Pirates Logo" class="hero-logo" />
+            <h1 class="hero-title">Complete Fan Experience Platform</h1>
+            <p class="hero-subtitle">
+                All-in-one solution for Arena League Football franchises: Digital ticketing, mobile ordering, customer experience management, and more.
+            </p>
+        </div>
+        
+        <!-- Platform Overview -->
+        <div class="platform-overview">
+            <h2>Everything You Need in One Platform</h2>
+            <div class="platform-features">
+                <div class="platform-feature">
+                    <div class="platform-icon">🎫</div>
+                    <h3>Digital Ticketing</h3>
+                    <p>Seamless ticket sales, QR code validation, and fan management</p>
+                </div>
+                <div class="platform-feature">
+                    <div class="platform-icon">📱</div>
+                    <h3>Mobile Ordering</h3>
+                    <p>In-venue food & beverage ordering from any seat in the arena</p>
+                </div>
+                <div class="platform-feature">
+                    <div class="platform-icon">👥</div>
+                    <h3>Customer Experience</h3>
+                    <p>Unified fan profiles, loyalty programs, and engagement tools</p>
+                </div>
+                <div class="platform-feature">
+                    <div class="platform-icon">📊</div>
+                    <h3>Analytics & Insights</h3>
+                    <p>Real-time data on attendance, spending, and fan behavior</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pricing Cards -->
+        <div class="pricing-grid">
+            <!-- Starter Card -->
+            <div class="pricing-card">
+                <h3 class="tier-name">Starter</h3>
+                <p class="tier-tagline">Perfect for smaller venues</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">499</span>
+                    <span class="period">/month</span>
+                </div>
+                <div class="setup-fee">+ $1,000 one-time setup fee</div>
+                <ul class="features-list">
+                    <li>Up to 5,000 seats</li>
+                    <li>Digital ticketing system</li>
+                    <li>Mobile ordering (basic menu)</li>
+                    <li>QR code entry validation</li>
+                    <li>Customer database (10,000 fans)</li>
+                    <li>Basic analytics dashboard</li>
+                    <li>Email marketing (10,000/month)</li>
+                    <li>Social media integration</li>
+                    <li>Mobile app access</li>
+                    <li>Standard support (48hr response)</li>
+                </ul>
+                <p class="perfect-for">Perfect for: Small arenas & starting franchises</p>
+            </div>
+            
+            <!-- Professional Card -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3 class="tier-name">Professional</h3>
+                <p class="tier-tagline">Built for growing franchises</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">1,299</span>
+                    <span class="period">/month</span>
+                </div>
+                <div class="setup-fee">+ $1,500 one-time setup fee</div>
+                <ul class="features-list">
+                    <li class="feature-inherit">Everything in Starter, plus:</li>
+                    <li>Up to 15,000 seats</li>
+                    <li>Advanced digital ticketing</li>
+                    <li>Full mobile ordering with customization</li>
+                    <li>Advanced QR code system</li>
+                    <li>Customer database (50,000 fans)</li>
+                    <li>Advanced analytics & reporting</li>
+                    <li>Email & SMS marketing (unlimited)</li>
+                    <li>Loyalty & rewards program</li>
+                    <li>Season ticket management</li>
+                    <li>Concessions inventory tracking</li>
+                    <li>Multi-location support</li>
+                    <li>Priority support (24hr response)</li>
+                    <li>Custom integrations available</li>
+                </ul>
+                <p class="perfect-for">Perfect for: Established franchises & mid-size arenas</p>
+            </div>
+            
+            <!-- Enterprise Card -->
+            <div class="pricing-card">
+                <h3 class="tier-name">Enterprise</h3>
+                <p class="tier-tagline">Ultimate platform for major franchises</p>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">2,499</span>
+                    <span class="period">/month</span>
+                </div>
+                <div style="background: rgba(45, 80, 22, 0.1); padding: 10px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem; border: 1px solid rgba(45, 80, 22, 0.3); color: #2D5016; font-weight: 600;">No setup fee</div>
+                <ul class="features-list">
+                    <li class="feature-inherit">Everything in Professional, plus:</li>
+                    <li>Unlimited seats</li>
+                    <li>White-label mobile app</li>
+                    <li>Premium mobile ordering with AI recommendations</li>
+                    <li>Predictive analytics & fan insights</li>
+                    <li>Unlimited customer database</li>
+                    <li>VIP experience management</li>
+                    <li>Premium seating & hospitality</li>
+                    <li>Merchandise e-commerce integration</li>
+                    <li>Sponsorship management tools</li>
+                    <li>Multi-franchise support</li>
+                    <li>API access & custom development</li>
+                    <li>Dedicated account manager</li>
+                    <li>Priority support (2hr response)</li>
+                    <li>On-site training & setup</li>
+                </ul>
+                <p class="perfect-for">Perfect for: Major franchises & large arenas</p>
+            </div>
+        </div>
+        
+        <!-- Value Section -->
+        <div class="value-section">
+            <h2>Why Choose Our Platform?</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3>Seamless Integration</h3>
+                    <p>Everything works together—tickets, ordering, and fan data all in one place.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📈</div>
+                    <h3>Increase Revenue</h3>
+                    <p>Mobile ordering drives concession sales. Better data means smarter pricing.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">😊</div>
+                    <h3>Better Fan Experience</h3>
+                    <p>Fans order from their seats. No lines. Faster entry. More enjoyable games.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Data-Driven Decisions</h3>
+                    <p>Understand fan behavior, optimize pricing, and grow your franchise smarter.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Customer Experience Section -->
+        <div class="experience-section">
+            <h2>Complete Customer Experience Management</h2>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <h3>🎫 Ticketing & Entry</h3>
+                    <ul>
+                        <li>Digital ticket sales</li>
+                        <li>Season ticket packages</li>
+                        <li>Dynamic pricing options</li>
+                        <li>QR code validation</li>
+                        <li>Fast entry lanes</li>
+                        <li>Ticket transfer & resale</li>
+                        <li>Group sales management</li>
+                        <li>VIP & premium seating</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <h3>📱 Mobile Ordering</h3>
+                    <ul>
+                        <li>Order from any seat</li>
+                        <li>Custom arena menu</li>
+                        <li>Real-time order tracking</li>
+                        <li>Pickup or delivery options</li>
+                        <li>Concessions inventory sync</li>
+                        <li>Mobile payment integration</li>
+                        <li>Upsell recommendations</li>
+                        <li>Order history & favorites</li>
+                    </ul>
+                </div>
+                <div class="experience-card">
+                    <h3>👥 Fan Engagement</h3>
+                    <ul>
+                        <li>Unified fan profiles</li>
+                        <li>Loyalty & rewards program</li>
+                        <li>Personalized promotions</li>
+                        <li>Email & SMS campaigns</li>
+                        <li>Game day notifications</li>
+                        <li>Fan feedback collection</li>
+                        <li>Social media integration</li>
+                        <li>Community building tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison Table -->
+        <div class="comparison-section">
+            <h2>Compare Plans</h2>
+            <div class="comparison-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Starter</th>
+                            <th class="popular">Professional</th>
+                            <th>Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Venue Capacity</strong></td>
+                            <td>Up to 5,000 seats</td>
+                            <td>Up to 15,000 seats</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Digital Ticketing</strong></td>
+                            <td>✓ Basic</td>
+                            <td>✓ Advanced</td>
+                            <td>✓ Premium + White-label</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile Ordering</strong></td>
+                            <td>✓ Basic Menu</td>
+                            <td>✓ Full Customization</td>
+                            <td>✓ Premium + AI Recommendations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer Database</strong></td>
+                            <td>10,000 fans</td>
+                            <td>50,000 fans</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analytics & Reporting</strong></td>
+                            <td>✓ Basic Dashboard</td>
+                            <td>✓ Advanced Reports</td>
+                            <td>✓ Predictive Analytics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketing</strong></td>
+                            <td>Email (10K/month)</td>
+                            <td>Email + SMS (Unlimited)</td>
+                            <td>Email + SMS + Push (Unlimited)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loyalty Program</strong></td>
+                            <td>✗</td>
+                            <td>✓</td>
+                            <td>✓ Premium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Season Tickets</strong></td>
+                            <td>✗</td>
+                            <td>✓</td>
+                            <td>✓ Premium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VIP Management</strong></td>
+                            <td>✗</td>
+                            <td>✗</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Merchandise E-commerce</strong></td>
+                            <td>✗</td>
+                            <td>✗</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multi-Location</strong></td>
+                            <td>✗</td>
+                            <td>✓</td>
+                            <td>✓ Multi-Franchise</td>
+                        </tr>
+                        <tr>
+                            <td><strong>API Access</strong></td>
+                            <td>✗</td>
+                            <td>✗</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account Manager</strong></td>
+                            <td>✗</td>
+                            <td>✗</td>
+                            <td>✓ Dedicated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Support Response</strong></td>
+                            <td>48 hours</td>
+                            <td>24 hours</td>
+                            <td>2 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Transform Your Fan Experience?</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">
+                Join leading Arena League Football franchises delivering the ultimate game day experience.
+            </p>
+            <div class="cta-buttons">
+                <div class="cta-button starter">Get Started - $499/mo</div>
+                <div class="cta-button professional">Most Popular - $1,299/mo</div>
+                <div class="cta-button enterprise">Enterprise - $2,499/mo</div>
+            </div>
+            <p style="margin-top: 30px; color: #666; font-size: 0.9rem;">
+                All plans include setup assistance and training. Enterprise includes on-site setup and dedicated support.
+            </p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Arena League Football Platform</strong> - Complete Fan Experience Solution</p>
+            <p>Digital Ticketing • Mobile Ordering • Customer Experience • Analytics</p>
+            <p style="margin-top: 20px;">Contact: info@arenafootballplatform.com</p>
+        </div>
+    </div>
+</body>
+</html>

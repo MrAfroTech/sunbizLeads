@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carousel Generator | Theme 3: Next Hospitality System — Script Boxes</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Italiana', serif;
+  background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+  min-height: 100vh;
+  color: #1a1410;
+  line-height: 1.3;
+  padding: 24px;
+}
+
+.carousel-box {
+  width: 1080px;
+  height: 1080px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  background: #e0b841;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+
+.carousel-box-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.carousel-box-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5D4A1F;
+  margin-bottom: 32px;
+}
+
+.carousel-box-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.carousel-box-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.carousel-box-text p {
+  font-weight: 700;
+  color: #1a1410;
+  margin-bottom: 0.5em;
+  font-size: 96px;
+  line-height: 1.2;
+}
+
+.script-divider {
+  width: 100%;
+  max-width: 1080px;
+  margin: 48px 0 24px;
+  padding: 16px 24px;
+  background: rgba(26, 20, 16, 0.9);
+  color: #e0b841;
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: 8px;
+  border-left: 4px solid #e0b841;
+}
+
+.download-btn {
+  display: block;
+  width: 1080px;
+  margin: 0 auto 48px;
+  padding: 16px;
+  font-weight: 700;
+  font-size: 18px;
+  background: linear-gradient(135deg, #e0b841, #d4af37);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+(function() {
+  const scripts = [
+    {
+      title: 'Carousel 15 — From Venues to Systems',
+      boxes: [
+        "The old model sold locations.",
+        "The new model sells coordination.",
+        "Guests want speed.",
+        "Staff need clarity.",
+        "Data makes both possible."
+      ]
+    },
+    {
+      title: 'Carousel 16 — The Intelligent Venue',
+      boxes: [
+        "Predict demand before it spikes.",
+        "Order inventory before you run short.",
+        "Staff the room before it fills.",
+        "Personalize before the guest asks.",
+        "Use data to lead."
+      ]
+    },
+    {
+      title: 'Carousel 17 — Why Data Is the New Location Advantage',
+      boxes: [
+        "Foot traffic used to win.",
+        "Now information wins.",
+        "Owned data creates loyalty.",
+        "Owned data creates repeat visits.",
+        "Owned data creates margin."
+      ]
+    },
+    {
+      title: 'Carousel 18 — Unified Platforms Win',
+      boxes: [
+        "Too many tools create chaos.",
+        "Too much chaos creates cost.",
+        "Unified systems remove friction.",
+        "Unified systems improve speed.",
+        "Unified systems improve decisions."
+      ]
+    },
+    {
+      title: 'Carousel 19 — Personalization Creates Loyalty',
+      boxes: [
+        "Guests want to feel known.",
+        "Not just served.",
+        "Preference data matters.",
+        "Memory creates loyalty.",
+        "Loyalty creates lifetime value."
+      ]
+    },
+    {
+      title: 'Carousel 20 — Prediction Beats Reaction',
+      boxes: [
+        "Reaction is expensive.",
+        "Prediction is profitable.",
+        "Forecasts cut waste by 15–30%.",
+        "Forecasts improve staffing.",
+        "Forecasts improve the guest experience."
+      ]
+    },
+    {
+      title: 'Carousel 21 — Chaos Mastery Through Intelligence',
+      boxes: [
+        "The smartest venues see ahead.",
+        "They move faster.",
+        "They waste less.",
+        "They serve better.",
+        "They grow stronger."
+      ]
+    }
+  ];
+
+  const iconSvgs = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 22 2 22"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2 12 12 2 22 12"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="20" x2="20" y2="20"/></svg>'
+  ];
+
+  const root = document.getElementById('root');
+
+  scripts.forEach((script, i) => {
+    const divider = document.createElement('div');
+    divider.className = 'script-divider';
+    divider.textContent = script.title;
+    root.appendChild(divider);
+
+    script.boxes.forEach((text, j) => {
+      const box = document.createElement('div');
+      box.className = 'carousel-box';
+
+      const inner = document.createElement('div');
+      inner.className = 'carousel-box-inner';
+
+      const icon = document.createElement('div');
+      icon.className = 'carousel-box-icon';
+      icon.innerHTML = iconSvgs[i % iconSvgs.length];
+
+      const textWrap = document.createElement('div');
+      textWrap.className = 'carousel-box-text';
+
+      const lines = text.split(' / ');
+      const textAreaHeight = 1080 - 160 - 120;
+      const fontSize = Math.min(140, Math.max(60, Math.floor(textAreaHeight / (lines.length * 1.1))));
+      textWrap.style.fontSize = fontSize + 'px';
+
+      lines.forEach(line => {
+        const p = document.createElement('p');
+        p.textContent = line;
+        textWrap.appendChild(p);
+      });
+
+      inner.appendChild(icon);
+      inner.appendChild(textWrap);
+      box.appendChild(inner);
+
+      const btn = document.createElement('button');
+      btn.className = 'download-btn';
+      btn.textContent = 'Download PNG — C' + (i + 15) + ' · Slide ' + (j + 1);
+
+      btn.onclick = () => {
+        html2canvas(box, { backgroundColor: '#e0b841' }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 't3-gold-c' + (i + 15) + '-s' + (j + 1) + '.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        });
+      };
+
+      root.appendChild(box);
+      root.appendChild(btn);
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

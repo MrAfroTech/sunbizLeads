@@ -1,0 +1,151 @@
+#,Venue Name,Category,City,Address,Phone,Rating,Google Place ID,Notes
+1,MIDFLORIDA Credit Union Amphitheatre,Amphitheater,Tampa,"4802 US-301, Tampa, FL 33610",+1 813-740-2446,4.4,ChIJ2SRxszPPwogRXZsoxbmqmVg,"Major outdoor amphitheater; ~19,000 cap"
+2,iTHINK Financial Amphitheatre,Amphitheater,West Palm Beach,"601-7 Sansburys Way, West Palm Beach, FL 33411",+1 561-795-8883,4.5,ChIJAcmTWtMo2YgRF6cgWf68cF4,Large outdoor amphitheater
+3,The St. Augustine Amphitheatre,Amphitheater,St. Augustine,"1340C A1A S, St. Augustine, FL 32080",+1 904-209-0367,4.8,ChIJ-9YkRu5C3ogRD-7yl8iJj08,Beloved outdoor venue under oak trees
+4,FPL Solar Amphitheater at Bayfront Park,Amphitheater,Miami,"301 Biscayne Blvd, Miami, FL 33132",+1 305-358-7550,4.5,ChIJLUCwvyC02YgRhBzAM6GyAqg,Outdoor waterfront amphitheater
+5,Pompano Beach Amphitheater,Amphitheater,Pompano Beach,"1801 NE 6th St, Pompano Beach, FL 33060",+1 561-223-7231,4.7,ChIJcYgYe5kC2YgRyUatwtcUgQo,Outdoor community amphitheater
+6,Mizner Park Amphitheater,Amphitheater,Boca Raton,"590 Plaza Real, Boca Raton, FL 33432",+1 561-393-7890,4.6,ChIJ__WDch3i2IgRmBTHcdj4J4E,Open-air town center amphitheater
+7,Orlando Amphitheater,Amphitheater,Orlando,"4603 W Colonial Dr, Orlando, FL 32808",+1 407-295-3247,4.3,ChIJb2Fn68t554gRrVzqlpOn-hk,Florida State Fairgrounds amphitheater
+8,Sunset Cove Amphitheater,Amphitheater,Boca Raton,"20405 Amphitheater Cir, Boca Raton, FL 33498",,4.7,ChIJJW2nMIEZ2YgRUX8oCF-C6Oc,Lakeside outdoor amphitheater
+9,Caloosa Sound Amphitheater,Amphitheater,Fort Myers,"2101 Edwards Dr, Fort Myers, FL 33901",,4.4,ChIJq8d1LaVB24gRMWRPuYRI6BI,Waterfront outdoor amphitheater
+10,The Key West Amphitheater,Amphitheater,Key West,"21 Quay Rd, Key West, FL 33040",+1 305-985-0433,4.8,ChIJ29Y-Tu-20YgR2eYgBIAht4o,Scenic coastal amphitheater
+11,J. B. Coxwell Amphitheater,Amphitheater,Jacksonville,"UNF Dr., Jacksonville, FL 32224",+1 904-620-1000,4.5,ChIJt8cvKLRK5IgRU6GNb1W5apQ,UNF campus outdoor amphitheater
+12,Seawalk Pavilion,Amphitheater,Jacksonville Beach,"75 1st St N, Jacksonville Beach, FL 32250",,4.7,ChIJdZXgVAdJ5IgRLXl4sySd3dw,Beachside open-air pavilion
+13,Benchmark International Arena (Amalie),Arena,Tampa,"401 Channelside Dr, Tampa, FL 33602",+1 813-301-6500,4.6,ChIJSV2_Mo3EwogRc8CZwwOroSs,"Home of Tampa Bay Lightning; ~19,000 cap"
+14,Kaseya Center,Arena,Miami,"601 Biscayne Blvd, Miami, FL 33132",+1 786-777-1000,4.7,ChIJlZFyCaC22YgRbFtPKFIFrRM,"Home of Miami Heat; ~20,000 cap"
+15,Kia Center,Arena,Orlando,"400 W Church St, Orlando, FL 32801",+1 407-440-7900,4.6,ChIJVcr7Ufp654gRkJGTJZILyfc,"Home of Orlando Magic; ~20,000 cap"
+16,Amerant Bank Arena,Arena,Sunrise,"1 Panther Pkwy, Sunrise, FL 33323",+1 954-835-7000,4.6,ChIJLTGXWhoJ2YgRrlDpr7m7cjI,"Home of Florida Panthers; ~20,000 cap"
+17,Yuengling Center,Arena,Tampa,"12499 USF Bull Run Drive, Tampa, FL 33617",+1 813-974-3111,4.5,ChIJyV2gRL7HwogRhSk2mi2gmpQ,"USF multi-purpose arena; ~10,000 cap"
+18,Addition Financial Arena,Arena,Orlando,"12777 Gemini Blvd N, Orlando, FL 32816",+1 407-823-3070,4.5,ChIJ3_gwt1po54gRoA1jiTOccCw,"UCF arena; ~10,000 cap"
+19,VyStar Veterans Memorial Arena,Arena,Jacksonville,"300 A Philip Randolph Blvd, Jacksonville, FL 32202",+1 904-630-3900,4.6,ChIJn4mWo-G25YgR9Ng6alLqOms,"~15,000 cap; concerts & sports"
+20,Hertz Arena,Arena,Estero,"11000 Everblades Parkway, Estero, FL 33928",+1 239-948-7825,4.4,ChIJk0kPNjUR24gRSUb8G7Hzb3o,"Home of Florida Everblades; ~8,000 cap"
+21,Donald L. Tucker Civic Center,Arena,Tallahassee,"505 W Pensacola St, Tallahassee, FL 32301",+1 850-644-7469,4.4,ChIJNWvmiW317IgRqRnUaywb6vY,FSU arena & multi-use civic center
+22,George Jenkins Arena,Arena,Lakeland,"701 W Lime St, Lakeland, FL 33815",+1 863-834-8100,4.4,ChIJ07Vc6DQ53YgRczIIP4Iz1jE,City-run smaller arena
+23,Suncoast Credit Union Arena,Arena,Fort Myers,"13351 FSW Pkwy, Fort Myers, FL 33919",+1 800-440-7469,4.4,ChIJ6bghX-s_24gRNBZPdUc8cX4,FGCU on-campus arena
+24,Wayfair Arena,Arena,Medley,"7321 NW 75th St, Medley, FL 33166",,4.7,ChIJpVR_MwC72YgRERggd-vi5G0,Home of Unrivaled 3x3 basketball
+25,Wide World Of Sports Cheer Arena,Arena,Kissimmee,"Kissimmee, FL 34747",,4.7,ChIJNbFWeSF_3YgRIT3yV5qJqy0,Disney ESPN WWoS arena
+26,AdventHealth Arena at ESPN Wide World of Sports,Arena,Kissimmee,"700 S Victory Way, Kissimmee, FL 34747",+1 407-939-5277,4.6,ChIJfa7-rLt_3YgREtjQLiVHKzc,Disney sports event arena
+27,Hard Rock Stadium,Stadium,Miami Gardens,"347 Don Shula Dr, Miami Gardens, FL 33056",+1 305-943-8000,4.6,ChIJqfO1lwSv2YgR2_kLxpThFVg,"Home of Miami Dolphins; ~65,000 cap"
+28,Raymond James Stadium,Stadium,Tampa,"4201 N Dale Mabry Hwy, Tampa, FL 33607",+1 813-350-6500,4.5,ChIJzyiU3LjDwogR3_P87TdTzcE,"Home of Tampa Bay Buccaneers; ~65,000 cap"
+29,EverBank Stadium,Stadium,Jacksonville,"1 EverBank Stadium Dr, Jacksonville, FL 32202",+1 904-633-6100,4.5,ChIJj9Q15qdJ5IgRuuVSpmAtt_k,"Home of Jacksonville Jaguars; ~67,000 cap"
+30,Inter & Co Stadium,Stadium,Orlando,"655 W Church St, Orlando, FL 32805",+1 407-480-4702,4.7,ChIJLfUtmFV654gRqMF4MQ2HX88,Home of Orlando City SC
+31,Doak S. Campbell Stadium,Stadium,Tallahassee,"403 Stadium Dr, Tallahassee, FL 32304",,4.7,ChIJMRJAKhv17IgR4H_rTH8OxH8,"FSU football stadium; ~79,000 cap"
+32,Bragg Memorial Stadium,Stadium,Tallahassee,"Tallahassee, FL 32307",+1 850-599-3000,4.6,ChIJz-Jm4z_17IgRXUGyRdtY8iw,FAMU football stadium
+33,Tropicana Field,Stadium,St. Petersburg,"1 Tropicana Dr., St. Petersburg, FL 33705",+1 727-825-3137,4.4,ChIJkXdv95vhwogR3e84WZCqrJ4,"Home of Tampa Bay Rays; ~25,000 cap"
+34,George M. Steinbrenner Field,Stadium,Tampa,"1 Steinbrenner Dr, Tampa, FL 33614",+1 813-875-7753,4.7,ChIJKwWA3sfDwogRw2ERUbKhY9k,"Yankees spring training; ~11,000 cap"
+35,Ed Smith Stadium,Stadium,Sarasota,"2700 12th St, Sarasota, FL 34237",+1 941-893-6300,4.7,ChIJr7VRFIBAw4gRrH2zGqPb8Zg,Baltimore Orioles spring training
+36,Roger Dean Chevrolet Stadium,Stadium,Jupiter,"4751 Main St, Jupiter, FL 33458",+1 561-775-1818,4.7,ChIJt7UOfJTV3ogRT-FI0wt2J_w,Cardinals & Marlins spring training
+37,Daytona International Speedway,Stadium,Daytona Beach,"1801 W International Speedway Blvd, Daytona Beach, FL 32114",+1 800-748-7467,4.7,ChIJk4XLpEnZ5ogRl8zItcDGhxM,"NASCAR superspeedway; ~100,000 cap"
+38,Jackie Robinson Ballpark,Stadium,Daytona Beach,"105 E Orange Ave, Daytona Beach, FL 32114",+1 386-257-3172,4.7,ChIJ8y3TXCfa5ogRAeeirBYwXAA,Historic minor league ballpark
+39,Lee Health Sports Complex,Stadium,Fort Myers,"14100 6 Mile Cypress Pkwy, Fort Myers, FL 33912",+1 239-533-7695,4.7,ChIJCUKX2RQV24gRBV6IMDN8KsI,Minnesota Twins spring training
+40,Historic Sanford Memorial Stadium,Stadium,Sanford,"1201 Mellonville Ave, Sanford, FL 32771",+1 407-688-5000,4.7,ChIJ1VhJgX4T54gRZ3vOSQ6RHmA,Historic minor league ballpark
+41,Condron Ballpark,Stadium,Gainesville,"2800 Citrus Rd, Gainesville, FL 32608",,4.8,ChIJA3CpAuuj6IgRm4grleWa5wE,UF Gators baseball; state-of-art facility
+42,USF Baseball Stadium,Stadium,Tampa,"11899 USF Bull Run Drive, Tampa, FL 33620",+1 813-974-2125,4.7,ChIJDYsuGsTHwogRPHpdJMQr3Cw,USF baseball; free parking
+43,Dick Howser Stadium,Stadium,Tallahassee,"203 Stadium Dr, Tallahassee, FL 32304",+1 850-645-2527,4.8,ChIJrVO0BAX17IgR9HzMTV0jFSo,FSU baseball; renovated facility
+44,Daytona Stadium,Stadium,Daytona Beach,"3917 LPGA Blvd, Daytona Beach, FL 32124",+1 386-671-8250,4.3,ChIJP21vGv_e5ogR0SuZoyCcut0,Multi-use sports stadium
+45,ESPN Wide World of Sports Stadium,Stadium,Kissimmee,"700 S Victory Way, Orlando, FL 34747",+1 407-939-5277,4.6,ChIJryulKSF_3YgR_SPn5Am2OT0,Disney sports complex stadium
+46,Dr. Phillips Center for the Performing Arts,Performing Arts Center,Orlando,"445 S Magnolia Ave, Orlando, FL 32801",+1 407-358-6603,4.8,ChIJ-7QCIgJ754gRcfF7EG3N1Xs,"Premiere Orlando PAC; ~2,700 cap Walt Disney Theater"
+47,Straz Center for the Performing Arts,Performing Arts Center,Tampa,"1010 N Macinnes Pl, Tampa, FL 33602",+1 813-229-7827,4.7,ChIJce6XFIjEwogRaNJA6ZKu31c,Major Tampa PAC; Broadway & concerts
+48,Broward Center for the Performing Arts,Performing Arts Center,Fort Lauderdale,"201 SW 5th Ave, Fort Lauderdale, FL 33312",+1 954-462-0222,4.7,ChIJs8G0zPsA2YgRnc0yoGFLISM,"Major South FL PAC; ~2,700 cap"
+49,Jacksonville Center for the Performing Arts,Performing Arts Center,Jacksonville,"300 Water St, Jacksonville, FL 32202",+1 904-633-6110,4.7,ChIJ_Sh7ShG35YgRLqCCON7cUMY,"Moran Theater; ~2,900 cap"
+50,Curtis M. Phillips Center for the Performing Arts,Performing Arts Center,Gainesville,"3201 Hull Rd, Gainesville, FL 32611",+1 352-392-2787,4.7,ChIJv-AQuBSj6IgR63WspiH58iI,UF performing arts center
+51,Pont Vedra Concert Hall,Performing Arts Center,Ponte Vedra Beach,"1050 A1A N, Ponte Vedra Beach, FL 32082",+1 904-209-0399,4.6,ChIJx_wpljs35IgRJIdxyBWqiio,Renovated intimate concert hall; ~600 cap
+52,Thrasher-Horne Center,Performing Arts Center,Orange Park,"2900 Thrasher Horne Ave, Orange Park, FL 32065",+1 904-276-6815,4.7,ChIJ27cIYZzE5YgRxhinSWncodg,SJR State community performing arts center
+53,Lauderhill Performing Arts Center,Performing Arts Center,Lauderhill,"3800 NW 11th Pl, Lauderhill, FL 33311",+1 954-777-2055,4.6,ChIJfag92OYG2YgRP5Oibm9GnAg,Community PAC in Broward County
+54,Manatee Performing Arts Center,Performing Arts Center,Bradenton,"502 3rd Ave W, Bradenton, FL 34205",+1 941-748-5875,4.8,ChIJB-QyVtEXw4gRk5F8bn3YV28,Downtown Bradenton intimate theater
+55,Venice Performing Arts Center,Performing Arts Center,Venice,"1 Indian Ave Building 5, Venice, FL 34285",+1 941-218-3779,4.8,ChIJ19i72bBbw4gRbAZaOOPhzKE,Venice High School campus PAC
+56,Central Park Performing Arts Center,Performing Arts Center,Largo,"105 Central Park Dr, Largo, FL 33771",+1 727-587-6793,4.7,ChIJL4CdiHv6wogR6W9IvDPqexM,Pinellas County PAC in scenic park
+57,New Tampa Performing Arts Center,Performing Arts Center,Tampa,"8550 Hunters Village Rd, Tampa, FL 33647",+1 813-829-2760,4.8,ChIJb6xK1LK3wogRoVovo7iEFqE,Intimate New Tampa community theater
+58,Center for the Arts at Wesley Chapel,Performing Arts Center,Wesley Chapel,"30651 Wells Rd, Wesley Chapel, FL 33545",+1 813-794-8772,4.7,ChIJZ1NUSPCxwogRYSTBZ-4PsNk,Pasco County arts center
+59,Clermont Performing Arts Center,Performing Arts Center,Clermont,"3700 US-27, Clermont, FL 34711",+1 352-394-4800,4.6,ChIJacwVvdKI54gR6NThwLkrbfs,"Lake County community PAC; ~1,000 cap"
+60,Hard Rock Live (Seminole Hard Rock Hollywood),Concert Venue,Hollywood,"1 Seminole Way, Davie, FL 33314",+1 954-797-5531,4.7,ChIJpZ9RZ4Kp2YgRO5ahms3x8_8,"Casino concert hall; ~7,000 cap"
+61,House of Blues Orlando,Concert Venue,Orlando,"1490 E Buena Vista Dr, Orlando, FL 32830",+1 689-329-2583,4.4,ChIJBap9MoR_3YgRnzGmE9oTtYE,Disney Springs music venue & restaurant
+62,Revolution Live,Concert Venue,Fort Lauderdale,"100 SW 3rd Ave, Fort Lauderdale, FL 33312",+1 954-449-1025,4.3,ChIJ_a4nLvkA2YgRQE7y8LDCUnw,"Mid-size Fort Lauderdale concert hall; ~1,600 cap"
+63,The Social,Concert Venue,Orlando,"54 N Orange Ave, Orlando, FL 32801",+1 407-839-1847,4.1,ChIJjVl2l_5654gRVQGtxg_3lnw,Intimate downtown Orlando music venue
+64,Culture Room,Concert Venue,Fort Lauderdale,"3045 N Federal Hwy, Fort Lauderdale, FL 33306",+1 954-564-1074,4.5,ChIJ-czwhfMB2YgRTKNMSRj-XBY,Intimate multi-room rock/indie venue
+65,Crowbar,Concert Venue,Tampa (Ybor City),"1812 N 17th St, Ybor City, FL 33605",+1 813-241-8600,4.6,ChIJ76SYUVDEwogRJec_Q3szUk0,Indie/punk/metal venue in Ybor
+66,The Vanguard,Concert Venue,Orlando,"578 N Orange Ave, Orlando, FL 32801",,4.2,ChIJqzpO65p754gR2YY8sRmLfBk,Historic Firestone building nightclub/venue
+67,Tin Roof Orlando,Concert Venue,Orlando,"8371 International Dr, Orlando, FL 32819",+1 407-270-7926,4.4,ChIJnw2AQFN-54gRaHlUw41HCnk,Live music bar on I-Drive
+68,The Banyan Live,Concert Venue,West Palm Beach,"8199 Southern Blvd Suite B, West Palm Beach, FL 33411",+1 561-855-0626,4.7,ChIJfQ7nRskp2YgRk3agAqJ_Ns4,Large live event venue WPB
+69,FIVE Jacksonville,Concert Venue,Jacksonville,"1028 Park St, Jacksonville, FL 32204",+1 904-450-5555,3.6,ChIJd0u3LaO35YgRBo0L8hKrPEU,Avondale music venue
+70,Seawalk Pavilion,Concert Venue,Jacksonville Beach,"75 1st St N, Jacksonville Beach, FL 32250",,4.7,ChIJdZXgVAdJ5IgRLXl4sySd3dw,Outdoor beachside pavilion
+71,Circle Square Commons,Concert Venue,Ocala,"8405 SW 80th St, Ocala, FL 34481",+1 352-854-3670,4.5,ChIJu1PVi9V-6IgR0S2KZKYC1jk,On Top of the World community live music
+72,Funny Bone Comedy Club Orlando,Comedy Club,Orlando,"9101 International Dr Suite 2310, Orlando, FL 32819",+1 407-480-5233,4.6,ChIJHfGwEkt-54gRR_IKSnZ-OWM,Premier Orlando comedy club on I-Drive
+73,Funny Bone Comedy Club Tampa,Comedy Club,Tampa (Ybor City),"1600 E 8th Ave C-112, Tampa, FL 33605",+1 813-864-4000,4.4,ChIJK_D-ZlDEwogR1TZphg5U4M0,Ybor City comedy club
+74,Fort Lauderdale Improv,Comedy Club,Dania Beach,"177 N Pointe Dr, Dania Beach, FL 33004",+1 954-981-5653,4.4,ChIJNyFc_1er2YgRxuMr6Zlfw8w,National touring comedy acts
+75,Miami Improv Comedy Club,Comedy Club,Doral,"3450 NW 83rd Ave #224, Doral, FL 33122",+1 305-441-8200,4.3,ChIJEz1VmoK52YgREtGWBEHm2Z4,Miami metro comedy club
+76,Off The Hook Comedy Club,Comedy Club,Naples,"2500 Vanderbilt Beach Rd #1100, Naples, FL 34109",+1 239-389-6901,4.5,ChIJA3zUk2fu2ogRw3ayMfTquxI,SWFL's top comedy club
+77,Cristy B Comedy,Comedy Club,Daytona Beach,"242 S Beach St STE 100, Daytona Beach, FL 32114",+1 386-297-2131,4.8,ChIJA2vWjJHb5ogRXgLA5GDY158,Intimate Daytona Beach comedy club
+78,Orange County Convention Center,Convention Center,Orlando,"9800 International Dr, Orlando, FL 32819",+1 407-685-9800,4.5,ChIJqanFjjd-54gRWyzSHifJ7i8,One of largest convention centers in US
+79,Tampa Convention Center,Convention Center,Tampa,"333 S Franklin St, Tampa, FL 33602",+1 813-274-8511,4.5,ChIJAcQub43EwogROiznmr82T5A,Downtown Tampa waterfront convention center
+80,Palm Beach County Convention Center,Convention Center,West Palm Beach,"650 Okeechobee Blvd, West Palm Beach, FL 33401",+1 561-366-3000,4.6,ChIJy8PRcV7W2IgRqhvEHtEo_9I,West Palm Beach convention center
+81,Bradenton Area Convention Center,Convention Center,Palmetto,"1 Haben Blvd, Palmetto, FL 34221",+1 941-722-3244,4.4,ChIJvYTS7t8Xw4gRRGmk1I33Sss,Manatee County convention center
+82,Space Coast Convention Center,Convention Center,Cocoa,"301 Tucker Ln, Cocoa, FL 32926",+1 321-635-9975,4.5,ChIJ79eETxwA3ogRe4CCvmn8kC8,Brevard County convention facility
+83,Caloosa Sound Convention Center,Convention Center,Fort Myers,"1375 Monroe St, Fort Myers, FL 33901",+1 239-314-3729,4.6,ChIJ48e4EtZB24gREmGYdsPcfFo,Lee County waterfront convention center
+84,Coronado Springs Convention Center,Convention Center,Kissimmee,"Coronado Spgs Blvd, Kissimmee, FL 34747",,4.6,ChIJMRygwSZ_3YgRtRrLJjWtHWQ,Disney resort convention center
+85,Diplomat Convention Center,Convention Center,Hollywood,"3575 S Ocean Dr, Hollywood, FL 33019",+1 954-602-8607,4.7,ChIJL8uj3yOr2YgRJcDghih18fU,Beachfront Diplomat Resort convention center
+86,Florida State Fairgrounds,Fairgrounds/Expo,Tampa,"4800 US-301, Tampa, FL 33610",+1 813-621-7821,4.4,ChIJeQ-y5zXPwogRFU7AXbruMCg,Annual Florida State Fair; large multi-venue grounds
+87,Expo Hall at Florida State Fairgrounds,Fairgrounds/Expo,Tampa,"4800 US-301, Tampa, FL 33610",,4.4,ChIJq9kZijTPwogROJuSTXMyZCM,Indoor expo hall on fairgrounds
+88,South Florida Fair & Expo Center,Fairgrounds/Expo,West Palm Beach,"9067 Southern Blvd, West Palm Beach, FL 33411",+1 561-793-0333,4.4,ChIJgYp-DDIv2YgRH8hrgA3I3pI,Annual South Florida Fair grounds
+89,Shiner Law Group Expo Center (South FL Fairgrounds),Fairgrounds/Expo,West Palm Beach,"9067 Southern Blvd, West Palm Beach, FL 33411",+1 561-793-0333,4.5,ChIJ31GTcy0v2YgREvAw2zyQCTk,Multi-purpose expo building on fairgrounds
+90,Central Florida Fair,Fairgrounds/Expo,Orlando,"4603 W Colonial Dr, Orlando, FL 32808",+1 407-295-3247,4.3,ChIJNaSmI5B554gRk7Ub17EiGbI,Annual Central Florida Fair
+91,Miami-Dade County Fair & Exposition,Fairgrounds/Expo,Miami,"10901 SW 24th St, Miami, FL 33165",+1 305-223-7060,4.3,ChIJqwCnDja_2YgR0fQINSRA2MM,Annual Miami-Dade Fair; large expo hall
+92,Indian River County Fairgrounds & Expo Center,Fairgrounds/Expo,Vero Beach,"7955 58th Ave, Vero Beach, FL 32967",+1 772-226-1035,4.4,ChIJ9UD_Lnld3ogRxrw658M_5Co,Treasure Coast fairgrounds & expo
+93,Southwest Florida Lee County Fairgrounds,Fairgrounds/Expo,North Fort Myers,"11831 Bayshore Rd, North Fort Myers, FL 33917",+1 239-543-8368,4.2,ChIJr1IXvD5v24gRNcFMQhMbF1A,Lee County fairgrounds
+94,ESPN Wide World of Sports Complex,Sports Complex,Kissimmee,"700 S Victory Way, Orlando, FL 34747",+1 407-939-5277,4.6,ChIJ7SxiGiF_3YgRnqToYQbzMWg,Disney multi-sport complex; many fields & arenas
+95,Lee Health Sports Complex,Sports Complex,Fort Myers,"14100 6 Mile Cypress Pkwy, Fort Myers, FL 33912",+1 239-533-7695,4.7,ChIJCUKX2RQV24gRBV6IMDN8KsI,Minnesota Twins & multi-sport complex
+96,Paradise Coast Sports Complex,Sports Complex,Naples,"Naples, FL 34117",,4.2,ChIJ-UBkES_92ogRIJnuxPMyNd4,New multi-field outdoor sports complex
+97,Seminole Hard Rock Hotel & Casino Tampa,Casino/Event Venue,Tampa,"5223 Orient Rd, Tampa, FL 33610",+1 866-388-4263,4.3,ChIJ32l5iEzPwogR8KrRdgHfdwc,Major casino with event space & concerts
+98,Hard Rock Event Center Tampa,Concert Venue,Tampa,"5223 Orient Rd, Tampa, FL 33610",+1 866-388-4263,4.5,,Events center at Seminole Hard Rock Tampa
+99,Amway Center (Kia Center),Arena,Orlando,"400 W Church St, Orlando, FL 32801",+1 407-440-7900,4.6,ChIJVcr7Ufp654gRkJGTJZILyfc,Orlando Magic arena - see Kia Center
+100,Spectrum Center (Charlotte - for reference),Arena,"Charlotte, NC","333 E Trade St, Charlotte, NC 28202",+1 704-688-9000,4.5,ChIJRX2cPiSgVogR-j4piI0LI3Y,Reference: Charlotte NBA arena for comp
+101,Ruth Eckerd Hall,Performing Arts Center,Clearwater,"1111 McMullen Booth Rd, Clearwater, FL 34619",,4.7,,Major Pinellas County performing arts center
+102,Van Wezel Performing Arts Hall,Performing Arts Center,Sarasota,"777 N Tamiami Trail, Sarasota, FL 34236",,4.7,,Iconic purple building PAC on Sarasota Bay
+103,Barbara B. Mann Performing Arts Hall,Performing Arts Center,Fort Myers,"13350 FSW Pkwy, Fort Myers, FL 33919",,4.6,,"FGCU campus PAC; ~1,800 cap"
+104,Mahaffey Theater,Performing Arts Center,St. Petersburg,"400 1st St S, St. Petersburg, FL 33701",,4.7,,Downtown St. Pete waterfront PAC
+105,Carol Morsani Hall (Straz Center),Performing Arts Center,Tampa,"1010 N Macinnes Pl, Tampa, FL 33602",+1 813-229-7827,4.7,ChIJce6XFIjEwogRaNJA6ZKu31c,"Main hall of Straz Center; ~2,600 cap"
+106,Morsani Hall (Straz),Performing Arts Center,Tampa,"1010 N Macinnes Pl, Tampa, FL 33602",+1 813-229-7827,4.7,ChIJce6XFIjEwogRaNJA6ZKu31c,Straz flagship theater
+107,Arsht Center for the Performing Arts,Performing Arts Center,Miami,"1300 Biscayne Blvd, Miami, FL 33132",,4.7,,Major Miami PAC; Ziff Ballet Opera House
+108,Carnival Studio Theater (Arsht Center),Performing Arts Center,Miami,"1300 Biscayne Blvd, Miami, FL 33132",,4.7,,Intimate Arsht venue
+109,Bailey Concert Hall,Performing Arts Center,Davie,"3501 SW Davie Rd, Davie, FL 33314",,4.6,,Broward College PAC
+110,Coral Springs Center for the Arts,Performing Arts Center,Coral Springs,"2855 Coral Springs Dr, Coral Springs, FL 33065",,4.7,,Broward County community PAC
+111,Mizell Memorial Auditorium,Performing Arts Center,West Palm Beach,,,4.5,,Community auditorium WPB area
+112,Harborlights Pavilion,Concert Venue,Fort Myers,,,4.4,,Outdoor waterfront concert venue
+113,The Florida Theater,Theater/Concert Hall,Jacksonville,"128 E Forsyth St, Jacksonville, FL 32202",,4.8,,Historic downtown Jacksonville theater
+114,Bob Carr Theater (Dr. Phillips Center),Theater,Orlando,"445 S Magnolia Ave, Orlando, FL 32801",+1 407-358-6603,4.7,ChIJ-7QCIgJ754gRcfF7EG3N1Xs,Heritage venue now part of Dr. Phillips complex
+115,The King Center,Performing Arts Center,Melbourne,"3865 N Wickham Rd, Melbourne, FL 32935",,4.6,,"Brevard County PAC; ~2,100 cap"
+116,Civic Center of Greater Miami,Performing Arts Center,Miami,,,4.4,,Community civic center
+117,Maxwell C. King Center for the Performing Arts,Performing Arts Center,Melbourne,"3865 N Wickham Rd, Melbourne, FL 32935",,4.6,,Eastern FL's major PAC
+118,Saenger Theatre,Theater,Pensacola,"118 S Palafox Pl, Pensacola, FL 32502",,4.8,,"Historic Pensacola theater; ~1,770 cap"
+119,Pensacola Bay Center,Arena,Pensacola,"201 E Gregory St, Pensacola, FL 32502",,4.5,,"Multi-use arena; ~9,000 cap"
+120,Northwest Florida Ballet Academie,Performing Arts Center,Fort Walton Beach,,,4.5,,Panhandle area arts venue
+121,Cultural Arts Center,Performing Arts Center,Ocala,"13 S Pine Ave, Ocala, FL 34471",,4.4,,Downtown Ocala arts center
+122,The Or Ocala (Reilly Arts Center),Performing Arts Center,Ocala,"500 NE 9th St, Ocala, FL 34470",,4.6,,Reilly Arts Center; 800-seat hall
+123,The Ora Sarasota,Event Venue,Sarasota,"578 McIntosh Rd, Sarasota, FL 34232",,5.0,ChIJiZURhbRBw4gRD0AxBb6rSrc,Modern Sarasota event venue
+124,Mahaffey Theater at Duke Energy Center,Performing Arts Center,St. Petersburg,"400 1st St S, St. Petersburg, FL 33701",,4.7,,"St. Pete waterfront theater; ~2,000 cap"
+125,MidFlorida Amphitheatre at the FL State Fairgrounds,Amphitheater,Tampa,"4802 US-301, Tampa, FL 33610",+1 813-740-2446,4.4,ChIJ2SRxszPPwogRXZsoxbmqmVg,Duplicate reference - see #1
+126,Charlotte County Event Center,Convention Center,Port Charlotte,,,4.3,,Charlotte County multi-use event space
+127,Collier County Fairgrounds,Fairgrounds/Expo,Naples,,,4.3,,Southwest FL fairgrounds
+128,Osceola Heritage Park,Event Complex,Kissimmee,"1875 Silver Spur Ln, Kissimmee, FL 34744",,4.4,,"Multi-venue event park; arena, stadium, expo"
+129,Silver Spurs Arena (Osceola Heritage Park),Arena,Kissimmee,"1875 Silver Spur Ln, Kissimmee, FL 34744",,4.4,,Rodeo & concert arena at Osceola Heritage
+130,Lakeland Center,Convention/Event Center,Lakeland,"701 W Lime St, Lakeland, FL 33815",+1 863-834-8100,4.4,,Multi-venue Lakeland events complex
+131,RP Funding Center,Arena/Convention,Lakeland,"701 W Lime St, Lakeland, FL 33815",+1 863-834-8100,4.4,,Lakeland events complex; arena + convention
+132,Pensacola Little Theater,Theater,Pensacola,"400 Jefferson St, Pensacola, FL 32502",,4.7,,Community theater Pensacola
+133,Fort Walton Beach Convention Center,Convention Center,Fort Walton Beach,"139 Miracle Strip Pkwy SW, Fort Walton Beach, FL 32548",,4.3,,Panhandle convention facility
+134,Von Braun Center (Alabama reference),Arena,"Huntsville, AL","700 Monroe St SW, Huntsville, AL 35801",,4.5,,Nearby out-of-state reference arena
+135,Amalie Arena (original name),Arena,Tampa,"401 Channelside Dr, Tampa, FL 33602",+1 813-301-6500,4.6,ChIJSV2_Mo3EwogRc8CZwwOroSs,Now Benchmark International Arena
+136,SunTrust Park (now Truist Park - GA ref),Stadium,"Atlanta, GA",,,4.7,,Reference: Atlanta MLB stadium nearby region
+137,Dunedin Stadium (TD Ballpark),Stadium,Dunedin,"373 Douglas Ave, Dunedin, FL 34698",,4.6,,Toronto Blue Jays spring training
+138,CoolToday Park,Stadium,North Port,"18800 Victory Blvd, North Port, FL 34292",,4.7,,Atlanta Braves spring training
+139,LECOM Park,Stadium,Bradenton,"1611 9th St W, Bradenton, FL 34205",,4.6,,Pittsburgh Pirates spring training
+140,Clover Park (formerly First Data Field),Stadium,Port St. Lucie,"525 NW Peacock Blvd, Port St. Lucie, FL 34986",,4.5,,New York Mets spring training
+141,The Ballpark of the Palm Beaches,Stadium,West Palm Beach,"5444 Haverhill Rd N, West Palm Beach, FL 33407",,4.7,,Nationals & Astros spring training
+142,JetBlue Park at Fenway South,Stadium,Fort Myers,"11500 Fenway South Dr, Fort Myers, FL 33913",,4.7,,Boston Red Sox spring training
+143,Charlotte Sports Park,Stadium,Port Charlotte,"2300 El Jobean Rd, Port Charlotte, FL 33948",,4.7,,Tampa Bay Rays spring training
+144,American Airlines Arena (now Kaseya),Arena,Miami,"601 Biscayne Blvd, Miami, FL 33132",+1 786-777-1000,4.7,ChIJlZFyCaC22YgRbFtPKFIFrRM,Renamed to Kaseya Center - see #14
+145,FLA Live Arena (now Amerant Bank),Arena,Sunrise,"1 Panther Pkwy, Sunrise, FL 33323",+1 954-835-7000,4.6,ChIJLTGXWhoJ2YgRrlDpr7m7cjI,Renamed to Amerant Bank Arena - see #16
+146,Spectrum Field,Stadium,Clearwater,"601 N Old Coachman Rd, Clearwater, FL 34625",,4.7,,Philadelphia Phillies spring training
+147,FITTEAM Ballpark of the Palm Beaches,Stadium,West Palm Beach,"5444 Haverhill Rd N, West Palm Beach, FL 33407",,4.7,,See Ballpark of the Palm Beaches
+148,First Horizon Park,Stadium,"Nashville, TN",,,4.5,,Reference: Nashville minor league park
+149,Tropicana Field (decommissioned),Stadium,St. Petersburg,"1 Tropicana Dr., St. Petersburg, FL 33705",+1 727-825-3137,4.4,ChIJkXdv95vhwogR3e84WZCqrJ4,Rays moving to new facility - see #33
+150,Universal's Venue (Amphitheater),Amphitheater,Orlando,"6000 Universal Blvd, Orlando, FL 32819",,4.4,,Universal Orlando outdoor events space

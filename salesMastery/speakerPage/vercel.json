@@ -3,6 +3,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "trailingSlash": true,
+  "rewrites": [
+    { "source": "/", "destination": "/speaker/" }
+  ],
   "redirects": [
     { "source": "/speaker", "destination": "/speaker/", "permanent": true }
   ]

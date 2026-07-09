@@ -1,0 +1,215 @@
+/* Capital Dinner landing pages — follows ContentPage / seamlessvendorui patterns */
+
+.capital-dinner-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(-45deg, #d4af37, #e0b841, #f5d76e, #e0b841);
+  color: #1a1410;
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+}
+
+.capital-dinner-page .page-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.capital-dinner-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.capital-dinner-hero .badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #2a241e;
+  border: 1px solid rgba(26, 20, 16, 0.25);
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #1a1410;
+  text-transform: uppercase;
+}
+
+.capital-dinner-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1a1410;
+}
+
+.capital-dinner-hero .subheading {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1a1410;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.capital-dinner-hero .supporting {
+  font-size: 1rem;
+  color: #1a1410;
+  line-height: 1.6;
+}
+
+.capital-dinner-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(to right, #5D4A1F, rgba(93, 74, 31, 0.4));
+  margin: 24px auto;
+}
+
+.capital-dinner-section {
+  margin-bottom: 36px;
+}
+
+.capital-dinner-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1a1410;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(224, 184, 65, 0.5);
+}
+
+.capital-dinner-section p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #1a1410;
+  margin-bottom: 12px;
+}
+
+.capital-dinner-section p:last-child {
+  margin-bottom: 0;
+}
+
+.capital-dinner-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.capital-dinner-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1a1410;
+}
+
+.capital-dinner-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 8px;
+  height: 8px;
+  background: #5D4A1F;
+  border-radius: 50%;
+}
+
+.capital-dinner-details {
+  background: #1f1c18;
+  border: 1px solid rgba(26, 20, 16, 0.15);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 36px;
+}
+
+.capital-dinner-details p {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #1a1410;
+}
+
+.capital-dinner-details p:last-child {
+  margin-bottom: 0;
+}
+
+.capital-dinner-cta {
+  text-align: center;
+  padding: 32px 24px;
+  background: #1f1c18;
+  border: 1px solid rgba(26, 20, 16, 0.15);
+  border-radius: 12px;
+  margin-bottom: 36px;
+}
+
+.capital-dinner-cta .seats-note {
+  font-size: 0.95rem;
+  color: #1a1410;
+  margin-bottom: 20px;
+}
+
+.capital-dinner-cta .cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #1a1410, #2d2618);
+  color: #e0b841;
+  border: 1px solid rgba(224, 184, 65, 0.4);
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.capital-dinner-cta .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 20, 16, 0.25);
+  border-color: rgba(224, 184, 65, 0.6);
+}
+
+.capital-dinner-footer {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(26, 20, 16, 0.15);
+  font-size: 0.95rem;
+  color: #1a1410;
+}
+
+.capital-dinner-footer a {
+  color: #5D4A1F;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.capital-dinner-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .capital-dinner-page {
+    padding-top: 120px;
+  }
+
+  .capital-dinner-page .page-container {
+    padding: 16px 20px 48px;
+  }
+
+  .capital-dinner-hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .capital-dinner-hero .subheading {
+    font-size: 1.15rem;
+  }
+
+  .capital-dinner-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .capital-dinner-cta .cta-button {
+    width: 100%;
+  }
+}
