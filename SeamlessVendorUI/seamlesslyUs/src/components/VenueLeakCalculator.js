@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
+import '../styles/CalculatorGlassCard.css';
 import CalculatorLeakResults from './CalculatorLeakResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -582,6 +583,7 @@ const VenueLeakCalculator = ({
     <CalculatorHeroShell
       className={presentationMode ? 'watch-vs-order-page--presentation' : ''}
       introActive={!resultsShown && !introComplete}
+      glassCard
     >
       {!resultsShown && !introComplete ? (
         <CalculatorIntroScreen onStart={handleIntroStart} />

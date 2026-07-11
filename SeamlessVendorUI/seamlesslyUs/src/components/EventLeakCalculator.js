@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
+import '../styles/CalculatorGlassCard.css';
 import CalculatorLeakResults from './CalculatorLeakResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -433,7 +434,7 @@ const EventLeakCalculator = ({
   );
 
   return (
-    <CalculatorHeroShell>
+    <CalculatorHeroShell glassCard>
       {!resultsShown ? (
         <form ref={formRef} className="watch-vs-order-calc-body" onSubmit={handleCalculate}>
           <CalculatorHeroCardIntro

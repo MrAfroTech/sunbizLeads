@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/CalculatorHeroLayout.css';
 import { CALCULATOR_HERO_BACKGROUND_IMAGE } from '../lib/calculatorHeroImages';
 
-const CalculatorHeroLayout = ({ children, introActive = false }) => {
+const CalculatorHeroLayout = ({ children, introActive = false, glassCard = false }) => {
   const year = new Date().getFullYear();
 
   return (
@@ -40,7 +40,16 @@ const CalculatorHeroLayout = ({ children, introActive = false }) => {
         </div>
 
         <div className="calculator-hero-layout__content">
-          <div className="calculator-hero-layout__card">{children}</div>
+          <div
+            className={[
+              'calculator-hero-layout__card',
+              glassCard ? 'calculator-glass-card' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {children}
+          </div>
         </div>
       </div>
 

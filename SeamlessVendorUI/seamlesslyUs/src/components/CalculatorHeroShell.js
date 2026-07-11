@@ -2,7 +2,7 @@ import React from 'react';
 import CalculatorHeroLayout from './CalculatorHeroLayout';
 import '../styles/CalculatorHeroLayout.css';
 
-const CalculatorHeroShell = ({ children, className = '', introActive = false }) => (
+const CalculatorHeroShell = ({ children, className = '', introActive = false, glassCard = false }) => (
   <div
     className={[
       'content-page',
@@ -13,7 +13,9 @@ const CalculatorHeroShell = ({ children, className = '', introActive = false }) 
       .filter(Boolean)
       .join(' ')}
   >
-    <CalculatorHeroLayout introActive={introActive}>{children}</CalculatorHeroLayout>
+    <CalculatorHeroLayout introActive={introActive} glassCard={glassCard}>
+      {children}
+    </CalculatorHeroLayout>
   </div>
 );
 

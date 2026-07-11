@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/CalculatorGlassCard.css';
 import { CALCULATOR_PAGE_KEYS } from '../lib/calculatorPageVisits';
 import HotelGuestSpendLeakCalculator from './HotelGuestSpendLeakCalculator';
 

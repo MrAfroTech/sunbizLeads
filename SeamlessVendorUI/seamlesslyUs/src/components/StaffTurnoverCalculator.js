@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
+import '../styles/CalculatorGlassCard.css';
 import StaffTurnoverInlineReveal from './StaffTurnoverInlineReveal';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -249,7 +250,10 @@ const StaffTurnoverCalculator = () => {
   };
 
   return (
-    <CalculatorHeroShell className="watch-vs-order-page--clear-navbar watch-vs-order-page--staffburnout">
+    <CalculatorHeroShell
+      className="watch-vs-order-page--clear-navbar watch-vs-order-page--staffburnout"
+      glassCard
+    >
       {!primaryResultsShown ? (
         <form ref={formRef} className="watch-vs-order-calc-body" onSubmit={handlePrimaryFormSubmit}>
           <CalculatorHeroCardIntro

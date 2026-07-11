@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import '../styles/CalculatorGlassCard.css';
 import { parseVenueLeakFormFromSearchParams } from '../lib/journeyContactHelpers';
 import { useCalculatorReveal } from '../hooks/useCalculatorReveal';
 import CalculatorResultCard from './CalculatorResultCard';
@@ -209,7 +210,7 @@ const DistrictCalculatorResults = ({
 
       {!phoneUnlocked ? (
       <div className="calculator-funnel-state calculator-funnel-state--gate">
-        <section className="leak-gate cta-box">
+        <section className="leak-gate cta-box calculator-glass-card">
             <>
               <h3 className="leak-gate__headline">Want the full corridor breakdown?</h3>
               <p className="leak-gate__body">

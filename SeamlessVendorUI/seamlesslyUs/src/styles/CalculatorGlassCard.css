@@ -1,0 +1,128 @@
+/* Glass morphism form card — additive styles only (new classnames). */
+
+.calculator-hero-layout__card.calculator-glass-card {
+  border-radius: 20px;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  padding: 2rem;
+}
+
+.leak-gate.calculator-glass-card {
+  border-radius: 20px;
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  padding: 2rem;
+}
+
+.calculator-glass-card .watch-vs-order-field-label {
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.calculator-glass-card .watch-vs-order-field-input,
+.calculator-glass-card select.watch-vs-order-field-input {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-glass-card .watch-vs-order-field-input:focus,
+.calculator-glass-card select.watch-vs-order-field-input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  outline: none;
+}
+
+.calculator-glass-card .calculator-step-flow__option-btn {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-glass-card .calculator-step-flow__option-btn:focus-visible {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  outline: none;
+}
+
+.calculator-glass-card .calculator-step-flow__back,
+.calculator-glass-card .watch-vs-order-cta-btn {
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calculator-glass-card .calculator-step-flow__back:hover:not(:disabled),
+.calculator-glass-card .watch-vs-order-cta-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.calculator-glass-card .calculator-step-flow__duration-label,
+.calculator-glass-card .calculator-step-flow__progress {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.calculator-glass-card .watch-vs-order-stat-strip {
+  border-radius: 16px;
+  background: rgba(15, 15, 15, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.calculator-glass-card .leak-gate__field input {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-glass-card .leak-gate__field input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  outline: none;
+}
+
+.calculator-glass-card .leak-gate__cta {
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calculator-glass-card .leak-gate__cta:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.calculator-glass-card .watch-vs-order-stat-item {
+  background: transparent;
+}
