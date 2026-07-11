@@ -1,3 +1,9 @@
 node_modules/
 .env
 credentials/
+
+# Never commit build artifacts / local envs
+venv/
+**/venv/
+SeamlessVendorUI/clover-lambda-complete.zip
+SeamlessVendorUI/customer-bridge-lambda-fixed-v3.zip
