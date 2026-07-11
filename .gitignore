@@ -7,3 +7,6 @@ venv/
 **/venv/
 SeamlessVendorUI/clover-lambda-complete.zip
 SeamlessVendorUI/customer-bridge-lambda-fixed-v3.zip
+
+SeamlessVendorUI/seamlesslyUs/clover-lambda-complete.zip
+SeamlessVendorUI/seamlesslyUs/customer-bridge-lambda-fixed-v3.zip
