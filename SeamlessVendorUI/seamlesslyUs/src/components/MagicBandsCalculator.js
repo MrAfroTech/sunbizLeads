@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
+import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import {
   CALCULATOR_PAGE_KEYS,
   recordCalculatorPageVisit,
 } from '../lib/calculatorPageVisits';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 import {
   computeSportsLeadScore,
   HERO_ORDERING_OPTIONS,
@@ -22,12 +26,10 @@ import {
   CalculatorSingleSelectButtons,
   useCalculatorAutoAdvance,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS } from '../lib/calculatorBucketOptions';
 
 const LEAD_SOURCE = 'magic_bands_calculator';
 const TOTAL_STEPS = 4;
 const PARKING_FEE = 15;
-const MAGIC_BANDS_BUCKETS = CALCULATOR_BUCKETS['magic-bands'];
 
 const MagicBandsCalculator = () => {
   const navigate = useNavigate();
@@ -131,7 +133,7 @@ const MagicBandsCalculator = () => {
   };
 
   return (
-    <CalculatorHeroShell>
+    <CalculatorHeroShell glassCard>
       <form ref={formRef} className="watch-vs-order-calc-body" onSubmit={handleCalculate}>
         <CalculatorHeroCardIntro
           eyebrow="Revenue Intelligence"
@@ -176,37 +178,31 @@ const MagicBandsCalculator = () => {
                 ) : null}
 
                 {currentStep === 2 ? (
-                  <div className="watch-vs-order-field-group">
-                    <label className="watch-vs-order-field-label" htmlFor="magic-bands-attendance">
-                      Average attendance on peak nights
-                    </label>
-                    <CalculatorSingleSelectButtons
-                      name="peakNightAttendance"
-                      options={MAGIC_BANDS_BUCKETS.volume}
-                      value={totalFans}
-                      onChange={setTotalFans}
-                      onSelect={() => trackStartedOnce()}
-                      autoAdvance
-                      onAdvance={advanceAfterSelect}
-                    />
-                  </div>
+                  <CalculatorRangeField
+                    id="magic-bands-attendance"
+                    label="Average attendance on peak nights"
+                    value={totalFans}
+                    onChange={(nextValue) => {
+                      trackStartedOnce();
+                      setTotalFans(nextValue);
+                    }}
+                    onFocus={trackStartedOnce}
+                    {...CALCULATOR_RANGE_FIELDS.peakAttendance}
+                  />
                 ) : null}
 
                 {currentStep === 3 ? (
-                  <div className="watch-vs-order-field-group">
-                    <label className="watch-vs-order-field-label" htmlFor="magic-bands-spend">
-                      Average spend per guest
-                    </label>
-                    <CalculatorSingleSelectButtons
-                      name="averageSpendPerGuest"
-                      options={MAGIC_BANDS_BUCKETS.spend}
-                      value={averageOrderValue}
-                      onChange={setAverageOrderValue}
-                      onSelect={() => trackStartedOnce()}
-                      autoAdvance
-                      onAdvance={advanceAfterSelect}
-                    />
-                  </div>
+                  <CalculatorRangeField
+                    id="magic-bands-spend"
+                    label="Average spend per guest"
+                    value={averageOrderValue}
+                    onChange={(nextValue) => {
+                      trackStartedOnce();
+                      setAverageOrderValue(nextValue);
+                    }}
+                    onFocus={trackStartedOnce}
+                    {...CALCULATOR_RANGE_FIELDS.averageSpend}
+                  />
                 ) : null}
 
                 {qualificationError ? (

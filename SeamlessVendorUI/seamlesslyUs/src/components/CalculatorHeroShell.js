@@ -1,6 +1,8 @@
 import React from 'react';
 import CalculatorHeroLayout from './CalculatorHeroLayout';
 import '../styles/CalculatorHeroLayout.css';
+import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 
 const CalculatorHeroShell = ({ children, className = '', introActive = false, glassCard = false }) => (
   <div

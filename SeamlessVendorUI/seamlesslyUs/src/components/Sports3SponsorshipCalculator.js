@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import SportsGatedCalculatorResults from './SportsGatedCalculatorResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -20,6 +21,8 @@ import {
 import { useLeadEventTracker } from '../lib/useLeadEventTracker';
 import { submitUnifiedLead } from '../lib/submitUnifiedLead';
 import { sendSportsHeyyouPdf } from '../lib/sendSportsHeyyouPdf';
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 import {
   CalculatorStepChrome,
   CalculatorStepNav,
@@ -235,96 +238,67 @@ const Sports3SponsorshipCalculator = () => {
           <CalculatorStepChrome currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
                     {currentStepField === 'revenue' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports3-revenue">
-                          What&apos;s your total annual sponsorship revenue?
-                        </label>
-                        <input
-                          id="sports3-revenue"
-                          className="watch-vs-order-field-input"
-                          type="number"
-                          min="1"
-                          step="1"
-                          placeholder="480000"
-                          required
-                          value={totalSponsorshipRevenue}
-                          onFocus={trackStartedOnce}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setTotalSponsorshipRevenue(e.target.value);
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports3-revenue"
+                        label="What's your total annual sponsorship revenue?"
+                        value={totalSponsorshipRevenue}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setTotalSponsorshipRevenue(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        {...CALCULATOR_RANGE_FIELDS.sponsorshipRevenue}
+                      />
                     ) : null}
 
                     {currentStepField === 'sponsors' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports3-sponsors">
-                          How many active sponsors are in your portfolio right now?
-                        </label>
-                        <input
-                          id="sports3-sponsors"
-                          className="watch-vs-order-field-input"
-                          type="number"
-                          min="1"
-                          step="1"
-                          placeholder="12"
-                          required
-                          value={numSponsors}
-                          onFocus={trackStartedOnce}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setNumSponsors(e.target.value);
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports3-sponsors"
+                        label="How many active sponsors are in your portfolio right now?"
+                        value={numSponsors}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setNumSponsors(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        defaultValue={12}
+                        {...CALCULATOR_RANGE_FIELDS.sponsorCount}
+                      />
                     ) : null}
 
                     {currentStepField === 'fulfillment' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports3-fulfillment">
-                          On average, what percent of sponsor activations actually get fulfilled? (industry avg is 71%)
-                        </label>
-                        <input
-                          id="sports3-fulfillment"
-                          className="watch-vs-order-field-input watch-vs-order-field-input--range"
-                          type="range"
-                          min="30"
-                          max="100"
-                          step="1"
-                          value={avgActivationFulfillment}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setAvgActivationFulfillment(e.target.value);
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports3-fulfillment"
+                        label="On average, what percent of sponsor activations actually get fulfilled? (industry avg is 71%)"
+                        value={avgActivationFulfillment}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setAvgActivationFulfillment(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        defaultValue={71}
+                        {...CALCULATOR_RANGE_FIELDS.activationFulfillment}
+                      />
                     ) : null}
 
                     {currentStepField === 'sensitivity' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports3-sensitivity">
-                          What percent of your sponsors mention ROI proof when it&apos;s time to renew? (industry avg is 68%)
-                        </label>
-                        <input
-                          id="sports3-sensitivity"
-                          className="watch-vs-order-field-input watch-vs-order-field-input--range"
-                          type="range"
-                          min="0"
-                          max="100"
-                          step="1"
-                          value={renewalSensitivity}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setRenewalSensitivity(e.target.value);
-                          }}
-                          onMouseUp={() => {
-                            if (currentStep === TOTAL_STEPS - 1) {
-                              scheduleFormSubmit(formRef);
-                            }
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports3-sensitivity"
+                        label="What percent of your sponsors mention ROI proof when it's time to renew? (industry avg is 68%)"
+                        value={renewalSensitivity}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setRenewalSensitivity(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        defaultValue={68}
+                        onMouseUp={() => {
+                          if (currentStep === TOTAL_STEPS - 1) {
+                            scheduleFormSubmit(formRef);
+                          }
+                        }}
+                        {...CALCULATOR_RANGE_FIELDS.renewalSensitivity}
+                      />
                     ) : null}
 
                     <CalculatorStepNav

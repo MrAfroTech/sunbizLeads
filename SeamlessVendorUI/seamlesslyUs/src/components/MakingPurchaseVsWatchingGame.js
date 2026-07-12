@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import SportsCalculatorInlineResults from './SportsCalculatorInlineResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -30,12 +31,12 @@ import {
   CalculatorSingleSelectButtons,
   useCalculatorAutoAdvance,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS } from '../lib/calculatorBucketOptions';
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 
 const LEAD_SOURCE = 'sports_calculator';
 const BENCHMARK_NON_ORDER_RATE = 45;
 const TOTAL_STEPS = 4;
-const SPORTS_BUCKETS = CALCULATOR_BUCKETS.sports;
 
 const MakingPurchaseVsWatchingGame = () => {
   const [searchParams] = useSearchParams();
@@ -346,37 +347,31 @@ const MakingPurchaseVsWatchingGame = () => {
           ) : null}
 
           {currentStep === 2 ? (
-            <div className="watch-vs-order-field-group">
-              <label className="watch-vs-order-field-label" htmlFor="sports-calc-attendance">
-                Average attendance on peak nights
-              </label>
-              <CalculatorSingleSelectButtons
-                name="peakNightAttendance"
-                options={SPORTS_BUCKETS.volume}
-                value={totalFans}
-                onChange={setTotalFans}
-                onSelect={() => trackStartedOnce()}
-                autoAdvance
-                onAdvance={advanceAfterSelect}
-              />
-            </div>
+            <CalculatorRangeField
+              id="sports-calc-attendance"
+              label="Average attendance on peak nights"
+              value={totalFans}
+              onChange={(nextValue) => {
+                trackStartedOnce();
+                setTotalFans(nextValue);
+              }}
+              onFocus={trackStartedOnce}
+              {...CALCULATOR_RANGE_FIELDS.peakAttendance}
+            />
           ) : null}
 
           {currentStep === 3 ? (
-            <div className="watch-vs-order-field-group">
-              <label className="watch-vs-order-field-label" htmlFor="sports-calc-spend">
-                Average spend per guest
-              </label>
-              <CalculatorSingleSelectButtons
-                name="averageSpendPerGuest"
-                options={SPORTS_BUCKETS.spend}
-                value={averageOrderValue}
-                onChange={setAverageOrderValue}
-                onSelect={() => trackStartedOnce()}
-                autoAdvance
-                onAdvance={advanceAfterSelect}
-              />
-            </div>
+            <CalculatorRangeField
+              id="sports-calc-spend"
+              label="Average spend per guest"
+              value={averageOrderValue}
+              onChange={(nextValue) => {
+                trackStartedOnce();
+                setAverageOrderValue(nextValue);
+              }}
+              onFocus={trackStartedOnce}
+              {...CALCULATOR_RANGE_FIELDS.averageSpend}
+            />
           ) : null}
 
           {qualificationError ? (

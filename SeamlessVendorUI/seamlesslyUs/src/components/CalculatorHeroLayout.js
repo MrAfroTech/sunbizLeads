@@ -22,23 +22,6 @@ const CalculatorHeroLayout = ({ children, introActive = false, glassCard = false
         />
         <div className="calculator-hero-layout__scrim" aria-hidden="true" />
 
-        <img
-          src="/seamlessly-logo.svg"
-          alt=""
-          className="calculator-hero-layout__logo calculator-hero-layout__logo--tl"
-          aria-hidden="true"
-        />
-        <img
-          src="/seamlessly-logo.svg"
-          alt=""
-          className="calculator-hero-layout__logo calculator-hero-layout__logo--br"
-          aria-hidden="true"
-        />
-
-        <div className="calculator-hero-layout__profit" aria-hidden="true">
-          Profit
-        </div>
-
         <div className="calculator-hero-layout__content">
           <div
             className={[

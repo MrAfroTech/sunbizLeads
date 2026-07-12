@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import CalculatorLeakResults from './CalculatorLeakResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -37,9 +38,8 @@ import {
   CalculatorHeroSubhead,
   CalculatorSingleSelectButtons,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS } from '../lib/calculatorBucketOptions';
-
-const RESTAURANT_BUCKETS = CALCULATOR_BUCKETS.restaurants;
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 
 const DEFAULT_STATS = [
   {
@@ -512,33 +512,31 @@ const VenueLeakCalculator = ({
       ) : null}
 
       {currentStepField === 'peak' ? (
-        <div className="watch-vs-order-field-group">
-          <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-peak-customers`}>
-            Number of customers on peak nights
-          </label>
-          <CalculatorSingleSelectButtons
-            name="peakNightCustomers"
-            options={RESTAURANT_BUCKETS.volume}
-            value={peakNightCustomers}
-            onChange={setPeakNightCustomers}
-            onSelect={() => recordMilestone('calculator_started')}
-          />
-        </div>
+        <CalculatorRangeField
+          id={`${idPrefix}-peak-customers`}
+          label="Number of customers on peak nights"
+          value={peakNightCustomers}
+          onChange={(nextValue) => {
+            recordMilestone('calculator_started');
+            setPeakNightCustomers(nextValue);
+          }}
+          onFocus={() => recordMilestone('calculator_started')}
+          {...CALCULATOR_RANGE_FIELDS.peakAttendance}
+        />
       ) : null}
 
       {currentStepField === 'spend' ? (
-        <div className="watch-vs-order-field-group">
-          <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-avg-spend`}>
-            Average spend per customer
-          </label>
-          <CalculatorSingleSelectButtons
-            name="averageSpendPerCustomer"
-            options={RESTAURANT_BUCKETS.spend}
-            value={averageSpendPerCustomer}
-            onChange={setAverageSpendPerCustomer}
-            onSelect={() => recordMilestone('calculator_started')}
-          />
-        </div>
+        <CalculatorRangeField
+          id={`${idPrefix}-avg-spend`}
+          label="Average spend per customer"
+          value={averageSpendPerCustomer}
+          onChange={(nextValue) => {
+            recordMilestone('calculator_started');
+            setAverageSpendPerCustomer(nextValue);
+          }}
+          onFocus={() => recordMilestone('calculator_started')}
+          {...CALCULATOR_RANGE_FIELDS.averageSpend}
+        />
       ) : null}
 
       {children}

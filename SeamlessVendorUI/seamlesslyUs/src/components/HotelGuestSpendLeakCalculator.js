@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import CalculatorLeakResults from './CalculatorLeakResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -43,9 +44,8 @@ import {
   CalculatorSingleSelectButtons,
   useCalculatorAutoAdvance,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS } from '../lib/calculatorBucketOptions';
-
-const HOTEL_BUCKETS = CALCULATOR_BUCKETS.hotels;
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 
 const HOTEL_STAT_CARDS = [
   {
@@ -434,40 +434,31 @@ const HotelGuestSpendLeakCalculator = ({
                     ) : null}
 
                     {currentStepField === 'nightlyRate' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-nightly-rate`}>
-                          Average nightly rate ($)
-                        </label>
-                        <CalculatorSingleSelectButtons
-                          name="nightlyRate"
-                          options={HOTEL_BUCKETS.spend}
-                          value={nightlyRate}
-                          onChange={setNightlyRate}
-                          onSelect={() => recordMilestone('calculator_started')}
-                          autoAdvance
-                          onAdvance={advanceAfterSelect}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id={`${idPrefix}-nightly-rate`}
+                        label="Average nightly rate ($)"
+                        value={nightlyRate}
+                        onChange={(nextValue) => {
+                          recordMilestone('calculator_started');
+                          setNightlyRate(nextValue);
+                        }}
+                        onFocus={() => recordMilestone('calculator_started')}
+                        {...CALCULATOR_RANGE_FIELDS.nightlyRate}
+                      />
                     ) : null}
 
                     {currentStepField === 'guestsPerNight' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label
-                          className="watch-vs-order-field-label"
-                          htmlFor={`${idPrefix}-guests-per-night`}
-                        >
-                          Number of guests on property per night
-                        </label>
-                        <CalculatorSingleSelectButtons
-                          name="guestsPerNight"
-                          options={HOTEL_BUCKETS.volume}
-                          value={guestsPerNight}
-                          onChange={setGuestsPerNight}
-                          onSelect={() => recordMilestone('calculator_started')}
-                          autoAdvance
-                          onAdvance={advanceAfterSelect}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id={`${idPrefix}-guests-per-night`}
+                        label="Number of guests on property per night"
+                        value={guestsPerNight}
+                        onChange={(nextValue) => {
+                          recordMilestone('calculator_started');
+                          setGuestsPerNight(nextValue);
+                        }}
+                        onFocus={() => recordMilestone('calculator_started')}
+                        {...CALCULATOR_RANGE_FIELDS.guestsPerNight}
+                      />
                     ) : null}
 
                     {qualificationError ? (

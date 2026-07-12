@@ -2,9 +2,13 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
+import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import SportsGatedCalculatorResults from './SportsGatedCalculatorResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
+import CalculatorRangeField from './CalculatorRangeField';
+import { getForkStepRangeProps } from '../lib/calculatorRangeConfig';
 import {
   recordCalculatorPageVisit,
   syncVisitAfterContactSubmit,
@@ -196,7 +200,7 @@ const GatedForkCalculator = ({ configId }) => {
   const heroAmount = snapshot ? formatMoney(config.getTotalAmount(snapshot)) : '';
 
   return (
-    <CalculatorHeroShell>
+    <CalculatorHeroShell glassCard>
       {!resultsShown ? (
         <form ref={formRef} className="watch-vs-order-calc-body" onSubmit={handleCalculate}>
           <CalculatorHeroCardIntro
@@ -208,46 +212,32 @@ const GatedForkCalculator = ({ configId }) => {
           <CalculatorStepChrome currentStep={currentStep} totalSteps={totalSteps} />
 
           {currentStepField ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor={`${configId}-${currentStepField.id}`}>
-                          {currentStepField.label}
-                          {currentStepField.inputType === 'range' ? (
-                            <span style={{ display: 'block', marginTop: '6px', fontWeight: 600 }}>
-                              {inputs[currentStepField.id]}%
-                            </span>
-                          ) : null}
-                        </label>
-                        <input
-                          id={`${configId}-${currentStepField.id}`}
-                          className={`watch-vs-order-field-input${currentStepField.inputType === 'range' ? ' watch-vs-order-field-input--range' : ''}`}
-                          type={currentStepField.inputType}
-                          min={currentStepField.min}
-                          max={currentStepField.max}
-                          step={currentStepField.step}
-                          placeholder={currentStepField.placeholder}
-                          required={currentStepField.inputType === 'number'}
-                          value={inputs[currentStepField.id]}
-                          onFocus={trackStartedOnce}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setInputs((prev) => ({ ...prev, [currentStepField.id]: e.target.value }));
-                          }}
-                          onBlur={
-                            currentStep === totalSteps - 1 && currentStepField.inputType === 'number'
-                              ? () => {
-                                  if (validateStepField(currentStepField, inputs[currentStepField.id])) {
-                                    scheduleFormSubmit(formRef);
-                                  }
+                      <CalculatorRangeField
+                        id={`${configId}-${currentStepField.id}`}
+                        label={currentStepField.label}
+                        value={inputs[currentStepField.id]}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setInputs((prev) => ({ ...prev, [currentStepField.id]: nextValue }));
+                        }}
+                        onFocus={trackStartedOnce}
+                        defaultValue={Number(currentStepField.defaultValue)}
+                        onBlur={
+                          currentStep === totalSteps - 1 && currentStepField.inputType === 'number'
+                            ? () => {
+                                if (validateStepField(currentStepField, inputs[currentStepField.id])) {
+                                  scheduleFormSubmit(formRef);
                                 }
-                              : undefined
-                          }
-                          onMouseUp={
-                            currentStep === totalSteps - 1 && currentStepField.inputType === 'range'
-                              ? () => scheduleFormSubmit(formRef)
-                              : undefined
-                          }
-                        />
-                      </div>
+                              }
+                            : undefined
+                        }
+                        onMouseUp={
+                          currentStep === totalSteps - 1 && currentStepField.inputType === 'range'
+                            ? () => scheduleFormSubmit(formRef)
+                            : undefined
+                        }
+                        {...getForkStepRangeProps(currentStepField)}
+                      />
                     ) : null}
 
                     <CalculatorStepNav
