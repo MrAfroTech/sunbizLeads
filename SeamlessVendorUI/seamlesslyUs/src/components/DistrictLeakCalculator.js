@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import CalculatorLeakResults from './CalculatorLeakResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -34,9 +35,8 @@ import {
   CalculatorSingleSelectButtons,
   useCalculatorAutoAdvance,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS } from '../lib/calculatorBucketOptions';
-
-const DISTRICT_BUCKETS = CALCULATOR_BUCKETS.districts;
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 
 const DISTRICT_PRE_HEADLINE =
   'Every district has corridor revenue left on the table.';
@@ -427,37 +427,31 @@ const DistrictLeakCalculator = ({
                     ) : null}
 
                     {currentStepField === 'memberBusinesses' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-member-businesses`}>
-                          Number of active member businesses
-                        </label>
-                        <CalculatorSingleSelectButtons
-                          name="memberBusinesses"
-                          options={DISTRICT_BUCKETS.spend}
-                          value={memberBusinesses}
-                          onChange={setMemberBusinesses}
-                          onSelect={() => recordMilestone('calculator_started')}
-                          autoAdvance
-                          onAdvance={advanceAfterSelect}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id={`${idPrefix}-member-businesses`}
+                        label="Number of active member businesses"
+                        value={memberBusinesses}
+                        onChange={(nextValue) => {
+                          recordMilestone('calculator_started');
+                          setMemberBusinesses(nextValue);
+                        }}
+                        onFocus={() => recordMilestone('calculator_started')}
+                        {...CALCULATOR_RANGE_FIELDS.memberBusinesses}
+                      />
                     ) : null}
 
                     {currentStepField === 'friSatFootTraffic' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-foot-traffic`}>
-                          Average Friday/Saturday foot traffic
-                        </label>
-                        <CalculatorSingleSelectButtons
-                          name="friSatFootTraffic"
-                          options={DISTRICT_BUCKETS.volume}
-                          value={friSatFootTraffic}
-                          onChange={setFriSatFootTraffic}
-                          onSelect={() => recordMilestone('calculator_started')}
-                          autoAdvance
-                          onAdvance={advanceAfterSelect}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id={`${idPrefix}-foot-traffic`}
+                        label="Average Friday/Saturday foot traffic"
+                        value={friSatFootTraffic}
+                        onChange={(nextValue) => {
+                          recordMilestone('calculator_started');
+                          setFriSatFootTraffic(nextValue);
+                        }}
+                        onFocus={() => recordMilestone('calculator_started')}
+                        {...CALCULATOR_RANGE_FIELDS.footTraffic}
+                      />
                     ) : null}
 
                     {qualificationError ? (

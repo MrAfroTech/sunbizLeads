@@ -1,6 +1,9 @@
 /* Glass morphism form card — additive styles only (new classnames). */
 
 .calculator-hero-layout__card.calculator-glass-card {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
   border-radius: 20px;
   background: rgba(15, 15, 15, 0.6);
   backdrop-filter: blur(12px);
@@ -9,7 +12,15 @@
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.04);
-  padding: 2rem;
+  padding: 2.5rem;
+  color: #ffffff;
+  min-height: auto;
+  box-sizing: border-box;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__content:has(.calculator-glass-card) {
+  justify-content: center;
+  align-items: center;
 }
 
 .leak-gate.calculator-glass-card {
@@ -22,6 +33,58 @@
     0 8px 32px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.04);
   padding: 2rem;
+  color: #ffffff;
+}
+
+/* Override hero layout black-text rules on glass cards */
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .watch-vs-order-title,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .watch-vs-order-hero-eyebrow,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .watch-vs-order-field-label,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-intro-screen__headline,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-intro-screen__subhead,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-intro-screen__checks li,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-intro-screen__note,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .leak-results__hero-card-headline,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .leak-results__eyebrow,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .leak-results__subhead,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .leak-results__hidden-line-label,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .leak-gate__headline,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .leak-gate__body,
+.calculator-glass-card .watch-vs-order-title,
+.calculator-glass-card .watch-vs-order-hero-eyebrow,
+.calculator-glass-card .watch-vs-order-field-label,
+.calculator-glass-card .calculator-intro-screen__headline,
+.calculator-glass-card .calculator-intro-screen__subhead,
+.calculator-glass-card .calculator-intro-screen__checks li,
+.calculator-glass-card .calculator-intro-screen__note,
+.calculator-glass-card .leak-results__hero-card-headline,
+.calculator-glass-card .leak-results__eyebrow,
+.calculator-glass-card .leak-results__subhead,
+.calculator-glass-card .leak-results__hidden-line-label,
+.calculator-glass-card .leak-gate__headline,
+.calculator-glass-card .leak-gate__body {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .watch-vs-order-hero-sub,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__duration-label,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__progress,
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__hero-subline,
+.calculator-glass-card .watch-vs-order-hero-sub,
+.calculator-glass-card .calculator-step-flow__duration-label,
+.calculator-glass-card .calculator-step-flow__progress,
+.calculator-glass-card .calculator-step-flow__hero-subline,
+.calculator-glass-card .calculator-range-field__helper,
+.calculator-glass-card .calculator-range-field__bound {
+  color: rgba(255, 255, 255, 0.7) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
+  opacity: 1;
+}
+
+.calculator-glass-card .calculator-intro-screen__checks li::before {
+  color: #ffffff !important;
 }
 
 .calculator-glass-card .watch-vs-order-field-label {
@@ -37,7 +100,16 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   padding: 1rem 1.25rem;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-glass-card .watch-vs-order-field-input::placeholder,
+.calculator-glass-card .leak-gate__field input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  opacity: 1;
 }
 
 .calculator-glass-card .watch-vs-order-field-input:focus,
@@ -47,14 +119,85 @@
   outline: none;
 }
 
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__option-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__option-btn:hover:not([aria-pressed='true']) {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__option-btn[aria-pressed='true'] {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__nav {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .calculator-step-flow__back {
+  flex: 0 0 auto;
+  min-width: 100px;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  background: rgba(15, 15, 15, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  width: auto;
+  height: auto;
+}
+
+.watch-vs-order-page--hero .calculator-hero-layout__card.calculator-glass-card .watch-vs-order-cta-btn {
+  flex: 1;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  width: auto;
+  height: auto;
+  min-width: 0;
+}
+
 .calculator-glass-card .calculator-step-flow__option-btn {
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  padding: 1rem 1.25rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  font-weight: 600;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calculator-glass-card .calculator-step-flow__option-btn:hover:not([aria-pressed='true']) {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.calculator-glass-card .calculator-step-flow__option-btn[aria-pressed='true'] {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
 }
 
 .calculator-glass-card .calculator-step-flow__option-btn:focus-visible {
@@ -63,13 +206,52 @@
   outline: none;
 }
 
-.calculator-glass-card .calculator-step-flow__back,
-.calculator-glass-card .watch-vs-order-cta-btn {
+.calculator-glass-card .watch-vs-order-field-input--range {
+  accent-color: #d4af37;
+}
+
+.calculator-glass-card .calculator-step-flow__nav {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.calculator-glass-card .calculator-step-flow__back {
+  flex: 0 0 auto;
+  min-width: 100px;
+  padding: 0.875rem 1.75rem;
   border-radius: 50px;
   font-weight: 600;
   letter-spacing: 0.04em;
+  background: rgba(15, 15, 15, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  width: auto;
+  height: auto;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.calculator-glass-card .watch-vs-order-cta-btn {
+  flex: 1;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  width: auto;
+  height: auto;
+  line-height: 1.2;
+  min-width: 0;
 }
 
 .calculator-glass-card .calculator-step-flow__back:hover:not(:disabled),
@@ -82,7 +264,22 @@
 .calculator-glass-card .calculator-step-flow__progress {
   font-size: 13px;
   letter-spacing: 0.06em;
-  opacity: 0.7;
+}
+
+.calculator-glass-card .calculator-step-flow__progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.calculator-glass-card .calculator-step-flow__progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #b8860b, #d4af37);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+  transition: width 0.25s ease;
 }
 
 .calculator-glass-card .watch-vs-order-stat-strip {
@@ -101,6 +298,9 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   padding: 1rem 1.25rem;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -114,6 +314,8 @@
   border-radius: 50px;
   font-weight: 600;
   letter-spacing: 0.04em;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -125,4 +327,36 @@
 
 .calculator-glass-card .watch-vs-order-stat-item {
   background: transparent;
+}
+
+.calculator-glass-card .calculator-range-field__value {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .calculator-hero-layout__card.calculator-glass-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .calculator-hero-layout__card.calculator-glass-card {
+    min-height: 100vh;
+    padding: 1.5rem;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .watch-vs-order-page--hero .calculator-hero-layout__content:has(.calculator-glass-card) {
+    padding: 0;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 901px) {
+  .calculator-hero-layout__card.calculator-glass-card {
+    min-height: auto;
+  }
 }

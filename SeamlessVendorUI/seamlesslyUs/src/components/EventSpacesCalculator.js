@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import { CALCULATOR_PAGE_KEYS } from '../lib/calculatorPageVisits';
 import EventLeakCalculator from './EventLeakCalculator';
 

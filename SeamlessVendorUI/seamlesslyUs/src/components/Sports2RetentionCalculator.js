@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import SportsGatedCalculatorResults from './SportsGatedCalculatorResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -20,6 +21,8 @@ import {
 import { useLeadEventTracker } from '../lib/useLeadEventTracker';
 import { submitUnifiedLead } from '../lib/submitUnifiedLead';
 import { sendSportsHeyyouPdf } from '../lib/sendSportsHeyyouPdf';
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 import {
   CalculatorStepChrome,
   CalculatorStepNav,
@@ -234,98 +237,66 @@ const Sports2RetentionCalculator = () => {
           <CalculatorStepChrome currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
                     {currentStepField === 'tickets' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports2-tickets">
-                          How many season tickets did you sell this year?
-                        </label>
-                        <input
-                          id="sports2-tickets"
-                          className="watch-vs-order-field-input"
-                          type="number"
-                          min="1"
-                          step="1"
-                          placeholder="4000"
-                          required
-                          value={totalSeasonTickets}
-                          onFocus={trackStartedOnce}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setTotalSeasonTickets(e.target.value);
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports2-tickets"
+                        label="How many season tickets did you sell this year?"
+                        value={totalSeasonTickets}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setTotalSeasonTickets(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        {...CALCULATOR_RANGE_FIELDS.seasonTickets}
+                      />
                     ) : null}
 
                     {currentStepField === 'package' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports2-package">
-                          What&apos;s the average annual value of a season ticket package?
-                        </label>
-                        <input
-                          id="sports2-package"
-                          className="watch-vs-order-field-input"
-                          type="number"
-                          min="0.01"
-                          step="0.01"
-                          placeholder="1200"
-                          required
-                          value={avgTicketPackageValue}
-                          onFocus={trackStartedOnce}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setAvgTicketPackageValue(e.target.value);
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports2-package"
+                        label="What's the average annual value of a season ticket package?"
+                        value={avgTicketPackageValue}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setAvgTicketPackageValue(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        {...CALCULATOR_RANGE_FIELDS.ticketPackage}
+                      />
                     ) : null}
 
                     {currentStepField === 'renewal' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports2-renewal">
-                          What&apos;s your current renewal rate? (industry avg is 78%)
-                        </label>
-                        <input
-                          id="sports2-renewal"
-                          className="watch-vs-order-field-input watch-vs-order-field-input--range"
-                          type="range"
-                          min="50"
-                          max="99"
-                          step="1"
-                          value={currentRenewalRate}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setCurrentRenewalRate(e.target.value);
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports2-renewal"
+                        label="What's your current renewal rate? (industry avg is 78%)"
+                        value={currentRenewalRate}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setCurrentRenewalRate(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        defaultValue={78}
+                        {...CALCULATOR_RANGE_FIELDS.renewalRate}
+                      />
                     ) : null}
 
                     {currentStepField === 'tenure' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor="sports2-tenure">
-                          On average, how many years does a holder stay before they lapse?
-                        </label>
-                        <input
-                          id="sports2-tenure"
-                          className="watch-vs-order-field-input"
-                          type="number"
-                          min="0.1"
-                          step="0.1"
-                          placeholder="3.2"
-                          required
-                          value={avgTenureYears}
-                          onFocus={trackStartedOnce}
-                          onChange={(e) => {
-                            trackStartedOnce();
-                            setAvgTenureYears(e.target.value);
-                          }}
-                          onBlur={() => {
-                            if (currentStep === TOTAL_STEPS - 1 && validateCurrentStep()) {
-                              scheduleFormSubmit(formRef);
-                            }
-                          }}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id="sports2-tenure"
+                        label="On average, how many years does a holder stay before they lapse?"
+                        value={avgTenureYears}
+                        onChange={(nextValue) => {
+                          trackStartedOnce();
+                          setAvgTenureYears(nextValue);
+                        }}
+                        onFocus={trackStartedOnce}
+                        defaultValue={3.2}
+                        onBlur={() => {
+                          if (currentStep === TOTAL_STEPS - 1 && validateCurrentStep()) {
+                            scheduleFormSubmit(formRef);
+                          }
+                        }}
+                        {...CALCULATOR_RANGE_FIELDS.tenureYears}
+                      />
                     ) : null}
 
                     <CalculatorStepNav

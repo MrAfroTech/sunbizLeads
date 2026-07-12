@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import StaffTurnoverInlineReveal from './StaffTurnoverInlineReveal';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -16,17 +17,14 @@ import {
 import { useLeadEventTracker } from '../lib/useLeadEventTracker';
 import { submitUnifiedLead } from '../lib/submitUnifiedLead';
 import { buildStaffTurnoverEmailFields } from '../lib/calculatorEmailPersonalization';
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 import {
   CalculatorStepChrome,
   CalculatorStepNav,
   CalculatorHeroSubhead,
-  CalculatorSingleSelectButtons,
-  useCalculatorAutoAdvance,
   scheduleFormSubmit,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS, STAFF_TENURE_BUCKETS } from '../lib/calculatorBucketOptions';
-
-const STAFF_BUCKETS = CALCULATOR_BUCKETS.staffburnout;
 
 const INDUSTRY_AVERAGE_TENURE = 59;
 const COST_PER_REHIRE = 5700;
@@ -59,13 +57,6 @@ const StaffTurnoverCalculator = () => {
   );
   const totalSteps = stepFields.length;
   const currentStepField = stepFields[currentStep];
-  const { advanceAfterSelect } = useCalculatorAutoAdvance({
-    currentStep,
-    totalSteps,
-    setCurrentStep,
-    onClearError: () => setContactError(''),
-    onComplete: () => formRef.current?.requestSubmit(),
-  });
 
   useEffect(() => {
     if (leadFromUrl) {
@@ -264,35 +255,31 @@ const StaffTurnoverCalculator = () => {
                 <CalculatorStepChrome currentStep={currentStep} totalSteps={totalSteps} />
 
                 {currentStepField === 'turnover' ? (
-                  <div className="watch-vs-order-field-group">
-                    <div className="watch-vs-order-field-label">
-                      Staff turnover per month (voluntary and involuntary) combined
-                    </div>
-                    <CalculatorSingleSelectButtons
-                      name="turnoverPerMonth"
-                      options={STAFF_BUCKETS.volume}
-                      value={turnoverPerMonthInput}
-                      onChange={setTurnoverPerMonthInput}
-                      onSelect={trackStartedOnce}
-                      autoAdvance
-                      onAdvance={advanceAfterSelect}
-                    />
-                  </div>
+                  <CalculatorRangeField
+                    id="staff-turnover-per-month"
+                    label="Staff turnover per month (voluntary and involuntary) combined"
+                    value={turnoverPerMonthInput}
+                    onChange={(nextValue) => {
+                      trackStartedOnce();
+                      setTurnoverPerMonthInput(nextValue);
+                    }}
+                    onFocus={trackStartedOnce}
+                    {...CALCULATOR_RANGE_FIELDS.turnoverPerMonth}
+                  />
                 ) : null}
 
                 {currentStepField === 'tenure' ? (
-                  <div className="watch-vs-order-field-group">
-                    <div className="watch-vs-order-field-label">Average employee tenure (in days)</div>
-                    <CalculatorSingleSelectButtons
-                      name="tenureDays"
-                      options={STAFF_TENURE_BUCKETS}
-                      value={tenureDaysInput}
-                      onChange={setTenureDaysInput}
-                      onSelect={trackStartedOnce}
-                      autoAdvance
-                      onAdvance={advanceAfterSelect}
-                    />
-                  </div>
+                  <CalculatorRangeField
+                    id="staff-tenure-days"
+                    label="Average employee tenure (in days)"
+                    value={tenureDaysInput}
+                    onChange={(nextValue) => {
+                      trackStartedOnce();
+                      setTenureDaysInput(nextValue);
+                    }}
+                    onFocus={trackStartedOnce}
+                    {...CALCULATOR_RANGE_FIELDS.tenureDays}
+                  />
                 ) : null}
 
                 {currentStepField === 'fullName' ? (

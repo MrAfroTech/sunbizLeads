@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../styles/ContentPage.css';
 import '../styles/MakingPurchaseVsWatchingGame.css';
 import '../styles/CalculatorGlassCard.css';
+import '../styles/CalculatorRangeField.css';
 import CalculatorLeakResults from './CalculatorLeakResults';
 import CalculatorHeroShell from './CalculatorHeroShell';
 import CalculatorHeroCardIntro from './CalculatorHeroCardIntro';
@@ -44,9 +45,8 @@ import {
   CalculatorSingleSelectButtons,
   useCalculatorAutoAdvance,
 } from './CalculatorStepFlow';
-import { CALCULATOR_BUCKETS } from '../lib/calculatorBucketOptions';
-
-const EVENT_BUCKETS = CALCULATOR_BUCKETS.events;
+import CalculatorRangeField from './CalculatorRangeField';
+import { CALCULATOR_RANGE_FIELDS } from '../lib/calculatorRangeConfig';
 
 const EVENT_STAT_CARDS = [
   {
@@ -483,37 +483,31 @@ const EventLeakCalculator = ({
                     ) : null}
 
                     {currentStepField === 'eventsPerYear' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-events-per-year`}>
-                          Number of events per year
-                        </label>
-                        <CalculatorSingleSelectButtons
-                          name="eventsPerYear"
-                          options={EVENT_BUCKETS.volume}
-                          value={eventsPerYear}
-                          onChange={setEventsPerYear}
-                          onSelect={() => recordMilestone('calculator_started')}
-                          autoAdvance
-                          onAdvance={advanceAfterSelect}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id={`${idPrefix}-events-per-year`}
+                        label="Number of events per year"
+                        value={eventsPerYear}
+                        onChange={(nextValue) => {
+                          recordMilestone('calculator_started');
+                          setEventsPerYear(nextValue);
+                        }}
+                        onFocus={() => recordMilestone('calculator_started')}
+                        {...CALCULATOR_RANGE_FIELDS.eventsPerYear}
+                      />
                     ) : null}
 
                     {currentStepField === 'avgEventFee' ? (
-                      <div className="watch-vs-order-field-group">
-                        <label className="watch-vs-order-field-label" htmlFor={`${idPrefix}-avg-event-fee`}>
-                          Average event fee ($)
-                        </label>
-                        <CalculatorSingleSelectButtons
-                          name="avgEventFee"
-                          options={EVENT_BUCKETS.spend}
-                          value={avgEventFee}
-                          onChange={setAvgEventFee}
-                          onSelect={() => recordMilestone('calculator_started')}
-                          autoAdvance
-                          onAdvance={advanceAfterSelect}
-                        />
-                      </div>
+                      <CalculatorRangeField
+                        id={`${idPrefix}-avg-event-fee`}
+                        label="Average event fee ($)"
+                        value={avgEventFee}
+                        onChange={(nextValue) => {
+                          recordMilestone('calculator_started');
+                          setAvgEventFee(nextValue);
+                        }}
+                        onFocus={() => recordMilestone('calculator_started')}
+                        {...CALCULATOR_RANGE_FIELDS.avgEventFee}
+                      />
                     ) : null}
 
                     {qualificationError ? (
