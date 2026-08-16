@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ga",
+    "name": "General Admission",
+    "price": 20,
+    "priceCents": 2000,
+    "qtyDefault": 1
+  },
+  {
+    "id": "lane",
+    "name": "Lane Reserve",
+    "price": 35,
+    "priceCents": 3500,
+    "qtyDefault": 1
+  },
+  {
+    "id": "vip",
+    "name": "VIP Lane Experience",
+    "price": 85,
+    "priceCents": 8500,
+    "qtyDefault": 1
+  },
+  {
+    "id": "vip_bottle",
+    "name": "VIP Lane + Bottle",
+    "price": 450,
+    "priceCents": 45000,
+    "qtyDefault": 4
+  },
+  {
+    "id": "all_access",
+    "name": "All-Access",
+    "price": 850,
+    "priceCents": 85000,
+    "qtyDefault": 4
+  }
+]

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're In — Strike After Dark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rochester&family=Yellowtail&family=Abril+Fatface&family=Anton&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+  <script src="/js/feature-flags.js"></script>
+</head>
+<body>
+  <div class="marble"></div>
+
+  <nav>
+    <a href="/" class="wordmark">STRIKE AFTER DARK<span>The Alley</span></a>
+    <a href="/tickets#tiers" class="nav-cta">Tiers</a>
+  </nav>
+
+  <div class="page-shell">
+    <div class="success-container">
+      <h1 class="success-title">You're In</h1>
+      <p class="success-message">
+        Your Strike After Dark pass is confirmed. Check your email for your ticket confirmation with QR codes — same code for the door, the lane, and the bar.
+      </p>
+    </div>
+  </div>
+
+  <!--
+    HIDDEN FOR NOW (bring back later): "Once You're In / Your QR keeps working all night"
+    Also gated by window.SAD_FLAGS.showOnsiteOrderingSection in /js/feature-flags.js
+  <section class="flow flow-single" id="onsite-ordering-section" hidden>
+    <div class="flow-copy">
+      <div class="sec-eyebrow">Once You're In</div>
+      <h2>Your QR keeps working all night</h2>
+      <p>Same code that got you past the door and into your lane now runs your tab. Order from your phone, staff sees it, it shows up. No app download, no account to build.</p>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="dot">1</div>
+          <div><h4>Scan to order</h4><p>Cocktails, food, bottle service — browse and order from wherever you're standing.</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="dot">2</div>
+          <div><h4>Tap to pay</h4><p>Apple Pay or card on file. No line at the bar to close it out.</p></div>
+        </div>
+        <div class="flow-step">
+          <div class="dot">3</div>
+          <div><h4>We remember you</h4><p>Next Thursday, your usual is already queued up before you say a word.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <section class="checkout">
+    <div class="sec-head">
+      <div class="sec-eyebrow">One Checkout</div>
+      <h2>Ticket. Lane. Done.</h2>
+      <p>No second site for your lane. No separate app. One card, one confirmation, one QR.</p>
+    </div>
+
+    <div class="checkout-card">
+      <div class="co-title">Strike After Dark — Bosses & Bowling</div>
+      <div class="co-sub">The Alley · 9PM–12AM</div>
+      <div class="co-line"><span>VIP Lane Experience ×1</span><span>$85.00</span></div>
+      <div class="co-line"><span>Reserved lane</span><span>Included</span></div>
+      <div class="co-line"><span>Service fee</span><span>$3.50</span></div>
+      <div class="co-line total"><span>Total</span><span>$88.50</span></div>
+      <div class="co-note">Your pass + lane are sent instantly. Same code, all night. Check your email for your QR.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fw">STRIKE AFTER DARK</div>
+    Ticket + lane + tab, one pass. Powered by EventBrella.
+  </footer>
+
+  <script>
+    (function () {
+      if (window.SAD_FLAGS && window.SAD_FLAGS.showOnsiteOrderingSection) {
+        var section = document.getElementById('onsite-ordering-section');
+        if (section) section.hidden = false;
+      }
+
+      var params = new URLSearchParams(window.location.search);
+      var sessionId = params.get('session_id');
+      if (!sessionId) {
+        console.warn('No session_id on success page — cannot fulfill purchase');
+        return;
+      }
+
+      var statusEl = document.querySelector('.success-message');
+      fetch('/api/fulfill-checkout?session_id=' + encodeURIComponent(sessionId), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId })
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, status: res.status, data: data };
+          });
+        })
+        .then(function (result) {
+          if (!result.ok || !result.data.success) {
+            console.error('FULFILL_FAILED', result.status, result.data);
+            if (statusEl) {
+              statusEl.textContent =
+                'Payment received. If your ticket email does not arrive in a few minutes, contact support with session ' +
+                sessionId +
+                '.';
+            }
+            return;
+          }
+          console.log('Purchase fulfilled', result.data);
+        })
+        .catch(function (err) {
+          console.error('FULFILL_FAILED network', err);
+        });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strike After Dark — The Alley</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rochester&family=Yellowtail&family=Abril+Fatface&family=Anton&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div class="marble"></div>
+
+  <nav>
+    <a href="/" class="wordmark">STRIKE AFTER DARK<span>The Alley</span></a>
+    <a href="#tiers" class="nav-cta">Reserve Now</a>
+  </nav>
+
+  <section class="tiers" id="tiers">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Three Ways In</div>
+      <h2>Pick Your Night</h2>
+      <p>Every tier includes the same QR — your ticket, your lane, your tab, all in one pass.</p>
+    </div>
+
+    <div class="tier-track" id="tierTrack">
+      <div class="tier-card t1">
+        <div class="tier-main">
+          <div class="tier-num">Tier 01</div>
+          <div class="tier-name">General Admission</div>
+          <div class="tier-price">$20</div>
+          <div class="tier-desc">You're in. Simple as that.</div>
+        </div>
+        <ul class="tier-list">
+          <li>Entry 9PM–12AM</li>
+          <li>Mobile ticket, no printing</li>
+          <li>In-app drink ordering</li>
+        </ul>
+        <button type="button" class="tier-btn" data-tier="ga" data-price="20" data-name="General Admission" data-qty="1">Select</button>
+      </div>
+
+      <div class="tier-card t2">
+        <div class="tier-main">
+          <div class="tier-num">Tier 02</div>
+          <div class="tier-name">Lane Reserve</div>
+          <div class="tier-price">$35</div>
+          <div class="tier-desc">Skip the wait. Your lane is already yours.</div>
+        </div>
+        <ul class="tier-list">
+          <li>Everything in GA</li>
+          <li>Reserved lane, guaranteed</li>
+          <li>One QR for the door <em>and</em> the lane</li>
+        </ul>
+        <button type="button" class="tier-btn" data-tier="lane" data-price="35" data-name="Lane Reserve" data-qty="1">Select</button>
+      </div>
+
+      <div class="tier-card t3">
+        <div class="tier-main">
+          <div class="tier-num">Tier 03</div>
+          <div class="tier-name">VIP Lane Experience</div>
+          <div class="tier-price">$85</div>
+          <div class="tier-desc">Walk past the line like you own the place.</div>
+        </div>
+        <ul class="tier-list">
+          <li>Everything in Lane Reserve</li>
+          <li>Priority entry, no line</li>
+          <li>Welcome cocktail on arrival</li>
+          <li>Reserved VIP lane</li>
+        </ul>
+        <button type="button" class="tier-btn" data-tier="vip" data-price="85" data-name="VIP Lane Experience" data-qty="1">Select</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fw">STRIKE AFTER DARK</div>
+    Ticket + lane + tab, one pass.
+  </footer>
+
+  <script src="/js/allevents.js"></script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+/* VIP Night Out Pass — promotional card + export page (scoped) */
+
+.vip-pass-page{
+  min-height:100svh;
+  padding:48px 24px 80px;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(201,146,47,0.14), transparent 55%),
+    linear-gradient(180deg, #0a0806 0%, var(--deep) 55%, var(--black) 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+}
+.vip-pass-page-header{
+  width:100%;
+  max-width:1000px;
+  text-align:center;
+}
+.vip-pass-page-header h1{
+  font-family:'Abril Fatface',serif;
+  font-size:clamp(28px,4vw,40px);
+  color:var(--cream);
+  margin-bottom:8px;
+}
+.vip-pass-page-header p{
+  font-family:'Oswald',sans-serif;
+  font-weight:300;
+  font-size:14px;
+  letter-spacing:0.06em;
+  color:var(--silver-dim);
+}
+.vip-pass-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+}
+.vip-pass-btn{
+  font-family:'Oswald',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:14px 28px;
+  cursor:pointer;
+  border:none;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+  background:linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-bright));
+  color:var(--ink);
+  box-shadow:0 10px 28px var(--gold-glow);
+}
+.vip-pass-btn:disabled{
+  opacity:0.55;
+  cursor:not-allowed;
+}
+.vip-pass-btn--ghost{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--cream);
+  box-shadow:none;
+  clip-path:none;
+  border-radius:2px;
+}
+.vip-pass-status{
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  letter-spacing:0.04em;
+  color:var(--gold-bright);
+  min-height:1.2em;
+}
+.vip-pass-stage{
+  /* Scale preview down on small screens; export always uses native 1000×1000 */
+  width:min(100%, 1000px);
+  aspect-ratio:1 / 1;
+  position:relative;
+}
+.vip-pass-stage-inner{
+  position:absolute;
+  inset:0;
+  width:1000px;
+  height:1000px;
+  transform-origin:top left;
+  /* scale set via inline style from ResizeObserver */
+}
+.vip-pass-export-host{
+  position:fixed;
+  left:-10000px;
+  top:0;
+  width:1000px;
+  height:1000px;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+/* ---- Card canvas (exact 1000×1000) ---- */
+.vip-pass-card{
+  position:relative;
+  width:1000px;
+  height:1000px;
+  box-sizing:border-box;
+  overflow:hidden;
+  color:var(--cream);
+  background:
+    radial-gradient(ellipse 85% 55% at 50% 0%, rgba(201,146,47,0.28) 0%, rgba(138,100,20,0.12) 38%, transparent 68%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,146,47,0.08), transparent 55%),
+    linear-gradient(180deg, #120e08 0%, #0a0806 42%, #050403 100%);
+}
+.vip-pass-frame{
+  position:absolute;
+  inset:28px;
+  border:2px solid rgba(201,146,47,0.65);
+  box-shadow:
+    inset 0 0 0 1px rgba(242,199,102,0.18),
+    0 0 40px rgba(201,146,47,0.12);
+  pointer-events:none;
+  z-index:2;
+}
+.vip-pass-corner{
+  position:absolute;
+  width:28px;
+  height:28px;
+  border-color:var(--gold-bright);
+  border-style:solid;
+}
+.vip-pass-corner.tl{top:-2px;left:-2px;border-width:3px 0 0 3px;}
+.vip-pass-corner.tr{top:-2px;right:-2px;border-width:3px 3px 0 0;}
+.vip-pass-corner.bl{bottom:-2px;left:-2px;border-width:0 0 3px 3px;}
+.vip-pass-corner.br{bottom:-2px;right:-2px;border-width:0 3px 3px 0;}
+
+.vip-pass-inner{
+  position:relative;
+  z-index:1;
+  height:100%;
+  padding:72px 80px 64px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  box-sizing:border-box;
+}
+
+.vip-pass-top{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-bottom:28px;
+}
+.vip-pass-eyebrow{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  font-size:15px;
+  letter-spacing:0.42em;
+  text-indent:0.42em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.vip-pass-wordmark{
+  font-family:'Rochester',cursive;
+  font-weight:400;
+  font-size:42px;
+  line-height:1.1;
+  max-width:860px;
+  background:linear-gradient(180deg,#fff 0%, var(--gold-bright) 40%, var(--gold-deep) 75%, var(--gold-bright) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  filter:drop-shadow(0 4px 18px rgba(242,199,102,0.28));
+}
+.vip-pass-badge{
+  margin-top:6px;
+  font-family:'Anton',sans-serif;
+  font-size:13px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ink);
+  background:linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-bright));
+  padding:8px 20px;
+  border-radius:999px;
+  box-shadow:0 6px 20px rgba(201,146,47,0.35);
+}
+
+.vip-pass-headline{
+  font-family:'Abril Fatface',serif;
+  font-weight:400;
+  font-size:54px;
+  line-height:1.05;
+  color:var(--cream);
+  margin:0 0 12px;
+  text-shadow:0 2px 24px rgba(0,0,0,0.45);
+}
+.vip-pass-subhead{
+  font-family:'Oswald',sans-serif;
+  font-weight:300;
+  font-size:20px;
+  letter-spacing:0.06em;
+  color:var(--silver);
+  margin:0 0 28px;
+}
+
+.vip-pass-per-guest{
+  font-family:'Oswald',sans-serif;
+  font-weight:500;
+  font-size:17px;
+  letter-spacing:0.04em;
+  color:var(--gold-bright);
+  white-space:nowrap;
+  margin:0 0 8px;
+}
+.vip-pass-caption{
+  font-family:'Oswald',sans-serif;
+  font-weight:300;
+  font-size:14px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--silver-dim);
+  margin:0 0 28px;
+}
+
+.vip-pass-divider{
+  width:min(72%, 520px);
+  height:2px;
+  margin:0 0 36px;
+  background:linear-gradient(90deg, transparent, var(--gold-deep), var(--gold-bright), var(--gold-deep), transparent);
+  box-shadow:0 0 12px rgba(242,199,102,0.35);
+}
+
+.vip-pass-pricing{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  width:100%;
+  max-width:780px;
+  margin:0 auto 40px;
+  align-items:start;
+}
+.vip-pass-price-col{
+  position:relative;
+  padding:8px 16px 4px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+}
+.vip-pass-price-col:not(:last-child)::after{
+  content:'';
+  position:absolute;
+  top:12%;
+  right:0;
+  width:1px;
+  height:76%;
+  background:linear-gradient(180deg, transparent, rgba(201,146,47,0.7), transparent);
+}
+.vip-pass-guests{
+  font-family:'Oswald',sans-serif;
+  font-weight:600;
+  font-size:16px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--silver);
+}
+.vip-pass-amount{
+  font-family:'Abril Fatface',serif;
+  font-size:48px;
+  line-height:1;
+  color:var(--gold);
+}
+.vip-pass-amount--light{
+  color:var(--gold-bright);
+}
+.vip-pass-best-value{
+  font-family:'Anton',sans-serif;
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--ink);
+  background:linear-gradient(135deg, var(--gold-deep), var(--gold-bright));
+  padding:5px 12px;
+  border-radius:999px;
+  margin-bottom:2px;
+}
+.vip-pass-price-col--best{
+  padding-top:0;
+}
+
+.vip-pass-footer{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  width:100%;
+}
+.vip-pass-venue{
+  font-family:'Anton',sans-serif;
+  font-size:18px;
+  letter-spacing:0.28em;
+  text-indent:0.28em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.vip-pass-schedule{
+  font-family:'Oswald',sans-serif;
+  font-weight:300;
+  font-size:14px;
+  letter-spacing:0.06em;
+  color:var(--silver-dim);
+}
+.vip-pass-tagline{
+  font-family:'Yellowtail',cursive;
+  font-style:italic;
+  font-size:28px;
+  color:#fff;
+  text-shadow:0 2px 16px rgba(201,146,47,0.35);
+  margin-top:4px;
+}

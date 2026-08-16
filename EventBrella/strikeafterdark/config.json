@@ -1,0 +1,6 @@
+{
+  "clientName": "Strike After Dark",
+  "homeUrl": "/allevents.html",
+  "eventsSource": "api/events.js",
+  "active": true
+}

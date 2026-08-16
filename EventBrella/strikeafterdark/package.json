@@ -1,0 +1,39 @@
+{
+  "name": "strike-after-dark",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Strike After Dark Digital Ticketing Platform",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "vercel-build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "1.6.8",
+    "html-to-image": "^1.11.13",
+    "jspdf": "^4.2.1",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "stripe": "^14.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.3"
+  },
+  "keywords": [
+    "strike-after-dark",
+    "the-alley",
+    "ticketing",
+    "stripe"
+  ],
+  "author": "EventBrella Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.x"
+  }
+}
