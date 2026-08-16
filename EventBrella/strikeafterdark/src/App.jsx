@@ -1,5 +1,6 @@
 import Homepage from './components/Homepage';
 import VipNightOutPassExport from './pages/VipNightOutPassExport';
+import Gallery from './pages/Gallery';
 
 /**
  * Minimal path routing (no react-router).
@@ -13,6 +14,9 @@ function resolvePage() {
   ) {
     return 'vip-pass';
   }
+  if (path === '/gallery') {
+    return 'gallery';
+  }
   return 'home';
 }
 
@@ -20,6 +24,9 @@ export default function App() {
   const page = resolvePage();
   if (page === 'vip-pass') {
     return <VipNightOutPassExport />;
+  }
+  if (page === 'gallery') {
+    return <Gallery />;
   }
   return <Homepage />;
 }
